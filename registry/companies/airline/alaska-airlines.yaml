@@ -207,3 +207,20 @@ notes: >-
   system on April 22, 2026, with one record locator for both brands. Both brands remain, with bookings on
   alaskaair.com and hawaiianairlines.com, one Contract of Carriage and one Customer Service Commitment, and the
   loyalty program Atmos Rewards. This file covers Hawaiian Airlines.
+
+official_domains: [alaskaair.com, hawaiianairlines.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: In a December 2020 newsroom post about scams, Alaska Airlines says it never asks guests for personal information such as password credentials.
+      source: https://news.alaskaair.com/alaska-airlines/spot-scams-alaska-airlines-doesnt-charge-change-fees/
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Scam websites pay search engines to appear at the top of results, use Alaska's logo and pose as Alaska reservation agents, then ask callers for personal and payment information, charge inflated fees and may change the email on the account. Alaska says that unless the caller ID is 1 (800) 252-7522 or 1-800-ALASKAAIR, you are not speaking with an Alaska agent.
+      source: https://news.alaskaair.com/alaska-airlines/spot-scams-alaska-airlines-doesnt-charge-change-fees/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Fake websites and social media promotions pretending to be Alaska Airlines offer free roundtrip tickets. Alaska says red flags include a website that is not alaskaair.com, outdated branding and no official contest rules.
+      source: https://news.alaskaair.com/alaska-airlines/scam-giveaway-2/
+      last_verified: 2026-10-12

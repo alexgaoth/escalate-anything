@@ -129,3 +129,5 @@ tips:
 known_blockers:
   - Voluntary cancellations are refunded only as vouchers.
   - help.flixbus.com is a Salesforce site that may not render for automated fetches.
+
+official_domains: [flixbus.com]

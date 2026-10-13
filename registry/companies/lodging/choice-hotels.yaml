@@ -119,3 +119,5 @@ facts:
 
 known_blockers:
   - choicehotels.com timed out for automated fetches; the customer service form may need the person to submit it.
+
+official_domains: [choicehotels.com]

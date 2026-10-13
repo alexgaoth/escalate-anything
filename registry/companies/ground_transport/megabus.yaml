@@ -121,3 +121,5 @@ facts:
 
 known_blockers:
   - megabus publishes no general customer service phone number; first contact is a virtual assistant by email or chat.
+
+official_domains: [megabus.com]

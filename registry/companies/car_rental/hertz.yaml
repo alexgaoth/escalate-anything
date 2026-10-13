@@ -128,3 +128,20 @@ playbooks:
 known_blockers:
   - hertz.com contact pages render with JavaScript and may not load for automated fetches.
   - The First Notice of Loss contacts come from an April 2021 form; confirm them on current claim correspondence.
+
+official_domains: [hertz.com, hertz.it]
+security:
+  never_asks:
+    - kind: policy
+      claim: In a scam warning for rentals in Italy, Hertz says it never requests payment for rentals by bank transfer or prepaid card top-up; a request for such an external payment in the name of a private individual is very likely fraudulent.
+      source: https://www.hertz.com/content/dam/hertz/global/resources/hertz-come-difendersi-dalle-truffe-online-sul-noleggio-auto.pdf
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Hertz warns that scammers using clone websites or posing as rental-location staff contact customers by email or WhatsApp and ask for payment to bank accounts or prepaid cards not registered to Hertz (warning published for Hertz Italy).
+      source: https://www.hertz.com/content/dam/hertz/global/resources/hertz-come-difendersi-dalle-truffe-online-sul-noleggio-auto.pdf
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Hertz warns that scammers post incorrect or spoofed phone numbers on information sites such as Google Maps, Yellow Pages and White Pages, so callers reach a scammer who demands extra payments; use only contact details from the Hertz website (warning published for Hertz Italy).
+      source: https://www.hertz.com/content/dam/hertz/global/resources/hertz-come-difendersi-dalle-truffe-online-sul-noleggio-auto.pdf
+      last_verified: 2026-10-12

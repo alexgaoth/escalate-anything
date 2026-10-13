@@ -105,3 +105,36 @@ facts:
 known_blockers:
   - Messaging customer service requires sign-in; the phone number is not on the public help page.
   - Arbitration opt-out notices sent by third parties (including agents) have no effect.
+
+official_domains: [booking.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Booking.com says it will never ask you to share credit card details by email, phone, text or WhatsApp, or to make a bank transfer that differs from the payment policy in your booking confirmation.
+      source: https://www.booking.com/trust-and-safety/travellers.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Booking.com says its Customer Service representatives will only ask for your reservation ID and/or reservation PIN, and that you should not be asked for your Booking.com account password.
+      source: https://www.booking.com/trust-and-safety/travellers.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Booking.com says it will never ask you to share a credit card or gift card number over the phone; anyone who tells you to pay by gift card or give a card number by phone is likely a scammer.
+      source: https://secure.booking.com/help/faq/31/aGNfc2VjdXJpdHlfYXdhcmVuZXNzX3NjYW1fZ2lmdF9jYXJk
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Phishing messages, often sent through WhatsApp, claim to come from the property or from Booking.com, include believable stay details, and urgently ask you to re-share payment information to keep your booking.
+      source: https://www.booking.com/trust-and-safety/travellers.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Booking.com warns of fake property listings and of properties that ask for payment outside the payment policy in your booking confirmation or insist on communicating outside the Booking.com platform; do not share personal or financial details, and contact Customer Service.
+      source: https://www.booking.com/trust-and-safety/travellers.html
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: customer-service-help-center
+      type: portal
+      label: Report a suspected scam to Booking.com Customer Service
+      value: https://secure.booking.com/help.html
+      notes: Booking.com publishes no phishing email address. Its safety page says to report a suspected scam to Customer Service, which passes the report to its Security team.
+      source: https://www.booking.com/trust-and-safety/travellers.html
+      last_verified: 2026-10-12

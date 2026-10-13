@@ -90,3 +90,5 @@ playbooks:
 
 known_blockers:
   - ihg.com returns HTTP 403 to automated fetches; the exact Issues Form URL could not be confirmed.
+
+official_domains: [ihg.com]
