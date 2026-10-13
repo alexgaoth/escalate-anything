@@ -1,0 +1,131 @@
+id: ally-bank
+name: Ally Bank
+aliases: [ally, ally financial]
+sector: bank
+parent: Ally Financial Inc.
+website: https://www.ally.com
+account_url: https://secure.ally.com/
+regulators: [cfpb, federal-reserve]
+notes: >-
+  Ally Bank is a state-chartered Federal Reserve member bank. Ally's bank help pages
+  state that Ally credit cards are issued by Merrick Bank, so card disputes go to the card issuer, not Ally Bank.
+
+channels:
+  - id: bank-phone
+    type: phone
+    label: Ally Bank general line (customer service, unauthorized transactions)
+    value: +1-877-247-2559
+    hours: 24/7
+    purposes: [fraud, unauthorized_charge, transaction_dispute, frozen_funds, fee_reversal]
+    access: human_only
+    notes: Some automated lines require calling from the phone number on file.
+    source: https://www.ally.com/contact-us/
+    last_verified: 2026-10-12
+  - id: bank-outside-us-phone
+    type: phone
+    label: Ally Bank from outside the U.S. (collect calls while traveling)
+    value: +1-757-247-2559
+    purposes: [fraud, unauthorized_charge]
+    access: human_only
+    source: https://www.ally.com/contact-us/
+    last_verified: 2026-10-12
+  - id: fraud-phone
+    type: phone
+    label: Report fraud
+    value: +1-833-226-1520
+    purposes: [fraud, unauthorized_charge]
+    access: human_only
+    source: https://www.ally.com/contact-us/
+    last_verified: 2026-10-12
+  - id: fraud-service-center-callback
+    type: phone
+    label: Ally Fraud Service Center (number Ally calls from when it detects possible fraud)
+    value: +1-855-706-1012
+    purposes: [fraud]
+    notes: Use this to recognize a genuine Ally fraud call.
+    source: https://www.ally.com/help/bank/debit-cards-checks/
+    last_verified: 2026-10-12
+  - id: secure-messages
+    type: portal
+    label: Chat and secure messages after login
+    value: https://secure.ally.com/
+    purposes: [transaction_dispute, fee_reversal, frozen_funds, poor_service]
+    access: login
+    source: https://www.ally.com/contact-us/
+    last_verified: 2026-10-12
+  - id: bank-correspondence-mail
+    type: mail
+    label: Ally Bank general correspondence
+    value: "Ally Bank Customer Care, P.O. Box 951, Horsham, PA 19044"
+    purposes: [poor_service, frozen_funds, transaction_dispute]
+    source: https://www.ally.com/contact-us/
+    last_verified: 2026-10-12
+  - id: auto-correspondence-mail
+    type: mail
+    label: Ally auto payment disputes and customer service correspondence
+    value: "Ally Financial, P.O. Box 380901, Bloomington, MN 55438"
+    purposes: [billing_error, poor_service]
+    source: https://www.ally.com/contact-us/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: bank-phone}
+  - {rung: written_complaint, channel: bank-correspondence-mail}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Lock the debit card, then call Ally within 60 days of the statement.
+    evidence: [statement with the transaction, date you noticed it, card status]
+    steps:
+      - do: Lock the debit card on ally.com (Manage next to the card number) or in the app (Menu, Debit Card).
+      - do: Call Ally Bank to report the unauthorized transaction.
+        channel: bank-phone
+      - do: Order a replacement online or in the app and report the card lost or stolen.
+      - do: If Ally does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: Ally guarantees you will not be liable for an unauthorized Online or Mobile Banking transaction if you report it by calling 1-877-247-2559 within 60 days from when your statement is made available.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.ally.com/security/
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Locking an Ally debit card blocks purchases and withdrawals but not recurring payments.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.ally.com/help/bank/debit-cards-checks/
+        last_verified: 2026-10-12
+
+  - issue: fraud
+    summary: Call the fraud line; answer Ally fraud alerts by following their directions.
+    evidence: [transaction details, messages from the scammer, police or FTC report number]
+    steps:
+      - do: Call Ally's fraud line.
+        channel: fraud-phone
+      - do: If Ally sent a fraud alert by text or email, follow its directions to report the transaction.
+      - do: Report to the FTC at ReportFraud.ftc.gov, then complain to the CFPB if Ally does not act.
+        regulator: cfpb
+
+  - issue: fee_reversal
+    summary: Ally charges no overdraft fees; check CoverDraft limits if a payment was declined.
+    evidence: [statement, CoverDraft coverage amount, direct deposit history]
+    steps:
+      - do: Check whether a fee was charged at all; Ally says it eliminated overdraft fees on all accounts.
+      - do: If a fee appears, ask for a reversal by secure message or phone.
+        channel: secure-messages
+    facts:
+      - kind: policy
+        claim: Ally says it eliminated overdraft fees from all its accounts and will never charge an overdraft fee on a declined purchase.
+        issues: [fee_reversal]
+        source: https://www.ally.com/bank/overdraft/
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: CoverDraft covers up to $100 at first and up to $250 with a qualifying direct deposit of at least $250 for 2 months in a row; you get 14 days to bring a negative balance back above zero before Ally may restrict withdrawals.
+        issues: [fee_reversal, frozen_funds]
+        source: https://www.ally.com/bank/overdraft/
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Chat and secure messages need login.
+  - Ally publishes no complaint form or complaint address beyond the general correspondence address.

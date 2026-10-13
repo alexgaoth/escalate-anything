@@ -1,0 +1,230 @@
+id: chase
+name: Chase
+aliases: [jpmorgan chase, jpmorgan chase bank, chase bank, jp morgan chase, chase sapphire, chase freedom]
+sector: bank
+parent: JPMorgan Chase & Co.
+website: https://www.chase.com
+account_url: https://secure.chase.com/web/auth/dashboard
+regulators: [cfpb, occ]
+notes: >-
+  JPMorgan Chase Bank, N.A. is a national bank (OCC). On 2026-01-07 Chase announced that it will become
+  the issuer of Apple Card, replacing Goldman Sachs, in a transition expected to take about 24 months.
+  Until the transition is complete, Apple Card is still issued by Goldman Sachs Bank USA (see goldman-sachs-marcus).
+
+channels:
+  - id: card-services-phone
+    type: phone
+    label: Credit card customer service
+    value: +1-800-432-3117
+    purposes: [billing_error, transaction_dispute, fee_reversal]
+    access: human_only
+    source: https://www.chase.com/digital/customer-service
+    last_verified: 2026-10-12
+  - id: banking-phone
+    type: phone
+    label: Personal banking customer service (checking, savings, debit cards)
+    value: +1-800-935-9935
+    purposes: [fraud, unauthorized_charge, fee_reversal, frozen_funds, transaction_dispute]
+    hours: "Fraud option: weekdays 8 AM to midnight ET, weekends 9 AM to 6 PM ET"
+    access: human_only
+    notes: For fraud on checking, savings or debit cards, choose option 8.
+    source: https://www.chase.com/digital/resources/privacy-security/security/report-fraud
+    last_verified: 2026-10-12
+  - id: card-fraud-phone
+    type: phone
+    label: Credit card fraud, lost or stolen card, unauthorized use (personal and Sapphire cards)
+    value: +1-800-955-9060
+    purposes: [fraud, unauthorized_charge]
+    access: human_only
+    notes: Chase's report-fraud page says to choose option 2. Business cards use +1-800-704-0285.
+    source: https://www.chase.com/personal/credit-cards/dispute
+    last_verified: 2026-10-12
+  - id: banking-fraud-outside-us
+    type: phone
+    label: Personal banking fraud, calling from outside the U.S.
+    value: +1-713-262-3300
+    purposes: [fraud]
+    access: human_only
+    source: https://www.chase.com/digital/resources/privacy-security/security/report-fraud
+    last_verified: 2026-10-12
+  - id: dispute-online
+    type: portal
+    label: Dispute a credit card charge online
+    value: https://www.chase.com/personal/credit-cards/dispute
+    purposes: [transaction_dispute, unauthorized_charge, billing_error]
+    access: login
+    notes: Sign in, find the posted transaction, select the arrow next to it and follow the dispute steps.
+    source: https://www.chase.com/personal/credit-cards/dispute
+    last_verified: 2026-10-12
+  - id: billing-rights-mail
+    type: mail
+    label: Written billing-error notice (credit card)
+    value: "Customer Service, PO Box 15299, Wilmington, DE 19850-5299"
+    purposes: [billing_error, transaction_dispute]
+    notes: Chase's dispute instructions page gives this address "to preserve your billing rights". Check the billing rights section on the back of your statement for the address on your own account.
+    source: https://www.chase.com/personal/credit-cards/dispute/instructions
+    last_verified: 2026-10-12
+  - id: complaints-feedback
+    type: web_form
+    label: Complaints and feedback
+    value: https://www.chase.com/digital/resources/complaints-feedback
+    purposes: [poor_service, fee_reversal, frozen_funds]
+    access: open
+    notes: The page routes complaints to customer service and to an online feedback form. Chase does not publish an executive office address on it.
+    source: https://www.chase.com/digital/resources/complaints-feedback
+    last_verified: 2026-10-12
+  - id: phishing-email
+    type: email
+    label: Report phishing emails that claim to be from Chase
+    value: phishing@chase.com
+    purposes: [fraud]
+    source: https://www.chase.com/digital/resources/privacy-security/security/report-fraud
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: card-services-phone}
+  - {rung: written_complaint, channel: billing-rights-mail, note: "For card billing errors, send the written notice within 60 days. For other complaints use the complaints and feedback page."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+  - {rung: arbitration, note: "The deposit account agreement requires AAA arbitration unless you opted out within 60 days of opening; small claims court is allowed."}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: Contact the merchant first, then dispute the posted charge online within 60 days of the statement.
+    evidence: [statement showing the charge, receipt or order, record of contact with the merchant (date, name, response)]
+    steps:
+      - do: Check the merchant name and your past activity with that merchant in the account.
+      - do: Contact the merchant. Write down the date, the person you spoke with and the response.
+      - do: Wait until the charge posts. Pending charges cannot be disputed.
+      - do: Sign in, find the transaction, select the arrow and follow the dispute steps.
+        channel: dispute-online
+      - do: To keep your legal billing rights, also send a written notice to the billing rights address.
+        channel: billing-rights-mail
+      - do: If Chase does not resolve it, file a complaint with the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: Chase says to submit a credit card dispute within 60 days of the transaction first appearing on your statement.
+        issues: [transaction_dispute, billing_error]
+        source: https://www.chase.com/personal/credit-cards/dispute
+        last_verified: 2026-10-12
+      - kind: process
+        claim: A credit card charge must post before you can open a dispute. Pending charges generally post within 1 to 3 business days.
+        issues: [transaction_dispute]
+        source: https://www.chase.com/personal/credit-cards/dispute
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: While a credit card dispute is under investigation you do not have to pay the disputed amount or related interest and fees, but you must pay at least the minimum on the undisputed balance. Resolution can take up to 90 days.
+        issues: [transaction_dispute, billing_error]
+        source: https://www.chase.com/personal/credit-cards/dispute
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: Call the fraud line for the card at once, then confirm the dispute online.
+    evidence: [statement with the charge, date you noticed it, card status (lost, stolen, still in hand)]
+    steps:
+      - do: For a credit card, call the card fraud line and ask to close the card and dispute the charges.
+        channel: card-fraud-phone
+      - do: For a debit card or checking account, call personal banking and choose the fraud option.
+        channel: banking-phone
+      - do: If you call about a debit or electronic transfer error, send the details in writing within 10 business days if Chase asks for it.
+      - do: If Chase does not resolve it, file a complaint with the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: For personal deposit accounts, Chase must hear from you no later than 60 days after it sent the first statement on which the electronic transfer error appeared.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.chase.com/content/dam/chase-ux/documents/personal/checking/deposit-account-agreement.pdf
+        last_verified: 2026-10-12
+      - kind: process
+        claim: For electronic transfer errors Chase decides within 10 business days, or takes up to 45 days and gives provisional credit within 10 business days. New accounts, point-of-sale and foreign transactions can take up to 90 days.
+        issues: [unauthorized_charge, fraud, transaction_dispute]
+        source: https://www.chase.com/content/dam/chase-ux/documents/personal/checking/deposit-account-agreement.pdf
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: Under Chase's Zero Liability Protection you are not liable for unauthorized card transactions if you notify Chase promptly. It does not apply if you delay reporting for more than 60 days (30 days for business accounts).
+        issues: [unauthorized_charge, fraud]
+        source: https://www.chase.com/content/dam/chase-ux/documents/personal/checking/deposit-account-agreement.pdf
+        last_verified: 2026-10-12
+
+  - issue: fraud
+    summary: Report by phone at once, forward phishing emails, and follow the identity theft kit.
+    evidence: [transaction details, messages from the scammer, police or FTC report number]
+    steps:
+      - do: Call the fraud line for the account type. Ask Chase to lock the card and stop pending payments.
+        channel: card-fraud-phone
+      - do: For checking, savings or debit card fraud, call personal banking and choose option 8.
+        channel: banking-phone
+      - do: Forward suspicious emails that claim to be from Chase.
+        channel: phishing-email
+      - do: Report the fraud to the FTC at ReportFraud.ftc.gov, then complain to the CFPB if Chase does not act.
+        regulator: cfpb
+    facts:
+      - kind: limit
+        claim: For personal deposit accounts, if you report a lost or stolen card, PIN or code within two business days you can lose no more than $50; after that, up to $500 if Chase can prove it could have stopped the transactions.
+        issues: [fraud, unauthorized_charge]
+        source: https://www.chase.com/content/dam/chase-ux/documents/personal/checking/deposit-account-agreement.pdf
+        last_verified: 2026-10-12
+
+  - issue: fee_reversal
+    summary: Use the Overdraft Assist rules first. Most fees can be avoided by bringing the balance back within one business day.
+    evidence: [statement showing the fee, balance at end of the business day, deposit or transfer time]
+    steps:
+      - do: Check whether the fee broke the Overdraft Assist rules ($50 threshold, $5 items, next-day deposit by 11 PM ET).
+      - do: Call personal banking and ask for a refund of any fee charged against those rules, or a courtesy refund.
+        channel: banking-phone
+      - do: If refused, write through the complaints and feedback page, then complain to the CFPB.
+        channel: complaints-feedback
+    facts:
+      - kind: fee
+        claim: Chase charges a $34 Overdraft Fee per transaction during nightly processing, beginning with the first transaction that overdraws the account by more than $50, with a maximum of 3 fees per business day (up to $102).
+        issues: [fee_reversal]
+        source: https://www.chase.com/personal/checking/overdraft-services/standard-overdraft-practice
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: No overdraft fee applies to transactions of $5 or less, or if you bring the account to $50 or less overdrawn by the next business day; you have until 11 PM ET (8 PM PT) to deposit or transfer.
+        issues: [fee_reversal]
+        source: https://www.chase.com/personal/checking/overdraft-services/standard-overdraft-practice
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The standard overdraft practice does not apply to Chase High School Checking, Chase Secure Checking or Chase First Checking.
+        issues: [fee_reversal]
+        source: https://www.chase.com/personal/checking/overdraft-services/standard-overdraft-practice
+        last_verified: 2026-10-12
+
+  - issue: billing_error
+    summary: Dispute online, and send a written billing-error notice to keep your legal rights.
+    evidence: [statement with the error, account number, amount, why it is wrong]
+    steps:
+      - do: Start the dispute online.
+        channel: dispute-online
+      - do: Send a written notice with your name, account number, the amount and why you believe it is an error.
+        channel: billing-rights-mail
+      - do: If the error is not fixed, complain to the CFPB.
+        regulator: cfpb
+
+facts:
+  - kind: policy
+    claim: Chase announced on January 07, 2026 that it will become the new issuer of Apple Card, with a transition expected in approximately 24 months; Apple Card users can keep using the card as normal during the transition.
+    source: https://www.jpmorganchase.com/newsroom/press-releases/2026/chase-to-become-new-issuer-of-apple-card
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: The Chase deposit account agreement (effective 6/14/2026) requires arbitration administered by the AAA, except that either side may use small claims court.
+    source: https://www.chase.com/content/dam/chase-ux/documents/personal/checking/deposit-account-agreement.pdf
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: You can opt out of the deposit account arbitration agreement within sixty (60) days of opening the account, only by calling 1-800-935-9935.
+    source: https://www.chase.com/content/dam/chase-ux/documents/personal/checking/deposit-account-agreement.pdf
+    last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: Contact the merchant before disputing and record the date, the person and the response; Chase may ask for these details.
+    issues: [transaction_dispute]
+    source: https://www.chase.com/personal/credit-cards/dispute
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Online disputes need sign-in to the Chase account.
+  - Fraud and dispute phone lines verify the account holder by voice.
+  - Chase does not publish an executive office address or a dedicated complaint mailing address on its complaints page.

@@ -1,0 +1,158 @@
+id: td-bank
+name: TD Bank
+aliases: [td bank na, td bank us, td bank n a]
+sector: bank
+website: https://www.td.com/us/en/personal-banking
+account_url: https://onlinebanking.tdbank.com/
+regulators: [cfpb, occ]
+notes: TD Bank, N.A. is a national bank (OCC).
+
+channels:
+  - id: general-phone
+    type: phone
+    label: General assistance; lost or stolen TD Bank ATM or Visa debit card
+    value: +1-888-751-9000
+    hours: 24/7
+    purposes: [unauthorized_charge, fraud, transaction_dispute, fee_reversal, frozen_funds]
+    access: human_only
+    source: https://www.td.com/us/en/personal-banking/contact-us
+    last_verified: 2026-10-12
+  - id: card-services-phone
+    type: phone
+    label: TD credit cards; lost or stolen TD Bank Visa credit card
+    value: +1-888-561-8861
+    hours: 24/7
+    purposes: [transaction_dispute, unauthorized_charge, fraud, billing_error, fee_reversal]
+    access: human_only
+    source: https://www.td.com/us/en/personal-banking/security-center
+    last_verified: 2026-10-12
+  - id: fraud-phone
+    type: phone
+    label: Report fraud; suspected fraudulent email, text or call; identity theft
+    value: +1-800-893-8554
+    hours: 24/7
+    purposes: [fraud, unauthorized_charge, account_access]
+    access: human_only
+    source: https://www.td.com/us/en/personal-banking/security-center
+    last_verified: 2026-10-12
+  - id: cross-border-phone
+    type: phone
+    label: Cross-border banking support
+    value: +1-877-700-2913
+    hours: 24/7
+    purposes: [fraud, unauthorized_charge]
+    access: human_only
+    source: https://www.td.com/us/en/personal-banking/contact-us
+    last_verified: 2026-10-12
+  - id: feedback-form
+    type: web_form
+    label: Share your feedback
+    value: https://tddigital.td.com/jfe/form/SV_0kPhlaBnesPrKzY
+    purposes: [poor_service, fee_reversal]
+    access: open
+    source: https://www.td.com/us/en/personal-banking/contact-us
+    last_verified: 2026-10-12
+  - id: card-billing-rights-mail
+    type: mail
+    label: TD credit card billing errors (Your Billing Rights address)
+    value: "TD Bank, P.O. Box 873, Mt. Laurel, NJ 08054-0873"
+    purposes: [billing_error, transaction_dispute]
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/TD_BANK_NATIONAL_ASSOCIATION/2026.01.22_OCMS_00254173_CMA_TD_Cash_PC_2106-256877.pdf
+    last_verified: 2026-10-12
+  - id: corporate-office-mail
+    type: mail
+    label: TD Bank corporate office
+    value: "TD Bank Corporate Office, 4140 Church Road, Mount Laurel, N.J., 08054"
+    purposes: [poor_service]
+    source: https://www.td.com/us/en/personal-banking/contact-us
+    last_verified: 2026-10-12
+  - id: branch
+    type: in_person
+    label: Report fraud in person at a TD Bank store
+    value: https://www.td.com/us/en/personal-banking/store-locator
+    purposes: [fraud, unauthorized_charge]
+    access: human_only
+    source: https://www.td.com/us/en/personal-banking/security-center
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: general-phone}
+  - {rung: written_complaint, channel: card-billing-rights-mail, note: "For TD credit card billing errors write within 60 days. TD publishes no complaint mailing address; the feedback form is the other written channel."}
+  - {rung: executive, channel: corporate-office-mail}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Call the 24/7 line for the card type, and lock the card in online banking.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: For a debit or ATM card, call general assistance (24/7).
+        channel: general-phone
+      - do: For a TD Visa credit card, call TD credit cards (24/7).
+        channel: card-services-phone
+      - do: Lock the card in TD online banking or the app.
+      - do: If TD does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: TD cites Visa's Zero Liability Policy for fraudulent card charges, and says you must notify your financial institution immediately of any unauthorized use.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.td.com/us/en/personal-banking/security-center
+        last_verified: 2026-10-12
+
+  - issue: fraud
+    summary: Call the fraud line (24/7) or report in person at a store.
+    evidence: [transaction details, messages from the scammer, police or FTC report number]
+    steps:
+      - do: Call the TD fraud line.
+        channel: fraud-phone
+      - do: Or report in person at a TD Bank store.
+        channel: branch
+      - do: Report to the FTC at ReportFraud.ftc.gov, then complain to the CFPB if TD does not act.
+        regulator: cfpb
+
+  - issue: billing_error
+    summary: Write to TD's billing rights address within 60 days of the statement.
+    evidence: [statement with the error, account number, dollar amount, why it is wrong]
+    steps:
+      - do: Send a letter with your name, account number, the dollar amount and why you believe it is wrong.
+        channel: card-billing-rights-mail
+      - do: If the error is not fixed, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: The TD credit card agreement's billing rights notice says to write to TD Bank, P.O. Box 873, Mt. Laurel, NJ 08054-0873 within 60 days after the error appeared on your statement.
+        issues: [billing_error, transaction_dispute]
+        source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/TD_BANK_NATIONAL_ASSOCIATION/2026.01.22_OCMS_00254173_CMA_TD_Cash_PC_2106-256877.pdf
+        last_verified: 2026-10-12
+
+  - issue: fee_reversal
+    summary: Check the $50 threshold and the next-day Grace Period before asking for a refund.
+    evidence: [statement showing the fee, available balance by date, deposit time]
+    steps:
+      - do: Check whether the overdraft was $50 or less, or whether you brought the balance to at least $0 by 11 PM ET the next business day.
+      - do: Call and ask for a refund of any fee charged against those rules, or a courtesy refund.
+        channel: general-phone
+      - do: If refused, use the feedback form, then complain to the CFPB.
+        channel: feedback-form
+    facts:
+      - kind: fee
+        claim: TD's overdraft fee is $35, limited to 3 overdraft fees per day per account; a fee applies only to transactions that overdraw the available balance by more than $50.
+        issues: [fee_reversal]
+        source: https://www.td.com/us/en/personal-banking/overdraft-services
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Grace Period gives you until 11 PM ET the next business day to bring the available balance to at least $0; if you do, the overdraft fee is refunded.
+        issues: [fee_reversal]
+        source: https://www.td.com/us/en/personal-banking/overdraft-services
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Overdraft services do not apply to TD Essential Banking accounts. Savings accounts can be charged overdraft fees, and the $50 threshold and Grace Period do not apply to them.
+        issues: [fee_reversal]
+        source: https://www.td.com/us/en/personal-banking/overdraft-services
+        last_verified: 2026-10-12
+
+known_blockers:
+  - TD's dispute help answers are behind a site search that did not return results to automated fetches; the dispute steps are not recorded here.
+  - Phone lines verify the account holder.

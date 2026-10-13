@@ -1,0 +1,92 @@
+id: usaa
+name: USAA
+aliases: [usaa federal savings bank, usaa bank, usaa fsb, united services automobile association]
+sector: bank
+also_sectors: [insurance_property]
+website: https://www.usaa.com
+regulators: [cfpb, occ]
+notes: >-
+  USAA Federal Savings Bank is a federal savings bank (OCC) and issues USAA credit cards. USAA also sells
+  auto, home and renters insurance; usaa.com did not respond to automated fetches on 2026-10-12, so the
+  insurance claim channels and the deposit account terms are not recorded here.
+
+channels:
+  - id: member-services-phone
+    type: phone
+    label: USAA main number (1-800-531-USAA), named in the credit card agreement
+    value: +1-800-531-8722
+    purposes: [transaction_dispute, unauthorized_charge, fraud, billing_error, fee_reversal]
+    access: human_only
+    notes: The card agreement gives this number for the Pay-Ahead Program opt-out and for credit report dispute forms.
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/USAA_FEDERAL_SAVINGS_BANK/bk-credit-card-combined-agreement-398902.pdf
+    last_verified: 2026-10-12
+  - id: billing-rights-mail
+    type: mail
+    label: Credit card billing errors (Your Billing Rights address)
+    value: "USAA Credit Card Services, P.O. Box 65020, San Antonio, TX 78265-5020"
+    purposes: [billing_error, transaction_dispute]
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/USAA_FEDERAL_SAVINGS_BANK/bk-credit-card-combined-agreement-398902.pdf
+    last_verified: 2026-10-12
+  - id: credit-report-dispute-mail
+    type: mail
+    label: Dispute what USAA reported to a credit bureau (credit card)
+    value: "USAA/Consumer Report Dispute, Attn: Form Code #CLCBD, P.O. Box 33009, San Antonio, TX 78265-3009"
+    purposes: [credit_report_error]
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/USAA_FEDERAL_SAVINGS_BANK/bk-credit-card-combined-agreement-398902.pdf
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: member-services-phone}
+  - {rung: written_complaint, channel: billing-rights-mail, note: "Card billing errors must be in writing within 60 days; a call alone does not require USAA to investigate."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+  - {rung: arbitration, note: "USAA credit card agreement: either party may elect AAA arbitration; small claims court is an alternative; FSB pays the administrator's fees."}
+
+playbooks:
+  - issue: billing_error
+    summary: Write to USAA Credit Card Services within 60 days of the statement; a phone call does not protect your rights.
+    evidence: [statement with the error, account number, dollar amount, why it is wrong]
+    steps:
+      - do: Send a letter with your name, account number, the dollar amount and why you believe it is wrong.
+        channel: billing-rights-mail
+      - do: To stop an automatic payment of the disputed amount, write at least 3 business days before it is scheduled.
+      - do: If USAA does not answer or correct it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: The USAA credit card billing rights notice says to write within 60 days after the error appeared on your billing statement; if you only call, USAA is not required to investigate.
+        issues: [billing_error, transaction_dispute]
+        source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/USAA_FEDERAL_SAVINGS_BANK/bk-credit-card-combined-agreement-398902.pdf
+        last_verified: 2026-10-12
+      - kind: process
+        claim: USAA must acknowledge your letter within 30 days and, within 90 days, either correct the error or explain why the statement is correct.
+        issues: [billing_error]
+        source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/USAA_FEDERAL_SAVINGS_BANK/bk-credit-card-combined-agreement-398902.pdf
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: Tell USAA as soon as reasonably possible by phone, then dispute in writing.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: Call USAA to report the lost or stolen card or unauthorized use.
+        channel: member-services-phone
+      - do: Write to the billing rights address within 60 days of the statement.
+        channel: billing-rights-mail
+      - do: If USAA does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: The USAA card agreement says you must notify USAA as soon as reasonably possible if your card or convenience checks are lost or stolen, or if you believe there has been unauthorized use.
+        issues: [unauthorized_charge, fraud]
+        source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/USAA_FEDERAL_SAVINGS_BANK/bk-credit-card-combined-agreement-398902.pdf
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: The USAA credit card arbitration section does not apply to Military Lending Act covered borrowers, or to accounts that opted out of arbitration before January 1, 2015.
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/USAA_FEDERAL_SAVINGS_BANK/bk-credit-card-combined-agreement-398902.pdf
+    last_verified: 2026-10-12
+
+known_blockers:
+  - usaa.com did not respond to automated fetches; insurance claim channels, deposit dispute steps and fraud lines are not recorded here.
+  - Phone service verifies the member.

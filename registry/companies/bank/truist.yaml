@@ -1,0 +1,170 @@
+id: truist
+name: Truist
+aliases: [truist bank, truist financial, suntrust, bb&t, bbt]
+sector: bank
+parent: Truist Financial Corporation
+website: https://www.truist.com
+regulators: [cfpb, fdic]
+notes: >-
+  Truist Bank is a state-chartered bank that is not a Federal Reserve member; its primary federal regulator
+  is the FDIC. Truist lists separate mortgage service numbers for SunTrust-originated and BB&T-originated
+  loans (legacy brands).
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service, credit and debit cards (844-4TRUIST)
+    value: +1-844-487-8478
+    hours: Mon-Fri 8 AM-8 PM EST, Sat 8 AM-5 PM EST, Sun automated only; fraud reporting 24/7
+    purposes: [fraud, unauthorized_charge, transaction_dispute, billing_error, fee_reversal, frozen_funds]
+    access: human_only
+    notes: To report fraud (24/7), select option 1, then option 4. Spanish is option 9.
+    source: https://www.truist.com/contact
+    last_verified: 2026-10-12
+  - id: outside-us-phone
+    type: phone
+    label: Customer service and fraud from outside the U.S.
+    value: +1-910-914-8250
+    purposes: [fraud, unauthorized_charge]
+    access: human_only
+    source: https://www.truist.com/fraud-and-security
+    last_verified: 2026-10-12
+  - id: claims-phone
+    type: phone
+    label: Fraud claims for all other products, and disagreeing with a claim decision
+    value: +1-866-472-9786
+    purposes: [fraud, unauthorized_charge, transaction_dispute]
+    access: human_only
+    source: https://www.truist.com/fraud-and-security/report-fraud
+    last_verified: 2026-10-12
+  - id: ach-wire-claims-phone
+    type: phone
+    label: ACH and wire fraud claims
+    value: +1-800-448-5493
+    hours: Mon-Fri 7 a.m.-7 p.m. ET (options 3, 3, 3)
+    purposes: [fraud, unauthorized_charge]
+    access: human_only
+    source: https://www.truist.com/fraud-and-security/report-fraud
+    last_verified: 2026-10-12
+  - id: debit-claim-online
+    type: portal
+    label: File a debit card fraud claim online
+    value: https://www.truist.com/fraud-and-security/report-fraud
+    purposes: [fraud, unauthorized_charge, transaction_dispute]
+    access: login
+    notes: Log in to file a debit card claim. Track debit and ATM claims in the Dispute Tracker in online banking or the mobile app.
+    source: https://www.truist.com/fraud-and-security/report-fraud
+    last_verified: 2026-10-12
+  - id: phishing-email
+    type: email
+    label: Report phishing, smishing or vishing messages
+    value: emailabuse@truist.com
+    purposes: [fraud]
+    source: https://www.truist.com/fraud-and-security/report-fraud
+    last_verified: 2026-10-12
+  - id: billing-rights-mail
+    type: mail
+    label: Credit card billing errors (Your Billing Rights address)
+    value: "Truist Bank Card Services, P.O. Box 200, Wilson, NC 27893"
+    purposes: [billing_error, transaction_dispute]
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/Truist_Bank/enjoy-cash-consumer-credit-card-agreement_-_070126-268978.pdf
+    last_verified: 2026-10-12
+  - id: feedback-form
+    type: web_form
+    label: Give feedback (Truist's online feedback form)
+    value: https://truistcx.qualtrics.com/jfe/form/SV_5sUavghM9dnggbI
+    purposes: [poor_service, fee_reversal]
+    access: open
+    source: https://www.truist.com/contact
+    last_verified: 2026-10-12
+  - id: arbitration-notice-mail
+    type: mail
+    label: Notice of Pre-Arbitration Dispute, or arbitration opt-out (credit cards)
+    value: "Truist Bank Legal Department, Mail Code 306-40-01-15, 1001 Semmes Avenue, Richmond, VA 23224"
+    notes: Mark it "Attn - Notice of Pre-Arbitration Dispute" or "Attn - Arbitration Opt Out". Opt-out must be sent by certified or overnight mail, return receipt requested, and received within 30 days of opening the account.
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/Truist_Bank/enjoy-cash-consumer-credit-card-agreement_-_070126-268978.pdf
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: billing-rights-mail, note: "For card billing errors write within 60 days. Truist publishes no complaint mailing address; the feedback form is the closest written channel."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+  - {rung: arbitration, channel: arbitration-notice-mail, note: "Card agreement requires a written Notice of Pre-Arbitration Dispute and an informal conference before JAMS arbitration; small claims court is excluded."}
+
+playbooks:
+  - issue: fraud
+    summary: Call 844-4TRUIST (option 1, then 4) any time, or file a debit card claim online.
+    evidence: [transaction details, messages from the scammer, police or FTC report number]
+    steps:
+      - do: Call 844-4TRUIST and select option 1, then option 4 (24/7).
+        channel: customer-service-phone
+      - do: For a debit card, log in and file the claim online; track it in the Dispute Tracker.
+        channel: debit-claim-online
+      - do: For ACH or wire fraud, call the ACH and wire claims line.
+        channel: ach-wire-claims-phone
+      - do: Forward phishing messages, and report internet fraud to the FBI at ic3.gov.
+        channel: phishing-email
+      - do: If you disagree with the claim decision, call the claims line, then complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: Truist says fees tied to an unauthorized transaction are automatically considered when the claim is processed; an Expedite Card Delivery Fee is not.
+        issues: [fraud, unauthorized_charge]
+        source: https://www.truist.com/fraud-and-security/report-fraud
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: Report by phone (24/7) or online for debit cards.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: Call the fraud option on 844-4TRUIST.
+        channel: customer-service-phone
+      - do: For debit cards, file the claim online.
+        channel: debit-claim-online
+      - do: If Truist does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: billing_error
+    summary: Write to Truist Bank Card Services within 60 days of the statement.
+    evidence: [statement with the error, account number, dollar amount, why it is wrong]
+    steps:
+      - do: Send a letter with your name, account number, the amount of the suspected error and why you believe it is wrong.
+        channel: billing-rights-mail
+      - do: If the error is not fixed, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: fee_reversal
+    summary: Truist One Checking has no overdraft fees; ask for a reversal on other accounts.
+    evidence: [statement showing the fee, account history]
+    steps:
+      - do: Check whether the account is Truist One Checking, which has no overdraft-related fees.
+      - do: Call and ask for a reversal.
+        channel: customer-service-phone
+      - do: If refused, use the feedback form, then complain to the CFPB.
+        channel: feedback-form
+    facts:
+      - kind: policy
+        claim: Truist One Checking does not charge overdraft fees, returned item fees, negative account balance fees or overdraft protection transfer fees.
+        issues: [fee_reversal]
+        source: https://www.truist.com/checking/truist-one-banking
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: Truist One's Balance Buffer lets qualifying clients overdraw up to $100; it needs a direct deposit of at least $100 within the last 35 calendar days.
+        issues: [fee_reversal]
+        source: https://www.truist.com/checking/truist-one-banking
+        last_verified: 2026-10-12
+
+facts:
+  - kind: deadline
+    claim: You may opt out of the Truist credit card Mutual Arbitration Agreement only by a signed written notice sent by certified or overnight mail that Truist receives within thirty (30) days of opening the account.
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/Truist_Bank/enjoy-cash-consumer-credit-card-agreement_-_070126-268978.pdf
+    last_verified: 2026-10-12
+  - kind: process
+    claim: Before arbitration, the Truist card agreement requires a written Notice of Pre-Arbitration Dispute and an informal dispute resolution conference; arbitration is administered by JAMS.
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/Truist_Bank/enjoy-cash-consumer-credit-card-agreement_-_070126-268978.pdf
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Debit card claims online need sign-in; phone lines verify the account holder.
+  - Truist does not publish a complaint mailing address or executive office.

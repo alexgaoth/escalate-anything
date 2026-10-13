@@ -1,0 +1,214 @@
+id: pnc
+name: PNC Bank
+aliases: [pnc, pnc financial, pnc virtual wallet, pnc bank na]
+sector: bank
+parent: The PNC Financial Services Group, Inc.
+website: https://www.pnc.com
+regulators: [cfpb, occ]
+notes: PNC Bank, National Association is a national bank (OCC).
+
+channels:
+  - id: banking-phone
+    type: phone
+    label: Personal deposit accounts (1-888-PNC-BANK); also lost or stolen debit card, fraud victims and identity theft
+    value: +1-888-762-2265
+    hours: Mon-Fri 8 a.m.-9 p.m. ET, Sat-Sun 8 a.m.-5 p.m. ET
+    purposes: [fraud, unauthorized_charge, fee_reversal, frozen_funds, transaction_dispute]
+    access: human_only
+    notes: Ask for the PNC Victims Assistance Program for identity theft.
+    source: https://www.pnc.com/en/customer-service/contact-us.html
+    last_verified: 2026-10-12
+  - id: card-services-phone
+    type: phone
+    label: Personal credit cards; disputes and unauthorized card use
+    value: +1-800-558-8472
+    hours: Live and automated account information 24/7
+    purposes: [transaction_dispute, unauthorized_charge, fraud, billing_error, fee_reversal]
+    access: human_only
+    notes: Business credit cards use +1-800-474-2101.
+    source: https://www.pnc.com/en/customer-service/contact-us.html
+    last_verified: 2026-10-12
+  - id: banking-international-collect
+    type: phone
+    label: Personal deposit accounts, international collect
+    value: +1-412-803-7711
+    hours: Mon-Fri 8 a.m.-9 p.m. ET, Sat-Sun 8 a.m.-5 p.m. ET
+    purposes: [fraud, unauthorized_charge]
+    access: human_only
+    source: https://www.pnc.com/en/customer-service/contact-us.html
+    last_verified: 2026-10-12
+  - id: card-international-collect
+    type: phone
+    label: Personal credit cards, international collect
+    value: +1-412-803-7787
+    hours: Mon-Fri 8 a.m.-9 p.m. ET, Sat-Sun 8 a.m.-5 p.m. ET
+    purposes: [fraud, unauthorized_charge]
+    access: human_only
+    source: https://www.pnc.com/en/customer-service/contact-us.html
+    last_verified: 2026-10-12
+  - id: disclosed-info-phone
+    type: phone
+    label: Responded to possible fraud or disclosed personal information
+    value: +1-800-762-2035
+    purposes: [fraud, account_access]
+    access: human_only
+    source: https://www.pnc.com/en/security-privacy/reporting-fraud.html
+    last_verified: 2026-10-12
+  - id: debit-dispute-online
+    type: portal
+    label: Dispute a debit card or checking transaction in Online Banking
+    value: https://www.pnc.com/en/customer-service/card-management.html
+    purposes: [transaction_dispute, unauthorized_charge]
+    access: login
+    notes: Sign on to Online Banking, select Help, then Manage Accounts, then Dispute a Transaction under Checking and Savings. Credit card disputes are by phone or at a branch.
+    source: https://www.pnc.com/en/customer-service/card-management.html
+    last_verified: 2026-10-12
+  - id: phishing-email
+    type: email
+    label: Forward suspicious emails, or screenshots of suspicious texts
+    value: abuse@pnc.com
+    purposes: [fraud]
+    source: https://www.pnc.com/en/security-privacy/reporting-fraud.html
+    last_verified: 2026-10-12
+  - id: card-billing-rights-mail
+    type: mail
+    label: Credit card billing errors (Your Billing Rights address)
+    value: "PNC Bank, N.A., P.O. Box 1802, Dayton, OH 45401"
+    purposes: [billing_error, transaction_dispute]
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/PNC_BANK_NATIONAL_ASSOCIATION/Agreement-Cash-Unlimited-Credit-Card-476658.pdf
+    last_verified: 2026-10-12
+  - id: arbitration-opt-out-mail
+    type: mail
+    label: Credit card arbitration opt-out (within 45 days of account opening)
+    value: "PNC Bank, P.O. Box 1802, Dayton, OH 45401, Attn: Arbitration Opt Out"
+    notes: You can also opt out by calling 1-800-537-7374. Send written notice by first class or certified mail, return receipt requested.
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/PNC_BANK_NATIONAL_ASSOCIATION/Agreement-Cash-Unlimited-Credit-Card-476658.pdf
+    last_verified: 2026-10-12
+  - id: branch
+    type: in_person
+    label: PNC branch (credit card disputes, lost or stolen cards)
+    value: https://locator.pnc.com/en/search
+    purposes: [transaction_dispute, unauthorized_charge]
+    access: human_only
+    source: https://www.pnc.com/en/customer-service/card-management.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: banking-phone}
+  - {rung: written_complaint, channel: card-billing-rights-mail, note: "For card billing errors write within 60 days. PNC does not publish a complaint form or complaint mailing address on its contact pages."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+  - {rung: arbitration, note: "PNC credit card agreements contain an arbitration provision with a 45-day opt-out."}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: Contact the merchant first. Dispute debit transactions in Online Banking; dispute credit card transactions by phone or at a branch.
+    evidence: [statement showing the charge, receipt or order, record of contact with the merchant]
+    steps:
+      - do: Contact the merchant first; PNC says this can sometimes give a quicker result.
+      - do: For a debit card, sign on to Online Banking, select Help, Manage Accounts, then Dispute a Transaction.
+        channel: debit-dispute-online
+      - do: For a credit card, call PNC credit card services or go to a branch.
+        channel: card-services-phone
+      - do: If PNC does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: PNC says you can dispute a credit card transaction by calling PNC or going to your local branch.
+        issues: [transaction_dispute]
+        source: https://www.pnc.com/en/customer-service/card-management.html
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: Call PNC immediately and report the card lost or stolen in the app or Online Banking.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: Call PNC at once.
+        channel: card-services-phone
+      - do: In the mobile app, go to More, Cards, View Card Details, Replace Card, then choose that the card was lost or stolen. In Online Banking, go to Cards, Card Actions, Report Card Lost or Stolen.
+      - do: If PNC does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: PNC says that if you think someone has used your card without your permission, call PNC immediately at 1-800-558-8472.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.pnc.com/en/customer-service/card-management.html
+        last_verified: 2026-10-12
+
+  - issue: fraud
+    summary: Call the fraud victim line and report phishing to abuse@pnc.com.
+    evidence: [transaction details, messages from the scammer, police or FTC report number]
+    steps:
+      - do: Call 1-888-PNC-BANK and say you are a fraud victim. For identity theft, ask for the PNC Victims Assistance Program.
+        channel: banking-phone
+      - do: If you responded to a possible scam or disclosed personal information, call the disclosure line.
+        channel: disclosed-info-phone
+      - do: Forward suspicious emails, or screenshots of texts.
+        channel: phishing-email
+      - do: Report to the FTC at ReportFraud.ftc.gov, then complain to the CFPB if PNC does not act.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: PNC states that neither PNC nor Zelle offers purchase protection for payments made with Zelle.
+        issues: [fraud]
+        source: https://www.pnc.com/en/security-privacy/reporting-fraud.html
+        last_verified: 2026-10-12
+
+  - issue: fee_reversal
+    summary: Check the Low Cash Mode rules for Virtual Wallet, then ask for a reversal.
+    evidence: [statement showing the fee, balance history, deposit times]
+    steps:
+      - do: For Virtual Wallet, check whether you were given at least 24 hours to bring the Spend balance to $0 before the fee.
+      - do: Call and ask for a reversal.
+        channel: banking-phone
+      - do: Complain to the CFPB if the fee breaks the account terms.
+        regulator: cfpb
+    facts:
+      - kind: fee
+        claim: With Low Cash Mode on Virtual Wallet, PNC charges a maximum of one $36 overdraft item fee per day and a $0 non-sufficient funds fee.
+        issues: [fee_reversal]
+        source: https://www.pnc.com/en/personal-banking/banking/services/low-cash-mode.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Low Cash Mode gives at least 24 hours to bring the available Spend account balance to at least $0 before overdraft fees are charged.
+        issues: [fee_reversal]
+        source: https://www.pnc.com/en/personal-banking/banking/services/low-cash-mode.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: PNC states that no consumer accounts charge a non-sufficient funds (NSF) fee.
+        issues: [fee_reversal]
+        source: https://www.pnc.com/en/personal-banking/banking/services/overdraft-solutions.html
+        last_verified: 2026-10-12
+
+  - issue: billing_error
+    summary: Write to PNC's billing rights address within 60 days of the statement; a call alone does not protect your rights.
+    evidence: [statement with the error, account number, dollar amount, why it is wrong]
+    steps:
+      - do: Send a letter with your name, account number, the dollar amount and why you believe it is wrong.
+        channel: card-billing-rights-mail
+      - do: If the error is not fixed, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: The PNC credit card billing rights notice says to write within 60 days after the error appeared on your statement; if you only call, PNC is not required to investigate.
+        issues: [billing_error, transaction_dispute]
+        source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/PNC_BANK_NATIONAL_ASSOCIATION/Agreement-Cash-Unlimited-Credit-Card-476658.pdf
+        last_verified: 2026-10-12
+
+facts:
+  - kind: deadline
+    claim: You may opt out of the PNC credit card arbitration provision by calling 1-800-537-7374 or by written notice; PNC must receive it within forty-five (45) days after the account is opened.
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/PNC_BANK_NATIONAL_ASSOCIATION/Agreement-Cash-Unlimited-Credit-Card-476658.pdf
+    last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: Contact the merchant before disputing; PNC says this can sometimes lead to a quicker resolution.
+    issues: [transaction_dispute]
+    source: https://www.pnc.com/en/customer-service/card-management.html
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Credit card disputes cannot be filed online; PNC lists phone or branch only.
+  - Online debit disputes need sign-in to Online Banking.
+  - PNC does not publish a complaint form, complaint mailing address or executive office channel on its contact pages.

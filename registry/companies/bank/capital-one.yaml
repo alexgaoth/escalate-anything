@@ -1,0 +1,206 @@
+id: capital-one
+name: Capital One
+aliases: [capital one bank, capitalone, capital one 360, capital one na]
+sector: bank
+parent: Capital One Financial Corporation
+website: https://www.capitalone.com
+regulators: [cfpb, occ]
+notes: >-
+  Capital One, N.A. is a national bank (OCC). Capital One completed its acquisition of Discover in May 2025;
+  Discover Bank merged into Capital One, N.A. Discover card accounts keep their own service channels
+  (see the discover file) and are moving to Capital One through 2026 and early 2027.
+
+channels:
+  - id: card-services-phone
+    type: phone
+    label: Credit card customer service (1-800-CAPITAL), for existing Capital One accounts
+    value: +1-800-227-4825
+    purposes: [transaction_dispute, unauthorized_charge, fraud, billing_error, fee_reversal]
+    access: human_only
+    source: https://www.capitalone.com/help-center/contact-us/
+    last_verified: 2026-10-12
+  - id: card-international-collect
+    type: phone
+    label: Credit card, calling collect from outside the U.S.
+    value: +1-804-934-2001
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    source: https://www.capitalone.com/help-center/contact-us/
+    last_verified: 2026-10-12
+  - id: online-support-phone
+    type: phone
+    label: Credit card online account support
+    value: +1-866-750-0873
+    purposes: [account_access]
+    source: https://www.capitalone.com/help-center/contact-us/
+    last_verified: 2026-10-12
+  - id: general-phone
+    type: phone
+    label: General help, not sure where to start (includes bank accounts)
+    value: +1-877-383-4802
+    purposes: [fee_reversal, frozen_funds, fraud]
+    access: human_only
+    source: https://www.capitalone.com/help-center/contact-us/
+    last_verified: 2026-10-12
+  - id: feedback-phone
+    type: phone
+    label: Feedback and complaints (includes "Discover, by Capital One" card accounts)
+    value: +1-844-348-8660
+    purposes: [poor_service, fee_reversal, frozen_funds, billing_error]
+    access: human_only
+    source: https://www.capitalone.com/help-center/contact-us/feedback/
+    last_verified: 2026-10-12
+  - id: dispute-online
+    type: portal
+    label: Dispute a credit card charge online or in the app
+    value: https://www.capitalone.com/help-center/fraud-disputes/dispute-credit-charge/
+    purposes: [transaction_dispute, unauthorized_charge, billing_error]
+    access: login
+    notes: Sign in, select the transaction, choose to report a problem and answer the questions. The page also has a printable dispute form.
+    source: https://www.capitalone.com/help-center/fraud-disputes/dispute-credit-charge/
+    last_verified: 2026-10-12
+  - id: disputes-mail
+    type: mail
+    label: Credit card disputes by mail
+    value: "Capital One Disputes, P.O. Box 30279, Salt Lake City, UT 84130-0279"
+    purposes: [transaction_dispute, billing_error]
+    notes: "Mail the printed dispute form here. The contact page shows the same box addressed to Capital One, Attn: Disputes."
+    source: https://www.capitalone.com/help-center/fraud-disputes/dispute-credit-charge/
+    last_verified: 2026-10-12
+  - id: fraud-mail
+    type: mail
+    label: Report suspected credit card fraud by mail
+    value: "Capital One, P.O. Box 30277, Salt Lake City, UT 84130-0277"
+    purposes: [fraud, unauthorized_charge]
+    source: https://www.capitalone.com/help-center/contact-us/
+    last_verified: 2026-10-12
+  - id: general-correspondence-mail
+    type: mail
+    label: General correspondence (credit card, line of credit, small business)
+    value: "Capital One, Attn: General Correspondence, PO Box 30285, Salt Lake City, UT 84130-0285"
+    purposes: [poor_service, fee_reversal]
+    source: https://www.capitalone.com/help-center/contact-us/
+    last_verified: 2026-10-12
+  - id: card-lock
+    type: portal
+    label: Lock a missing or stolen card
+    value: https://verified.capitalone.com/auth/signin?Product=Card&Action=cardLock
+    purposes: [unauthorized_charge, fraud]
+    access: login
+    source: https://www.capitalone.com/help-center/fraud-disputes/
+    last_verified: 2026-10-12
+  - id: social-x
+    type: social
+    label: "@AskCapitalOne on X"
+    value: https://x.com/askcapitalone
+    purposes: [poor_service]
+    notes: Never post account numbers publicly.
+    source: https://www.capitalone.com/help-center/contact-us/feedback/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: card-services-phone}
+  - {rung: written_complaint, channel: general-correspondence-mail, note: "Card billing disputes go to the disputes address. The feedback line also takes complaints."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: Contact the merchant, wait until the charge posts, then dispute online, by phone or by mail, ideally within 60 days of the statement.
+    evidence: [receipts, tracking information, photos, messages with the merchant, statement showing the charge]
+    steps:
+      - do: Contact the merchant first. Wait until the charge posts; pending transactions cannot be disputed.
+      - do: Sign in, select the transaction, choose to report a problem and answer the questions.
+        channel: dispute-online
+      - do: Or call the number on the back of the card, or mail the printed dispute form.
+        channel: disputes-mail
+      - do: Answer every evidence request by the date given. Check status in the app or website.
+      - do: If you disagree with the result, follow the appeal steps in the decision notice, then complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: Capital One recommends filing a dispute as soon as you identify an issue, ideally within 60 days of the statement date; it may still help after that window.
+        issues: [transaction_dispute, billing_error]
+        source: https://www.capitalone.com/help-center/fraud-disputes/dispute-credit-charge/
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Capital One may give temporary credit for the disputed amount plus related fees or interest, and the dispute process may take up to 90 days.
+        issues: [transaction_dispute]
+        source: https://www.capitalone.com/help-center/fraud-disputes/dispute-credit-charge/
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Failure to provide evidence or information by the date requested could prevent the claim from being processed.
+        issues: [transaction_dispute]
+        source: https://www.capitalone.com/help-center/fraud-disputes/dispute-credit-charge/
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: Lock the card, then report the charge online or by phone.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: Lock the card in the app or website.
+        channel: card-lock
+      - do: Report the charge by disputing it online or by calling the number on the back of the card.
+        channel: card-services-phone
+      - do: If Capital One does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: Capital One states you are never held responsible for unauthorized charges under its $0 liability for unauthorized charges protection.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.capitalone.com/help-center/fraud-disputes/report-fraud/
+        last_verified: 2026-10-12
+
+  - issue: fraud
+    summary: Lock the card, call the number on the back of the card, and report in writing if needed.
+    evidence: [transaction details, messages from the scammer, police or FTC report number]
+    steps:
+      - do: Lock the card.
+        channel: card-lock
+      - do: Call the number on the back of the card.
+        channel: card-services-phone
+      - do: Report suspected credit card fraud in writing.
+        channel: fraud-mail
+      - do: Report to the FTC at ReportFraud.ftc.gov, then complain to the CFPB if Capital One does not act.
+        regulator: cfpb
+
+  - issue: fee_reversal
+    summary: Capital One 360 Checking has no overdraft fees; card fee reversals go through card customer service.
+    evidence: [statement showing the fee, account history]
+    steps:
+      - do: Call and ask for a reversal of the fee.
+        channel: card-services-phone
+      - do: If refused, use the feedback line, then complain to the CFPB.
+        channel: feedback-phone
+    facts:
+      - kind: policy
+        claim: Capital One 360 Checking has no overdraft fees. Options are Auto-Decline, Free Savings Transfer and no-fee overdraft.
+        issues: [fee_reversal]
+        source: https://www.capitalone.com/bank/checking-accounts/online-checking-account/
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: To qualify for no-fee overdraft, you must regularly deposit at least $250 during two of the previous three calendar months.
+        issues: [fee_reversal]
+        source: https://www.capitalone.com/bank/checking-accounts/online-checking-account/
+        last_verified: 2026-10-12
+
+  - issue: billing_error
+    summary: Dispute online or in writing; the billing rights details are on the statement's Billing Rights Summary.
+    evidence: [statement with the error, account number, amount, why it is wrong]
+    steps:
+      - do: Dispute online.
+        channel: dispute-online
+      - do: Send a written dispute to the disputes address.
+        channel: disputes-mail
+      - do: If the error is not fixed, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: The Capital One consumer card agreement says billing rights are explained in the Billing Rights Summary on your statement.
+        issues: [billing_error]
+        source: https://ecm.capitalone.com/WCM/card/credit-card-agreements-q2-2026/credit-card-agreement-for-consumer-cards-in-capital-one-n.a.pdf
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Online disputes and card lock need sign-in.
+  - Capital One does not publish a dedicated fraud phone number on its fraud pages; it says to call the number on the back of the card.

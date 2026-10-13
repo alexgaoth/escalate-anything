@@ -1,0 +1,160 @@
+id: navy-federal-credit-union
+name: Navy Federal Credit Union
+aliases: [navy federal, nfcu, navy fed]
+sector: credit_union
+website: https://www.navyfederal.org
+regulators: [ncua, cfpb]
+notes: Navy Federal Credit Union is regulated by the NCUA. Most service lines go through the 24/7 member services number with voice prompts.
+
+channels:
+  - id: member-services-phone
+    type: phone
+    label: 24/7 member services; fraud, suspicious activity, lost or stolen card, identity theft
+    value: +1-888-842-6328
+    hours: 24/7
+    purposes: [fraud, unauthorized_charge, transaction_dispute, billing_error, fee_reversal, frozen_funds]
+    access: human_only
+    notes: For a debit card dispute, press 1 for Checking and Debit Card, 3 for Debit Card, then 4 for Other.
+    source: https://www.navyfederal.org/contact-us.html
+    last_verified: 2026-10-12
+  - id: overseas-phone
+    type: phone
+    label: Direct Inward Dial from countries without a toll-free number
+    value: +1-703-255-8837
+    purposes: [fraud, unauthorized_charge]
+    access: human_only
+    notes: International toll charges apply. Navy Federal lists toll-free numbers for Germany, Italy, Japan, the Netherlands, South Korea and the U.K.
+    source: https://www.navyfederal.org/contact-us/phone-numbers.html
+    last_verified: 2026-10-12
+  - id: secure-message
+    type: portal
+    label: Secure message in online banking
+    value: https://links.navyfederal.org/emessages
+    purposes: [transaction_dispute, billing_error, fee_reversal, frozen_funds, poor_service]
+    access: login
+    notes: For a debit card billing dispute choose the checking account linked to the card and the reason "Dispute a Recognized Card Charge".
+    source: https://www.navyfederal.org/checking-savings/checking/debit/faqs.html
+    last_verified: 2026-10-12
+  - id: credit-card-disputes-mail
+    type: mail
+    label: Credit card disputes and fraud
+    value: "Credit Card Disputes, PO Box 3503, Merrifield, VA 22119-3503"
+    purposes: [transaction_dispute, billing_error, unauthorized_charge, fraud]
+    notes: Navy Federal's mailing address page shows the same PO Box with ZIP 22119-3501.
+    source: https://www.navyfederal.org/services/security/report-fraud.html
+    last_verified: 2026-10-12
+  - id: debit-card-disputes-mail
+    type: mail
+    label: Visa debit card disputes (mail the Statement of Dispute form)
+    value: "Debit Card Services, PO Box 23603, Merrifield, VA 22119-3603"
+    purposes: [transaction_dispute, unauthorized_charge, fraud]
+    source: https://www.navyfederal.org/services/security/report-fraud.html
+    last_verified: 2026-10-12
+  - id: card-agreement-correspondence-mail
+    type: mail
+    label: Credit card agreement correspondence (billing-error notices)
+    value: "Navy Federal Credit Union, PO Box 3501, Merrifield, VA 22119-3501"
+    purposes: [billing_error]
+    notes: The card agreement's billing rights notice says to write to the Contacting Us address in the agreement, which is this one.
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/NAVY_FEDERAL_CREDIT_UNION/573CC_(2-26)-617071.pdf
+    last_verified: 2026-10-12
+  - id: general-mail
+    type: mail
+    label: General correspondence
+    value: "Navy Federal, PO Box 3000, Merrifield, VA 22119-3000"
+    purposes: [poor_service, frozen_funds, fee_reversal]
+    source: https://www.navyfederal.org/contact-us/additional-mailing-addresses.html
+    last_verified: 2026-10-12
+  - id: phishing-email
+    type: email
+    label: Forward phishing emails (keep the original subject line; add your ISP's name)
+    value: phishalert@navyfederal.org
+    purposes: [fraud]
+    source: https://www.navyfederal.org/services/security/report-fraud.html
+    last_verified: 2026-10-12
+  - id: report-abuse-email
+    type: email
+    label: Report suspicious calls, texts or social media messages
+    value: reportabuse@navyfederal.org
+    purposes: [fraud]
+    source: https://www.navyfederal.org/services/security/report-fraud.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: member-services-phone}
+  - {rung: written_complaint, channel: general-mail, note: "For card billing errors write to the card correspondence or disputes address within 60 days. A secure message also creates a written record."}
+  - {rung: regulator, regulator: ncua}
+  - {rung: regulator, regulator: cfpb}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: File a billing dispute online, by secure message, by phone or by mail; investigations can take up to 120 days.
+    evidence: [statement showing the charge, receipt, record of contact with the merchant]
+    steps:
+      - do: Try the merchant first and keep proof.
+      - do: In online banking, use "Dispute charges or transactions", or send a secure message with the reason "Dispute a Recognized Card Charge".
+        channel: secure-message
+      - do: Or call member services and follow the menu.
+        channel: member-services-phone
+      - do: For a credit card, you can also mail the dispute.
+        channel: credit-card-disputes-mail
+      - do: If Navy Federal does not resolve it, complain to the NCUA, then the CFPB.
+        regulator: ncua
+    facts:
+      - kind: process
+        claim: Navy Federal says debit card dispute investigations can take up to 120 days from the date of your claim, and you may receive a temporary credit, which is not guaranteed in some cases.
+        issues: [transaction_dispute]
+        source: https://www.navyfederal.org/checking-savings/checking/debit/faqs.html
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: The Navy Federal credit card billing rights notice says to write within 60 days after the error appeared on your statement.
+        issues: [transaction_dispute, billing_error]
+        source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/NAVY_FEDERAL_CREDIT_UNION/573CC_(2-26)-617071.pdf
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: Call member services 24/7, then file the fraud claim online or by mail.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: Call member services to report the lost or stolen card or the unauthorized charge.
+        channel: member-services-phone
+      - do: File the dispute online, or mail the Statement of Dispute form for a debit card.
+        channel: debit-card-disputes-mail
+      - do: If Navy Federal does not resolve it, complain to the NCUA, then the CFPB.
+        regulator: ncua
+    facts:
+      - kind: policy
+        claim: Navy Federal's Zero Liability policy means you are not responsible for confirmed unauthorized transactions on a Navy Federal debit or credit card.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.navyfederal.org/services/security/report-fraud.html
+        last_verified: 2026-10-12
+      - kind: process
+        claim: A fraud claim is for a transaction you did not authorize and did not benefit from; a fraud investigation may take up to 90 days.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.navyfederal.org/checking-savings/checking/debit/faqs.html
+        last_verified: 2026-10-12
+
+  - issue: fraud
+    summary: Call member services at once and forward scam messages to Navy Federal.
+    evidence: [transaction details, messages from the scammer, police or FTC report number]
+    steps:
+      - do: Call member services (24/7).
+        channel: member-services-phone
+      - do: Forward phishing emails, and report scam calls, texts and social media messages.
+        channel: phishing-email
+      - do: Report to the FTC at ReportFraud.ftc.gov. If Navy Federal does not act, complain to the NCUA and the CFPB.
+        regulator: ncua
+
+  - issue: billing_error
+    summary: Write within 60 days of the statement to the address in the card agreement.
+    evidence: [statement with the error, account number, dollar amount, why it is wrong]
+    steps:
+      - do: Send a letter with your name, account number, the dollar amount and why you believe it is wrong.
+        channel: card-agreement-correspondence-mail
+      - do: If the error is not fixed, complain to the NCUA, then the CFPB.
+        regulator: ncua
+
+known_blockers:
+  - Most phone service requires authenticating as the member before the voice menu.
+  - Online disputes and secure messages need sign-in.
+  - Navy Federal publishes no dedicated complaint form or complaint address; general correspondence is the closest written channel.
