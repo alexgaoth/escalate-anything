@@ -1,0 +1,210 @@
+id: pseg-long-island
+name: PSEG Long Island
+aliases: [PSEG LI, PSEG Long Island, PSEGLI, LIPA]
+sector: utility
+parent: Public Service Enterprise Group (PSEG)
+website: https://www.psegliny.com
+notes: >-
+  Electric service only, on Long Island and the Rockaways, New York. The Long Island Power Authority
+  (LIPA), a not-for-profit public utility, owns the system and contracts PSEG Long Island to operate it
+  day to day. Gas on Long Island is National Grid (see national-grid). Complaints go first to PSEG Long
+  Island, then to LIPA Consumer Affairs or the Long Island office of the New York State Department of
+  Public Service (DPS). LIPA's FAQ says the current contract with PSEG Long Island expires December 31,
+  2025; psegliny.com was still in operation on 2026-10-12, and the post-2025 contract status was not
+  confirmed. Separate from PSE&G in New Jersey (see pseg).
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service
+    value: +1-800-490-0025
+    purposes: [billing_error, bill_increase, disconnection, poor_service]
+    source: https://www.psegliny.com/customerservice/contactus
+    last_verified: 2026-10-12
+  - id: customer-service-spanish-phone
+    type: phone
+    label: Customer service in Spanish
+    value: +1-800-490-0085
+    source: https://www.psegliny.com/customerservice/contactus
+    last_verified: 2026-10-12
+  - id: business-phone
+    type: phone
+    label: Business Solutions Center
+    value: +1-800-966-4818
+    source: https://www.psegliny.com/customerservice/contactus
+    last_verified: 2026-10-12
+  - id: outage-phone
+    type: phone
+    label: Report an outage and all electrical emergencies, including downed wires
+    value: +1-800-490-0075
+    hours: 24/7
+    purposes: [service_outage]
+    source: https://www.psegliny.com/customerservice/contactus
+    last_verified: 2026-10-12
+  - id: outage-report-online
+    type: web_form
+    label: Ways to report an outage
+    value: https://www.psegliny.com/en/Outages/WaystoReportanOutage
+    purposes: [service_outage]
+    source: https://www.psegliny.com/customerservice/contactus
+    last_verified: 2026-10-12
+  - id: complaint-form
+    type: web_form
+    label: Email customer service (web form)
+    value: https://www.psegliny.com/en/ContactCustomerService
+    purposes: [billing_error, poor_service]
+    access: open
+    source: https://www.psegliny.com/customerservice/contactus
+    last_verified: 2026-10-12
+  - id: lipa-consumer-affairs-form
+    type: web_form
+    label: LIPA Consumer Affairs (escalation if PSEG Long Island did not resolve the concern)
+    value: https://www.lipower.org/contact-us/consumer-affairs/
+    purposes: [billing_error, poor_service, disconnection]
+    access: captcha
+    notes: LIPA escalates the issue to PSEG Long Island for further resolution.
+    source: https://www.lipower.org/contact-us/consumer-affairs/
+    last_verified: 2026-10-12
+  - id: claims-form
+    type: web_form
+    label: Submit a claim
+    value: https://www.psegliny.com/en/myaccount/customersupport/claims
+    purposes: [service_outage]
+    source: https://www.psegliny.com/en/myaccount/customersupport/claims
+    last_verified: 2026-10-12
+  - id: claims-email
+    type: email
+    label: Claims email
+    value: PSEGLongIslandClaims@psegliny.com
+    purposes: [service_outage]
+    notes: "Fax 516-949-8461. Claims phone: Nassau/Rockaways 1-516-949-8668, Suffolk 1-516-949-8669."
+    source: https://www.psegliny.com/en/myaccount/customersupport/claims
+    last_verified: 2026-10-12
+  - id: payment-arrangement
+    type: web_form
+    label: Payment plans and extensions
+    value: https://www.psegliny.com/en/myaccount/customersupport/financialassistance/PaymentPlans
+    purposes: [disconnection]
+    source: https://www.psegliny.com/en/myaccount/customersupport/financialassistance/PaymentPlans
+    last_verified: 2026-10-12
+  - id: payment-assistance
+    type: web_form
+    label: Financial assistance (Household Assistance Program, energy cost help, hardship form)
+    value: https://www.psegliny.com/en/myaccount/customersupport/financialassistance
+    purposes: [disconnection]
+    access: open
+    notes: "Help choosing a program: 631-755-3407, Mon-Fri 8:30 a.m.-4 p.m."
+    source: https://www.psegliny.com/en/myaccount/customersupport/financialassistance
+    last_verified: 2026-10-12
+  - id: medical-certification
+    type: email
+    label: Special protections and medical emergency application (email the form)
+    value: medicalnotes@psegliny.com
+    purposes: [disconnection]
+    notes: Form special_cust.pdf is linked from the Payment Plans page.
+    source: https://www.psegliny.com/en/myaccount/customersupport/financialassistance/PaymentPlans
+    last_verified: 2026-10-12
+  - id: critical-care
+    type: web_form
+    label: Critical Care Program (life-sustaining equipment) enrollment forms
+    value: https://www.psegliny.com/en/SafetyAndReliability/stormsafety/CriticalCare
+    purposes: [disconnection, service_outage]
+    access: open
+    notes: Enroll by phone at 1-800-490-0025 or with the downloadable forms. Needs a medical certificate from a doctor, local Board of Health, nurse practitioner or physician assistant.
+    source: https://www.psegliny.com/en/SafetyAndReliability/stormsafety/CriticalCare
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, note: "Ask the representative for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, channel: complaint-form}
+  - {rung: written_complaint, channel: lipa-consumer-affairs-form, note: "LIPA Consumer Affairs, if PSEG Long Island did not resolve it."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "New York State Department of Public Service, Long Island office. DPS complaint levels: initial complaint, informal hearing or review, then appeal to LIPA."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "New York Attorney General."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the bill with PSEG Long Island, then escalate to LIPA Consumer Affairs or the DPS Long Island office.
+    evidence: [the disputed bill, previous bills, meter photos with dates, call notes with reference numbers]
+    steps:
+      - do: Call customer service or use the email form. State the charges you dispute and why. Get a reference number.
+        channel: customer-service-phone
+      - do: If not resolved, contact LIPA Consumer Affairs.
+        channel: lipa-consumer-affairs-form
+      - do: Or file a complaint with the Long Island office of the NY Department of Public Service.
+    facts:
+      - kind: process
+        claim: LIPA asks customers to contact PSEG Long Island first. If the concern is not resolved, customers may contact LIPA Consumer Affairs, which escalates it to PSEG Long Island, or the Long Island office of DPS. The DPS process has three levels - complaint, informal hearing or review, and appeal to LIPA.
+        issues: [billing_error, poor_service]
+        source: https://www.lipower.org/contact-us/consumer-affairs/
+        last_verified: 2026-10-12
+
+  - issue: disconnection
+    summary: Call customer service for a payment plan or hardship agreement; use the medical and special protections forms if they apply.
+    evidence: [termination notice, account balance, medical certificate, hardship statement]
+    steps:
+      - do: Call customer service and ask for a payment plan or extension. If you cannot afford the standard terms, use the Financial Hardship Form.
+        channel: payment-arrangement
+      - do: For an illness or chronic medical condition, email the special protections application to keep service on while you arrange payment.
+        channel: medical-certification
+      - do: Apply for the Household Assistance Program or energy cost help.
+        channel: payment-assistance
+      - do: If PSEG Long Island does not help, contact LIPA Consumer Affairs or DPS before the shutoff date.
+        channel: lipa-consumer-affairs-form
+    facts:
+      - kind: policy
+        claim: For an unexpected illness or chronic medical condition, PSEG Long Island will continue service uninterrupted for 30 days while the customer works out a payment arrangement.
+        issues: [disconnection]
+        source: https://www.psegliny.com/en/myaccount/customersupport/financialassistance/PaymentPlans
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Under the Peace of Mind Program, PSEG Long Island can extend the bill due date by 30 days if the customer or an immediate family member is hospitalized.
+        issues: [disconnection]
+        source: https://www.psegliny.com/en/myaccount/customersupport/financialassistance/PaymentPlans
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Special protections may apply if the customer and everyone in the household are 62 or over, 18 or younger, blind or disabled.
+        issues: [disconnection]
+        source: https://www.psegliny.com/en/myaccount/customersupport/financialassistance/PaymentPlans
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Customers with financial hardship may qualify for a below-standard payment agreement through the Financial Hardship Form.
+        issues: [disconnection]
+        source: https://www.psegliny.com/en/myaccount/customersupport/financialassistance
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Report the outage at 1-800-490-0075; PSEG Long Island pays claims only for damage it caused, not weather or equipment failure.
+    evidence: [outage dates and times, photos, repair estimates or receipts, proofs of loss]
+    steps:
+      - do: Report the outage by phone or online.
+        channel: outage-phone
+      - do: If you believe PSEG Long Island damaged your property, submit a claim with proofs of loss.
+        channel: claims-form
+    facts:
+      - kind: policy
+        claim: If PSEG Long Island is responsible, it pays the reasonable cost to repair damaged items, or the Actual Cash Value of replaced items. It does not pay for weather-related conditions, animal contacts, equipment failure, damage to its equipment by others, or accidents.
+        issues: [service_outage]
+        source: https://www.psegliny.com/en/myaccount/customersupport/claims
+        last_verified: 2026-10-12
+      - kind: process
+        claim: PSEG Long Island aims to decide claims within 30-45 business days after the Corporate Claims Department receives the completed form and proofs of loss.
+        issues: [service_outage]
+        source: https://www.psegliny.com/en/myaccount/customersupport/claims
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Critical Care Program gives enhanced notifications to customers who depend on electric life-support equipment but does not guarantee priority power restoration.
+        issues: [service_outage]
+        source: https://www.psegliny.com/en/SafetyAndReliability/stormsafety/CriticalCare
+        last_verified: 2026-10-12
+
+facts:
+  - kind: compensation
+    claim: The Household Assistance Program gives a monthly bill credit (advertised as "Save $45 or More a Month") to customers who receive benefits from certain assistance programs.
+    issues: [disconnection]
+    source: https://www.psegliny.com/en/myaccount/customersupport/financialassistance
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The LIPA Consumer Affairs form has a CAPTCHA.
+  - Medical certificates must come from a doctor, local Board of Health, nurse practitioner or physician assistant.

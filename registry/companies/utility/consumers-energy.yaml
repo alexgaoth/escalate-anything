@@ -1,0 +1,134 @@
+id: consumers-energy
+name: Consumers Energy
+aliases: [Consumers, Consumers Energy Company]
+sector: utility
+parent: CMS Energy
+website: https://www.consumersenergy.com
+notes: >-
+  Electric and natural gas utility in Michigan. Regulated by the Michigan Public Service Commission
+  (MPSC), whose rules set automatic outage credits. Consumers Energy uses one number, 800-477-5050, for
+  residential customer service, outages, downed wires and gas leaks (call 911 first for emergencies).
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Residential customer service (also downed wires and gas leaks after calling 911)
+    value: +1-800-477-5050
+    hours: "Mon-Fri 8 a.m.-5 p.m. for customer service"
+    purposes: [billing_error, bill_increase, disconnection, service_outage, poor_service]
+    source: https://www.consumersenergy.com/contact-us
+    last_verified: 2026-10-12
+  - id: emergency-phone
+    type: phone
+    label: Downed wire or gas leak (call 911 first, then Consumers Energy)
+    value: +1-800-477-5050
+    source: https://www.consumersenergy.com/residential/outages-and-safety/report-an-issue
+    last_verified: 2026-10-12
+  - id: business-phone
+    type: phone
+    label: Commercial and industrial business customers
+    value: +1-800-805-0490
+    source: https://www.consumersenergy.com/contact-us
+    last_verified: 2026-10-12
+  - id: outage-report-online
+    type: web_form
+    label: Report an outage or issue
+    value: https://www.consumersenergy.com/residential/outages-and-safety/report-an-issue
+    purposes: [service_outage]
+    source: https://www.consumersenergy.com/contact-us
+    last_verified: 2026-10-12
+  - id: payment-assistance
+    type: web_form
+    label: Payment plans and assistance (Payment Arrangements, CARE, Winter Protection Plan, medical protection)
+    value: https://www.consumersenergy.com/residential/account-and-billing/payment-plans-and-assistance
+    purposes: [disconnection]
+    access: open
+    source: https://www.consumersenergy.com/contact-us
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, note: "Ask the representative for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, note: "Consumers Energy lists no complaint form, email or mailing address on its contact page; it lists fax 1-800-363-4806. Send a dated written dispute and keep proof of sending."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Michigan Public Service Commission (MPSC)."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Michigan Attorney General."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the bill with customer service, follow up in writing, then complain to the MPSC.
+    evidence: [the disputed bill, previous bills, meter photos with dates, call notes with reference numbers]
+    steps:
+      - do: Call customer service, dispute the bill and ask for a meter check if usage looks wrong. Get a reference number.
+        channel: customer-service-phone
+      - do: Send a dated written dispute with the account number and amount (the contact page lists fax 1-800-363-4806).
+      - do: If not resolved, complain to the Michigan Public Service Commission.
+
+  - issue: disconnection
+    summary: Ask for a payment arrangement or payment hold, apply for SER or CARE, and use winter, senior or medical protections.
+    evidence: [shutoff notice, account balance, household income documents, Medical Certification Form]
+    steps:
+      - do: Call 800-477-5050 before the shutoff date. Ask for Payment Arrangements or a Payment Hold of up to 10 days.
+        channel: customer-service-phone
+      - do: Apply for State Emergency Relief on MI Bridges, and for the CARE program if household income is at or below 60% of State Median Income.
+        channel: payment-assistance
+      - do: If you are 65 or older or receive DHHS assistance or Medicaid with income below 150% FPL, enroll in the Winter Protection Plan.
+        channel: payment-assistance
+      - do: For a medical emergency, submit the Medical Certification Form with a doctor's written proof or public health notice, then call.
+        channel: payment-assistance
+    facts:
+      - kind: policy
+        claim: Medical Emergency Protection gives up to 21 days of protection from shut-off with a doctor's written proof or a public health notice and the Medical Certification Form. Critical Care enrollment for life support or life-threatening conditions must be renewed yearly.
+        issues: [disconnection]
+        source: https://www.consumersenergy.com/residential/account-and-billing/payment-plans-and-assistance
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Winter Protection Plan prevents shut-off in winter (enrollment November to March) for customers 65 or older or receiving DHHS cash or food assistance or Medicaid, with income below 150% FPL. The Shut-Off Protection Plan gives 18 months of protection for qualifying customers 65+ with income below 200% FPL.
+        issues: [disconnection]
+        source: https://www.consumersenergy.com/residential/account-and-billing/payment-plans-and-assistance
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The CARE program is a 24-month payment plan with an affordable fixed bill and past-due balance forgiveness for households at or below 60% of State Median Income; SER, SNAP or Home Heating Credit recipients are automatically eligible.
+        issues: [disconnection]
+        source: https://www.consumersenergy.com/residential/account-and-billing/payment-plans-and-assistance
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: A Payment Hold gives up to 10 extra days to pay the full bill, once per billing cycle. Active-duty customers called to full-time military service get up to 90 days of shut-off protection.
+        issues: [disconnection]
+        source: https://www.consumersenergy.com/residential/account-and-billing/payment-plans-and-assistance
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Report the outage; MPSC outage credits are automatic. Call after 90 days if the credit is missing.
+    evidence: [outage dates and times, outage reference number]
+    steps:
+      - do: Report the outage online or call after calling 911 for a downed wire.
+        channel: outage-report-online
+      - do: If the credit is not on your account 90 days after power was restored, call customer service.
+        channel: customer-service-phone
+    facts:
+      - kind: compensation
+        claim: Residential customers get a $42 base credit plus $42 for each further continuous 24-hour period without power. Thresholds are 16 continuous hours (under 1% of customers out), 48 hours (under 10% out), 96 hours in a catastrophic event (at least 1 in 10 customers out), or six outages over five minutes in 12 months.
+        issues: [service_outage]
+        source: https://www.consumersenergy.com/residential/outages-and-safety/outage-credits
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Outage credits are automatic with no application and show up on the account in 90 days. If no credit appears 90 days after power is restored, call 800-477-5050.
+        issues: [service_outage]
+        source: https://www.consumersenergy.com/residential/outages-and-safety/outage-credits
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Consumers Energy's outage credit page does not describe a food spoilage claim; it says homeowner's or renter's insurance may cover such losses.
+        issues: [service_outage]
+        source: https://www.consumersenergy.com/residential/outages-and-safety/outage-credits
+        last_verified: 2026-10-12
+
+facts:
+  - kind: compensation
+    claim: Account holders 65 or older get an automatic Senior Citizen Bill Credit of $4 per month at their primary residence.
+    issues: [bill_increase]
+    source: https://www.consumersenergy.com/residential/account-and-billing/payment-plans-and-assistance
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Consumers Energy does not publish a complaint form, email or mailing address on its contact page.
+  - Medical Emergency Protection needs a doctor's written proof or public health notice.

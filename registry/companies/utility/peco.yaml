@@ -1,0 +1,127 @@
+id: peco
+name: PECO Energy Company
+aliases: [PECO, PECO Energy]
+sector: utility
+parent: Exelon Corporation
+website: https://www.peco.com
+notes: >-
+  Electric and natural gas utility in southeastern Pennsylvania. Regulated by the Pennsylvania Public
+  Utility Commission (PUC), which requires customers to contact the utility first. peco.com returned empty
+  pages to automated fetches, so PECO's own customer service and gas emergency numbers were not confirmed;
+  the numbers below come from PA PUC pages. Termination rules below are from the PA PUC.
+
+channels:
+  - id: outage-phone
+    type: phone
+    label: Report outages or downed lines (as listed by the PA PUC)
+    value: +1-800-841-4141
+    purposes: [service_outage]
+    source: https://www.puc.pa.gov/electricity/electric-companies-suppliers/
+    last_verified: 2026-10-12
+  - id: outage-report-online
+    type: web_form
+    label: Report an outage online
+    value: https://secure.peco.com/Outages/ReportAnOutage/pages/ReportAnOutage.aspx
+    purposes: [service_outage]
+    source: https://www.puc.pa.gov/electricity/electric-companies-suppliers/
+    last_verified: 2026-10-12
+  - id: assistance-phone
+    type: phone
+    label: PECO number listed by the PA PUC for utility assistance programs (electric and gas)
+    value: +1-800-774-7040
+    purposes: [disconnection]
+    source: https://www.puc.pa.gov/about-the-puc/consumer-education/utility-assistance-programs/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, note: "Call PECO customer service (number on the bill)."}
+  - {rung: supervisor, note: "Ask the representative for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, note: "PECO's complaint channel was not confirmed. Send a dated letter and keep call notes with reference numbers."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Pennsylvania Public Utility Commission (PUC), Bureau of Consumer Services. The PUC says customers must contact the utility before filing; an informal complaint is recommended for payment arrangements and billing errors."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Pennsylvania Attorney General."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the bill with PECO first; if unresolved, file an informal complaint with the PA PUC and keep paying current bills.
+    evidence: [the disputed bill, previous bills, meter photos with dates, call notes with reference numbers]
+    steps:
+      - do: Call PECO, dispute the bill and ask for an investigation. Get a reference number.
+      - do: Keep paying current bills while the dispute is reviewed.
+      - do: If PECO does not resolve it, file an informal complaint with the PA PUC Bureau of Consumer Services.
+    facts:
+      - kind: process
+        claim: Before filing any complaint with the PA PUC, customers should contact the utility first. The informal complaint process is best for residential payment arrangement requests and billing error investigations. Customers must still pay current bills while a complaint is under review.
+        issues: [billing_error, disconnection]
+        source: https://www.puc.pa.gov/documents/utility-files/444/26_Complaint_Process.pdf
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: The PA PUC Bureau of Consumer Services cannot require a utility to pay damages for harm to the customer or their property.
+        issues: [billing_error, service_outage]
+        source: https://www.puc.pa.gov/documents/utility-files/444/26_Complaint_Process.pdf
+        last_verified: 2026-10-12
+
+  - issue: disconnection
+    summary: Ask PECO for a payment arrangement and CAP; submit a medical certificate if someone is seriously ill; low-income customers are protected from December 1 to March 31.
+    evidence: [10-day termination notice, account balance, proof of income, medical certificate]
+    steps:
+      - do: Call PECO before the termination date and ask for a payment arrangement and whether you qualify for the Customer Assistance Program (CAP).
+        channel: assistance-phone
+      - do: If someone in the home is seriously ill, have a licensed physician, physician assistant or nurse practitioner fax or email a medical certificate to PECO.
+      - do: If you cannot agree on a payment arrangement, file an informal complaint with the PA PUC.
+    facts:
+      - kind: deadline
+        claim: Before disconnection, the utility sends a 10-day notice and attempts contact at least three days before the disconnection date. A termination notice is valid for 60 days; termination can occur any time between day 11 and day 60.
+        issues: [disconnection]
+        source: https://www.puc.pa.gov/media/3827/26_protections_for_responsible_utility_customers_020426.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The PA winter moratorium protects consumers from termination between December 1 and March 31, but service can be terminated in winter without PUC approval if the customer's income is outside the utility's income guidelines.
+        issues: [disconnection]
+        source: https://www.puc.pa.gov/media/3827/26_protections_for_responsible_utility_customers_020426.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: An accepted medical certificate postpones a shutoff for up to 30 days and can be renewed for 30-day periods. If current bills are not paid, the utility does not have to accept more than two renewals. A certificate can restore terminated service within 24 hours if the customer was terminated less than 30 days ago.
+        issues: [disconnection]
+        source: https://www.puc.pa.gov/media/1778/medical_certificate_guidance.docx
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The utility must offer one payment arrangement and may be required to offer another; the PUC may establish one. The PUC cannot set a payment arrangement on CAP arrears.
+        issues: [disconnection]
+        source: https://www.puc.pa.gov/media/3827/26_protections_for_responsible_utility_customers_020426.pdf
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: From December 1 to March 31, the utility restores service within 24 hours after the customer pays and meets its conditions (seven days if digging is required). The rest of the year, restoration is within three to seven days.
+        issues: [disconnection]
+        source: https://www.puc.pa.gov/media/3827/26_protections_for_responsible_utility_customers_020426.pdf
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Report outages and downed lines to PECO by phone or online.
+    evidence: [outage dates and times, outage reference number]
+    steps:
+      - do: Report the outage or downed line by phone or online.
+        channel: outage-phone
+
+  - issue: deposit_refund
+    summary: PA utilities may require a deposit for poor or no credit history, termination, or missed payments; CAP-eligible customers may be exempt.
+    evidence: [deposit notice, payment history, CAP eligibility]
+    steps:
+      - do: Ask PECO why the deposit is required and whether CAP income eligibility exempts you.
+      - do: If you disagree, file an informal complaint with the PA PUC.
+    facts:
+      - kind: policy
+        claim: A PA utility may require a deposit for bad or no credit history, termination for unpaid bills, or missing two consecutive payments or three in 12 months. The deposit could be an average of two monthly bills. A customer income-qualified for CAP may not be required to pay a deposit.
+        issues: [deposit_refund]
+        source: https://www.puc.pa.gov/media/3827/26_protections_for_responsible_utility_customers_020426.pdf
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Customers can name a third party (neighbor, friend or family member) to receive copies of late payment and termination notices. The third party is not responsible for the bill.
+    issues: [disconnection]
+    source: https://www.puc.pa.gov/media/3827/26_protections_for_responsible_utility_customers_020426.pdf
+    last_verified: 2026-10-12
+
+known_blockers:
+  - peco.com returns empty pages to automated fetches; PECO's own customer service and gas emergency numbers are not in this file.
+  - Medical certificates must be signed by a licensed physician, physician assistant or nurse practitioner with their license number.

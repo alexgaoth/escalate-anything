@@ -1,0 +1,119 @@
+id: bge
+name: Baltimore Gas and Electric Company
+aliases: [BGE, Baltimore Gas & Electric]
+sector: utility
+parent: Exelon Corporation
+website: https://www.bge.com
+notes: >-
+  Electric and natural gas utility in central Maryland. Regulated by the Maryland Public Service Commission
+  (PSC), Consumer Affairs Division; the Maryland Office of People's Counsel represents residential
+  ratepayers. bge.com returned empty pages to automated fetches, so BGE's own customer service and gas
+  emergency numbers were not confirmed; the number below is from the PSC. Termination, deposit and meter
+  rules below are from the PSC consumer FAQs.
+
+channels:
+  - id: outage-phone
+    type: phone
+    label: BGE phone number listed by the Maryland PSC for outages
+    value: +1-877-778-2222
+    purposes: [service_outage]
+    source: https://psc.maryland.gov/regulated-utilities/current-outage-information/
+    last_verified: 2026-10-12
+  - id: outage-map
+    type: web_form
+    label: BGE outage map
+    value: http://outagemap.bge.com/
+    purposes: [service_outage]
+    source: https://psc.maryland.gov/regulated-utilities/current-outage-information/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, note: "Call BGE customer service (number on the bill)."}
+  - {rung: supervisor, note: "Ask the representative for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, note: "BGE's complaint channel was not confirmed. Send a dated letter and keep call notes with reference numbers."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Maryland Public Service Commission, Consumer Affairs Division. Raise the problem with BGE first or the PSC may withdraw the dispute until the company responds."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Maryland Attorney General, Consumer Protection Division."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the bill with BGE first, pay the undisputed part, ask for a free meter test or cancellation of an off estimate, then go to the PSC.
+    evidence: [the disputed bill, previous bills, meter photos with dates, call notes with reference numbers]
+    steps:
+      - do: Call BGE and dispute the bill. Withhold only the disputed amount and keep paying undisputed and future bills.
+      - do: If usage looks wrong, ask BGE for a free meter test. If an estimated bill is far from normal usage, ask BGE to cancel it.
+      - do: If BGE does not resolve it, file a complaint with the PSC Consumer Affairs Division.
+    facts:
+      - kind: process
+        claim: Maryland customers must raise a problem with the utility before filing with the PSC Consumer Affairs Division. A customer may withhold only the disputed amount while it is under review and must keep paying undisputed and future bills, or service may be terminated with notice.
+        issues: [billing_error, disconnection]
+        source: https://psc.maryland.gov/get-help/consumer-faqs/
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: The utility must test the meter free of charge on request, but not more than once every 18 months; the customer may be present. A Commission referee test costs $10, refunded with an account adjustment if the meter is outside 98%-102% accuracy.
+        issues: [billing_error]
+        source: https://psc.maryland.gov/get-help/consumer-faqs/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Estimated bills must be marked as estimated and must still be paid. If an estimate is far from normal usage, the customer can ask the utility to cancel it; the next bill then covers two months.
+        issues: [billing_error]
+        source: https://psc.maryland.gov/get-help/consumer-faqs/
+        last_verified: 2026-10-12
+
+  - issue: disconnection
+    summary: Maryland requires 14 days' notice; no shutoff at forecast 32F or below or 95F or above; a medical certificate adds 30 days.
+    evidence: [termination notice, account balance, medical certification form, energy assistance application]
+    steps:
+      - do: Call BGE before the termination date and ask for a payment plan.
+      - do: If someone has a serious medical condition, have a doctor, certified nurse practitioner or physician assistant complete the PSC-approved medical certification form and send it to BGE no later than the day before the termination date.
+      - do: Apply for energy assistance (OHEP, EUSP, Fuel Fund of Maryland).
+      - do: If BGE does not help, contact the PSC Consumer Affairs Division before the termination date.
+    facts:
+      - kind: deadline
+        claim: Gas and electric utilities in Maryland must give at least 14 days' notice before terminating service.
+        issues: [disconnection]
+        source: https://psc.maryland.gov/get-help/consumer-faqs/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: From November 1 to March 31, a utility cannot terminate residential gas or electric service for nonpayment without first filing an affidavit with the PSC at least 24 hours before, certifying no threat to life or health.
+        issues: [disconnection]
+        source: https://psc.maryland.gov/get-help/consumer-faqs/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: No termination for nonpayment is allowed when the 6 a.m. forecast is 32F or below, and no electric termination when it is 95F or above.
+        issues: [disconnection]
+        source: https://psc.maryland.gov/get-help/consumer-faqs/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: A medical certification on the PSC-approved form makes the utility withhold termination for an additional 30 days. The customer must then promptly agree to a payment plan for unpaid and current bills.
+        issues: [disconnection]
+        source: https://psc.maryland.gov/get-help/consumer-faqs/
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Report the outage to BGE and check the outage map.
+    evidence: [outage dates and times, outage reference number]
+    steps:
+      - do: Report the outage by phone and check the outage map.
+        channel: outage-phone
+
+  - issue: deposit_refund
+    summary: Maryland caps residential deposits, allows installments, pays interest and returns the deposit after 12 months of on-time payment.
+    evidence: [deposit notice or receipt, 12 months of payment history]
+    steps:
+      - do: After 12 months of on-time payments, ask BGE to return the deposit with interest.
+      - do: If BGE refuses, file a complaint with the PSC Consumer Affairs Division.
+    facts:
+      - kind: limit
+        claim: A residential deposit cannot exceed 2/12 of estimated 12-month charges for monthly billing. Deposits under $150 may be paid over at least eight weeks, over $150 over at least 12 weeks.
+        issues: [deposit_refund]
+        source: https://psc.maryland.gov/get-help/consumer-faqs/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Deposits earn simple interest and are returned after a good payment record of 12 months of on-time payment.
+        issues: [deposit_refund]
+        source: https://psc.maryland.gov/get-help/consumer-faqs/
+        last_verified: 2026-10-12
+
+known_blockers:
+  - bge.com returns empty pages to automated fetches; BGE's own customer service and gas emergency numbers are not in this file.
+  - The medical certification must be on the PSC-approved form and reach BGE by the day before the termination date.

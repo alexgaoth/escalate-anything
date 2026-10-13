@@ -1,0 +1,145 @@
+id: ameren
+name: Ameren
+aliases: [Ameren Missouri, Ameren Illinois]
+sector: utility
+website: https://www.ameren.com
+notes: >-
+  Electric and gas utility with two operating companies: Ameren Missouri and Ameren Illinois. Programs
+  differ by state; the website shows Missouri or Illinois content based on a location selector.
+  Regulators: Missouri Public Service Commission; Illinois Commerce Commission.
+
+channels:
+  - id: illinois-phone
+    type: phone
+    label: Ameren Illinois residential customer service
+    value: +1-800-755-5000
+    hours: Monday to Friday, 7 a.m. to 7 p.m.
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, service_outage, poor_service]
+    source: https://www.ameren.com/customer-service
+    last_verified: 2026-10-12
+  - id: missouri-phone
+    type: phone
+    label: Ameren Missouri residential customer service (also to request medical registry and Caring Contact forms)
+    value: +1-800-552-7583
+    hours: Monday to Friday, 7 a.m. to 7 p.m.
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, service_outage, poor_service]
+    source: https://www.ameren.com/customer-service
+    last_verified: 2026-10-12
+  - id: illinois-mail
+    type: mail
+    label: Ameren Illinois correspondence
+    value: Ameren Illinois, PO Box 88034, Chicago, IL 60680-1034
+    purposes: [billing_error, deposit_refund, poor_service]
+    source: https://www.ameren.com/customer-service
+    last_verified: 2026-10-12
+  - id: missouri-mail
+    type: mail
+    label: Ameren Missouri correspondence
+    value: Ameren Missouri, PO Box 790098, St. Louis, MO 63179-0098
+    purposes: [billing_error, deposit_refund, poor_service]
+    source: https://www.ameren.com/customer-service
+    last_verified: 2026-10-12
+  - id: outage-center
+    type: web_form
+    label: Report an outage (Outage Center)
+    value: https://www.ameren.com/outages
+    purposes: [service_outage]
+    notes: The outage page lists no phone number; it points to the Report Outage link and the Ameren app.
+    source: https://www.ameren.com/outages
+    last_verified: 2026-10-12
+  - id: payment-agreements
+    type: portal
+    label: Deferred payment agreements (sign in to set up)
+    value: https://www.ameren.com/bill/assistance/agreements
+    purposes: [disconnection]
+    access: login
+    source: https://www.ameren.com/bill/assistance/agreements
+    last_verified: 2026-10-12
+  - id: assistance-page
+    type: portal
+    label: Energy assistance programs (LIHEAP, Keeping Current, Dollar More, discounts)
+    value: https://www.ameren.com/bill/assistance
+    purposes: [disconnection]
+    source: https://www.ameren.com/bill/assistance
+    last_verified: 2026-10-12
+  - id: health-support-page
+    type: portal
+    label: Health support (Medical Hardship Extension, Medical Equipment Registry, Caring Contact)
+    value: https://www.ameren.com/bill/assistance/health
+    purposes: [disconnection, service_outage]
+    source: https://www.ameren.com/bill/assistance/health
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: missouri-phone, note: "Illinois: illinois-phone."}
+  - {rung: supervisor}
+  - {rung: written_complaint, channel: missouri-mail, note: "Illinois: illinois-mail. Ameren publishes no separate complaint channel."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Missouri Public Service Commission; Illinois Commerce Commission."}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute with Ameren by phone and in writing, then with the state commission.
+    evidence: [the bill, meter readings, earlier bills, notes of each call]
+    steps:
+      - do: Call customer service for your state. Ask whether the reading was estimated and ask for a correction or a meter test.
+        channel: missouri-phone
+        note: Illinois customers use illinois-phone.
+      - do: Send the dispute in writing to the correspondence address for your state.
+        channel: missouri-mail
+      - do: If not resolved, complain to the Missouri Public Service Commission or the Illinois Commerce Commission.
+  - issue: disconnection
+    summary: Set up a deferred payment agreement (smaller down payment in winter), apply for assistance, and have a medical provider request a Medical Hardship Extension.
+    evidence: [disconnection notice, account number, LIHEAP application, medical provider letter]
+    steps:
+      - do: Sign in and set up a deferred payment agreement before the disconnection date.
+        channel: payment-agreements
+      - do: Apply for LIHEAP and Ameren's assistance programs.
+        channel: assistance-page
+      - do: If someone's health is at risk, have the medical provider send the Medical Hardship request on Ameren's form or on official letterhead.
+        channel: health-support-page
+    facts:
+      - kind: policy
+        claim: "A Deferred Payment Agreement needs a payment of 25% of the past-due amount (April 1 to November 30) or 10% (December 1 to March 31). LIHEAP-qualified customers may be required to pay 20%."
+        issues: [disconnection]
+        source: https://www.ameren.com/bill/assistance/agreements
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Outside the Cold Weather Rule period, the full past-due balance must be paid before a new agreement can be made. During the Cold Weather Rule, an agreement can be set up once the minimum amount for reconnection is received.
+        issues: [disconnection]
+        source: https://www.ameren.com/bill/assistance/agreements
+        last_verified: 2026-10-12
+      - kind: process
+        claim: For a Medical Hardship Extension, the customer's medical provider must send the request on Ameren's form or on official letterhead with the required details.
+        issues: [disconnection]
+        source: https://www.ameren.com/bill/assistance/health
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Ameren Illinois residential customers who meet the income-eligible requirements have deposits for new service and late payment charges waived.
+        issues: [disconnection, deposit_refund]
+        source: https://www.ameren.com/bill/assistance
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: Dollar More gives eligible customers up to $600.
+        issues: [disconnection]
+        source: https://www.ameren.com/bill/assistance
+        last_verified: 2026-10-12
+  - issue: service_outage
+    summary: Report outages online or in the app; register medical equipment for planned-outage notices.
+    evidence: [service address, outage start time]
+    steps:
+      - do: Report the outage in the Outage Center or the Ameren app.
+        channel: outage-center
+      - do: Register electric medical equipment so Ameren can notify you of planned maintenance outages. Keep a backup plan for emergency outages.
+        channel: health-support-page
+
+tips:
+  - kind: official
+    text: Caring Contact (formerly Third Party Notification) lets a trusted person know about a disconnection notice. Ameren says it is not currently available to Illinois customers.
+    issues: [disconnection]
+    source: https://www.ameren.com/bill/assistance/health
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Deferred payment agreements are set up after sign-in; business accounts must call the Credit Department.
+  - Ameren lists no outage phone number on its outage page.

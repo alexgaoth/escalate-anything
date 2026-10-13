@@ -1,0 +1,174 @@
+id: aps
+name: Arizona Public Service
+aliases: [APS, Arizona Public Service Company]
+sector: utility
+website: https://www.aps.com
+account_url: https://www.aps.com/Authorization/Login
+notes: >-
+  Electric utility in Arizona. Regulated by the Arizona Corporation Commission. APS does not disconnect residential customers for
+  nonpayment from June 1 to October 15.
+
+channels:
+  - id: main-phone
+    type: phone
+    label: Main customer service line
+    value: +1-800-253-9405
+    hours: Anytime
+    purposes: [billing_error, bill_increase, deposit_refund, poor_service]
+    notes: Local number 602-371-7171.
+    source: https://www.aps.com/en/Utility/Contact-us
+    last_verified: 2026-10-12
+  - id: outage-phone
+    type: phone
+    label: Outage hotline
+    value: +1-855-688-2437
+    hours: Anytime
+    purposes: [service_outage]
+    notes: Local number 602-371-3680.
+    source: https://www.aps.com/en/Utility/Contact-us
+    last_verified: 2026-10-12
+  - id: emergency-phone
+    type: phone
+    label: Emergencies and safety hazards (call 911 first for downed lines and stay 100 feet away)
+    value: +1-800-253-9408
+    notes: Local number 602-258-5483.
+    source: https://www.aps.com/en/Utility/Contact-us
+    last_verified: 2026-10-12
+  - id: credit-phone
+    type: phone
+    label: Credit line (payment arrangements)
+    value: +1-800-253-9409
+    hours: Anytime
+    purposes: [disconnection]
+    notes: Local number 602-371-7607.
+    source: https://www.aps.com/en/Utility/Contact-us
+    last_verified: 2026-10-12
+  - id: residential-email
+    type: email
+    label: Residential customer email
+    value: aps@aps.com
+    purposes: [billing_error, bill_increase, deposit_refund, poor_service]
+    notes: APS aims to reply within three business days.
+    source: https://www.aps.com/en/Utility/Contact-us
+    last_verified: 2026-10-12
+  - id: letters-mail
+    type: mail
+    label: Letters (not payments)
+    value: APS, MS 3200, PO Box 53933, Phoenix, AZ 85072-3933
+    purposes: [billing_error, deposit_refund, poor_service]
+    source: https://www.aps.com/en/Utility/Contact-us
+    last_verified: 2026-10-12
+  - id: live-chat
+    type: chat
+    label: Live chat
+    value: https://www.aps.com/en/Utility/Contact-us/Live-chat
+    hours: Monday to Friday, 7 a.m. to 7 p.m. MST
+    purposes: [billing_error, bill_increase, poor_service]
+    source: https://www.aps.com/en/Utility/Contact-us
+    last_verified: 2026-10-12
+  - id: claim-form
+    type: web_form
+    label: Claim form (damage or loss claims)
+    value: https://www.aps.com/en/Utility/Contact-us/Claim-Form
+    purposes: [service_outage]
+    source: https://www.aps.com/en/Utility/Contact-us
+    last_verified: 2026-10-12
+  - id: payment-arrangement
+    type: portal
+    label: Set up a payment arrangement online
+    value: https://www.aps.com/en/Residential/Billing-and-Payment/Payment-Arrangement
+    purposes: [disconnection]
+    source: https://www.aps.com/en/Residential/Billing-and-Payment/Payment-Arrangement
+    last_verified: 2026-10-12
+  - id: assistance-page
+    type: portal
+    label: Bill assistance programs (Crisis Bill Assistance, Energy Support, APS CARE, LIHEAP)
+    value: https://www.aps.com/en/Residential/Account/Assistance-Programs
+    purposes: [disconnection]
+    source: https://www.aps.com/en/Residential/Account/Assistance-Programs
+    last_verified: 2026-10-12
+  - id: medical-care-program-phone
+    type: phone
+    label: Medical Care Program questions (planned-outage notices for medical equipment users)
+    value: +1-844-309-5655
+    purposes: [service_outage]
+    source: https://www.aps.com/en/Residential/Account/Assistance-Programs/Medical-Equipment-Preparedness
+    last_verified: 2026-10-12
+  - id: medical-care-program-mail
+    type: mail
+    label: Medical Care Program application (part completed by a licensed medical professional)
+    value: APS Medical Care Program, Mail Station 3211, P.O. Box 53933, Phoenix, AZ 85072
+    purposes: [service_outage]
+    source: https://www.aps.com/en/Residential/Account/Assistance-Programs/Medical-Equipment-Preparedness
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: main-phone}
+  - {rung: supervisor}
+  - {rung: written_complaint, channel: residential-email, note: "Or a letter to letters-mail."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Arizona Corporation Commission."}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute by phone, chat or email; escalate to the Arizona Corporation Commission.
+    evidence: [the bill, meter readings, earlier bills, notes of each contact]
+    steps:
+      - do: Call or chat with APS. Ask whether the reading was estimated and ask for a correction or a meter test.
+        channel: main-phone
+      - do: Put the dispute in writing by email and keep the reply.
+        channel: residential-email
+      - do: If not resolved, complain to the Arizona Corporation Commission.
+  - issue: disconnection
+    summary: Customers owing $300 or less are not at risk of disconnection, and no residential disconnections happen June 1 to October 15; arrange up to 12 monthly payments.
+    evidence: [past-due notice, account number]
+    steps:
+      - do: Set up a payment arrangement online or by calling the credit line.
+        channel: payment-arrangement
+      - do: Apply for Crisis Bill Assistance, APS CARE or the Energy Support discount.
+        channel: assistance-page
+    facts:
+      - kind: policy
+        claim: Between June 1 and October 15, APS does not disconnect power for nonpayment for residential customers, and charges no late fee during that period.
+        issues: [disconnection]
+        source: https://www.aps.com/en/Residential/Billing-and-Payment/Payment-Policies
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: Customers with a past-due balance of $300 or less are not at risk of disconnection.
+        issues: [disconnection]
+        source: https://www.aps.com/en/Residential/Billing-and-Payment/Payment-Policies
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: Residential customers seven days past due on the current bill may be charged a late fee of 1.5% of the past-due amount plus tax.
+        issues: [disconnection, billing_error]
+        source: https://www.aps.com/en/Residential/Billing-and-Payment/Payment-Policies
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: A payment arrangement can spread the balance over up to 12 monthly payments of at least $25; the 12-month option needs a balance over $300. Customers with a balance of $75 or more typically qualify. Budget Billing customers cannot set one up.
+        issues: [disconnection]
+        source: https://www.aps.com/en/Residential/Billing-and-Payment/Payment-Arrangement
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: Crisis Bill Assistance gives up to $1,000 through partner agencies for a temporary hardship; APS CARE gives up to $500 through The Salvation Army regardless of income.
+        issues: [disconnection]
+        source: https://www.aps.com/en/Residential/Account/Assistance-Programs
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: The Energy Support Program gives a monthly discount of up to 25% or 60% based on household income; qualifying customers who depend on life-saving medical equipment may get up to 35% or 60%.
+        issues: [disconnection, bill_increase]
+        source: https://www.aps.com/en/Residential/Account/Assistance-Programs
+        last_verified: 2026-10-12
+  - issue: service_outage
+    summary: Report outages any time; register medical equipment users for planned-outage notices.
+    evidence: [service address, outage start time]
+    steps:
+      - do: Call the outage hotline or report online.
+        channel: outage-phone
+      - do: For losses caused by an outage, file a claim.
+        channel: claim-form
+      - do: If someone has a life-threatening illness or uses critical medical equipment, apply for the Medical Care Program to get notices before planned outages.
+        channel: medical-care-program-mail
+
+known_blockers:
+  - Online payment arrangements and account changes need sign-in.
+  - The Medical Care Program application needs a licensed medical professional's section.

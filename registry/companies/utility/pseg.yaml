@@ -1,0 +1,233 @@
+id: pseg
+name: Public Service Electric and Gas Company (PSE&G)
+aliases: [PSE&G, PSEG, PSEG New Jersey, Public Service Electric & Gas]
+sector: utility
+parent: Public Service Enterprise Group (PSEG)
+website: https://nj.pseg.com
+account_url: https://nj.myaccount.pseg.com/user/login
+notes: >-
+  Electric and gas utility in New Jersey. Regulated by the New Jersey Board of Public Utilities (BPU);
+  BPU's Utility Residential Customer Bill of Rights applies. This file covers New Jersey only. PSEG Long
+  Island (the operator of the Long Island Power Authority's electric system in New York) has separate
+  phone numbers, rules and a different regulator; see pseg-long-island.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service, billing and power outages (1-800-436-PSEG)
+    value: +1-800-436-7734
+    hours: "Billing representatives Mon-Fri 7 a.m.-8 p.m.; outages and safety 24/7"
+    purposes: [billing_error, bill_increase, service_outage, deposit_refund, poor_service]
+    source: https://nj.myaccount.pseg.com/customersupport/contactus
+    last_verified: 2026-10-12
+  - id: payment-assistance-phone
+    type: phone
+    label: Trouble paying a bill
+    value: +1-800-357-2262
+    hours: "Mon-Fri 7:30 a.m.-8 p.m."
+    purposes: [disconnection]
+    source: https://nj.myaccount.pseg.com/customersupport/contactus
+    last_verified: 2026-10-12
+  - id: emergency-phone
+    type: phone
+    label: Gas leaks and emergencies (1-800-880-PSEG)
+    value: +1-800-880-7734
+    hours: 24/7
+    source: https://nj.myaccount.pseg.com/customersupport/contactus
+    last_verified: 2026-10-12
+  - id: business-phone
+    type: phone
+    label: Business Solutions Center
+    value: +1-855-249-7734
+    hours: "Mon-Fri 8 a.m.-5:30 p.m., closed holidays"
+    source: https://nj.myaccount.pseg.com/customersupport/contactus
+    last_verified: 2026-10-12
+  - id: complaint-email
+    type: email
+    label: Customer service email
+    value: customerservice2@pseg.com
+    purposes: [billing_error, poor_service]
+    notes: Shown in the nj.pseg.com site footer. PSE&G does not publish a separate complaint form.
+    source: https://nj.pseg.com/contactus
+    last_verified: 2026-10-12
+  - id: outage-report-online
+    type: web_form
+    label: Report an outage online
+    value: https://nj.myaccount.pseg.com/myservicedashboard/outage
+    purposes: [service_outage]
+    source: https://nj.pseg.com/contactus
+    last_verified: 2026-10-12
+  - id: claims-form
+    type: web_form
+    label: File a claim online (NJ)
+    value: https://pseg.com/file-a-claim
+    purposes: [service_outage]
+    access: open
+    source: https://nj.myaccount.pseg.com/customersupport/claims
+    last_verified: 2026-10-12
+  - id: claims-email
+    type: email
+    label: Claims Department (claim form and proofs of loss)
+    value: claimsdepartment@pseg.com
+    purposes: [service_outage]
+    source: https://nj.myaccount.pseg.com/customersupport/claims
+    last_verified: 2026-10-12
+  - id: claims-mail
+    type: mail
+    label: Corporate Claims Department by mail
+    value: "PSEG Corporate Claims Department, 80 Park Plaza, M401, Newark, NJ 07102"
+    purposes: [service_outage]
+    source: https://nj.myaccount.pseg.com/customersupport/claims
+    last_verified: 2026-10-12
+  - id: claims-phone
+    type: phone
+    label: Claims questions and follow-up
+    value: +1-973-912-3843
+    purposes: [service_outage]
+    source: https://nj.myaccount.pseg.com/customersupport/claims
+    last_verified: 2026-10-12
+  - id: payment-arrangement
+    type: portal
+    label: Deferred Payment Arrangement (enroll in My Account or the app)
+    value: https://nj.myaccount.pseg.com/viewmybill/deferredpaymentarrangementpublic
+    purposes: [disconnection]
+    access: login
+    source: https://nj.myaccount.pseg.com/viewmybill/deferredpaymentarrangementpublic
+    last_verified: 2026-10-12
+  - id: payment-assistance
+    type: web_form
+    label: Payment assistance programs (LIHEAP, USF, Fresh Start, NJ SHARES, Lifeline)
+    value: https://nj.pseg.com/saveenergyandmoney/gethelppayingyourbill/backontrack
+    purposes: [disconnection]
+    access: open
+    notes: "LIHEAP/USF application help: (908) 709-6868, Mon-Fri 7:30 a.m.-3:30 p.m."
+    source: https://nj.pseg.com/saveenergyandmoney/gethelppayingyourbill/backontrack
+    last_verified: 2026-10-12
+  - id: medical-certification
+    type: web_form
+    label: Critical Care application (life-sustaining equipment)
+    value: https://nj.pseg.com/saveenergyandmoney/gethelppayingyourbill/additionalresources
+    purposes: [disconnection]
+    access: open
+    notes: The prescribing licensed medical professional must sign the form every year. Questions at 1-800-436-7734.
+    source: https://nj.pseg.com/saveenergyandmoney/gethelppayingyourbill/additionalresources
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, note: "Ask the representative for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, channel: complaint-email}
+  - {rung: state_agency, agency_kind: utility_commission, note: "New Jersey Board of Public Utilities (BPU), Division of Customer Assistance. The BPU Bill of Rights says to call the utility first, then the BPU if the utility cannot help."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "New Jersey Attorney General (Division of Consumer Affairs)."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the charge with PSE&G and pay the undisputed part; ask for a free meter test or a diversion-of-service investigation if usage looks too high; then go to the BPU.
+    evidence: [the disputed bill, previous bills, meter photos with dates, call notes with reference numbers]
+    steps:
+      - do: Call PSE&G and dispute the charge. Pay the amount not in dispute so service stays on during the investigation.
+        channel: customer-service-phone
+      - do: If usage looks wrong, ask for a free meter test (once every 12 months) and, if usage is unexplainably high, a diversion-of-service investigation.
+        channel: customer-service-phone
+      - do: If PSE&G cannot help, contact the BPU Division of Customer Assistance.
+    facts:
+      - kind: policy
+        claim: Under the BPU Bill of Rights, a customer may dispute a charge with the utility, and service may not be turned off while the utility investigates as long as the undisputed amount is paid.
+        issues: [billing_error, disconnection]
+        source: https://nj.pseg.com/-/media/pseg/public-site/saveenergyandmoney/paymentassistance/customer_bill_of_rights_v2_english.ashx
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: A customer may have the meter tested free of charge once every 12 months and may ask for a BPU employee to be present.
+        issues: [billing_error]
+        source: https://nj.pseg.com/-/media/pseg/public-site/saveenergyandmoney/paymentassistance/customer_bill_of_rights_v2_english.ashx
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If usage on the bill appears unexplainably high or suspicious, the customer may have the utility perform a "diversion of service" investigation.
+        issues: [billing_error]
+        source: https://nj.pseg.com/-/media/pseg/public-site/saveenergyandmoney/paymentassistance/customer_bill_of_rights_v2_english.ashx
+        last_verified: 2026-10-12
+
+  - issue: disconnection
+    summary: Ask for a deferred payment plan (at least one per year is a right), apply for LIHEAP/USF/NJ SHARES, and claim Winter Termination Program or medical protection.
+    evidence: [shut-off notice, account balance, income documents, Critical Care form]
+    steps:
+      - do: Call the payment assistance line, or enroll in a Deferred Payment Arrangement in My Account.
+        channel: payment-arrangement
+      - do: Apply for LIHEAP and USF; if denied, apply to NJ SHARES.
+        channel: payment-assistance
+      - do: If you are eligible for the Winter Termination Program (November 15 to March 15), tell PSE&G.
+        channel: payment-assistance-phone
+      - do: If someone uses life-sustaining equipment or has a medical emergency, submit the Critical Care application.
+        channel: medical-certification
+      - do: If PSE&G cannot help, contact the BPU Division of Customer Assistance before the shutoff date.
+    facts:
+      - kind: deadline
+        claim: The customer has the right to at least 10 days' written notice before service is turned off for non-payment.
+        issues: [disconnection]
+        source: https://nj.pseg.com/-/media/pseg/public-site/saveenergyandmoney/paymentassistance/customer_bill_of_rights_v2_english.ashx
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Except for safety emergencies, service may not be turned off outside 8:00 a.m.-4:00 p.m. Monday through Thursday, on a Friday, weekend, New Jersey State holiday or the day before one, or if a valid medical emergency exists in the household.
+        issues: [disconnection]
+        source: https://nj.pseg.com/-/media/pseg/public-site/saveenergyandmoney/paymentassistance/customer_bill_of_rights_v2_english.ashx
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Customers eligible for the Winter Termination Program have the right to utility service from November 15 to March 15. The customer must tell the utility they are eligible.
+        issues: [disconnection]
+        source: https://nj.pseg.com/-/media/pseg/public-site/saveenergyandmoney/paymentassistance/customer_bill_of_rights_v2_english.ashx
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Customers have the right to at least one deferred payment plan per year for an unpaid bill, as long as they stay current on new charges. PSE&G will not discontinue service while a customer stays up to date with a DPA.
+        issues: [disconnection]
+        source: https://nj.pseg.com/-/media/pseg/public-site/saveenergyandmoney/paymentassistance/customer_bill_of_rights_v2_english.ashx
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: USF gives a monthly bill credit of $20 to $200 for low-income households, and Fresh Start forgives past-due balances over $60 for USF applicants (once every 5 years).
+        issues: [disconnection]
+        source: https://nj.pseg.com/saveenergyandmoney/gethelppayingyourbill/backontrack
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Report the outage; PSE&G pays claims only for damage it caused and does not pay for weather or equipment failure.
+    evidence: [outage dates and times, photos, repair estimates or receipts, proofs of loss]
+    steps:
+      - do: Report the outage online or by phone.
+        channel: outage-report-online
+      - do: If you believe PSE&G damaged your property, file a claim online or email the claim form with proofs of loss.
+        channel: claims-form
+    facts:
+      - kind: policy
+        claim: PSE&G pays the reasonable cost to repair items it damaged, or the Actual Cash Value of items already replaced. It does not pay for damage from weather, animal contact, equipment failure, damage to its equipment by others, or accidents.
+        issues: [service_outage]
+        source: https://nj.myaccount.pseg.com/customersupport/claims
+        last_verified: 2026-10-12
+      - kind: process
+        claim: PSE&G aims to investigate and decide a claim within 45-60 business days after it receives the completed form and proofs of loss.
+        issues: [service_outage]
+        source: https://nj.myaccount.pseg.com/customersupport/claims
+        last_verified: 2026-10-12
+
+  - issue: deposit_refund
+    summary: The deposit must be returned when the account closes and the final bill is settled, as a credit or a check at the customer's choice.
+    evidence: [deposit receipt, final bill, account closure date]
+    steps:
+      - do: After the final bill is settled, ask PSE&G to return the deposit and choose a check or account credit.
+        channel: customer-service-phone
+      - do: If it is not returned, contact the BPU Division of Customer Assistance.
+    facts:
+      - kind: policy
+        claim: The customer has the right to have the deposit returned once the account is closed and the final bill is settled, and to choose an account credit or a separate check. Customers may not be required to pay an unreasonable deposit.
+        issues: [deposit_refund]
+        source: https://nj.pseg.com/-/media/pseg/public-site/saveenergyandmoney/paymentassistance/customer_bill_of_rights_v2_english.ashx
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Residential customers should not be assessed a late payment charge on their utility bill.
+    issues: [billing_error]
+    source: https://nj.pseg.com/-/media/pseg/public-site/saveenergyandmoney/paymentassistance/customer_bill_of_rights_v2_english.ashx
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Deferred Payment Arrangements are set up in My Account or the mobile app (sign-in required).
+  - The Critical Care form must be signed by the prescribing licensed medical professional every year.

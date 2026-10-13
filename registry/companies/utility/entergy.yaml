@@ -1,0 +1,141 @@
+id: entergy
+name: Entergy
+aliases: [Entergy Arkansas, Entergy Louisiana, Entergy Mississippi, Entergy New Orleans, Entergy Texas]
+sector: utility
+website: https://www.entergy.com
+account_url: https://www.myentergy.com
+notes: >-
+  Operating companies: Entergy Arkansas, Entergy Louisiana, Entergy Mississippi, Entergy New Orleans and
+  Entergy Texas, each with its own website. All share the customer service and outage numbers below.
+  Regulators: Arkansas Public Service Commission, Louisiana Public Service Commission, Mississippi Public
+  Service Commission, New Orleans City Council (for Entergy New Orleans) and Public Utility Commission of
+  Texas.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service (800-ENTERGY)
+    value: +1-800-368-3749
+    hours: Monday to Friday, 7 a.m. to 7 p.m. CT, excluding holidays
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    source: https://www.entergytexas.com/contact
+    last_verified: 2026-10-12
+  - id: outage-phone
+    type: phone
+    label: Report an emergency or outage, or get outage status (800-9OUTAGE)
+    value: +1-800-968-8243
+    hours: 24/7
+    purposes: [service_outage]
+    source: https://www.entergy.com/contact
+    last_verified: 2026-10-12
+  - id: outage-text
+    type: sms
+    label: Text OUT to 36778 to report an outage
+    value: "36778"
+    purposes: [service_outage]
+    source: https://www.entergy.com/contact
+    last_verified: 2026-10-12
+  - id: online-support
+    type: web_form
+    label: Contact us online through myEntergy support (answered by email)
+    value: https://www.myentergy.com/s/support
+    purposes: [billing_error, bill_increase, deposit_refund, poor_service]
+    source: https://www.entergy.com/contact
+    last_verified: 2026-10-12
+  - id: payment-arrangements
+    type: portal
+    label: Payment extension or deferred payment arrangement (myEntergy)
+    value: https://www.myentergy.com/s/PayArrangements-Launch
+    purposes: [disconnection]
+    access: login
+    source: https://billtoolkit.entergy.com/texas/help-paying/
+    last_verified: 2026-10-12
+  - id: bill-toolkit-texas
+    type: portal
+    label: Bill Toolkit, help paying (Texas)
+    value: https://billtoolkit.entergy.com/texas/help-paying/
+    purposes: [disconnection]
+    source: https://billtoolkit.entergy.com/texas/help-paying/
+    last_verified: 2026-10-12
+  - id: bill-toolkit-louisiana
+    type: portal
+    label: Bill Toolkit, help paying (Louisiana)
+    value: https://billtoolkit.entergy.com/louisiana/help-paying/
+    purposes: [disconnection]
+    source: https://billtoolkit.entergy.com/louisiana/help-paying/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor}
+  - {rung: written_complaint, channel: online-support, note: "Entergy publishes no complaint email or mailing address."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "The state commission for the operating company (see notes); New Orleans City Council for Entergy New Orleans."}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute with Entergy by phone or online, then with the state regulator.
+    evidence: [the bill, meter readings, earlier bills, notes of each call]
+    steps:
+      - do: Call customer service. Ask whether the reading was estimated, and ask for a correction or a meter test.
+        channel: customer-service-phone
+      - do: Send the dispute in writing through myEntergy support and keep the email reply.
+        channel: online-support
+      - do: If not resolved, complain to the state commission (or New Orleans City Council).
+  - issue: disconnection
+    summary: Ask for a payment extension or a deferred payment arrangement of up to four months, and apply for The Power to Care.
+    evidence: [disconnection notice, account number]
+    steps:
+      - do: Request a payment extension or deferred payment arrangement in myEntergy or the app before the due date.
+        channel: payment-arrangements
+      - do: Pay the extended or arranged amount in full by 5 p.m. CST on the due date. Missing it may void the arrangement.
+      - do: If you are 60 or older or have a disability, ask a local agency for The Power to Care emergency bill help.
+        channel: bill-toolkit-texas
+    facts:
+      - kind: policy
+        claim: Qualifying customers with financial hardship may take up to four months to pay the current bill and unpaid balances with a deferred payment arrangement (Texas and Louisiana).
+        issues: [disconnection]
+        source: https://billtoolkit.entergy.com/texas/help-paying/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: A customer who pays the extended balance in full by 5 p.m. CST on the new due date is protected from disconnection. In Texas, missing an arrangement's due date may void it and block new arrangements for 12 months.
+        issues: [disconnection]
+        source: https://billtoolkit.entergy.com/texas/help-paying/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Power to Care gives emergency bill payment help through local nonprofit agencies to customers who are 60 or older or have disabilities.
+        issues: [disconnection]
+        source: https://billtoolkit.entergy.com/texas/help-paying/
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: "Entergy Louisiana's senior discount waives the $10 monthly customer charge, saving $120 a year."
+        issues: [disconnection, bill_increase]
+        source: https://billtoolkit.entergy.com/louisiana/help-paying/
+        last_verified: 2026-10-12
+  - issue: deposit_refund
+    summary: Entergy Texas refunds a residential deposit after 12 consecutive paid bills if the account stayed in good standing.
+    evidence: [deposit amount and date, payment history]
+    steps:
+      - do: After 12 consecutive paid bills, ask customer service to refund the deposit with interest.
+        channel: customer-service-phone
+    facts:
+      - kind: limit
+        claim: "Entergy Texas: the residential deposit is one sixth (1/6) of the estimated annual bill, or $150 when there is no usage history."
+        issues: [deposit_refund]
+        source: https://www.entergytexas.com/residential/deposits
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: "Entergy Texas refunds the deposit plus accrued interest after the customer has paid for 12 consecutive residential billings, if service was not disconnected for nonpayment, there were no more than two delinquent bills, and the current bill is not past due."
+        issues: [deposit_refund]
+        source: https://www.entergytexas.com/residential/deposits
+        last_verified: 2026-10-12
+  - issue: service_outage
+    summary: Report by phone, text, online or the app.
+    evidence: [service address, outage start time]
+    steps:
+      - do: Call the outage line or text OUT to 36778.
+        channel: outage-phone
+
+known_blockers:
+  - Payment arrangements and online contact need a myEntergy sign-in.
+  - Entergy's Critical Service registry in Texas is for non-residential critical loads; no residential medical certificate process was found on Entergy's pages.

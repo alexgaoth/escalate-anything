@@ -1,0 +1,208 @@
+id: reliant-energy
+name: Reliant Energy
+aliases: [Reliant]
+sector: utility
+website: https://www.reliant.com
+account_url: https://my.reliant.com
+notes: >-
+  Retail electric provider (REP) in the Texas competitive market, PUCT certificate #10007. Reliant bills
+  the customer, but the local transmission and distribution service provider (TDSP or TDU), such as
+  CenterPoint, Oncor, AEP Texas or TNMP, delivers the power and handles outages. Texas complaint path
+  differs from other states: complain to Reliant first; under PUCT rules the REP must investigate and
+  report within 21 days, and a supervisory review must be answered within 10 business days; then
+  complain to the Public Utility Commission of Texas or the Texas Attorney General. While an informal
+  complaint is pending at the PUCT, the REP may not start collection or disconnection on the disputed
+  part of the bill. Reliant's Terms of Service, Electricity Facts Label and Your Rights as a Customer
+  links on its website did not resolve to documents when checked.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service (phone and chat)
+    value: +1-866-222-7100
+    hours: 24/7
+    purposes: [billing_error, bill_increase, cancel_service, disconnection, deposit_refund, poor_service]
+    source: https://www.reliant.com/en/residential/help-support/contact
+    last_verified: 2026-10-12
+  - id: plan-change-phone
+    type: phone
+    label: Change plans when not eligible to renew online
+    value: +1-855-671-7971
+    purposes: [bill_increase, cancel_service]
+    source: https://www.reliant.com/en/residential/help-support/customer-resources/cancel-service
+    last_verified: 2026-10-12
+  - id: mail
+    type: mail
+    label: Reliant mailing address
+    value: Reliant, P.O. Box 3765, Houston, TX 77253-3765
+    purposes: [billing_error, cancel_service, deposit_refund, poor_service]
+    source: https://www.reliant.com/en/residential/help-support/contact
+    last_verified: 2026-10-12
+  - id: cancel-online
+    type: web_form
+    label: Cancel or transfer service online
+    value: https://my.reliant.com/public/startCancelService.htm?iid=RCL_1582657693
+    purposes: [cancel_service]
+    source: https://www.reliant.com/en/residential/help-support/customer-resources/cancel-service
+    last_verified: 2026-10-12
+  - id: payment-assistance-online
+    type: portal
+    label: Apply online for a payment extension or deferred payment plan
+    value: https://www.reliant.com/public/dl.htm?dld=/protected/paymentassistance/dashboardLanding.htm
+    purposes: [disconnection]
+    access: login
+    source: https://www.reliant.com/en/residential/help-support/customer-resources/billing-payments/financial-help
+    last_verified: 2026-10-12
+  - id: reliant-care-page
+    type: portal
+    label: Reliant CARE bill assistance agencies
+    value: https://www.reliant.com/en/residential/help-support/information-center/reliant-care
+    purposes: [disconnection]
+    source: https://www.reliant.com/en/residential/help-support/customer-resources/billing-payments/financial-help
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, note: "Ask for a supervisory review; PUCT rules require an answer within 10 business days."}
+  - {rung: written_complaint, channel: mail}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Public Utility Commission of Texas, after Reliant has had the complaint."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Texas Attorney General, Consumer Protection Division."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute with Reliant, ask for a supervisory review, then file with the PUCT; pay the undisputed part.
+    evidence: [the bill, EFL for the plan, meter readings, notes of each contact]
+    steps:
+      - do: Contact Reliant with the disputed charge and ask for an investigation and a reference number.
+        channel: customer-service-phone
+      - do: If you doubt the meter, ask Reliant to request a meter test from the TDSP.
+      - do: If not satisfied after 21 days, ask for a supervisory review, then file a complaint with the PUCT.
+    facts:
+      - kind: deadline
+        claim: Under PUCT rules, a REP must investigate a complaint and tell the customer the results within 21 days; a supervisory review decision must be given within ten business days of the request.
+        issues: [billing_error, poor_service]
+        source: https://www.law.cornell.edu/regulations/texas/16-Tex-Admin-Code-SS-25-485
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: While an informal complaint is pending at the PUCT, the REP must not start collection, including disconnection, on the disputed portion of the bill. The customer must still pay the undisputed portion.
+        issues: [billing_error, disconnection]
+        source: https://www.law.cornell.edu/regulations/texas/16-Tex-Admin-Code-SS-25-485
+        last_verified: 2026-10-12
+  - issue: disconnection
+    summary: Ask for a payment extension before the disconnection notice due date, or a deferred payment plan; Texas rules require 10 days' notice.
+    evidence: [disconnection notice, account number, physician statement for critical care]
+    steps:
+      - do: Request a payment extension before the due date on the disconnection notice, or a deferred payment plan, online or by phone.
+        channel: payment-assistance-online
+      - do: Call 2-1-1 to find agencies supported by Reliant CARE.
+        channel: reliant-care-page
+      - do: If someone is seriously ill or depends on electric life-support equipment, tell Reliant and have the physician confirm Critical Care status in writing, then sign a deferred payment plan.
+        channel: customer-service-phone
+    facts:
+      - kind: deadline
+        claim: If you received a disconnection notice, a Reliant payment extension must be requested before the disconnection notice due date. AutoPay customers must call at least three business days before the bill is due.
+        issues: [disconnection]
+        source: https://www.reliant.com/en/residential/help-support/customer-resources/billing-payments/financial-help
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: A Reliant payment extension may still bring a 5% late fee, a disconnection notice fee and a disconnect recovery fee.
+        issues: [disconnection]
+        source: https://www.reliant.com/en/residential/help-support/customer-resources/billing-payments/financial-help
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: On a Reliant deferred payment plan you cannot switch providers until the deferred balance is paid in full.
+        issues: [disconnection, cancel_service]
+        source: https://www.reliant.com/en/residential/help-support/customer-resources/billing-payments/financial-help
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Under PUCT rules, the disconnection date must be not less than ten days after the disconnection notice is issued; critical care and chronic condition customers get written notice at least 21 days before.
+        issues: [disconnection]
+        source: https://www.law.cornell.edu/regulations/texas/16-Tex-Admin-Code-SS-25-483
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: A critical care residential customer whose physician confirms the status in writing and who enters a deferred payment plan is protected from disconnection for 63 days from the bill's issue date.
+        issues: [disconnection]
+        source: https://www.law.cornell.edu/regulations/texas/16-Tex-Admin-Code-SS-25-483
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: A REP may not disconnect for nonpayment in a county during an extreme weather emergency, which includes a day when the previous day's high did not exceed 32 degrees Fahrenheit.
+        issues: [disconnection]
+        source: https://www.law.cornell.edu/regulations/texas/16-Tex-Admin-Code-SS-25-483
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Reliant CARE help through agencies may take up to 8 weeks to arrive and may not cover the full bill.
+        issues: [disconnection]
+        source: https://www.reliant.com/en/residential/help-support/customer-resources/billing-payments/financial-help
+        last_verified: 2026-10-12
+  - issue: cancel_service
+    summary: Many term plans charge an early cancellation fee, but PUCT rules forbid it when you move and give a forwarding address, or when you cancel within 14 days of a notice of changed terms.
+    evidence: [EFL with the cancellation fee, contract end date, proof of move and forwarding address, any notice of changed terms]
+    steps:
+      - do: Check the plan's contract terms for the early cancellation fee, or call Reliant to confirm whether it applies.
+        channel: customer-service-phone
+      - do: If you are moving, give Reliant the forwarding address and evidence of the move, and transfer or cancel service.
+        channel: cancel-online
+      - do: If an early cancellation fee is charged despite a move or a changed-terms notice, dispute it and then complain to the PUCT.
+    facts:
+      - kind: policy
+        claim: Under PUCT rules, no early termination fee may be charged because a customer relocates, if the customer gives a forwarding address and, if required, reasonable evidence of the move.
+        issues: [cancel_service]
+        source: https://www.law.cornell.edu/regulations/texas/16-Tex-Admin-Code-SS-25-475
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Under PUCT rules, a REP must give written notice at least 14 days before changing contract terms, and no termination penalty applies for 14 days from the date the notice is sent.
+        issues: [cancel_service, bill_increase]
+        source: https://www.law.cornell.edu/regulations/texas/16-Tex-Admin-Code-SS-25-475
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: Reliant says many term plans charge a cancellation fee if the contract ends early; the amount is in the contract terms.
+        issues: [cancel_service]
+        source: https://www.reliant.com/en/residential/help-support/customer-resources/cancel-service
+        last_verified: 2026-10-12
+  - issue: bill_increase
+    summary: Variable-price plans are month-to-month and can change price; when a fixed plan ends, the customer moves to a month-to-month default product.
+    evidence: [EFL, contract expiration notices, bills before and after the increase]
+    steps:
+      - do: Check the EFL to see whether the plan is fixed, indexed or variable, and when it ends.
+      - do: If a fixed plan expired, choose a new plan online or call the plan change line.
+        channel: plan-change-phone
+      - do: If a price changed in breach of the plan terms, dispute it as a billing error.
+        channel: customer-service-phone
+    facts:
+      - kind: policy
+        claim: Under PUCT rules, a variable price product's price may vary by a method the REP sets, and for residential customers it can only be a month-to-month contract.
+        issues: [bill_increase]
+        source: https://www.law.cornell.edu/regulations/texas/16-Tex-Admin-Code-SS-25-475
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Under PUCT rules, the REP must send at least three written notices of a fixed rate product's expiration date, and a customer who takes no action is served on a month-to-month default renewal product.
+        issues: [bill_increase]
+        source: https://www.law.cornell.edu/regulations/texas/16-Tex-Admin-Code-SS-25-475
+        last_verified: 2026-10-12
+  - issue: deposit_refund
+    summary: Any credit balance, including a deposit, is applied to the final bill or refunded when the account closes.
+    evidence: [deposit amount, final bill]
+    steps:
+      - do: After closing, check the final bill for the credit balance and ask Reliant for the refund if it is missing.
+        channel: customer-service-phone
+    facts:
+      - kind: policy
+        claim: When a Reliant account closes, any credit balance is applied to the final bill or refunded, and any deferred balance becomes due.
+        issues: [deposit_refund]
+        source: https://www.reliant.com/en/residential/help-support/customer-resources/faqs/billing-payments
+        last_verified: 2026-10-12
+  - issue: service_outage
+    summary: Report outages to the TDSP, not to Reliant.
+    evidence: [service address, ESI ID, outage start time]
+    steps:
+      - do: "Call the TDSP for the area: CenterPoint 1-800-332-7143, Oncor 1-888-313-4747, AEP Texas 1-866-223-8508, Texas-New Mexico Power 1-888-866-7456, Lubbock Power & Light 1-806-775-2509."
+    facts:
+      - kind: contact
+        claim: Reliant says it provides the energy but does not deliver it; the TDSP maintains the lines and fixes outages.
+        issues: [service_outage]
+        source: https://www.reliant.com/en/residential/help-support/contact/report-an-outage
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Payment extensions, deferred plans and online cancellation need sign-in to the Reliant account.
+  - Reliant's Terms of Service and Your Rights as a Customer documents could not be retrieved; plan-specific fees are in the customer's own EFL.

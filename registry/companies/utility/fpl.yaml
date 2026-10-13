@@ -1,0 +1,162 @@
+id: fpl
+name: Florida Power & Light Company
+aliases: [Florida Power and Light, FPL Northwest FL]
+sector: utility
+website: https://www.fpl.com
+notes: >-
+  Electric utility for much of Florida, including Northwest Florida (served under the FPL Northwest FL
+  pages). Regulated by the Florida Public Service Commission; FPL's tariff
+  says meter tests follow the commission's methods. FPL opened an online Assistance Center at
+  FPL.com/Assistance on August 31, 2026.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service
+    value: +1-888-988-8249
+    hours: Monday to Friday, 8 a.m. to 7 p.m.; Saturday, 9 a.m. to 5 p.m.
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    source: https://www.fpl.com/contact.html
+    last_verified: 2026-10-12
+  - id: outage-phone
+    type: phone
+    label: Report an outage
+    value: +1-800-468-8243
+    hours: Anytime
+    purposes: [service_outage]
+    source: https://www.fpl.com/contact.html
+    last_verified: 2026-10-12
+  - id: general-mail
+    type: mail
+    label: Standard mailing address
+    value: FPL, General Mail Facility, Miami, FL 33188-0001
+    purposes: [billing_error, deposit_refund, poor_service]
+    source: https://www.fpl.com/contact.html
+    last_verified: 2026-10-12
+  - id: payment-extension
+    type: portal
+    label: Request a payment extension online
+    value: https://www.fpl.com/my-account/payment-extension.html#PextRequest
+    purposes: [disconnection]
+    access: login
+    notes: Confirmation appears online at once; an email follows the next business day.
+    source: https://www.fpl.com/account/bill/payment-extension.html
+    last_verified: 2026-10-12
+  - id: assistance-center
+    type: portal
+    label: FPL Assistance Center (payment extension, Care To Share, Bill Extender, Budget Billing, LIHEAP)
+    value: https://www.fpl.com/assistance.html
+    purposes: [disconnection]
+    source: https://newsroom.fpl.com/2026-08-31-FPL-Launches-New-Assistance-Center,-Making-It-Easier-for-Customers-to-Find-Ways-to-Get-Help-and-Save
+    last_verified: 2026-10-12
+  - id: care-to-share-apply
+    type: web_form
+    label: Care To Share emergency bill assistance application (The Salvation Army)
+    value: https://sahelp.org/
+    purposes: [disconnection]
+    notes: Third-party site run by an FPL agency partner. Other local partners are listed at https://fpl.findhelp.com/v2/favorites/public/fpl-care-to-share
+    source: https://www.fpl.com/assistance/care-to-share.html
+    last_verified: 2026-10-12
+  - id: mesp-email
+    type: email
+    label: Medically Essential Service program application (Part A customer, Part B Florida physician)
+    value: FPL-MESP@fpl.com
+    purposes: [disconnection]
+    source: https://www.fpl.com/support/medically-essential-service.html
+    last_verified: 2026-10-12
+  - id: mesp-mail
+    type: mail
+    label: Medically Essential Service program application by mail
+    value: FPL, Attention Medically Essential Service program CSF/GO, PO Box 029100, Miami, FL 33102-9100
+    purposes: [disconnection]
+    source: https://www.fpl.com/support/medically-essential-service.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor}
+  - {rung: written_complaint, channel: general-mail, note: "FPL publishes no complaint form or email."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Florida Public Service Commission."}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute with FPL first; meter tests and adjustments follow Florida Public Service Commission rules.
+    evidence: [the bill, meter readings, earlier bills, notes of each call]
+    steps:
+      - do: Call customer service. Ask whether the reading was estimated and ask for a correction or a meter test.
+        channel: customer-service-phone
+      - do: Put the dispute in writing if the call does not fix it.
+        channel: general-mail
+      - do: Escalate to the Florida Public Service Commission.
+    facts:
+      - kind: policy
+        claim: FPL's tariff says meter tests and billing adjustments for inaccurate meters follow the methods and procedure prescribed by the Florida Public Service Commission.
+        issues: [billing_error]
+        source: https://source.fpl.com/rates/pdf/electric-tariff-section6.pdf
+        last_verified: 2026-10-12
+  - issue: disconnection
+    summary: Bills are delinquent after 20 days and service can be cut after 5 working days' written notice; ask for an extension, apply for Care To Share, and enroll in Medically Essential Service if it applies.
+    evidence: [disconnection notice, account number, physician certificate for medically essential service]
+    steps:
+      - do: Request a payment extension online or by phone before the disconnection date.
+        channel: payment-extension
+      - do: Apply for Care To Share if disconnection is imminent or service is off.
+        channel: care-to-share-apply
+      - do: If someone depends on electric medical equipment, apply for Medically Essential Service with a Florida physician's certificate. Reapply every year.
+        channel: mesp-email
+    facts:
+      - kind: deadline
+        claim: FPL bills become delinquent if not paid within twenty (20) days of mailing or delivery. After five (5) working days' written notice, service may be discontinued.
+        issues: [disconnection]
+        source: https://source.fpl.com/rates/pdf/electric-tariff-section6.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: FPL gives Medically Essential Service customers an extension of not more than thirty (30) days beyond the normal disconnection date, and tries to call them by 12 noon the day before a scheduled disconnection.
+        issues: [disconnection]
+        source: https://source.fpl.com/rates/pdf/electric-tariff-section6.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If payment is not received by the extended date, the payment extension defaults and power may be shut off. A late charge of the greater of $5.00 or 1.5% of the past-due balance still applies.
+        issues: [disconnection]
+        source: https://www.fpl.com/account/bill/payment-extension.html
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: Care To Share gives eligible households up to $750 within a 12-month period for FPL bills. Applicants must be in imminent danger of disconnection or disconnected and have household income at or below the ALICE Threshold for their county.
+        issues: [disconnection]
+        source: https://www.fpl.com/assistance/care-to-share.html
+        last_verified: 2026-10-12
+  - issue: deposit_refund
+    summary: FPL stops requiring a deposit after 23 months of continuous service with a prompt payment record, or refunds it when the account closes and the final bill is paid.
+    evidence: [deposit amount and date, payment history, final bill]
+    steps:
+      - do: After 23 months of service, call and ask FPL to refund the deposit if you meet the prompt-payment conditions.
+        channel: customer-service-phone
+      - do: After closing the account and paying the final bill, ask for the cash deposit refund if it has not arrived.
+        channel: general-mail
+    facts:
+      - kind: policy
+        claim: After a residential customer has a prompt payment record and at least 23 months of continuous service, FPL no longer requires a deposit and refunds it, unless in the last 12 months the customer paid late more than once, had a check refused, or was disconnected for nonpayment.
+        issues: [deposit_refund]
+        source: https://source.fpl.com/rates/pdf/electric-tariff-section6.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: FPL pays simple interest of 2% per year on residential cash deposits, usually as a yearly bill credit.
+        issues: [deposit_refund]
+        source: https://source.fpl.com/rates/pdf/electric-tariff-section6.pdf
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: For an existing account, the total deposit may not exceed 2 months of average actual charges over the last 12 months.
+        issues: [deposit_refund]
+        source: https://source.fpl.com/rates/pdf/electric-tariff-section6.pdf
+        last_verified: 2026-10-12
+  - issue: service_outage
+    summary: Report outages any time by phone or online.
+    evidence: [service address, outage start time]
+    steps:
+      - do: Call the outage line.
+        channel: outage-phone
+
+known_blockers:
+  - Payment extensions and the online Medically Essential Service application need sign-in to the FPL account.
+  - The Medically Essential Service form needs a certificate from a physician licensed in Florida.

@@ -1,0 +1,62 @@
+id: oncor
+name: Oncor Electric Delivery
+aliases: [Oncor]
+sector: utility
+website: https://www.oncor.com
+notes: >-
+  Transmission and distribution utility (TDU) in the Texas competitive market. Oncor owns the poles, wires and meters and handles outages, meter tests and
+  connections; it does not bill residential customers. Billing, payment plans and disconnection notices
+  come from the customer's retail electric provider (REP), so billing complaints go to the REP. Regulated
+  by the Public Utility Commission of Texas.
+
+channels:
+  - id: outage-phone
+    type: phone
+    label: Outages and emergencies (residential and small business)
+    value: +1-888-313-4747
+    hours: 24/7
+    purposes: [service_outage]
+    source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/YRAC.pdf
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: outage-phone, note: "For outages, meters and wires. Billing issues go to the retail electric provider."}
+  - {rung: supervisor}
+  - {rung: written_complaint}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Public Utility Commission of Texas."}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: service_outage
+    summary: Report the outage to Oncor; the retail provider cannot restore power.
+    evidence: [service address, ESI ID, outage start time]
+    steps:
+      - do: Call Oncor's outage line to report the outage or a downed line.
+        channel: outage-phone
+      - do: If someone at home depends on electric medical equipment, ask the retail provider for the Critical Care or Chronic Condition application. The TDU (Oncor) processes it and decides eligibility.
+    facts:
+      - kind: contact
+        claim: Texas retail providers list Oncor's outage and emergency line as 1-888-313-4747, available 24 hours a day, 7 days a week.
+        issues: [service_outage]
+        source: https://www.reliant.com/en/residential/help-support/contact/report-an-outage
+        last_verified: 2026-10-12
+      - kind: process
+        claim: The customer gets the Critical Care or Chronic Condition application from the REP; the local TDU processes it, decides eligibility and sends renewal applications. Critical Care designation lasts two years.
+        issues: [service_outage, disconnection]
+        source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/YRAC.pdf
+        last_verified: 2026-10-12
+  - issue: billing_error
+    summary: Ask the retail provider to request a meter test from Oncor if you think the meter is wrong.
+    evidence: [bills, meter readings, ESI ID]
+    steps:
+      - do: Ask your retail electric provider to request a meter test from Oncor. You may also request it yourself.
+      - do: Dispute the bill amount with the retail provider; complain to the PUCT if it is not resolved.
+    facts:
+      - kind: fee
+        claim: A customer may request a meter test, and the REP may request it from the TDU. If tested more than once in four years and the meter works properly, the customer may be charged the TDU's approved fee.
+        issues: [billing_error]
+        source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/YRAC.pdf
+        last_verified: 2026-10-12
+
+known_blockers:
+  - oncor.com timed out on every automated request on 2026-10-12. The outage number comes from Texas retail providers' published documents.

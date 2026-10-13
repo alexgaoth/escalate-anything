@@ -1,0 +1,181 @@
+id: dominion-energy
+name: Dominion Energy
+aliases: [Dominion, Dominion Energy Virginia, Dominion Energy South Carolina, Virginia Electric and Power Company]
+sector: utility
+website: https://www.dominionenergy.com
+account_url: https://myaccount.dominionenergy.com
+notes: >-
+  Electric utility in Virginia (Dominion Energy Virginia, legal name Virginia Electric and Power Company)
+  and electric and gas utility in South Carolina (Dominion Energy South Carolina). Dominion sold its
+  Ohio, Utah and North Carolina gas utilities to Enbridge in 2024; the last sale closed October 1, 2024,
+  and the former Public Service Company of North Carolina now does business as Enbridge Gas North
+  Carolina. Gas customers in those states should not use this file. State commissions: Virginia State
+  Corporation Commission; Public Service Commission of South Carolina.
+
+channels:
+  - id: va-customer-service-phone
+    type: phone
+    label: Virginia customer service (1-866-DOM-HELP); also the number to report downed power lines
+    value: +1-866-366-4357
+    hours: Monday to Friday, 8 a.m. to 5 p.m. Eastern for customer service
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, service_outage, poor_service]
+    notes: Dominion says to call 911 in all emergencies. Outages can also be reported online at myaccount.dominionenergy.com or seen on outagemap.dominionenergy.com.
+    source: https://www.dominionenergy.com/virginia/customer-support
+    last_verified: 2026-10-12
+  - id: va-payment-arrangement
+    type: portal
+    label: Virginia payment extension and payment plan request (sign-in)
+    value: https://myaccount.dominionenergy.com/commonlanding/DeepLink/PaymentArrangement
+    purposes: [disconnection]
+    access: login
+    source: https://www.dominionenergy.com/virginia/paying-my-bill/energy-assistance
+    last_verified: 2026-10-12
+  - id: va-energy-assistance-page
+    type: portal
+    label: Virginia energy assistance (EnergyShare, PIPP, state fuel assistance)
+    value: https://www.dominionenergy.com/virginia/paying-my-bill/energy-assistance
+    purposes: [disconnection]
+    source: https://www.dominionenergy.com/virginia/paying-my-bill/energy-assistance
+    last_verified: 2026-10-12
+  - id: va-medical-email
+    type: email
+    label: Virginia Serious Medical Condition Certification form (physician-signed)
+    value: demedical@domenergy.com
+    purposes: [disconnection]
+    notes: The form is on the Medical Conditions page and must be renewed every year.
+    source: https://www.dominionenergy.com/virginia/start-stop-service/medical-conditions
+    last_verified: 2026-10-12
+  - id: sc-customer-support-phone
+    type: phone
+    label: South Carolina customer support (non-emergency)
+    value: +1-800-251-7234
+    hours: Monday to Friday, 7 a.m. to 6 p.m. ET
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    source: https://www.dominionenergy.com/south-carolina/customer-support
+    last_verified: 2026-10-12
+  - id: sc-email-form
+    type: web_form
+    label: South Carolina "Email Us" contact form for non-urgent account questions
+    value: https://account.dominionenergysc.com/contact
+    purposes: [billing_error, bill_increase, poor_service]
+    source: https://www.dominionenergy.com/south-carolina/customer-support
+    last_verified: 2026-10-12
+  - id: sc-downed-lines-phone
+    type: phone
+    label: South Carolina downed or sparking power lines
+    value: +1-888-333-4465
+    hours: 24/7
+    purposes: [service_outage]
+    source: https://www.dominionenergy.com/south-carolina/report-outage-or-emergency
+    last_verified: 2026-10-12
+  - id: sc-gas-leak-phone
+    type: phone
+    label: South Carolina gas leak (call from a safe place)
+    value: +1-800-815-0083
+    hours: 24/7
+    source: https://www.dominionenergy.com/south-carolina/report-outage-or-emergency
+    last_verified: 2026-10-12
+  - id: sc-white-cross-phone
+    type: phone
+    label: South Carolina White Cross sign-up (customers who rely on electric medical equipment)
+    value: +1-800-922-8802
+    purposes: [service_outage, disconnection]
+    source: https://www.dominionenergy.com/-/media/content/paying-my-bill/billing-options/pdfs/south-carolina/customer-assistance-programs/customer-assistance-programs.pdf
+    last_verified: 2026-10-12
+  - id: sc-assistance-page
+    type: portal
+    label: South Carolina assistance (EnergyShare, LIHEAP, weatherization; community action agency list)
+    value: https://www.dominionenergy.com/assistancesc
+    purposes: [disconnection]
+    source: https://www.dominionenergy.com/-/media/content/paying-my-bill/billing-options/pdfs/south-carolina/customer-assistance-programs/customer-assistance-programs.pdf
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: va-customer-service-phone, note: "South Carolina: sc-customer-support-phone."}
+  - {rung: supervisor}
+  - {rung: written_complaint, channel: sc-email-form, note: "Dominion publishes no complaint address. In Virginia, put the dispute in writing to the address on the bill."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Virginia State Corporation Commission; Public Service Commission of South Carolina."}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute with Dominion first, but pay any undisputed amount because a pending claim does not stop a disconnection in Virginia.
+    evidence: [the bill, meter readings on the bill, earlier bills, notes of each call]
+    steps:
+      - do: Call customer service. Ask if the reading was estimated and ask for a correction or a meter check.
+        channel: va-customer-service-phone
+      - do: Pay the undisputed part by the due date.
+      - do: If Dominion does not fix it, ask for a supervisor, then complain to the state commission.
+    facts:
+      - kind: policy
+        claim: Dominion's Virginia terms and conditions say it may discontinue service under its listed conditions irrespective of any claims the customer has pending against the company.
+        issues: [billing_error, disconnection]
+        source: https://www.dominionenergy.com/-/media/content/rates-and-tariffs/pdfs/virginia/terms-conditions/vatc16ra.pdf
+        last_verified: 2026-10-12
+  - issue: disconnection
+    summary: Ask for an extension or a payment plan before the due date, apply for assistance, and file a medical certification if it applies.
+    evidence: [disconnection notice, account number, physician-signed medical form if it applies]
+    steps:
+      - do: Sign in and request a due date extension or a payment plan, or call customer service.
+        channel: va-payment-arrangement
+      - do: Apply for EnergyShare or state assistance.
+        channel: va-energy-assistance-page
+      - do: If someone has a serious medical condition, have the physician complete the Serious Medical Condition Certification and email it.
+        channel: va-medical-email
+      - do: In South Carolina, call to request a medical certificate at least three days before the scheduled disconnection (December 1 to March 31 only).
+        channel: sc-customer-support-phone
+    facts:
+      - kind: deadline
+        claim: In Virginia, Dominion may disconnect for nonpayment after ten (10) days' notice of discontinuance.
+        issues: [disconnection]
+        source: https://www.dominionenergy.com/-/media/content/rates-and-tariffs/pdfs/virginia/terms-conditions/vatc16ra.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: In Virginia, residential disconnections for nonpayment are not worked when the forecast is 92 degrees Fahrenheit or higher, or 32 degrees Fahrenheit or lower, within 24 hours after the scheduled disconnect, or on Fridays, weekends, state holidays or the business day before a state holiday.
+        issues: [disconnection]
+        source: https://www.dominionenergy.com/-/media/content/rates-and-tariffs/pdfs/virginia/terms-conditions/vatc16ra.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Virginia payment plan splits the past-due balance into equal monthly payments for up to 6 months, requires a down payment, and adds a 1.5% late charge to the remaining past-due balance on each bill. A missed payment may cancel the plan.
+        issues: [disconnection]
+        source: https://www.dominionenergy.com/virginia/paying-my-bill/energy-assistance
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: Virginia EnergyShare pays up to $600 for heating (October 1 to May 31) and up to $300 for cooling (June 1 to September 30) for customers in a crisis, through partner agencies.
+        issues: [disconnection]
+        source: https://www.dominionenergy.com/virginia/paying-my-bill/energy-assistance
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: The Virginia medical certification must be renewed each year; Dominion must receive the new form within 30 days of the anniversary date of the last form, or it removes the medical notation.
+        issues: [disconnection]
+        source: https://www.dominionenergy.com/virginia/start-stop-service/medical-conditions
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: In South Carolina, a medical certificate signed by a licensed healthcare provider must reach Dominion at least three days before the scheduled disconnection. The program is available only December 1 to March 31.
+        issues: [disconnection]
+        source: https://www.dominionenergy.com/-/media/content/paying-my-bill/billing-options/pdfs/south-carolina/customer-assistance-programs/customer-assistance-programs.pdf
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: South Carolina EnergyShare offers up to $1,000 in bill assistance for customers at or below 200% of the federal poverty level, through the local community action agency.
+        issues: [disconnection]
+        source: https://www.dominionenergy.com/south-carolina/paying-my-bill/billing-options/energyshare
+        last_verified: 2026-10-12
+  - issue: service_outage
+    summary: Report online or by phone; register medical equipment users in advance.
+    evidence: [account number or service address, outage start time]
+    steps:
+      - do: Report the outage at myaccount.dominionenergy.com, or call to report a downed line.
+        channel: va-customer-service-phone
+      - do: In South Carolina, call about downed lines, and sign up for White Cross if someone relies on electric medical equipment.
+        channel: sc-white-cross-phone
+
+tips:
+  - kind: official
+    text: In Virginia, Third Party Notice adds a person who is told about past-due amounts but does not have to pay. South Carolina has a similar Third Party Notification program.
+    issues: [disconnection]
+    source: https://www.dominionenergy.com/virginia/paying-my-bill/billing-options
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Payment extensions and plans in Virginia are requested after signing in, or by the account holder by phone.
+  - The Virginia medical form needs a physician's statement and signature.

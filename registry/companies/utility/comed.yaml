@@ -1,0 +1,54 @@
+id: comed
+name: Commonwealth Edison Company
+aliases: [ComEd, Commonwealth Edison]
+sector: utility
+parent: Exelon Corporation
+website: https://www.comed.com
+notes: >-
+  Electric utility for northern Illinois, including Chicago. Regulated by the Illinois Commerce Commission
+  (ICC), whose disconnection, deposit and payment rules are in 83 Ill. Adm. Code 280. comed.com returned
+  empty pages to automated fetches, so ComEd's customer service, outage and downed-wire phone numbers,
+  complaint channel and outage reimbursement terms were not confirmed for this file. Ask the customer for
+  the number on their bill.
+
+channels:
+  - id: payment-assistance
+    type: web_form
+    label: ComEd energy assistance programs (link listed by the Illinois Commerce Commission)
+    value: https://www.comed.com/MyAccount/CustomerSupport/Pages/AssistancePrograms.aspx
+    purposes: [disconnection]
+    notes: The ICC consumer site lists this link; the page did not render for automated review.
+    source: https://plugin.illinois.gov/consumer-protections/energy-assistance/help-paying-your-bill.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, note: "Call ComEd customer service (number on the bill)."}
+  - {rung: supervisor, note: "Ask the representative for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, note: "ComEd's complaint channel was not confirmed. Send a dated letter and keep call notes with reference numbers."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Illinois Commerce Commission (ICC), Consumer Services; consumer services counselors handle informal complaints."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Illinois Attorney General."}
+
+playbooks:
+  - issue: disconnection
+    summary: Ask ComEd for a deferred payment arrangement, apply for LIHEAP and ComEd assistance, and use a medical certificate for 60 days of protection.
+    evidence: [disconnection notice, account balance, medical certification, LIHEAP application]
+    steps:
+      - do: Call ComEd before the disconnection date and ask for a deferred payment arrangement.
+      - do: Apply for LIHEAP and ComEd's energy assistance programs.
+        channel: payment-assistance
+      - do: If someone in the home has a medical need for service, have a medical certification sent to ComEd.
+      - do: If ComEd does not help, file an informal complaint with the ICC.
+    facts:
+      - kind: policy
+        claim: Under ICC rules (83 Ill. Adm. Code 280), a certified medical necessity gives temporary (60 days) protection from disconnection of residential service, after which the utility sets a Medical Payment Arrangement.
+        issues: [disconnection]
+        source: https://www.icc.illinois.gov/consumers/rules-applicable-to-utilities
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: ICC Part 280 gives customers deferred payment arrangements to retire past-due debts, and has a section on disconnection of residential heating service from December 1 through March 31 and on winter reconnection of former residential customers.
+        issues: [disconnection]
+        source: https://www.icc.illinois.gov/consumers/rules-applicable-to-utilities
+        last_verified: 2026-10-12
+
+known_blockers:
+  - comed.com returns empty pages to automated fetches; ComEd phone numbers, complaint channel and outage claim terms are not in this file.
