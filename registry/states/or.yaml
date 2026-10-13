@@ -1,0 +1,101 @@
+id: or
+name: Oregon
+agencies:
+  - id: or-ag
+    kind: attorney_general
+    name: Oregon Department of Justice, Consumer Protection
+    website: https://www.doj.state.or.us/consumer-protection/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a consumer complaint online
+        value: https://justice.oregon.gov/consumercomplaints/
+        source: https://www.doj.state.or.us/consumer-protection/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer hotline
+        value: +1-877-877-9392
+        source: https://www.doj.state.or.us/consumer-protection/
+        last_verified: 2026-10-12
+  - id: or-puc
+    kind: utility_commission
+    name: Public Utility Commission of Oregon, Consumer Services Section
+    covers_sectors: [utility]
+    website: https://www.oregon.gov/puc/Pages/default.aspx
+    notes: The complaint form offers electric, gas, telephone, water and other. The pages seen do not say whether the commission takes wireless, internet or cable TV complaints.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Utility complaint form
+        value: https://apps.puc.state.or.us/consumer/complaint.asp
+        notes: Contact the utility first; use the form only if not satisfied with its response.
+        source: https://www.oregon.gov/puc/Pages/default.aspx
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Consumer Services, toll-free
+        value: +1-800-522-2404
+        notes: Toll-free within Oregon. Other callers use +1-503-378-6600. The complaint form lists these numbers for disconnection emergencies.
+        source: https://apps.puc.state.or.us/consumer/complaint/complaint.aspx
+        last_verified: 2026-10-12
+      - id: consumer-affairs-local
+        type: phone
+        label: Consumer Services
+        value: +1-503-378-6600
+        source: https://apps.puc.state.or.us/consumer/complaint/complaint.aspx
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer questions email
+        value: puc.consumer@puc.oregon.gov
+        source: https://www.oregon.gov/puc/Pages/default.aspx
+        last_verified: 2026-10-12
+  - id: or-insurance
+    kind: insurance_department
+    name: Oregon Division of Financial Regulation
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://dfr.oregon.gov/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Insurance complaint form (NAIC-hosted)
+        value: https://sbs.naic.org/solar-web/pages/public/onlineComplaintForm/onlineComplaintForm.jsf?state=or
+        source: https://dfr.oregon.gov/help/complaints-licenses/Pages/file-complaint.aspx
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer hotline, toll-free (insurance and financial services)
+        value: +1-888-877-4894
+        source: https://dfr.oregon.gov/help/complaints-licenses/Pages/file-complaint.aspx
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Insurance help email
+        value: DFR.InsuranceHelp@dcbs.oregon.gov
+        source: https://dfr.oregon.gov/help/complaints-licenses/Pages/file-complaint.aspx
+        last_verified: 2026-10-12
+  - id: or-financial
+    kind: financial_regulator
+    name: Oregon Division of Financial Regulation
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://dfr.oregon.gov/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Financial services complaint form
+        value: https://www4.cbs.state.or.us/exs/dfcs/complaint/index.cfm?fuseaction=home.english
+        source: https://dfr.oregon.gov/help/complaints-licenses/Pages/file-complaint.aspx
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer hotline, toll-free (insurance and financial services)
+        value: +1-888-877-4894
+        source: https://dfr.oregon.gov/help/complaints-licenses/Pages/file-complaint.aspx
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Financial services help email
+        value: DFR.FinancialServicesHelp@dcbs.oregon.gov
+        source: https://dfr.oregon.gov/help/complaints-licenses/Pages/file-complaint.aspx
+        last_verified: 2026-10-12

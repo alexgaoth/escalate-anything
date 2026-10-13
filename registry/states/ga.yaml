@@ -1,0 +1,111 @@
+id: ga
+name: Georgia
+agencies:
+  - id: ga-ag
+    kind: attorney_general
+    name: Georgia Department of Law, Consumer Protection Division
+    website: https://consumer.georgia.gov/consumer-topics/file-complaint
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint form
+        value: https://consumer.georgia.gov/resolve-your-dispute/how-do-i-file-complaint/consumer-complaint-form
+        access: open
+        notes: Paper complaints go by mail or fax to 404-651-9018. The division does not accept complaints by email.
+        source: https://consumer.georgia.gov/consumer-topics/file-complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer complaints
+        value: +1-404-651-8600
+        source: https://consumer.georgia.gov/consumer-topics/file-complaint
+        last_verified: 2026-10-12
+      - id: hotline-toll-free
+        type: phone
+        label: Consumer complaints (toll-free in Georgia)
+        value: +1-800-869-1123
+        notes: In-state only (toll-free in Georgia).
+        source: https://consumer.georgia.gov/consumer-topics/file-complaint
+        last_verified: 2026-10-12
+  - id: ga-puc
+    kind: utility_commission
+    name: Georgia Public Service Commission
+    covers_sectors: [utility]
+    website: https://psc.ga.gov/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File an online complaint
+        value: http://crs.psc.state.ga.us/Consumer/Contact/utilityIndustry.aspx?type=Complaint
+        access: open
+        source: https://psc.ga.gov/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Georgia PSC (toll-free)
+        value: +1-800-282-5813
+        source: https://psc.ga.gov/contact-the-gpsc/
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Georgia PSC
+        value: +1-404-656-4501
+        source: https://psc.ga.gov/contact-the-gpsc/
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Georgia PSC email
+        value: gapsc@psc.ga.gov
+        source: https://psc.ga.gov/contact-the-gpsc/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Georgia PSC by mail
+        value: Georgia Public Service Commission, 244 Washington Street, SW, Atlanta, GA 30334-9052
+        source: https://psc.ga.gov/contact-the-gpsc/
+        last_verified: 2026-10-12
+    notes: The complaint system is on an http (not https) host. The fetched pages did not say which telecom services (wireless, cable, internet) the PSC takes complaints about.
+  - id: ga-insurance
+    kind: insurance_department
+    name: Georgia Office of Insurance and Safety Fire Commissioner, Consumer Services
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://oci.georgia.gov/insurance-resources/complaints-fraud
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Submit consumer insurance complaint
+        value: https://oci.georgia.gov/file-consumer-insurance-complaint
+        access: open
+        source: https://oci.georgia.gov/
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Consumer Services
+        value: +1-404-656-2070
+        source: https://oci.georgia.gov/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Services (toll-free)
+        value: +1-800-656-2298
+        source: https://oci.georgia.gov/
+        last_verified: 2026-10-12
+  - id: ga-financial
+    kind: financial_regulator
+    name: Georgia Department of Banking and Finance
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://dbf.georgia.gov/consumer-resources
+    channels:
+      - id: hotline
+        type: phone
+        label: Department of Banking and Finance (toll-free)
+        value: +1-888-986-1633
+        source: https://dbf.georgia.gov/consumer-resources
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Department of Banking and Finance
+        value: +1-770-986-1633
+        source: https://dbf.georgia.gov/consumer-resources
+        last_verified: 2026-10-12
+    notes: The department does not actively intervene in disputes; contact the provider in writing first. It takes a detailed written account by email (address hidden on the page). It regulates Georgia state-chartered banks and credit unions, mortgage lenders and servicers, check cashers, money transmitters and installment lenders. It does not regulate national banks, federal credit unions, or banks and credit unions chartered in another state.

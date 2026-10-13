@@ -1,0 +1,73 @@
+id: la
+name: Louisiana
+agencies:
+  - id: la-ag
+    kind: attorney_general
+    name: Louisiana Attorney General, Consumer Protection Section
+    website: https://www.ag.state.la.us/ConsumerProtection
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer Dispute Form
+        value: https://www.ag.state.la.us/Complaint/ConsumerDispute
+        access: open
+        notes: Mail supporting documents to PO Box 94005, Baton Rouge, LA 70804.
+        source: https://www.ag.state.la.us/Complaints
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer protection hotline
+        value: +1-800-351-4889
+        source: https://www.ag.state.la.us/ConsumerProtection
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Constituent services
+        value: constituentservices@ag.louisiana.gov
+        source: https://www.ag.state.la.us/Complaints
+        last_verified: 2026-10-12
+  - id: la-puc
+    kind: utility_commission
+    name: Louisiana Public Service Commission (LPSC)
+    covers_sectors: [utility]
+    website: https://www.lpsc.louisiana.gov/Complaints
+    channels:
+      - id: hotline
+        type: phone
+        label: Louisiana Public Service Commission (800 number)
+        value: +1-800-256-2397
+        source: https://www.lpsc.louisiana.gov/Contact
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Louisiana Public Service Commission
+        value: +1-225-342-4999
+        source: https://www.lpsc.louisiana.gov/Contact
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: LPSC by mail
+        value: Louisiana Public Service Commission, Galvez Building, 12th Floor, 602 North Fifth Street, PO Box 91154, Baton Rouge, LA 70821-9154
+        source: https://www.lpsc.louisiana.gov/Complaints
+        last_verified: 2026-10-12
+    notes: There is no online complaint form. Complaints go to your district Commissioner's office (find it on the LPSC district map) by email, postal mail, phone or fax. The LPSC has jurisdiction over non-municipal utilities and all electric cooperatives, for electric, water, wastewater, natural gas and telecommunication services. Municipally owned utilities are outside its jurisdiction. Its complaint page does not mention wireless, cable or internet.
+  - id: la-financial
+    kind: financial_regulator
+    name: Louisiana Office of Financial Institutions (OFI)
+    covers_sectors: [bank, credit_union, payments]
+    website: https://ofi.la.gov/depository/depository-complaints/
+    channels:
+      - id: mail
+        type: mail
+        label: Written complaint, banks and credit unions (Depository Department)
+        value: Office of Financial Institutions, ATTN Depository Department, 8660 United Plaza Boulevard, 2nd Floor, Baton Rouge, LA 70809-7024
+        notes: All complaints must be in writing, by mail or fax (225-925-4525). Form (PDF) at https://ofi.la.gov/wp-content/uploads/2026/04/ComplaintForm_FillablePDF.pdf. Non-depository complaints use https://ofi.la.gov/non-depository/non-depository-complaints/
+        source: https://ofi.la.gov/depository/depository-complaints/
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: OFI main phone
+        value: +1-225-925-4660
+        source: https://ofi.la.gov/depository/depository-complaints/
+        last_verified: 2026-10-12
+    notes: Covers state-chartered banks, credit unions and savings institutions. National banks and federal savings banks go to the OCC; federal credit unions go to the NCUA.

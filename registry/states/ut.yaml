@@ -1,0 +1,116 @@
+id: ut
+name: Utah
+agencies:
+  - id: ut-consumer-protection
+    kind: consumer_affairs
+    name: Utah Department of Commerce, Division of Consumer Protection
+    website: https://commerce.utah.gov/dcp/
+    notes: In Utah the Division of Consumer Protection, not the Attorney General, takes consumer complaints against businesses. The Attorney General's Public Protection department represents the Department of Commerce in consumer protection legal actions.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a consumer complaint
+        value: https://commerce.utah.gov/dcp/complaint/
+        source: https://commerce.utah.gov/dcp/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Division of Consumer Protection
+        value: +1-801-530-6601
+        hours: Mon-Fri 8:00 a.m.-5:00 p.m., closed state and federal holidays
+        source: https://commerce.utah.gov/dcp/
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Division of Consumer Protection email
+        value: consumerprotection@utah.gov
+        source: https://commerce.utah.gov/dcp/
+        last_verified: 2026-10-12
+  - id: ut-puc
+    kind: utility_commission
+    name: Utah Division of Public Utilities (for the Public Service Commission)
+    covers_sectors: [utility]
+    website: https://commerce.utah.gov/dpu/
+    notes: The Division of Public Utilities handles informal customer utility complaints for the Public Service Commission. The PSC cannot resolve complaints about cable TV, wireless phones, internet service providers, broadband and satellite, DSL (except service quality), VoIP, interstate long distance, municipal and improvement district utilities, or fuel oil and propane.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online utility complaint form
+        value: https://feedback.utah.gov/jfe/form/SV_2hjewltf4S1dnAa
+        notes: Contact the utility first. The utility must respond within five business days after DPU sends it the complaint.
+        source: https://commerce.utah.gov/dpu/online-complaint-form/
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Division of Public Utilities, toll-free
+        value: +1-800-874-0904
+        source: https://commerce.utah.gov/dpu/online-complaint-form/
+        last_verified: 2026-10-12
+      - id: consumer-affairs-local
+        type: phone
+        label: Division of Public Utilities
+        value: +1-801-530-7622
+        hours: Mon-Fri 8:00 a.m.-5:00 p.m., closed state and federal holidays
+        source: https://commerce.utah.gov/dpu/online-complaint-form/
+        last_verified: 2026-10-12
+  - id: ut-insurance
+    kind: insurance_department
+    name: Utah Insurance Department
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://insurance.utah.gov/
+    notes: Takes complaints about fully insured, Utah-issued policies. Self-funded employer plans go to the U.S. Department of Labor, Medicare Advantage to CMS, and Medicaid plans to Utah Medicaid.
+    channels:
+      - id: complaint-form
+        type: portal
+        label: Complaint portal (linked from the complaints page)
+        value: https://insurance.utah.gov/complaints/
+        access: login
+        notes: The portal needs a password-protected account. A paper form (https://insurance.utah.gov/wp-content/uploads/UIDComplaintForm.pdf) can be sent by mail, fax or email instead.
+        source: https://insurance.utah.gov/complaints/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer services, in-state toll-free
+        value: +1-800-439-3805
+        hours: Mon-Fri 8:00 a.m.-5:00 p.m.
+        notes: In-state toll-free. Salt Lake City area and other callers use +1-801-957-9200.
+        source: https://insurance.utah.gov/complaints/
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Consumer services, Salt Lake City area
+        value: +1-801-957-9200
+        source: https://insurance.utah.gov/complaints/
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: If the health insurance carrier upholds its initial decision on appeal, you may request an independent review, administered by the carrier or the Utah Insurance Department depending on the type of insurance.
+        issues: [claim_denial]
+        source: https://insurance.utah.gov/consumers/health-insurance/independent-review/
+        last_verified: 2026-10-12
+  - id: ut-financial
+    kind: financial_regulator
+    name: Utah Department of Financial Institutions
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://dfi.utah.gov/
+    notes: Takes written complaints about state banks, state credit unions and state industrial banks; call first. Federal credit unions go to the NCUA, national banks to the OCC. DFI does not regulate all financial institutions in Utah.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint (PDF form, then email, mail or fax)
+        value: https://dfi.utah.gov/resources/helpful-links/file-a-complaint/
+        notes: Only written complaints are accepted. Fill the PDF in Adobe Acrobat Reader and email it to complaints.dfi@utah.gov (fastest).
+        source: https://dfi.utah.gov/resources/helpful-links/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Complaints email
+        value: complaints.dfi@utah.gov
+        source: https://dfi.utah.gov/resources/helpful-links/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Department phone
+        value: +1-801-538-8830
+        source: https://dfi.utah.gov/resources/helpful-links/file-a-complaint/
+        last_verified: 2026-10-12

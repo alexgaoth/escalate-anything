@@ -1,0 +1,109 @@
+id: wa
+name: Washington
+agencies:
+  - id: wa-ag
+    kind: attorney_general
+    name: Washington State Office of the Attorney General, Consumer Protection Division
+    website: https://www.atg.wa.gov/consumer-protection
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: General consumer complaint form
+        value: https://fortress.wa.gov/atg/formhandler/ago/ComplaintForm.aspx
+        notes: A PDF form can be downloaded or requested by phone and mailed to 800 5th Ave. Suite 2000, Seattle, WA 98104-3188.
+        source: https://www.atg.wa.gov/file-complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer call center, toll-free
+        value: +1-800-551-4636
+        hours: Mon-Fri 10 a.m.-3 p.m.
+        notes: In Washington only. Other callers use +1-206-464-6684.
+        source: https://www.atg.wa.gov/file-complaint
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Consumer call center
+        value: +1-206-464-6684
+        hours: Mon-Fri 10 a.m.-3 p.m.
+        source: https://www.atg.wa.gov/file-complaint
+        last_verified: 2026-10-12
+  - id: wa-puc
+    kind: utility_commission
+    name: Washington Utilities and Transportation Commission
+    covers_sectors: [utility]
+    website: https://www.utc.wa.gov/
+    notes: Regulates only privately held or investor-owned energy, telecommunications, water and transportation companies. Public utility districts, municipal utilities and special districts are not covered. The complaint page does not say whether it takes wireless, internet or cable TV complaints.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online complaint form
+        value: https://www.utc.wa.gov/FileComplaint/public-complaint-form
+        notes: First try to resolve the dispute with the company.
+        source: https://www.utc.wa.gov/consumers/file-complaint
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Consumer help line, toll-free (1-888-333-WUTC)
+        value: +1-888-333-9882
+        hours: 9:00 a.m.-12:30 p.m. and 1:30-4:00 p.m.; closed Tuesdays and Thursdays
+        source: https://www.utc.wa.gov/consumers/file-complaint
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer email
+        value: consumer@utc.wa.gov
+        source: https://www.utc.wa.gov/consumers/file-complaint
+        last_verified: 2026-10-12
+  - id: wa-insurance
+    kind: insurance_department
+    name: Washington State Office of the Insurance Commissioner
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.insurance.wa.gov/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint or check your complaint status
+        value: https://www.insurance.wa.gov/complaints-appeals-fraud/complaints/file-complaint-or-check-your-complaint-status
+        source: https://www.insurance.wa.gov/complaints-appeals-fraud/complaints
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Advocacy
+        value: +1-800-562-6900
+        hours: Mon-Fri 8:30 a.m.-4:30 p.m.
+        source: https://www.insurance.wa.gov/complaints-appeals-fraud/complaints
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: If a health plan keeps its decision after your appeal, you can ask an independent review organization (separate from the insurer) to review the case; its decision is final. The insurer's decision letters should explain how to request it.
+        issues: [claim_denial]
+        source: https://www.insurance.wa.gov/insurance-resources/health-insurance/appealing-health-insurance-denial/how-appeal-health-insurance-denial
+        last_verified: 2026-10-12
+  - id: wa-financial
+    kind: financial_regulator
+    name: Washington State Department of Financial Institutions
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://dfi.wa.gov/
+    notes: Handles Washington state-chartered banks, credit unions and trust companies, consumer loan companies, student loan servicers, money transmitters, mortgage lenders and servicers, payday lenders and virtual currency companies. National banks go to their federal regulator.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online complaint form (English)
+        value: https://dfi.wa.gov/complaint-form
+        notes: Spanish form at https://dfi.wa.gov/queja.
+        source: https://dfi.wa.gov/file-complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: DFI consumer line
+        value: +1-877-746-4334
+        hours: Mon-Fri 8 a.m.-5 p.m.
+        source: https://dfi.wa.gov/file-complaint
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: DFI email
+        value: dfi@dfi.wa.gov
+        source: https://dfi.wa.gov/file-complaint
+        last_verified: 2026-10-12

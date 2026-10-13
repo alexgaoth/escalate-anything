@@ -1,0 +1,73 @@
+id: az
+name: Arizona
+agencies:
+  - id: az-ag
+    kind: attorney_general
+    name: Arizona Attorney General, Consumer Information and Complaints
+    website: https://www.azag.gov/complaints/consumer
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online consumer complaint form
+        value: https://consumer-complaint.azag.gov/publiccomplaint/begin.aspx
+        access: open
+        notes: Spanish version at https://consumer-complaint.azag.gov/publiccomplaint/begin.aspx?lang=es
+        source: https://www.azag.gov/complaints/consumer
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Information and Complaints (Phoenix)
+        value: +1-602-542-5763
+        source: https://www.azag.gov/complaints/consumer
+        last_verified: 2026-10-12
+      - id: hotline-tucson
+        type: phone
+        label: Consumer Information and Complaints (Tucson)
+        value: +1-520-628-6648
+        source: https://www.azag.gov/complaints/consumer
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Written complaint (Phoenix office)
+        value: Office of the Attorney General, Consumer Information and Complaints, 2005 N Central Ave, Phoenix, AZ 85004
+        source: https://www.azag.gov/complaints/consumer
+        last_verified: 2026-10-12
+  - id: az-puc
+    kind: utility_commission
+    name: Arizona Corporation Commission, Utilities Division Consumer Services
+    covers_sectors: [utility]
+    website: https://azcc.gov/utilities/consumer-services
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online utility complaint form
+        value: https://efiling.azcc.gov/online-services/utilities-complaint-external
+        access: open
+        source: https://azcc.gov/utilities/consumer-services
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Utilities Division Consumer Services (Phoenix)
+        value: +1-602-542-4251
+        source: https://azcc.gov/utilities/consumer-services
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone-tucson
+        type: phone
+        label: Utilities Division Consumer Services (Tucson)
+        value: +1-520-628-6550
+        source: https://azcc.gov/utilities/consumer-services
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Utilities Division Consumer Services (toll-free)
+        value: +1-800-222-7000
+        notes: In-state only.
+        source: https://azcc.gov/utilities/consumer-services
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Utilities Division email
+        value: UtilitiesDiv@azcc.gov
+        source: https://azcc.gov/utilities/consumer-services
+        last_verified: 2026-10-12
+    notes: Contact the utility first. Consumer Services cannot handle complaints about cable TV, satellite TV, or internet service or providers.

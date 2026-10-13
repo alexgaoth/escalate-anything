@@ -1,0 +1,90 @@
+id: nd
+name: North Dakota
+agencies:
+  - id: nd-ag
+    kind: attorney_general
+    name: North Dakota Attorney General, Consumer Protection and Antitrust Division
+    website: https://attorneygeneral.nd.gov/consumer-resources/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: General consumer complaint form
+        value: https://attorneygeneral.nd.gov/consumer-resources/general-complaint/
+        notes: Requires name, address, email, phone and signature. The office does not process anonymous complaints. The complaint and the business's response become public record.
+        source: https://attorneygeneral.nd.gov/consumer-resources/general-complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Protection, toll-free
+        value: +1-800-472-2600
+        notes: Within North Dakota only. Other callers use +1-701-328-3404.
+        source: https://attorneygeneral.nd.gov/consumer-resources/
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Consumer Protection
+        value: +1-701-328-3404
+        source: https://attorneygeneral.nd.gov/consumer-resources/
+        last_verified: 2026-10-12
+  - id: nd-puc
+    kind: utility_commission
+    name: North Dakota Public Service Commission
+    covers_sectors: [utility]
+    website: https://www.psc.nd.gov/
+    notes: No online consumer complaint form was found; contact the commission by phone or email. Its telecommunications page says it has traditional rate authority over only one telephone company, and that local service of small investor-owned companies and cooperatives is outside its jurisdiction except for disconnect issues. It does not address wireless, internet or cable TV.
+    channels:
+      - id: consumer-affairs
+        type: phone
+        label: Main phone
+        value: +1-701-328-2400
+        source: https://www.psc.nd.gov/contact
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Commission email
+        value: ndpsc@nd.gov
+        source: https://www.psc.nd.gov/contact
+        last_verified: 2026-10-12
+  - id: nd-insurance
+    kind: insurance_department
+    name: North Dakota Insurance Department
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.insurance.nd.gov/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online consumer complaint form (NAIC-hosted)
+        value: https://sbs.naic.org/solar-web/pages/public/onlineComplaintForm/onlineComplaintForm.jsf?state=ND
+        source: https://www.insurance.nd.gov/consumers/complaints
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer assistance
+        value: +1-701-328-2440
+        source: https://www.insurance.nd.gov/consumers/complaints
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Department email
+        value: insurance@nd.gov
+        source: https://www.insurance.nd.gov/consumers/complaints
+        last_verified: 2026-10-12
+  - id: nd-financial
+    kind: financial_regulator
+    name: North Dakota Department of Financial Institutions
+    covers_sectors: [bank, credit_union, payments]
+    website: https://www.nd.gov/dfi/
+    notes: Takes complaints about North Dakota state-chartered banks, trust companies and credit unions, and non-depository companies licensed in North Dakota. National banks go to the OCC, federal credit unions to the NCUA, unlicensed non-depository companies to the CFPB, and federal student loan servicers to the U.S. Department of Education.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint (online form or fillable PDF)
+        value: https://www.nd.gov/dfi/file-complaint
+        source: https://www.nd.gov/dfi/file-complaint
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Department phone
+        value: +1-701-328-9933
+        source: https://www.nd.gov/dfi/file-complaint
+        last_verified: 2026-10-12

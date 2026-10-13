@@ -1,0 +1,48 @@
+id: fl
+name: Florida
+agencies:
+  - id: fl-insurance
+    kind: insurance_department
+    name: Florida Department of Financial Services, Division of Consumer Services
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.myfloridacfo.com/division/consumers/needourhelp
+    channels:
+      - id: complaint-form
+        type: portal
+        label: Consumer Assistance Portal (request for insurance help)
+        value: https://assistcon.myfloridacfo.gov/en-US/
+        source: https://www.myfloridacfo.com/division/consumers/needourhelp
+        last_verified: 2026-10-12
+      - id: disaster-phone
+        type: phone
+        label: Disaster insurance assistance
+        value: +1-850-413-3089
+        hours: 8:00 AM - 5:00 PM EST, Monday through Friday
+        source: https://www.myfloridacfo.com/division/consumers
+        last_verified: 2026-10-12
+    notes: The help page sends employer self-funded health plan questions to the U.S. Department of Labor (866-444-3272). The general insurance consumer helpline number was not confirmed on a fetched page.
+  - id: fl-financial
+    kind: financial_regulator
+    name: Florida Office of Financial Regulation (OFR)
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://flofr.gov/sitePages/FileAComplaint.htm
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Submit a complaint
+        value: https://real.flofr.gov
+        source: https://flofr.gov/sitePages/FileAComplaint.htm
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Office of Financial Regulation (main)
+        value: +1-850-487-9687
+        source: https://flofr.gov/sitePages/FileAComplaint.htm
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Office of Financial Regulation by mail
+        value: Office of Financial Regulation, 200 E. Gaines Street, Tallahassee, FL 32399
+        source: https://flofr.gov/sitePages/FileAComplaint.htm
+        last_verified: 2026-10-12
+    notes: OFR takes complaints about financial services that fall under its jurisdiction. Complaints that a financial institution denied or ended services because of discrimination under s. 655.0323, Florida Statutes, use Form OFR-U-3231.

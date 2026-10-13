@@ -1,0 +1,120 @@
+id: dc
+name: District of Columbia
+agencies:
+  - id: dc-ag
+    kind: attorney_general
+    name: Office of the Attorney General for the District of Columbia, Office of Consumer Protection
+    website: https://oag.dc.gov/consumer-protection/submit-consumer-complaint
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online consumer complaint form
+        value: https://dcoag.my.site.com/dcoagcomplaints/s/?language=en_US
+        access: open
+        source: https://oag.dc.gov/consumer-protection/submit-consumer-complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer and Tenant Response Hotline
+        value: +1-202-442-9828
+        source: https://oag.dc.gov/consumer-protection/submit-consumer-complaint
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer protection complaints and inquiries
+        value: consumer.protection@dc.gov
+        source: https://oag.dc.gov/consumer-protection/submit-consumer-complaint
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Office of the Attorney General by mail
+        value: Office of the Attorney General, Office of Consumer Protection, 400 6th Street, NW, Washington, DC 20001
+        source: https://oag.dc.gov/consumer-protection/submit-consumer-complaint
+        last_verified: 2026-10-12
+  - id: dc-puc
+    kind: utility_commission
+    name: Public Service Commission of the District of Columbia, Office of Consumer Services
+    covers_sectors: [utility]
+    website: https://dcpsc.org/File-a-Complaint.aspx
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online complaint form
+        value: https://complaints.dcpsc.dc.gov/
+        access: open
+        source: https://dcpsc.org/File-a-Complaint.aspx
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Office of Consumer Services
+        value: +1-202-626-5120
+        source: https://dcpsc.org/File-a-Complaint.aspx
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Office of Consumer Services by mail
+        value: Public Service Commission of the District of Columbia, Attn. Office of Consumer Services, 1325 G Street N.W., Suite 800, Washington, D.C. 20005
+        source: https://dcpsc.org/File-a-Complaint.aspx
+        last_verified: 2026-10-12
+    notes: The Office of Consumer Services helps with problems involving a utility company or competitive provider. The PSC lists wireless service providers, cable television (Office of Cable Television) and the Water and Sewer Authority as services it does not regulate.
+  - id: dc-insurance
+    kind: insurance_department
+    name: DC Department of Insurance, Securities and Banking (DISB), Consumer Services
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://disb.dc.gov/complaints
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Request help dealing with a financial institution (online complaint form)
+        value: https://disb.dc.gov/page/request-help-dealing-financial-institutions-form
+        access: open
+        notes: One form covers insurance, banking and securities complaints.
+        source: https://disb.dc.gov/complaints
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: DISB Consumer Services
+        value: +1-202-727-8000
+        hours: Monday to Friday, 8:15 am to 4:45 pm, except District holidays
+        source: https://disb.dc.gov/
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: DISB general email
+        value: disb@dc.gov
+        source: https://disb.dc.gov/complaints
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Complaints by mail
+        value: Department of Insurance, Securities and Banking, 1050 First St. NE, Suite 801, Washington, DC 20002
+        source: https://disb.dc.gov/complaints
+        last_verified: 2026-10-12
+    notes: DISB can investigate whether an insurer had a good-faith reason to deny a medical claim.
+  - id: dc-financial
+    kind: financial_regulator
+    name: DC Department of Insurance, Securities and Banking (DISB), Consumer Services
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://disb.dc.gov/complaints
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Request help dealing with a financial institution (online complaint form)
+        value: https://disb.dc.gov/page/request-help-dealing-financial-institutions-form
+        access: open
+        source: https://disb.dc.gov/complaints
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: DISB Consumer Services
+        value: +1-202-727-8000
+        hours: Monday to Friday, 8:15 am to 4:45 pm, except District holidays
+        source: https://disb.dc.gov/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Complaints by mail
+        value: Department of Insurance, Securities and Banking, 1050 First St. NE, Suite 801, Washington, DC 20002
+        source: https://disb.dc.gov/complaints
+        last_verified: 2026-10-12
+    notes: Same agency as dc-insurance; DISB regulates insurance, securities and banking in the District.

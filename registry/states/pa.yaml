@@ -1,0 +1,93 @@
+id: pa
+name: Pennsylvania
+agencies:
+  - id: pa-ag
+    kind: attorney_general
+    name: Pennsylvania Office of Attorney General, Bureau of Consumer Protection
+    website: https://www.attorneygeneral.gov/
+    notes: The PA PUC refers bottled propane gas and oil company complaints to the Bureau of Consumer Protection.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint form (English)
+        value: https://www.attorneygeneral.gov/submit-a-complaint/consumer-en/
+        notes: Try to resolve the issue with the business first. A Spanish form is at https://www.attorneygeneral.gov/submit-a-complaint/consumer-es/. Documents can be uploaded or emailed to BCPAdmin@attorneygeneral.gov.
+        source: https://www.attorneygeneral.gov/submit-a-complaint/consumer-en/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Protection hotline
+        value: +1-800-441-2555
+        source: https://www.attorneygeneral.gov/contact/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Mail complaint documents
+        value: Office of Attorney General, Bureau of Consumer Protection, 15th Floor, Strawberry Square, Harrisburg, PA 17120
+        source: https://www.attorneygeneral.gov/submit-a-complaint/consumer-en/
+        last_verified: 2026-10-12
+  - id: pa-puc
+    kind: utility_commission
+    name: Pennsylvania Public Utility Commission
+    covers_sectors: [utility]
+    website: https://www.puc.pa.gov/
+    notes: Does not handle rural electric cooperatives (PA Rural Electric Association), municipal utilities (the provider), cable TV (the governing body on the bill, or the FCC), cellular or wireless phone companies (the FCC), or bottled propane and oil companies (Attorney General). The complaints page does not say how internet complaints are routed.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Informal complaint (online form)
+        value: https://www.puc.pa.gov/complaints/informal-complaints/
+        notes: For most concerns you must contact the utility before you file.
+        source: https://www.puc.pa.gov/complaints/
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Customer hotline
+        value: +1-800-692-7380
+        source: https://www.puc.pa.gov/complaints/
+        last_verified: 2026-10-12
+  - id: pa-insurance
+    kind: insurance_department
+    name: Pennsylvania Insurance Department
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.pa.gov/en/agencies/insurance/consumer-help-center.html
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint, ask a question or get help (links to the CSO complaint portal)
+        value: https://www.pa.gov/agencies/insurance/consumer-help-center/complaints-questions-help
+        notes: The department asks consumers to report insurance problems through its online CSO portal, not the Contact Us form.
+        source: https://www.pa.gov/agencies/insurance/consumer-help-center/complaints-questions-help
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer services
+        value: +1-877-881-6388
+        source: https://www.pa.gov/agencies/insurance/consumer-help-center/complaints-questions-help
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: If a health insurer denies a treatment, medication or service, you may be eligible to request a review of the decision by an independent group of doctors and healthcare professionals.
+        issues: [claim_denial]
+        source: https://www.pa.gov/agencies/insurance/consumer-help-center/complaints-questions-help
+        last_verified: 2026-10-12
+  - id: pa-financial
+    kind: financial_regulator
+    name: Pennsylvania Department of Banking and Securities
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://www.pa.gov/en/agencies/dobs.html
+    notes: Covers Pennsylvania state-chartered banks and credit unions, licensed consumer lenders, money transmitters, debt settlement and mortgage companies. Non-PA-chartered banks go to the FDIC or OCC, and federal credit unions to the NCUA. Try to resolve the issue with the institution first.
+    channels:
+      - id: complaint-form
+        type: portal
+        label: Online consumer complaint form
+        value: https://www.portal.dobs.pa.gov/#ext/conser/complaint/new
+        source: https://www.pa.gov/services/dobs/file-a-complaint-about-a-financial-entity-or-professional
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Help Center, toll-free (1-800-PA-BANKS)
+        value: +1-800-722-2657
+        hours: Mon-Fri 8:00 a.m.-5:00 p.m. Eastern
+        source: https://www.pa.gov/services/dobs/file-a-complaint-about-a-financial-entity-or-professional
+        last_verified: 2026-10-12

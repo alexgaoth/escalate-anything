@@ -1,0 +1,89 @@
+id: in
+name: Indiana
+agencies:
+  - id: in-ag
+    kind: attorney_general
+    name: Indiana Attorney General, Consumer Protection Division
+    website: https://www.in.gov/attorneygeneral/consumer-protection-division/file-a-complaint/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint form
+        value: https://inoag.my.site.com/ConsumerComplaintOnlineOAG/s/
+        access: open
+        source: https://www.in.gov/attorneygeneral/consumer-protection-division/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Protection Division
+        value: +1-800-382-5516
+        source: https://www.in.gov/attorneygeneral/contact-us/
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Consumer Protection Division (Indianapolis)
+        value: +1-317-232-6330
+        source: https://www.in.gov/attorneygeneral/contact-us/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Consumer Protection Division by mail
+        value: Office of the Indiana Attorney General, Consumer Protection Division, 302 W. Washington Street, 5th Floor, Indianapolis, IN 46204
+        source: https://www.in.gov/attorneygeneral/contact-us/
+        last_verified: 2026-10-12
+  - id: in-puc
+    kind: utility_commission
+    name: Indiana Utility Regulatory Commission (IURC), Consumer Affairs Division
+    covers_sectors: [utility]
+    website: https://www.in.gov/iurc/customer-assistance/
+    channels:
+      - id: complaint-form
+        type: portal
+        label: Online complaint form (IURC portal)
+        value: https://iurc.portal.in.gov/
+        source: https://www.in.gov/iurc/customer-assistance/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Affairs Division
+        value: +1-800-851-4268
+        notes: Call during office hours.
+        source: https://www.in.gov/iurc/customer-assistance/
+        last_verified: 2026-10-12
+    notes: The IURC strongly advises trying to resolve the issue with the utility first. It handles disputes for customers of jurisdictional utilities only; its page does not say whether wireless, cable or internet providers are covered. The Office of Utility Consumer Counselor (OUCC) is a separate agency.
+  - id: in-insurance
+    kind: insurance_department
+    name: Indiana Department of Insurance, Consumer Services Division
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.in.gov/idoi/consumer-services/complaints/
+    channels:
+      - id: complaint-form
+        type: portal
+        label: Online Consumer Complaint Portal
+        value: https://gov.sircon.com/portalAccess.do?service=consumerPortal&authorization=_pEncsttzqyVun0c=
+        source: https://www.in.gov/idoi/consumer-services/complaints/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Services Division
+        value: +1-800-622-4461
+        source: https://www.in.gov/idoi/consumer-services/complaints/
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Consumer Services Division (Indianapolis)
+        value: +1-317-232-2395
+        source: https://www.in.gov/idoi/consumer-services/complaints/
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Services email
+        value: consumerservices@idoi.in.gov
+        source: https://www.in.gov/idoi/consumer-services/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Complaint by mail
+        value: IDOI, Attn. Consumer Services Division, 311 W Washington Street, Suite 300, Indianapolis IN 46204-2787
+        source: https://www.in.gov/idoi/consumer-services/complaints/
+        last_verified: 2026-10-12

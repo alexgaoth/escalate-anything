@@ -1,0 +1,122 @@
+id: wv
+name: West Virginia
+agencies:
+  - id: wv-ag
+    kind: attorney_general
+    name: West Virginia Attorney General, Consumer Protection and Antitrust Division
+    website: https://ago.wv.gov/consumer-protection-and-antitrust-division
+    notes: The office also has a separate broadband consumer complaint form (https://wv.accessgov.com/ago/Forms/Page/broadbandcomplaint/broadbandcomplaint/1).
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: General consumer complaint form
+        value: https://wv.accessgov.com/ago/Forms/Page/consumercomplaint/file/1
+        source: https://ago.wv.gov/file-complaint-consumer-protection-division
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Protection Hotline
+        value: +1-800-368-8808
+        source: https://ago.wv.gov/file-complaint-consumer-protection-division
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Consumer Protection Division
+        value: +1-304-558-8986
+        source: https://ago.wv.gov/file-complaint-consumer-protection-division
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer complaint email (subject "Consumer Complaint")
+        value: consumer.complaint@wvago.gov
+        source: https://ago.wv.gov/file-complaint-consumer-protection-division
+        last_verified: 2026-10-12
+  - id: wv-puc
+    kind: utility_commission
+    name: Public Service Commission of West Virginia
+    covers_sectors: [utility, internet_tv]
+    website: https://www.psc.state.wv.us/
+    notes: Handles electric, natural gas, landline telephone, most water and wastewater companies, towing, and some cable service problems. It does not handle internet providers, cable TV rates, cellular, wireless or long distance phone companies, or propane distributors. It generally does not regulate rates of municipally owned utilities.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Informal complaint form
+        value: https://www.psc.state.wv.us/scripts/complaints/informalcomplaint.cfm
+        notes: Try to resolve the problem with the utility first.
+        source: https://www.psc.state.wv.us/scripts/complaints/instructions.cfm
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Consumer Affairs Technicians, toll-free
+        value: +1-800-642-8544
+        hours: Weekdays 8:00 a.m.-5:00 p.m.
+        source: https://www.psc.state.wv.us/scripts/complaints/instructions.cfm
+        last_verified: 2026-10-12
+  - id: wv-insurance
+    kind: insurance_department
+    name: West Virginia Offices of the Insurance Commissioner
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.wvinsurance.gov/consumerservices
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online consumer complaint form (NAIC-hosted)
+        value: https://sbs.naic.org/solar-web/pages/public/onlineComplaintForm/onlineComplaintForm.jsf?spanish=N&state=WV
+        source: https://www.wvinsurance.gov/consumerservices
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Services, toll-free (1-888-TRY-WVIC)
+        value: +1-888-879-9842
+        source: https://www.wvinsurance.gov/consumerservices
+        last_verified: 2026-10-12
+      - id: life-health
+        type: phone
+        label: Consumer Services, Life and Health
+        value: +1-304-720-8584
+        source: https://www.wvinsurance.gov/consumerservices
+        last_verified: 2026-10-12
+      - id: property-casualty
+        type: phone
+        label: Consumer Services, Property and Casualty
+        value: +1-304-720-8580
+        source: https://www.wvinsurance.gov/consumerservices
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Services email, Life and Health
+        value: OICConsumerServicesLH@wv.gov
+        source: https://www.wvinsurance.gov/consumerservices
+        last_verified: 2026-10-12
+      - id: email-pc
+        type: email
+        label: Consumer Services email, Property and Casualty
+        value: OICConsumerServicesPC@wv.gov
+        source: https://www.wvinsurance.gov/consumerservices
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: The consumer services page offers an External Review Application; Life and Health consumer services handles calls about claim denials.
+        issues: [claim_denial]
+        source: https://www.wvinsurance.gov/consumerservices
+        last_verified: 2026-10-12
+  - id: wv-financial
+    kind: financial_regulator
+    name: West Virginia Division of Financial Institutions
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://dfi.wv.gov/
+    notes: Covers state-chartered banks and credit unions, regulated consumer lenders, second mortgage lenders and brokers, and money transmitters. National banks, federal credit unions, federal savings institutions and first mortgage lenders are outside its authority.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint page (PDF form, written complaints only)
+        value: https://dfi.wv.gov/consumer-complaints
+        notes: Complaints must be in writing. Sign the PDF form and send it with copies of documents to the address on the form.
+        source: https://dfi.wv.gov/consumer-complaints
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Division of Financial Institutions
+        value: +1-304-558-2294
+        source: https://dfi.wv.gov/consumer-complaints
+        last_verified: 2026-10-12

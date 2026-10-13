@@ -1,0 +1,128 @@
+id: ne
+name: Nebraska
+agencies:
+  - id: ne-ag
+    kind: attorney_general
+    name: Nebraska Attorney General, Consumer Protection Division (Consumer Affairs Response Team)
+    website: https://protectthegoodlife.nebraska.gov/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint form
+        value: https://www.nebraska.gov/apps-ago-complaints/?preSelect=CP_COMPLAINT
+        notes: Shared intake form for scams, consumer complaints and charity complaints. The office asks consumers to contact the business first.
+        source: https://protectthegoodlife.nebraska.gov/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Affairs Response Team, toll-free
+        value: +1-800-727-6432
+        source: https://protectthegoodlife.nebraska.gov/news/attorney-general-announces-consumer-affairs-response-team
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Consumer Affairs Response Team, local
+        value: +1-402-471-2682
+        source: https://protectthegoodlife.nebraska.gov/news/attorney-general-announces-consumer-affairs-response-team
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer protection email
+        value: ago.consumer@nebraska.gov
+        source: https://protectthegoodlife.nebraska.gov/
+        last_verified: 2026-10-12
+  - id: ne-puc
+    kind: utility_commission
+    name: Nebraska Public Service Commission
+    covers_sectors: [utility]
+    website: https://psc.nebraska.gov
+    notes: Has complaint forms for natural gas and telecommunications (plus transportation and housing). It says it has limited regulatory authority over mobile wireless, television and broadband service, which the FCC controls, but will attempt to resolve telephone complaints. Electric service in Nebraska is public power and is not on the commission's complaint list.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint (links to natural gas and telecommunications complaint forms)
+        value: https://psc.nebraska.gov/for-consumers/file-complaint
+        notes: Contact the company first.
+        source: https://psc.nebraska.gov/for-consumers/file-complaint
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Consumer advocates, toll-free
+        value: +1-800-526-0017
+        hours: Mon-Fri 8:00 a.m.-5:00 p.m.
+        notes: Toll-free in Nebraska only. Other callers use +1-402-471-3101.
+        source: https://psc.nebraska.gov/for-consumers/telecommunications-consumer-information
+        last_verified: 2026-10-12
+      - id: consumer-affairs-local
+        type: phone
+        label: Consumer advocates, local
+        value: +1-402-471-3101
+        hours: Mon-Fri 8:00 a.m.-5:00 p.m.
+        source: https://psc.nebraska.gov/for-consumers/telecommunications-consumer-information
+        last_verified: 2026-10-12
+  - id: ne-insurance
+    kind: insurance_department
+    name: Nebraska Department of Insurance
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://doi.nebraska.gov
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online insurance complaint form (NAIC-hosted)
+        value: https://sbs.naic.org/solar-web/pages/public/onlineComplaintForm/onlineComplaintForm.jsf?state=NE&spanish=N
+        source: https://doi.nebraska.gov/consumer/consumer-assistance
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Insurance complaint hotline
+        value: +1-877-564-7323
+        notes: In-state only. Other callers use +1-402-471-0888.
+        source: https://doi.nebraska.gov/consumer/consumer-assistance
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Insurance Complaint Division
+        value: +1-402-471-0888
+        source: https://doi.nebraska.gov/consumer/consumer-assistance
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Insurance complaints email
+        value: doi.insurancecomplaints@nebraska.gov
+        source: https://doi.nebraska.gov/consumer/consumer-assistance
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: A neutral third party can review a denied health claim under the Health Carrier External Review Act, once the insurer's internal appeals are exhausted.
+        issues: [claim_denial]
+        source: https://doi.nebraska.gov/consumer/appealing-denied-health-claim
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: You have four months from the date you receive a denial notice to request an external review.
+        issues: [claim_denial]
+        source: https://doi.nebraska.gov/consumer/appealing-denied-health-claim
+        last_verified: 2026-10-12
+  - id: ne-financial
+    kind: financial_regulator
+    name: Nebraska Department of Banking and Finance
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://ndbf.nebraska.gov
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Complaints page (links to the Financial Institutions online complaint form)
+        value: https://ndbf.nebraska.gov/consumers/complaints
+        source: https://ndbf.nebraska.gov/consumers/complaints
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer hotline
+        value: +1-877-471-3445
+        source: https://ndbf.nebraska.gov/consumers/complaints
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Complaints email
+        value: dob.complaints@nebraska.gov
+        source: https://ndbf.nebraska.gov/consumers/complaints
+        last_verified: 2026-10-12

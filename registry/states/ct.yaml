@@ -1,0 +1,125 @@
+id: ct
+name: Connecticut
+agencies:
+  - id: ct-ag
+    kind: attorney_general
+    name: Connecticut Office of the Attorney General, Consumer Assistance
+    website: https://portal.ct.gov/ag/common/complaint-form-landing-page
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Electronic complaint form
+        value: https://www.dir.ct.gov/ag/complaint/
+        access: open
+        notes: Printable complaint forms in several other languages are on the landing page.
+        source: https://portal.ct.gov/ag/common/complaint-form-landing-page
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Office of the Attorney General (main line)
+        value: +1-860-808-5318
+        notes: General office number; the site does not publish a separate consumer hotline.
+        source: https://portal.ct.gov/ag
+        last_verified: 2026-10-12
+  - id: ct-puc
+    kind: utility_commission
+    name: Connecticut Public Utilities Regulatory Authority (PURA), Customer Affairs
+    covers_sectors: [utility]
+    website: https://portal.ct.gov/pura/consumer-services/customer-affairs
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Customer Affairs online intake form
+        value: https://www.dpuc.state.ct.us/PURACAIU.NSF/RevWebIntake?OpenForm
+        access: open
+        notes: PURA asks you to review its Connecticut Regulated Utilities Dispute Checklist before filing.
+        source: https://portal.ct.gov/pura/consumer-services/customer-affairs
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Customer Affairs (toll-free)
+        value: +1-800-382-4586
+        notes: In-state number.
+        source: https://portal.ct.gov/pura/consumer-services/customer-affairs
+        last_verified: 2026-10-12
+      - id: phone-out-of-state
+        type: phone
+        label: Customer Affairs (outside Connecticut)
+        value: +1-860-827-2622
+        source: https://portal.ct.gov/pura/consumer-services/customer-affairs
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: PURA general contact
+        value: pura.information@ct.gov
+        source: https://portal.ct.gov/pura/consumer-services/customer-affairs
+        last_verified: 2026-10-12
+    notes: PURA describes Customer Affairs as handling complaints or questions about energy bills. Its pages refer to telecommunications companies and cable television franchises, but do not say whether it takes wireless or internet complaints.
+  - id: ct-insurance
+    kind: insurance_department
+    name: Connecticut Insurance Department, Consumer Affairs
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://portal.ct.gov/cid/file-a-complaint
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online complaint form (NAIC system)
+        value: https://sbs.naic.org/solar-web/pages/public/onlineComplaintForm/onlineComplaintForm.jsf?state=ct
+        access: open
+        source: https://portal.ct.gov/cid/file-a-complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Affairs Helpline (toll-free)
+        value: +1-800-203-3447
+        source: https://portal.ct.gov/cid/file-a-complaint
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Consumer Affairs Helpline
+        value: +1-860-297-3900
+        source: https://portal.ct.gov/cid/file-a-complaint
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Insurance Department email
+        value: insurance@ct.gov
+        source: https://portal.ct.gov/cid/file-a-complaint
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Insurance Department by mail
+        value: Connecticut Insurance Department, 280 Trumbull Street, 7th Floor, Hartford, CT 06103
+        source: https://portal.ct.gov/cid/file-a-complaint
+        last_verified: 2026-10-12
+    facts:
+      - kind: deadline
+        claim: The Connecticut Insurance Department runs an External Review Program for health insurance denials. The request must be submitted within 120 days of the written notice that internal appeals are exhausted.
+        source: https://portal.ct.gov/cid/consumer-information-center/consumer-resource-library/external-review
+        last_verified: 2026-10-12
+  - id: ct-financial
+    kind: financial_regulator
+    name: Connecticut Department of Banking, Consumer Assistance
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://portal.ct.gov/dob/consumer/consumer-complaints/consumer-assistance
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer assistance page (links to the online consumer assistance form)
+        value: https://portal.ct.gov/dob/consumer/consumer-complaints/consumer-assistance
+        access: open
+        source: https://portal.ct.gov/dob/consumer/consumer-complaints/consumer-assistance
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Consumer assistance
+        value: +1-860-240-8170
+        source: https://portal.ct.gov/dob/consumer/consumer-complaints/online-elicensing-instructions
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer assistance (toll-free)
+        value: +1-800-831-7225 ext. 8170
+        source: https://portal.ct.gov/dob/consumer/consumer-complaints/online-elicensing-instructions
+        last_verified: 2026-10-12
+    notes: The department only accepts complaints about entities it regulates (including banks, credit unions, money transmitters and student loan servicers). Federally chartered banks go to the OCC or FDIC, federal credit unions to the NCUA, and credit card companies to the CFPB.

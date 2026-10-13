@@ -1,0 +1,140 @@
+id: il
+name: Illinois
+agencies:
+  - id: il-ag
+    kind: attorney_general
+    name: Illinois Attorney General, Consumer Protection Division
+    website: https://www.illinoisattorneygeneral.gov/consumer-protection/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a consumer complaint (online submission and PDF forms)
+        value: https://www.illinoisattorneygeneral.gov/File-A-Complaint/
+        access: open
+        notes: The page offers online submission and printable PDF complaint forms in English, Spanish, Polish and large text.
+        source: https://www.illinoisattorneygeneral.gov/File-A-Complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Fraud Helpline (Chicago)
+        value: +1-800-386-5438
+        source: https://www.illinoisattorneygeneral.gov/File-A-Complaint/
+        last_verified: 2026-10-12
+      - id: hotline-springfield
+        type: phone
+        label: Consumer Fraud Helpline (Springfield)
+        value: +1-800-243-0618
+        source: https://www.illinoisattorneygeneral.gov/File-A-Complaint/
+        last_verified: 2026-10-12
+      - id: hotline-carbondale
+        type: phone
+        label: Consumer Fraud Helpline (Carbondale)
+        value: +1-800-243-0607
+        source: https://www.illinoisattorneygeneral.gov/File-A-Complaint/
+        last_verified: 2026-10-12
+      - id: hotline-spanish
+        type: phone
+        label: Spanish language toll-free hotline
+        value: +1-866-310-8398
+        source: https://www.illinoisattorneygeneral.gov/consumer-protection/
+        last_verified: 2026-10-12
+      - id: health-care-helpline
+        type: phone
+        label: Health Care Helpline
+        value: +1-877-305-5145
+        source: https://www.illinoisattorneygeneral.gov/File-A-Complaint/
+        last_verified: 2026-10-12
+  - id: il-puc
+    kind: utility_commission
+    name: Illinois Commerce Commission, Consumer Services Division
+    covers_sectors: [utility]
+    website: https://www.icc.illinois.gov/complaints/public-utility
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File an informal complaint online
+        value: https://www.icc.illinois.gov/complaints/public-utility/type
+        access: open
+        source: https://www.icc.illinois.gov/complaints/public-utility
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Services
+        value: +1-800-524-0795
+        hours: 8:30 AM to 5:00 PM, Monday through Friday
+        source: https://www.icc.illinois.gov/complaints/public-utility
+        last_verified: 2026-10-12
+      - id: phone-out-of-state
+        type: phone
+        label: Consumer Services (outside Illinois)
+        value: +1-217-782-2024
+        source: https://www.icc.illinois.gov/complaints/public-utility
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Illinois Commerce Commission by mail
+        value: Illinois Commerce Commission, 527 East Capitol Ave, Springfield, IL 62701
+        source: https://www.icc.illinois.gov/complaints/public-utility
+        last_verified: 2026-10-12
+    notes: Utility complaints cover electric, natural gas, local telephone, sewer and water service. The ICC pages do not say it takes wireless, cable or internet complaints. The informal complaint is a required step before a formal complaint.
+  - id: il-insurance
+    kind: insurance_department
+    name: Illinois Department of Insurance
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://idoi.illinois.gov/consumers/file-a-complaint.html
+    channels:
+      - id: complaint-form
+        type: portal
+        label: File a complaint online (IDOI Help Center)
+        value: https://idoihelpcenter.illinois.gov/s/
+        source: https://idoi.illinois.gov/consumers/file-a-complaint.html
+        last_verified: 2026-10-12
+      - id: phone-chicago
+        type: phone
+        label: Chicago office
+        value: +1-312-814-2420
+        source: https://idoi.illinois.gov/consumers/file-a-complaint.html
+        last_verified: 2026-10-12
+      - id: phone-springfield
+        type: phone
+        label: Springfield office
+        value: +1-217-782-4515
+        source: https://idoi.illinois.gov/consumers/file-a-complaint.html
+        last_verified: 2026-10-12
+    facts:
+      - kind: deadline
+        claim: External review of a health insurance denial is done by an Independent Review Organization approved by IDOI. You must file within 4 months of receiving the final adverse benefit determination, and there is no cost to the consumer.
+        source: https://idoi.illinois.gov/consumers/file-an-external-review.html
+        last_verified: 2026-10-12
+  - id: il-financial
+    kind: financial_regulator
+    name: Illinois Department of Financial and Professional Regulation (IDFPR), Division of Banking and Division of Financial Institutions
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://idfpr.illinois.gov/admin/banks/dobcomplaints.html
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Banking / financial institutions consumer complaint form
+        value: https://idfpr.illinois.gov/admin/complaints/dob-dfi-consumer-complaint-form.html
+        access: open
+        source: https://idfpr.illinois.gov/admin/banks/dobcomplaints.html
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Complaint inquiries
+        value: +1-217-785-2900
+        source: https://idfpr.illinois.gov/admin/banks/dobcomplaints.html
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Banking and financial institutions complaints
+        value: FPR.DOBComplaint@illinois.gov
+        source: https://idfpr.illinois.gov/admin/banks/dobcomplaints.html
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Complaint by mail
+        value: IDFPR, ATTN Consumer Services, Banking / Div. of Financial Institutions, 555 W. Monroe St., 5th Fl., Chicago IL 60661
+        source: https://idfpr.illinois.gov/admin/banks/dobcomplaints.html
+        last_verified: 2026-10-12
+    notes: Covers state licensees such as state banks, credit unions, currency exchanges, money transmitters, mortgage companies and student loan servicers. Institutions overseen mainly by federal regulators should be reported to the NCUA, CFPB, FDIC, Federal Reserve or OCC.

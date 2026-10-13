@@ -1,0 +1,120 @@
+id: wy
+name: Wyoming
+agencies:
+  - id: wy-ag
+    kind: attorney_general
+    name: Wyoming Attorney General, Consumer Protection and Antitrust Unit
+    website: https://ag.wyo.gov/law-office-division/consumer-protection-and-antitrust-unit
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint page (online form and PDF form)
+        value: https://ag.wyo.gov/law-office-division/consumer-protection-and-antitrust-unit/consumer-complaints
+        notes: Try to resolve the complaint with the business first. Incomplete forms are returned unprocessed. Supporting documents can be uploaded or emailed to ag.consumer@wyo.gov.
+        source: https://ag.wyo.gov/law-office-division/consumer-protection-and-antitrust-unit/consumer-complaints
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Protection Unit
+        value: +1-307-777-6397
+        source: https://ag.wyo.gov/law-office-division/consumer-protection-and-antitrust-unit
+        last_verified: 2026-10-12
+      - id: hotline-alt
+        type: phone
+        label: Consumer Protection Unit, second line
+        value: +1-307-777-8962
+        source: https://ag.wyo.gov/law-office-division/consumer-protection-and-antitrust-unit
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Protection Unit email
+        value: ag.consumer@wyo.gov
+        source: https://ag.wyo.gov/law-office-division/consumer-protection-and-antitrust-unit
+        last_verified: 2026-10-12
+  - id: wy-puc
+    kind: utility_commission
+    name: Wyoming Public Service Commission
+    covers_sectors: [utility]
+    website: https://psc.wyo.gov/
+    notes: Does not regulate and cannot process complaints about cable TV, internet service, wireless phone service, telemarketing, directory services, pay phones, municipal utilities inside city limits, or wholesale gas and electricity prices.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Complaint form (Google Drive document)
+        value: https://drive.google.com/open?id=1tt6JVX11tztpG4K5qsGZzkYKy-D-r7WB
+        notes: Send the completed form to wpsc_complaints@wyo.gov. The commission requires a response from the utility after it receives a complaint.
+        source: https://psc.wyo.gov/home/file-a-complaint
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Complaints email
+        value: wpsc_complaints@wyo.gov
+        source: https://psc.wyo.gov/home/file-a-complaint
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Commission phone
+        value: +1-307-777-7427
+        source: https://psc.wyo.gov/
+        last_verified: 2026-10-12
+  - id: wy-insurance
+    kind: insurance_department
+    name: Wyoming Department of Insurance
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://doi.wyo.gov/consumers
+    channels:
+      - id: complaint-form
+        type: portal
+        label: Online complaint portal
+        value: https://gov.sircon.com/portalAccess.do?service=consumerPortal&authorization=_pEnc0XntcoDLBqE=
+        source: https://doi.wyo.gov/consumers
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Affairs, toll-free
+        value: +1-800-438-5768
+        source: https://doi.wyo.gov/consumers
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Consumer Affairs
+        value: +1-307-777-7402
+        source: https://doi.wyo.gov/consumers
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: A licensed Independent Review Organization, separate from the insurer, conducts external review of a medical claim denial after all levels of the insurer's internal appeal or grievance process are exhausted.
+        issues: [claim_denial]
+        source: https://doi.wyo.gov/consumers/iro
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: The written external review request must go to the insurer no later than 120 days from the date of the final denial letter.
+        issues: [claim_denial]
+        source: https://doi.wyo.gov/consumers/iro
+        last_verified: 2026-10-12
+  - id: wy-financial
+    kind: financial_regulator
+    name: Wyoming Division of Banking
+    covers_sectors: [bank, payments, student_loan]
+    website: https://wyomingbankingdivision.wyo.gov/
+    notes: Covers Wyoming state-chartered banks and trust companies and non-depository consumer credit businesses (consumer lenders, money transmitters, mortgage lenders, sales finance companies). National banks go to the OCC and federal credit unions to the NCUA. Contact the institution first.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: How to file a complaint (printable consumer complaint and state bank complaint forms)
+        value: https://wyomingbankingdivision.wyo.gov/how-to-file-a-complaint
+        notes: Mail the completed form to Hathaway Building, 2nd Floor, 2300 Capitol Avenue, Cheyenne, WY 82002, or email bank complaints.
+        source: https://wyomingbankingdivision.wyo.gov/how-to-file-a-complaint
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Division of Banking
+        value: +1-307-777-7797
+        source: https://wyomingbankingdivision.wyo.gov/how-to-file-a-complaint
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Bank complaints email
+        value: wyomingbankingdivision@wyo.gov
+        source: https://wyomingbankingdivision.wyo.gov/how-to-file-a-complaint
+        last_verified: 2026-10-12

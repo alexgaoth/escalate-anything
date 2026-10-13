@@ -1,0 +1,108 @@
+id: tn
+name: Tennessee
+agencies:
+  - id: tn-ag
+    kind: attorney_general
+    name: Tennessee Attorney General's Office, Division of Consumer Affairs
+    website: https://www.tn.gov/attorneygeneral/working-for-tennessee/consumer-affairs.html
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online consumer complaint form
+        value: https://agtnprod.powerappsportals.us/DCA/
+        notes: You receive an auto-generated email with a PDF copy of the complaint.
+        source: https://www.tn.gov/attorneygeneral/working-for-tennessee/consumer/file-a-complaint.html
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Division of Consumer Affairs, inside Tennessee
+        value: +1-800-342-8385
+        notes: Listed as the "Inside TN" number. Other callers use +1-615-741-4737.
+        source: https://www.tn.gov/attorneygeneral/working-for-tennessee/consumer/contact.html
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Division of Consumer Affairs
+        value: +1-615-741-4737
+        source: https://www.tn.gov/attorneygeneral/working-for-tennessee/consumer/contact.html
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Division of Consumer Affairs email
+        value: consumer.affairs@ag.tn.gov
+        source: https://www.tn.gov/attorneygeneral/working-for-tennessee/consumer/contact.html
+        last_verified: 2026-10-12
+  - id: tn-puc
+    kind: utility_commission
+    name: Tennessee Public Utility Commission, Consumer Services Division
+    covers_sectors: [utility]
+    website: https://www.tn.gov/tpuc.html
+    notes: Oversees privately owned electric, gas, water, wastewater and telecommunications companies. Internet/broadband service is not regulated by the TPUC, nor are telecom companies that chose market regulation. The pages seen do not address wireless, cable TV complaints, electric cooperatives or municipal utilities.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint (online utility complaint form)
+        value: https://www.tn.gov/tpuc/file-a-complaint.html
+        source: https://www.tn.gov/tpuc/file-a-complaint.html
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: TPUC, toll-free
+        value: +1-800-342-8359
+        source: https://www.tn.gov/tpuc/file-a-complaint.html
+        last_verified: 2026-10-12
+      - id: consumer-affairs-local
+        type: phone
+        label: Consumer Services Division
+        value: +1-615-741-2904
+        source: https://www.tn.gov/tpuc/services/utility-complaint-resources.html
+        last_verified: 2026-10-12
+  - id: tn-insurance
+    kind: insurance_department
+    name: Tennessee Department of Commerce and Insurance, Insurance Division
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.tn.gov/commerce/insurance.html
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Insurance complaint instructions and online form
+        value: https://www.tn.gov/commerce/insurance/consumer-resources/file-a-complaint/complaint-instructions.html
+        source: https://www.tn.gov/commerce/insurance/consumer-resources/file-a-complaint.html
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer insurance services, toll-free
+        value: +1-800-342-4029
+        source: https://www.tn.gov/commerce/insurance/consumer-resources/file-a-complaint.html
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Consumer insurance services
+        value: +1-615-741-2218
+        source: https://www.tn.gov/commerce/insurance/consumer-resources/file-a-complaint.html
+        last_verified: 2026-10-12
+  - id: tn-financial
+    kind: financial_regulator
+    name: Tennessee Department of Financial Institutions
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://www.tn.gov/tdfi.html
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online consumer complaint form
+        value: https://complaints.tdfi.tn.gov/UI/Defaulta.aspx
+        notes: Try to resolve the issue with the institution first. The page also links a Formstack form (https://stateoftennessee.formstack.com/forms/consumer_complaint).
+        source: https://www.tn.gov/tdfi/tdfi-how-do-i/file-a-complaint.html
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer resources (request a form or help submitting)
+        value: +1-800-778-4215
+        source: https://www.tn.gov/tdfi/tdfi-how-do-i/file-a-complaint.html
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer resources email
+        value: tdfi.consumerresources@tn.gov
+        source: https://www.tn.gov/tdfi/tdfi-how-do-i/file-a-complaint.html
+        last_verified: 2026-10-12

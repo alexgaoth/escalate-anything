@@ -1,0 +1,119 @@
+id: ia
+name: Iowa
+agencies:
+  - id: ia-ag
+    kind: attorney_general
+    name: Iowa Attorney General, Consumer Protection Division
+    website: https://www.iowaattorneygeneral.gov/for-consumers/file-a-consumer-complaint
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online consumer complaint form
+        value: https://www.iowaattorneygeneral.gov/for-consumers/file-a-consumer-complaint/complaint-form/
+        access: open
+        notes: A successful submission generates an automatic confirmation email.
+        source: https://www.iowaattorneygeneral.gov/for-consumers/file-a-consumer-complaint/complaint-form/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Protection Division
+        value: +1-515-281-5926
+        source: https://www.iowaattorneygeneral.gov/for-consumers/file-a-consumer-complaint
+        last_verified: 2026-10-12
+      - id: hotline-outside-metro
+        type: phone
+        label: Consumer Protection Division (outside the Des Moines metro area)
+        value: +1-888-777-4590
+        source: https://www.iowaattorneygeneral.gov/for-consumers/file-a-consumer-complaint
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Protection Division email
+        value: consumer@ag.iowa.gov
+        source: https://www.iowaattorneygeneral.gov/for-consumers/file-a-consumer-complaint
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Consumer Protection Division by mail
+        value: Office of the Attorney General of Iowa, Consumer Protection Division, Hoover State Office Building, 1305 E. Walnut Street, Des Moines, Iowa 50319-0106
+        source: https://www.iowaattorneygeneral.gov/for-consumers/file-a-consumer-complaint
+        last_verified: 2026-10-12
+  - id: ia-puc
+    kind: utility_commission
+    name: Iowa Utilities Commission (IUC), Customer Service
+    covers_sectors: [utility]
+    website: https://iuc.iowa.gov/customer-assistance/how-do-i-file-utility-complaint
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online utility complaint form (Google Form)
+        value: https://docs.google.com/forms/d/e/1FAIpQLSetcE3td3yU_qbh16g2odrVqC2O5KQZGyMEt5FgtIrxUwYMBA/viewform
+        access: open
+        source: https://iuc.iowa.gov/customer-assistance/how-do-i-file-utility-complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: IUC Customer Service (877 number)
+        value: +1-877-565-4450
+        hours: 8 a.m. to 4:30 p.m. weekdays, not including official state holidays
+        source: https://iuc.iowa.gov/customer-assistance/how-do-i-file-utility-complaint
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: IUC Customer Service
+        value: +1-515-725-7300
+        hours: 8 a.m. to 4:30 p.m. weekdays, not including official state holidays
+        source: https://iuc.iowa.gov/customer-assistance/how-do-i-file-utility-complaint
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: IUC by mail
+        value: Iowa Utilities Commission, 1375 E. Court Ave., Des Moines, IA 50319
+        source: https://iuc.iowa.gov/customer-assistance/how-do-i-file-utility-complaint
+        last_verified: 2026-10-12
+    notes: IUC Customer Service helps when you cannot resolve an issue with the utility, for utility service under IUC jurisdiction. The site lists electric, pipelines, telecommunications, water and cable and video service sections, but does not say it takes wireless or internet complaints.
+  - id: ia-insurance
+    kind: insurance_department
+    name: Iowa Insurance Division
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://iid.iowa.gov/consumers/filing-complaints/how-do-i-consumer-complaints
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online complaint form (NAIC system)
+        value: https://sbs.naic.org/solar-web/pages/public/onlineComplaintForm/onlineComplaintForm.jsf?spanish=N&state=ia
+        access: open
+        source: https://iid.iowa.gov/consumers/filing-complaints/how-do-i-consumer-complaints
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Iowa Insurance Division
+        value: +1-515-654-6600
+        source: https://iid.iowa.gov/consumers/filing-complaints/how-do-i-consumer-complaints
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Iowa Insurance Division office
+        value: Iowa Insurance Division, 1963 Bell Avenue, Suite 100, Des Moines, IA 50315
+        source: https://iid.iowa.gov/consumers/filing-complaints/how-do-i-consumer-complaints
+        last_verified: 2026-10-12
+  - id: ia-financial
+    kind: financial_regulator
+    name: Iowa Division of Banking
+    covers_sectors: [bank, payments, student_loan]
+    website: https://idob.iowa.gov/how-do-i-file-complaint
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online complaint form (Google Form)
+        value: https://forms.gle/3z1f3bSBmBvevxMV9
+        access: open
+        source: https://idob.iowa.gov/how-do-i-file-complaint
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Iowa Division of Banking
+        value: +1-515-281-4014
+        source: https://idob.iowa.gov/how-do-i-file-complaint
+        last_verified: 2026-10-12
+    notes: Handles complaints about state banks and financial companies chartered in Iowa. Credit union concerns go to the separate Iowa Division of Credit Unions, so credit_union is not listed.

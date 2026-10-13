@@ -1,0 +1,16 @@
+id: mi
+name: Michigan
+agencies:
+  - id: mi-ag
+    kind: attorney_general
+    name: Michigan Department of Attorney General, Consumer Protection
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint / inquiry form
+        value: https://secure.ag.state.mi.us/complaints/consumer.aspx
+        access: open
+        notes: A postal mail address is given after submission.
+        source: https://secure.ag.state.mi.us/complaints/consumer.aspx
+        last_verified: 2026-10-12
+    notes: michigan.gov blocks automated fetches, so the Attorney General's consumer hotline and the MPSC and DIFS entries could not be confirmed.

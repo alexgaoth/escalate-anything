@@ -1,0 +1,107 @@
+id: ca
+name: California
+agencies:
+  - id: ca-ag
+    kind: attorney_general
+    name: California Attorney General, Public Inquiry Unit
+    website: https://oag.ca.gov/consumers
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Complaint against a business or company
+        value: https://oag.ca.gov/contact/consumer-complaint-against-business-or-company
+        access: open
+        notes: A printable version (https://oag.ca.gov/sites/all/files/agweb/pdfs/contact/business_corpform.pdf) can be mailed instead.
+        source: https://oag.ca.gov/contact/consumer-complaint-against-business-or-company
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Public Inquiry Unit (toll-free)
+        value: +1-800-952-5225
+        notes: In-state only (toll-free in California).
+        source: https://oag.ca.gov/contact
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Public Inquiry Unit
+        value: +1-916-210-6276
+        source: https://oag.ca.gov/contact
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Public Inquiry Unit by mail
+        value: Attorney General's Office, California Department of Justice, Attn. Public Inquiry Unit, P.O. Box 944255, Sacramento, CA 94244-2550
+        source: https://oag.ca.gov/contact
+        last_verified: 2026-10-12
+  - id: ca-puc
+    kind: utility_commission
+    name: California Public Utilities Commission, Consumer Affairs Branch
+    covers_sectors: [utility]
+    website: https://www.cpuc.ca.gov/consumer-support/file-a-complaint
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint online
+        value: https://cims.cpuc.ca.gov/complaints/Home/FileComplaint
+        access: open
+        source: https://www.cpuc.ca.gov/consumer-support/file-a-complaint/utility-complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Utility bill and service complaints
+        value: +1-800-649-7570
+        source: https://www.cpuc.ca.gov/about-cpuc/contacting-the-puc
+        last_verified: 2026-10-12
+    notes: Try the utility's customer service first. The Consumer Affairs Branch does not handle complaints about municipal utilities. The complaint pages mention gas, electric, cable, phone, water and mobile home park utilities for safety issues, plus slamming and cramming, but do not say whether wireless or internet billing complaints are accepted.
+  - id: ca-insurance
+    kind: insurance_department
+    name: California Department of Insurance, Consumer Services
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.insurance.ca.gov/01-consumers/101-help/index.cfm
+    channels:
+      - id: complaint-form
+        type: portal
+        label: File a complaint online (consumers)
+        value: https://cdiapps.insurance.ca.gov/CP/login/
+        access: login
+        notes: The link opens a login page. Printable Request for Assistance forms are also offered on the help page.
+        source: https://www.insurance.ca.gov/01-consumers/101-help/index.cfm
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Hotline (insurance information and questions)
+        value: +1-800-927-4357
+        source: https://www.insurance.ca.gov/01-consumers/101-help/index.cfm
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: The department's Independent Medical Review program gives an independent external review of coverage denials when a treatment was denied as medically unnecessary or experimental/investigational.
+        source: https://www.insurance.ca.gov/01-consumers/101-help/Independent-Medical-Review-Program.cfm
+        last_verified: 2026-10-12
+  - id: ca-financial
+    kind: financial_regulator
+    name: California Department of Financial Protection and Innovation (DFPI), Consumer Services
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://dfpi.ca.gov/file-a-complaint/
+    channels:
+      - id: complaint-form
+        type: portal
+        label: Submit a complaint / upload documents
+        value: https://portal.dfpi.ca.gov/csp?id=register_login
+        access: login
+        notes: The link opens a register/login page of the DFPI portal.
+        source: https://dfpi.ca.gov/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Complaint form assistance
+        value: +1-866-275-2677
+        source: https://dfpi.ca.gov/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Complaint by mail
+        value: Department of Financial Protection and Innovation, Attn. Consumer Services, 651 Bannon Street, Suite 300, Sacramento, CA 95811
+        source: https://dfpi.ca.gov/file-a-complaint/
+        last_verified: 2026-10-12
+    notes: Complaints about national banks such as Bank of America and Wells Fargo go to the federal Office of the Comptroller of the Currency, not the DFPI.

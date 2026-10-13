@@ -1,0 +1,117 @@
+id: va
+name: Virginia
+agencies:
+  - id: va-ag
+    kind: attorney_general
+    name: Office of the Attorney General of Virginia, Consumer Protection Section
+    website: https://www.oag.state.va.us/consumer-protection/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online consumer complaint form (preferred method)
+        value: https://www.oag.state.va.us/consumercomplaintform/start
+        notes: A printable complaint form is offered for people who cannot file online.
+        source: https://www.oag.state.va.us/consumer-protection/index.php/file-a-complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Protection Hotline, calling from Virginia
+        value: +1-800-552-9963
+        hours: Mon-Fri 8:30 a.m.-5:00 p.m.
+        notes: For calls from Virginia. From the Richmond area or outside Virginia use +1-804-786-2042.
+        source: https://www.oag.state.va.us/consumer-protection/index.php/file-a-complaint
+        last_verified: 2026-10-12
+      - id: out-of-state
+        type: phone
+        label: Consumer Protection Hotline, Richmond area or outside Virginia
+        value: +1-804-786-2042
+        hours: Mon-Fri 8:30 a.m.-5:00 p.m.
+        source: https://www.oag.state.va.us/consumer-protection/index.php/file-a-complaint
+        last_verified: 2026-10-12
+  - id: va-puc
+    kind: utility_commission
+    name: Virginia State Corporation Commission, Division of Public Utility Regulation
+    covers_sectors: [utility]
+    website: https://www.scc.virginia.gov/consumers/public-utility/
+    notes: Takes complaints about electric, natural gas, water or sewer, and communications (telephone) companies. It does not handle cable or satellite TV, DSL, VoIP or other internet services, interstate long distance, municipally owned utilities, or bottled propane and oil companies. The page does not mention wireless or cooperatives.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Utility complaints (links to electric, gas, water/sewer and telephone complaint forms)
+        value: https://www.scc.virginia.gov/consumers/public-utility/utility-complaints/
+        notes: First try to resolve the concern with the utility. Call immediately about a disconnection.
+        source: https://www.scc.virginia.gov/consumers/public-utility/utility-complaints/
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Division of Public Utility Regulation, toll-free
+        value: +1-800-552-7945
+        source: https://www.scc.virginia.gov/consumers/public-utility/utility-complaints/
+        last_verified: 2026-10-12
+      - id: consumer-affairs-local
+        type: phone
+        label: Division of Public Utility Regulation
+        value: +1-804-371-9611
+        source: https://www.scc.virginia.gov/consumers/public-utility/utility-complaints/
+        last_verified: 2026-10-12
+  - id: va-insurance
+    kind: insurance_department
+    name: Virginia State Corporation Commission, Bureau of Insurance
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.scc.virginia.gov/consumers/insurance/
+    channels:
+      - id: complaint-form
+        type: portal
+        label: Insurance complaint portal
+        value: https://gov.sircon.com/portalAccess.do?service=consumerPortal&authorization=_pEncH1hbc1v7Lu0=
+        notes: The bureau does not accept complaints by phone or email.
+        source: https://www.scc.virginia.gov/consumers/insurance/file-an-insurance-complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Bureau of Insurance, toll-free
+        value: +1-877-310-6560
+        source: https://www.scc.virginia.gov/consumers/insurance/file-an-insurance-complaint/
+        last_verified: 2026-10-12
+      - id: life-health
+        type: phone
+        label: Life and Health Consumer Services
+        value: +1-804-371-9691
+        source: https://www.scc.virginia.gov/consumers/insurance/file-an-insurance-complaint/
+        last_verified: 2026-10-12
+      - id: property-casualty
+        type: phone
+        label: Property and Casualty Consumer Services
+        value: +1-804-371-9185
+        source: https://www.scc.virginia.gov/consumers/insurance/file-an-insurance-complaint/
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: After the insurer's appeal process is exhausted, the Bureau of Insurance randomly selects an Independent Review Organization to perform an external review of a denial based on medical necessity or an experimental/investigational determination.
+        issues: [claim_denial]
+        source: https://www.scc.virginia.gov/consumers/insurance/health-insurance-consumer/external-review/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: The external review request must reach the Bureau of Insurance within 120 days after the date you received notice of your right to an external review.
+        issues: [claim_denial]
+        source: https://www.scc.virginia.gov/consumers/insurance/health-insurance-consumer/external-review/
+        last_verified: 2026-10-12
+  - id: va-financial
+    kind: financial_regulator
+    name: Virginia State Corporation Commission, Bureau of Financial Institutions
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://www.scc.virginia.gov/consumers/banks-consumer-lenders/
+    notes: Handles Virginia state-chartered financial institutions and certain out-of-state entities authorized in Virginia. National banks and federal savings institutions go to the OCC; federally regulated credit unions go to the NCUA.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Financial institution complaint online form
+        value: https://www.scc.virginia.gov/consumers/banks-consumer-lenders/file-a-financial-complaint/online-form/
+        source: https://www.scc.virginia.gov/consumers/banks-consumer-lenders/file-a-financial-complaint/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Mail complaints
+        value: Bureau of Financial Institutions, P.O. Box 640, Richmond, VA 23218-0640
+        source: https://www.scc.virginia.gov/consumers/banks-consumer-lenders/file-a-financial-complaint/
+        last_verified: 2026-10-12
