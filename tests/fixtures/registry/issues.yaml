@@ -1,0 +1,388 @@
+# Issue vocabulary and generic playbooks.
+#
+# `sectors: [all]` means the issue applies to every sector.
+# A company playbook for the same issue replaces these generic steps.
+# The generic steps are procedure, not law. Legal rights live in registry/rules/.
+
+issues:
+  # ---- Any sector -------------------------------------------------------
+  - id: billing_error
+    name: Billing error
+    sectors: [all]
+    description: A charge is wrong, duplicated, or for something you did not order.
+    evidence: [the bill or statement with the charge, account number, what you expected to pay and why (order, quote, plan page, chat transcript)]
+    steps:
+      - Find the exact charge, date and amount. Find the document that shows the correct amount.
+      - Ask the company to correct it through its billing channel. Get a reference number and the representative's name.
+      - If the company does not fix it, send a written dispute that lists the charge, the correct amount and your evidence.
+      - For a credit card charge, send a billing-error dispute to the card issuer within the deadline in rules/fcba-billing-error.
+      - Escalate to the regulator for the sector. Attach the timeline from your case log.
+
+  - id: bill_increase
+    name: Bill went up
+    sectors: [all]
+    description: The recurring price went up because a promotion ended, a fee was added or the plan changed.
+    evidence: [last bill before the increase, first bill after the increase, the original offer or promotion terms]
+    steps:
+      - Compare the two bills line by line. Find each line that changed.
+      - If the increase breaks a written price lock or promotion, dispute it as a billing error.
+      - If the increase is allowed, ask for the current promotions or a loyalty price. Use price_negotiation.
+      - Ask what plan gives the same service for less. Write down every offer with the representative's name and date.
+
+  - id: unauthorized_charge
+    name: Unauthorized charge
+    sectors: [all]
+    description: A charge you did not authorize.
+    evidence: [statement with the charge, proof you did not authorize it (no account, cancellation confirmation)]
+    steps:
+      - Report it to your bank or card issuer at once. Liability limits depend on how fast you report.
+      - Ask the merchant to reverse it. Get a reference number.
+      - If it looks like fraud, also report it to the FTC.
+
+  - id: cancel_service
+    name: Cancellation problem
+    sectors: [all]
+    description: The company makes cancellation hard, or keeps charging after you cancelled.
+    evidence: [cancellation confirmation number or email, date you cancelled, charges after that date]
+    steps:
+      - Cancel through the channel the company documents. Save the confirmation number, email or screenshot.
+      - If you cannot cancel online, cancel in writing and keep proof of delivery.
+      - Dispute every charge after the cancellation date with the company, then with your card issuer.
+      - Report a cancellation obstacle to the FTC and your state attorney general.
+
+  - id: refund_request
+    name: Refund request
+    sectors: [all]
+    description: You are owed money back for a return, an undelivered product or a service not provided.
+    evidence: [order or receipt, refund policy text, proof of return or non-delivery]
+    steps:
+      - Read the refund policy and note the clause that gives you the refund.
+      - Ask for the refund through the company's refund channel. Quote the clause.
+      - If refused, send a written request with a date by which you expect payment.
+      - Dispute the charge with your card issuer if the company does not pay.
+
+  - id: price_negotiation
+    name: Lower a recurring bill
+    sectors: [all]
+    description: You want a lower price for a service you keep.
+    evidence: [current bill, current promotions for new customers, competitor offers at your address]
+    steps:
+      - Collect the company's current new-customer price and two competitor offers for the same service.
+      - Contact the retention or loyalty team. Say that you are considering cancelling and give the competitor price.
+      - Ask for a specific price. Ask how long it lasts and what happens when it ends.
+      - Get the new price in writing (email, chat transcript or order confirmation).
+      - Set a reminder before the new promotion ends.
+
+  - id: poor_service
+    name: Poor service or broken promise
+    sectors: [all]
+    description: Service did not meet what the company promised, or a representative promised something that did not happen.
+    evidence: [dates, names, reference numbers, transcripts or emails with the promise]
+    steps:
+      - Write a dated timeline of what was promised and what happened.
+      - Ask for a specific remedy (credit, refund, repair) through a written channel.
+      - Escalate to an executive or written complaint channel. Attach the timeline.
+
+  - id: service_outage
+    name: Outage credit
+    sectors: [wireless, internet_tv, utility, subscription]
+    description: The service was down and you want a credit.
+    evidence: [outage dates and duration, outage notices or ticket numbers]
+    steps:
+      - Report the outage and get a ticket number.
+      - Ask for a prorated credit for the days without service.
+      - Check the bill after the credit to confirm it was applied.
+
+  - id: equipment_return
+    name: Equipment return
+    sectors: [wireless, internet_tv]
+    description: You returned equipment but were charged for it, or you need a return method.
+    evidence: [return receipt or tracking number, store receipt, equipment serial numbers]
+    steps:
+      - Return equipment only by a method that gives a receipt with the serial number.
+      - If charged for returned equipment, send the receipt and ask for removal of the fee.
+      - Dispute the charge as a billing error if the company does not remove it.
+
+  - id: account_access
+    name: Account access
+    sectors: [all]
+    description: You are locked out of the account or cannot verify your identity.
+    evidence: [account number, ID, billing address, last payment]
+    steps:
+      - Use the official recovery flow. Never give a password to a person who contacts you first.
+      - Ask for a written list of what the company needs to verify you.
+
+  - id: privacy_request
+    name: Data access or deletion request
+    sectors: [all]
+    description: You want a copy of your data, or you want it deleted or not sold.
+    evidence: [account email, state of residence]
+    steps:
+      - Use the company's privacy request form or the email in its privacy policy.
+      - Save the request confirmation and the date. State laws set response deadlines.
+
+  - id: debt_collection
+    name: Sent to collections
+    sectors: [all]
+    description: A disputed or paid bill was sent to a debt collector or reported to a credit bureau.
+    evidence: [collection letter, proof of payment or dispute, credit report]
+    steps:
+      - Ask the collector in writing to validate the debt within the deadline in the collection notice.
+      - Dispute wrong credit report entries with each credit bureau that shows them.
+      - Send the original company your proof and ask it to recall the debt.
+
+  # ---- Airlines ---------------------------------------------------------
+  - id: flight_cancellation
+    name: Flight cancelled or significantly changed
+    sectors: [airline, travel_agency]
+    description: The airline cancelled or significantly changed a flight.
+    evidence: [confirmation number, ticket number, original and new itinerary, notices from the airline]
+    steps:
+      - Decide whether to accept rebooking or ask for a refund. Accepting travel can change your refund rights.
+      - If you want money back, ask for a refund to the original form of payment, not a travel credit.
+      - Ask for meals or hotel if the cause was within the airline's control.
+      - If the airline does not pay, file a complaint with the U.S. DOT and dispute the charge with your card issuer.
+
+  - id: flight_delay
+    name: Long delay
+    sectors: [airline]
+    description: The flight was delayed for a long time.
+    evidence: [confirmation number, scheduled and actual times, cause given by the airline, receipts for meals and hotel]
+    steps:
+      - Ask the airline what it provides for this delay and cause. Save receipts for costs.
+      - Submit receipts through the airline's reimbursement channel.
+      - If a long delay is a significant change, ask for a refund instead of travel.
+
+  - id: denied_boarding
+    name: Bumped or denied boarding
+    sectors: [airline]
+    description: The airline did not let you board because the flight was oversold.
+    evidence: [boarding pass, written statement from the airline of the reason, arrival time on the new flight]
+    steps:
+      - Ask for the written statement of your rights that the airline must give you.
+      - Ask for compensation in cash or check, not only a voucher.
+
+  - id: delayed_baggage
+    name: Delayed bag
+    sectors: [airline]
+    description: The checked bag did not arrive with you.
+    evidence: [bag tag, file reference number from the baggage report, receipts for essentials]
+    steps:
+      - Report it at the airport baggage office before you leave. Get the file reference number.
+      - Buy only reasonable essentials and keep every receipt.
+      - Submit the expense claim within the airline's deadline.
+      - If the bag was late by more than the threshold in rules/dot-refunds-rule, ask for the checked bag fee back.
+
+  - id: lost_baggage
+    name: Lost bag
+    sectors: [airline]
+    description: The airline declared the bag lost, or it did not arrive after the search period.
+    evidence: [bag tag, file reference number, list of contents with values, receipts or photos]
+    steps:
+      - Keep the delayed-bag file open until the airline declares the bag lost.
+      - Submit a contents claim with values and proof, within the airline's deadline.
+      - Ask for the checked bag fee back.
+      - Check the liability limit in rules/ before you accept an offer.
+
+  - id: damaged_baggage
+    name: Damaged bag
+    sectors: [airline]
+    description: The bag or its contents arrived damaged.
+    evidence: [photos of the damage, bag tag, report number, repair estimate or receipt]
+    steps:
+      - Report the damage at the airport, or within the airline's deadline after arrival.
+      - Photograph the damage before you repair or discard anything.
+      - Submit a repair or replacement claim with the estimate.
+
+  - id: ancillary_fee_refund
+    name: Paid extra and did not get it
+    sectors: [airline]
+    description: You paid for a seat, Wi-Fi, bag or other extra that the airline did not provide.
+    evidence: [receipt for the fee, proof the service was not provided]
+    steps:
+      - Ask for a refund of the fee to the original form of payment.
+      - If refused, file a U.S. DOT complaint.
+
+  - id: travel_credit
+    name: Travel credit or voucher problem
+    sectors: [airline, travel_agency, lodging]
+    description: A credit or voucher expired, cannot be used, or was given instead of a refund you were owed.
+    evidence: [credit number, terms of the credit, original booking]
+    steps:
+      - Check whether you were owed a cash refund instead of the credit.
+      - Ask the company to extend the credit or convert it to a refund.
+
+  - id: accessibility
+    name: Disability assistance problem
+    sectors: [airline, ground_transport, lodging]
+    description: Assistance was not provided, or a wheelchair or mobility device was damaged.
+    evidence: [assistance request confirmation, dates, names, photos of damage]
+    steps:
+      - Ask for the airline's Complaints Resolution Official (CRO) at the airport.
+      - File a written complaint with the airline, then with the U.S. DOT.
+
+  # ---- Shipping, retail and delivery ------------------------------------
+  - id: lost_package
+    name: Lost package
+    sectors: [shipping, retail, gig_delivery]
+    description: A package shows delivered but did not arrive, or tracking stopped.
+    evidence: [tracking number, delivery photo, order number]
+    steps:
+      - Ask the seller first. The seller usually holds the claim with the carrier.
+      - If you shipped it, file a claim with the carrier within its deadline.
+      - Dispute the charge with your card issuer if the seller does not refund or resend.
+
+  - id: damaged_item
+    name: Item arrived damaged or defective
+    sectors: [shipping, retail, gig_delivery]
+    description: The item arrived broken, or it does not work.
+    evidence: [photos of item and packaging, order number]
+    steps:
+      - Photograph the item and the packaging before you discard anything.
+      - Ask the seller for a replacement or refund under its return policy.
+      - For defects after the return window, use warranty_claim.
+
+  - id: late_delivery
+    name: Late delivery or service guarantee
+    sectors: [shipping, retail, gig_delivery]
+    description: A delivery arrived after the guaranteed time.
+    evidence: [tracking history, the service guarantee, order number]
+    steps:
+      - Check whether the service had a money-back guarantee and whether it is suspended.
+      - Ask for the refund of the shipping charge or delivery fee.
+
+  - id: warranty_claim
+    name: Warranty claim
+    sectors: [retail]
+    description: A product failed during its warranty period.
+    evidence: [proof of purchase, serial number, warranty terms, description and photos of the fault]
+    steps:
+      - Read the written warranty and note what it covers and how to claim.
+      - Submit the claim to the party named in the warranty (often the manufacturer, not the store).
+
+  # ---- Insurance --------------------------------------------------------
+  - id: claim_denial
+    name: Insurance claim denied
+    sectors: [insurance_property, insurance_health]
+    description: The insurer denied or underpaid a claim.
+    evidence: [denial letter, policy, claim number, bills, photos, medical records for health claims]
+    steps:
+      - Ask for the denial reason and the policy language in writing.
+      - File an internal appeal within the deadline in the denial letter.
+      - After the internal appeal, ask for external review (health) or complain to the state insurance department.
+
+  - id: claim_delay
+    name: Insurance claim delayed
+    sectors: [insurance_property, insurance_health]
+    description: The insurer is not deciding or paying a claim.
+    evidence: [claim number, dates of each contact, documents you sent]
+    steps:
+      - Ask in writing for the claim status and the list of documents the insurer still needs.
+      - If the insurer still does not act, complain to the state insurance department.
+
+  - id: surprise_medical_bill
+    name: Surprise medical bill
+    sectors: [insurance_health]
+    description: An out-of-network bill for emergency care, or for care at an in-network facility.
+    evidence: [the bill, explanation of benefits (EOB), insurance card]
+    steps:
+      - Compare the bill with the explanation of benefits from the insurer.
+      - If the No Surprises Act applies, tell the provider and insurer, and contact the CMS No Surprises Help Desk.
+
+  # ---- Banking ----------------------------------------------------------
+  - id: fee_reversal
+    name: Fee reversal
+    sectors: [bank, credit_union, payments]
+    description: You want an overdraft, late or other fee removed.
+    evidence: [statement with the fee, account history]
+    steps:
+      - Ask for a courtesy reversal. Mention your account history.
+      - If the fee breaks the account agreement, dispute it in writing.
+
+  - id: transaction_dispute
+    name: Dispute with a merchant through the bank
+    sectors: [bank, credit_union, payments]
+    description: A merchant did not deliver or refund, and you want the bank or card issuer to recover the money.
+    evidence: [statement, receipt, your attempts to resolve it with the merchant]
+    steps:
+      - Try the merchant first and keep proof.
+      - File the dispute with the issuer within the deadline in rules/.
+
+  - id: fraud
+    name: Fraud or scam
+    sectors: [bank, credit_union, payments]
+    description: Money was taken by fraud or a scam.
+    evidence: [transaction details, messages from the scammer, police or FTC report number]
+    steps:
+      - Tell the bank or app at once. Ask it to freeze the account and the payment.
+      - Report to the FTC at ReportFraud.ftc.gov.
+      - Send a written error notice for electronic transfers within the deadline in rules/efta-reg-e.
+
+  - id: frozen_funds
+    name: Account frozen or closed
+    sectors: [bank, credit_union, payments]
+    description: The bank or app froze or closed the account and holds your money.
+    evidence: [notices, balance at closure, account agreement]
+    steps:
+      - Ask in writing for the reason, when the funds will be released and how.
+      - Complain to the CFPB if the funds are not released.
+
+  - id: credit_report_error
+    name: Error on a credit report
+    sectors: [credit_bureau]
+    description: A credit report shows an account, balance or late payment that is wrong.
+    evidence: [credit report page with the error, proof of the correct information]
+    steps:
+      - Dispute the error with each bureau that shows it. Attach proof.
+      - Also dispute it with the company that reported the data.
+      - If the bureau does not fix it, complain to the CFPB.
+
+  - id: student_loan_servicing
+    name: Student loan servicing problem
+    sectors: [student_loan]
+    description: Wrong payment amount, lost payments, forgiveness or repayment plan problems.
+    evidence: [loan account number, payment history, letters from the servicer]
+    steps:
+      - Ask the servicer in writing to correct the error. Keep the response.
+      - Submit a complaint to the Federal Student Aid Feedback Center.
+      - Complain to the CFPB if the servicer still does not fix it.
+
+  # ---- Lodging, rental and travel ---------------------------------------
+  - id: damage_claim
+    name: Damage charge after a rental or stay
+    sectors: [car_rental, lodging]
+    description: The company or host charged you for damage you dispute.
+    evidence: [your photos at pickup and return, rental agreement, the damage claim]
+    steps:
+      - Ask for the evidence in writing: photos, repair invoice and the vehicle or room history.
+      - Tell your credit card benefit provider or insurer about the claim.
+      - Dispute the charge with your card issuer if the company does not give evidence.
+
+  - id: deposit_refund
+    name: Deposit not returned
+    sectors: [car_rental, lodging, utility, internet_tv]
+    description: A security or utility deposit was not returned.
+    evidence: [deposit receipt, account closure date, final bill]
+    steps:
+      - Ask for the deposit and the date it will be paid.
+      - Send a written demand. Escalate to the regulator or attorney general.
+
+  - id: reservation_problem
+    name: Reservation not honored
+    sectors: [lodging, car_rental, travel_agency]
+    description: The hotel, rental or agency did not honor a confirmed reservation, or it was not as described.
+    evidence: [confirmation, photos, what you paid for alternatives]
+    steps:
+      - Ask on the spot for an equal alternative at the company's cost.
+      - Ask afterward in writing for a refund and your extra costs.
+
+  # ---- Utilities --------------------------------------------------------
+  - id: disconnection
+    name: Disconnection notice
+    sectors: [utility, internet_tv, wireless]
+    description: The company threatens to disconnect service.
+    evidence: [disconnection notice, account balance, hardship or medical documents if they apply]
+    steps:
+      - Call at once and ask for a payment plan or a hold while you dispute the bill.
+      - Ask about medical, weather and hardship protections. State commissions set these rules.
+      - Contact the state utility commission before the disconnection date.

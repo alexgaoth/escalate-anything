@@ -1,0 +1,72 @@
+id: example-air
+name: Example Air
+aliases: [exampleair, example airlines]
+sector: airline
+website: https://www.example.com
+account_url: https://www.example.com/account
+regulators: [us-dot]
+
+channels:
+  - id: customer-care-form
+    type: web_form
+    label: Customer care complaint form
+    value: https://www.example.com/contact/complaint
+    purposes: [flight_cancellation, flight_delay, poor_service]
+    access: open
+    source: https://www.example.com/contact
+    last_verified: 2026-10-12
+  - id: baggage-claim-form
+    type: web_form
+    label: Delayed bag expense claim
+    value: https://www.example.com/baggage/claim
+    purposes: [delayed_baggage, lost_baggage]
+    access: login
+    notes: Needs the file reference number from the airport report.
+    source: https://www.example.com/baggage
+    last_verified: 2026-10-12
+  - id: reservations-phone
+    type: phone
+    label: Reservations and customer service
+    value: +1-800-555-0100
+    hours: 24/7
+    source: https://www.example.com/contact
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: reservations-phone}
+  - {rung: written_complaint, channel: customer-care-form}
+  - {rung: regulator, regulator: us-dot}
+  - {rung: payment_dispute}
+
+playbooks:
+  - issue: delayed_baggage
+    summary: Report at the airport, then claim expenses online.
+    evidence: [bag tag, file reference number, receipts]
+    steps:
+      - do: Report the bag at the baggage office before leaving the airport. Get the file reference number.
+      - do: Submit receipts for essentials through the claim form.
+        channel: baggage-claim-form
+      - do: If the airline does not answer, file a complaint with the U.S. DOT.
+        regulator: us-dot
+    facts:
+      - kind: deadline
+        claim: Expense claims for a delayed bag must be submitted within 21 days after the bag is returned.
+        issues: [delayed_baggage]
+        source: https://www.example.com/legal/contract-of-carriage
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Example Air refunds a cancelled flight to the original form of payment on request.
+    issues: [flight_cancellation]
+    source: https://www.example.com/refunds
+    last_verified: 2026-10-12
+
+tips:
+  - kind: community
+    text: Written complaints through the customer care form get a reference number; phone calls often do not.
+    source: https://www.consumer-site.example/airline-complaints
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The baggage claim form needs sign-in with the loyalty account or the file reference number.

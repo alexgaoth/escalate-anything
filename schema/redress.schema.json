@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/alexgaoth/redress/schema/redress.schema.json",
+  "title": "redress registry",
+  "description": "Shapes of the YAML files under registry/. The validator picks the definition from the file location.",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "url": {
+      "type": "string",
+      "pattern": "^https?://[^\\s]+$"
+    },
+    "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "channel": {
+      "description": "One way to reach an organization. 'value' is a URL, phone number, email address or postal address, depending on 'type'.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "label", "value", "source", "last_verified"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "type": {"enum": ["phone", "sms", "chat", "web_form", "email", "mail", "social", "app", "in_person", "portal"]},
+        "label": {"type": "string", "minLength": 3},
+        "value": {"type": "string", "minLength": 3},
+        "purposes": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true},
+        "hours": {"type": "string"},
+        "access": {
+          "description": "open: anyone can use it. login: the account holder must sign in first. captcha: a CAPTCHA or bot check blocks agents. human_only: the company accepts only the account holder in person or by voice.",
+          "enum": ["open", "login", "captcha", "human_only"]
+        },
+        "notes": {"type": "string"},
+        "source": {"$ref": "#/$defs/url"},
+        "last_verified": {"$ref": "#/$defs/date"}
+      }
+    },
+    "id_underscore": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$"
+    },
+    "fact": {
+      "description": "One checkable claim with the page that supports it.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim", "source", "last_verified"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "kind": {"enum": ["deadline", "policy", "compensation", "process", "limit", "contact", "fee"]},
+        "claim": {"type": "string", "minLength": 10},
+        "issues": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true},
+        "source": {"$ref": "#/$defs/url"},
+        "last_verified": {"$ref": "#/$defs/date"}
+      }
+    },
+    "step": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["do"],
+      "properties": {
+        "do": {"type": "string", "minLength": 5},
+        "channel": {"$ref": "#/$defs/id"},
+        "regulator": {"$ref": "#/$defs/id"},
+        "note": {"type": "string"}
+      }
+    },
+    "playbook": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["issue", "steps"],
+      "properties": {
+        "issue": {"$ref": "#/$defs/id_underscore"},
+        "summary": {"type": "string"},
+        "evidence": {"type": "array", "items": {"type": "string"}},
+        "steps": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/step"}},
+        "facts": {"type": "array", "items": {"$ref": "#/$defs/fact"}}
+      }
+    },
+    "rung": {
+      "description": "One level of an escalation ladder, lowest first.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rung"],
+      "properties": {
+        "rung": {"enum": ["frontline", "supervisor", "retention", "written_complaint", "executive", "regulator", "state_agency", "payment_dispute", "arbitration", "small_claims", "public"]},
+        "channel": {"$ref": "#/$defs/id"},
+        "regulator": {"$ref": "#/$defs/id"},
+        "agency_kind": {"$ref": "#/$defs/agency_kind"},
+        "note": {"type": "string"}
+      }
+    },
+    "tip": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "kind"],
+      "properties": {
+        "text": {"type": "string", "minLength": 10},
+        "kind": {"enum": ["official", "community"]},
+        "issues": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true},
+        "source": {"$ref": "#/$defs/url"},
+        "last_verified": {"$ref": "#/$defs/date"}
+      }
+    },
+    "agency_kind": {
+      "enum": ["attorney_general", "utility_commission", "insurance_department", "financial_regulator", "consumer_affairs"]
+    },
+    "company": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "sector", "website", "channels"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "name": {"type": "string"},
+        "aliases": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "sector": {"$ref": "#/$defs/id_underscore"},
+        "also_sectors": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true},
+        "parent": {"type": "string"},
+        "website": {"$ref": "#/$defs/url"},
+        "account_url": {"$ref": "#/$defs/url"},
+        "regulators": {"type": "array", "items": {"$ref": "#/$defs/id"}, "uniqueItems": true},
+        "channels": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/channel"}},
+        "escalation": {"type": "array", "items": {"$ref": "#/$defs/rung"}},
+        "playbooks": {"type": "array", "items": {"$ref": "#/$defs/playbook"}},
+        "facts": {"type": "array", "items": {"$ref": "#/$defs/fact"}},
+        "tips": {"type": "array", "items": {"$ref": "#/$defs/tip"}},
+        "known_blockers": {"type": "array", "items": {"type": "string"}},
+        "notes": {"type": "string"}
+      }
+    },
+    "regulator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "level", "covers_sectors", "website", "when_to_use", "channels"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "name": {"type": "string"},
+        "short_name": {"type": "string"},
+        "level": {"enum": ["federal", "nonprofit"]},
+        "covers_sectors": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true},
+        "covers_issues": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true},
+        "website": {"$ref": "#/$defs/url"},
+        "when_to_use": {"type": "string", "minLength": 20},
+        "channels": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/channel"}},
+        "facts": {"type": "array", "items": {"$ref": "#/$defs/fact"}},
+        "notes": {"type": "string"}
+      }
+    },
+    "agency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "name", "channels"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "kind": {"$ref": "#/$defs/agency_kind"},
+        "name": {"type": "string"},
+        "covers_sectors": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true},
+        "website": {"$ref": "#/$defs/url"},
+        "channels": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/channel"}},
+        "facts": {"type": "array", "items": {"$ref": "#/$defs/fact"}},
+        "notes": {"type": "string"}
+      }
+    },
+    "state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "agencies"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z]{2}$"},
+        "name": {"type": "string"},
+        "agencies": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/agency"}},
+        "facts": {"type": "array", "items": {"$ref": "#/$defs/fact"}}
+      }
+    },
+    "rule": {
+      "description": "A law or regulation that gives consumers a right. 'status' records whether it is in force; several recent rules were vacated or withdrawn.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "jurisdiction", "status", "applies_to", "summary", "points", "source", "last_verified"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "title": {"type": "string"},
+        "citation": {"type": "string"},
+        "jurisdiction": {"type": "string", "pattern": "^(us-federal|international|[a-z]{2})$"},
+        "status": {"enum": ["in_effect", "partially_in_effect", "stayed", "vacated", "proposed", "withdrawn", "superseded"]},
+        "applies_to": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "sectors": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true},
+            "issues": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true}
+          }
+        },
+        "summary": {"type": "string", "minLength": 20},
+        "points": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/fact"}},
+        "status_note": {"type": "string"},
+        "source": {"$ref": "#/$defs/url"},
+        "last_verified": {"$ref": "#/$defs/date"}
+      }
+    }
+  }
+}
