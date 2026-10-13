@@ -1,0 +1,81 @@
+id: ri
+name: Rhode Island
+agencies:
+  - id: ri-ag
+    kind: attorney_general
+    name: Rhode Island Attorney General, Consumer Protection Unit
+    website: https://riag.ri.gov/forms/consumer-complaint
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a consumer complaint (online form)
+        value: https://riag.ri.gov/forms/consumer-complaint
+        notes: Attachments up to 10 MB each. Complaints are handled in the order received; an investigator contacts you once it is assigned. Complaints for another agency get referral information.
+        source: https://riag.ri.gov/forms/consumer-complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Protection Unit (prompt 1)
+        value: +1-401-274-4400
+        notes: Choose prompt 1 for consumer complaints. Complaints can also be submitted by phone if the form does not work.
+        source: https://riag.ri.gov/forms/consumer-complaint
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Protection email
+        value: consumers@riag.ri.gov
+        source: https://riag.ri.gov/scams
+        last_verified: 2026-10-12
+  - id: ri-puc
+    kind: utility_commission
+    name: Rhode Island Division of Public Utilities and Carriers, Consumer Section
+    covers_sectors: [utility]
+    website: https://ripuc.ri.gov/consumer-information/how-file-complaint
+    notes: The Division of Public Utilities and Carriers (not the Public Utilities Commission) takes informal consumer complaints by letter, telephone or in person, for example residential gas, electric and water billing disputes. The pages seen do not say whether it handles wireless, internet or cable TV complaints.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: How to file a complaint
+        value: https://ripuc.ri.gov/consumer-information/how-file-complaint
+        notes: Contact the utility first; if its response does not satisfy you, complain to the Division.
+        source: https://ripuc.ri.gov/consumer-information/how-file-complaint
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Consumer Section
+        value: +1-401-780-9700
+        source: https://ripuc.ri.gov/consumer-information/consumer-information
+        last_verified: 2026-10-12
+  - id: ri-insurance
+    kind: insurance_department
+    name: Rhode Island Department of Business Regulation, Insurance Division
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://dbr.ri.gov/insurance/consumers
+    notes: The Office of the Health Insurance Commissioner also helps Rhode Islanders with health coverage problems.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Insurance consumers page (file a complaint online)
+        value: https://dbr.ri.gov/insurance/consumers
+        source: https://dbr.ri.gov/insurance/consumers
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Insurance Division
+        value: +1-401-462-9520
+        hours: Mon-Fri 8:30 a.m.-4:00 p.m. Eastern
+        source: https://dbr.ri.gov/insurance/consumers
+        last_verified: 2026-10-12
+  - id: ri-financial
+    kind: financial_regulator
+    name: Rhode Island Department of Business Regulation, Banking Division
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://dbr.ri.gov/insurance-banking-securities-and-charitable-organizations/banking/consumers/file-complaint
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Banking consumers, file a complaint
+        value: https://dbr.ri.gov/insurance-banking-securities-and-charitable-organizations/banking/consumers/file-complaint
+        notes: Written complaints need your contact details, the company's contact details and a narrative. Contacting the company directly usually resolves complaints.
+        source: https://dbr.ri.gov/insurance-banking-securities-and-charitable-organizations/banking/consumers/file-complaint
+        last_verified: 2026-10-12

@@ -71,3 +71,57 @@ agencies:
         source: https://azcc.gov/utilities/consumer-services
         last_verified: 2026-10-12
     notes: Contact the utility first. Consumer Services cannot handle complaints about cable TV, satellite TV, or internet service or providers.
+  - id: az-insurance
+    kind: insurance_department
+    name: Arizona Department of Insurance and Financial Institutions (DIFI), Consumer Services
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://difi.az.gov/file-a-complaint
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint (online form)
+        value: https://difi.az.gov/file-a-complaint
+        notes: The online system allows only one chance to attach documents. A third party (including a spouse) needs a Third Party Consent Form.
+        source: https://difi.az.gov/file-a-complaint
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Consumer Services
+        value: +1-602-364-2499
+        hours: Monday - Friday, 9 AM - 4 PM (except state-observed holidays)
+        source: https://difi.az.gov/faq/where-can-consumers-turn-help-or-file-complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Services (toll-free, outside Phoenix)
+        value: +1-800-325-2548
+        source: https://difi.az.gov/faq/where-can-consumers-turn-help-or-file-complaint
+        last_verified: 2026-10-12
+    notes: Contact the insurer first. Values confirmed from official search snippets; difi.az.gov blocks automated page fetches.
+  - id: az-financial
+    kind: financial_regulator
+    name: Arizona Department of Insurance and Financial Institutions (DIFI), Financial Institutions
+    covers_sectors: [bank, credit_union, payments]
+    website: https://difi.az.gov/file-a-complaint
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint (online form)
+        value: https://difi.az.gov/file-a-complaint
+        notes: Look up the entity's license number and exact name (az.gov License Search) and include it.
+        source: https://difi.az.gov/file-a-complaint
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Financial institutions complaint form by email
+        value: financial.institutions@difi.az.gov
+        notes: Send the fillable PDF form https://difi.az.gov/sites/default/files/FI%20complaint%20form%204.4.2024%20fillable2%20-.pdf with supporting documents.
+        source: https://difi.az.gov/sites/default/files/FI%20complaint%20form%204.4.2024%20fillable2%20-.pdf
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Financial Institutions
+        value: +1-602-771-2800
+        source: https://difi.az.gov/sites/default/files/FI%20complaint%20form%204.4.2024%20fillable2%20-.pdf
+        last_verified: 2026-10-12
+    notes: Has authority over Arizona state-chartered banks and credit unions and licensed financial enterprises, not all banks and credit unions in Arizona. National banks go to the OCC, federal credit unions to the NCUA. Values confirmed from official search snippets.

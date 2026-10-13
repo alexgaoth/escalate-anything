@@ -71,3 +71,28 @@ agencies:
         source: https://ofi.la.gov/depository/depository-complaints/
         last_verified: 2026-10-12
     notes: Covers state-chartered banks, credit unions and savings institutions. National banks and federal savings banks go to the OCC; federal credit unions go to the NCUA.
+  - id: la-insurance
+    kind: insurance_department
+    name: Louisiana Department of Insurance, Office of Consumer Services
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.ldi.la.gov/consumers/resources-publications/consumer-services
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint form
+        value: https://www.ldi.la.gov/onlineservices/ConsumerComplaintForm
+        source: https://www.ldi.la.gov/docs/default-source/documents/publicaffairs/consumerpublications/how-to-file-an-insurance-complaint-web.pdf?sfvrsn=a9937c52_52
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer line (toll-free)
+        value: +1-800-259-5300
+        source: https://www.ldi.la.gov/docs/default-source/documents/publicaffairs/consumerpublications/how-to-file-an-insurance-complaint-web.pdf?sfvrsn=a9937c52_52
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Complaint by mail
+        value: Louisiana Department of Insurance, P.O. Box 94214, Baton Rouge, LA 70804-9214
+        source: https://www.ldi.la.gov/docs/default-source/documents/publicaffairs/consumerpublications/how-to-file-an-insurance-complaint-web.pdf?sfvrsn=a9937c52_52
+        last_verified: 2026-10-12
+    notes: Within about a week the department sends an acknowledgment with a file number and the examiner's name. Values confirmed from official search snippets; ldi.la.gov blocks automated page fetches.

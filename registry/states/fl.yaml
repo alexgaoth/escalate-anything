@@ -46,3 +46,42 @@ agencies:
         source: https://flofr.gov/sitePages/FileAComplaint.htm
         last_verified: 2026-10-12
     notes: OFR takes complaints about financial services that fall under its jurisdiction. Complaints that a financial institution denied or ended services because of discrimination under s. 655.0323, Florida Statutes, use Form OFR-U-3231.
+  - id: fl-ag
+    kind: attorney_general
+    name: Florida Attorney General, Office of Citizen Services
+    website: https://www.myfloridalegal.com/overview/citizens-services
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint form
+        value: https://www.myfloridalegal.com/consumer-protection/consumer-complaint-form
+        notes: A printed form can be mailed to Office of the Attorney General, PL-01 The Capitol, Tallahassee, Florida 32399-1050.
+        source: https://www.myfloridalegal.com/consumer-protection/consumer-complaint-form
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Fraud Hotline (1-866-9-NO-SCAM)
+        value: +1-866-966-7226
+        notes: In-state only (toll-free within Florida). The hotline is also the first point of contact for consumer complaints.
+        source: https://www.myfloridalegal.com/overview/citizens-services
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Fraud Hotline (direct)
+        value: +1-850-414-3990
+        source: https://www.myfloridalegal.com/overview/citizens-services
+        last_verified: 2026-10-12
+    notes: Values confirmed from official search snippets; myfloridalegal.com blocks automated page fetches. The Florida Department of Agriculture and Consumer Services is the state's consumer complaint clearinghouse.
+  - id: fl-puc
+    kind: utility_commission
+    name: Florida Public Service Commission, Office of Consumer Assistance and Outreach
+    covers_sectors: [utility]
+    website: https://www.floridapsc.com/
+    channels:
+      - id: hotline
+        type: phone
+        label: Consumer Assistance Line (toll-free)
+        value: +1-800-342-3552
+        source: https://www.floridapsc.com/pscfiles/website-files//PDF/Publications/General/InsidePSC.pdf
+        last_verified: 2026-10-12
+    notes: The PSC offers 24-hour online complaint forms on floridapsc.com; the form URL was not confirmed (the site loads with JavaScript). The phone number comes from a 2026 PSC newsletter seen in an official search snippet. Which telecom services it covers was not confirmed.

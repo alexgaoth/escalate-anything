@@ -19,3 +19,68 @@ agencies:
         value: +1-800-282-0515
         source: https://www.ohioattorneygeneral.gov/about-ag/service-divisions/consumer-protection
         last_verified: 2026-10-12
+  - id: oh-puc
+    kind: utility_commission
+    name: Public Utilities Commission of Ohio (PUCO) Call Center
+    covers_sectors: [utility]
+    website: https://puco.ohio.gov/wps/portal/gov/puco/help-center/file-a-complaint
+    notes: Takes complaints about PUCO-regulated utilities, natural gas and electric suppliers, and basic local exchange (landline) telephone service. It does not regulate internet service or providers, or wireless rates; it refers wireless billing problems to the Ohio Attorney General. The pages seen do not mention cable TV.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint (informal complaint with the PUCO Call Center)
+        value: https://puco.ohio.gov/wps/portal/gov/puco/help-center/file-a-complaint
+        notes: Call the utility first and work with a representative. A registered complaint protects the disputed amount from disconnection; pay the undisputed part.
+        source: https://puco.ohio.gov/wps/portal/gov/puco/help-center/file-a-complaint
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: PUCO Call Center, toll-free (1-800-686-PUCO)
+        value: +1-800-686-7826
+        source: https://puco.ohio.gov/wps/portal/gov/puco/help-center/contact-us
+        last_verified: 2026-10-12
+  - id: oh-insurance
+    kind: insurance_department
+    name: Ohio Department of Insurance, Consumer Services Division
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://insurance.ohio.gov/about-us/complaint-center/consumer-complaint-info
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online consumer complaint form
+        value: https://gateway.insurance.ohio.gov/UI/ODI.CS.Public.UI/Complaint.mvc/DisplayConsumerComplaintForm
+        notes: Contact the insurance company first. Written complaints can be mailed to the Consumer Services Division, 50 West Town Street, Suite 300, Columbus, OH 43215.
+        source: https://gateway.insurance.ohio.gov/UI/ODI.CS.Public.UI/Complaint.mvc/DisplayConsumerComplaintForm
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer hotline, toll-free
+        value: +1-800-686-1526
+        source: https://insurance.ohio.gov/about-us/complaint-center/consumer-complaint-info
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: After the insurer's internal appeal is exhausted, an external review of a health coverage denial may be conducted by an Independent Review Organization or by the Ohio Department of Insurance (for contractual issues that involve no medical judgment).
+        issues: [claim_denial]
+        source: https://insurance.ohio.gov/about-us/complaint-center/health-coverage-external-review-process
+        last_verified: 2026-10-12
+  - id: oh-financial
+    kind: financial_regulator
+    name: Ohio Department of Commerce, Division of Financial Institutions, Office of Consumer Affairs
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://com.ohio.gov/divisions-and-programs/financial-institutions/consumers
+    notes: The division does not regulate all institutions doing business in Ohio; verify the regulator first. It cannot act as your attorney or recover lost funds.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint (letter or complaint form by email, mail or fax)
+        value: https://com.ohio.gov/divisions-and-programs/financial-institutions/file-a-complaint-fi/file-a-complaint
+        notes: Contact the financial institution first. Send copies, not originals, of supporting documents.
+        source: https://com.ohio.gov/divisions-and-programs/financial-institutions/file-a-complaint-fi/file-a-complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Office of Consumer Affairs hotline
+        value: +1-866-278-0003
+        source: https://com.ohio.gov/divisions-and-programs/financial-institutions/file-a-complaint-fi/file-a-complaint
+        last_verified: 2026-10-12
