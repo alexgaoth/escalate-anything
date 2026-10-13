@@ -133,6 +133,35 @@ issues:
       - Ask the carrier to apply the missing credits. Get a reference number.
       - Dispute in writing as a billing error if the credits are still missing.
 
+  - id: early_termination_fee
+    name: Early termination fee
+    sectors: [wireless, internet_tv, utility, fitness, subscription]
+    description: The company charged, or will charge, a fee for ending a contract early.
+    evidence: [the contract or plan terms, the date you signed up, the bill with the fee]
+    steps:
+      - Find the fee clause in the agreement you accepted and check how the fee is calculated (fixed, prorated, or a share of the remaining term).
+      - Check whether an exception applies, such as moving outside the service area, a service failure, a price increase or military orders.
+      - Ask in writing for a waiver or a correct calculation. Dispute it as a billing error if the fee breaks the terms.
+
+  - id: free_trial_conversion
+    name: Charged after a free trial
+    sectors: [subscription, retail, fitness]
+    description: A free trial turned into a paid subscription that you did not expect, or that you cancelled in time.
+    evidence: [sign-up date and trial terms, cancellation confirmation if any, the charge]
+    steps:
+      - Cancel at once and save the confirmation.
+      - Ask for a refund of the first charge. Mention when and how the trial terms were shown.
+      - Dispute the charge with your card issuer if the company refuses and you cancelled in time.
+
+  - id: slamming
+    name: Provider switched without permission
+    sectors: [utility, wireless, internet_tv]
+    description: Your service or provider was changed without your authorization.
+    evidence: [bills showing the new provider, dates, your original provider account]
+    steps:
+      - Tell both the old and the new provider that you did not authorize the switch. Ask to be switched back at no cost.
+      - Complain to the state utility commission or the FCC; both handle unauthorized provider changes.
+
   - id: account_access
     name: Account access
     sectors: [all]
@@ -160,6 +189,16 @@ issues:
       - Ask the collector in writing to validate the debt within the deadline in the collection notice.
       - Dispute wrong credit report entries with each credit bureau that shows them.
       - Send the original company your proof and ask it to recall the debt.
+
+  - id: company_shutdown
+    name: Company stopped operating or filed for bankruptcy
+    sectors: [all]
+    description: The company shut down or is in bankruptcy, and owes you a refund, a service or a credit.
+    evidence: [booking or order confirmation, payment method and date, any notices from the company]
+    steps:
+      - Read the company's shutdown or bankruptcy notice for the refund process and claim deadlines.
+      - If you paid by credit card for something not delivered, dispute the charge with the card issuer.
+      - File a proof of claim in the bankruptcy case if the notice says to, before the bar date.
 
   # ---- Airlines ---------------------------------------------------------
   - id: flight_cancellation
@@ -474,6 +513,26 @@ issues:
       - Ask afterward in writing for a refund and your extra costs.
 
   # ---- Utilities --------------------------------------------------------
+  - id: payment_assistance
+    name: Payment plan or bill assistance
+    sectors: [utility, internet_tv, wireless]
+    description: You cannot pay the full bill and need a payment plan, a discount program or hardship help.
+    evidence: [current bill, household income documents, any hardship or medical documents]
+    steps:
+      - Ask the company for a payment arrangement before the due date. Ask for the terms in writing.
+      - Ask which discount and assistance programs you qualify for (income-based rates, LIHEAP, medical protections).
+      - Contact the state utility commission if the company refuses a plan that state rules require.
+
+  - id: property_damage_claim
+    name: Damage caused by the company
+    sectors: [utility, internet_tv]
+    description: An outage, power surge, crew or installer damaged your property or caused losses such as spoiled food.
+    evidence: [photos, repair invoices or receipts, dates and outage reference numbers]
+    steps:
+      - Report the damage and ask for the company's claim form and deadline.
+      - Submit the claim with photos and receipts. Keep the claim number.
+      - If denied, ask for the reason in writing, then complain to the state utility commission.
+
   - id: disconnection
     name: Disconnection notice
     sectors: [utility, internet_tv, wireless]

@@ -23,7 +23,7 @@
       "required": ["id", "type", "label", "value", "source", "last_verified"],
       "properties": {
         "id": {"$ref": "#/$defs/id"},
-        "type": {"enum": ["phone", "sms", "chat", "web_form", "email", "mail", "social", "app", "in_person", "portal"]},
+        "type": {"enum": ["phone", "sms", "fax", "chat", "web_form", "email", "mail", "social", "app", "in_person", "portal"]},
         "label": {"type": "string", "minLength": 3},
         "value": {"type": "string", "minLength": 3},
         "purposes": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true},
