@@ -40,8 +40,8 @@ Rules for agents:
   hand the browser to the person.
 - On a call or chat, say that you are an AI assistant acting for the person.
 - If a URL or phone number from redress is wrong, call report_registry_problem.
-- Before using any contact that did not come from redress (a search result, a text, an email),
-  call verify_contact. Run scam_check on any message that asks for money, codes or access.
+- Use contacts from get_playbook, not ones from search results or messages. Run scam_check on any
+  message that asks for money, codes or access.
 """
 
 class LiveRegistry:
@@ -92,8 +92,8 @@ redress (read-only) gives verified contacts, playbooks, escalation ladders, regu
 consumer rules for 180+ large US companies.
 
 Workflow: find_company, then get_playbook(company, issue, state), and get_context(company) for how
-the company handles complaints in practice. Before using any contact found elsewhere, call
-verify_contact; run scam_check on messages that ask for money, codes or access. Cite only facts and in-force
+the company handles complaints in practice. Use contacts from the playbook; run scam_check on
+messages that ask for money, codes or access. Cite only facts and in-force
 rules that these tools return, with their source URLs. The person approves every message or form
 submission. Never enter passwords or payment details. This server keeps no case log; keep notes
 in the conversation.
@@ -209,24 +209,14 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
         Read it before contacting the company."""
         return advisor.get_context(reg, company, sector)
 
-    # ---- scam protection ------------------------------------------------------------
-
-    @mcp.tool(annotations=READ)
-    @guard
-    def verify_contact(value: str, company: str | None = None) -> dict[str, Any]:
-        """Check whether a phone number, email address or URL really belongs to a company or agency,
-        before anyone calls, clicks or pays. Pass company to check against that company. Verdicts:
-        on_file, official_domain, belongs_to_other, lookalike (the domain uses a company's name but is
-        not its domain), not_on_file."""
-        return context.verify_contact(reg, value, company)
+    # ---- scam red flags (a side tool) ------------------------------------------------
 
     @mcp.tool(annotations=READ)
     @guard
     def scam_check(text: str, company: str | None = None) -> dict[str, Any]:
-        """Check a message, email, text, call script or web page text for common scam red flags (gift
-        cards, crypto, remote access, codes, pay-to-get-refund, pressure, package fees, unpaid tolls,
-        account verification links, look-alike domains) and verify every phone number, email and link
-        in it against the registry."""
+        """Check a message, email, text or call script for common scam red flags: gift cards, crypto,
+        remote access, one-time codes, pay-to-get-refund, pressure, package fees, unpaid tolls and
+        account verification links. get_context(company) lists what that company says it never asks for."""
         return context.scam_check(reg, text, company)
 
     # ---- case log ----------------------------------------------------------------

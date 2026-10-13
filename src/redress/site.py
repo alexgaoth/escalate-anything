@@ -8,15 +8,10 @@ Output (served by GitHub Pages):
     companies/<id>.json     company record, resolved playbooks, escalation ladder, scam warnings and dossier
     issues.json             issue vocabulary with the companies that have a playbook
     states/<code>.json      state agencies
-    contacts.json           every phone number, URL and email on file, normalized, with its owner
-    red_flags.json          the scam_check patterns, contact patterns and next steps
     dossiers/<id>.md        company dossiers ("how it actually goes"), copied from the registry
     guides/<key>.md         sector guides and the scam guide, copied from the registry
     llms.txt                how an agent should use the data, with every company URL
     .nojekyll
-
-contacts.json and red_flags.json are generated from context.py, so the page's JavaScript checks give
-the same verdicts as the verify_contact and scam_check tools.
 """
 
 from __future__ import annotations
@@ -55,8 +50,6 @@ def build_site(out_dir: Path, reg: Registry, base_url: str = BASE_URL, today: dt
     for code, st in sorted(reg.states.items()):
         _write_json(out / "states" / f"{code}.json", st)
 
-    _write_json(out / "contacts.json", contacts_document(reg, today))
-    _write_json(out / "red_flags.json", red_flags_document(reg))
     for sub, docs in (("dossiers", reg.dossiers), ("guides", reg.guides)):
         for key, doc in sorted(docs.items()):
             (out / sub / f"{key}.md").write_text(doc.path.read_text(encoding="utf-8"), encoding="utf-8")
@@ -102,88 +95,6 @@ def _card_credibility(reg: Registry, c: dict, today: dt.date) -> dict[str, str]:
 def _doc_meta(doc: context.Doc | None) -> dict[str, str]:
     meta = doc.meta if doc else {}
     return {"title": str(meta.get("title") or ""), "last_verified": str(meta.get("last_verified") or "")}
-
-
-def contacts_document(reg: Registry, today: dt.date | None = None) -> dict:
-    """Every contact that verify_contact can match, keyed by its normalized value, in the order verify_contact checks them."""
-    today = today or dt.date.today()
-    owners: list[dict] = []
-    phones: dict[str, list[dict]] = {}
-    urls: dict[str, list[dict]] = {}
-    emails: dict[str, list[dict]] = {}
-    brands = context.brand_index(reg)
-    for kind, oid, name, website, official, channels in context._owner_entries(reg):
-        owners.append({"kind": kind, "id": oid, "name": name, "website": website,
-                       "domains": sorted(context._domains(website, official))})
-        for ch in channels:
-            entry = {"owner": oid, "name": name, "kind": kind, "channel": ch.get("id"), "type": ch.get("type"),
-                     "label": ch.get("label"), "source": ch.get("source"), "last_verified": ch.get("last_verified")}
-            value = str(ch.get("value", ""))
-            if ch.get("type") in context.PHONE_CHANNEL_TYPES and (phone := context.norm_phone(value)):
-                phones.setdefault(phone, []).append(entry)
-            elif ch.get("type") in context.URL_CHANNEL_TYPES and (url := context.norm_url(value)):
-                urls.setdefault(url[0], []).append({"path": url[1], **entry})
-            elif ch.get("type") == "email":
-                emails.setdefault(value.strip().lower(), []).append(entry)
-    return {
-        "about": "Contacts on file in the redress registry. Before anyone calls, texts, emails or opens a contact, "
-                 "normalize it and look it up here. If it is not here, or it belongs to a different organization, "
-                 "do not use it. Use a contact from the company's own file instead.",
-        "generated": today.isoformat(),
-        "normalize": {
-            "phone": "Keep the digits only. Remove a leading 1 from an 11-digit number. The result must have 10 digits, "
-                     "or 3 to 6 digits (a short code). Look it up in `phones`.",
-            "url": "Add https:// if there is no scheme. Host: lower case, with no user, port or leading 'www.'. "
-                   "Path: lower case, with no query, fragment or trailing '/'. Look up the host in `urls`. An entry "
-                   "matches if its path is empty, is equal to the path, or is a parent of the path.",
-            "email": "The full address, trimmed and in lower case. Look it up in `emails`.",
-            "domains": "An email address or URL whose host is one of an owner's `domains`, or a subdomain of one, "
-                       "belongs to that owner even if the exact address is not on file.",
-            "lookalike": "Split the host into segments on '.' and '-'. A brand token matches when a segment equals it, "
-                         "a segment equals an affix from `brands.affixes` plus the token (or the token plus an affix), "
-                         "or two adjacent segments join to it. A host that is not in `brands.known_hosts` and not under "
-                         "any owner's `domains` imitates the company of the longest matching token. A company's "
-                         "official domains are its `domains` in `owners`.",
-        },
-        "owners": owners,
-        "brands": {
-            "tokens": [list(t) for t in brands.tokens],
-            "affixes": list(context.BRAND_AFFIXES),
-            "stopwords": sorted(context.BRAND_STOPWORDS),
-            "known_hosts": sorted(brands.known_hosts),
-        },
-        "aliases": list(reg._alias_index.items()),
-        "phones": phones,
-        "urls": urls,
-        "emails": emails,
-    }
-
-
-def red_flags_document(reg: Registry) -> dict:
-    """The scam_check patterns. The next steps and the note come from scam_check itself."""
-    flagged = context.scam_check(reg, "pay with a gift card")
-    calm = context.scam_check(reg, "")
-    if flagged["risk"] == "low" or calm["risk"] != "low":
-        raise RuntimeError("scam_check probe texts no longer give the expected risk levels")
-    return {
-        "about": "Red flags that scam_check looks for in a message. Search the message in lower case. The patterns "
-                 "are case-insensitive and '.' also matches a line break. A match is a warning sign, not proof.",
-        "flags": [{"id": fid, "pattern": pattern, "why": why} for fid, pattern, why in context.RED_FLAGS],
-        "lookalike": {
-            "flag": "lookalike_domain",
-            "about": "Added after the pattern flags, once for each company that a URL or email domain in the message "
-                     "imitates (see `normalize.lookalike` in contacts.json). The contact's verdict is then `lookalike`.",
-            "why": context.LOOKALIKE_WHY,
-            "advice": context.LOOKALIKE_ADVICE,
-        },
-        "suspicious_verdicts": list(context.SUSPICIOUS_VERDICTS),
-        "contact_patterns": dict(context.CONTACT_PATTERNS),
-        "risk": "high: a red flag and a suspicious contact (a verdict in `suspicious_verdicts`), or two or more red "
-                "flags. medium: one red flag, or one suspicious contact. low: no red flag and no suspicious contact.",
-        "next_steps": flagged["next_steps"],
-        "next_steps_low": calm["next_steps"],
-        "note": flagged["note"],
-    }
 
 
 def issues_document(reg: Registry) -> list[dict]:
@@ -301,11 +212,9 @@ def llms_txt(reg: Registry, base_url: str = BASE_URL) -> str:
         "`security` (official domains, what the company never asks for, known scams, where to report phishing), "
         "`dossier` (how complaints actually go, as Markdown with a source on every bullet) and `guide` (the sector guide).",
         "2. If the company is not listed, use the generic steps for the issue in issues.json and the regulators in registry.json.",
-        f"3. Verify every contact before you use it. Before anyone calls, texts, emails or opens a phone number, email "
-        f"address or URL (also one that the person got in a message, or one you found in a search), look it up in "
-        f"{base_url}contacts.json. Its `normalize` field tells how to normalize the value. If the value is not there, "
-        "or it is on file for a different organization, do not use it. Use a contact from the company's JSON instead. "
-        f"To check a whole message, apply the patterns in {base_url}red_flags.json.",
+        "3. Use the phone numbers, URLs and email addresses in the company's JSON, not ones from a search result or a "
+        "message. A message that asks for money, codes or account access can be a scam: compare it with the "
+        "company's `security` field (what the company never asks for, and its known scams).",
         "4. Cite only facts and rule points that have a `source`, and give that source URL. Do not cite a rule whose "
         "status is not in_effect or partially_in_effect. In dossiers and guides, 'Reported by customers' marks an "
         "anecdote from a forum: a tactic to try, not a fact to quote to the company.",
@@ -317,9 +226,6 @@ def llms_txt(reg: Registry, base_url: str = BASE_URL) -> str:
         "## Data",
         "",
         f"- [Company index]({base_url}companies.json): id, name, aliases, sector and playbook issues for every company",
-        f"- [Contacts on file]({base_url}contacts.json): every phone number, URL and email address in the registry, "
-        "normalized, with its owner (company, regulator or state agency), label and source, plus each owner's official domains",
-        f"- [Scam red flags]({base_url}red_flags.json): the patterns that mark a message as a likely scam, with the reason for each",
         f"- [Issues]({base_url}issues.json): issue vocabulary, generic steps, evidence, and the companies with a playbook",
         f"- [Whole registry]({base_url}registry.json): sectors, issues, regulators, states, rules and companies in one file",
         f"- [MCP server and skills]({REPO_URL}): `redress serve` adds a case log, draft briefs and bill tracking",
@@ -342,8 +248,7 @@ def llms_txt(reg: Registry, base_url: str = BASE_URL) -> str:
     for code, st in sorted(reg.states.items(), key=lambda kv: kv[1]["name"]):
         kinds = ", ".join(sorted({ag["kind"] for ag in st.get("agencies", [])}))
         lines.append(f"- [{st['name']}]({base_url}states/{code}.json): {kinds}")
-    lines += ["", "## Optional", "", f"- [Website]({base_url}): the same data for people, searchable",
-              f"- [Check before you call]({base_url}#/check): the contact and message checks, for people", ""]
+    lines += ["", "## Optional", "", f"- [Website]({base_url}): the same data for people, searchable", ""]
     return "\n".join(lines)
 
 

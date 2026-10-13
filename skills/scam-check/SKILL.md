@@ -1,25 +1,15 @@
 ---
 name: scam-check
-description: Check whether a message, call, email, text, web page or phone number claiming to be from a company, bank, utility, carrier or government agency is genuine, before anyone replies, calls, clicks or pays. Use when the person received something suspicious, found a support number online, is asked to pay or share a code, or lost money and wants to know what to do next. Uses the redress MCP tools.
+description: Check a suspicious message, email, text or call that claims to be from a company, bank, utility, carrier or government agency for common scam red flags, and say what to do next. Use when the person received something suspicious, is asked to pay or share a code, or lost money and wants to know what to do next. Uses the redress MCP tools.
 ---
 
 # Check for a scam
 
-Scammers copy real companies: fake support numbers in search ads, texts about unpaid tolls or packages, calls about shutoffs or refunds, and "recovery" offers after a loss. The fastest protection is to verify the contact and use only official channels.
+Scammers copy real companies: texts about unpaid tolls or packages, calls about shutoffs or refunds, and "recovery" offers after a loss. The fastest protection is to ignore the message's own links and numbers and go to the company directly.
 
 ## 1. Check what the person received
 
-- For a message, email, text or call script, call `scam_check(text, company)` with the full text and the company it claims to be.
-- For a single phone number, email address or link, call `verify_contact(value, company)`.
-
-Explain the result in plain words:
-- `on_file`: the contact is in the registry, with a source.
-- `official_domain`: the domain is the company's, but this exact address is not on file. Read the address letter by letter.
-- `belongs_to_other`: the contact belongs to a different organization. Treat it as fake.
-- `lookalike`: the domain uses a company's name, but it is not one of that company's domains. Treat it as fake. `lookalike` lists the official domains.
-- `not_on_file`: unknown. Do not use it until it is confirmed on the company's official site.
-
-List every red flag that `scam_check` found, with its reason.
+Call `scam_check(text, company)` with the full text and the company it claims to be. List every red flag it found, with its reason, in plain words.
 
 ## 2. Read what the company says about itself
 

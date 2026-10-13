@@ -4,7 +4,6 @@
   // ==== core: no DOM. tests/test_site.py runs this part in node. ==============
   const ESC = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (ch) => ESC[ch]);
-  const own = (obj, key) => (obj && Object.prototype.hasOwnProperty.call(obj, key) ? obj[key] : undefined);
 
   // ---- Markdown: ## and ### headings, "- " bullets, paragraphs, **bold**, [text](http(s) url) ----
   // Every block is HTML-escaped before any markup is added. Other link schemes render as plain text.
@@ -54,224 +53,7 @@
     return end < 0 ? s : s.slice(end + 5);
   }
 
-  // ---- contact checks: a port of context.verify_contact and context.scam_check ----------------
-  // contacts.json and red_flags.json are generated from context.py. These functions mirror
-  // norm_phone, norm_url, classify, Registry.find_company and the verdict logic exactly.
-  const PY_WS = "\\t\\n\\x0b\\x0c\\r\\x1c-\\x1f \\x85\\xa0\\u1680\\u2000-\\u200a\\u2028\\u2029\\u202f\\u205f\\u3000"; // Python's \s
-  const RE_STRIP = new RegExp(`^[${PY_WS}]+|[${PY_WS}]+$`, "g");
-  const RE_EMAIL = new RegExp(`^[^@${PY_WS}]+@[^@${PY_WS}]+\\.[a-z]{2,}$`, "iu");
-  const RE_BARE_URL = /^[\p{L}\p{N}_.-]+\.[a-z]{2,}(\/|$)/iu; // Python's \w is Unicode
-  const pyStrip = (s) => String(s).replace(RE_STRIP, "");
-
-  function normPhone(value) {
-    let digits = [...String(value).replace(/\P{Nd}/gu, "")]; // Python's \D keeps every Unicode digit
-    if (digits.length === 11 && digits[0] === "1") digits = digits.slice(1);
-    return digits.length === 10 || (digits.length >= 3 && digits.length <= 6) ? digits.join("") : null;
-  }
-
-  // urllib.parse.urlsplit, the parts norm_url uses.
-  function urlsplit(url) {
-    let rest = url.replace(/^[\x00-\x20]+/, "").replace(/[\t\r\n]/g, "");
-    const colon = rest.indexOf(":");
-    if (colon > 0 && /^[A-Za-z][A-Za-z0-9+.-]*$/.test(rest.slice(0, colon))) rest = rest.slice(colon + 1);
-    let netloc = "";
-    if (rest.startsWith("//")) {
-      let end = rest.length;
-      for (const ch of "/?#") { const i = rest.indexOf(ch, 2); if (i >= 0) end = Math.min(end, i); }
-      netloc = rest.slice(2, end);
-      rest = rest.slice(end);
-    }
-    return { netloc, path: rest.split("#")[0].split("?")[0] };
-  }
-
-  function normUrl(value) {
-    let v = pyStrip(value);
-    if (!/^https?:\/\//iu.test(v)) {
-      if (!RE_BARE_URL.test(v)) return null;
-      v = "https://" + v;
-    }
-    const parts = urlsplit(v);
-    let host = parts.netloc.toLowerCase().split("@").pop().split(":")[0];
-    if (host.startsWith("www.")) host = host.slice(4);
-    return [host, parts.path.replace(/\/+$/, "").toLowerCase()];
-  }
-
-  function classify(value) {
-    const v = pyStrip(value);
-    if (RE_EMAIL.test(v)) return "email";
-    if (normUrl(v) && /[a-z]/iu.test(v)) return "url";
-    if (normPhone(v)) return "phone";
-    return "unknown";
-  }
-
-  // registry.normalize and Registry.find_company, including difflib.get_close_matches(cutoff=0.75).
-  const normName = (text) => String(text).toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, " ").replace(/\s+/g, " ").trim();
-
-  function seqRatio(a, b, b2j) {
-    // difflib.SequenceMatcher(None, a, b).ratio() for short strings (no junk, no autojunk below 200 items)
-    let matches = 0;
-    const queue = [[0, a.length, 0, b.length]];
-    while (queue.length) {
-      const [alo, ahi, blo, bhi] = queue.pop();
-      let besti = alo, bestj = blo, size = 0, j2len = new Map();
-      for (let i = alo; i < ahi; i++) {
-        const next = new Map();
-        for (const j of b2j.get(a[i]) || []) {
-          if (j < blo) continue;
-          if (j >= bhi) break;
-          const k = (j2len.get(j - 1) || 0) + 1;
-          next.set(j, k);
-          if (k > size) { besti = i - k + 1; bestj = j - k + 1; size = k; }
-        }
-        j2len = next;
-      }
-      while (besti > alo && bestj > blo && a[besti - 1] === b[bestj - 1]) { besti--; bestj--; size++; }
-      while (besti + size < ahi && bestj + size < bhi && a[besti + size] === b[bestj + size]) size++;
-      if (size) {
-        matches += size;
-        if (alo < besti && blo < bestj) queue.push([alo, besti, blo, bestj]);
-        if (besti + size < ahi && bestj + size < bhi) queue.push([besti + size, ahi, bestj + size, bhi]);
-      }
-    }
-    return a.length + b.length ? (2 * matches) / (a.length + b.length) : 1;
-  }
-
-  function closeMatches(word, possibilities, n, cutoff) {
-    const b = [...word];
-    const b2j = new Map();
-    b.forEach((ch, i) => (b2j.get(ch) || b2j.set(ch, []).get(ch)).push(i));
-    if (b.length >= 200) {
-      const ntest = Math.floor(b.length / 100) + 1;
-      [...b2j].forEach(([ch, idx]) => { if (idx.length > ntest) b2j.delete(ch); });
-    }
-    const scored = [];
-    for (const x of possibilities) {
-      const r = seqRatio([...x], b, b2j);
-      if (r >= cutoff) scored.push([r, x]);
-    }
-    scored.sort((p, q) => q[0] - p[0] || (q[1] > p[1] ? 1 : q[1] < p[1] ? -1 : 0));
-    return scored.slice(0, n).map((p) => p[1]);
-  }
-
-  function findCompany(C, query, limit) {
-    const key = normName(query);
-    if (!key) return [];
-    const index = new Map(C.aliases);
-    if (index.has(key)) return [index.get(key)];
-    const hits = [];
-    for (const [alias, cid] of C.aliases) if ((alias.includes(key) || key.includes(alias)) && !hits.includes(cid)) hits.push(cid);
-    for (const alias of closeMatches(key, C.aliases.map((a) => a[0]), limit, 0.75)) {
-      const cid = index.get(alias);
-      if (!hits.includes(cid)) hits.push(cid);
-    }
-    return hits.slice(0, limit);
-  }
-
-  // context.brand_candidates: the segments of a host ("." and "-"), each without one scam affix at
-  // its start or end, and each pair of adjacent segments joined.
-  function brandCandidates(C, host) {
-    const segments = host.toLowerCase().split(/[.-]/).filter(Boolean);
-    const out = new Set(segments);
-    segments.forEach((seg) => C.brands.affixes.forEach((affix) => {
-      if (seg.startsWith(affix)) out.add(seg.slice(affix.length));
-      if (seg.endsWith(affix)) out.add(seg.slice(0, seg.length - affix.length));
-    }));
-    segments.slice(1).forEach((seg, i) => out.add(segments[i] + seg));
-    out.delete("");
-    return out;
-  }
-
-  // context.lookalikes: companies whose brand is used in a host that no organization on file uses.
-  const BRANDS = new WeakMap();
-  function lookalikes(C, host) {
-    const h = String(host || "").toLowerCase().replace(/\.+$/, "");
-    if (!h) return [];
-    let idx = BRANDS.get(C);
-    if (!idx) {
-      idx = {
-        known: new Set(C.brands.known_hosts),
-        domains: [...new Set(C.owners.flatMap((o) => o.domains))],
-        companies: new Map(C.owners.filter((o) => o.kind === "company").map((o) => [o.id, o])),
-      };
-      BRANDS.set(C, idx);
-    }
-    if (idx.known.has(h) || idx.domains.some((d) => h === d || h.endsWith("." + d))) return [];
-    const candidates = brandCandidates(C, h);
-    const hits = C.brands.tokens.filter(([token]) => candidates.has(token)); // tokens are sorted longest first
-    const out = [];
-    hits.forEach(([token, cid]) => {
-      if (token.length === hits[0][0].length && !out.some((o) => o.company === cid)) {
-        const o = idx.companies.get(cid);
-        out.push({ company: cid, name: o.name, token, official: o.domains });
-      }
-    });
-    return out;
-  }
-
-  function verifyContact(C, value, company) {
-    const kind = classify(value);
-    const result = { value, kind, matches: [] };
-    if (kind === "unknown") { result.verdict = "unrecognized"; return result; }
-    const lower = pyStrip(value).toLowerCase();
-    const phone = kind === "phone" ? normPhone(value) : null;
-    const url = kind === "url" ? normUrl(value) : null;
-    const emailDomain = kind === "email" ? lower.slice(lower.lastIndexOf("@") + 1) : null;
-    let entries = [];
-    if (phone) entries = own(C.phones, phone) || [];
-    else if (url) entries = (own(C.urls, url[0]) || []).filter((e) => e.path === url[1] || url[1].startsWith(e.path + "/") || !e.path);
-    else if (emailDomain) entries = own(C.emails, lower) || [];
-    result.matches = entries.map((e) => ({ owner_kind: e.kind, owner: e.owner, name: e.name, channel: e.channel,
-      label: e.label, source: e.source, last_verified: e.last_verified }));
-    const host = url ? url[0] : emailDomain;
-    if (host) {
-      C.owners.forEach((o) => {
-        const d = o.domains.find((x) => host === x || host.endsWith("." + x));
-        if (d) (result.domain_owners = result.domain_owners || []).push({ owner_kind: o.kind, owner: o.id, name: o.name, domain: d });
-      });
-    }
-    // Companies the person means. An ambiguous name ("united") keeps every candidate.
-    let targets = [];
-    if (company) {
-      targets = C.owners.some((o) => o.kind === "company" && o.id === company) ? [company] : findCompany(C, company, 5);
-    }
-    const exact = new Set(result.matches.map((m) => m.owner));
-    const owners = new Set([...exact, ...(result.domain_owners || []).map((d) => d.owner)]);
-    const meets = (set) => targets.some((t) => set.has(t));
-    if (exact.size && (!targets.length || meets(exact))) result.verdict = "on_file";
-    else if (owners.size && (!targets.length || meets(owners))) result.verdict = "official_domain";
-    else if (targets.length && owners.size) result.verdict = "belongs_to_other";
-    else {
-      result.verdict = "not_on_file";
-      const look = lookalikes(C, url ? url[0] : emailDomain);
-      if (look.length) { result.verdict = "lookalike"; result.lookalike = look; }
-    }
-    result.targets = [...new Set(targets)].sort();
-    result.owners = [...owners].sort();
-    return result;
-  }
-
-  function scamCheck(C, R, text, company) {
-    const src = String(text);
-    const lowered = src.toLowerCase();
-    const flags = [];
-    R.flags.forEach((f) => {
-      const m = new RegExp(f.pattern, "is").exec(lowered);
-      if (m) flags.push({ flag: f.id, why: f.why, matched: pyStrip(src.slice(Math.max(0, m.index - 20), m.index + m[0].length + 20)) });
-    });
-    const found = new Set();
-    ["url", "email", "phone"].forEach((k) => {
-      (src.match(new RegExp(R.contact_patterns[k], "g")) || []).forEach((v) => found.add(k === "phone" ? pyStrip(v) : v));
-    });
-    const checks = [...found].sort().map((v) => verifyContact(C, v.replace(/[.,;]+$/, ""), company));
-    const L = R.lookalike;
-    checks.forEach((c) => (c.lookalike || []).forEach((look) => flags.push({ flag: L.flag, matched: c.value,
-      why: L.why.split("{name}").join(look.name).split("{official}").join(look.official.join(", ")) })));
-    const suspicious = checks.filter((c) => R.suspicious_verdicts.includes(c.verdict));
-    const risk = flags.length && (suspicious.length || flags.length >= 2) ? "high" : flags.length || suspicious.length ? "medium" : "low";
-    return { risk, red_flags: flags, contacts: checks, next_steps: risk !== "low" ? R.next_steps : R.next_steps_low, note: R.note };
-  }
-
-  const core = { esc, renderMarkdown, stripFrontMatter, normPhone, normUrl, classify, normName, findCompany, brandCandidates, lookalikes, verifyContact, scamCheck };
+  const core = { esc, renderMarkdown, stripFrontMatter };
   if (typeof module === "object" && module && module.exports) { module.exports = core; return; }
 
   // ==== the page ================================================================
@@ -516,11 +298,9 @@
   // A dossier or guide as HTML. "Reported by customers" at the start of a bullet becomes a badge.
   const docHtml = (markdown, top) => renderMarkdown(markdown, top)
     .replace(/<li>Reported by customers:?\s*/g, `<li>${badge("warn", "Reported by customers", "An anecdote from a forum: a tactic to try, not a fact to quote")} `);
-  const andList = (items) => (items.length < 2 ? items.join("") : items.slice(0, -1).join(", ") + (items.length > 2 ? "," : "") + " and " + items[items.length - 1]);
-  const orList = (items) => (items.length < 2 ? items.join("") : items.slice(0, -1).join(", ") + (items.length > 2 ? "," : "") + " or " + items[items.length - 1]);
 
   // ---- views: home -----------------------------------------------------------
-  const ui = { q: "", sector: "", homeScroll: 0, issueSector: "", stateQ: "", check: { value: "", company: "", message: "" } };
+  const ui = { q: "", sector: "", homeScroll: 0, issueSector: "", stateQ: "" };
   D.companies.forEach((c) => {
     c._names = [c.name, c.id.replace(/-/g, " "), ...c.aliases].map(norm);
     c._hay = c._names.join(" | ");
@@ -581,7 +361,6 @@
           <li><b>${fmt(s.states)}</b>state directories</li>
           <li><b>${fmt(s.rules)}</b>consumer rules</li>
         </ul>
-        ${checkCallout()}
       </section>
       <section class="finder" aria-label="Find a company">
         <div class="field">
@@ -738,8 +517,7 @@ GET ${esc(D.base)}registry.json</code></pre>
     if ((s.known_scams || []).length) parts.push(`<div class="shield-part"><h3>Known scams</h3><ul class="facts">${s.known_scams.map(claim).join("")}</ul></div>`);
     if ((s.report_phishing || []).length) parts.push(`<div class="shield-part"><h3>Report phishing</h3><ul class="ch-list">${s.report_phishing.map(channelHtml).join("")}</ul></div>`);
     return `<section class="shield" aria-labelledby="sh-h" id="scams">
-      <div class="shield-head"><h2 id="sh-h">${SHIELD_ICON}Scam warnings</h2>
-        <a class="btn" href="#/check/${esc(c.id)}">Check a number or message</a></div>
+      <div class="shield-head"><h2 id="sh-h">${SHIELD_ICON}Scam warnings</h2></div>
       <div class="shield-grid">${parts.join("")}</div>
     </section>`;
   }
@@ -778,8 +556,6 @@ GET ${esc(D.base)}registry.json</code></pre>
         ${otherFacts.length || otherTips.length ? `<section class="section" aria-labelledby="f-h"><h2 id="f-h">More facts</h2><div class="box"><ul class="facts">${otherFacts.map(factHtml).join("")}${otherTips.map(tipHtml).join("")}</ul></div></section>` : ""}
       </div>
       <aside class="aside" aria-label="Escalation and blockers">
-        ${hasShield(doc) ? "" : `<section class="section box check-teaser" aria-labelledby="ck-h"><h2 id="ck-h">${SHIELD_ICON}Got a call or text?</h2>
-          <p class="notes">If someone contacts you as ${esc(c.name)}, <a href="#/check/${esc(c.id)}">check the number, link or message</a> before you call back, click or pay.</p></section>`}
         <section class="section box" aria-labelledby="esc-h"><h2 id="esc-h">Escalation path</h2>
           <p class="notes" style="margin:-6px 0 14px">Go up one step at a time. Keep reference numbers and dates from each contact.</p>
           ${ladderHtml(doc.escalation, rec.channels)}</section>
@@ -935,191 +711,6 @@ GET ${esc(D.base)}registry.json</code></pre>
     focusHeading();
   }
 
-  // ---- views: check before you call ----------------------------------------
-  const KIND_WORD = { phone: "number", email: "email address", url: "link" };
-  const OWNER_KIND = { company: "Company", regulator: "Regulator", state_agency: "State agency" };
-  const VERDICT = {
-    on_file: ["ok", "On file"],
-    official_domain: ["warn", "Official domain"],
-    belongs_to_other: ["bad", "Different organization"],
-    lookalike: ["bad", "Look-alike"],
-    not_on_file: ["warn", "Not on file"],
-    unrecognized: ["", "Not recognized"],
-  };
-  const RISK = {
-    high: ["bad", "High risk", "This message has the signs of a scam."],
-    medium: ["warn", "Medium risk", "This message has a warning sign."],
-    low: ["ok", "Low risk", "No common red flags found."],
-  };
-  const ownerLink = (kind, id, name) => (kind === "company" && COMPANY[id] ? `<a href="#/c/${esc(id)}">${esc(name)}</a>` : esc(name));
-  const companyName = (id) => (COMPANY[id] ? COMPANY[id].name : id);
-  // scam_check writes its next steps for agents; say the same thing to a person.
-  const forPeople = (step) => esc(step.replace("a channel from get_playbook", "the contacts on its page here"))
-    .replace("ReportFraud.ftc.gov", '<a href="https://reportfraud.ftc.gov/">ReportFraud.ftc.gov</a>');
-
-  function verdictHtml(r, compact, company) {
-    const what = KIND_WORD[r.kind] || "contact";
-    const [tone, label] = VERDICT[r.verdict] || ["", r.verdict];
-    const named = {};
-    r.matches.forEach((m) => (named[m.owner] = ownerLink(m.owner_kind, m.owner, m.name)));
-    (r.domain_owners || []).forEach((d) => (named[d.owner] = named[d.owner] || ownerLink(d.owner_kind, d.owner, d.name)));
-    const exactNames = [...new Set(r.matches.map((m) => named[m.owner]))];
-    const targetNames = (r.targets || []).map((id) => ownerLink("company", id, companyName(id)));
-    let title = "";
-    let body = "";
-    if (r.verdict === "on_file") {
-      title = `This ${what} is on file for ${andList(exactNames)}.`;
-      body = "It is in the registry with a source. If money or account access is involved, still confirm it on the company's own website.";
-    } else if (r.verdict === "official_domain") {
-      const doms = [...new Set((r.domain_owners || []).map((d) => `<code>${esc(d.domain)}</code>`))];
-      title = `The domain ${andList(doms)} belongs to ${andList(r.owners.map((id) => named[id]))}, but this exact ${what} is not on file.`;
-      body = "Check the full address for look-alike spellings before you click or reply.";
-    } else if (r.verdict === "belongs_to_other") {
-      const notFor = targetNames.length > 2 && company ? `any of the ${targetNames.length} companies that match “${esc(company)}”` : orList(targetNames);
-      title = `This ${what} is on file for ${andList(r.owners.map((id) => named[id]))}, not for ${notFor}.`;
-      body = "Treat it as suspicious. A message that says it is from one company but gives another organization's contact is a common trick.";
-    } else if (r.verdict === "lookalike") {
-      const host = r.kind === "url" ? (normUrl(r.value) || [""])[0] : pyStrip(r.value).toLowerCase().split("@").pop();
-      title = `The domain <code>${esc(host)}</code> imitates ${orList(r.lookalike.map((l) => ownerLink("company", l.company, l.name)))}. Do not use it.`;
-      body = r.lookalike.map((l) => `It uses the name ${esc(l.name)}, but it is not an official ${esc(l.name)} domain. Official: ${andList(l.official.map((d) => `<code>${esc(d)}</code>`))}.`).join(" ");
-    } else if (r.verdict === "not_on_file") {
-      title = `This ${what} is not on file.`;
-      body = "Scammers buy search ads and post fake support numbers. Do not call, click or pay until you confirm it on the organization's official website.";
-      const c = targetNames.length === 1 && COMPANY[r.targets[0]];
-      if (c) body += ` Use the contacts on the <a href="#/c/${esc(c.id)}">${esc(c.name)} page</a> instead.`;
-    } else {
-      title = "This does not look like a phone number, email address or link.";
-      body = "Type a phone number, an email address or a URL.";
-    }
-    const value = `<span class="checked-value">${esc(r.value)}</span>`;
-    if (compact) {
-      return `<li class="checked">${value} ${badge(tone, label)}<p class="checked-title">${title}</p></li>`;
-    }
-    const where = r.matches.length ? `<ul class="matches">${r.matches.map((m) => `<li>
-        <span class="kind">${esc(OWNER_KIND[m.owner_kind] || humanize(m.owner_kind))}</span>
-        <p class="claim">${ownerLink(m.owner_kind, m.owner, m.name)}: ${esc(m.label || m.channel)}</p>${srcHtml(m)}</li>`).join("")}</ul>` : "";
-    return `<div class="verdict ${tone}">
-        <p class="verdict-top">${badge(tone, label)}${value}</p>
-        <p class="verdict-title">${title}</p>
-        <p class="verdict-body">${body}</p>
-        ${where}
-      </div>`;
-  }
-
-  function targetsNote(company, r) {
-    if (!company || r.verdict === "unrecognized") return "";
-    const t = r.targets || [];
-    if (!t.length) return `<p class="notes">No company in the registry matches “${esc(company)}”, so this checks against every organization on file.</p>`;
-    if (t.length > 1) return `<p class="notes">“${esc(company)}” matches ${plural(t.length, "company", "companies")}: ${esc(andList(t.map(companyName)))}. A contact on file for any of them counts as a match.</p>`;
-    return "";
-  }
-
-  function checkResultHtml(C, R, value, company, message) {
-    const parts = [];
-    let warn = false;
-    if (value) {
-      const r = verifyContact(C, value, company || null);
-      warn = R.suspicious_verdicts.includes(r.verdict);
-      parts.push(`<section class="result" aria-labelledby="res-c"><h2 id="res-c">The ${esc(KIND_WORD[r.kind] || "contact")}</h2>
-        ${verdictHtml(r, false, company)}${targetsNote(company, r)}</section>`);
-    }
-    if (message) {
-      const s = scamCheck(C, R, message, company || null);
-      const [tone, label, line] = RISK[s.risk];
-      const why = s.risk === "medium" && !s.red_flags.length ? "A number, link or email address in this message could not be confirmed." : line;
-      warn = warn || s.risk !== "low";
-      parts.push(`<section class="result" aria-labelledby="res-m"><h2 id="res-m">The message</h2>
-        <div class="verdict ${tone}"><p class="verdict-top">${badge(tone, label)}</p><p class="verdict-title">${esc(why)}</p>
-        ${s.red_flags.length ? `<ul class="flags">${s.red_flags.map((f) => `<li><p class="flag-why">${esc(f.why)}</p><p class="flag-quote">${f.flag === R.lookalike.flag ? esc(f.matched) : `“…${esc(f.matched)}…”`}</p></li>`).join("")}</ul>` : ""}
-        </div>
-        ${s.contacts.length ? `<h3>Contacts in the message</h3><ul class="checked-list">${s.contacts.map((r) => verdictHtml(r, true, company)).join("")}</ul>` : ""}
-        ${s.contacts.length ? targetsNote(company, s.contacts[0]) : ""}</section>`);
-    }
-    // The same three steps as scam_check: a warning from either check shows them.
-    const steps = warn ? R.next_steps : R.next_steps_low;
-    parts.push(`<section class="result" aria-labelledby="res-n"><h2 id="res-n">What to do</h2>
-      <ol class="steps">${steps.map((st) => `<li><p class="step-do">${forPeople(st)}</p></li>`).join("")}</ol></section>`);
-    return parts.join("");
-  }
-
-  function showCheck(companyId) {
-    document.title = "Check before you call | redress";
-    if (companyId && COMPANY[companyId]) ui.check.company = COMPANY[companyId].name;
-    const scams = guideFor("scams");
-    const k = ui.check;
-    main.innerHTML = `<div class="page-head">
-        <h1 id="h1" tabindex="-1">Check before you call</h1>
-        <p class="lede">Got a call, text or email that says it is from a company? Check the number, link or address against the contacts on file, and check the message for common scam signs.</p>
-      </div>
-      <div class="layout check-layout">
-        <div class="primary">
-          <form class="check-form" id="check-form" novalidate>
-            <div class="field">
-              <label for="ck-value">Phone number, email address or link</label>
-              <div class="search"><input id="ck-value" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="1-800-555-0100, help@example.com or example.com" value="${esc(k.value)}"></div>
-            </div>
-            <div class="field">
-              <label for="ck-message">Or paste the whole message <span class="opt">optional</span></label>
-              <textarea id="ck-message" rows="4" spellcheck="false" placeholder="Paste a text, email or voicemail transcript">${esc(k.message)}</textarea>
-            </div>
-            <div class="field">
-              <label for="ck-company">Which company does it say it is from? <span class="opt">optional</span></label>
-              <div class="search"><input id="ck-company" type="text" list="ck-companies" autocomplete="off" spellcheck="false" placeholder="United, Xfinity, Chase" value="${esc(k.company)}"></div>
-              <datalist id="ck-companies">${D.companies.map((c) => `<option value="${esc(c.name)}"></option>`).join("")}</datalist>
-            </div>
-            <div class="check-submit"><button type="submit" class="btn primary">Check</button>
-              <p class="hint">The check runs in your browser. Nothing you type is sent anywhere.</p></div>
-            <p class="proof-note" id="ck-note">Pattern checks catch common scams, not all of them. A ‘low’ result is not proof that a message is genuine.</p>
-          </form>
-          <div id="check-out" class="check-out" aria-live="polite"></div>
-        </div>
-        <aside class="aside" aria-label="How the check works">
-          <section class="section box"><h2>How the check works</h2>
-            <ul class="blockers plain">
-              <li>A number, link or email address is compared with every contact on file for ${fmt(D.stats.companies)} companies, the federal regulators and the state agencies. Each one has a source.</li>
-              <li>A link or email on a company's own domain counts as official, but check the exact address. One that uses a company's name on another domain, such as <code>usps-redelivery-fee.com</code>, is a look-alike.</li>
-              <li>A message is checked for common scam patterns: package and toll fees, links to “verify your account”, gift cards, crypto and wire transfers, remote access, requests for codes or passwords, fees to get a refund, and threats.</li>
-            </ul>
-          </section>
-          <section class="section box"><h2>Already paid or shared a code?</h2>
-            <p class="notes">Call your bank's fraud line now, using the number on your card. Then report it at <a href="https://reportfraud.ftc.gov/">ReportFraud.ftc.gov</a>.</p>
-            ${scams ? `<p class="notes" style="margin-top:10px"><a href="#/guides/scams">Read the scam guide</a></p>` : ""}
-          </section>
-          <section class="section"><h2>Data</h2>
-            <p class="notes">For agents: <a class="datafile" href="contacts.json">contacts.json</a> and <a class="datafile" href="red_flags.json">red_flags.json</a> hold the same checks as the redress MCP tools.</p></section>
-        </aside>
-      </div>`;
-    const form = document.getElementById("check-form");
-    const fields = { value: "ck-value", company: "ck-company", message: "ck-message" };
-    Object.entries(fields).forEach(([key, id]) => document.getElementById(id).addEventListener("input", (e) => (ui.check[key] = e.target.value)));
-    form.addEventListener("submit", (e) => { e.preventDefault(); runCheck(true); });
-    getJSON("red_flags.json").then((R) => { const n = document.getElementById("ck-note"); if (n && R.note) n.textContent = R.note; }).catch(() => {});
-    focusHeading();
-    if (k.value.trim() || k.message.trim()) runCheck(false);
-  }
-
-  async function runCheck(scroll) {
-    const out = document.getElementById("check-out");
-    const value = ui.check.value.trim();
-    const company = ui.check.company.trim();
-    const message = ui.check.message.trim() ? ui.check.message : "";
-    if (!value && !message) {
-      out.innerHTML = `<p class="empty-hint">Type a phone number, email address or link, or paste a message.</p>`;
-      return;
-    }
-    out.innerHTML = skeleton(2);
-    let C, R;
-    try {
-      [C, R] = await Promise.all([getJSON("contacts.json"), getJSON("red_flags.json")]);
-    } catch (e) {
-      out.innerHTML = loadError("the contacts on file", "contacts.json");
-      return;
-    }
-    if (!document.body.contains(out)) return;
-    out.innerHTML = checkResultHtml(C, R, value, company, message);
-    if (scroll) out.scrollIntoView({ block: "start" });
-  }
-
   // ---- views: guides ---------------------------------------------------------
   function guideCard(g) {
     const what = g.key === "scams" ? "Scams" : sectorShort(g.sector || g.key);
@@ -1130,12 +721,6 @@ GET ${esc(D.base)}registry.json</code></pre>
     </a></li>`;
   }
 
-  const checkCallout = () => `<div class="callout">
-      <span class="callout-icon">${SHIELD_ICON}</span>
-      <p class="callout-text"><strong>Got a call, text or number you're not sure about?</strong> Check it against the contacts on file and common scam signs.</p>
-      <a class="btn primary" href="#/check">Check it before you call</a>
-    </div>`;
-
   function showGuides() {
     document.title = "Guides | redress";
     const list = D.guides || [];
@@ -1144,8 +729,7 @@ GET ${esc(D.base)}registry.json</code></pre>
         <p class="lede">How complaints work in each industry, what gives you leverage, and the scams to watch for. ${esc(MD_NOTE)}</p>
       </div>
       ${list.length ? `<ul class="grid guide-grid">${list.map(guideCard).join("")}</ul>`
-        : `<div class="empty"><h2>Guides are coming soon</h2><p>Meanwhile, every company page has its contacts, playbooks and escalation path.</p></div>`}
-      ${list.some((g) => g.key === "scams") ? "" : checkCallout()}`;
+        : `<div class="empty"><h2>Guides are coming soon</h2><p>Meanwhile, every company page has its contacts, playbooks and escalation path.</p></div>`}`;
     focusHeading();
   }
 
@@ -1154,9 +738,8 @@ GET ${esc(D.base)}registry.json</code></pre>
     main.innerHTML = `<div class="page-head">
         <nav class="crumbs" aria-label="Breadcrumb"><a href="#/guides">Guides</a></nav>
         <h1 id="h1" tabindex="-1">Scams</h1>
-        <p class="lede">A guide to the scams that use company names, with sources, is coming soon.</p>
-      </div>
-      ${checkCallout()}`;
+        <p class="lede">A guide to the scams that use company names, with sources, is coming soon. Meanwhile, a company page shows its scam warnings when the registry has them.</p>
+      </div>`;
     focusHeading();
   }
 
@@ -1185,8 +768,6 @@ GET ${esc(D.base)}registry.json</code></pre>
     main.innerHTML = head + `<div class="layout">
         <article class="md guide-body">${docHtml(stripFrontMatter(text), 2)}</article>
         <aside class="aside" aria-label="Related">
-          <section class="section box check-teaser"><h2>${SHIELD_ICON}Check before you call</h2>
-            <p class="notes">Got a call, text or email that says it is from a company? <a href="#/check">Check the number, link or message</a> against the contacts on file.</p></section>
           ${sector ? `<section class="section"><h2>Companies</h2><p class="notes"><a href="#/sector/${esc(sector)}">${plural(sectorCounts[sector] || 0, "company", "companies")} in ${esc(sectorShort(sector))}</a>, each with contacts, playbooks and an escalation path.</p></section>` : ""}
           ${others.length ? `<section class="section"><h2>More guides</h2><ul class="list-plain notes">${others.map((x) => `<li><a href="#/guides/${esc(x.key)}">${esc(x.title || humanize(x.key))}</a></li>`).join("")}</ul></section>` : ""}
           <section class="section"><h2>Data</h2><p class="notes">Markdown: <a class="datafile" href="guides/${esc(key)}.md">guides/${esc(key)}.md</a></p></section>
@@ -1211,15 +792,13 @@ GET ${esc(D.base)}registry.json</code></pre>
           <li><code>companies/&lt;id&gt;.json</code>: the company record, every playbook resolved (steps with their channels, evidence, facts, rules) and the escalation ladder. Example: <a href="companies/united-airlines.json">companies/united-airlines.json</a>.</li>
           <li><a href="issues.json">issues.json</a>: issue vocabulary with generic steps and the companies that have a playbook.</li>
           <li><code>states/&lt;code&gt;.json</code>: state agencies with their channels. Example: <a href="states/ny.json">states/ny.json</a>.</li>
-          <li><a href="contacts.json">contacts.json</a>: every phone number, link and email address on file, normalized, with its owner and source, and each owner's official domains. Its <code>normalize</code> field tells how to look a value up.</li>
-          <li><a href="red_flags.json">red_flags.json</a>: the patterns that mark a message as a likely scam, with the reason for each.</li>
           <li><code>dossiers/&lt;id&gt;.md</code> and <code>guides/&lt;key&gt;.md</code>: how complaints actually go at a company and in an industry, as Markdown with a source on every point. The company JSON also has them.</li>
           <li><a href="registry.json">registry.json</a>: everything in one file.</li>
         </ul>
         <pre class="code" style="margin-top:14px"><code>curl ${b}companies/united-airlines.json</code></pre>
         <h2>Rules for agents</h2>
         <ul>
-          <li>Verify every phone number, link and email address against <a href="contacts.json">contacts.json</a> before anyone uses it, also one from a message or a search. If it is not on file, or it is on file for a different organization, use a contact from the company's own file instead.</li>
+          <li>Use the phone numbers, links and email addresses in the company's file, not ones from a search result or a message.</li>
           <li>Cite only facts and rule points that have a <code>source</code>, and give the source URL. Do not cite a rule whose status is not in force.</li>
           <li>Draft messages and forms. The person approves every message and form submission before it is sent.</li>
           <li>Never enter passwords or payment details. A channel marked sign-in required, CAPTCHA or account holder only needs the person.</li>
@@ -1265,6 +844,12 @@ GET ${esc(D.base)}registry.json</code></pre>
       try { return decodeURIComponent(p); } catch (e) { return p; }
     });
     const [a, b, c] = parts;
+    // The contact checker was removed. Old links go to the company page or the scam guide.
+    if (a === "check") {
+      history.replaceState(null, "", b && COMPANY[b] ? `#/c/${encodeURIComponent(b)}` : "#/guides/scams");
+      route(event);
+      return;
+    }
     if (view === "home") {
       ui.homeScroll = window.scrollY;
       ui.homeHash = normHash(event && event.oldURL ? new URL(event.oldURL).hash : "");
@@ -1282,8 +867,6 @@ GET ${esc(D.base)}registry.json</code></pre>
       setNav("states"); view = "state"; window.scrollTo(0, 0); showState(b.toLowerCase(), token);
     } else if (a === "states") {
       setNav("states"); view = "states"; window.scrollTo(0, 0); showStates();
-    } else if (a === "check") {
-      setNav("check"); view = "check"; window.scrollTo(0, 0); showCheck(b);
     } else if (a === "guides" && b) {
       setNav(b === "scams" ? "scams" : "guides"); view = "guide:" + b; window.scrollTo(0, 0); showGuide(b, token);
     } else if (a === "guides") {
@@ -1349,7 +932,7 @@ GET ${esc(D.base)}registry.json</code></pre>
     if (e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey) return;
     const t = e.target;
     if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
-    const input = document.getElementById("q") || document.getElementById("sq") || document.getElementById("ck-value");
+    const input = document.getElementById("q") || document.getElementById("sq");
     if (input) { e.preventDefault(); input.focus(); input.select(); }
   });
 
