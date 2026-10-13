@@ -103,6 +103,36 @@ issues:
       - If charged for returned equipment, send the receipt and ask for removal of the fee.
       - Dispute the charge as a billing error if the company does not remove it.
 
+  - id: number_port_out
+    name: Moving a phone number to another carrier
+    sectors: [wireless]
+    description: The carrier blocks or delays a number transfer, or the transfer PIN does not work.
+    evidence: [account number, number transfer PIN, the new carrier's port request reference]
+    steps:
+      - Get the number transfer PIN from the current carrier's account page or app. Give it only to the new carrier.
+      - If the port fails, ask the new carrier for the rejection reason, then fix the account details with the current carrier.
+      - If the current carrier refuses or delays without reason, file a complaint with the FCC.
+
+  - id: device_unlock
+    name: Phone unlock refused
+    sectors: [wireless]
+    description: The carrier refuses to unlock a device you paid off.
+    evidence: [proof the device is paid off, IMEI, the carrier's unlock policy]
+    steps:
+      - Check the carrier's unlock policy for the waiting period and payment conditions.
+      - Request the unlock through the carrier's unlock page. Save the request number.
+      - If refused although you meet the policy, escalate in writing and then to the FCC.
+
+  - id: trade_in_credit
+    name: Trade-in or promotion credit missing
+    sectors: [wireless, retail]
+    description: A promised trade-in value or promotional bill credit was not applied, or stopped.
+    evidence: [promotion terms, trade-in shipping receipt and IMEI, bills that should show the credit]
+    steps:
+      - Find the promotion terms and the trade-in confirmation. Note the promised amount and the number of monthly credits.
+      - Ask the carrier to apply the missing credits. Get a reference number.
+      - Dispute in writing as a billing error if the credits are still missing.
+
   - id: account_access
     name: Account access
     sectors: [all]
@@ -310,7 +340,7 @@ issues:
 
   - id: fraud
     name: Fraud or scam
-    sectors: [bank, credit_union, payments]
+    sectors: [bank, credit_union, payments, credit_bureau]
     description: Money was taken by fraud or a scam.
     evidence: [transaction details, messages from the scammer, police or FTC report number]
     steps:
@@ -326,6 +356,16 @@ issues:
     steps:
       - Ask in writing for the reason, when the funds will be released and how.
       - Complain to the CFPB if the funds are not released.
+
+  - id: identity_theft
+    name: Identity theft
+    sectors: [credit_bureau, bank, credit_union, payments]
+    description: Someone opened accounts or used credit in your name.
+    evidence: [FTC identity theft report, credit report pages with the fraudulent items, ID]
+    steps:
+      - Place a fraud alert with one credit bureau (it tells the other two) or freeze your credit at all three bureaus.
+      - Create an identity theft report and recovery plan at IdentityTheft.gov.
+      - Dispute the fraudulent accounts with each bureau and with each company that opened them. Attach the FTC report.
 
   - id: credit_report_error
     name: Error on a credit report
@@ -346,6 +386,35 @@ issues:
       - Ask the servicer in writing to correct the error. Keep the response.
       - Submit a complaint to the Federal Student Aid Feedback Center.
       - Complain to the CFPB if the servicer still does not fix it.
+
+  - id: repayment_plan
+    name: Repayment plan or forgiveness problem
+    sectors: [student_loan]
+    description: An income-driven repayment, forgiveness or forbearance request is delayed, denied or processed wrong.
+    evidence: [application confirmation, income documents, letters from the servicer, payment count]
+    steps:
+      - Ask the servicer in writing for the status, the reason for any denial, and the payment count.
+      - Check the request on StudentAid.gov.
+      - Submit a complaint to the Federal Student Aid Feedback Center if the servicer does not fix it.
+
+  - id: transfer_cancellation
+    name: Money transfer not received or wrong
+    sectors: [payments]
+    description: A money transfer did not arrive, went to the wrong person, or you want to cancel it.
+    evidence: [transfer receipt or tracking number (MTCN), sender and recipient details, amount and date]
+    steps:
+      - Contact the provider at once. Ask to cancel or stop the transfer if it has not been picked up.
+      - Send a written error notice. Remittance transfers have federal error-resolution rights with deadlines.
+      - Complain to the CFPB if the provider does not resolve it.
+
+  - id: money_order
+    name: Money order problem
+    sectors: [payments, shipping]
+    description: A money order was lost, stolen or not cashed, and you want a refund or replacement.
+    evidence: [money order receipt (customer copy) with the serial number, amount and date]
+    steps:
+      - Check the money order status with the issuer using the serial number.
+      - File the issuer's refund or replacement request. Keep the customer receipt.
 
   # ---- Lodging, rental and travel ---------------------------------------
   - id: damage_claim
