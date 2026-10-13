@@ -1,0 +1,114 @@
+id: disney-plus
+name: Disney+ (including Hulu and ESPN bundles)
+aliases: [disney plus, disneyplus, hulu, disney+ hulu bundle, disney+ hulu espn bundle]
+sector: subscription
+parent: The Walt Disney Company
+website: https://www.disneyplus.com
+account_url: https://www.disneyplus.com/account
+regulators: [ftc]
+notes: >-
+  As of 2026-10-12, disneyplus.com and hulu.com say select Hulu content is available in the
+  Disney+ app with valid Hulu and Disney+ subscriptions, and additional content only in the Hulu
+  app; the apps remain separate. Bundles sold include Disney+ and Hulu; Disney+, Hulu and ESPN
+  Unlimited; and Disney+, Hulu and HBO Max. Disney's help centers render only in a browser, so
+  their cancellation articles were not read for this entry.
+
+channels:
+  - id: disney-account
+    type: portal
+    label: Disney+ account page (manage or cancel, including bundles billed by Disney+)
+    value: https://www.disneyplus.com/account
+    purposes: [cancel_service, billing_error]
+    access: login
+    notes: HBO Max's help center sends Disney+, Hulu, HBO Max Bundle subscribers to sign in here or at hulu.com/account to manage the bundle.
+    source: https://help.hbomax.com/us/Answer/Detail/000002529
+    last_verified: 2026-10-12
+  - id: hulu-account
+    type: portal
+    label: Hulu account page (manage or cancel Hulu-billed plans and bundles)
+    value: https://hulu.com/account
+    purposes: [cancel_service, billing_error]
+    access: login
+    source: https://help.hbomax.com/us/Answer/Detail/000002529
+    last_verified: 2026-10-12
+  - id: disney-help
+    type: portal
+    label: Disney+ Help Center
+    value: https://help.disneyplus.com/
+    purposes: [cancel_service, billing_error, refund_request]
+    source: https://www.disneyplus.com/legal
+    last_verified: 2026-10-12
+  - id: hulu-bundle-billing-help
+    type: portal
+    label: Hulu help article on Disney+, Hulu, ESPN bundle billing and cancellation
+    value: https://help.hulu.com/article/hulu-disney-espn-bundle
+    purposes: [cancel_service, billing_error]
+    source: https://www.hulu.com/welcome
+    last_verified: 2026-10-12
+  - id: dispute-notice-mail
+    type: mail
+    label: Notice of Dispute to Disney (Terms of Use section 8.B)
+    value: Disney, 500 South Buena Vista Street, Burbank, California 91521-7620, USA, Attention Legal
+    notes: The Disney Terms of Use name this address for notices of a dispute. It is not a customer service address.
+    source: https://disneytermsofuse.com/english/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: disney-help}
+  - {rung: written_complaint, channel: dispute-notice-mail}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel online from the account of the service that bills you (Disney+ or Hulu); access continues to the end of the term with no prorated refund.
+    evidence: [cancellation confirmation email, date cancelled, the bill that shows which service or partner charges you]
+    steps:
+      - do: Find who bills you. A bundle is managed at disneyplus.com/account or hulu.com/account, whichever service you signed up through.
+        channel: disney-account
+      - do: If Hulu bills you, cancel from the Hulu account page.
+        channel: hulu-account
+      - do: If an app store or another partner bills you, cancel with that partner.
+      - do: If charged after cancelling, contact Disney+ help with the confirmation, then dispute the charge with the card issuer.
+        channel: disney-help
+    facts:
+      - kind: policy
+        claim: '"If you subscribed online, we will give you the option of cancelling the subscription online." (Disney Terms of Use, section 4.D)'
+        issues: [cancel_service]
+        source: https://disneytermsofuse.com/english/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: 'When a subscription is cancelled, "you will not receive a prorated refund, but you will continue to have access to the Disney Products until the end of the term" in which you cancelled. (section 4.D)'
+        issues: [cancel_service, refund_request]
+        source: https://disneytermsofuse.com/english/
+        last_verified: 2026-10-12
+
+  - issue: bill_increase
+    summary: Disney gives advance notice of fee changes and lets you cancel before they take effect.
+    evidence: [price change notice, last bill before the increase, original promotion terms]
+    steps:
+      - do: If you do not accept the new price, cancel before the change takes effect.
+        channel: disney-account
+    facts:
+      - kind: policy
+        claim: Disney "will provide you with reasonable notice of changes to the fees or billing methods in advance of their effective date" and you can cancel before the change (section 4.D).
+        issues: [bill_increase]
+        source: https://disneytermsofuse.com/english/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: '"The renewal rate will be no more than the rate for the immediately prior subscription period," excluding promotional and discount pricing (section 4.D).'
+        issues: [bill_increase]
+        source: https://disneytermsofuse.com/english/
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: For a free trial, Disney "will begin to bill your account when the free trial subscription expires, unless you cancel your subscription before that time." (section 4.D)
+    issues: [cancel_service, refund_request]
+    source: https://disneytermsofuse.com/english/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Disney+ and Hulu help centers and account pages need a full browser with JavaScript; the account pages need sign-in.
+  - A bundle must be cancelled through the service (Disney+ or Hulu) or partner that bills it.

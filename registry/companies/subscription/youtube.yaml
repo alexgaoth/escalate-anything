@@ -1,0 +1,187 @@
+id: youtube
+name: YouTube (Premium, Music Premium and YouTube TV)
+aliases: [youtube premium, youtube music premium, youtube music, youtube tv, ytv]
+sector: subscription
+parent: Google LLC
+website: https://www.youtube.com
+account_url: https://www.youtube.com/paid_memberships
+regulators: [ftc]
+
+channels:
+  - id: paid-memberships
+    type: portal
+    label: YouTube Paid memberships page (cancel Premium or Music Premium)
+    value: https://www.youtube.com/paid_memberships?noapp=1
+    purposes: [cancel_service]
+    access: login
+    notes: Select the membership, Continue, choose a reason, then Yes, cancel. The Status field shows whether it is already cancelled.
+    source: https://support.google.com/youtube/answer/6308278?hl=en
+    last_verified: 2026-10-12
+  - id: premium-refund
+    type: portal
+    label: Request a YouTube Premium refund (signed-in account page)
+    value: https://www.youtube.com/account
+    purposes: [refund_request]
+    access: login
+    source: https://support.google.com/youtube/answer/12014038?hl=en
+    last_verified: 2026-10-12
+  - id: youtube-contact
+    type: web_form
+    label: YouTube Help contact us
+    value: https://support.google.com/youtube/gethelp
+    purposes: [refund_request, billing_error, cancel_service]
+    source: https://support.google.com/youtube/answer/6308278?hl=en
+    last_verified: 2026-10-12
+  - id: ytv-cancel
+    type: portal
+    label: YouTube TV cancel or pause membership
+    value: https://tv.youtube.com/cancel
+    purposes: [cancel_service]
+    access: login
+    notes: Path is Profile photo, Settings, Membership, Manage, Cancel membership. Pauses last 4 weeks to 6 months and start after the current billing cycle.
+    source: https://support.google.com/youtubetv/answer/7129668?hl=en
+    last_verified: 2026-10-12
+  - id: ytv-refund
+    type: web_form
+    label: YouTube TV refund request
+    value: https://youtube.com/refund/tv
+    purposes: [refund_request]
+    access: login
+    source: https://support.google.com/youtubetv/answer/7298539?hl=en
+    last_verified: 2026-10-12
+  - id: ytv-contact
+    type: web_form
+    label: YouTube TV contact us (chat options)
+    value: https://support.google.com/youtubetv/gethelp
+    purposes: [billing_error, refund_request, cancel_service]
+    access: login
+    notes: YouTube says to sign in to the YouTube TV account first, then select Contact us.
+    source: https://support.google.com/youtubetv/answer/7247018?hl=en
+    last_verified: 2026-10-12
+  - id: ytv-phone
+    type: phone
+    label: YouTube TV phone support (pause or customize plan)
+    value: +1-833-389-2054
+    purposes: [cancel_service, price_negotiation, billing_error]
+    source: https://support.google.com/youtubetv/answer/7247018?hl=en
+    last_verified: 2026-10-12
+  - id: unauthorized-charges
+    type: web_form
+    label: Google Payments unauthorized charge claim
+    value: https://pay.google.com/payments/unauthorizedtransactions
+    purposes: [unauthorized_charge]
+    notes: File within 120 days of the transaction. You need the claim ID emailed to you to check status.
+    source: https://support.google.com/youtube/answer/9346937?hl=en
+    last_verified: 2026-10-12
+  - id: apple-cancel
+    type: web_form
+    label: Cancel a YouTube membership bought in the YouTube iOS app (Apple)
+    value: https://support.apple.com/HT202039
+    purposes: [cancel_service]
+    source: https://support.google.com/youtube/answer/6308278?hl=en
+    last_verified: 2026-10-12
+  - id: google-play-cancel
+    type: web_form
+    label: Cancel a YouTube membership billed through Google Play
+    value: https://support.google.com/googleplay/answer/7018481
+    purposes: [cancel_service]
+    source: https://support.google.com/youtube/answer/6308278?hl=en
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: youtube-contact}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel Premium on the Paid memberships page and YouTube TV in Settings, Membership; benefits continue to the end of the billing period.
+    evidence: [cancellation confirmation, Status field on the Paid memberships page, any later charge]
+    steps:
+      - do: For Premium or Music Premium, sign in and cancel on the Paid memberships page.
+        channel: paid-memberships
+      - do: For YouTube TV, cancel or pause at tv.youtube.com, Settings, Membership.
+        channel: ytv-cancel
+      - do: If you joined through the YouTube iOS app, cancel in your Apple account.
+        channel: apple-cancel
+      - do: If you pay through Google Play, cancel in Google Play subscriptions.
+        channel: google-play-cancel
+      - do: If you got YouTube TV through a mobile carrier or internet provider, cancel with that provider.
+    facts:
+      - kind: policy
+        claim: After you cancel, you are not charged again unless you re-subscribe, and benefits continue "until the end of the billing period."
+        issues: [cancel_service]
+        source: https://support.google.com/youtube/answer/6308278?hl=en
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: After cancelling YouTube TV, "you'll still have access to YouTube TV until the end of your payment period." Immediate removal requires contacting support.
+        issues: [cancel_service]
+        source: https://support.google.com/youtubetv/answer/7129668?hl=en
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: No refunds for partial periods; refunds are possible when features tied to the purchase do not work.
+    evidence: [receipt, description of the feature that did not work, dates]
+    steps:
+      - do: For Premium, sign in at youtube.com/account and request a refund. You may qualify if videos or features tied to the purchase do not work.
+        channel: premium-refund
+      - do: For YouTube TV, use the refund request page. If granted, access ends immediately.
+        channel: ytv-refund
+      - do: For an immediate Premium cancellation with a refund when billed through Google Play, contact YouTube support.
+        channel: youtube-contact
+      - do: Apple-billed purchases follow Apple's refund policies; carrier- or provider-billed YouTube TV refunds go to that provider.
+    facts:
+      - kind: policy
+        claim: '"You won''t be refunded for the period between when you cancel and when your membership ends." "Refunds are not available for partially used prepaid plans." (YouTube Premium)'
+        issues: [refund_request]
+        source: https://support.google.com/youtube/answer/12014038?hl=en
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: '"We do not give refunds or credits for partial billing periods." (YouTube TV) Card refunds typically take 3-5 business days and up to 10 business days.'
+        issues: [refund_request]
+        source: https://support.google.com/youtubetv/answer/7298539?hl=en
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: Confirm the GOOGLE*YouTube charge and rule out family purchases, then file a claim within 120 days.
+    evidence: [statement line reading GOOGLE*YouTube, date and amount, email used for the claim]
+    steps:
+      - do: Check the statement. YouTube purchases show as GOOGLE*YouTube followed by the service name. If it does not match, contact your bank.
+      - do: Ask family members, including children, whether they made the purchase. For an accidental purchase, request a refund instead.
+        channel: premium-refund
+      - do: If no one you know made it, file an unauthorized charge claim within 120 days.
+        channel: unauthorized-charges
+    facts:
+      - kind: deadline
+        claim: Report an unauthorized YouTube charge "within 120 days of the transaction."
+        issues: [unauthorized_charge]
+        source: https://support.google.com/youtube/answer/9346937?hl=en
+        last_verified: 2026-10-12
+
+  - issue: bill_increase
+    summary: YouTube emails at least 30 days before a price increase.
+    evidence: [price increase email, last bill]
+    steps:
+      - do: If you do not accept the new price, cancel on the Purchases and memberships page before the first billing cycle at the new price.
+        channel: paid-memberships
+      - do: For YouTube TV, call to ask about pausing or customizing the plan.
+        channel: ytv-phone
+    facts:
+      - kind: deadline
+        claim: '"We''ll notify you via email at least 30 days ahead of a price increase in your country/territory." The new rate applies from the first billing cycle at least 30 days after the increase.'
+        issues: [bill_increase]
+        source: https://support.google.com/youtube/answer/12400348?hl=en
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: At the end of a free trial "you will be automatically charged the price of the subscription." To avoid charges "you must cancel your subscription before the end of the trial period" (YouTube Paid Service Terms, section 3.2).
+    issues: [cancel_service, refund_request]
+    source: https://www.youtube.com/t/terms_paidservice
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Cancel, refund and contact pages need sign-in to the Google account that pays for the membership.
+  - Memberships billed by Apple, Google Play, Pixel Pass, a mobile carrier or an internet provider must be cancelled and refunded through that party.

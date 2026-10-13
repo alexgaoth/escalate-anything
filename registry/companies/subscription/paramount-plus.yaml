@@ -1,0 +1,118 @@
+id: paramount-plus
+name: Paramount+
+aliases: [paramount plus, paramountplus, pplus]
+sector: subscription
+parent: Skydance (Paramount)
+website: https://www.paramountplus.com
+account_url: https://www.paramountplus.com/account
+regulators: [ftc]
+notes: >-
+  The Terms say the service is provided by CBS Interactive Inc. The paramountplus.com footer reads
+  "Paramount+ © 2026 Skydance". The HBO Max help center says Warner Bros. Discovery and Paramount
+  Skydance are coming together as Skydance, with no immediate changes to how you subscribe to HBO Max
+  or Paramount+.
+
+channels:
+  - id: account
+    type: portal
+    label: Paramount+ Account page (manage or cancel)
+    value: https://www.paramountplus.com/account
+    purposes: [cancel_service, billing_error]
+    access: login
+    source: https://legal.paramount.com/us/en/pplus/termsofuse
+    last_verified: 2026-10-12
+  - id: customer-service-phone
+    type: phone
+    label: Paramount+ customer service
+    value: +1-888-274-5343
+    purposes: [cancel_service, billing_error, refund_request]
+    source: https://legal.paramount.com/us/en/pplus/termsofuse
+    last_verified: 2026-10-12
+  - id: help-chat
+    type: chat
+    label: Help Center chat (type "Agent" in the speech bubble)
+    value: https://help.paramountplus.com/
+    purposes: [cancel_service, billing_error, refund_request]
+    notes: The Terms say to click the speech bubble in the bottom right corner of the Help Center and type "Agent".
+    source: https://legal.paramount.com/us/en/pplus/termsofuse
+    last_verified: 2026-10-12
+  - id: legal-notice-mail
+    type: mail
+    label: Legal notice to Paramount (certified mail, Terms section 18.1)
+    value: CBS Interactive Inc., 680 Folsom Street, San Francisco, CA 94107, Attn. Legal Department
+    notes: The Terms say legal notices go here by certified mail. Not for routine support.
+    source: https://legal.paramount.com/us/en/pplus/termsofuse
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: help-chat}
+  - {rung: written_complaint, channel: legal-notice-mail}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel online on the Account page; cancellation takes effect at the end of the billing period (or the end of a free trial).
+    evidence: [cancellation confirmation email, date cancelled, any later charge]
+    steps:
+      - do: Sign in at paramountplus.com/account and cancel the subscription. Save the confirmation.
+        channel: account
+      - do: If an app store, an affiliate or another service bills you, cancel through that third party.
+      - do: If you cannot cancel online, call customer service or use Help Center chat.
+        channel: customer-service-phone
+    facts:
+      - kind: process
+        claim: '"You can manage or cancel your Subscription by going to your Account at www.paramountplus.com/account" (Terms, section 5.8(a)(i)).'
+        issues: [cancel_service]
+        source: https://legal.paramount.com/us/en/pplus/termsofuse
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Cancellation takes effect at the end of the current billing period; for a free trial it takes effect at the end of the free trial period. You keep access until then (section 5.8(a)(ii)).
+        issues: [cancel_service]
+        source: https://legal.paramount.com/us/en/pplus/termsofuse
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: Paramount+ does not refund fees paid, except where law requires it or Paramount ends the service.
+    evidence: [receipt, account email]
+    steps:
+      - do: If you were overcharged, ask customer service for a refund or account credit.
+        channel: customer-service-phone
+      - do: If Paramount ended your direct subscription, ask for the refund of the remaining period.
+        channel: help-chat
+    facts:
+      - kind: policy
+        claim: '"YOU WILL NOT BE REFUNDED FOR ANY FEES YOU HAVE PAID." The same section says you may be legally entitled to a refund in some circumstances (section 5.8(a)(ii)(C)).'
+        issues: [refund_request]
+        source: https://legal.paramount.com/us/en/pplus/termsofuse
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: For an overcharge, Paramount issues a refund or account credit (section 5.7(c)). If Paramount ends a direct subscription, you get a refund for the remaining portion or access through the period (section 14.1(d)).
+        issues: [refund_request, billing_error]
+        source: https://legal.paramount.com/us/en/pplus/termsofuse
+        last_verified: 2026-10-12
+
+  - issue: bill_increase
+    summary: Paramount gives notice of a price change; it takes effect only at renewal.
+    evidence: [price change notice, last bill]
+    steps:
+      - do: If you do not accept the new price, cancel before the next billing period starts.
+        channel: account
+    facts:
+      - kind: policy
+        claim: '"We will provide you with notice of any price change that applies to your Subscription." Changes take effect at renewal. The Terms state no specific number of days of notice (section 6.1).'
+        issues: [bill_increase]
+        source: https://legal.paramount.com/us/en/pplus/termsofuse
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: You are "charged automatically at the end of your free trial period" unless you cancel before it expires (section 5.5(b)).
+    issues: [cancel_service, refund_request]
+    source: https://legal.paramount.com/us/en/pplus/termsofuse
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Online cancellation needs sign-in.
+  - Subscriptions billed by an app store or partner must be cancelled with that third party.

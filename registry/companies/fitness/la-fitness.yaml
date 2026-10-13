@@ -1,0 +1,112 @@
+id: la-fitness
+name: LA Fitness
+aliases: [lafitness, l.a. fitness, fitness international]
+sector: fitness
+parent: Fitness International, LLC
+website: https://www.lafitness.com
+account_url: https://www.lafitness.com/Pages/memberServices.aspx?task=CustomerManagement
+regulators: [ftc]
+notes: Online cancellation exists through the member's online account. LA Fitness also accepts written notice by mail (it recommends registered or certified mail) and cancellation in person at a club.
+
+channels:
+  - id: online-account
+    type: portal
+    label: LA Fitness online account (cancel membership)
+    value: https://www.lafitness.com/Pages/memberServices.aspx?task=CustomerManagement
+    purposes: [cancel_service]
+    access: login
+    source: https://www.lafitness.com/Pages/MembershipQuestions.aspx
+    last_verified: 2026-10-12
+  - id: cancellation-mail
+    type: mail
+    label: Written notice of cancellation
+    value: LA Fitness, P.O. Box 54170, Irvine, CA 92619
+    purposes: [cancel_service]
+    notes: LA Fitness recommends registered or certified mail and keeping a record. Postmark at least 5 business days before the next billing date.
+    source: https://www.lafitness.com/Pages/MembershipQuestions.aspx
+    last_verified: 2026-10-12
+  - id: club-front-desk
+    type: in_person
+    label: Cancel in person at a club front desk
+    value: Any LA Fitness club, front desk
+    purposes: [cancel_service]
+    access: human_only
+    source: https://www.lafitness.com/Pages/MembershipQuestions.aspx
+    last_verified: 2026-10-12
+  - id: billing-management
+    type: portal
+    label: LA Fitness online billing management
+    value: https://www.lafitness.com/Pages/memberServices.aspx?task=BillingManagement
+    purposes: [billing_error]
+    access: login
+    source: https://www.lafitness.com/Pages/MembershipQuestions.aspx
+    last_verified: 2026-10-12
+  - id: message-us
+    type: web_form
+    label: LA Fitness Contact Us, Message us form (topics include Account and billing, Freeze, Cancel)
+    value: https://www.lafitness.com/Pages/ContactUs.aspx
+    purposes: [cancel_service, billing_error, refund_request, poor_service]
+    access: login
+    notes: Members must sign in before sending a message. Replies come from contactus@fitnessintl.com. On 2026-10-12 the page showed "Currently service is unavailable."
+    source: https://www.lafitness.com/Pages/ContactUs.aspx
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: message-us}
+  - {rung: written_complaint, channel: cancellation-mail}
+  - {rung: payment_dispute, note: "Card or bank dispute for EFT drafts after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel online, by mailed written notice (certified mail recommended) or at a club, at least 5 business days before the next billing date.
+    evidence: [online cancellation confirmation, certified mail receipt and copy of the letter, date of the next billing, bank statement with any later draft]
+    steps:
+      - do: Cancel in the online account, or mail a written notice of cancellation by certified mail, or cancel at a club front desk. Keep the confirmation or mail receipt.
+        channel: online-account
+      - do: For mail, send the notice to P.O. Box 54170, Irvine, CA 92619 so it is postmarked at least 5 business days before the next billing date.
+        channel: cancellation-mail
+      - do: If you are billed once more because notice was late, ask for the refund of that billing.
+        channel: message-us
+      - do: If drafts continue after the cancellation, dispute them with your bank or card issuer and complain to your state attorney general.
+    facts:
+      - kind: process
+        claim: '"Most club memberships are month-to-month and may be cancelled at any time" by mailing written notice to P.O. Box 54170, Irvine, CA 92619, in person at a club, or via your online account. Depending on your state of enrollment, you may be able to cancel by email.'
+        issues: [cancel_service]
+        source: https://www.lafitness.com/Pages/MembershipQuestions.aspx
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: '"A mailed cancellation form postmarked at least 5 business days before your next billing date should result in no further billings." If postmarked within 5 business days, you may be billed once more, and LA Fitness "will refund that additional billing."'
+        issues: [cancel_service, refund_request]
+        source: https://www.lafitness.com/Pages/MembershipQuestions.aspx
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: If you cancel before the end of an initial term of three months or more, "a termination fee will apply." You may still use the club for any pre-paid time.
+        issues: [cancel_service]
+        source: https://www.lafitness.com/Pages/MembershipQuestions.aspx
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: LA Fitness refunds one extra billing caused by a late-postmarked cancellation.
+    evidence: [postmark date or online cancellation date, bank statement]
+    steps:
+      - do: Send a message under Account and billing with the cancellation date and the extra draft.
+        channel: message-us
+
+facts:
+  - kind: fee
+    claim: 'Freeze fees: Monthly Dues members "$10 per month"; Paid In Full members up to 6 months for "a $35 freeze fee"; Bi-weekly Dues members "$5 per bi-weekly billing"; Weekly Dues members may not freeze.'
+    issues: [price_negotiation, cancel_service]
+    source: https://www.lafitness.com/Pages/MembershipQuestions.aspx
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: '"Recurring charges must be paid by electronic funds transfer (EFT)." "Advertised rates may be subject to change without notice." A signed membership agreement controls over the website terms.'
+    issues: [bill_increase]
+    source: https://www.lafitness.com/Pages/TermsAndConditions.aspx
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The online account and the Message us form need sign-in.
+  - LA Fitness publishes no customer service phone number; the Contact Us page asks for a ZIP code to find a club.
+  - Initial terms of three months or more carry a termination fee.

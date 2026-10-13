@@ -1,0 +1,151 @@
+id: hbo-max
+name: HBO Max
+aliases: [hbomax, hbo, max streaming, warnermedia direct]
+sector: subscription
+parent: Warner Bros. Discovery (combining with Paramount Skydance as Skydance)
+website: https://www.hbomax.com
+account_url: https://hbomax.com/subscription
+regulators: [ftc]
+notes: >-
+  The service is billed as WarnerMedia Direct, LLC (site footer, 2026). The brand is HBO Max in 2026.
+  The HBO Max help center says Warner Bros. Discovery and Paramount Skydance are "coming together as
+  Skydance", gives no closing date, and says there are no immediate changes to subscriptions, pricing,
+  app, content or access. skydance.com lists HBO Max among its brands.
+
+channels:
+  - id: manage-subscription
+    type: portal
+    label: HBO Max Subscription page (cancel a WarnerMedia-billed plan)
+    value: https://hbomax.com/subscription
+    purposes: [cancel_service, billing_error]
+    access: login
+    notes: Choose Cancel Your Subscription, confirm and note the expiration date. Only adult profiles can manage subscriptions. The top of the page shows who bills you.
+    source: https://help.hbomax.com/us/Answer/Detail/000002528
+    last_verified: 2026-10-12
+  - id: help-center
+    type: portal
+    label: HBO Max Help Center (Contact us link in the footer)
+    value: https://help.hbomax.com/us
+    purposes: [billing_error, unauthorized_charge, refund_request]
+    notes: For an unexpected WarnerMedia Direct charge, have the account email, billing ZIP code and the charge date and amount ready.
+    source: https://help.hbomax.com/us/Answer/Detail/000002524
+    last_verified: 2026-10-12
+  - id: feedback
+    type: web_form
+    label: HBO Max Give Feedback form
+    value: https://help.hbomax.com/us/Feedback/index
+    purposes: [poor_service]
+    source: https://help.hbomax.com/us
+    last_verified: 2026-10-12
+  - id: apple-cancel
+    type: web_form
+    label: Cancel HBO Max billed through Apple
+    value: https://support.apple.com/HT202039
+    purposes: [cancel_service]
+    notes: On iPhone or iPad, Settings, your name, Subscriptions, HBO Max, Cancel Subscription.
+    source: https://help.hbomax.com/us/Answer/Detail/000002532
+    last_verified: 2026-10-12
+  - id: apple-refund
+    type: web_form
+    label: Apple refund request (HBO Max billed through Apple)
+    value: https://support.apple.com/HT204084
+    purposes: [refund_request]
+    source: https://help.hbomax.com/us/Answer/Detail/000002522
+    last_verified: 2026-10-12
+  - id: google-play-refund
+    type: web_form
+    label: Google Play refund policies (HBO Max billed through Google Play)
+    value: https://support.google.com/googleplay/answer/2479637
+    purposes: [refund_request]
+    source: https://help.hbomax.com/us/Answer/Detail/000002522
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: help-center}
+  - {rung: written_complaint, channel: feedback}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Find who bills you, then cancel at least 24 hours before the next billing date; streaming continues to the end of the billing period.
+    evidence: [cancellation confirmation email, expiration date shown, billing provider name]
+    steps:
+      - do: Open hbomax.com/subscription (or Profile, Subscription in the app). The billing provider shows at the top.
+        channel: manage-subscription
+      - do: If WarnerMedia bills you, choose Cancel Your Subscription and confirm. Save the confirmation email.
+        channel: manage-subscription
+      - do: If Apple, Google Play, Amazon, Roku, Samsung, a cable or mobile provider, or the Disney+, Hulu, HBO Max Bundle bills you, cancel with that provider.
+        channel: apple-cancel
+      - do: If charged after cancelling, contact HBO Max through the Help Center, then dispute the charge with the card issuer.
+        channel: help-center
+    facts:
+      - kind: deadline
+        claim: '"Cancel your subscription at least 24 hours before your next billing date to avoid further charges."'
+        issues: [cancel_service]
+        source: https://help.hbomax.com/us/Answer/Detail/000002528
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: '"You can continue streaming until your subscription expires at the end of your billing period." Deleting the HBO Max app does not cancel the subscription.'
+        issues: [cancel_service]
+        source: https://help.hbomax.com/us/Answer/Detail/000002528
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: HBO Max does not refund plans it bills; app store and partner refunds follow the partner's policy.
+    evidence: [receipt, billing provider name]
+    steps:
+      - do: Find your billing provider on the Subscription page.
+        channel: manage-subscription
+      - do: If Apple bills you, request the refund from Apple.
+        channel: apple-refund
+      - do: If Google Play bills you, use Google Play's refund process.
+        channel: google-play-refund
+      - do: If HBO Max bills you and the charge is wrong, contact HBO Max through the Help Center.
+        channel: help-center
+    facts:
+      - kind: policy
+        claim: '"There is a no refund policy for subscriptions billed through HBO Max." Refund policies of other billing providers vary.'
+        issues: [refund_request]
+        source: https://help.hbomax.com/us/Answer/Detail/000002522
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: When you cancel the Extra Member Add-On, "you'll get a prorated refund for the remaining days on your add-on."
+        issues: [refund_request]
+        source: https://help.hbomax.com/us/Answer/Detail/000002528
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: Check who charged you and whether a second account exists, then contact HBO Max or the app store.
+    evidence: [bank statement line, charge date and amount, account email, billing ZIP code]
+    steps:
+      - do: Check the bank statement to see who charged you. If Apple or Google charged you, contact them.
+      - do: Check for a second HBO Max account; each account is billed separately.
+      - do: If WarnerMedia Direct charged you and none of the listed reasons apply, contact HBO Max with the date, amount, account email and billing ZIP code.
+        channel: help-center
+    facts:
+      - kind: process
+        claim: New subscribers can see a temporary authorization hold that should clear within 7-10 days.
+        issues: [unauthorized_charge, billing_error]
+        source: https://help.hbomax.com/us/Answer/Detail/000002524
+        last_verified: 2026-10-12
+
+  - issue: bill_increase
+    summary: A higher charge often means a promotional rate ended; HBO Max says it announces future price changes in advance.
+    evidence: [last bill before the increase, promotion terms]
+    steps:
+      - do: Check whether a promotional or discounted period ended, or whether the plan or billing period changed.
+      - do: To pay less, change to a lower-priced plan; the change happens on the next billing date.
+        channel: manage-subscription
+    facts:
+      - kind: policy
+        claim: 'HBO Max says "We''ll let you know about any future price changes in advance."'
+        issues: [bill_increase]
+        source: https://help.hbomax.com/Answer/Detail/000002825
+        last_verified: 2026-10-12
+
+known_blockers:
+  - The Subscription page needs sign-in with an adult profile.
+  - The help center lists no phone number or email; Contact us is a footer link that opens contact options.
+  - Partner-billed subscriptions (Apple, Google Play, Amazon, Roku, Samsung, cable and mobile providers, Disney+ bundle) must be cancelled and refunded through the partner.

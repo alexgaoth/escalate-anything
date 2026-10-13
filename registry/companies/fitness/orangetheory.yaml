@@ -1,0 +1,77 @@
+id: orangetheory
+name: Orangetheory Fitness
+aliases: [orangetheory fitness, orange theory, otf]
+sector: fitness
+parent: Purpose Brands
+website: https://www.orangetheory.com
+regulators: [ftc]
+notes: >-
+  Studios are "individually owned and operated", and membership terms come from each studio's
+  Membership Agreement. Purpose Brands lists Orangetheory Fitness and Anytime Fitness among its
+  brands; the merger date was not confirmed on a source.
+
+channels:
+  - id: contact-page
+    type: web_form
+    label: Orangetheory contact page (Send Us a Message form; studio finder)
+    value: https://www.orangetheory.com/en-us/contact-us
+    purposes: [cancel_service, billing_error, poor_service]
+    notes: For account charges, Orangetheory says to call your studio or speak with the studio manager at the front desk.
+    source: https://www.orangetheory.com/en-us/contact-us
+    last_verified: 2026-10-12
+  - id: home-studio
+    type: in_person
+    label: Home studio front desk or studio manager
+    value: Your home Orangetheory studio, front desk
+    purposes: [cancel_service, billing_error, refund_request]
+    source: https://www.orangetheory.com/en-us/contact-us
+    last_verified: 2026-10-12
+  - id: app-support-chat
+    type: app
+    label: Orangetheory app support chat ("?" icon, upper right, after sign-in)
+    value: Orangetheory app, "?" icon in the upper right corner
+    purposes: [account_access]
+    access: login
+    source: https://www.orangetheory.com/en-us/contact-us
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: home-studio}
+  - {rung: written_complaint, channel: contact-page}
+  - {rung: payment_dispute, note: "Card or bank dispute for drafts after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel with your home studio under your Membership Agreement; promotional offers can add their own deadlines.
+    evidence: [membership agreement, written cancellation notice and proof of delivery, studio confirmation]
+    steps:
+      - do: Read the cancellation clause and notice period in your Membership Agreement.
+      - do: Give cancellation notice to your home studio as the agreement requires. Get written confirmation.
+        channel: home-studio
+      - do: If the studio does not respond, send a message through the corporate contact page.
+        channel: contact-page
+    facts:
+      - kind: policy
+        claim: '"Standard membership cancellation policies apply as stated in the applicable Membership Agreement" for the studio where you buy the membership.'
+        issues: [cancel_service]
+        source: https://www.orangetheory.com/en-us/promotion-terms
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: Under the 30-Day Risk Free Guarantee, ask the home studio for a refund of monthly dues within the first month.
+    evidence: [membership start date, class attendance record]
+    steps:
+      - do: Within the first month of membership, contact your home studio to request the refund under the 30-Day Risk Free Guarantee.
+        channel: home-studio
+    facts:
+      - kind: deadline
+        claim: '30-Day Risk Free Guarantee: "A refund request must be made by contacting your home studio within the first month of membership"; the refund is for the monthly membership dues. OTbeat wearables and other retail sales are not refundable.'
+        issues: [refund_request]
+        source: https://www.orangetheory.com/en-us/promotion-terms
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Studios are independently owned franchises; the corporate site publishes no general cancellation method, notice period or member services phone number.
+  - Cancellation and billing are handled by the home studio, often in person or by phone with the studio.

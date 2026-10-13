@@ -1,0 +1,92 @@
+id: anytime-fitness
+name: Anytime Fitness
+aliases: [anytimefitness, anytime gym]
+sector: fitness
+parent: Purpose Brands
+website: https://www.anytimefitness.com
+regulators: [ftc]
+notes: >-
+  "Each of our locations are independently owned and operated." The home club handles cancellation
+  under its membership agreement and state law. ABC Financial processes billing for clubs. Purpose
+  Brands lists Anytime Fitness and Orangetheory Fitness among its brands; the corporate email domain
+  is sebrands.com.
+
+channels:
+  - id: contact-page
+    type: portal
+    label: Anytime Fitness contact page (club locator, billing and corporate contacts)
+    value: https://www.anytimefitness.com/contact/
+    purposes: [cancel_service, billing_error, poor_service]
+    source: https://www.anytimefitness.com/contact/
+    last_verified: 2026-10-12
+  - id: billing-phone
+    type: phone
+    label: ABC Financial (club billing processor)
+    value: +1-888-827-9262
+    purposes: [billing_error, unauthorized_charge, refund_request]
+    source: https://www.anytimefitness.com/contact/
+    last_verified: 2026-10-12
+  - id: billing-email
+    type: email
+    label: ABC Financial customer care (club billing)
+    value: customercare@abcfitness.com
+    purposes: [billing_error, unauthorized_charge, refund_request]
+    source: https://www.anytimefitness.com/contact/
+    last_verified: 2026-10-12
+  - id: corporate-phone
+    type: phone
+    label: Anytime Fitness corporate (club issues such as service or cleanliness)
+    value: +1-800-704-5004
+    purposes: [poor_service]
+    source: https://www.anytimefitness.com/contact/
+    last_verified: 2026-10-12
+  - id: corporate-email
+    type: email
+    label: Anytime Fitness corporate member solutions
+    value: member.solutions@sebrands.com
+    purposes: [poor_service, cancel_service]
+    source: https://www.anytimefitness.com/contact/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: contact-page}
+  - {rung: written_complaint, channel: corporate-email}
+  - {rung: payment_dispute, note: "Card or bank dispute for drafts after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel with your home club under its membership agreement; corporate and ABC Financial do not set the club's cancellation terms.
+    evidence: [membership agreement, written cancellation request and proof of delivery, bank statement]
+    steps:
+      - do: Read your membership agreement for the cancellation method, notice and any termination fee.
+      - do: Find the home club's contact details through the contact page club locator and cancel as the agreement says. Ask for written confirmation.
+        channel: contact-page
+      - do: If the club keeps billing after the cancellation, contact ABC Financial with the confirmation.
+        channel: billing-phone
+      - do: If the club does not respond, write to corporate member solutions.
+        channel: corporate-email
+    facts:
+      - kind: policy
+        claim: '"All cancellation policies are outlined in the membership agreement for each location," including "termination fees you may incur."'
+        issues: [cancel_service]
+        source: https://www.anytimefitness.com/faqs/
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Anytime Fitness says to contact your home club directly to cancel and to review your Membership Agreement first. Each club is independently owned, and cancellation policies vary by state.
+        issues: [cancel_service]
+        source: https://www.anytimefitness.com/contact/
+        last_verified: 2026-10-12
+
+  - issue: billing_error
+    summary: Billing questions go to the club's billing processor, ABC Financial.
+    evidence: [bank statement, member agreement, club name]
+    steps:
+      - do: Call or email ABC Financial with the charge details.
+        channel: billing-phone
+      - do: If it is not corrected, dispute the charge with your bank or card issuer.
+
+known_blockers:
+  - Clubs are independently owned franchises; cancellation method, notice and fees depend on the club's membership agreement and state law.
+  - No online cancellation is documented on the corporate site.

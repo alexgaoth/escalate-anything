@@ -1,0 +1,114 @@
+id: netflix
+name: Netflix
+aliases: [netflix inc, netflix streaming]
+sector: subscription
+website: https://www.netflix.com
+account_url: https://www.netflix.com/account
+regulators: [ftc]
+
+channels:
+  - id: cancel-online
+    type: portal
+    label: Cancel membership (Manage your membership page)
+    value: https://www.netflix.com/cancelplan
+    purposes: [cancel_service]
+    access: login
+    notes: Select Cancel, then Finish Cancellation. Netflix sends a confirmation email. The page asks for sign-in and is protected by Google reCAPTCHA.
+    source: https://help.netflix.com/en/node/407
+    last_verified: 2026-10-12
+  - id: help-contact
+    type: portal
+    label: Netflix Help Center contact page
+    value: https://help.netflix.com/en/contactus
+    purposes: [unauthorized_charge, billing_error, cancel_service, account_access]
+    notes: Netflix says to contact it here at once if you never signed up or someone uses your payment information. The page loads its call and chat options dynamically; no phone number was visible to a fetch.
+    source: https://help.netflix.com/node/1019
+    last_verified: 2026-10-12
+  - id: payment-history
+    type: portal
+    label: Payment history (billing activity)
+    value: https://netflix.com/BillingActivity
+    purposes: [billing_error, cancel_service]
+    access: login
+    notes: Shows the date the membership closes after a cancellation, and past charges.
+    source: https://help.netflix.com/en/node/407
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: help-contact}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel online at netflix.com/cancelplan; access continues to the end of the billing period. Partner-billed members cancel with the partner.
+    evidence: [cancellation confirmation email, date cancelled, payment history showing any later charge]
+    steps:
+      - do: Sign in and open the Manage your membership page. Select Cancel, then Finish Cancellation. Save the confirmation email.
+        channel: cancel-online
+      - do: If no cancel option appears, open the account page and read the Membership section. It links to a cancellation guide or tells you to contact your payment partner (for example a phone or internet provider).
+      - do: If you are charged after cancelling, the account may have been restarted. Cancel again, change the password, and select Sign out of all devices.
+      - do: If you still cannot cancel or stop the charges, contact Netflix through the Help Center.
+        channel: help-contact
+    facts:
+      - kind: process
+        claim: 'Netflix says the cancel page is "the only way to cancel your account and end your membership." Signing out or deleting the app does not cancel.'
+        issues: [cancel_service]
+        source: https://help.netflix.com/en/node/407
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: '"The cancellation will take effect at the end of the billing period." (Terms of Use, section 2.6)'
+        issues: [cancel_service]
+        source: https://help.netflix.com/legal/termsofuse
+        last_verified: 2026-10-12
+      - kind: process
+        claim: If an account was cancelled but is still charged, Netflix says someone using the account may have restarted it. It says to cancel again at netflix.com/cancelplan and update the password with Sign out of all devices.
+        issues: [cancel_service, unauthorized_charge]
+        source: https://help.netflix.com/en/node/124418
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: Contact Netflix at once if you never signed up or someone uses your payment information.
+    evidence: [statement with the Netflix charge, the email address on the account if any]
+    steps:
+      - do: If you never signed up for Netflix or someone is using your payment information, contact Netflix at once through the Help Center.
+        channel: help-contact
+      - do: If the charge came after you cancelled, follow the Charged after canceling steps (cancel again, change password, sign out of all devices).
+      - do: If Netflix does not reverse the charge, dispute it with the card issuer.
+
+  - issue: bill_increase
+    summary: Netflix emails a price change about one month before the billing date; the new price applies to everyone.
+    evidence: [price change email, last bill before the increase]
+    steps:
+      - do: Check the price change email and the plan list. You can change to a cheaper plan at any time.
+      - do: If you do not accept the new price, cancel before the billing date when it takes effect.
+        channel: cancel-online
+    facts:
+      - kind: deadline
+        claim: '"Netflix will send you an email with details about the price change one month before the billing date." If you have Netflix through a partner, the partner sends the notice.'
+        issues: [bill_increase]
+        source: https://help.netflix.com/node/62990
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: '"We will notify you at least one month before any price changes" (Terms of Use, section 2.7). You can cancel before the change takes effect.'
+        issues: [bill_increase]
+        source: https://help.netflix.com/legal/termsofuse
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: '"Payments are nonrefundable and there are no refunds or credits for partially used subscription periods." (Terms of Use, section 2.8)'
+    issues: [refund_request]
+    source: https://help.netflix.com/legal/termsofuse
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Netflix does not offer annual, multi-month or lifetime membership plans. Members who pay through a third party (for example a phone or internet provider) may need to contact that provider about billing.
+    issues: [billing_error, cancel_service]
+    source: https://help.netflix.com/en/node/41049
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The cancel page needs sign-in and is protected by Google reCAPTCHA.
+  - Members billed through a phone, internet or other partner must cancel and dispute billing with that partner.

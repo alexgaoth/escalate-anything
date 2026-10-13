@@ -1,0 +1,143 @@
+id: spotify
+name: Spotify
+aliases: [spotify premium, spotify usa]
+sector: subscription
+parent: Spotify USA Inc. (US contracting entity)
+website: https://www.spotify.com
+account_url: https://www.spotify.com/account
+regulators: [ftc]
+
+channels:
+  - id: cancel-online
+    type: portal
+    label: Manage your plan (cancel Premium)
+    value: https://www.spotify.com/account/subscription/manage/
+    purposes: [cancel_service]
+    access: login
+    notes: Select Cancel subscription. If there is no option to change the plan, a partner company (for example a mobile or internet provider) bills you; its contact link is under Payment on this page.
+    source: https://support.spotify.com/us/article/cancel-premium/
+    last_verified: 2026-10-12
+  - id: support-message
+    type: web_form
+    label: Message Spotify Customer Support
+    value: https://support.spotify.com/us/contact-spotify-support/
+    purposes: [billing_error, refund_request, cancel_service, unauthorized_charge]
+    access: login
+    notes: The page redirects to Spotify sign-in. Spotify does not offer phone support.
+    source: https://www.spotify.com/us/about-us/contact/
+    last_verified: 2026-10-12
+  - id: support-anonymous
+    type: web_form
+    label: Contact Spotify (linked from the unexpected-charges article)
+    value: https://support.spotify.com/contact-spotify-anonymous/
+    purposes: [unauthorized_charge]
+    source: https://support.spotify.com/us/article/unexpected-charges/
+    last_verified: 2026-10-12
+  - id: spotifycares-x
+    type: social
+    label: SpotifyCares on X
+    value: https://x.com/SpotifyCares
+    source: https://www.spotify.com/us/about-us/contact/
+    last_verified: 2026-10-12
+  - id: legal-notice-email
+    type: email
+    label: Legal notices to Spotify under the Terms
+    value: tounotice@spotify.com
+    notes: The Terms say notices to Spotify must be sent to this address. Use it for a formal written notice of dispute, not for routine support.
+    source: https://www.spotify.com/us/legal/end-user-agreement/
+    last_verified: 2026-10-12
+  - id: mail
+    type: mail
+    label: Spotify USA Inc. mailing address
+    value: Spotify USA Inc., 4 World Trade Center, 150 Greenwich Street, 62nd Floor, New York, NY 10007
+    source: https://www.spotify.com/us/legal/end-user-agreement/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: support-message}
+  - {rung: written_complaint, channel: legal-notice-email}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel on the Manage your plan page; Premium continues to the next billing date. Partner-billed plans are cancelled with the partner.
+    evidence: [cancellation confirmation message or email, account page showing the plan switch date, any charge after that date]
+    steps:
+      - do: Sign in, open Manage your plan and select Cancel subscription. Continue until you see the confirmation message.
+        channel: cancel-online
+      - do: If you cannot change the plan, a partner bills you. Use the partner's contact link under Payment on the account page.
+      - do: If charged after cancelling, check the Payment section on the account page. You may be signed in to a different account, or the charge may have processed just before you cancelled.
+      - do: If the charge is still wrong, message Customer Support.
+        channel: support-message
+    facts:
+      - kind: policy
+        claim: 'Cancellation "will take effect from the end of the billing period in which you cancel." The account then switches to Spotify Free.'
+        issues: [cancel_service]
+        source: https://www.spotify.com/us/legal/end-user-agreement/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If you cancel during a zero-priced free trial, the account switches to free immediately and the trial cannot be reactivated.
+        issues: [cancel_service]
+        source: https://support.spotify.com/us/article/cancel-premium/
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: Check for an accidental sign-up or a family member using your card, then contact Spotify.
+    evidence: [receipt or bank statement with the charge (hide the full card number), the email or phone you might have used]
+    steps:
+      - do: Try to sign in at spotify.com/account with each email, phone number, Apple or Google sign-in you use. You may have signed up by accident.
+      - do: Ask family or friends whether they used your payment information. Spotify says they should cancel or change the payment method and reimburse you.
+      - do: If you still need help, contact Spotify with the receipt or statement.
+        channel: support-anonymous
+      - do: If Spotify does not reverse an unauthorized charge, dispute it with the card issuer.
+
+  - issue: refund_request
+    summary: Spotify gives no refunds for partial periods; partner-billed refunds go to the partner.
+    evidence: [receipt, plan and billing date]
+    steps:
+      - do: For Premium paid through a partner, ask the partner for a refund. Partner details are under Your plan on the account page.
+      - do: For a direct-billed charge you believe is wrong, message Customer Support with the receipt.
+        channel: support-message
+    facts:
+      - kind: policy
+        claim: 'Spotify does "not provide refunds or credits for any partial subscription periods," unless the Terms expressly say otherwise.'
+        issues: [refund_request]
+        source: https://www.spotify.com/us/legal/end-user-agreement/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Premium payments made through a partner are handled by that partner, and Spotify says to contact the partner for refund requests. Store-bought gift cards are not refundable by Spotify.
+        issues: [refund_request]
+        source: https://support.spotify.com/us/article/refund-policy/
+        last_verified: 2026-10-12
+
+  - issue: bill_increase
+    summary: Spotify announces price changes in advance; they take effect at the start of the next subscription period.
+    evidence: [price change notice, last receipt]
+    steps:
+      - do: If you do not accept the new price, cancel before the next subscription period starts.
+        channel: cancel-online
+    facts:
+      - kind: policy
+        claim: Spotify will communicate price changes in advance. "Price changes will take effect at the start of the next subscription period." The Terms state no specific number of days of notice.
+        issues: [bill_increase]
+        source: https://www.spotify.com/us/legal/end-user-agreement/
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: 'Trials convert automatically: Spotify may begin charging "on the first day following the end of the Trial." The terms say "YOU MUST CANCEL BEFORE THE END OF THE TRIAL" to avoid the charge (Paid Subscription Terms, section 4).'
+    issues: [cancel_service, refund_request]
+    source: https://www.spotify.com/us/legal/paid-subscription-terms/
+    last_verified: 2026-10-12
+  - kind: contact
+    claim: '"We currently don''t offer support by phone." Spotify support is by message through the contact form.'
+    issues: [billing_error]
+    source: https://support.spotify.com/us/article/contact-us/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Cancellation and the support message form require sign-in.
+  - Spotify has no phone support.
+  - Plans billed by a partner (mobile or internet provider, Google Play billing) must be cancelled and refunded through that partner.

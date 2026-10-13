@@ -1,0 +1,116 @@
+id: playstation
+name: PlayStation (PlayStation Plus and PlayStation Store)
+aliases: [playstation plus, ps plus, psn, playstation network, playstation store]
+sector: subscription
+website: https://www.playstation.com
+account_url: https://www.playstation.com/acct/management
+regulators: [ftc]
+
+channels:
+  - id: account-management
+    type: portal
+    label: PlayStation Account Management, Subscription (cancel PlayStation Plus)
+    value: https://www.playstation.com/acct/management
+    purposes: [cancel_service]
+    access: login
+    notes: Open Subscription in the left menu and select Cancel Subscription next to PlayStation Plus. On PS5, Settings, Users and Accounts, Account, Payment and Subscriptions, Subscriptions.
+    source: https://www.playstation.com/en-us/support/subscriptions/cancel-playstation-plus/
+    last_verified: 2026-10-12
+  - id: refund-request
+    type: portal
+    label: PlayStation Store refund request
+    value: https://www.playstation.com/en-us/support/store/ps-store-refund-request/
+    purposes: [refund_request]
+    notes: Open Transaction History, select the transaction, then Request Refund. Have your Online ID, sign-in ID (email) and the purchase name ready.
+    source: https://www.playstation.com/en-us/support/store/ps-store-refund-request/
+    last_verified: 2026-10-12
+  - id: support-phone
+    type: phone
+    label: PlayStation Support (unauthorized payments, payment issues)
+    value: +1-800-345-7669
+    hours: Mon-Fri 9:00 AM-6:00 PM PT; closed 12/25 and 01/01
+    purposes: [unauthorized_charge, billing_error]
+    access: human_only
+    notes: Support discusses unauthorized payments only with the account holder.
+    source: https://www.playstation.com/en-us/support/contact-us/
+    last_verified: 2026-10-12
+  - id: support-chat
+    type: chat
+    label: PlayStation Assistant chat (bot button, bottom right of support pages)
+    value: https://www.playstation.com/en-us/support/contact-us/
+    purposes: [refund_request, cancel_service, billing_error]
+    source: https://www.playstation.com/en-us/support/contact-us/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: support-chat}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel PlayStation Plus in Account Management or on the console; benefits continue to the end of the paid period.
+    evidence: [cancellation screen or email, next payment date, transaction history]
+    steps:
+      - do: Sign in to Account Management, open Subscription and select Cancel Subscription next to PlayStation Plus.
+        channel: account-management
+      - do: If you are within 14 days of the first payment, also request a refund.
+        channel: refund-request
+    facts:
+      - kind: policy
+        claim: After cancelling you keep PlayStation Plus benefits "until the end of any previously purchased subscription payment period." Games downloaded through the subscription are then no longer available.
+        issues: [cancel_service]
+        source: https://www.playstation.com/en-us/support/subscriptions/cancel-playstation-plus/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Free trials "automatically convert into ongoing paid subscriptions at the end of the trial period." You must cancel before the trial expires to avoid the charge (PSN Terms of Service, section 8.12).
+        issues: [cancel_service, refund_request]
+        source: https://www.playstation.com/en-us/legal/psn-terms-of-service/
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: A subscription can be refunded within 14 days of the first payment, possibly reduced pro rata; recurring fees are not refunded.
+    evidence: [transaction ID and date, Online ID, sign-in email]
+    steps:
+      - do: Within 14 days of signing up, open Transaction History and select Request Refund on the first payment.
+        channel: refund-request
+      - do: If the button is missing, ask PlayStation Assistant chat to check eligibility.
+        channel: support-chat
+    facts:
+      - kind: deadline
+        claim: '"You can cancel your purchase of a subscription and request a refund within 14 days from the initial transaction date even after you start using the subscription." "The refund may be reduced pro-rata to reflect the use you''ve had of the service." (PlayStation Store cancellation policy, US)'
+        issues: [refund_request]
+        source: https://www.playstation.com/en-us/legal/playstation-store-cancellation-policy/
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: The refund request must be for the first payment, not a recurring fee. Free trial time counts toward the 14 days.
+        issues: [refund_request]
+        source: https://www.playstation.com/en-us/support/store/ps-store-refund-request/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Stopping future payments "will stop future subscription fees being taken, but you will not receive a refund for payments already made."
+        issues: [refund_request, cancel_service]
+        source: https://www.playstation.com/en-us/legal/playstation-store-cancellation-policy/
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: Call PlayStation Support about unauthorized payments; only the account holder can discuss them.
+    evidence: [transaction details, Online ID, sign-in ID, console serial number]
+    steps:
+      - do: Have the online ID, sign-in ID (email), console serial number and recent transaction details ready. Call PlayStation Support as the account holder.
+        channel: support-phone
+      - do: If the charge is not reversed, dispute it with the card issuer.
+
+facts:
+  - kind: policy
+    claim: '"All purchases from the PlayStation Store are final and non-refundable except as stated in this Agreement" (PSN Terms of Service, section 8.5).'
+    issues: [refund_request]
+    source: https://www.playstation.com/en-us/legal/psn-terms-of-service/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Account Management and Transaction History need sign-in.
+  - Phone support discusses unauthorized payments only with the account holder.
+  - On 2026-10-12 the contact page said support was "currently experiencing technical challenges".
