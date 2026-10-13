@@ -1,0 +1,20 @@
+name: Add a company
+description: Ask for a company, agency or issue type that redress does not cover yet.
+title: "[add] <company>"
+labels: [coverage]
+body:
+  - type: input
+    id: company
+    attributes:
+      label: Company
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem do people have with it?
+      placeholder: Charged after cancelling; cancellation only by phone.
+  - type: textarea
+    id: links
+    attributes:
+      label: Official contact or help pages you know of
