@@ -1,0 +1,107 @@
+id: equinox
+name: Equinox
+aliases: [equinox fitness, equinox gym, equinox clubs]
+sector: fitness
+website: https://www.equinox.com
+account_url: https://www.equinox.com/account
+regulators: [ftc]
+
+channels:
+  - id: online-account
+    type: portal
+    label: Equinox online account (cancel)
+    value: https://www.equinox.com/account
+    purposes: [cancel_service]
+    access: login
+    source: https://www.equinox.com/faq
+    last_verified: 2026-10-12
+  - id: cancellations-email
+    type: email
+    label: Equinox cancellations
+    value: Cancellations@Equinox.com
+    purposes: [cancel_service]
+    source: https://www.equinox.com/faq
+    last_verified: 2026-10-12
+  - id: concierge-phone
+    type: phone
+    label: Equinox Concierge
+    value: +1-866-332-6549
+    hours: Mon-Fri 8am-8pm EST
+    purposes: [cancel_service, billing_error, refund_request]
+    source: https://www.equinox.com/landing/getintouch
+    last_verified: 2026-10-12
+  - id: concierge-email
+    type: email
+    label: Equinox Concierge
+    value: concierge@equinox.com
+    purposes: [billing_error, refund_request, poor_service]
+    source: https://www.equinox.com/landing/getintouch
+    last_verified: 2026-10-12
+  - id: club-manager
+    type: in_person
+    label: Cancel in club with a club manager
+    value: Your Equinox club, club manager
+    purposes: [cancel_service]
+    access: human_only
+    source: https://www.equinox.com/faq
+    last_verified: 2026-10-12
+  - id: corporate-mail
+    type: mail
+    label: Equinox mailing address
+    value: Equinox, 31 Hudson Yards, New York, NY 10001
+    purposes: [poor_service]
+    notes: For cancellation by mail, use the address and method in your Membership Agreement.
+    source: https://www.equinox.com/landing/getintouch
+    last_verified: 2026-10-12
+  - id: feedback
+    type: web_form
+    label: Equinox Send Feedback form
+    value: https://www.equinox.com/feedback
+    purposes: [poor_service]
+    source: https://www.equinox.com/landing/getintouch
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: concierge-phone}
+  - {rung: written_complaint, channel: cancellations-email}
+  - {rung: payment_dispute, note: "Card dispute for dues charged after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel online in the Equinox account, by email to Cancellations@Equinox.com, by phone with Concierge, in club with a manager, or by mail as the Membership Agreement describes. Notice periods vary by state.
+    evidence: [membership agreement, cancellation confirmation email, date sent, later charges]
+    steps:
+      - do: Read the notice period in your Membership Agreement.
+      - do: Cancel online in your Equinox account, or email Cancellations@Equinox.com from the email on the account. Keep the confirmation.
+        channel: online-account
+      - do: If you get no confirmation, call Equinox Concierge.
+        channel: concierge-phone
+    facts:
+      - kind: process
+        claim: Equinox lets members cancel in club with a club manager, by mail as described in the Membership Agreement, by email to Cancellations@Equinox.com, by phone through Equinox Concierge, or online by logging into the account on Equinox.com.
+        issues: [cancel_service]
+        source: https://www.equinox.com/faq
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: '"Notice periods vary by state and in some states, there may be additional cancellation methods available." Check the Membership Agreement.'
+        issues: [cancel_service]
+        source: https://www.equinox.com/faq
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Freezes are for medical or other statutorily required reasons and may need documentation. Request a freeze in person at a club or by email to Concierge@Equinox.com; "retroactive Freezes are not permitted." Members with a past-due balance cannot freeze.
+    issues: [cancel_service, billing_error]
+    source: https://www.equinox.com/member-policies
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: '"All sales of Sessions are final and non-refundable, except as required by law." Cancelling a session with less than 24 hours'' notice incurs the full session cost.'
+    issues: [refund_request]
+    source: https://www.equinox.com/member-policies
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Online cancellation needs sign-in to the Equinox account.
+  - The notice period depends on the state and the Membership Agreement; Equinox does not publish a single number of days.

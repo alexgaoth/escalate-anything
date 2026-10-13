@@ -1,0 +1,139 @@
+id: microsoft
+name: Microsoft (Microsoft 365 and Xbox Game Pass subscriptions)
+aliases: [microsoft 365, microsoft 365 personal, microsoft 365 family, xbox game pass, game pass, xbox]
+sector: subscription
+parent: Microsoft Corporation
+website: https://www.microsoft.com
+account_url: https://account.microsoft.com/services
+regulators: [ftc]
+
+channels:
+  - id: services-subscriptions
+    type: portal
+    label: Microsoft account Services & subscriptions page (cancel or turn off recurring billing)
+    value: https://account.microsoft.com/services
+    purposes: [cancel_service, refund_request]
+    access: login
+    notes: Sign in with the Microsoft account used to buy the subscription, select Manage, then Cancel (or Upgrade or Cancel).
+    source: https://support.microsoft.com/en-us/accounts-billing/subscriptions/cancel-your-microsoft-subscription
+    last_verified: 2026-10-12
+  - id: m365-cancel
+    type: portal
+    label: Cancel Microsoft 365 (Personal, Family)
+    value: https://account.microsoft.com/services/microsoft365
+    purposes: [cancel_service]
+    access: login
+    notes: Select Cancel subscription, read the Please review section, then select I don't want my subscription.
+    source: https://support.microsoft.com/en-us/accounts-billing/subscriptions/cancel-a-microsoft-365-subscription
+    last_verified: 2026-10-12
+  - id: xbox-cancel-help
+    type: portal
+    label: Xbox Support article on cancelling recurring billing or subscriptions
+    value: https://support.xbox.com/help/subscriptions-billing/manage-subscriptions/cancel-recurring-billing-or-subscription
+    purposes: [cancel_service]
+    source: https://support.microsoft.com/en-us/accounts-billing/subscriptions/cancel-your-microsoft-subscription
+    last_verified: 2026-10-12
+  - id: support-contact
+    type: chat
+    label: Microsoft Support contact page (live chat after self-help)
+    value: https://support.microsoft.com/en-us/contactus
+    purposes: [billing_error, refund_request, unauthorized_charge, cancel_service]
+    access: login
+    notes: The page asks you to sign in so it can route you; live chat with a specialist is offered after self-help options. No phone number is listed on the page.
+    source: https://support.microsoft.com/en-us/contactus
+    last_verified: 2026-10-12
+  - id: troubleshoot-purchases
+    type: portal
+    label: Troubleshoot Microsoft Store purchases and charges
+    value: https://support.microsoft.com/en-us/accounts-billing/troubleshoot-buying-issues-with-microsoft-store
+    purposes: [billing_error, unauthorized_charge]
+    source: https://support.microsoft.com/en-us/microsoft-store-and-billing
+    last_verified: 2026-10-12
+  - id: google-play-refunds
+    type: web_form
+    label: Google Play refund policies (subscriptions bought through Google Play)
+    value: https://support.google.com/googleplay/answer/2479637
+    purposes: [refund_request]
+    source: https://support.microsoft.com/en-us/accounts-billing/subscriptions/cancel-your-microsoft-subscription
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: support-contact}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation. Microsoft treats a chargeback as a cancellation as of the original payment date."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel or turn off recurring billing on account.microsoft.com/services with the account that bought it; access ends at the end of the current period.
+    evidence: [cancellation confirmation, expiration date shown on the Services page, any later charge]
+    steps:
+      - do: Sign in to account.microsoft.com/services with the account that bought the subscription. Select Manage, then Cancel.
+        channel: services-subscriptions
+      - do: For Microsoft 365, use the Microsoft 365 cancel page and select I don't want my subscription.
+        channel: m365-cancel
+      - do: If you see Turn on recurring billing instead of Manage, the subscription is already set to expire on the date shown.
+      - do: If Google Play or the Apple App Store bills you, cancel and ask for refunds with them. If a retailer (for example Amazon) bills you, contact the retailer.
+        channel: google-play-refunds
+    facts:
+      - kind: policy
+        claim: '"If you cancel, your access to the Services ends at the end of your current Service period" or, for periodic billing, at the end of the period in which you cancelled (Microsoft Services Agreement, section 9.g).'
+        issues: [cancel_service]
+        source: https://www.microsoft.com/en-us/servicesagreement/
+        last_verified: 2026-10-12
+      - kind: process
+        claim: When Microsoft 365 is cancelled, storage reverts to 5GB of cloud storage and 15GB of Outlook.com storage; above that you cannot upload or sync new OneDrive files or send or receive Outlook.com email, and after 6 months OneDrive files may be deleted.
+        issues: [cancel_service]
+        source: https://support.microsoft.com/en-us/accounts-billing/subscriptions/cancel-a-microsoft-365-subscription
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: Cancel first, then check eligibility; Xbox subscriptions can be refunded within 30 days of initial purchase; charges older than 90 days are not refunded.
+    evidence: [order history, purchase date, account email]
+    steps:
+      - do: Cancel the subscription on the Services page. Microsoft says you must cancel first to see whether you are eligible for a refund.
+        channel: services-subscriptions
+      - do: For an Xbox subscription within 30 days of the initial purchase, cancel to receive the refund.
+        channel: services-subscriptions
+      - do: If the refund is not offered, contact Microsoft Support.
+        channel: support-contact
+    facts:
+      - kind: policy
+        claim: '"Unless otherwise provided by law or by a particular Service offer, all purchases are final and non-refundable." "No refunds will be given for any charges more than 90 days old." (Services Agreement, section 9.f)'
+        issues: [refund_request]
+        source: https://www.microsoft.com/en-us/servicesagreement/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: 'Xbox subscriptions: "You can receive a refund within 30 days from your initial purchase by cancelling your subscription," unless the offer says the purchase is non-refundable.'
+        issues: [refund_request, cancel_service]
+        source: https://www.xbox.com/en-US/legal/subscription-terms
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: '"Not all cancellations will result in a refund." Prorated refunds are listed only for certain countries (for example Canada, Israel, Korea, Turkey); the United States is not listed.'
+        issues: [refund_request]
+        source: https://support.microsoft.com/en-us/accounts-billing/subscriptions/cancel-your-microsoft-subscription
+        last_verified: 2026-10-12
+
+  - issue: bill_increase
+    summary: Microsoft notifies at least 15 days before a price change (30 days for Xbox subscriptions); promotional prices roll to the regular price.
+    evidence: [price change email, last charge]
+    steps:
+      - do: If you do not accept the new price, cancel or turn off recurring billing before the next billing date.
+        channel: services-subscriptions
+    facts:
+      - kind: deadline
+        claim: Microsoft "will notify you by email, or other reasonable manner, at least 15 days before the price change" (Services Agreement, section 9.j).
+        issues: [bill_increase]
+        source: https://www.microsoft.com/en-us/servicesagreement/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: 'Xbox subscriptions: "Charges may be increased with at least 30 days notice." After a promotional period the subscription "automatically continues at the then-current regular price."'
+        issues: [bill_increase]
+        source: https://www.xbox.com/en-US/legal/subscription-terms
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Cancellation, refunds and the support contact page need sign-in with the Microsoft account that bought the subscription.
+  - Subscriptions bought through Google Play, the Apple App Store or a retailer must be cancelled and refunded through that seller.
+  - A card chargeback cancels the service; Microsoft deems the cancellation effective as of the original payment date.

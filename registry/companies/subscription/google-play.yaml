@@ -1,0 +1,134 @@
+id: google-play
+name: Google Play (subscriptions and in-app purchases)
+aliases: [google play store, play store, google play subscriptions, google play billing]
+sector: subscription
+parent: Google LLC
+website: https://play.google.com
+account_url: https://play.google.com/store/account/subscriptions
+regulators: [ftc]
+notes: Covers subscriptions and purchases billed through Google Play. The app developer often decides refunds after 48 hours.
+
+channels:
+  - id: subscriptions
+    type: portal
+    label: Google Play subscriptions page (cancel)
+    value: https://play.google.com/store/account/subscriptions
+    purposes: [cancel_service]
+    access: login
+    notes: Sign in to the Google Account that has the subscription, select it, then Cancel subscription.
+    source: https://support.google.com/googleplay/answer/7018481?hl=en
+    last_verified: 2026-10-12
+  - id: cancel-help-flow
+    type: web_form
+    label: Google Play cancel subscription self-help flow
+    value: https://support.google.com/googleplay/workflow/9827184
+    purposes: [cancel_service]
+    source: https://support.google.com/googleplay/answer/7018481?hl=en
+    last_verified: 2026-10-12
+  - id: refund-request
+    type: web_form
+    label: Request a Google Play refund
+    value: https://support.google.com/googleplay?p=refundAWF
+    purposes: [refund_request]
+    access: login
+    notes: Or on play.google.com, Profile, Payments & subscriptions, Budget & order history, Report a problem.
+    source: https://support.google.com/googleplay/answer/15574897?hl=en
+    last_verified: 2026-10-12
+  - id: unauthorized-charges
+    type: web_form
+    label: Report unauthorized Google Play charges
+    value: https://payments.google.com/payments/u/0/unauthorizedtransactions
+    purposes: [unauthorized_charge]
+    source: https://support.google.com/googleplay/answer/15574897?hl=en
+    last_verified: 2026-10-12
+  - id: contact-developer
+    type: web_form
+    label: Find the app developer's contact details
+    value: https://support.google.com/googleplay/answer/113418
+    purposes: [refund_request, cancel_service]
+    source: https://support.google.com/googleplay/answer/15574897?hl=en
+    last_verified: 2026-10-12
+  - id: play-help-contact
+    type: web_form
+    label: Google Play Help contact us
+    value: https://support.google.com/googleplay/gethelp
+    purposes: [cancel_service, refund_request, billing_error]
+    access: login
+    notes: The page redirects to Google sign-in.
+    source: https://support.google.com/googleplay/answer/7018481?hl=en
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: play-help-contact}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel in the Play Store subscriptions page; uninstalling the app does not cancel.
+    evidence: [cancellation confirmation, subscriptions page screenshot, any later charge]
+    steps:
+      - do: Sign in to the Google Account that has the subscription, open the subscriptions page, select it and choose Cancel subscription.
+        channel: subscriptions
+      - do: If you cannot find it, check other Google Accounts you use, or use the self-help flow.
+        channel: cancel-help-flow
+      - do: If you are still charged, contact Google Play Help.
+        channel: play-help-contact
+    facts:
+      - kind: process
+        claim: '"When you uninstall the app, your subscription won''t cancel." You keep access for the time you already paid for.'
+        issues: [cancel_service]
+        source: https://support.google.com/googleplay/answer/7018481?hl=en
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: Within 48 hours, request a refund from Google Play; after 48 hours, ask the developer.
+    evidence: [order number from order history, purchase date and time]
+    steps:
+      - do: Within 48 hours of the purchase, request the refund through Google Play.
+        channel: refund-request
+      - do: After 48 hours, contact the app developer; it processes refunds under its own policies and applicable law.
+        channel: contact-developer
+      - do: Submit only one request per transaction; repeats do not speed it up.
+    facts:
+      - kind: deadline
+        claim: Contact the app developer for a refund if "it's been more than 48 hours since you made the purchase." Google usually decides a refund request within one day, and it can take up to four days.
+        issues: [refund_request]
+        source: https://support.google.com/googleplay/answer/15574897?hl=en
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: '"Your past subscriptions can''t be refunded, with some exceptions." An unused prepaid plan can be refunded.'
+        issues: [refund_request]
+        source: https://support.google.com/googleplay/answer/7018481?hl=en
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Users in Israel, France, Germany or New York state may be able to cancel a subscription with immediate effect and get a partial refund prorated on the days left. Partial subscription refunds are not supported elsewhere.
+        issues: [refund_request, cancel_service]
+        source: https://support.google.com/googleplay/answer/15576180?hl=en
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: '"You can only return an app or game for a refund once." Items bought together can only be refunded as a whole purchase.'
+        issues: [refund_request]
+        source: https://support.google.com/googleplay/answer/15574908?hl=en
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: Report a Google Play charge that no one you know made within 120 days; request a refund for a family member's accidental purchase.
+    evidence: [statement line, order number, date and amount]
+    steps:
+      - do: If someone you know made the purchase by accident, request a refund instead of reporting it as unauthorized.
+        channel: refund-request
+      - do: If no one you know made it, report it as unauthorized within 120 days.
+        channel: unauthorized-charges
+    facts:
+      - kind: deadline
+        claim: Report unauthorized Google Play charges "within 120 days of the transaction."
+        issues: [unauthorized_charge]
+        source: https://support.google.com/googleplay/answer/2479637?hl=en
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Cancel, refund and contact pages need sign-in to the Google Account that made the purchase.
+  - After 48 hours, refunds usually depend on the app developer, not Google.

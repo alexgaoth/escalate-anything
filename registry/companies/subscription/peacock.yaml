@@ -1,0 +1,87 @@
+id: peacock
+name: Peacock
+aliases: [peacock tv, peacocktv, peacock premium]
+sector: subscription
+parent: NBCUniversal
+website: https://www.peacocktv.com
+account_url: https://www.peacocktv.com/account
+regulators: [ftc]
+notes: >-
+  The service is "provided to you by Peacock TV LLC and its affiliated companies" (Terms). The Terms
+  name NBCUniversal as Peacock's DMCA agent and link to the NBCUniversal privacy policy. The 2025-2026
+  Versant spin-off was not checked on a Peacock page.
+
+channels:
+  - id: account
+    type: portal
+    label: Peacock account details page (cancel)
+    value: https://www.peacocktv.com/account
+    purposes: [cancel_service, billing_error]
+    access: login
+    notes: The Terms say to log in and follow the instructions on the account details page to cancel.
+    source: https://www.peacocktv.com/account
+    last_verified: 2026-10-12
+  - id: help-center
+    type: portal
+    label: Peacock Help Center
+    value: https://www.peacocktv.com/help
+    purposes: [billing_error, refund_request, cancel_service]
+    source: https://www.peacocktv.com/terms
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: help-center}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel on the account details page no later than the day before the next billing date; access continues to the end of the term.
+    evidence: [cancellation confirmation, date cancelled, any later charge]
+    steps:
+      - do: Sign in and follow the cancel instructions on the account details page. Cancel no later than the day before the next billing date.
+        channel: account
+      - do: Cancel add-ons with a different billing date separately if you want them to stop.
+      - do: If a third party (app store, TV or internet provider) bills you, cancel with that third party.
+    facts:
+      - kind: deadline
+        claim: To avoid the next charge you must cancel no later than the day before your next recurring billing date. Cancellation takes effect "AT THE END OF THE THEN-CURRENT SUBSCRIPTION TERM" (Terms, section 2.6).
+        issues: [cancel_service]
+        source: https://www.peacocktv.com/terms
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: '"Your billing relationship will be directly with the applicable third party, not with Peacock" when a third party bills you; its billing, cancellation and refund terms control (section 2.7).'
+        issues: [cancel_service, refund_request]
+        source: https://www.peacocktv.com/terms
+        last_verified: 2026-10-12
+
+  - issue: bill_increase
+    summary: Peacock gives advance notice of a price change before the next billing date; trial and promo periods convert at the then-current price.
+    evidence: [price change notice, promotion terms]
+    steps:
+      - do: If you do not accept the new price, cancel before the next billing date.
+        channel: account
+    facts:
+      - kind: policy
+        claim: '"We will give you advance notice of any price change prior to the next billing date" (section 2.2). If you do not cancel, the plan renews at the new price.'
+        issues: [bill_increase]
+        source: https://www.peacocktv.com/terms
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: After a trial or promotional period, the payment method is charged the then-current fee unless you cancelled. "You may not receive a separate notice that your Trial Period or Promotional Period is about to end" (section 2.4).
+        issues: [bill_increase, cancel_service]
+        source: https://www.peacocktv.com/terms
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: '"NO PRORATED REFUNDS OR CREDITS WILL BE ISSUED UNLESS REQUIRED BY APPLICABLE LAW OR IN THE CASE OF AN IMMEDIATE UPGRADE." (section 2.6.3)'
+    issues: [refund_request]
+    source: https://www.peacocktv.com/terms
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Cancellation needs sign-in to the Peacock account.
+  - No customer service phone number or email is published in the Terms or on the help pages that were read.

@@ -1,0 +1,101 @@
+id: audible
+name: Audible
+aliases: [audible.com, audible inc, audible membership]
+sector: subscription
+parent: Amazon (Audible, Inc. is an affiliate of Amazon.com Services LLC)
+website: https://www.audible.com
+account_url: https://www.audible.com/account/overview
+regulators: [ftc]
+
+channels:
+  - id: account-details
+    type: portal
+    label: Audible Account Details page (cancel membership)
+    value: https://www.audible.com/account/overview
+    purposes: [cancel_service]
+    access: login
+    notes: Redirects to Amazon sign-in. The Conditions of Use say to cancel by visiting the account details page on Audible.com.
+    source: https://www.audible.com/legal/conditions-of-use
+    last_verified: 2026-10-12
+  - id: customer-service-phone
+    type: phone
+    label: Audible Customer Service
+    value: +1-888-283-5051
+    purposes: [cancel_service, billing_error, refund_request, unauthorized_charge]
+    source: https://www.audible.com/contactus
+    last_verified: 2026-10-12
+  - id: contact-us
+    type: web_form
+    label: Audible Contact Us (phone or chat after sign-in)
+    value: https://www.audible.com/contactus
+    purposes: [cancel_service, billing_error, refund_request]
+    access: login
+    notes: The page says "Please sign in to contact us."
+    source: https://www.audible.com/contactus
+    last_verified: 2026-10-12
+  - id: mail
+    type: mail
+    label: Audible, Inc. address (Conditions of Use)
+    value: Audible, Inc., 1 Washington Park, Newark, NJ 07102
+    source: https://www.audible.com/legal/conditions-of-use
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: mail}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel on the Account Details page on Audible.com or by phone or chat; app-store sign-ups cancel with Apple or Google. Use credits first, because they expire at cancellation.
+    evidence: [cancellation confirmation email, number of unused credits, date cancelled]
+    steps:
+      - do: Spend any unused credits before cancelling. Credits expire immediately when the membership is cancelled.
+      - do: Sign in on Audible.com and cancel on the Account Details page.
+        channel: account-details
+      - do: If you cannot cancel online, call Customer Service or use chat after signing in.
+        channel: customer-service-phone
+      - do: If you signed up in the Audible app through Apple or Google, cancel through that app store.
+    facts:
+      - kind: process
+        claim: '"You may cancel your membership plan and any subscriptions by visiting your account details page provided on Audible.com," or by contacting Customer Service by telephone or chat. Mobile app sign-ups are cancelled through Apple or Google.'
+        issues: [cancel_service]
+        source: https://www.audible.com/legal/conditions-of-use
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: '"Credits expire immediately upon the cancellation or termination of your membership." Credits have no cash value.'
+        issues: [cancel_service, refund_request]
+        source: https://www.audible.com/legal/conditions-of-use
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: Audible does not refund membership fees already paid when you cancel.
+    evidence: [receipt, membership start date]
+    steps:
+      - do: If you were charged after cancelling or charged in error, call Customer Service with the order details.
+        channel: customer-service-phone
+      - do: If Audible does not reverse a charge made after a confirmed cancellation, dispute it with the card issuer.
+    facts:
+      - kind: policy
+        claim: '"If you cancel your membership or subscription, you will not receive a refund of any fees already paid."'
+        issues: [refund_request]
+        source: https://www.audible.com/legal/conditions-of-use
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Trial members can cancel through Account Details before the end of the trial period to avoid paid membership. Audible may place a temporary authorization on the payment method for a trial.
+    issues: [cancel_service]
+    source: https://www.audible.com/legal/conditions-of-use
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: '"The fees for membership plans may change at any time." The Conditions of Use state no notice period.'
+    issues: [bill_increase]
+    source: https://www.audible.com/legal/conditions-of-use
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The Account Details page and the contact page need sign-in with the Amazon or Audible account.
+  - Unused credits are lost at cancellation.

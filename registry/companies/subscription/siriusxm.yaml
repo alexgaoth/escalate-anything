@@ -1,0 +1,159 @@
+id: siriusxm
+name: SiriusXM
+aliases: [sirius xm, sirius, xm radio, sirius satellite radio]
+sector: subscription
+website: https://www.siriusxm.com
+account_url: https://care.siriusxm.com/account/manage/dashboard
+regulators: [ftc]
+
+channels:
+  - id: online-account
+    type: portal
+    label: SiriusXM Online Account Center, Subscriptions tab (cancel)
+    value: https://care.siriusxm.com/account/manage/dashboard
+    purposes: [cancel_service, billing_error]
+    access: login
+    source: https://www.siriusxm.com/help/manage-or-cancel-service
+    last_verified: 2026-10-12
+  - id: chat
+    type: chat
+    label: SiriusXM online chat (24/7)
+    value: https://www.siriusxm.com/contact-us
+    hours: 24/7
+    purposes: [cancel_service, billing_error, refund_request]
+    notes: SiriusXM says to turn off an ad-blocker or switch browsers if chat does not load.
+    source: https://www.siriusxm.com/contact-us
+    last_verified: 2026-10-12
+  - id: cancel-phone
+    type: phone
+    label: SiriusXM phone for direct-billed subscriptions (manage or cancel)
+    value: +1-866-635-8641
+    hours: Mon-Sun 8 am-8 pm ET
+    purposes: [cancel_service]
+    source: https://www.siriusxm.com/help/manage-or-cancel-service
+    last_verified: 2026-10-12
+  - id: audio-phone
+    type: phone
+    label: How to cancel, Audio and Infotainment (Customer Agreement)
+    value: +1-866-635-2349
+    hours: Mon-Sun 8 am-8 pm ET
+    purposes: [cancel_service]
+    source: https://www.siriusxm.com/customer-agreement
+    last_verified: 2026-10-12
+  - id: aviation-marine-phone
+    type: phone
+    label: How to cancel, Aviation and Marine (Customer Agreement)
+    value: +1-800-985-9200
+    hours: Mon-Sun 8 am-8 pm ET
+    purposes: [cancel_service]
+    source: https://www.siriusxm.com/customer-agreement
+    last_verified: 2026-10-12
+  - id: tmobile-sprint-phone
+    type: phone
+    label: SiriusXM line for T-Mobile and Sprint customers who bought directly from SiriusXM
+    value: +1-888-635-8641
+    purposes: [cancel_service]
+    source: https://www.siriusxm.com/help/manage-or-cancel-service
+    last_verified: 2026-10-12
+  - id: apple-cancel
+    type: web_form
+    label: Cancel SiriusXM bought in the iOS app (Apple)
+    value: https://support.apple.com/en-us/HT202039
+    purposes: [cancel_service]
+    source: https://www.siriusxm.com/help/manage-or-cancel-service
+    last_verified: 2026-10-12
+  - id: google-play-cancel
+    type: web_form
+    label: Cancel SiriusXM bought through Google Play
+    value: https://support.google.com/googleplay/answer/7018481
+    purposes: [cancel_service]
+    source: https://www.siriusxm.com/help/manage-or-cancel-service
+    last_verified: 2026-10-12
+  - id: roku-cancel
+    type: portal
+    label: Cancel SiriusXM billed by Roku (my.roku.com, manage your subscriptions)
+    value: https://my.roku.com
+    purposes: [cancel_service]
+    access: login
+    source: https://www.siriusxm.com/help/manage-or-cancel-service
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: chat}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel online in the Account Center, by 24/7 chat, or by phone at least 24 hours before renewal; ask for the pro-rata refund if you are inside the refund window.
+    evidence: [confirmation number or email, date cancelled, radio ID (ESN or RID) or account number]
+    steps:
+      - do: Sign in to the Online Account Center and cancel on the Subscriptions tab.
+        channel: online-account
+      - do: If you cannot cancel online, use chat or call. Have the account number or radio ID ready.
+        channel: chat
+      - do: Cancel at least 24 hours before the renewal date.
+      - do: If Apple, Google Play, Roku or T-Mobile bills you, cancel with them; deleting the app does not cancel.
+        channel: apple-cancel
+      - do: If you cancel within 7 days of a monthly plan start, or within 30 days of a non-monthly plan start or renewal charge, ask for the pro-rata refund.
+    facts:
+      - kind: deadline
+        claim: '"You must cancel at least 24 hours before your upcoming renewal date" to avoid renewal (Customer Agreement, section 4).'
+        issues: [cancel_service]
+        source: https://www.siriusxm.com/customer-agreement
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: 'Audio subscriptions: "Your cancellation will become effective at the end of your current Subscription Period." Cancellations within a free trial may take effect immediately (section 3).'
+        issues: [cancel_service]
+        source: https://www.siriusxm.com/customer-agreement
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Aviation, Marine, Infotainment and Commercial Fleet cancellations take effect on the date SiriusXM receives the request, and amounts paid in advance are refunded pro rata, less any applicable fees (section 3(c)).
+        issues: [cancel_service, refund_request]
+        source: https://www.siriusxm.com/customer-agreement
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: Audio plans are non-refundable except a pro-rata refund on request within 7 days (monthly) or 30 days (non-monthly) of the start or renewal charge.
+    evidence: [plan start or renewal date, cancellation confirmation]
+    steps:
+      - do: Cancel inside the window and ask for the pro-rata refund in the same contact.
+        channel: chat
+    facts:
+      - kind: deadline
+        claim: Monthly audio plans cancelled within seven days of the start date get "a pro-rata refund, if requested." Non-monthly audio plans cancelled within thirty days of the start or a renewal charge get a pro-rata refund if requested. After that, fees are non-refundable (section 3(b)).
+        issues: [refund_request]
+        source: https://www.siriusxm.com/customer-agreement
+        last_verified: 2026-10-12
+
+  - issue: bill_increase
+    summary: SiriusXM tells you when a price change takes effect; it applies from the next subscription period, and you may cancel before then.
+    evidence: [price change notice, last bill, offer terms]
+    steps:
+      - do: If you reject the change, cancel before it takes effect.
+        channel: chat
+    facts:
+      - kind: policy
+        claim: Price changes take effect "at the start of your next Subscription Period," and SiriusXM "will let you know the date on which any change will be effective" (section 6(a)). Paid plans, including those that start with a free period, renew automatically at the rates in effect at renewal (section 2(b)).
+        issues: [bill_increase]
+        source: https://www.siriusxm.com/customer-agreement
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: '"Cancellation fees or early termination fees may be charged in connection with certain offers," as listed in the offer details. Plans with music channels may be charged a U.S. Music Royalty Fee (section 8(d)).'
+        issues: [bill_increase, cancel_service]
+        source: https://www.siriusxm.com/customer-agreement
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Trial and extended service subscriptions included with a vehicle purchase do not automatically renew; service stops at the end of the stated term (section 2(c)).
+    issues: [cancel_service]
+    source: https://www.siriusxm.com/customer-agreement
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The Online Account Center needs sign-in. Phone lines are open 8 am-8 pm ET only.
+  - Two different phone numbers are published for cancelling audio subscriptions (+1-866-635-8641 on the help page and +1-866-635-2349 in the Customer Agreement).
+  - Subscriptions billed by Apple, Google Play, Roku or T-Mobile must be cancelled with that company.

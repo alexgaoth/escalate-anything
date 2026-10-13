@@ -1,0 +1,109 @@
+id: adobe
+name: Adobe (Creative Cloud and Acrobat subscriptions)
+aliases: [adobe creative cloud, creative cloud, adobe acrobat, adobe inc]
+sector: subscription
+parent: Adobe Inc.
+website: https://www.adobe.com
+account_url: https://account.adobe.com/
+regulators: [ftc]
+notes: Terms quoted below are from the Adobe Subscription and Cancellation Terms with an effective date of August 1st, 2026. The plan label in the terms is "Annual contract, billed monthly".
+
+channels:
+  - id: manage-plan
+    type: portal
+    label: Adobe Account plan management (cancel)
+    value: https://www.adobe.com/go/acctmgmt_plan
+    purposes: [cancel_service, refund_request]
+    access: login
+    notes: Opens the Adobe Account plan page, which needs sign-in and a browser with JavaScript.
+    source: https://www.adobe.com/legal/subscription-terms.html
+    last_verified: 2026-10-12
+  - id: customer-support
+    type: portal
+    label: Adobe Customer Support (Help Center)
+    value: https://helpx.adobe.com/support.html
+    purposes: [cancel_service, refund_request, billing_error]
+    source: https://www.adobe.com/legal/subscription-terms.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-support}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel in the Adobe Account or through Customer Support. Check the plan type first; an annual contract billed monthly has a lump-sum fee after 14 days.
+    evidence: [plan name and type, initial order date, cancellation confirmation]
+    steps:
+      - do: Find the plan type (monthly, annual contract billed monthly, or annual prepaid) and the initial order date.
+        channel: manage-plan
+      - do: To avoid the early cancellation fee and get a full refund, cancel within 14 days of the initial order.
+        channel: manage-plan
+      - do: If you cannot cancel online, contact Customer Support.
+        channel: customer-support
+    facts:
+      - kind: process
+        claim: '"You can cancel your subscription anytime via your Adobe Account or by contacting Customer Support."'
+        issues: [cancel_service]
+        source: https://www.adobe.com/legal/subscription-terms.html
+        last_verified: 2026-10-12
+      - kind: fee
+        id: annual-billed-monthly-etf
+        claim: 'Annual contract, billed monthly (Creative Cloud for Individuals): "Should you cancel after 14 days, you''ll be charged a lump sum amount of 50% of your remaining contract obligation, and your service will continue until the end of that month''s billing period."'
+        issues: [cancel_service]
+        source: https://www.adobe.com/legal/subscription-terms.html
+        last_verified: 2026-10-12
+      - kind: fee
+        id: annual-billed-monthly-etf-california
+        claim: 'Annual contract, billed monthly: "For customers in California, should you cancel after 14 days, you''ll be charged a lump sum amount of 30% of your annual commitment and your service will continue until the end of that month''s billing period."'
+        issues: [cancel_service]
+        source: https://www.adobe.com/legal/subscription-terms.html
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: Every plan type gets a full refund if cancelled within 14 days of the initial order; after that, monthly and annual prepaid payments are non-refundable.
+    evidence: [initial order date, invoice]
+    steps:
+      - do: Cancel within 14 days of the initial order. The refund comes with the cancellation.
+        channel: manage-plan
+      - do: If the refund does not appear, contact Customer Support with the order date.
+        channel: customer-support
+    facts:
+      - kind: deadline
+        claim: '"If you cancel within 14 days of your initial order, you''ll be fully refunded." (monthly, annual billed monthly, and annual prepaid plans)'
+        issues: [refund_request, cancel_service]
+        source: https://www.adobe.com/legal/subscription-terms.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: 'Monthly plan: "If you cancel after 14 days, your payment is non-refundable," and service continues to the end of that month''s billing period. Annual prepaid: non-refundable after 14 days, and service continues to the end of the contracted term.'
+        issues: [refund_request]
+        source: https://www.adobe.com/legal/subscription-terms.html
+        last_verified: 2026-10-12
+
+  - issue: bill_increase
+    summary: Adobe notifies rate changes with the option to cancel.
+    evidence: [rate change notice, plan type]
+    steps:
+      - do: If you do not accept the new rate, cancel. On an annual contract billed monthly, ask Customer Support whether the early cancellation fee applies when you cancel because of a rate change.
+        channel: customer-support
+    facts:
+      - kind: policy
+        claim: Adobe says it "will notify you of any rate change with the option to cancel."
+        issues: [bill_increase]
+        source: https://www.adobe.com/legal/subscription-terms.html
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: '"At the end of your free trial, your subscription begins, and Adobe will automatically charge your payment method." "If you cancel before the end of your free trial, your payment method won''t be charged."'
+    issues: [cancel_service, refund_request]
+    source: https://www.adobe.com/legal/subscription-terms.html
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The Adobe Account plan page needs sign-in and a JavaScript browser. The Adobe help center (helpx.adobe.com) blocks automated fetches.
+  - No customer support phone number is published on adobe.com contact pages; the numbers listed there are for sales.
+  - Annual contracts billed monthly carry a lump-sum early cancellation fee after 14 days.

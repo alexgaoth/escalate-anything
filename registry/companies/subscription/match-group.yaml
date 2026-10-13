@@ -1,0 +1,141 @@
+id: match-group
+name: Match Group (Tinder, Hinge)
+aliases: [tinder, hinge, match group]
+sector: subscription
+parent: Match Group
+website: https://www.tinder.com
+regulators: [ftc]
+notes: Covers Tinder (Tinder LLC, Dallas, Texas, for US users) and Hinge (Hinge, Inc.). Both share the same cancellation P.O. Box in Dallas. The 2025 FTC settlement with Match Group was not checked on ftc.gov for this entry.
+
+channels:
+  - id: tinder-account
+    type: app
+    label: Tinder app or website, Account section (cancel a Tinder-billed subscription)
+    value: Tinder app or tinder.com, Account section
+    purposes: [cancel_service]
+    access: login
+    source: https://policies.tinder.com/terms/us/en
+    last_verified: 2026-10-12
+  - id: tinder-help-request
+    type: web_form
+    label: Tinder Customer Service request form
+    value: https://www.help.tinder.com/hc/requests/new
+    purposes: [refund_request, cancel_service, billing_error]
+    notes: The Terms direct refund requests for non-Apple purchases here, with the order number from the confirmation email.
+    source: https://policies.tinder.com/terms/us/en
+    last_verified: 2026-10-12
+  - id: tinder-cancellations-mail
+    type: mail
+    label: Tinder written cancellation notice (Terms section 8d)
+    value: Tinder, Attn. Cancellations, P.O. Box 25472, Dallas, Texas 75225, USA
+    purposes: [cancel_service, refund_request]
+    notes: Send a signed and dated notice that you are cancelling, with the account email or phone number and the order number.
+    source: https://policies.tinder.com/terms/us/en
+    last_verified: 2026-10-12
+  - id: hinge-account
+    type: app
+    label: Hinge app or website, Account Settings (cancel a Hinge-billed subscription)
+    value: Hinge app or hinge.co, Account Settings
+    purposes: [cancel_service]
+    access: login
+    source: https://hinge.co/terms
+    last_verified: 2026-10-12
+  - id: hinge-cancellations-mail
+    type: mail
+    label: Hinge written cancellation notice (Terms section 8d)
+    value: Hinge, Attn. Cancellations, P.O. Box 25472, Dallas, Texas 75225, USA
+    purposes: [cancel_service, refund_request]
+    notes: Send a signed and dated notice with your order number.
+    source: https://hinge.co/terms
+    last_verified: 2026-10-12
+  - id: hinge-email
+    type: email
+    label: Hinge email for cancellation notices (California and Ohio users)
+    value: hello@hinge.co
+    purposes: [cancel_service, refund_request]
+    notes: The Hinge Terms say California and Ohio users may email the notice.
+    source: https://hinge.co/terms
+    last_verified: 2026-10-12
+  - id: apple-report-problem
+    type: web_form
+    label: Apple Report a Problem (refunds for Tinder or Hinge bought with an Apple ID)
+    value: https://reportaproblem.apple.com
+    purposes: [refund_request]
+    source: https://hinge.co/terms
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: tinder-help-request}
+  - {rung: written_complaint, channel: tinder-cancellations-mail}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel where you paid. App-store subscriptions cancel with Apple or Google; Tinder- or Hinge-billed subscriptions cancel in the Account section. Deleting the app does not cancel an app-store subscription.
+    evidence: [order number, confirmation email, app store receipt]
+    steps:
+      - do: If you paid with an Apple ID, cancel in Apple Settings, Subscriptions. If you paid on Google Play, cancel in Google Play, Payments & subscriptions.
+      - do: If Tinder billed you, sign in and cancel in the Account section.
+        channel: tinder-account
+      - do: If Hinge billed you, sign in and cancel in Account Settings.
+        channel: hinge-account
+      - do: If you are in a listed state and within three business days of subscribing, send the signed, dated cancellation notice for a refund.
+        channel: tinder-cancellations-mail
+    facts:
+      - kind: process
+        claim: '"If you subscribed using your Apple ID, cancellation is handled by Apple, not Tinder." Google Play subscriptions are cancelled through Google.'
+        issues: [cancel_service]
+        source: https://policies.tinder.com/terms/us/en
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: '"If you purchase a subscription, it will automatically renew until you cancel." If you received a discounted promotional offer, the price may go up under the terms of that offer.'
+        issues: [cancel_service, bill_increase]
+        source: https://policies.tinder.com/terms/us/en
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: Purchases are generally final, but subscribers in 12 listed states may cancel for a refund until midnight of the third business day after subscribing.
+    evidence: [order number, subscription date, state of residence]
+    steps:
+      - do: If you bought with an Apple ID, ask Apple for the refund.
+        channel: apple-report-problem
+      - do: For other purchases, contact Customer Service with your order number.
+        channel: tinder-help-request
+      - do: If you are in a listed state, also mail a signed and dated notice that you are cancelling (Hinge users in California and Ohio may email it).
+        channel: hinge-cancellations-mail
+    facts:
+      - kind: policy
+        claim: '"Generally, all purchases are final and nonrefundable." Virtual items are non-refundable.'
+        issues: [refund_request]
+        source: https://policies.tinder.com/terms/us/en
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Subscribers in Arizona, California, Colorado, Connecticut, Illinois, Iowa, Minnesota, New York, North Carolina, Ohio, Rhode Island and Wisconsin "may cancel your subscription, without penalty or obligation, at any time prior to midnight of the third business day following the date you subscribed."
+        issues: [refund_request, cancel_service]
+        source: https://policies.tinder.com/terms/us/en
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: In the same listed states, if the subscriber dies or becomes disabled, the portion of the payment for the period after death or disability is refunded.
+        issues: [refund_request]
+        source: https://hinge.co/terms
+        last_verified: 2026-10-12
+
+  - issue: bill_increase
+    summary: Hinge says it will attempt to notify you before a price change; you may cancel instead of paying the new price.
+    evidence: [price change notice, original offer]
+    steps:
+      - do: If you do not accept a new price, cancel following the instructions in the notice.
+        channel: hinge-account
+    facts:
+      - kind: policy
+        claim: '"In the event of a price change, we will attempt to notify you in advance of the change" (Hinge Terms, section 8).'
+        issues: [bill_increase]
+        source: https://hinge.co/terms
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Cancelling in the app needs sign-in. Subscriptions bought through Apple or Google Play must be cancelled and refunded there.
+  - The state-law refund requires a signed, dated written notice, by mail (or email for Hinge users in California and Ohio).
+  - The Tinder help center blocks automated fetches; its cancellation article was not read.

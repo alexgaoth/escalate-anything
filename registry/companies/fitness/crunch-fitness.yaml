@@ -1,0 +1,115 @@
+id: crunch-fitness
+name: Crunch Fitness
+aliases: [crunch gym, crunch signature, crunch holdings]
+sector: fitness
+parent: Crunch Holdings, LLC
+website: https://www.crunch.com
+regulators: [ftc]
+notes: Many Crunch clubs are independently owned franchises; "Each location manages operations independently." Cancellation methods and notice vary by club and state.
+
+channels:
+  - id: home-club
+    type: in_person
+    label: Contact your home club (phone or in person) via the locations page
+    value: https://www.crunch.com/locations
+    purposes: [cancel_service, billing_error, refund_request]
+    notes: Crunch says to contact your club directly if online cancellation is not offered.
+    source: https://www.crunch.com/faq
+    last_verified: 2026-10-12
+  - id: club-contact-form
+    type: web_form
+    label: Crunch home club contact form
+    value: https://crunchfitnesscontactus.smg.com/
+    purposes: [cancel_service, billing_error, poor_service]
+    source: https://www.crunch.com/faq
+    last_verified: 2026-10-12
+  - id: member-services-email
+    type: email
+    label: Crunch Member Services
+    value: icrunch@crunch.com
+    purposes: [billing_error, cancel_service, refund_request]
+    source: https://www.crunch.com/faq
+    last_verified: 2026-10-12
+  - id: corporate-phone
+    type: phone
+    label: Crunch corporate
+    value: +1-844-927-8624
+    purposes: [poor_service, cancel_service]
+    source: https://www.crunch.com/faq
+    last_verified: 2026-10-12
+  - id: corporate-mail
+    type: mail
+    label: Crunch corporate mailing address
+    value: Crunch, LLC, PO Box 481, Elmsford, NY 10523
+    purposes: [cancel_service, poor_service]
+    source: https://www.crunch.com/faq
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: home-club}
+  - {rung: written_complaint, channel: member-services-email}
+  - {rung: payment_dispute, note: "Card or bank dispute for drafts after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel online in the Member Portal if your club offers it; otherwise contact the home club by phone or in person. Check the notice period in your membership agreement.
+    evidence: [membership agreement, cancellation confirmation, next billing date, bank statement]
+    steps:
+      - do: Check the membership agreement for the notice period before the next billing date.
+      - do: If your club offers it, cancel in the Member Portal under Manage Membership.
+      - do: Otherwise contact your home club by phone or in person, and ask for written confirmation.
+        channel: home-club
+      - do: If the club does not process it, email Member Services and write to Crunch corporate with your membership details.
+        channel: member-services-email
+    facts:
+      - kind: process
+        claim: '"Some clubs offer online cancellation through your Member Portal under Manage Membership." Otherwise contact your club directly. "Cancellation policies vary by location based on state and local guidelines."'
+        issues: [cancel_service]
+        source: https://www.crunch.com/faq
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: '"The required cancellation notice prior to your next billing date may vary." A month-to-month membership "will continue until you request cancellation."'
+        issues: [cancel_service]
+        source: https://www.crunch.com/faq
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: 'Crunch Signature: after cancelling, "your last day with Crunch access will be the last day of the following month of your membership."'
+        issues: [cancel_service]
+        source: https://www.crunch.com/faq
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: Crunch refunds membership only if you cancel within the first few days, with proof of the initial request.
+    evidence: [join date, proof of the cancellation request]
+    steps:
+      - do: Ask the home club for the refund and give proof of the first cancellation request.
+        channel: home-club
+    facts:
+      - kind: policy
+        claim: '"The only valid reason for a refund is if you cancel within the first few days of having your membership." You will be asked "to provide proof of the initial request."'
+        issues: [refund_request]
+        source: https://www.crunch.com/faq
+        last_verified: 2026-10-12
+
+facts:
+  - kind: fee
+    claim: 'Annual fee: "The annual fee varies depending on your home club, up to $89." Crunch Signature: "$89+tax," charged three months after you first join and every year.'
+    issues: [bill_increase, billing_error]
+    source: https://www.crunch.com/faq
+    last_verified: 2026-10-12
+  - kind: fee
+    claim: '"If you cancel a reservation within 2 hours of class start time, you will be charged a fee." Late cancellation and missed reservation fees vary by location.'
+    issues: [billing_error]
+    source: https://www.crunch.com/faq
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: Crunch "shall notify a member at least ten (10) days before each late cancel fee or no-show fee is deducted" from the payment account (Terms of Use, section 26).
+    issues: [billing_error]
+    source: https://www.crunch.com/terms-of-use
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Online cancellation is available only at some clubs; others require phone or in-person contact with the home club.
+  - Franchise clubs set their own procedures within state law.

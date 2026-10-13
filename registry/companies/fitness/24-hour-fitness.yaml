@@ -1,0 +1,54 @@
+id: 24-hour-fitness
+name: 24 Hour Fitness
+aliases: [24 hour fitness, 24hourfitness, 24 hr fitness]
+sector: fitness
+website: https://www.24hourfitness.com
+account_url: https://www.24hourfitness.com/login.html#/
+regulators: [ftc]
+notes: The public 24hourfitness.com pages that loaded on 2026-10-12 do not describe the cancellation method, notice period, annual fee or refunds. They say membership changes go through the home club or My24 online.
+
+channels:
+  - id: my24
+    type: portal
+    label: My24 online account
+    value: https://www.24hourfitness.com/login.html#/
+    purposes: [cancel_service, billing_error]
+    access: login
+    notes: 24 Hour Fitness says to log into My24 online or contact the home club to make changes to a membership. It does not say on public pages whether cancellation is offered online.
+    source: https://www.24hourfitness.com/membership/
+    last_verified: 2026-10-12
+  - id: find-home-club
+    type: in_person
+    label: Find your home club (contact or visit)
+    value: https://www.24hourfitness.com/gyms/find-a-gym
+    purposes: [cancel_service, billing_error]
+    source: https://www.24hourfitness.com/membership/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: find-home-club}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card or bank dispute for drafts after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Use My24 online or the home club; follow the cancellation clause in your membership agreement and keep written proof.
+    evidence: [membership agreement, My24 confirmation or written notice with proof of delivery, bank statement]
+    steps:
+      - do: Read the cancellation clause in your membership agreement for the method and notice.
+      - do: Sign in to My24 and look for the membership change or cancel option.
+        channel: my24
+      - do: If My24 does not offer it, contact or visit your home club and ask for written confirmation.
+        channel: find-home-club
+    facts:
+      - kind: process
+        claim: '"To make changes to your membership, please contact your home club or log into My24® online."'
+        issues: [cancel_service]
+        source: https://www.24hourfitness.com/membership/
+        last_verified: 2026-10-12
+
+known_blockers:
+  - My24 needs sign-in. The cancellation method and notice period are not published on the public pages that loaded.
+  - The 24hourfitness.com contact page did not render contact details to an automated fetch.
