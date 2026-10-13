@@ -3,6 +3,21 @@ name: TransUnion
 aliases: [trans union, transunion llc]
 sector: credit_bureau
 website: https://www.transunion.com/
+official_domains: [transunion.com, annualcreditreport.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: The FTC says an email, pop-up ad or phone call from someone claiming to be from AnnualCreditReport.com or any of the credit bureaus is probably a scam. AnnualCreditReport.com and the credit bureaus will not email you asking for your Social Security number or account information.
+      source: https://consumer.ftc.gov/articles/free-credit-reports
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: The FTC says only one website, AnnualCreditReport.com, is authorized to fill orders for the free annual credit reports you are entitled to by law. Other sites pretend to be associated with it or claim to offer free credit reports, free credit scores or free credit monitoring.
+      source: https://consumer.ftc.gov/articles/free-credit-reports
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: The FTC says companies that promise to repair your credit cannot remove true information, and it is illegal for credit repair companies to charge you before they help you. Scammers insist you pay first, tell you not to contact the credit bureaus directly, or tell you to lie on credit applications or file a false identity theft report.
+      source: https://consumer.ftc.gov/articles/fixing-your-credit-faqs
+      last_verified: 2026-10-12
 regulators: [cfpb, ftc]
 notes: >-
   TransUnion is the publicly traded parent; the consumer credit file and dispute center are run by TransUnion LLC.

@@ -4,6 +4,47 @@ aliases: [usaa federal savings bank, usaa bank, usaa fsb, united services automo
 sector: bank
 also_sectors: [insurance_property]
 website: https://www.usaa.com
+official_domains: [usaa.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: USAA will never call or text you to ask for your password, PIN or one-time code.
+      source: https://www.usaa.com/support/security/identify-avoid-scams/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: USAA will never ask for your one-time code or PIN unless you called USAA. It will never ask for your password or give you a temporary one.
+      source: https://www.usaa.com/support/security/report-fraud/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: USAA will never tell you to transfer, send or withdraw money.
+      source: https://www.usaa.com/support/security/report-fraud/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: USAA will never send anyone to collect your debit or credit card, and will not ask you to move money to stop fraud or protect your funds.
+      source: https://www.usaa.com/support/security/identify-avoid-scams/
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Scammers pretend to be USAA with official-looking phone numbers or email addresses. They say there is an account issue or ask for personal details to prevent fraud, and may ask to video call you or take control of your screen.
+      source: https://www.usaa.com/support/security/identify-avoid-scams/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: A fake USAA text about a suspicious charge is followed by a call that looks like it comes from USAA. The caller asks you to verify your details and to transfer your balance right away to secure the account.
+      source: https://www.usaa.com/support/security/identify-avoid-scams/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Real USAA emails show a personalized "USAA Security Zone" with your name and the last four digits of your USAA number. USAA says an email where this is wrong or missing is not from USAA.
+      source: https://www.usaa.com/support/security/identify-avoid-scams/
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: abuse-email
+      type: email
+      label: Report suspicious calls, texts or emails that claim to be USAA
+      value: abuse@usaa.com
+      purposes: [fraud]
+      notes: Include the phone number and details about the call or message.
+      source: https://www.usaa.com/support/security/report-fraud/
+      last_verified: 2026-10-12
 regulators: [cfpb, occ]
 notes: >-
   USAA Federal Savings Bank is a federal savings bank (OCC) and issues USAA credit cards. USAA also sells

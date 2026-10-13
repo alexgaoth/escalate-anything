@@ -4,6 +4,39 @@ aliases: [edfinancial, ed financial, edfinancial.studentaid.gov]
 sector: student_loan
 website: https://edfinancial.studentaid.gov/
 account_url: https://myaccount.edfinancial.studentaid.gov/
+official_domains: [edfinancial.studentaid.gov]
+security:
+  never_asks:
+    - kind: policy
+      claim: Federal Student Aid says the U.S. Department of Education and its partners, including loan servicers, will never ask for your StudentAid.gov account username or password (your FSA ID login).
+      source: https://studentaid.gov/articles/avoid-student-loan-forgiveness-scams/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Edfinancial says you can call your servicer about repayment options, including income-based plans, and that you don't have to pay someone for this assistance.
+      source: https://edfinancial.studentaid.gov/contact
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Edfinancial warns about third-party debt relief companies. It says to research a company carefully to make sure its offer is legitimate, and to reset your FSA ID or Edfinancial password if you gave the company that login.
+      source: https://edfinancial.studentaid.gov/contact
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Federal Student Aid warns that scammers often ask for an up-front or monthly fee while promising immediate and total student loan cancellation. Most federal forgiveness programs require years of qualifying payments or employment in certain fields.
+      source: https://studentaid.gov/articles/avoid-student-loan-forgiveness-scams/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Federal Student Aid says aggressive forgiveness messages, such as ones that tell you to act immediately before a program is discontinued or that your loan is flagged for forgiveness and you must call now, do not come from the Department of Education or its partners.
+      source: https://studentaid.gov/articles/avoid-student-loan-forgiveness-scams/
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: debt-relief-scam-email
+      type: email
+      label: Report a third-party debt relief company to Edfinancial's Customer Resolutions Unit
+      value: CustomerResolutionsUnit@edfinancial.studentaid.gov
+      purposes: [fraud]
+      notes: Forward any documents you received from the debt relief company. Include the company name or the phone numbers that contacted you.
+      source: https://edfinancial.studentaid.gov/contact
+      last_verified: 2026-10-12
 regulators: [ed-fsa, cfpb]
 notes: >-
   Edfinancial Services is headquartered in Knoxville, Tennessee (NMLS Company ID 1509247) and services federal student

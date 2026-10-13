@@ -4,6 +4,41 @@ aliases: [apple card, apple savings, marcus, marcus by goldman sachs, goldman sa
 sector: bank
 parent: The Goldman Sachs Group, Inc.
 website: https://www.marcus.com
+official_domains: [marcus.com, goldmansachs.com, gs.com, apple.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Goldman Sachs and Apple will never call you to ask for sensitive personal information, including Apple Card details and passwords.
+      source: https://support.apple.com/en-us/120361
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Goldman Sachs employees will never contact you through social media.
+      source: https://www.goldmansachs.com/security
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Fraudsters pose as Goldman Sachs, create fake websites, send emails or make phone calls to ask for payments, and often use real employee names.
+      source: https://www.goldmansachs.com/security
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Websites, apps and social media groups falsely claim to be affiliated with Goldman Sachs, offer investment advice and ask the public for money.
+      source: https://www.goldmansachs.com/security
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: impersonation-email
+      type: email
+      label: Report impersonation of Goldman Sachs or its employees, or phishing emails (forward them as an attachment)
+      value: abuse@gs.com
+      purposes: [fraud]
+      source: https://www.goldmansachs.com/security
+      last_verified: 2026-10-12
+    - id: apple-card-phishing-email
+      type: email
+      label: Forward suspicious emails or text messages about Apple Card to Apple
+      value: reportphishing@apple.com
+      purposes: [fraud]
+      source: https://support.apple.com/en-us/120361
+      last_verified: 2026-10-12
 regulators: [cfpb, federal-reserve]
 notes: >-
   Goldman Sachs Bank USA is a state-chartered Federal Reserve member bank. It still issues and services

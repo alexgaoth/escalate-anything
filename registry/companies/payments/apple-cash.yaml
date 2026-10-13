@@ -4,6 +4,59 @@ aliases: [apple pay cash, apple cash card]
 sector: payments
 parent: Apple Inc. (Apple Cash services provided by Green Dot Bank, Member FDIC)
 website: https://www.apple.com/apple-cash/
+official_domains: [apple.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Apple will not ask you to pay it through Apple Cash.
+      source: https://support.apple.com/en-us/102461
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Apple will never ask for your Apple Account password, verification codes, device passcode, recovery key or any other account security details.
+      source: https://support.apple.com/en-us/102461
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Apple will never ask you to log in to any website, to tap Accept in the two-factor authentication dialog, or to give or enter your password, device passcode or two-factor authentication code on any website.
+      source: https://support.apple.com/en-us/102568
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Apple will never ask you to turn off a security feature on your device or account, such as two-factor authentication or Stolen Device Protection.
+      source: https://support.apple.com/en-us/102568
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Scammers pose as Apple Support or other tech support, say there is a problem with your iPhone or other device, and ask you to install screen-sharing software or to send an Apple Cash payment to test the device. Apple says not to make this payment.
+      source: https://support.apple.com/en-us/102461
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers pose as employees of banks, other companies or government agencies such as the IRS and demand an immediate Apple Cash payment, sometimes with threats of law enforcement action. Apple says businesses and government agencies won't request payment through Apple Cash.
+      source: https://support.apple.com/en-us/102461
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers offer to write you a check and ask for an Apple Cash payment in return. The check can bounce, and you may not get your money back.
+      source: https://support.apple.com/en-us/102461
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers call from spoofed numbers that look like Apple's, say that someone broke into your iPhone or iCloud account or made unauthorized Apple Pay charges, and then ask for account information or security codes, often through a fake Apple sign-in page.
+      source: https://support.apple.com/en-us/102568
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails that claim to be from Apple
+      value: reportphishing@apple.com
+      purposes: [fraud]
+      notes: For a suspicious text message that claims to be from Apple, take a screenshot of it and email the screenshot to this address.
+      source: https://support.apple.com/en-us/102568
+      last_verified: 2026-10-12
+    - id: facetime-fraud-email
+      type: email
+      label: Report a suspicious FaceTime call or FaceTime link (email a screenshot)
+      value: reportfacetimefraud@apple.com
+      purposes: [fraud]
+      notes: Apple gives the example of a FaceTime call from what looks like a bank or financial institution. Send a screenshot of the call information, or of the link with the phone number or email address that sent it.
+      source: https://support.apple.com/en-us/102568
+      last_verified: 2026-10-12
 regulators: [cfpb, ftc]
 notes: >-
   Apple Cash accounts are held at Green Dot Bank, which handles Apple Cash customer service, error resolution and

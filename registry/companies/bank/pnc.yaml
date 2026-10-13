@@ -4,6 +4,42 @@ aliases: [pnc, pnc financial, pnc virtual wallet, pnc bank na]
 sector: bank
 parent: The PNC Financial Services Group, Inc.
 website: https://www.pnc.com
+official_domains: [pnc.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: PNC will never call you to ask for a one-time passcode, username or password.
+      source: https://www.pnc.com/en/security-privacy/identify-pnc-text-messages.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: PNC will never ask for your card PIN by phone or by text to validate it.
+      source: https://www.pnc.com/en/security-privacy/reporting-fraud.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: PNC may sometimes ask you to reply to a text message, but it will never ask you to click a link in a text.
+      source: https://www.pnc.com/en/security-privacy/spot-and-report-a-phish.html
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Scammers send text messages from 10-digit phone numbers that look like they come from PNC. PNC lists the short codes it texts from on the same page.
+      source: https://www.pnc.com/en/security-privacy/identify-pnc-text-messages.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Fraudsters spoof email addresses, text links and phone numbers so that emails and texts appear to come from a trusted source, including PNC.
+      source: https://www.pnc.com/en/security-privacy/spot-and-report-a-phish.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: A text with a one-time passcode that did not follow your own contact with PNC customer service can be a sign of fraud. PNC says to contact its Customer Care Center.
+      source: https://www.pnc.com/en/security-privacy/reporting-fraud.html
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails, or screenshots of suspicious texts, that claim to be from PNC
+      value: abuse@pnc.com
+      purposes: [fraud]
+      source: https://www.pnc.com/en/security-privacy/spot-and-report-a-phish.html
+      last_verified: 2026-10-12
 regulators: [cfpb, occ]
 notes: PNC Bank, National Association is a national bank (OCC).
 

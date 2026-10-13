@@ -4,6 +4,63 @@ aliases: [wells fargo bank, wellsfargo, wells fargo bank na, wf bank]
 sector: bank
 parent: Wells Fargo & Company
 website: https://www.wellsfargo.com
+official_domains: [wellsfargo.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Wells Fargo will never ask you to move or send money to anyone, including yourself, to reverse a transfer, receive a refund, protect your money or fix a problem.
+      source: https://www.wellsfargo.com/privacy-security/fraud/bank-scams/bank-imposter/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Wells Fargo employees will not contact you unexpectedly to ask for your password or sensitive information such as your Social Security number.
+      source: https://www.wellsfargo.com/privacy-security/fraud/bank-scams/bank-imposter/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Wells Fargo will never ask you to download screen-sharing or remote access software, or to share your screen with them.
+      source: https://www.wellsfargo.com/privacy-security/fraud/bank-scams/bank-imposter/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: If your account needs a correction, Wells Fargo will handle it directly and will not ask you to make a transfer to a new account number or a withdrawal at a branch.
+      source: https://www.wellsfargo.com/privacy-security/fraud/bank-scams/bank-imposter/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Wells Fargo will never rush you or keep you from ending a call.
+      source: https://www.wellsfargo.com/privacy-security/fraud/bank-scams/bank-imposter/
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Scammers spoof phone numbers so that "Wells Fargo" shows on your caller ID. Voice phishing calls often come outside normal business hours and can repeat to create urgency.
+      source: https://www.wellsfargo.com/privacy-security/fraud/bank-scams/bank-imposter/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Callers posing as the bank say you must act urgently because of fraud, illegal activity or an investigation, pressure you to stay on the call, and may use AI-generated or altered voices.
+      source: https://www.wellsfargo.com/privacy-security/fraud/bank-scams/bank-imposter/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers present screen sharing as a "security step" or "verification process" and ask you to install remote access tools such as AnyDesk, TeamViewer, QuickSupport or Zoom screen share.
+      source: https://www.wellsfargo.com/privacy-security/fraud/bank-scams/bank-imposter/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scam emails that claim to be from Wells Fargo often come from unfamiliar addresses. Wells Fargo says its legitimate emails include wellsfargo.com in the address.
+      source: https://www.wellsfargo.com/privacy-security/fraud/bank-scams/bank-imposter/
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails or texts (only if you did not respond)
+      value: reportphish@wellsfargo.com
+      purposes: [fraud]
+      notes: Wells Fargo says some forwarded messages may be rejected by its server. If that happens, delete the message.
+      source: https://www.wellsfargo.com/privacy-security/fraud/report/
+      last_verified: 2026-10-12
+    - id: phishing-responded-phone
+      type: phone
+      label: If you clicked a link, opened an attachment, sent a payment, shared a one-time access code or gave financial information in reply to a suspicious email or text
+      value: +1-866-867-5568
+      purposes: [fraud]
+      access: human_only
+      source: https://www.wellsfargo.com/privacy-security/fraud/report/
+      last_verified: 2026-10-12
 regulators: [cfpb, occ]
 notes: Wells Fargo Bank, N.A. is a national bank (OCC). It issues Wells Fargo credit cards and retail-branded cards.
 

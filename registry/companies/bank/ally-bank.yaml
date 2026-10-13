@@ -5,6 +5,21 @@ sector: bank
 parent: Ally Financial Inc.
 website: https://www.ally.com
 account_url: https://secure.ally.com/
+official_domains: [ally.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Ally will never ask for your password.
+      source: https://www.ally.com/security/personal-security/
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: suspicious-email-phone
+      type: phone
+      label: Call Ally if an email that appears to be from Ally looks suspicious
+      value: +1-833-226-1520
+      purposes: [fraud]
+      source: https://www.ally.com/security/personal-security/
+      last_verified: 2026-10-12
 regulators: [cfpb, federal-reserve]
 notes: >-
   Ally Bank is a state-chartered Federal Reserve member bank. Ally's bank help pages

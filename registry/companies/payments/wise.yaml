@@ -4,6 +4,39 @@ aliases: [transferwise, wise us inc, wise.com]
 sector: payments
 website: https://wise.com/us/
 account_url: https://wise.com/login/
+official_domains: [wise.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Wise will never ask for your password, PIN, card CVV number or one-time password (OTP) in an email, text or phone call.
+      source: https://wise.com/help/articles/1e5Yyfl91yUaDNGkBNcEhw/what-should-i-do-if-my-account-is-restricted
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Wise will never ask you to transfer money or approve a transaction to help with an investigation.
+      source: https://wise.com/help/articles/1e5Yyfl91yUaDNGkBNcEhw/what-should-i-do-if-my-account-is-restricted
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Phishing emails copy Wise's logo and colors, say your account was deactivated or that you won a prize, and ask you to log in through a link. Wise says its real emails address you by your first name and link only to websites that start with https://wise.com, except approved research websites.
+      source: https://wise.com/help/articles/2932695/watch-out-for-phishing
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers contact you on WhatsApp or Telegram and ask you to confirm your card details, often with references to recent reservations or deliveries.
+      source: https://wise.com/help/articles/49ULMEHN2CrU3RnwaPZGzi/how-do-i-keep-my-wise-card-safe
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers impersonate your bank, the police or the IRS and create urgency, for example by saying your money is at risk, to trick you into sending money.
+      source: https://wise.com/help/articles/49ULMEHN2CrU3RnwaPZGzi/how-do-i-keep-my-wise-card-safe
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: phishing-report-form
+      type: web_form
+      label: Report a phishing email or site that pretends to be Wise
+      value: https://wise.com/security/reports/phishing
+      purposes: [fraud]
+      notes: The form asks for the phishing site URL. It is not for customer support. If you clicked a link or shared sensitive data, contact Wise at once.
+      source: https://wise.com/help/articles/2932695/watch-out-for-phishing
+      last_verified: 2026-10-12
 regulators: [cfpb, ftc]
 notes: >-
   US customers contract with Wise US Inc. (US Customer Agreement version 1.5, last updated 2026-09-25),

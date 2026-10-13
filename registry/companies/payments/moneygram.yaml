@@ -4,6 +4,42 @@ aliases: [moneygram international, money gram, moneygram payment systems]
 sector: payments
 parent: Madison Dearborn Partners (private equity)
 website: https://www.moneygram.com
+official_domains: [moneygram.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: MoneyGram will never send you an unsolicited email that asks for your personal or financial information. Give this information only when you are signed in to your MoneyGram profile at moneygram.com.
+      source: https://www.moneygram.com/us/en/help-center/faq/support/phishing/i-received-an-email-from-moneygram-asking-for-my-financial-information
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: MoneyGram says almost all wire fraud starts with contact from a stranger. Its top anti-fraud tip is never to send money to someone you don't know.
+      source: https://www.moneygram.com/us/en/help-center/fraud-and-safety
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Someone asks you to deposit a check and send part of the money back to them by money transfer.
+      source: https://www.moneygram.com/us/en/help-center/faq/support/wire-transfers/what-is-money-transfer-fraud-or-wire-transfer-fraud
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Someone pretends to be a friend or relative in a crisis and asks you to wire money right away.
+      source: https://www.moneygram.com/us/en/help-center/faq/support/wire-transfers/what-is-money-transfer-fraud-or-wire-transfer-fraud
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Someone says you won a prize or contest that you don't remember entering and asks you to wire money to pay fees, taxes or customs.
+      source: https://www.moneygram.com/us/en/help-center/faq/support/wire-transfers/what-is-money-transfer-fraud-or-wire-transfer-fraud
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-fraud-form
+      type: web_form
+      label: Report fraud online (MoneyGram contact form, choose Report fraud)
+      value: https://www.moneygram.com/us/en/help-center/contact-us
+      purposes: [fraud]
+      notes: >-
+        MoneyGram asks you to report suspicious emails that claim to be from MoneyGram so it can investigate. Its
+        phishing page links its report-fraud-online step to this contact form. For a suspicious text, MoneyGram says
+        to report the number to your phone provider, block the sender and delete the message.
+      source: https://www.moneygram.com/us/en/help-center/fraud-and-safety/phishing
+      last_verified: 2026-10-12
 regulators: [cfpb, ftc]
 notes: >-
   MoneyGram International, Inc. was taken private by funds of Madison Dearborn Partners. The acquisition was

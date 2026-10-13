@@ -4,6 +4,58 @@ aliases: [venmo purchase protection, venmo debit card]
 sector: payments
 parent: PayPal Holdings, Inc. (services provided by PayPal, Inc.)
 website: https://venmo.com
+official_domains: [venmo.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: A Venmo agent will never ask for the verification code sent to your phone, under any circumstances.
+      source: https://help.venmo.com/cs/articles/common-scams-on-venmo-vhel167
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Venmo will never ask to access your device remotely or ask you to install a third-party app.
+      source: https://help.venmo.com/cs/articles/common-scams-on-venmo-vhel167
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Venmo will never ask you to send money to verify your account.
+      source: https://help.venmo.com/cs/articles/common-scams-on-venmo-vhel167
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Venmo will never tell you to send money from your Venmo account to another user through a different payment platform.
+      source: https://help.venmo.com/cs/articles/common-scams-on-venmo-vhel167
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Venmo will never create an account on your behalf, so a caller who asks you to log in to an account they created for you is not Venmo.
+      source: https://help.venmo.com/cs/articles/common-scams-on-venmo-vhel167
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: A scammer tries to sign in to your account, which sends a code to your phone, then calls you pretending to be Venmo and asks you to read the code out. Variations ask you to log in to an account they created or to send a payment to another Venmo account.
+      source: https://help.venmo.com/cs/articles/common-scams-on-venmo-vhel167
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: A stranger sends you a payment, says it was a mistake, and asks you to send the money back as a new payment. Venmo says to contact it as soon as possible so it can help reverse the payment.
+      source: https://help.venmo.com/cs/articles/common-scams-on-venmo-vhel167
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: When you sell to a stranger, a scammer may send screenshots of fake emails that make it look like they paid you, or say the payment will reach you only after you ship and upload tracking. Venmo says this is not a feature it provides.
+      source: https://help.venmo.com/cs/articles/common-scams-on-venmo-vhel167
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers send texts or emails with a link saying you won money from Venmo, and the link asks you to sign in or enter account information. Venmo says to enter your login only on Venmo.com or in the Venmo app; Venmo emails come only from addresses ending in venmo.com.
+      source: https://help.venmo.com/cs/articles/common-scams-on-venmo-vhel167
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails, websites, texts or calls that claim to be from Venmo
+      value: phishing@venmo.com
+      purposes: [fraud]
+      notes: >-
+        Forward the email as an attachment, or send the website link. For a text or call, send a screenshot that shows
+        the full phone number. This is an automated inbox, so do not include personal information. Venmo says it
+        sometimes texts from 86753 about actions on your account.
+      source: https://help.venmo.com/cs/articles/reporting-fake-or-suspicious-messages-or-emails-vhel245
+      last_verified: 2026-10-12
 regulators: [cfpb, ftc]
 notes: >-
   Venmo is a service of PayPal, Inc.; written error notices and legal notices go to PayPal's Omaha P.O. box.
