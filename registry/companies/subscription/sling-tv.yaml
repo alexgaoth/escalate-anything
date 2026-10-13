@@ -1,0 +1,157 @@
+id: sling-tv
+name: Sling TV
+aliases: [sling, slingtv, sling.com, sling orange, sling blue, sling day pass]
+sector: subscription
+parent: EchoStar Corporation
+website: https://www.sling.com
+account_url: https://www.sling.com/account
+official_domains: [sling.com]
+regulators: [ftc]
+notes: >-
+  Sling TV is a live TV streaming service. EchoStar's website (checked 2026-10-13) describes EchoStar as "the
+  parent company of DISH Network, Boost Mobile, Sling TV, and Hughes Network Systems"; DISH Network has a separate
+  entry (dish-network). Sling's Help Center articles and Terms of Use
+  (https://www.sling.com/offer-details/disclaimers/terms-of-use) render only in a browser, so on 2026-10-13 only
+  their headings could be read: the Terms of Use, the help-article answers, the support phone number and chat
+  hours were not checked. Values here come from Sling's home page, checkout billing page, offer details and
+  account page.
+
+channels:
+  - id: cancel-online
+    type: portal
+    label: Sling My Account, cancel subscription (online cancellation)
+    value: https://www.sling.com/my-account/cancel/domestic/review
+    purposes: [cancel_service, free_trial_conversion, bill_increase]
+    access: login
+    notes: Linked as "Continue canceling" from the Sling account page. Sling's pages say to cancel on Sling.com.
+    source: https://www.sling.com/account
+    last_verified: 2026-10-13
+  - id: pause-subscription
+    type: portal
+    label: Sling My Account, pause subscription (up to 3 months at no charge)
+    value: https://www.sling.com/my-account/pause-subscription
+    purposes: [cancel_service]
+    access: login
+    notes: After the pause, the regular monthly bill resumes unless you cancel online first.
+    source: https://www.sling.com/account
+    last_verified: 2026-10-13
+  - id: billing-details
+    type: portal
+    label: Sling My Account, billing details
+    value: https://www.sling.com/my-account/billing-details
+    purposes: [billing_error, unauthorized_charge, refund_request, bill_increase]
+    access: login
+    source: https://www.sling.com/account
+    last_verified: 2026-10-13
+  - id: help-contact
+    type: portal
+    label: Sling Help Center, How to Contact Sling TV
+    value: https://www.sling.com/help/en/contact-us
+    purposes: [cancel_service, refund_request, billing_error, unauthorized_charge]
+    notes: Sling's offer details link here as the Help Center contact page. The page renders only in a browser; its phone, chat and hours were not readable on 2026-10-13.
+    source: https://www.sling.com/aemedge/modals/try-sling-offer-details
+    last_verified: 2026-10-13
+  - id: help-cancel-article
+    type: portal
+    label: Sling Help Center, Pause or cancel your subscription (FAQ on refunds, deleted app, charges after cancelling)
+    value: https://www.sling.com/help/en/account-questions/account-changes/pause-cancel-subscription
+    purposes: [cancel_service, refund_request]
+    notes: The page lists questions such as "I deleted the app, will that cancel my subscription?", "I'm still being charged for a cancelled subscription, now what?" and "I don't see the option to cancel, now what?". The answers render only in a browser and were not read on 2026-10-13.
+    source: https://www.sling.com/help/en/account-questions/account-changes/pause-cancel-subscription
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: help-contact}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel online in Sling My Account before the next billing date. Fees are charged monthly in advance and there is no refund for the rest of the month. A free pause of up to 3 months is offered instead.
+    evidence: [cancellation confirmation email or screen, date cancelled, billing details]
+    steps:
+      - do: Sign in to Sling My Account and complete the cancellation (the account page links it as "Continue canceling").
+        channel: cancel-online
+      - do: Cancel before the next billing date to avoid another monthly charge.
+        channel: cancel-online
+      - do: If you pause instead, cancel online before the pause ends or the regular monthly bill resumes.
+        channel: pause-subscription
+      - do: If you cannot cancel online, use the Help Center contact page.
+        channel: help-contact
+    facts:
+      - kind: policy
+        claim: '"Your credit card will be charged monthly for applicable subscription until you cancel your service." Sling''s home page says to "Cancel on Sling.com or visit our Help Center to contact us," and that you can add and drop services at any time with "no long-term contracts."'
+        issues: [cancel_service]
+        source: https://www.sling.com/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'Sling''s account page says: "You can pause your subscription for up to 3 months at no charge." After the pause period you are charged your regular monthly bill unless you cancel online first.'
+        issues: [cancel_service]
+        source: https://www.sling.com/account
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'Monthly subscribers keep access until the period they paid for ends: "You''ll continue to have access to Sling until the period you''ve paid for ends and won''t be charged again until you resubscribe." Read from search-result text for sling.com on 2026-10-13; the fetched sling.com pages did not show this FAQ text, so confirm it in the account after cancelling.'
+        issues: [cancel_service]
+        source: https://www.sling.com/
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: Sling does not refund or credit prepaid or partial months after cancellation; ask only about charges that are errors or that came after a completed cancellation.
+    evidence: [billing details, cancellation confirmation, card statement]
+    steps:
+      - do: Check the charge in billing details against your cancellation date.
+        channel: billing-details
+      - do: For a charge after a completed cancellation or a billing error, contact Sling through the Help Center and ask for a refund of that charge.
+        channel: help-contact
+      - do: If Sling refuses a refund for a charge after a completed cancellation, dispute the charge with your card issuer.
+    facts:
+      - kind: policy
+        claim: '"Programming fees are charged monthly in advance and no credits or refunds will be issued for partial or prepaid months after cancellation."'
+        issues: [refund_request, cancel_service]
+        source: https://www.sling.com/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'Sling''s checkout billing terms say: "No refunds or credits for prepaid or partial months of service."'
+        issues: [refund_request]
+        source: https://www.sling.com/cart/domestic/payment
+        last_verified: 2026-10-13
+
+  - issue: free_trial_conversion
+    summary: Sling's introductory offer needs an email address and credit card and moves to the everyday monthly price after the first month unless you cancel online.
+    evidence: [offer terms at sign-up, sign-up date, cancellation confirmation, the first full-price charge]
+    steps:
+      - do: Cancel online before the first month ends if you do not want to pay the everyday price.
+        channel: cancel-online
+    facts:
+      - kind: policy
+        claim: 'Sling''s offer details: "Must provide email address and credit card." "After one month, you will be billed for Sling monthly at the everyday price unless you go online to cancel." The offer is "Available to new customers upon account activation. One per customer."'
+        issues: [free_trial_conversion, bill_increase]
+        source: https://www.sling.com/aemedge/modals/try-sling-offer-details
+        last_verified: 2026-10-13
+
+  - issue: bill_increase
+    summary: After a promotional period Sling charges the regular monthly price automatically, and Sling says prices can change without notice; cancel online before the next billing date if you do not accept the new price.
+    evidence: [last bill before the increase, first bill after, offer terms]
+    steps:
+      - do: Compare the charges in billing details.
+        channel: billing-details
+      - do: If you do not accept the new price, cancel online before the next billing date.
+        channel: cancel-online
+    facts:
+      - kind: policy
+        claim: '"After any promotional period, you will automatically be charged monthly in advance" until you cancel on Sling.com.'
+        issues: [bill_increase]
+        source: https://www.sling.com/cart/domestic/payment
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: '"All prices, fees, charges, services, programming, features, functionality and offers subject to change without notice." State and local taxes apply.'
+        issues: [bill_increase]
+        source: https://www.sling.com/aemedge/modals/try-sling-offer-details
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Online cancellation, pause and billing details need the account holder's Sling sign-in.
+  - Sling's Help Center and Terms of Use render only in a browser; a support phone number and chat hours could not be verified.
+  - Sling's pages checked here do not say how to cancel a subscription billed by an app store or device platform.

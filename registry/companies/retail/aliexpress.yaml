@@ -1,0 +1,103 @@
+id: aliexpress
+name: AliExpress
+aliases: [aliexpress.com, ali express, aliexpress choice]
+sector: retail
+parent: Alibaba Group
+website: https://www.aliexpress.com
+official_domains: [aliexpress.com]
+regulators: [ftc]
+notes: >-
+  AliExpress is a marketplace; its privacy policy describes the platform as a service that
+  "connects and facilitates sales and purchases between business sellers" and buyers, so most
+  items are sold by third-party sellers. Under the privacy policy (effective July 30, 2026),
+  buyers in the United States contract with AliExpress E-Commerce One Pte. Ltd. (Singapore).
+  AliExpress help-center pages load their text with scripts and could not be read by automated
+  fetches on 2026-10-13. No official AliExpress page on phishing or off-platform payment scams
+  was read; AliExpress-hosted "wiki" articles found in search are not official policy and are
+  not used here.
+
+channels:
+  - id: buyer-protection
+    type: portal
+    label: AliExpress Buyer Protection (how to file a Return/refund request)
+    value: https://www.aliexpress.com/p/buyerprotection/index.html
+    purposes: [refund_request, damaged_item, lost_package]
+    notes: The request itself is filed from My orders, then the order detail, then Return/refund, which needs sign-in.
+    source: https://www.aliexpress.com/p/buyerprotection/index.html
+    last_verified: 2026-10-13
+  - id: privacy-portal
+    type: portal
+    label: AliExpress privacy rights requests
+    value: https://privacy.aliexpress.com/
+    purposes: [privacy_request]
+    source: https://terms.alicdn.com/legal-agreement/terms/suit_bu1_aliexpress/suit_bu1_aliexpress201909171350_82407.html
+    last_verified: 2026-10-13
+  - id: privacy-email
+    type: email
+    label: AliExpress Data Protection Officer
+    value: DataProtection.AE@aliexpress.com
+    purposes: [privacy_request]
+    source: https://terms.alicdn.com/legal-agreement/terms/suit_bu1_aliexpress/suit_bu1_aliexpress201909171350_82407.html
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: buyer-protection}
+  - {rung: supervisor}
+  - {rung: written_complaint}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: refund_request
+    summary: Contact the seller first, then file a Return/refund request on the order within 15 days of receipt; AliExpress refunds after the return passes warehouse quality control.
+    evidence: [order number, photos or video of the item, the listing's description and photos, chat with the seller]
+    steps:
+      - do: Contact the seller through the order first.
+      - do: If the seller does not fix it, open My orders, then the order detail, then Return/refund, within 15 days of receipt.
+        channel: buyer-protection
+      - do: Choose the refund destination; the original payment method or the AliExpress fast refund-bonus (conditions apply).
+      - do: Keep every payment and message on AliExpress. If AliExpress does not refund, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: 'Buyer Protection covers an order that "doesn''t match the item descriptions or photos or arrived damaged/shortage", within 15 days. "You can enjoy our Free Return service within 15 days of receipt of delivery." For change-of-mind returns the buyer pays return shipping.'
+        issues: [refund_request, damaged_item]
+        source: https://www.aliexpress.com/p/buyerprotection/index.html
+        last_verified: 2026-10-13
+      - kind: process
+        claim: '"You will be fully refunded as soon as the quality control has been completed at the warehouse." The page states no number of days. Refunds go to the original payment method or to the AliExpress fast refund-bonus (conditions apply).'
+        issues: [refund_request]
+        source: https://www.aliexpress.com/p/buyerprotection/index.html
+        last_verified: 2026-10-13
+
+  - issue: damaged_item
+    summary: Report a damaged, short or not-as-described order within 15 days of receipt through Return/refund on the order.
+    evidence: [order number, photos or video of the damage and packaging]
+    steps:
+      - do: Contact the seller first, then file a Return/refund request on the order within 15 days of receipt.
+        channel: buyer-protection
+      - do: If AliExpress does not refund, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: An order that "arrived damaged/shortage" is covered by Buyer Protection within 15 days.
+        issues: [damaged_item]
+        source: https://www.aliexpress.com/p/buyerprotection/index.html
+        last_verified: 2026-10-13
+
+  - issue: lost_package
+    summary: An item that did not arrive or was lost within the guaranteed delivery window shown on the order detail page is covered by Buyer Protection.
+    evidence: [order number, guaranteed delivery date from the order detail page, tracking history]
+    steps:
+      - do: Check the guaranteed delivery window on the order detail page.
+      - do: If the item has not arrived within that window, contact the seller, then file a Return/refund request on the order.
+        channel: buyer-protection
+      - do: If AliExpress does not refund, dispute the charge with your card issuer.
+    facts:
+      - kind: policy
+        claim: 'Buyer Protection covers an order when "Your item didn''t arrive or was lost in transit within the guaranteed delivery window in order detailed page".'
+        issues: [lost_package, late_delivery]
+        source: https://www.aliexpress.com/p/buyerprotection/index.html
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Return/refund requests are filed from the signed-in order page; AliExpress help-center pages need a full browser to load.

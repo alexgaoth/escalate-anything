@@ -1,0 +1,192 @@
+id: peloton
+name: Peloton
+aliases: [peloton interactive, onepeloton, peloton all-access, peloton app, peloton app membership, peloton bike, peloton tread]
+sector: subscription
+parent: Peloton Interactive, Inc.
+website: https://www.onepeloton.com
+account_url: https://www.onepeloton.com/mymembership
+official_domains: [onepeloton.com]
+regulators: [ftc]
+notes: >-
+  Peloton sells connected fitness hardware (Bike, Tread, Row, Guide) and recurring memberships
+  (All-Access, Guide, Rental, App, Strength+). The Membership Terms and Terms of Service were last
+  updated October 1, 2025. The Terms of Service contain a binding arbitration agreement and class
+  action waiver (section 20). Peloton's support site (support.onepeloton.com) loads by JavaScript and
+  could not be read by automated fetches on 2026-10-13, so this file uses the Membership Terms, Terms
+  of Service and the Home Trial page.
+
+channels:
+  - id: membership-settings
+    type: portal
+    label: Peloton Account Settings, membership page (change or cancel membership)
+    value: https://www.onepeloton.com/mymembership
+    purposes: [cancel_service, bill_increase]
+    access: login
+    notes: Redirects to https://account.onepeloton.com/mymembership, which needs sign-in.
+    source: https://www.onepeloton.com/membership-terms
+    last_verified: 2026-10-13
+  - id: member-support-phone
+    type: phone
+    label: Peloton Member Support (cancel membership, billing errors, returns)
+    value: +1-866-679-9129
+    purposes: [cancel_service, billing_error, refund_request]
+    notes: The Home Trial page also gives this number to start a return and to check whether an address qualifies for the trial. No hours are given on the Membership Terms page.
+    source: https://www.onepeloton.com/membership-terms
+    last_verified: 2026-10-13
+  - id: support-contact-page
+    type: web_form
+    label: Peloton Support Contact Us page
+    value: https://support.onepeloton.com/s/contact-us?language=en_US
+    purposes: [billing_error, refund_request, cancel_service]
+    notes: Linked from the Membership Terms for billing errors. The page loads by JavaScript and showed an error to automated fetches on 2026-10-13. The Home Trial page says you can call or chat with Peloton Support to start a return.
+    source: https://www.onepeloton.com/membership-terms
+    last_verified: 2026-10-13
+  - id: legal-notice-mail
+    type: mail
+    label: Peloton legal notices (arbitration opt-out by certified mail, personally signed)
+    value: Peloton Interactive, Inc., 441 Ninth Avenue, Sixth Floor, New York, NY 10001, Attn. Legal Department
+    source: https://www.onepeloton.com/terms-of-service
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: member-support-phone}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel in Account Settings (onepeloton.com/mymembership) or by calling Member Support. Access continues to the end of the paid period, with no prorated refund; committed plans stay owed to the end of the commitment.
+    evidence: [cancellation confirmation email or screenshot, date cancelled, membership type and billing date]
+    steps:
+      - do: Sign in and cancel on the membership page in Peloton Account Settings.
+        channel: membership-settings
+      - do: If you cannot cancel online, call Peloton Member Support.
+        channel: member-support-phone
+      - do: If you bought an App membership through a third-party app provider such as Apple or Google, that provider bills you; manage the subscription in that store's settings.
+      - do: Cancel before the next billing date. Save the confirmation.
+    facts:
+      - kind: process
+        claim: '"To change or terminate your Peloton Membership, go to your Peloton Account Settings at https://www.onepeloton.com/mymembership" or contact Peloton Member Support at 1-866-679-9129.'
+        issues: [cancel_service]
+        source: https://www.onepeloton.com/membership-terms
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Memberships recur monthly or annually "until it is canceled." Billing occurs at the beginning of each membership cycle. After a cancellation you may use the membership until the end of the then-current period, and it is not renewed after that.
+        issues: [cancel_service]
+        source: https://www.onepeloton.com/membership-terms
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: After a prepaid or Activation Code period ends, the membership "will automatically continue on a month-to-month basis."
+        issues: [cancel_service, free_trial_conversion]
+        source: https://www.onepeloton.com/membership-terms
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: For a Committed Membership Period (a commitment longer than one month), "You will remain responsible for any outstanding fees for the remainder of the Committed Membership Period," even if you pay month to month.
+        issues: [cancel_service, early_termination_fee]
+        source: https://www.onepeloton.com/membership-terms
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: A Peloton App Membership can be bought from Peloton or through a third-party app provider (Apple App Store and Google Play are named as examples). A Strength+ App Membership is sold through the Apple App Store.
+        issues: [cancel_service]
+        source: https://www.onepeloton.com/membership-terms
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: Membership fees are not prorated on cancellation. New hardware can be returned within 30 days of delivery under the Home Trial, minus a $150 (Bike, Bike+) or $250 (Tread, Row+) return fee.
+    evidence: [order number, delivery date, membership billing date, return pickup confirmation]
+    steps:
+      - do: For a Home Trial hardware return, call or chat with Peloton Support within 30 days of the delivery date.
+        channel: member-support-phone
+      - do: If you also want to stop the membership, cancel it on the membership page and keep the confirmation.
+        channel: membership-settings
+      - do: In New York, if you cancel within 14 days after the first charge at a new, higher price, ask for the pro rata refund of the unused portion.
+    facts:
+      - kind: policy
+        claim: '"If you cancel your Peloton Membership ... you will not be eligible for a prorated refund of any portion of the Peloton Membership fee."'
+        issues: [refund_request, cancel_service]
+        source: https://www.onepeloton.com/membership-terms
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: The Home Trial lasts "up to 30 days from your delivery date." It covers Bike, Bike+, Tread Flex, Tread Vision, Tread+ Vision and Row+, for first-time purchasers in the 48 contiguous U.S. states only.
+        issues: [refund_request]
+        source: https://www.onepeloton.com/home-trial
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: 'Home Trial return fees: $150 for Bike and Bike+; $250 for Tread Flex, Tread Vision, Tread+ Vision and Row+. The refund is the full price minus the return fee. Assembly fees paid at purchase are non-refundable.'
+        issues: [refund_request]
+        source: https://www.onepeloton.com/home-trial
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: If you financed the purchase, after the return is processed you get the first installment back minus the return fee. Refunds are sent after the returned items are received; the page gives no timeframe.
+        issues: [refund_request]
+        source: https://www.onepeloton.com/home-trial
+        last_verified: 2026-10-13
+
+  - issue: billing_error
+    summary: Tell Peloton about a membership billing error within 60 days of the billing date; after that Peloton says it will not refund or credit it except where law requires.
+    evidence: [statement showing the charge, billing date, membership type, cancellation confirmation if any]
+    steps:
+      - do: Contact Member Support within 60 days of the billing date. Give the date and amount of the charge.
+        channel: member-support-phone
+      - do: Use the Contact Us page if you cannot reach Member Support by phone.
+        channel: support-contact-page
+      - do: If Peloton does not correct it, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: '"If you believe you have been billed in error for a Peloton Membership, please notify us within 60 days of the billing date." Peloton "will not issue refunds or credits after the expiration of this 60-day period," except where required by law.'
+        issues: [billing_error, refund_request]
+        source: https://www.onepeloton.com/membership-terms
+        last_verified: 2026-10-13
+
+  - issue: free_trial_conversion
+    summary: A Peloton trial converts to a paid membership if you do not cancel before the trial ends.
+    evidence: [trial start date and offer terms, cancellation confirmation, the first charge]
+    steps:
+      - do: Cancel on the membership page before the trial ends.
+        channel: membership-settings
+      - do: If you were charged after cancelling in time, report it to Member Support as a billing error within 60 days of the charge.
+        channel: member-support-phone
+    facts:
+      - kind: policy
+        claim: '"If you do not cancel before your trial period ends, your account will be converted to a paid Peloton Membership." A payment method may be required to start a trial.'
+        issues: [free_trial_conversion]
+        source: https://www.onepeloton.com/membership-terms
+        last_verified: 2026-10-13
+
+  - issue: bill_increase
+    summary: Peloton gives notice of a changed charge amount and its date before the charge. New York members may cancel within 14 days after the first charge at a higher price and get a pro rata refund.
+    evidence: [price change notice, last charge before the increase, first charge after it]
+    steps:
+      - do: If you reject the new price, cancel before the next billing date.
+        channel: membership-settings
+      - do: In New York, if you cancel within 14 days after the first charge at the higher price, ask for the pro rata refund of the unused portion.
+        channel: member-support-phone
+    facts:
+      - kind: policy
+        claim: If the amount to be charged varies from the amount pre-authorized, Peloton gives "notice of the amount to be charged and the date of the charge before the scheduled date of the transaction." This does not apply to sales tax changes. No number of days is stated.
+        issues: [bill_increase]
+        source: https://www.onepeloton.com/membership-terms
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: '"New York consumers may cancel their subscription within at least 14 days after their first charge at a new, higher price ... with a pro rata refund for any unused portion of the subscription."'
+        issues: [bill_increase, refund_request]
+        source: https://www.onepeloton.com/membership-terms
+        last_verified: 2026-10-13
+
+facts:
+  - kind: policy
+    claim: The Terms of Service contain "A BINDING ARBITRATION AGREEMENT AND CLASS ACTION WAIVER" (section 20). You may opt out of arbitration by a notice "personally signed by you, by certified mail" (sections 20.2 and 20.9).
+    source: https://www.onepeloton.com/terms-of-service
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: Peloton recalled about 125,000 Tread+ treadmills on May 5, 2021 (CPSC recall 21-128). A full refund was available "until November 6, 2022"; returns after that date get a partial refund.
+    issues: [refund_request]
+    source: https://www.cpsc.gov/Recalls/2021/Peloton-Recalls-Tread-Plus-Treadmills-After-One-Child-Died-and-More-than-70-Incidents-Reported
+    last_verified: 2026-10-13
+
+known_blockers:
+  - The membership page (onepeloton.com/mymembership) needs sign-in.
+  - Peloton's support site (support.onepeloton.com) loads by JavaScript; automated fetches got an error page on 2026-10-13.
+  - App memberships bought through a third-party app provider (Apple, Google) are billed by that provider; the Membership Terms do not say how to cancel them.

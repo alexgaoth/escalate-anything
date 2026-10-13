@@ -1,0 +1,181 @@
+id: nordstrom
+name: Nordstrom
+aliases: [nordstrom.com, nordstrom inc, nordstrom local]
+sector: retail
+website: https://www.nordstrom.com
+account_url: https://www.nordstrom.com/my-account/order-lookup
+official_domains: [nordstrom.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: 'Nordstrom warns of websites and emails that try to get customers to share personal information, for example by soliciting charitable donations or offering gift cards in exchange for information. "Nordstrom does not solicit charitable donations in this way, or sponsor these websites."'
+      source: https://www.nordstrom.com/browse/customer-service/frequently-asked-questions
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-fraud-email
+      type: email
+      label: Forward a potentially fraudulent website or email that uses Nordstrom's name
+      value: onlinefraud@nordstrom.com
+      purposes: [fraud]
+      source: https://www.nordstrom.com/browse/customer-service/frequently-asked-questions
+      last_verified: 2026-10-13
+    - id: report-fraud-phone
+      type: phone
+      label: Call Nordstrom about a potentially fraudulent website or email
+      value: +1-888-282-6060
+      purposes: [fraud]
+      source: https://www.nordstrom.com/browse/customer-service/frequently-asked-questions
+      last_verified: 2026-10-13
+regulators: [ftc]
+notes: >-
+  Nordstrom sells its own stock and items from third-party sellers; third-party seller items have
+  their own return-by dates and are excluded from price adjustments. Nordstrom Rack has a separate
+  return policy on the Nordstrom Rack site; Nordstrom's return policy page does not state it, so
+  this file does not cover Rack purchases. Nordstrom and Nordstrom.com items (except fine jewelry
+  and designer items) can be returned at Nordstrom Rack stores.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Nordstrom U.S. Customer Service (orders, returns, account questions)
+    value: +1-888-282-6060
+    hours: 24/7 ("We're Here 24/7 - call or chat with us online")
+    purposes: [refund_request, price_adjustment, lost_package, damaged_item, warranty_claim, billing_error]
+    source: https://www.nordstrom.com/browse/customer-service
+    last_verified: 2026-10-13
+  - id: customer-service-chat
+    type: chat
+    label: Nordstrom Customer Service page (online chat and self-service links)
+    value: https://www.nordstrom.com/browse/customer-service
+    hours: 24/7
+    purposes: [refund_request, price_adjustment, lost_package, damaged_item]
+    source: https://www.nordstrom.com/browse/customer-service
+    last_verified: 2026-10-13
+  - id: make-a-return
+    type: portal
+    label: Make a Return (start an online return; prepaid label by email)
+    value: https://www.nordstrom.com/my-account/blank-return
+    purposes: [refund_request, damaged_item]
+    access: login
+    notes: No printer is needed; show the QR code at an eligible USPS or FedEx location, or return at any store register.
+    source: https://www.nordstrom.com/browse/customer-service
+    last_verified: 2026-10-13
+  - id: price-adjustment-request
+    type: web_form
+    label: Request a Price Adjustment
+    value: https://www.nordstrom.com/my-account/price-adjustment
+    purposes: [price_adjustment]
+    access: login
+    source: https://www.nordstrom.com/browse/customer-service
+    last_verified: 2026-10-13
+  - id: order-lookup
+    type: portal
+    label: Order Status (report an order issue, cancel an order while it is still processing)
+    value: https://www.nordstrom.com/my-account/order-lookup
+    purposes: [lost_package, late_delivery]
+    source: https://www.nordstrom.com/browse/customer-service
+    last_verified: 2026-10-13
+  - id: credit-services-phone
+    type: phone
+    label: Nordstrom Credit Services
+    value: +1-800-264-6260
+    purposes: [billing_error, unauthorized_charge]
+    source: https://www.nordstrom.com/browse/customer-service
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor}
+  - {rung: written_complaint}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: refund_request
+    summary: Nordstrom handles returns case by case and states no time limit; refunds go to the original payment method.
+    evidence: [receipt or order number, the item with tags and packaging]
+    steps:
+      - do: Start the return online (Make a Return) for a prepaid label, or take the item to any Nordstrom store register.
+        channel: make-a-return
+      - do: Fine jewelry must go to a Nordstrom store with a Fine Jewelry department; it cannot be returned by mail.
+      - do: For a third-party seller item, check the return-by date in your order history and return it unworn, undamaged, unaltered and with the original tags.
+      - do: If the refund does not arrive, call Customer Service with the order number.
+        channel: customer-service-phone
+      - do: If Nordstrom refuses a refund you are owed, dispute the charge with your card issuer.
+    facts:
+      - kind: policy
+        claim: '"We handle returns on a case-by-case basis with the ultimate goal of making our customers happy." The policy also says "There are no time limits for returns or exchanges" and "From time to time we may not accept a return."'
+        issues: [refund_request]
+        source: https://www.nordstrom.com/browse/services/return-policy
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'Exceptions: "Gift cards can''t be returned"; fine jewelry cannot be returned by mail; special-occasion and designer items need all packaging and tags attached; car seats and bases only in original, unopened boxes; Watchfinder & Co. pre-owned items are ineligible for refund or exchange.'
+        issues: [refund_request]
+        source: https://www.nordstrom.com/browse/services/return-policy
+        last_verified: 2026-10-13
+      - kind: process
+        claim: 'Refunds go to the tender used for the purchase. In-store returns: "Refunds can be expected in 3-5 business days." Mailed returns are processed in 8-12 business days, then refunds take 3-5 business days. Returns are free, but "we cannot refund shipping charges."'
+        issues: [refund_request]
+        source: https://www.nordstrom.com/browse/services/return-policy
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Without a record of sale, a refund may require personal identification and is issued as a Nordstrom gift card at the current price.
+        issues: [refund_request]
+        source: https://www.nordstrom.com/browse/services/return-policy
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: Third-party seller purchases get a full refund only if returned by the seller's return-by date shown in order history; Nordstrom says to allow 10-14 business days to process these returns.
+        issues: [refund_request]
+        source: https://www.nordstrom.com/browse/services/return-policy
+        last_verified: 2026-10-13
+
+  - issue: price_adjustment
+    summary: Ask within 10 days of purchase or shipment when Nordstrom lowers the price of a full-price item; no competitor price matching.
+    evidence: [order number or receipt, the lower price on nordstrom.com, same color and size]
+    steps:
+      - do: Submit the Request a Price Adjustment form within 10 days of the in-store purchase or shipment date.
+        channel: price-adjustment-request
+      - do: Or call Customer Service and ask for the adjustment.
+        channel: customer-service-phone
+    facts:
+      - kind: deadline
+        claim: 'Price adjustments must be requested "within 10 days of your in-store purchase or shipment date", for items bought at full price that Nordstrom later lowers, while the same color and size are available.'
+        issues: [price_adjustment]
+        source: https://www.nordstrom.com/browse/customer-service/policy/pricing-policy
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: 'Not eligible: items originally bought on sale, items from third-party sellers, a second adjustment on the same item, and automated requests from third-party services. "We don''t price match other retailers." Approved adjustments are credited to the original form of payment.'
+        issues: [price_adjustment]
+        source: https://www.nordstrom.com/browse/customer-service/policy/pricing-policy
+        last_verified: 2026-10-13
+
+  - issue: lost_package
+    summary: Report missing items or shipments in your account within 30 days of the ship date.
+    evidence: [order number, ship date, tracking]
+    steps:
+      - do: Within 30 days of the ship date, open the order in your account and report an order issue, or contact Customer Service.
+        channel: order-lookup
+      - do: If Nordstrom does not resolve it, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: '"If you''re missing items or shipments within 30 days of the ship date, visit your account to report an order issue or contact us for help."'
+        issues: [lost_package]
+        source: https://www.nordstrom.com/browse/customer-service/frequently-asked-questions
+        last_verified: 2026-10-13
+
+  - issue: warranty_claim
+    summary: Warranties come from the manufacturer; Nordstrom customer care answers warranty questions.
+    evidence: [order number or receipt, product details]
+    steps:
+      - do: Check the manufacturer's warranty, then call Nordstrom customer care with warranty questions.
+        channel: customer-service-phone
+    facts:
+      - kind: policy
+        claim: '"Some products may have warranties, and warranty information should be available directly through the manufacturer." Nordstrom lists 1.888.282.6060 for warranty questions.'
+        issues: [warranty_claim]
+        source: https://www.nordstrom.com/browse/customer-service/frequently-asked-questions
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Online returns and price adjustment requests use the Nordstrom account pages (sign-in or order lookup).

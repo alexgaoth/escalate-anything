@@ -1,0 +1,172 @@
+id: weightwatchers
+name: WeightWatchers
+aliases: [ww, ww international, weight watchers, weightwatchers.com, ww app, weightwatchers clinic]
+sector: subscription
+parent: WW International, Inc.
+website: https://www.weightwatchers.com/us
+official_domains: [weightwatchers.com]
+regulators: [ftc]
+notes: >-
+  WW International, Inc. operates WeightWatchers. On May 6, 2025 it announced a Chapter 11 filing and
+  said "Operations for its members will continue as normal." The U.S. Bankruptcy Court for the District
+  of Delaware (Case No. 25-10829) confirmed the plan on June 17, 2025, and the company emerged on June 24,
+  2025 (SEC Form 8-K). The WW Membership Agreement (last updated February 9, 2026) does not cover WW
+  Clinic medical services, which have a separate WW Clinic Membership Agreement.
+
+channels:
+  - id: cancel-online
+    type: portal
+    label: WeightWatchers online cancellation (cancel or switch membership)
+    value: https://cmx.weightwatchers.com/cancellation
+    purposes: [cancel_service]
+    access: login
+    notes: Linked from the WW Cancellation Policy page. The Membership Agreement says to cancel "in the protected areas of the Site or Mobile App", so sign-in is expected.
+    source: https://www.weightwatchers.com/us/cancellation
+    last_verified: 2026-10-13
+  - id: cancellation-policy
+    type: web_form
+    label: WW Cancellation Policy page (when cancellation takes effect; mentions 24/7 chat)
+    value: https://www.weightwatchers.com/us/cancellation
+    purposes: [cancel_service]
+    notes: The page says you can contact WW by 24/7 chat for help but does not say where to start the chat.
+    source: https://www.weightwatchers.com/us/termsandconditions/membership
+    last_verified: 2026-10-13
+  - id: customer-care-phone
+    type: phone
+    label: WW Customer Care (cancel, billing, refunds)
+    value: +1-800-651-6000
+    purposes: [cancel_service, refund_request, billing_error, bill_increase]
+    notes: No hours are given in the Membership Agreement.
+    source: https://www.weightwatchers.com/us/termsandconditions/membership
+    last_verified: 2026-10-13
+  - id: customer-care-mail
+    type: mail
+    label: WW Customer Care mailing address (written cancellation notice under state rights, section 24)
+    value: WW International, Inc., 18 West 18th Street, New York, NY 10011, Attention. Customer Care
+    purposes: [cancel_service]
+    source: https://www.weightwatchers.com/us/termsandconditions/membership
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-care-phone}
+  - {rung: written_complaint, channel: customer-care-mail}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel online (cmx.weightwatchers.com/cancellation), in the app, or by calling 1-800-651-6000 before the monthly processing date. Cancellation takes effect at the end of the current month, or at the end of the commitment period for a commitment plan.
+    evidence: [cancellation confirmation, date cancelled, plan type and start date, charges after that date]
+    steps:
+      - do: Sign in and cancel on the online cancellation page or in the app.
+        channel: cancel-online
+      - do: If you cannot cancel online, call Customer Care. Ask when your current billing period ends.
+        channel: customer-care-phone
+      - do: Cancel before the monthly processing date. Allow up to 72 hours for processing.
+      - do: If you are charged for the next period after cancelling near the end of a billing period, ask Customer Care to reverse it, and do not use the service in that period.
+        channel: customer-care-phone
+    facts:
+      - kind: deadline
+        claim: '"You may cancel a subscription before the applicable monthly processing date of your subscription, or in the case of a long-term commitment plan, before the end of the commitment period," in the protected areas of the Site or Mobile App or by contacting Customer Service (section 3.B).'
+        issues: [cancel_service]
+        source: https://www.weightwatchers.com/us/termsandconditions/membership
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Cancellation takes effect "at the end of your then-current subscription period, or in the case of a long-term commitment plan, at the end of the commitment plan period." WW "will attempt to process all cancellation requests within 72 hours" (section 3.B).
+        issues: [cancel_service]
+        source: https://www.weightwatchers.com/us/termsandconditions/membership
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'Multi-month Commitment Plans end at the end of the Commitment Plan period; Pre-pay Savings Plans at the end of the initial plan period; standard one-month plans "at the end of the membership month in which you cancel." After a commitment or prepaid period, cancellation takes effect at the end of the membership month.'
+        issues: [cancel_service]
+        source: https://www.weightwatchers.com/us/cancellation
+        last_verified: 2026-10-13
+      - kind: process
+        claim: If you cancel near the end of a billing period "and are inadvertently charged for the next period's fee, contact Customer Service to have the charges reversed." If you use the service during that next period, you are not entitled to a refund (section 3.B).
+        issues: [cancel_service, billing_error, refund_request]
+        source: https://www.weightwatchers.com/us/termsandconditions/membership
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: On a long-term commitment plan, "if you terminate your subscription, you must pay the applicable monthly subscription fee" until the end of the billing or commitment period (section 4.A).
+        issues: [cancel_service, early_termination_fee]
+        source: https://www.weightwatchers.com/us/termsandconditions/membership
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: Fees are not refundable once a billing period starts. Exceptions are cancellation within 3 days of the first purchase (or the period state law sets), medical reasons, relocation and Workshop closure. App Store purchases are not refundable by WW.
+    evidence: [purchase date, plan type, reason for cancellation (doctor's note, proof of move), cancellation confirmation]
+    steps:
+      - do: If you are inside 3 days of the first purchase (or your state's longer period), cancel and ask for the full refund. In listed states you may cancel by mail to Customer Care or by calling.
+        channel: customer-care-phone
+      - do: For a medical reason, a move or a Workshop closure, ask Customer Care for a refund and send proof.
+        channel: customer-care-mail
+    facts:
+      - kind: policy
+        claim: The subscription fee "is not refundable or cancellable once a billing period" has started (section 4.A).
+        issues: [refund_request]
+        source: https://www.weightwatchers.com/us/termsandconditions/membership
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: If you cancel under section 24 "within 3 days (or such other period as required by law) of your initial purchase, we will refund the full amounts required by applicable law" (section 4.A(3)).
+        issues: [refund_request, cancel_service]
+        source: https://www.weightwatchers.com/us/termsandconditions/membership
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: 'California and other listed states (section 24.A): you may cancel "WITHOUT ANY PENALTY OR OBLIGATION" before midnight of the third business day after the contract date, excluding Sundays and holidays, by signed notice to WW International, Inc., 18 West 18th Street, New York, NY 10011, Attention: Customer Care, or by calling 1-800-651-6000. Georgia allows seven business days (section 24.C).'
+        issues: [cancel_service, refund_request]
+        source: https://www.weightwatchers.com/us/termsandconditions/membership
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Refunds apply when you cancel for "a medical reason, relocation" (a move of more than 15 miles from a Workshop location) or a Workshop closure, except fixed upfront fees (section 4.A(1)). If WW ends your membership for a reason other than your violation, it refunds the unused portion pro rata (section 4.A(2)).
+        issues: [refund_request]
+        source: https://www.weightwatchers.com/us/termsandconditions/membership
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'New York (section 24.J): you may also cancel if a doctor''s order says you cannot receive the services because of significant physical disability for more than six months, if you move more than twenty-five miles from any Workshop facility, or if the services stop being offered as stated.'
+        issues: [cancel_service, refund_request]
+        source: https://www.weightwatchers.com/us/termsandconditions/membership
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: '"Purchases made within the Mobile Apps downloaded from the Apple® iTunes store are not refundable" by WW (section 4.B).'
+        issues: [refund_request]
+        source: https://www.weightwatchers.com/us/termsandconditions/membership
+        last_verified: 2026-10-13
+
+  - issue: bill_increase
+    summary: WW may change fees with at least 30 days' written notice. When a discount, prepayment or commitment plan ends, the membership renews at standard rates.
+    evidence: [price change notice, plan and offer terms, last charge before the increase]
+    steps:
+      - do: If you do not accept the new price, cancel before the next monthly processing date.
+        channel: cancel-online
+      - do: Before a discount or commitment period ends, check the standard rate you will pay and cancel or change plans if needed.
+        channel: customer-care-phone
+    facts:
+      - kind: policy
+        claim: WW "may modify the subscription fees at any time upon at least thirty (30) days prior written notice" (section 3.A). The renewal charge is the same as the prior period's "unless we notify you in advance" (section 2.C).
+        issues: [bill_increase]
+        source: https://www.weightwatchers.com/us/termsandconditions/membership
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: When a prepayment or commitment plan ends, or you no longer qualify for a discount, "your membership will automatically be renewed at our standard membership rates" (section 2.C). A joining or initial consultation fee may apply at sign-up (section 3.A).
+        issues: [bill_increase, cancel_service]
+        source: https://www.weightwatchers.com/us/termsandconditions/membership
+        last_verified: 2026-10-13
+
+facts:
+  - kind: policy
+    claim: On May 6, 2025 WeightWatchers announced a Chapter 11 filing and said "Operations for its members will continue as normal."
+    issues: [company_shutdown]
+    source: https://abc13.com/post/weightwatchers-files-bankruptcy/16342430/
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: The U.S. Bankruptcy Court for the District of Delaware (Case No. 25-10829) confirmed WW's plan on June 17, 2025, and the company emerged from Chapter 11 on June 24, 2025. The 8-K does not mention member subscriptions.
+    issues: [company_shutdown]
+    source: https://www.sec.gov/Archives/edgar/data/0000105319/000119312525146171/d906370d8k.htm
+    last_verified: 2026-10-13
+
+known_blockers:
+  - Online cancellation is in the signed-in areas of the site or app.
+  - The Cancellation Policy page mentions 24/7 chat but gives no chat link; no phone hours are published in the Membership Agreement.
+  - WW says purchases made in its iOS app (Apple) are not refundable by WW (section 4.B).
+  - WW Clinic (medical and medication) memberships have a separate agreement that this file does not cover.

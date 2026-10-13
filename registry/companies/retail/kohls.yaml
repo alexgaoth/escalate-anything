@@ -1,0 +1,93 @@
+id: kohls
+name: Kohl's
+aliases: [kohls, kohl's, kohls.com, kohl's cash, kohl's rewards]
+sector: retail
+website: https://www.kohls.com
+official_domains: [kohls.com]
+regulators: [ftc]
+notes: >-
+  Kohl's stores and kohls.com. kohls.com, cs.kohls.com and corporate.kohls.com returned HTTP 403 to automated
+  fetches on 2026-10-13, so every value below was read from search-result text of Kohl's own help pages. Kohl's
+  help pages exist on two systems (www.kohls.com/faq and cs.kohls.com) and the search text showed different
+  dates for them; check the live page or the receipt before relying on a window. Not verified: a customer
+  service phone number, damaged or lost delivery reporting, protection plans, and Kohl's anti-phishing guidance.
+
+channels:
+  - id: help-center
+    type: portal
+    label: Kohl's Help Center (FAQ and contact options)
+    value: https://www.kohls.com/faq/
+    purposes: [refund_request, damaged_item, lost_package, price_adjustment, billing_error]
+    notes: Read from search-result text on 2026-10-13; kohls.com blocked automated fetches.
+    source: https://www.kohls.com/faq/
+    last_verified: 2026-10-13
+  - id: return-policy
+    type: portal
+    label: Kohl's Return Policy help article
+    value: https://www.kohls.com/faq/article/893
+    purposes: [refund_request, damaged_item]
+    notes: Read from search-result text on 2026-10-13; the page blocked automated fetches.
+    source: https://www.kohls.com/faq/article/893
+    last_verified: 2026-10-13
+  - id: price-adjustment-help
+    type: portal
+    label: Kohl's Price Adjustments help article
+    value: https://cs.kohls.com/app/answers/detail/a_id/88/~/price-adjustments
+    purposes: [price_adjustment]
+    notes: Store purchases are adjusted in store; online purchases by contacting Kohl's Customer Service. Read from search-result text on 2026-10-13; the page blocked automated fetches.
+    source: https://cs.kohls.com/app/answers/detail/a_id/88/~/price-adjustments
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: help-center}
+  - {rung: supervisor}
+  - {rung: written_complaint}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: refund_request
+    summary: Kohl's return window depends on how you paid (longer with a Kohl's Card), and a return can reduce or claw back Kohl's Cash you earned on the purchase.
+    evidence: [receipt or order number, card used to pay, any Kohl's Cash earned or spent on the order]
+    steps:
+      - do: Check the return window for your payment type in the return policy, and the date on your receipt.
+        channel: return-policy
+      - do: Return the item at a Kohl's store or as the help center says for online orders.
+        channel: help-center
+      - do: Expect the refund to be reduced by any Kohl's Cash you earned on the purchase and already spent, if the return takes the purchase below the earning threshold.
+      - do: If Kohl's refuses a return its policy allows, ask for a supervisor, then dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: Kohl's help pages list a return window of 120 days from purchase for items bought with a Kohl's Card and 90 days for all other payment types. Read from search-result text of Kohl's help pages on 2026-10-13; the pages blocked automated fetches and the search text showed different page dates, so confirm the window on the receipt or the live page.
+        issues: [refund_request]
+        source: https://www.kohls.com/faq/article/893
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'If a return takes a purchase below the spending threshold for Kohl''s Cash you earned, "your Kohl''s Cash will be adjusted accordingly." If you already spent that Kohl''s Cash, the refund goes to your original payment "minus the amount of the Kohl''s Cash Coupon you spent." Read from search-result text of the page on 2026-10-13; the page blocked automated fetches.'
+        issues: [refund_request]
+        source: https://cs.kohls.com/app/answers/detail/a_id/125/~/kohl%E2%80%99s-cash%C2%AE-impact-on-returns
+        last_verified: 2026-10-13
+
+  - issue: price_adjustment
+    summary: Kohl's adjusts the price if the item's sale or regular price is now lower than what you paid in the prior two weeks; bring the original dated receipt. Kohl's Cash cannot be used on a price adjustment.
+    evidence: [original dated sales receipt or order number, the current lower Kohl's price with the date]
+    steps:
+      - do: Check that the lower price is within two weeks of your purchase.
+        channel: price-adjustment-help
+      - do: For a store purchase, ask at a Kohl's store with the original dated receipt. For an online purchase, contact Kohl's Customer Service through the help center.
+        channel: help-center
+    facts:
+      - kind: deadline
+        claim: 'A price adjustment needs the item''s sale or regular price to be "now lower than the sale or regular price you paid for that item in the prior two weeks", and the original, dated sales receipt. Store purchases must be adjusted in store; online purchases by contacting Kohl''s Customer Service. Read from search-result text of the page on 2026-10-13; the page blocked automated fetches.'
+        issues: [price_adjustment]
+        source: https://cs.kohls.com/app/answers/detail/a_id/88/~/price-adjustments
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: Kohl's Cash may not be redeemed on price adjustments, and Kohl's may name additional time periods when price adjustments are not available. Read from search-result text of the page on 2026-10-13; the page blocked automated fetches.
+        issues: [price_adjustment]
+        source: https://cs.kohls.com/app/answers/detail/a_id/88/~/price-adjustments
+        last_verified: 2026-10-13
+
+known_blockers:
+  - kohls.com and cs.kohls.com block automated readers, so an agent cannot confirm the current policy text or a phone number; hand the browser to the person to check the help center.

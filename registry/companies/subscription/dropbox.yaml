@@ -1,0 +1,258 @@
+id: dropbox
+name: Dropbox
+aliases: [dropbox plus, dropbox professional, dropbox essentials, dropbox family, dropbox basic, dropbox inc]
+sector: subscription
+parent: Dropbox, Inc.
+website: https://www.dropbox.com
+account_url: https://www.dropbox.com/account/plan
+official_domains: [dropbox.com, dropboxmail.com, dropboxapi.com, dropboxstatic.com, dropboxbusiness.com, dropboxteam.com, dropboxpartners.com, getdropbox.com, db.tt, docsend.com, dropboxforum.com, dropboxforums.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Dropbox says www.dropbox.com is "the only domain where Dropbox will ever ask for private information" such as your account email and password.
+      source: https://help.dropbox.com/security/official-domains
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: 'Dropbox says "Official Dropbox websites and emails only appear on or come from any of our verified Dropbox domains," such as dropbox.com and dropboxmail.com. If unsure about a notification, do not click its links; go directly to www.dropbox.com.'
+      source: https://help.dropbox.com/security/phishing-virus-protection
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Dropbox warns to "Be wary of any other domains that look like Dropbox that ask you for your Dropbox email or password." An email that appears to be from Dropbox but comes from another domain "may contain malware or be a phishing attempt."
+      source: https://help.dropbox.com/security/official-domains
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-phishing-email
+      type: email
+      label: Forward the complete suspicious email, or the full URL of a suspicious link and how you got it, to Dropbox
+      value: abuse@dropbox.com
+      purposes: [fraud]
+      source: https://help.dropbox.com/security/phishing-virus-protection
+      last_verified: 2026-10-13
+regulators: [ftc]
+notes: >-
+  Paid plans renew automatically until cancelled. Cancelling moves the account to free Dropbox Basic
+  (2 GB) at the end of the billing cycle. US users get refunds only where required by law (current
+  terms); new terms effective January 1, 2027 add "limited circumstances". The terms require a written
+  Notice of Dispute to dispute-notice@dropbox.com and have an arbitration clause for U.S. residents
+  with a 30-day opt-out.
+
+channels:
+  - id: web-cancel
+    type: portal
+    label: Sign in at dropbox.com, then profile picture > Manage account > Cancel plan (or Cancel trial)
+    value: https://www.dropbox.com/login
+    purposes: [cancel_service, free_trial_conversion]
+    access: login
+    notes: If Cancel plan is not shown, the plan was bought in a mobile app store and must be cancelled there.
+    source: https://help.dropbox.com/plans/downgrade-dropbox-individual-plans
+    last_verified: 2026-10-13
+  - id: cancel-by-mail
+    type: mail
+    label: Cancel by mail (US, Canada or Mexico)
+    value: Dropbox, Inc., P.O. Box 77767, San Francisco, CA 94107
+    purposes: [cancel_service]
+    notes: Include your name, account email and payment method (for card charges, a transaction ID or the card details the page lists). Charges made before Dropbox processes the letter are not refunded.
+    source: https://help.dropbox.com/plans/downgrade-dropbox-individual-plans
+    last_verified: 2026-10-13
+  - id: support
+    type: web_form
+    label: Dropbox support contact options
+    value: https://www.dropbox.com/support
+    purposes: [billing_error, refund_request, unauthorized_charge, free_trial_conversion]
+    access: login
+    notes: Dropbox says to log in to dropbox.com and contact support from the same web browser.
+    source: https://help.dropbox.com/billing/find-credit-card-charge
+    last_verified: 2026-10-13
+  - id: billing-request-form
+    type: web_form
+    label: Dropbox billing and payments request form
+    value: https://www.dropbox.com/support/email/billing_and_payments/submit
+    purposes: [refund_request, billing_error]
+    notes: The refund article links this form for the EU, UK and Turkey 14-day refund; it does not state a US refund right.
+    source: https://help.dropbox.com/plans/refund
+    last_verified: 2026-10-13
+  - id: find-charge
+    type: web_form
+    label: Look up a Dropbox charge on your card statement (transaction ID lookup)
+    value: https://www.dropbox.com/payments/find_receipt
+    purposes: [unauthorized_charge, billing_error]
+    notes: If signed out, you may need the last four digits and expiration date of the card. Does not work for PayPal or other non-card payments.
+    source: https://help.dropbox.com/billing/find-credit-card-charge
+    last_verified: 2026-10-13
+  - id: dispute-notice-email
+    type: email
+    label: Written Notice of Dispute (Terms of Service, informal resolution before arbitration)
+    value: dispute-notice@dropbox.com
+    purposes: [billing_error, refund_request]
+    source: https://www.dropbox.com/terms
+    last_verified: 2026-10-13
+  - id: apple-cancel
+    type: web_form
+    label: Cancel a Dropbox subscription or trial bought on iPhone or iPad (Apple)
+    value: https://support.apple.com/en-us/HT202039
+    purposes: [cancel_service, free_trial_conversion]
+    source: https://help.dropbox.com/plans/cancel-mobile
+    last_verified: 2026-10-13
+  - id: google-play-cancel
+    type: web_form
+    label: Cancel a Dropbox subscription or trial bought through Google Play
+    value: https://support.google.com/googleplay/answer/7018481
+    purposes: [cancel_service, free_trial_conversion]
+    source: https://help.dropbox.com/plans/cancel-mobile
+    last_verified: 2026-10-13
+  - id: apple-refund
+    type: web_form
+    label: Refund request for a Dropbox purchase made through Apple
+    value: https://support.apple.com/en-us/118223
+    purposes: [refund_request]
+    source: https://help.dropbox.com/plans/refund
+    last_verified: 2026-10-13
+  - id: google-play-refund
+    type: web_form
+    label: Refund request for a Dropbox purchase made through Google Play
+    value: https://support.google.com/googleplay/answer/2479637?hl=en
+    purposes: [refund_request]
+    source: https://help.dropbox.com/plans/refund
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: support}
+  - {rung: written_complaint, channel: dispute-notice-email}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel online under Manage account > Cancel plan before the renewal date; the account moves to free Dropbox Basic at the end of the billing cycle. App-store plans are cancelled with Apple or Google.
+    evidence: ['"Dropbox Plan will not renew" confirmation email from no-reply@dropbox.com', date cancelled, account email]
+    steps:
+      - do: Sign in at dropbox.com, click your profile picture, click Manage account, click Cancel plan at the bottom, select a reason and confirm.
+        channel: web-cancel
+      - do: If there is no Cancel plan button, cancel in the app store you bought from. Deleting the app does not cancel.
+        channel: apple-cancel
+      - do: Keep the confirmation email with the subject "Dropbox Plan will not renew" from no-reply@dropbox.com.
+      - do: If you cannot cancel online, send a letter; cancel online instead if a renewal is near, because charges before the letter is processed are not refunded.
+        channel: cancel-by-mail
+    facts:
+      - kind: policy
+        claim: '"Your account will change to Dropbox Basic at the end of your current billing cycle," and you will not be charged again.'
+        issues: [cancel_service]
+        source: https://help.dropbox.com/plans/downgrade-dropbox-individual-plans
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: '"We''ll automatically bill you from the date you convert to a Paid Account and on each periodic renewal until cancellation." "You may cancel your Paid Account at any time."'
+        issues: [cancel_service]
+        source: https://www.dropbox.com/terms
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Cancelling by mail is accepted, but "If your account is charged before we process your cancellation letter, the charges won't be refunded."
+        issues: [cancel_service, refund_request]
+        source: https://help.dropbox.com/plans/downgrade-dropbox-individual-plans
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: Dropbox Basic includes 2 GB of storage. Over that quota you may not be able to sync, upload or share files.
+        issues: [cancel_service]
+        source: https://help.dropbox.com/plans/cancel-mobile
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: In the US, Dropbox payments are generally not refundable; refunds are given only where law requires (current terms) or in limited circumstances (terms effective January 1, 2027). Billing errors go to Dropbox support; app-store purchases go to Apple or Google.
+    evidence: [receipt or transaction ID, account email, cancellation confirmation, description of the billing error]
+    steps:
+      - do: For a billing error, contact Dropbox support while signed in to dropbox.com.
+        channel: support
+      - do: If you bought in a mobile app store, request the refund from Apple or Google.
+        channel: apple-refund
+      - do: If support refuses, send a written Notice of Dispute to dispute-notice@dropbox.com.
+        channel: dispute-notice-email
+    facts:
+      - kind: policy
+        claim: '"In most cases, payments for Dropbox and Dropbox Dash subscriptions and team member licenses aren''t refundable." The 14-day refund window applies only in the EU, UK and Turkey.'
+        issues: [refund_request]
+        source: https://help.dropbox.com/plans/refund
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'Current Terms (effective January 7, 2025): "Refunds are only issued if required by law."'
+        issues: [refund_request]
+        source: https://www.dropbox.com/terms
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'Updated Terms posted September 1, 2026 and effective January 1, 2027 say refunds are issued only in "limited circumstances or if required by law."'
+        issues: [refund_request]
+        source: https://www.dropbox.com/terms2026
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: For direct debit payments, "Only your bank can process a chargeback request." A chargeback changes the subscription to the free Basic plan.
+        issues: [refund_request, unauthorized_charge]
+        source: https://help.dropbox.com/plans/refund
+        last_verified: 2026-10-13
+
+  - issue: free_trial_conversion
+    summary: A Dropbox free trial converts to a paid plan if not cancelled before it ends. Cancel under Manage account > Cancel trial, or in the app store for mobile sign-ups.
+    evidence: [trial sign-up date, trial cancellation confirmation email, the charge]
+    steps:
+      - do: Before the trial ends, sign in, open Manage account, click Cancel trial, give a reason and confirm.
+        channel: web-cancel
+      - do: If you started the trial on a phone, cancel it in the app store or device settings.
+        channel: apple-cancel
+      - do: If you cancelled before the trial ended but were still charged, contact Dropbox support with the confirmation email.
+        channel: support
+      - do: If the trial converted and you do not want the plan, cancel now to stop future charges; the change takes effect at the end of the billing cycle.
+        channel: web-cancel
+    facts:
+      - kind: policy
+        claim: If you do not cancel before the trial ends, "you'll be charged for the subscription with the billing information you provided." Credit card trials change to Basic at the end of the trial; PayPal trials end and change to Basic immediately.
+        issues: [free_trial_conversion]
+        source: https://help.dropbox.com/plans/cancel-free-trial
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: '"You won''t be able to restart the same trial for one year after cancelling it." Dropbox also says "In most cases, Dropbox doesn''t issue refunds."'
+        issues: [free_trial_conversion, refund_request]
+        source: https://help.dropbox.com/plans/cancel-free-trial
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: Card charges show as DROPBOX*(transaction ID). Look the transaction up to find the account email, then contact support or your card issuer.
+    evidence: [card statement line with the transaction ID, card last four digits and expiration date]
+    steps:
+      - do: Find the transaction ID on your statement and enter it in the charge lookup tool to see the account email and payment date.
+        channel: find-charge
+      - do: If the tool does not work or you paid by PayPal, sign in to dropbox.com and contact support from the same browser.
+        channel: support
+      - do: If the charge is not yours, report it to your card issuer.
+    facts:
+      - kind: process
+        claim: '"All Dropbox purchases made with a credit card will appear on your statement as DROPBOX*(transaction ID)."'
+        issues: [unauthorized_charge, billing_error]
+        source: https://help.dropbox.com/billing/find-credit-card-charge
+        last_verified: 2026-10-13
+
+  - issue: bill_increase
+    summary: Dropbox must email at least 30 days' notice of a fee change at renewal, and you can cancel before the new fee applies. Annual plans get a renewal reminder email.
+    evidence: [price change email, renewal reminder email, last receipt]
+    steps:
+      - do: If you do not accept the new fee, cancel before it takes effect.
+        channel: web-cancel
+    facts:
+      - kind: policy
+        claim: 'Dropbox may change fees on renewal and will give "no less than 30 days'' advance notice of these changes" by email, and "you''ll have the opportunity to cancel your subscription before the new fee comes into effect."'
+        issues: [bill_increase]
+        source: https://www.dropbox.com/terms
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: '"If you''re on an annual plan, we''ll send you a notice email reminding you that your plan is about to renew within a reasonable period of time prior to the renewal date."'
+        issues: [bill_increase, cancel_service]
+        source: https://www.dropbox.com/terms
+        last_verified: 2026-10-13
+
+facts:
+  - kind: deadline
+    claim: U.S. residents can opt out of the Terms' arbitration section by submitting the opt-out form "within 30 days of first registering your account or agreeing to these Terms." Disputes start with a written Notice of Dispute to dispute-notice@dropbox.com; either side may start a formal proceeding if the dispute is not resolved within 60 days.
+    source: https://www.dropbox.com/terms
+    last_verified: 2026-10-13
+
+known_blockers:
+  - Cancelling, the support contact options and the billing request form need sign-in to dropbox.com.
+  - Plans and trials bought in the iOS or Android app must be cancelled with Apple or Google; the Cancel plan button does not appear on dropbox.com.
