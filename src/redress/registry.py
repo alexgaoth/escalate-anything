@@ -348,6 +348,7 @@ class Registry:
             "dossiers": len(self.dossiers),
             "guides": len(self.guides),
             "companies_with_security": sum(1 for c in self.companies.values() if c.get("security") or c.get("official_domains")),
+            "credibility": __import__("redress.credibility", fromlist=["registry_credibility"]).registry_credibility(self),
             "issues": len(self.issues),
             "sectors": len(self.sectors),
         }

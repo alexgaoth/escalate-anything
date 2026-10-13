@@ -4,7 +4,7 @@ aliases: [apple card, apple savings, marcus, marcus by goldman sachs, goldman sa
 sector: bank
 parent: The Goldman Sachs Group, Inc.
 website: https://www.marcus.com
-official_domains: [marcus.com, goldmansachs.com, gs.com, apple.com]
+official_domains: [marcus.com, goldmansachs.com, gs.com, apple.com, applecard.apple]
 security:
   never_asks:
     - kind: policy

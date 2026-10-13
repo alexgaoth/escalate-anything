@@ -41,8 +41,13 @@ def resolve_company(reg: Registry, company: str) -> dict:
 
 
 def company_summary(reg: Registry, c: dict) -> dict:
+    from .credibility import company_credibility
+
     issues = [pb["issue"] for pb in c.get("playbooks", [])]
+    cred = company_credibility(reg, c)
     return {
+        "credibility": cred["grade"],
+        "last_verified": cred["last_verified"],
         "id": c["id"],
         "name": c["name"],
         "sector": c["sector"],
@@ -287,6 +292,7 @@ def get_playbook(reg: Registry, company: str, issue: str, state: str | None = No
         "escalation": escalation_ladder(reg, c, state, today, warnings),
         "known_blockers": c.get("known_blockers", []),
         "security": _security(c),
+        "credibility": _credibility(reg, c),
         "context": {
             "dossier": c["id"] in reg.dossiers,
             "sector_guide": c["sector"] in reg.guides,
@@ -295,6 +301,12 @@ def get_playbook(reg: Registry, company: str, issue: str, state: str | None = No
         "notes": c.get("notes"),
         "warnings": warnings,
     }
+
+
+def _credibility(reg: Registry, c: dict) -> dict:
+    from .credibility import company_credibility
+
+    return company_credibility(reg, c)
 
 
 def _security(c: dict) -> dict:
@@ -314,6 +326,7 @@ def get_context(reg: Registry, company: str | None = None, sector: str | None = 
         out["dossier"] = d.body if d else None
         out["dossier_last_verified"] = d.meta.get("last_verified") if d else None
         out["security"] = _security(c)
+        out["credibility"] = _credibility(reg, c)
     if sector:
         if sector not in reg.sectors:
             raise NotFound(f"Unknown sector '{sector}'. Known: {', '.join(reg.sectors)}")

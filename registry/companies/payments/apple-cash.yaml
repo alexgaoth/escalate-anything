@@ -4,7 +4,7 @@ aliases: [apple pay cash, apple cash card]
 sector: payments
 parent: Apple Inc. (Apple Cash services provided by Green Dot Bank, Member FDIC)
 website: https://www.apple.com/apple-cash/
-official_domains: [apple.com]
+official_domains: [apple.com, greendot.com]
 security:
   never_asks:
     - kind: policy

@@ -106,7 +106,10 @@ def cmd_playbook(args: argparse.Namespace) -> int:
     if args.json:
         print(json.dumps(pb, indent=2))
         return 0
-    out = [f"# {pb['company']['name']}: {pb['issue']['name']}", ""]
+    cred = pb["credibility"]
+    out = [f"# {pb['company']['name']}: {pb['issue']['name']}",
+           f"Verified {cred['last_verified']} · credibility {cred['grade']} "
+           f"({round(cred['primary_share'] * 100)}% official or government sources)", ""]
     if pb.get("summary"):
         out += [pb["summary"], ""]
     if pb["evidence"]:
@@ -169,6 +172,29 @@ def cmd_install(args: argparse.Namespace) -> int:
     from .clients import main as install_main
 
     return install_main(args)
+
+
+def cmd_credibility(args: argparse.Namespace) -> int:
+    from .credibility import company_credibility
+
+    reg = Registry.load()
+    if args.company:
+        c = _pick(reg, args.company)
+        if not c:
+            return 1
+        print(json.dumps(company_credibility(reg, c), indent=2))
+        return 0
+    rows = []
+    for c in sorted(reg.companies.values(), key=lambda c: c["id"]):
+        cc = company_credibility(reg, c)
+        rows.append((cc["grade"], c["id"], cc["primary_share"], cc["last_verified"], cc["oldest_verified"],
+                     cc["verified_from"].get("search_snippet", 0) + cc["verified_from"].get("archive", 0), cc["stale_items"]))
+    if args.grade:
+        rows = [r for r in rows if r[0] == args.grade]
+    print(f"{'grade':<6}{'company':<34}{'official':>9}  {'newest':<11}{'oldest':<11}{'weak':>5}{'stale':>6}")
+    for g, cid, share, new, old, weak, stale in rows:
+        print(f"{g:<6}{cid:<34}{round(share * 100):>8}%  {new or '-':<11}{old or '-':<11}{weak:>5}{stale:>6}")
+    return 0
 
 
 def cmd_issues(args: argparse.Namespace) -> int:
@@ -277,6 +303,11 @@ def build_parser() -> argparse.ArgumentParser:
                        help="auto: this checkout when run from source, else the PyPI package")
         p.add_argument("--read-only", action="store_true", help="register the server without the case log")
         p.set_defaults(func=cmd_install, remove=remove)
+
+    p = sub.add_parser("credibility", help="credibility grade, source tiers and verification dates per company")
+    p.add_argument("company", nargs="?")
+    p.add_argument("--grade", choices=["A", "B", "C"])
+    p.set_defaults(func=cmd_credibility)
 
     p = sub.add_parser("issues", help="list issue ids")
     p.add_argument("--sector")

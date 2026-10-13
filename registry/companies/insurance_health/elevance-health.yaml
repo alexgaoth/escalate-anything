@@ -121,8 +121,7 @@ known_blockers:
 
 notes: Elevance Health, Inc. (Indianapolis) operates Anthem Blue Cross and Blue Shield affiliated health plans in 14 states, and Wellpoint affiliated health plans. Carelon is its health services business. The former Empire BlueCross BlueShield site (empireblue.com) now redirects to anthembluecross.com, which uses the Anthem Blue Cross and Anthem Blue Cross and Blue Shield names for eastern and southeastern New York. Medicare and Medicaid plans have their own appeal rules.
 
-official_domains: [anthem.com, anthembluecross.com, elevancehealth.com]
-
+official_domains: [anthem.com, anthembluecross.com, elevancehealth.com, fighthealthcarefraud.com]
 security:
   known_scams:
     - kind: policy

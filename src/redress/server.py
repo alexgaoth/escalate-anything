@@ -34,6 +34,8 @@ Workflow:
 
 Rules for agents:
 - Cite only facts and in-force rules that these tools return, with their source URLs.
+- Tell the person how fresh and how credible the information is: each company has a credibility
+  grade and a last_verified date. Double-check values flagged as search_snippet or archive.
 - Never enter passwords or payment details. When a channel has access 'login' or 'captcha',
   hand the browser to the person.
 - On a call or chat, say that you are an AI assistant acting for the person.
@@ -151,8 +153,10 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
     @mcp.tool(annotations=READ)
     @guard
     def get_company(company: str) -> dict[str, Any]:
-        """Full record for one company: every channel, facts, tips, known blockers and playbooks."""
-        return advisor.resolve_company(reg, company)
+        """Full record for one company: every channel, facts, tips, known blockers and playbooks,
+        plus a credibility summary (grade, source tiers, last verified date)."""
+        c = advisor.resolve_company(reg, company)
+        return {**c, "credibility": advisor._credibility(reg, c)}
 
     @mcp.tool(annotations=READ)
     @guard

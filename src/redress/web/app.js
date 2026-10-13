@@ -556,7 +556,7 @@
     return `<li><a class="card" href="#/c/${esc(c.id)}">
       <span class="card-name">${esc(c.name)}</span>
       <span class="card-sector">${esc(sectorShort(c.sector))}</span>
-      <span class="card-meta"><span><b>${n}</b> ${n === 1 ? "playbook" : "playbooks"}</span><span><b>${c.channels}</b> ${c.channels === 1 ? "contact" : "contacts"}</span></span>
+      <span class="card-meta"><span><b>${n}</b> ${n === 1 ? "playbook" : "playbooks"}</span><span><b>${c.channels}</b> ${c.channels === 1 ? "contact" : "contacts"}</span>${c.grade ? `<span class="grade grade-${esc(c.grade)}" title="Credibility grade ${esc(c.grade)}, verified ${esc(c.verified)}">${esc(c.grade)}</span>` : ""}</span>
     </a></li>`;
   }
 
@@ -676,8 +676,18 @@ GET ${esc(D.base)}registry.json</code></pre>
       <nav class="crumbs" aria-label="Breadcrumb"><a href="#/">Companies</a><span aria-hidden="true">/</span><a href="#/sector/${esc(c.sector)}">${esc(sectorShort(c.sector))}</a></nav>
       <h1 id="h1" tabindex="-1">${esc(c.name)}</h1>
       <p class="meta-line">${esc(sectorName(c.sector))}${meta.length ? ". " + meta.join(". ") + "." : ""}</p>
+      ${doc && doc.credibility ? credLine(doc.credibility) : ""}
       ${actions}${jump}
     </div>`;
+  }
+
+  function credLine(cr) {
+    const pct = Math.round((cr.primary_share || 0) * 100);
+    const weak = (cr.verified_from && ((cr.verified_from.search_snippet || 0) + (cr.verified_from.archive || 0))) || 0;
+    const dossier = cr.dossier_last_verified ? ` · dossier ${esc(cr.dossier_last_verified)}` : "";
+    return `<div class="cred-line"><span class="grade grade-${esc(cr.grade)}">${esc(cr.grade)}</span>
+      <span>Last verified <b>${esc(cr.last_verified || "unknown")}</b>${dossier} · ${pct}% official or government sources${weak ? ` · ${weak} from search snippets or archives` : ""}</span>
+      <details class="cred-more"><summary>What does this mean?</summary><p>${esc(cr.explanation || "")}</p></details></div>`;
   }
 
   function playbookHtml(c, issue, p) {
