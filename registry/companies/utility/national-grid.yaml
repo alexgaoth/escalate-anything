@@ -113,6 +113,38 @@ channels:
     purposes: [service_outage]
     source: https://www.nationalgridus.com/contact-us
     last_verified: 2026-10-12
+  - id: claims-page
+    type: web_form
+    label: Customer Claims (property damage, bodily injury, business loss; online form hosted by Origami Risk)
+    value: https://www.nationalgridus.com/Our-Company/Customer-Claims
+    purposes: [service_outage]
+    access: open
+    source: https://www.nationalgridus.com/Our-Company/Customer-Claims
+    last_verified: 2026-10-12
+  - id: claims-email
+    type: email
+    label: Claims Department email (PDF claim form and documents)
+    value: ClaimsDept@nationalgrid.com
+    purposes: [service_outage]
+    notes: "Mail: National Grid, ATTN: Claims Department, 55 Bearfoot Road, Northboro, MA 01532."
+    source: https://www.nationalgridus.com/Our-Company/Customer-Claims
+    last_verified: 2026-10-12
+  - id: claims-phone
+    type: phone
+    label: Claims Department (filing and claim status)
+    value: +1-315-428-6536
+    purposes: [service_outage]
+    source: https://www.nationalgridus.com/Our-Company/Customer-Claims
+    last_verified: 2026-10-12
+  - id: food-spoilage-claims-ny
+    type: web_form
+    label: New York food and prescription medication spoilage claims (outages of 72+ hours, PSL 73)
+    value: https://www.nationalgridus.com/New-York-State-Food-and-Prescription-Medication-Spoilage-Claims
+    purposes: [service_outage]
+    access: open
+    notes: "Email foodloss@nationalgrid.com; mail National Grid - NYS Food Spoilage Claims (PSL73), 55 Bearfoot Road, Northboro, MA 01532; phone 315-428-3370."
+    source: https://www.nationalgridus.com/New-York-State-Food-and-Prescription-Medication-Spoilage-Claims
+    last_verified: 2026-10-12
   - id: payment-arrangement
     type: portal
     label: Enroll in a payment plan (My Account)
@@ -228,14 +260,33 @@ playbooks:
         last_verified: 2026-10-12
 
   - issue: service_outage
-    summary: Report the outage online or on the regional outage line.
-    evidence: [outage dates and times, outage reference number]
+    summary: Report the outage; in New York, claim food and medicine spoilage within 14 days after a 72-hour outage; file other property damage with the Claims Department.
+    evidence: [outage dates and times, itemized list of spoiled food, proof of loss (receipts, priced flyers or screenshots), pharmacy receipts, repair bills or estimates, photos]
     steps:
       - do: Report or check the outage online, or call the outage line for the region.
         channel: outage-report-online
+      - do: In New York, if the outage lasted at least 72 consecutive hours, file a food and medication spoilage claim within 14 days of the 72-hour mark.
+        channel: food-spoilage-claims-ny
+      - do: For property damage, file with the Claims Department online, by email or by mail with repair bills or estimates and photos.
+        channel: claims-page
       - do: If someone in the home uses life-sustaining equipment, register it so National Grid calls during long outages (New York).
         channel: medical-certification-ny
     facts:
+      - kind: compensation
+        claim: Under New York Public Service Law 73, customers whose electric or gas outage lasts at least 72 consecutive hours can claim up to $540 for spoiled food with proof of loss (up to $235 with only an itemized list), plus the actual loss of perishable prescription medicine. Small businesses may claim food spoilage up to $540 with proof.
+        issues: [service_outage]
+        source: https://www.nationalgridus.com/New-York-State-Food-and-Prescription-Medication-Spoilage-Claims
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: New York spoilage claims must be filed within 14 days of the 72-hour outage mark.
+        issues: [service_outage]
+        source: https://www.nationalgridus.com/New-York-State-Food-and-Prescription-Medication-Spoilage-Claims
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Property damage claims need a written repair bill or estimate and photos for each item; for items that cannot be repaired, a repairman's statement plus the purchase receipt or a replacement estimate. Depreciation is taken on replacement items. State statutes of limitations apply.
+        issues: [service_outage]
+        source: https://www.nationalgridus.com/Our-Company/Customer-Claims
+        last_verified: 2026-10-12
       - kind: policy
         claim: For New York Life Support Program households, National Grid makes two attempts to reach the customer by phone during prolonged unplanned outages. Annual recertification is required.
         issues: [service_outage]

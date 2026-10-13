@@ -7,17 +7,39 @@ website: https://www.bge.com
 notes: >-
   Electric and natural gas utility in central Maryland. Regulated by the Maryland Public Service Commission
   (PSC), Consumer Affairs Division; the Maryland Office of People's Counsel represents residential
-  ratepayers. bge.com returned empty pages to automated fetches, so BGE's own customer service and gas
-  emergency numbers were not confirmed; the number below is from the PSC. Termination, deposit and meter
-  rules below are from the PSC consumer FAQs.
+  ratepayers. bge.com HTML pages return empty to automated fetches; values below come from bge.com search
+  results, BGE's 2022-2023 residential Consumer Reference Guide PDF, and the PSC consumer FAQs.
 
 channels:
+  - id: customer-service-phone
+    type: phone
+    label: Residential customer service
+    value: +1-800-685-0123
+    hours: "Mon-Fri 7 a.m.-7 p.m."
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    source: https://www.bge.com/my-account/customer-support/contact-us
+    last_verified: 2026-10-12
+  - id: gas-emergency-phone
+    type: phone
+    label: Smell natural gas (leave the area first; 911 also accepted)
+    value: +1-877-778-7798
+    hours: 24/7
+    notes: The contact page also lists 1-800-685-0123 as a backup line.
+    source: https://www.bge.com/my-account/customer-support/contact-us
+    last_verified: 2026-10-12
   - id: outage-phone
     type: phone
-    label: BGE phone number listed by the Maryland PSC for outages
+    label: Report power outages and downed power lines
     value: +1-877-778-2222
+    hours: 24/7
     purposes: [service_outage]
-    source: https://psc.maryland.gov/regulated-utilities/current-outage-information/
+    source: https://www.bge.com/my-account/customer-support/contact-us
+    last_verified: 2026-10-12
+  - id: business-phone
+    type: phone
+    label: Business customers
+    value: +1-800-265-6177
+    source: https://www.bge.com/my-account/customer-support/contact-us
     last_verified: 2026-10-12
   - id: outage-map
     type: web_form
@@ -26,11 +48,41 @@ channels:
     purposes: [service_outage]
     source: https://psc.maryland.gov/regulated-utilities/current-outage-information/
     last_verified: 2026-10-12
+  - id: complaint-email
+    type: email
+    label: Customer email (listed in the 2022-2023 Consumer Reference Guide)
+    value: myhomerep@bge.com
+    purposes: [billing_error, poor_service]
+    notes: "Mail: P.O. Box 1475, Baltimore, MD 21203-1475. BGE says not to report gas or electric emergencies by email or online."
+    source: https://www.bge.com/cdn/assets/v3/assets/blt71bfe6e8a1c2d265/blt6d63a0fbd96baf97/646cbdf35e543c724d01d4d9/ConsumerReferenceGuide_Residential.pdf?branch=prod_alias
+    last_verified: 2026-10-12
+  - id: payment-arrangement
+    type: web_form
+    label: Payment arrangements (Deferred Payment Arrangement, Bill Extender Plan)
+    value: https://www.bge.com/MyAccount/MyBillUsage/Pages/PaymentArrangements.aspx
+    purposes: [disconnection]
+    source: https://www.bge.com/MyAccount/MyBillUsage/Pages/PaymentArrangements.aspx
+    last_verified: 2026-10-12
+  - id: payment-assistance
+    type: web_form
+    label: Assistance programs (OHEP/MEAP, EUSP, Fuel Fund of Maryland, Assistance Finder)
+    value: https://www.bge.com/my-account/customer-support/assistance-programs
+    purposes: [disconnection]
+    source: https://www.bge.com/my-account/customer-support/assistance-programs
+    last_verified: 2026-10-12
+  - id: special-needs-mail
+    type: mail
+    label: Special Needs Program enrollment (fax 443.213.3302)
+    value: "BGE Special Needs, Room 720, P.O. Box 1475, Baltimore, MD 21298-9979"
+    purposes: [disconnection]
+    notes: Seriously ill or equipment-dependent customers need forms from a certified physician or certified nurse practitioner.
+    source: https://www.bge.com/cdn/assets/v3/assets/blt71bfe6e8a1c2d265/blt6d63a0fbd96baf97/646cbdf35e543c724d01d4d9/ConsumerReferenceGuide_Residential.pdf?branch=prod_alias
+    last_verified: 2026-10-12
 
 escalation:
-  - {rung: frontline, note: "Call BGE customer service (number on the bill)."}
-  - {rung: supervisor, note: "Ask the representative for a supervisor. Write down the name and reference number."}
-  - {rung: written_complaint, note: "BGE's complaint channel was not confirmed. Send a dated letter and keep call notes with reference numbers."}
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, channel: customer-service-phone, note: "BGE's guide says to call 800.685.0123 and ask for a BGE supervisor if a problem is not resolved."}
+  - {rung: written_complaint, channel: complaint-email}
   - {rung: state_agency, agency_kind: utility_commission, note: "Maryland Public Service Commission, Consumer Affairs Division. Raise the problem with BGE first or the PSC may withdraw the dispute until the company responds."}
   - {rung: state_agency, agency_kind: attorney_general, note: "Maryland Attorney General, Consumer Protection Division."}
 
@@ -40,6 +92,9 @@ playbooks:
     evidence: [the disputed bill, previous bills, meter photos with dates, call notes with reference numbers]
     steps:
       - do: Call BGE and dispute the bill. Withhold only the disputed amount and keep paying undisputed and future bills.
+        channel: customer-service-phone
+      - do: If not resolved, ask for a BGE supervisor.
+        channel: customer-service-phone
       - do: If usage looks wrong, ask BGE for a free meter test. If an estimated bill is far from normal usage, ask BGE to cancel it.
       - do: If BGE does not resolve it, file a complaint with the PSC Consumer Affairs Division.
     facts:
@@ -63,9 +118,13 @@ playbooks:
     summary: Maryland requires 14 days' notice; no shutoff at forecast 32F or below or 95F or above; a medical certificate adds 30 days.
     evidence: [termination notice, account balance, medical certification form, energy assistance application]
     steps:
-      - do: Call BGE before the termination date and ask for a payment plan.
+      - do: Call BGE before the termination date and ask for a Deferred Payment Arrangement or, on a fixed benefit income, the Bill Extender Plan.
+        channel: payment-arrangement
       - do: If someone has a serious medical condition, have a doctor, certified nurse practitioner or physician assistant complete the PSC-approved medical certification form and send it to BGE no later than the day before the termination date.
-      - do: Apply for energy assistance (OHEP, EUSP, Fuel Fund of Maryland).
+      - do: Apply for energy assistance (OHEP, EUSP, Fuel Fund of Maryland), and ask about the Utility Service Protection Program if you qualify for MEAP.
+        channel: payment-assistance
+      - do: If someone is elderly, disabled, seriously ill or depends on electric medical equipment, enroll in the Special Needs Program.
+        channel: special-needs-mail
       - do: If BGE does not help, contact the PSC Consumer Affairs Division before the termination date.
     facts:
       - kind: deadline
@@ -101,6 +160,7 @@ playbooks:
     evidence: [deposit notice or receipt, 12 months of payment history]
     steps:
       - do: After 12 months of on-time payments, ask BGE to return the deposit with interest.
+        channel: customer-service-phone
       - do: If BGE refuses, file a complaint with the PSC Consumer Affairs Division.
     facts:
       - kind: limit
@@ -113,7 +173,24 @@ playbooks:
         issues: [deposit_refund]
         source: https://psc.maryland.gov/get-help/consumer-faqs/
         last_verified: 2026-10-12
+      - kind: policy
+        claim: BGE holds a residential deposit at least one year and refunds it with interest if the account is current, bills were paid on time for 10 of the past 12 months, and service was not terminated for non-payment in that period; otherwise it is reviewed every 12 months.
+        issues: [deposit_refund]
+        source: https://www.bge.com/cdn/assets/v3/assets/blt71bfe6e8a1c2d265/blt6d63a0fbd96baf97/646cbdf35e543c724d01d4d9/ConsumerReferenceGuide_Residential.pdf?branch=prod_alias
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: BGE's Deferred Payment Arrangement requires no defaulted BGE payment plan in the past 18 months, a total past-due amount under $5,000, no active BGE payment plan, and any chosen down payment within 2 days of enrollment.
+    issues: [disconnection]
+    source: https://www.bge.com/MyAccount/MyBillUsage/Pages/PaymentArrangements.aspx
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: For Special Needs Program customers, BGE makes two attempts to contact them before a termination. Enrollment requires an agreement to pay unpaid and current bills.
+    issues: [disconnection]
+    source: https://www.bge.com/cdn/assets/v3/assets/blt71bfe6e8a1c2d265/blt6d63a0fbd96baf97/646cbdf35e543c724d01d4d9/ConsumerReferenceGuide_Residential.pdf?branch=prod_alias
+    last_verified: 2026-10-12
 
 known_blockers:
-  - bge.com returns empty pages to automated fetches; BGE's own customer service and gas emergency numbers are not in this file.
+  - bge.com HTML pages return empty to automated fetches; use the phone lines.
   - The medical certification must be on the PSC-approved form and reach BGE by the day before the termination date.
