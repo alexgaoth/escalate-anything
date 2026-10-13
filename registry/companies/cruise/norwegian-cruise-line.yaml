@@ -1,0 +1,290 @@
+id: norwegian-cruise-line
+name: Norwegian Cruise Line
+aliases: [ncl, norwegian, norwegian cruises, ncl.com]
+sector: cruise
+parent: Norwegian Cruise Line Holdings
+website: https://www.ncl.com
+regulators: [fmc]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer Service & Reservations
+    value: +1-866-234-7350
+    hours: Mon–Fri 8am–Midnight ET; Sat–Sun 9am–9pm ET
+    purposes: [refund_request, travel_credit, reservation_problem]
+    notes: >-
+      The Guest Ticket Contract (section 17) says cancellations must be telephoned to the Reservations Department. The
+      Nonperformance Policy lists this number, with the Case Submission Form, for refund requests.
+    source: https://www.ncl.com/contact-us
+    last_verified: 2026-10-13
+  - id: guest-experience-form
+    type: web_form
+    label: Contact Guest Experience (case submission form, before or after the cruise)
+    value: https://www.ncl.com/case-submission
+    purposes: [poor_service, refund_request, travel_credit, reservation_problem]
+    notes: >-
+      The contact page says to use it for post-cruise questions, concerns and feedback. One case per reservation.
+      Required: name, address, phone, email, ship, reservation number, sail date, a help category (for example
+      itinerary changes or refunds) and comments up to 3,000 characters; attachments allowed. It asks whether you bought
+      travel protection and, if yes, for proof that the insurer denied compensation. The page showed a Logout link, so
+      sign-in may be needed; no CAPTCHA was seen.
+    source: https://www.ncl.com/contact-us
+    last_verified: 2026-10-13
+  - id: access-desk-phone
+    type: phone
+    label: Access Desk (Accessibility Coordinators)
+    value: +1-866-584-9756
+    hours: Mon–Fri 9:00am–5:30pm ET
+    purposes: [accessibility]
+    source: https://www.ncl.com/contact-us
+    last_verified: 2026-10-13
+  - id: access-desk-form
+    type: web_form
+    label: Accessibility & Medical Questionnaire
+    value: https://nclh.my.salesforce-sites.com/AccessDeskForm/
+    purposes: [accessibility]
+    notes: Hosted on a Salesforce domain; linked from ncl.com's contact and accessibility pages.
+    source: https://www.ncl.com/cruise-preparation/accessibility
+    last_verified: 2026-10-13
+  - id: travel-protection-phone
+    type: phone
+    label: Travel Protection
+    value: +1-800-722-5672
+    hours: Mon–Fri 8am–10pm ET; Sat 9am–5pm ET
+    purposes: [refund_request]
+    source: https://www.ncl.com/contact-us
+    last_verified: 2026-10-13
+  - id: guest-claims-email
+    type: email
+    label: Written notice of injury, illness or death claims (Guest Ticket Contract section 11)
+    value: nclguestclaims@ncl.com
+    purposes: [safety_incident]
+    notes: >-
+      Notice with a complete factual account must be delivered within 185 calendar days of the incident, by this email
+      or by mail to 7665 Corporate Center Drive, Miami, Florida 33126, ATTN: CLAIMS DEPARTMENT.
+    source: https://www.ncl.com/content/dam/ncl/us/en/downloads/travel-documents/US-EN_Guest%20Ticket%20Contract%2002%202026.FINAL.pdf
+    last_verified: 2026-10-13
+  - id: claims-mail
+    type: mail
+    label: Claims Department by mail (Guest Ticket Contract section 11)
+    value: "7665 Corporate Center Drive, Miami, Florida 33126, ATTN: CLAIMS DEPARTMENT"
+    purposes: [safety_incident]
+    source: https://www.ncl.com/content/dam/ncl/us/en/downloads/travel-documents/US-EN_Guest%20Ticket%20Contract%2002%202026.FINAL.pdf
+    last_verified: 2026-10-13
+  - id: corporate-office-phone
+    type: phone
+    label: Corporate Office
+    value: +1-305-436-4000
+    hours: Mon–Fri 8:30am–5:00pm ET
+    source: https://www.ncl.com/contact-us
+    last_verified: 2026-10-13
+  - id: lost-item-report
+    type: web_form
+    label: Lost item report (onboard lost and found)
+    value: https://ncl.lostandfoundsite.net/lost-item-report/
+    purposes: [lost_item]
+    notes: Third-party site linked from the ncl.com contact page. Claim status at https://ncl.lostandfoundsite.net/claim-status.
+    source: https://www.ncl.com/contact-us
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: guest-experience-form}
+  - {rung: regulator, regulator: fmc, note: "For a refund NCL owes after it cancelled a cruise or delayed it more than 3 calendar days (nonperformance)."}
+  - {rung: payment_dispute, note: "Card dispute for a refund NCL owes but has not paid."}
+  - {rung: arbitration, note: "Claims other than injury, illness or death go to binding NAM arbitration in Miami-Dade County, or small claims court in Miami-Dade County. Written notice within 30 days of the end of the cruise; legal action within 6 months."}
+
+playbooks:
+  - issue: refund_request
+    summary: >-
+      If you cancel, the fee depends on days before departure (from 119 days out). If NCL cancels or delays the cruise
+      more than 3 calendar days, request a refund by the 90th day after the original embarkation date; you may decline
+      a future cruise credit.
+    evidence: [reservation number, boarding pass or cruise documents, proof and amount of payment, cancellation or delay notice]
+    steps:
+      - do: To cancel, telephone the Reservations Department (the Guest Ticket Contract requires cancellations by phone). Note the fee tier for the date of the call.
+        channel: customer-service-phone
+      - do: If NCL cancelled or delayed the cruise more than 3 calendar days, submit a refund request on or before the 90th calendar day after the original scheduled embarkation, with the boarding pass or documents and proof and amount of payment.
+        channel: guest-experience-form
+      - do: Decline a future cruise credit if you want money back. NCL says it responds by email or U.S. mail within 180 days of the claim.
+      - do: If the nonperformance claim is denied or not resolved within 180 days, file with the FMC against NCL's financial instrument.
+        regulator: fmc
+      - do: Dispute the charge with your card issuer if the refund is owed and not paid.
+    facts:
+      - kind: fee
+        claim: >-
+          NCL's Cancellation Policy (Club Balcony Suites and below, all sailings): 25% at 119 to 91 days before
+          departure, 50% at 90 to 61 days, 75% at 60 to 31 days, 100% at 30 days or less. The Haven Suites, Suites and
+          Garden Villas: 25% at 119 to 106 days, 50% at 105 to 91 days, 75% at 90 to 61 days, 100% at 60 days or less.
+          The schedule begins once money is applied to the reservation; no refunds for no-shows.
+        issues: [refund_request]
+        source: https://www.ncl.com/about/additional-terms-and-conditions
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: >-
+          NCL's Nonperformance Policy: if NCL cancels your cruise or delays it more than 3 calendar days, you are
+          entitled to a refund of cruise fare and charges for accommodations, services and facilities, including port
+          fees, taxes and other ancillary charges paid to the carrier. Request it on or before the 90th calendar day
+          after the original scheduled embarkation; NCL responds within 180 days of the claim.
+        issues: [refund_request, travel_credit]
+        source: https://www.ncl.com/about/additional-terms-and-conditions
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: NCL's Cancellation Policy says refund processing time is about 3-4 weeks, and cruise and air documents must be returned before a refund is made.
+        issues: [refund_request]
+        source: https://www.ncl.com/about/additional-terms-and-conditions
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: NCL's website Terms of Use say it does not provide price protection or refunds when a price is reduced or a promotion is offered.
+        issues: [refund_request, price_adjustment]
+        source: https://www.ncl.com/about/additional-terms-and-conditions
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: The air deposit made under the Air Choice Program at booking is non-refundable.
+        issues: [refund_request]
+        source: https://www.ncl.com/about/additional-terms-and-conditions
+        last_verified: 2026-10-13
+      - kind: process
+        claim: >-
+          46 CFR 540.9(f): for nonperformance, the passenger first makes a written refund request to the cruise line.
+          If the claim is not resolved within 180 days (or the line's shorter stated period) after nonperformance, or
+          is denied, the passenger may claim against the line's FMC financial instrument.
+        issues: [refund_request]
+        source: https://www.law.cornell.edu/cfr/text/46/540.9
+        last_verified: 2026-10-13
+
+  - issue: travel_credit
+    summary: After an NCL cancellation or a delay of more than 3 days, a future cruise credit is an offer you may decline in favor of a refund.
+    evidence: [reservation number, cancellation or delay notice, the credit offer, proof of payment]
+    steps:
+      - do: If you do not want the credit, ask for the refund in writing within 90 calendar days after the original embarkation date.
+        channel: guest-experience-form
+      - do: If NCL does not resolve it within 180 days or denies it, file with the FMC.
+        regulator: fmc
+    facts:
+      - kind: policy
+        claim: The Nonperformance Policy says NCL may offer an alternative to a refund, such as a future cruise credit, which you are free to decline.
+        issues: [travel_credit]
+        source: https://www.ncl.com/about/additional-terms-and-conditions
+        last_verified: 2026-10-13
+
+  - issue: reservation_problem
+    summary: >-
+      The Guest Ticket Contract lets NCL change ports, the route or the ship without liability, except for mechanical
+      failure. For non-injury claims, written notice is due within 30 days after the cruise ends.
+    evidence: [reservation number, original itinerary, change notices, onboard folio, receipts for extra costs]
+    steps:
+      - do: Raise the problem before the cruise ends and keep written records.
+      - do: Within 30 days after the cruise ends, give NCL written notice with full particulars through the Guest Experience form. Keep a copy.
+        channel: guest-experience-form
+      - do: If unresolved, the contract requires NAM arbitration in Miami-Dade County (or small claims court there), started within 6 months from the date the claim arose.
+    facts:
+      - kind: deadline
+        claim: >-
+          Guest Ticket Contract section 16(b): no claim other than injury, illness or death may be brought unless
+          written notice giving full particulars is delivered within thirty (30) days of the end of the cruise and
+          legal action is started within six (6) months from the date the claim arose.
+        issues: [reservation_problem, refund_request, poor_service]
+        source: https://www.ncl.com/content/dam/ncl/us/en/downloads/travel-documents/US-EN_Guest%20Ticket%20Contract%2002%202026.FINAL.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          Guest Ticket Contract section 7: NCL may deviate from the voyage, cancel any port call, substitute another
+          vessel or ports without liability; if the vessel does not sail, it may re-berth guests on a substitute or, at
+          its option, refund the fare or a pro rata part. Section 7(f): if a voyage is cancelled for mechanical failure,
+          guests get a full refund of the cruise fare, or a partial refund if it ends early, plus transport and lodging
+          if needed.
+        issues: [reservation_problem, refund_request]
+        source: https://www.ncl.com/content/dam/ncl/us/en/downloads/travel-documents/US-EN_Guest%20Ticket%20Contract%2002%202026.FINAL.pdf
+        last_verified: 2026-10-13
+
+  - issue: accessibility
+    summary: Notify the Access Desk at least 45 days before sailing (90 days for interpreters) and complete the Accessibility & Medical Questionnaire.
+    evidence: [reservation number, sail date, description of the accommodation needed]
+    steps:
+      - do: Complete the Accessibility & Medical Questionnaire at least 45 days before sailing, or 90 days for interpreters.
+        channel: access-desk-form
+      - do: Call the Access Desk to confirm the arrangements.
+        channel: access-desk-phone
+      - do: After the cruise, report an accommodation that was not provided through the Guest Experience form.
+        channel: guest-experience-form
+    facts:
+      - kind: deadline
+        claim: NCL's accessibility page asks guests to notify the Access Desk at least 90 days before sailing for interpreters and 45 days for other needs.
+        issues: [accessibility]
+        source: https://www.ncl.com/cruise-preparation/accessibility
+        last_verified: 2026-10-13
+
+facts:
+  - kind: deadline
+    claim: >-
+      Guest Ticket Contract section 11(a): no suit for injury, illness or death unless written notice with a complete
+      factual account is delivered within 185 calendar days of the incident, and suit is filed within one (1) year of
+      the incident.
+    issues: [safety_incident]
+    source: https://www.ncl.com/content/dam/ncl/us/en/downloads/travel-documents/US-EN_Guest%20Ticket%20Contract%2002%202026.FINAL.pdf
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: >-
+      Guest Ticket Contract section 15(b): for cruises that embark, disembark or call at a U.S. port, injury, illness or
+      death suits must be filed in the U.S. District Court for the Southern District of Florida in Miami, or, if it
+      lacks subject matter jurisdiction, a court in Miami-Dade County.
+    issues: [safety_incident]
+    source: https://www.ncl.com/content/dam/ncl/us/en/downloads/travel-documents/US-EN_Guest%20Ticket%20Contract%2002%202026.FINAL.pdf
+    last_verified: 2026-10-13
+  - kind: process
+    claim: >-
+      Guest Ticket Contract section 16(a): all other claims, except those brought in small claims court in Miami-Dade
+      County, go to binding arbitration in Miami-Dade County administered by National Arbitration and Mediation (NAM).
+      Each party pays its own costs and attorney fees and the cost of the arbitration is split equally. Section 11(b)
+      waives class actions.
+    issues: [refund_request, reservation_problem, poor_service]
+    source: https://www.ncl.com/content/dam/ncl/us/en/downloads/travel-documents/US-EN_Guest%20Ticket%20Contract%2002%202026.FINAL.pdf
+    last_verified: 2026-10-13
+  - kind: limit
+    claim: >-
+      Guest Ticket Contract section 8(b): the guest's baggage and property is deemed not to exceed U.S. $100.00 in
+      value, and NCL's liability is capped at that sum unless the guest declares a higher value in writing and pays 5%
+      of the excess before embarkation. Loss or damage during loading or disembarking must be reported before leaving
+      the U.S. Customs area (section 8(d)).
+    issues: [lost_item, damaged_item]
+    source: https://www.ncl.com/content/dam/ncl/us/en/downloads/travel-documents/US-EN_Guest%20Ticket%20Contract%2002%202026.FINAL.pdf
+    last_verified: 2026-10-13
+  - kind: fee
+    claim: >-
+      Guest Ticket Contract section 3(a): NCL may charge a fuel supplement, even on fully paid bookings, if West Texas
+      Intermediate crude closes above $65.00 USD per barrel; it will not exceed $10.00 USD per passenger per day. NCL may
+      also pass through taxes, fees and port expenses that exceed its estimates.
+    issues: [bill_increase]
+    source: https://www.ncl.com/content/dam/ncl/us/en/downloads/travel-documents/US-EN_Guest%20Ticket%20Contract%2002%202026.FINAL.pdf
+    last_verified: 2026-10-13
+
+known_blockers:
+  - Cancellations must be telephoned to the Reservations Department, so an agent cannot cancel by form or email.
+  - The Guest Experience form may need sign-in (the page showed a Logout link) and asks you to certify travel insurance status.
+  - The contact page's "Speak With A Consultant" chat link is a placeholder; no working chat link was found.
+
+notes: >-
+  Checked on 2026-10-13 against the Guest Ticket Contract marked 02/2026 and ncl.com Terms & Conditions. The
+  Terms & Conditions page is the one the FMC lists as NCL's nonperformance refund policy. The Cancellation Policy
+  table has no row for 120 or more days before departure and does not state the cruise deposit amount (it links to a
+  separate Payment Schedule).
+
+official_domains: [ncl.com, nclcorp.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: >-
+        NCL warns that people posing as its recruiters send fake job offers and employment contracts by email,
+        sometimes asking for visa applications back. NCL's hiring partners never charge application, processing or
+        agency fees.
+      source: https://www.ncl.com/ar/es/Acerca-de/Empleos/Empleos-a-bordo-68q1a/
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: >-
+        The FTC warns of illegal robocalls that promise free cruise tickets for taking a survey, then transfer you to
+        telemarketers; in its January 2020 case each person had to pay $59 in port taxes and fees. The alert names no
+        cruise line.
+      source: https://consumer.ftc.gov/consumer-alerts/2020/01/free-cruise-try-illegal-robocall-upsell
+      last_verified: 2026-10-13

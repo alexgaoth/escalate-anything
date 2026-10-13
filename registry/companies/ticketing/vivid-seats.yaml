@@ -1,0 +1,210 @@
+id: vivid-seats
+name: Vivid Seats
+aliases: [vivid seats llc, vividseats, vividseats.com, vivid seats inc]
+sector: ticketing
+website: https://www.vividseats.com
+regulators: [ftc]
+
+channels:
+  - id: app-chat
+    type: app
+    label: Chat in the Vivid Seats app
+    value: Vivid Seats app > chat
+    purposes: [event_cancelled, refund_request, billing_error]
+    notes: >-
+      The Existing Orders contact page says "Chat instantly in our app for the quickest solutions" and links the app at
+      https://corporate.vividseats.com/app/. The same page lists "Hours of Operation: 24/7" without saying which channel
+      the hours apply to. Viewing existing orders on the website needs sign-in.
+    source: https://www.vividseats.com/contact-us/existing-orders
+    last_verified: 2026-10-13
+  - id: support-phone
+    type: phone
+    label: Customer care phone (the Terms give it for problems getting into an event)
+    value: +1-866-848-8499
+    purposes: [refund_request, event_cancelled]
+    notes: The Global Terms (effective July 22, 2026) say that if you have difficulty gaining admission to an event, contact Vivid Seats immediately by calling 866.848.8499. No hours are given with the number.
+    source: https://www.vividseats.com/terms
+    last_verified: 2026-10-13
+  - id: support-ticket
+    type: web_form
+    label: Submit a ticket (Vivid Seats Customer Support)
+    value: https://support.vividseats.com/support/tickets/new
+    purposes: [event_cancelled, refund_request, billing_error]
+    access: open
+    notes: Fields include requester, subject, category, order number, description and a file attachment. No CAPTCHA or sign-in prompt was visible in the page content. Linked as "New support ticket" from the help center home page.
+    source: https://support.vividseats.com/support/home
+    last_verified: 2026-10-13
+  - id: support-email
+    type: email
+    label: Customer support email
+    value: support@vividseats.com
+    purposes: [event_cancelled, refund_request, billing_error]
+    notes: The Terms tell buyers to "promptly contact us at support@vividseats.com for assistance". The privacy policy also uses this address for Rewards program requests.
+    source: https://www.vividseats.com/terms
+    last_verified: 2026-10-13
+  - id: help-center
+    type: portal
+    label: Vivid Seats help center (FAQ knowledge base)
+    value: https://support.vividseats.com/support/home
+    purposes: [event_cancelled, refund_request, billing_error]
+    access: open
+    source: https://www.vividseats.com/contact-us
+    last_verified: 2026-10-13
+  - id: privacy-email
+    type: email
+    label: Privacy and security questions
+    value: privacy@vividseats.com
+    purposes: [privacy_request, account_access]
+    notes: The privacy policy (last updated September 23, 2026) says to email this address with questions about security on Vivid Seats services, and for access, deletion, correction and opt-out requests.
+    source: https://www.vividseats.com/privacy
+    last_verified: 2026-10-13
+  - id: legal-department-mail
+    type: mail
+    label: Legal Department (arbitration opt-out notice by certified mail)
+    value: "Vivid Seats, LLC, Attention: Legal Department, 24 E. Washington St., Ste. 900, Chicago, IL 60602"
+    notes: The Global Terms give this address for the written arbitration opt-out, sent by certified mail within 30 days of first using the site. A separate event's terms on the same page give "Floor 9" instead of "Ste. 900".
+    source: https://www.vividseats.com/terms
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: app-chat}
+  - {rung: written_complaint, channel: support-ticket}
+  - {rung: payment_dispute, note: "Card dispute for a cancelled event that was not compensated (rule fcba-billing-error). The Terms threaten collection and account bans for chargebacks on charges Vivid Seats considers legitimate; keep proof that you followed the Terms."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: event_cancelled
+    summary: >-
+      For an event cancelled with no rescheduled date, Vivid Seats refunds the purchase price (including delivery charges,
+      less possible restocking fees) or gives a credit, at its sole discretion. Return the tickets within two weeks of its
+      notice. Postponed or rescheduled events with valid tickets get no refund unless the law requires one, for example in
+      California.
+    evidence: [order number, Vivid Seats cancellation email, the organizer's cancellation notice, proof the tickets were returned, total paid including fees]
+    steps:
+      - do: Confirm that the venue, team or performer officially cancelled the event with no new date. For a postponed or rescheduled event, the tickets stay valid for the new date.
+      - do: Wait for Vivid Seats' email with next steps after it confirms the cancellation, then return the tickets to Vivid Seats within two weeks of that notice.
+      - do: If you want money rather than a credit, or no compensation arrives, open a support ticket with the order number. California buyers can ask Vivid Seats to facilitate a refund request under California Business and Professions Code section 22507.
+        channel: support-ticket
+      - do: If the ticket gets no answer, use app chat or the support phone.
+        channel: support-phone
+      - do: If Vivid Seats does not compensate you for a cancelled event, dispute the charge with the card issuer (rule fcba-billing-error) and keep proof that you returned the tickets on time.
+      - do: Report the refusal to the FTC and your state attorney general.
+        regulator: ftc
+    facts:
+      - kind: policy
+        claim: The Global Terms (effective July 22, 2026) say that if an event is cancelled with no rescheduled date, Vivid Seats will refund the purchase price (including delivery charges, less possible restocking fees) or issue a credit for use on a future purchase, as determined in its sole discretion. They do not say whether service fees are refunded.
+        issues: [event_cancelled]
+        source: https://www.vividseats.com/terms
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: The Global Terms say that to qualify for compensation for a cancelled event, the buyer must return their tickets to Vivid Seats within two weeks of notice from Vivid Seats, and no refunds or other compensation will be given without the return of the original tickets unless Vivid Seats decides otherwise.
+        issues: [event_cancelled]
+        source: https://www.vividseats.com/terms
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: The Global Terms say that if an event is postponed or rescheduled and the original tickets are valid for entry at the new event, the order will not qualify for a refund or other compensation, except where the law requires it, including in California.
+        issues: [event_cancelled]
+        source: https://www.vividseats.com/terms
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: The Buyer Guarantee page says that if an event is canceled with no rescheduled date, you receive full compensation of the purchase price, as a refund or a credit for a future purchase determined at Vivid Seats' sole discretion; for rescheduled events it helps with ticket reissuing and with reselling tickets if the new date no longer works.
+        issues: [event_cancelled]
+        source: https://www.vividseats.com/guarantee
+        last_verified: 2026-10-13
+      - kind: process
+        claim: Vivid Seats' help article says compensation applies only to events officially cancelled by the venue, team or performer, that tickets are valid for a rescheduled date, and that Vivid Seats emails buyers once it confirms a cancellation or reschedule.
+        issues: [event_cancelled]
+        source: https://support.vividseats.com/support/solutions/articles/1000210787-will-i-receive-compensation-if-my-event-is-rained-out-postponed-or-rescheduled-
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: The Global Terms say that if a capacity reduction exceeds 15%, Vivid Seats may cancel affected seats or the whole event, and buyers whose tickets are cancelled under this clause are compensated.
+        issues: [event_cancelled]
+        source: https://www.vividseats.com/terms
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: The 100% Buyer Guarantee promises tickets delivered in time or your money back. Report missing tickets within 48 hours of the event start and call at once if you are denied entry.
+    evidence: [order number, delivery emails or transfer screens, written proof from the venue of denied entry, a statement of what happened]
+    steps:
+      - do: If the tickets have not arrived, notify Vivid Seats no later than 48 hours after the actual start time of the event.
+        channel: support-ticket
+      - do: If the tickets do not match the order, report it within 48 hours of delivery.
+        channel: support-ticket
+      - do: If you are denied entry, call Vivid Seats immediately, get proof from the venue that you were denied entry, and send it with a statement of what happened. Vivid Seats then sends a form to complete.
+        channel: support-phone
+      - do: If Vivid Seats refuses, dispute the charge with the card issuer (rule fcba-billing-error) and report it to the FTC.
+        regulator: ftc
+    facts:
+      - kind: deadline
+        claim: The Global Terms say you must notify Vivid Seats if you do not receive your tickets within 48 hours of the actual start time of the scheduled or rescheduled event, and that you have 48 hours from the time of delivery to report any inconsistencies.
+        issues: [refund_request]
+        source: https://www.vividseats.com/terms
+        last_verified: 2026-10-13
+      - kind: compensation
+        claim: The Global Terms say that if Vivid Seats finds you were denied entry through no fault of your own, your sole remedy is a full refund of the cost of the ticket (including all fees and delivery charges, less possible restocking fees). Denials for health or capacity reasons are excluded.
+        issues: [refund_request]
+        source: https://www.vividseats.com/terms
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: The Terms say Vivid Seats guarantees that your tickets will be delivered in time for the event or your money back.
+        issues: [refund_request]
+        source: https://www.vividseats.com/terms
+        last_verified: 2026-10-13
+
+  - issue: billing_error
+    summary: Vivid Seats says it uses all-in pricing, and since May 12, 2025 the FTC fee rule (rule ftc-junk-fees-rule) requires the total price up front. A higher charge than the total shown is a billing error.
+    evidence: [screenshots of the listed price and the checkout total, order confirmation, card statement]
+    steps:
+      - do: Compare the total shown while shopping with the amount charged. Save screenshots.
+      - do: Ask Vivid Seats to refund the difference through a support ticket.
+        channel: support-ticket
+      - do: If it does not correct the charge, send a billing-error dispute to the card issuer (rule fcba-billing-error).
+      - do: Report hidden or misrepresented fees to the FTC.
+        regulator: ftc
+    facts:
+      - kind: policy
+        claim: Vivid Seats' help article says it uses All-In Pricing so that you see the cost of a ticket, including fees, once you start shopping, and that resellers set ticket prices, which may differ from face value.
+        issues: [billing_error]
+        source: https://support.vividseats.com/support/solutions/articles/1000210417-how-are-ticket-prices-determined-
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: The FTC's compliance FAQ says that effective May 12, 2025 the Rule on Unfair or Deceptive Fees covers any business that offers, displays or advertises live-event tickets, including third-party platforms and resellers in the secondary ticket market, and that they must tell people upfront the total price they will pay.
+        issues: [billing_error]
+        source: https://www.ftc.gov/business-guidance/resources/rule-unfair-or-deceptive-fees-frequently-asked-questions
+        last_verified: 2026-10-13
+
+facts:
+  - kind: policy
+    claim: >-
+      The Global Terms say buyers agree not to seek a chargeback from a card issuer on legitimate charges. If a disputed
+      charge is found valid, Vivid Seats may pursue payment (including fees) through collection agencies or legal action,
+      refuse pending and future orders from the linked card or accounts, and relist and resell the disputed tickets.
+    issues: [event_cancelled, refund_request, billing_error]
+    source: https://www.vividseats.com/terms
+    last_verified: 2026-10-13
+  - kind: deadline
+    claim: The Terms contain a binding individual arbitration clause (the event-specific terms on the same page name JAMS and waive class actions). To opt out, notify Vivid Seats in writing within 30 days of the date you first access or use the site, by certified mail to the Legal Department.
+    issues: [refund_request, billing_error]
+    source: https://www.vividseats.com/terms
+    last_verified: 2026-10-13
+
+tips:
+  - kind: official
+    text: Vivid Seats says app chat is the quickest way to get a solution for an existing order.
+    issues: [event_cancelled, refund_request]
+    source: https://www.vividseats.com/contact-us/existing-orders
+    last_verified: 2026-10-13
+
+known_blockers:
+  - The website's Existing Orders help needs sign-in ("Log in to view existing orders"); chat is in the mobile app.
+  - Compensation for a cancelled event depends on returning the original tickets within two weeks of Vivid Seats' notice.
+
+notes: >-
+  Checked 2026-10-13 against vividseats.com/terms (Global Terms effective July 22, 2026), the Buyer Guarantee page, the
+  contact pages and the help center. The pages do not state a credit percentage or expiry for cancelled-event credits, or
+  whether service fees are refunded for a cancelled event (delivery charges are). No Vivid Seats page that loaded
+  described phishing or impersonation scams, so there is no security section. The JAMS arbitration and chargeback text
+  was read in the Global Terms and in event-specific terms on the same page.
+
+official_domains: [vividseats.com]

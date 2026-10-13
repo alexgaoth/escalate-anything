@@ -1,0 +1,187 @@
+id: fmc
+name: Federal Maritime Commission, Office of Consumer Affairs and Dispute Resolution Services
+short_name: FMC CADRS
+level: federal
+covers_sectors: [cruise]
+covers_issues:
+  - refund_request
+  - travel_credit
+  - company_shutdown
+  - safety_incident
+website: https://www.fmc.gov/consumer-advice/cruise-service-issues/
+when_to_use: >-
+  Use when a cruise that embarks at a U.S. port was cancelled or delayed by three or more days and the
+  cruise line has not refunded you (more than 90 days for the free dispute resolution service; 180 days, or
+  a denial, before a claim against the line's FMC-filed financial instrument), or when the line owes
+  compensation for death or injury and has not paid. FMC does not adjudicate disputes and does not regulate
+  customer service issues such as itinerary changes, passenger cancellations, denied boarding or cabin
+  problems, or travel agents; for those, go to the state consumer protection agency.
+
+channels:
+  - id: cadrs-complaints-email
+    type: email
+    label: CADRS cruise and cargo dispute requests (send Form FMC-32)
+    value: complaints@fmc.gov
+    purposes: [refund_request, travel_credit, company_shutdown]
+    notes: >-
+      Attach the completed Dispute Resolution Service Request, Cruise (Form FMC-32) and supporting documents.
+      Note that the FMC-32 PDF itself (version 01/2024) says "Return to: CADRS@fmc.gov"; the FMC web pages
+      say complaints@fmc.gov.
+    source: https://www.fmc.gov/about/bureaus-offices/consumer-affairs-dispute-resolution-services/
+    last_verified: 2026-10-13
+  - id: fmc-32-form
+    type: web_form
+    label: Dispute Resolution Service Request, Cruise (Form FMC-32, fillable PDF)
+    value: https://www.fmc.gov/wp-content/uploads/2022/07/PVOForm32.pdf
+    purposes: [refund_request, travel_credit, company_shutdown, safety_incident]
+    access: open
+    notes: >-
+      Asks for your contact details and ticket or booking number, the cruise line's name and contact details,
+      whether the dispute involves casualty, non-performance or other, whether the cruise began at a U.S. port,
+      and a timeline (complaint to the line, other help sought, travel insurance, how you booked), with the
+      booking confirmation, ticket and other documents attached. The signer authorizes CADRS to contact the
+      cruise line and to share the information with it unless marked confidential. Email it; it is not
+      submitted online.
+    source: https://www.fmc.gov/consumer-advice/cruise-service-issues/
+    last_verified: 2026-10-13
+  - id: cadrs-phone
+    type: phone
+    label: Office of Consumer Affairs and Dispute Resolution Services (CADRS)
+    value: +1-202-523-5807
+    purposes: [refund_request, travel_credit, company_shutdown]
+    notes: Fax 202-217-3552. No hours are listed on the page.
+    source: https://www.fmc.gov/about/bureaus-offices/consumer-affairs-dispute-resolution-services/
+    last_verified: 2026-10-13
+  - id: pvo-claims-email
+    type: email
+    label: Passenger Vessel Operator program (claims against a cruise line's financial instrument)
+    value: pvo@fmc.gov
+    purposes: [refund_request, company_shutdown, safety_incident]
+    notes: >-
+      FMC's cruise page says to email this address for claim processing information on a cruise line's
+      financial instrument (bond, guaranty or other evidence of financial responsibility).
+    source: https://www.fmc.gov/consumer-advice/cruise-service-issues/
+    last_verified: 2026-10-13
+  - id: pvo-phone
+    type: phone
+    label: Passenger Vessel Operator program, Bureau of Certification and Licensing
+    value: +1-202-523-5818
+    purposes: [refund_request, company_shutdown, safety_incident]
+    hours: Hand deliveries 8:30 a.m. to 5:00 p.m., Monday through Friday (no call hours listed)
+    notes: Fax 202-566-5830.
+    source: https://www.fmc.gov/licensing-and-certification/passenger-vessel-operators/
+    last_verified: 2026-10-13
+  - id: general-inquiries-email
+    type: email
+    label: FMC general inquiries
+    value: inquiries@fmc.gov
+    source: https://www.fmc.gov/consumer-advice/cruise-service-issues/
+    last_verified: 2026-10-13
+  - id: mail
+    type: mail
+    label: Federal Maritime Commission by mail
+    value: Federal Maritime Commission, 800 North Capitol Street, N.W., Washington, D.C. 20573
+    source: https://www.fmc.gov/consumer-advice/cruise-service-issues/
+    last_verified: 2026-10-13
+
+facts:
+  - kind: process
+    claim: >-
+      FMC says it does not adjudicate disputes between passengers and cruise lines. It can assist with claims
+      for voyage cancellations or delays of more than three days, and for death or injury on a voyage that
+      embarks or disembarks at a U.S. port.
+    source: https://www.fmc.gov/consumer-advice/cruise-service-issues/
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: >-
+      FMC does not regulate customer service issues such as itinerary changes, passenger cancellations, denied
+      boarding and cabin concerns, and does not regulate sellers of travel (travel agents). It says to contact
+      the state consumer protection agency where the company operates or is headquartered. It has no
+      jurisdiction over cruises that do not embark from a U.S. port.
+    source: https://www.fmc.gov/consumer-advice/cruise-service-issues/
+    last_verified: 2026-10-13
+  - kind: deadline
+    claim: >-
+      If your cruise was cancelled and you have not received a refund after more than 90 days, FMC says you may
+      use its voluntary dispute resolution process by sending Form FMC-32 to complaints@fmc.gov.
+    issues: [refund_request]
+    source: https://www.fmc.gov/consumer-advice/cruise-service-issues/
+    last_verified: 2026-10-13
+  - kind: process
+    claim: >-
+      CADRS offers ombuds assistance, mediation, facilitation and arbitration with "no fees for services".
+      Ombuds and mediation are voluntary; any party or CADRS staff may end them at any time, and CADRS staff
+      act as neutrals and cannot give legal advice or representation.
+    source: https://www.fmc.gov/about/bureaus-offices/consumer-affairs-dispute-resolution-services/
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: >-
+      Under 46 CFR 540.2, nonperformance of transportation means cancelling or delaying a voyage by three or
+      more calendar days, if the passenger elects not to embark on the delayed voyage or a substitute voyage
+      offered by the cruise line. The rules cover vessels with berth or stateroom accommodations for 50 or more
+      passengers embarking passengers at U.S. ports.
+    issues: [refund_request]
+    source: https://www.law.cornell.edu/cfr/text/46/540.2
+    last_verified: 2026-10-13
+  - kind: deadline
+    claim: >-
+      Under 46 CFR 540.9(f), the passenger first makes a written refund request under the cruise line's claims
+      procedure. If the claim is not resolved within 180 days (or a shorter period in the line's procedure), or
+      the line denies it, the passenger may claim against the line's financial instrument, with documents such
+      as the boarding pass, proof of payment, the cancellation or delay notice and proof of the claim to the line.
+    issues: [refund_request, company_shutdown]
+    source: https://www.law.cornell.edu/cfr/text/46/540.9
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: >-
+      46 CFR 540.9(f)(3) lets the passenger and the cruise line agree to another form of compensation, such as a
+      future cruise credit, in place of a refund.
+    issues: [travel_credit, refund_request]
+    source: https://www.law.cornell.edu/cfr/text/46/540.9
+    last_verified: 2026-10-13
+  - kind: limit
+    claim: >-
+      FMC says the amount of nonperformance coverage a cruise line must keep on file is "currently capped at $32
+      million". Casualty (death or injury) coverage is based on the number of passenger accommodations on the
+      vessel (46 CFR 540.24).
+    issues: [company_shutdown, refund_request]
+    source: https://www.fmc.gov/licensing-and-certification/passenger-vessel-operators/
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: >-
+      FMC's Bureau of Certification and Licensing issues performance (nonperformance) and casualty certificates to
+      cruise operators with 50 or more berths that embark passengers from U.S. ports. The performance coverage
+      reimburses passengers when the operator fails to complete booked cruises, for example after bankruptcy, and
+      has taken no further action to refund them.
+    issues: [company_shutdown]
+    source: https://www.fmc.gov/about/bureaus-offices/bureau-of-certification-and-licensing/
+    last_verified: 2026-10-13
+  - kind: contact
+    claim: >-
+      FMC publishes a list of each certified cruise line's nonperformance refund policy or instructions, for
+      example Carnival, Princess, Royal Caribbean, Norwegian, MSC and Disney Cruise Line.
+    issues: [refund_request]
+    source: https://www.fmc.gov/licensing-and-certification/passenger-vessel-operators/how-to-obtain-a-refund-from-a-cruise-line/
+    last_verified: 2026-10-13
+  - kind: process
+    claim: >-
+      The current claims rules came from FMC's final rule "Passenger Vessel Financial Responsibility" (Docket
+      20-15, 87 FR 15125, published March 17, 2022, effective April 18, 2022).
+    source: https://www.gao.gov/fedrules/204348
+    last_verified: 2026-10-13
+  - kind: deadline
+    claim: >-
+      For seagoing passenger vessels between U.S. ports or between a U.S. and a foreign port, a cruise line may
+      not limit the time to give notice of a personal injury or death claim to less than 6 months, or the time
+      to sue to less than 1 year, after the injury or death (46 U.S.C. 30526). Contractual notice periods are
+      tolled for minors, mental incompetents and wrongful death claims.
+    issues: [safety_incident]
+    source: https://www.law.cornell.edu/uscode/text/46/30526
+    last_verified: 2026-10-13
+
+notes: >-
+  Checked by loading fmc.gov pages on 2026-10-13. The eCFR and Federal Register would not load (they redirect
+  automated clients), so 46 CFR part 540 text was read on law.cornell.edu, and the final-rule dates on gao.gov.
+  FMC's past cruise notices include American Queen Voyages (shut down and filed Chapter 11, notice February 22,
+  2024) and Vantage Travel Services (Chapter 11, July 5, 2023). Disability access on cruise ships is enforced by
+  the Justice Department under ADA Title III, not by FMC; health and sanitation by CDC; safety by the U.S. Coast Guard.
