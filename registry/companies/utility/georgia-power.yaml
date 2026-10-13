@@ -1,0 +1,130 @@
+id: georgia-power
+name: Georgia Power
+aliases: [Georgia Power Company]
+sector: utility
+parent: Southern Company
+website: https://www.georgiapower.com
+notes: >-
+  Electric utility for most of Georgia. Regulated by the Georgia Public Service Commission. Online
+  account and contact forms run on Southern Company's customer service site
+  (customerservice2.southerncompany.com).
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Residential customer service
+    value: +1-888-660-5890
+    hours: Monday to Friday, 7 a.m. to 7 p.m.
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    notes: Georgia Power tells customers to hang up on suspicious calls and call this number directly.
+    source: https://www.georgiapower.com/about/safety/fraud-protection.html
+    last_verified: 2026-10-12
+  - id: outage-phone
+    type: phone
+    label: Report an outage or a downed power line (or call 911)
+    value: +1-888-891-0938
+    purposes: [service_outage]
+    source: https://www.georgiapower.com/about/safety/outages-storm-center.html
+    last_verified: 2026-10-12
+  - id: contact-form
+    type: web_form
+    label: Online Contact Us (Southern Company customer service site)
+    value: https://customerservice2.southerncompany.com/CustService/ContactUs?mnuOpco=GPC
+    purposes: [billing_error, bill_increase, poor_service]
+    notes: The page loads with JavaScript; its form fields could not be read.
+    source: https://www.georgiapower.com/about/safety/fraud-protection.html
+    last_verified: 2026-10-12
+  - id: payment-assistance-page
+    type: portal
+    label: Financial assistance (Project SHARE, LIHEAP, Income-Qualified Discount)
+    value: https://www.georgiapower.com/residential/billing-and-rate-plans/billing-options/payment-assistance.html
+    purposes: [disconnection]
+    source: https://www.georgiapower.com/residential/billing-and-rate-plans/billing-options/payment-assistance.html
+    last_verified: 2026-10-12
+  - id: income-qualified-discount-page
+    type: portal
+    label: Income-Qualified Discount
+    value: https://www.georgiapower.com/residential/assistance/income-qualified-discount.html
+    purposes: [disconnection, bill_increase]
+    source: https://www.georgiapower.com/residential/billing-and-rate-plans/billing-options/payment-assistance.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor}
+  - {rung: written_complaint, channel: contact-form, note: "Georgia Power publishes no complaint email or mailing address."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Georgia Public Service Commission."}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: billing_error
+    summary: Ask Georgia Power to review the reading; a meter that tests fast by more than 2% gets a bill adjustment.
+    evidence: [the bill, meter readings, earlier bills, dates of calls]
+    steps:
+      - do: Call customer service. Ask whether the reading was estimated and ask for a review or a meter test.
+        channel: customer-service-phone
+      - do: If the meter tests over 102% accurate, ask for the past-bill adjustment under the Rules and Regulations.
+      - do: If not resolved, ask for a supervisor, then complain to the Georgia Public Service Commission.
+    facts:
+      - kind: limit
+        claim: Georgia Power's meter accuracy limits are 102% (upper) and 98% (lower).
+        issues: [billing_error]
+        source: https://www.georgiapower.com/content/dam/georgia-power/pdfs/business-pdfs/tariffs/2023/Rules-Regs.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Georgia Power adjusts past bills on customer complaint if the meter is found on test to be in excess of 102% average accuracy, calculated as if the meter were 100% accurate.
+        issues: [billing_error]
+        source: https://www.georgiapower.com/content/dam/georgia-power/pdfs/business-pdfs/tariffs/2023/Rules-Regs.pdf
+        last_verified: 2026-10-12
+  - issue: disconnection
+    summary: Call before the due date to ask for more time and payment arrangements; apply for assistance.
+    evidence: [disconnection notice, account number, proof of income or benefits for the discount]
+    steps:
+      - do: Call customer service and ask for a payment extension or arrangement.
+        channel: customer-service-phone
+      - do: Apply for Project SHARE (The Salvation Army) or LIHEAP, and for the Income-Qualified Discount if eligible.
+        channel: payment-assistance-page
+      - do: If a National Weather Service heat advisory or excessive heat warning is in effect for the county, tell Georgia Power that residential disconnection is not allowed that day.
+    facts:
+      - kind: policy
+        claim: Georgia Power will not disconnect residential service for nonpayment if, before 8:00 a.m. on the scheduled date, a National Weather Service Heat Advisory or Excessive Heat Warning is in effect or forecast for the county where the meter is.
+        issues: [disconnection]
+        source: https://www.georgiapower.com/content/dam/georgia-power/pdfs/business-pdfs/tariffs/2023/Rules-Regs.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Income-Qualified Discount is for customers who receive SSI or SSDI, use a HUD Section 8 voucher, or are 65 or older with household income at or below 200% of the federal poverty guidelines.
+        issues: [disconnection, bill_increase]
+        source: https://www.georgiapower.com/residential/billing-and-rate-plans/billing-options/payment-assistance.html
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: Georgia Power says Income-Qualified Discount participants may receive a discount of $33.50 on their bill each month.
+        issues: [disconnection, bill_increase]
+        source: https://www.georgiapower.com/residential/billing-and-rate-plans/billing-options/payment-assistance/senior-citizen-discount.html
+        last_verified: 2026-10-12
+  - issue: deposit_refund
+    summary: The deposit plus interest is credited back on residential bills under commission rules, or refunded at the final bill.
+    evidence: [deposit receipt, account closing date, final bill]
+    steps:
+      - do: Ask customer service when the deposit and interest will be credited, and ask for the commission rule they apply.
+        channel: customer-service-phone
+      - do: After closing the account, check the final bill for the deposit plus accrued interest less amounts owed.
+    facts:
+      - kind: limit
+        claim: Georgia Power may require a security deposit of approximately twice the estimated monthly bill, and pays interest at the rate fixed by the Georgia Public Service Commission.
+        issues: [deposit_refund]
+        source: https://www.georgiapower.com/content/dam/georgia-power/pdfs/business-pdfs/tariffs/2023/Rules-Regs.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: When service is discontinued, the deposit plus accrued interest, less damages and amounts owed, goes on the final bill, and any excess is refunded at final billing.
+        issues: [deposit_refund]
+        source: https://www.georgiapower.com/content/dam/georgia-power/pdfs/business-pdfs/tariffs/2023/Rules-Regs.pdf
+        last_verified: 2026-10-12
+  - issue: service_outage
+    summary: Report outages and downed lines by phone or online.
+    evidence: [service address, outage start time]
+    steps:
+      - do: Call the outage line, or report at GeorgiaPower.com/Outage or in the app. For a downed line, also call 911 and stay away.
+        channel: outage-phone
+
+known_blockers:
+  - The online Contact Us page and account tools run on a JavaScript site that agents may not be able to use; payment arrangements usually need the account holder.

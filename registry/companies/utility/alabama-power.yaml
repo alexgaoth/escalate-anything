@@ -1,0 +1,180 @@
+id: alabama-power
+name: Alabama Power
+aliases: [Alabama Power Company]
+sector: utility
+parent: Southern Company
+website: https://www.alabamapower.com
+account_url: https://customerservice2.southerncompany.com/Login?mnuOpCo=APC
+notes: >-
+  Electric utility for most of Alabama. Regulated by the Alabama Public Service Commission, which approves
+  Alabama Power's Rules and Regulations for Electric Service. Online account and contact forms run on
+  Southern Company's customer service site.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service (billing, payment extensions, service)
+    value: +1-800-245-2244
+    hours: Monday to Friday, 7 a.m. to 7 p.m. CST
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    source: https://www.alabamapower.com/residential/residential-faqs.html
+    last_verified: 2026-10-12
+  - id: outage-phone
+    type: phone
+    label: Report outages and emergencies
+    value: +1-800-888-2726
+    hours: 24/7
+    purposes: [service_outage]
+    source: https://www.alabamapower.com/residential/residential-faqs.html
+    last_verified: 2026-10-12
+  - id: outage-text
+    type: sms
+    label: Text OUT to APCOUT (272688) to report an outage
+    value: "272688"
+    purposes: [service_outage]
+    notes: Text ENROLL to the same number to sign up for outage alerts.
+    source: https://www.alabamapower.com/news/company/find-out-all-the-ways-we-serve-you.html
+    last_verified: 2026-10-12
+  - id: contact-form
+    type: web_form
+    label: Online Customer Care contact page (Southern Company customer service site)
+    value: https://customerservice2.southerncompany.com/CustService/ContactUs?mnuOpCo=APC
+    purposes: [billing_error, bill_increase, poor_service]
+    notes: The page loads with JavaScript; its form fields could not be read.
+    source: https://www.alabamapower.com/residential/billing-and-payment-options/payment-assistance-programs.html
+    last_verified: 2026-10-12
+  - id: payment-assistance-page
+    type: portal
+    label: Payment assistance programs
+    value: https://www.alabamapower.com/residential/billing-and-payment-options/payment-assistance-programs.html
+    purposes: [disconnection]
+    source: https://www.alabamapower.com/residential/billing-and-payment-options/payment-assistance-programs.html
+    last_verified: 2026-10-12
+  - id: project-share-phone
+    type: phone
+    label: Project SHARE applications (The Salvation Army, for customers 60 or older or disabled)
+    value: +1-205-328-2420
+    purposes: [disconnection]
+    source: https://www.alabamapower.com/residential/billing-and-payment-options/payment-assistance-programs.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor}
+  - {rung: written_complaint, channel: contact-form}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Alabama Public Service Commission."}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: billing_error
+    summary: Ask for a meter test; it is free if the meter was not tested in the last 12 months, and a meter off by more than 2% gets up to 36 months of adjustment.
+    evidence: [the bill, meter readings, earlier bills, date of the last meter test if known]
+    steps:
+      - do: Call customer service. Ask whether the reading was estimated and ask for a correction.
+        channel: customer-service-phone
+      - do: Ask for a meter test. Ask when the meter was last tested so you know whether the $40 charge can apply.
+        channel: customer-service-phone
+      - do: If the test shows more than 2% error, ask for the bill adjustment and choose a bill credit or a lump-sum refund.
+      - do: If not resolved, ask for a supervisor, then complain to the Alabama Public Service Commission.
+    facts:
+      - kind: fee
+        claim: Alabama Power tests a meter on request at no charge if it has not tested that meter in the 12 months before the request. For a more frequent test, the charge is $40.00 if the meter tests within range.
+        issues: [billing_error]
+        source: https://www.alabamapower.com/content/dam/alabama-power/pdfs-docs/Rates/APCRulesRegulations.pdf
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: A meter is accurate if within two percent (2%) fast or slow. Otherwise Alabama Power adjusts billing for the most recent thirty-six (36) month period at most.
+        issues: [billing_error]
+        source: https://www.alabamapower.com/content/dam/alabama-power/pdfs-docs/Rates/APCRulesRegulations.pdf
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Refunds for a fast meter are made as a credit on the next bill or as a lump sum within forty-five (45) days of confirmation of inaccurate billing, by mutual agreement.
+        issues: [billing_error]
+        source: https://www.alabamapower.com/content/dam/alabama-power/pdfs-docs/Rates/APCRulesRegulations.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: When a meter cannot be read on the scheduled date, Alabama Power estimates the month's use from the customer's usage in previous months.
+        issues: [billing_error]
+        source: https://www.alabamapower.com/content/dam/alabama-power/pdfs-docs/Rates/APCRulesRegulations.pdf
+        last_verified: 2026-10-12
+  - issue: disconnection
+    summary: Ask for an extension before the notice expires; extreme weather and certified life support equipment postpone residential disconnection.
+    evidence: [disconnection notice, account number, physician verification of life support equipment if it applies]
+    steps:
+      - do: Call before the due date and ask for an extension of time to pay.
+        channel: customer-service-phone
+      - do: If someone uses life support equipment, ask for life support status. Alabama Power may ask for a certified statement and then asks the physician to verify.
+        channel: customer-service-phone
+      - do: Ask Alabama Power in writing to record age or disability, so it makes special efforts to contact you before disconnection, and add a third party to receive copies of disconnect notices.
+      - do: Apply for Project SHARE or other assistance.
+        channel: payment-assistance-page
+    facts:
+      - kind: deadline
+        claim: Alabama Power gives at least five (5) calendar days' written notice before disconnecting for a delinquent bill. The customer can pay the full delinquent amount at any time before the actual disconnection.
+        issues: [disconnection]
+        source: https://www.alabamapower.com/content/dam/alabama-power/pdfs-docs/Rates/APCRulesRegulations.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: No service is disconnected for nonpayment after 3:30 p.m. on a day before a day when Alabama Power's office is closed.
+        issues: [disconnection]
+        source: https://www.alabamapower.com/content/dam/alabama-power/pdfs-docs/Rates/APCRulesRegulations.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Alabama Power postpones residential disconnection for nonpayment during extreme weather, including a forecast of 32 degrees F or below, 98 degrees F or above, or a National Weather Service or Health Department heat advisory.
+        issues: [disconnection]
+        source: https://www.alabamapower.com/content/dam/alabama-power/pdfs-docs/Rates/APCRulesRegulations.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Alabama Power temporarily postpones residential disconnection for nonpayment when a physician has verified in writing that the household needs life support equipment (a medical device run 24 hours a day to avoid loss of life).
+        issues: [disconnection]
+        source: https://www.alabamapower.com/content/dam/alabama-power/pdfs-docs/Rates/APCRulesRegulations.pdf
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: Reconnection after disconnection for nonpayment costs $50.00 during normal business hours and $75.00 after hours, weekends and holidays. The late fee is the greater of 1.5% of the delinquent amount or $2.00.
+        issues: [disconnection]
+        source: https://www.alabamapower.com/content/dam/alabama-power/pdfs-docs/Rates/APCRulesRegulations.pdf
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: Customers who receive SSI or Medicaid for Low Income Families (MLIF) may save $14.50 each month on their power bill.
+        issues: [disconnection]
+        source: https://www.alabamapower.com/residential/billing-and-payment-options/payment-assistance-programs.html
+        last_verified: 2026-10-12
+  - issue: deposit_refund
+    summary: Residential deposits come back as a bill credit after a good payment record, or on the final bill.
+    evidence: [deposit amount and date, payment history, final bill]
+    steps:
+      - do: Ask customer service when the deposit and interest will be credited. Quote Rule 2.3 of the Rules and Regulations.
+        channel: customer-service-phone
+      - do: After closing the account, check that the deposit plus interest, less amounts owed, was paid.
+    facts:
+      - kind: limit
+        claim: The residential deposit is twice the average monthly bill for the residence, and is required only when credit is not established.
+        issues: [deposit_refund]
+        source: https://www.alabamapower.com/residential/residential-faqs.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Rules and Regulations refund a residential deposit plus interest as a bill credit after it has been held for twenty-four (24) months with no delinquent payments in the last twelve (12) months.
+        issues: [deposit_refund]
+        source: https://www.alabamapower.com/content/dam/alabama-power/pdfs-docs/Rates/APCRulesRegulations.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Alabama Power's residential FAQ says a customer is eligible for a deposit refund, with interest, after 12 consecutive months of on-time payments.
+        issues: [deposit_refund]
+        source: https://www.alabamapower.com/residential/residential-faqs.html
+        last_verified: 2026-10-12
+  - issue: service_outage
+    summary: Report by phone, text or the app.
+    evidence: [service address, outage start time]
+    steps:
+      - do: Call the outage line or text OUT to APCOUT (272688).
+        channel: outage-phone
+
+tips:
+  - kind: official
+    text: The Rules and Regulations (deposit held 24 months) and the residential FAQ (12 months of on-time payments) give different deposit refund periods. Ask Alabama Power which one applies to the account.
+    issues: [deposit_refund]
+    source: https://www.alabamapower.com/residential/residential-faqs.html
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The online contact form and account tools run on a JavaScript site that agents may not be able to use.

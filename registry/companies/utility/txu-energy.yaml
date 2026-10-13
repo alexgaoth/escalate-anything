@@ -1,0 +1,246 @@
+id: txu-energy
+name: TXU Energy
+aliases: [TXU, TXU Energy Retail Company]
+sector: utility
+parent: Vistra
+website: https://www.txu.com
+notes: >-
+  Retail electric provider (REP) in the Texas competitive market, PUCT certificate No. 10004. TXU bills
+  the customer, but the local transmission and distribution utility (TDU), such as Oncor, CenterPoint,
+  AEP Texas or TNMP, owns the wires and meters and handles outages. Texas complaint path differs from
+  other states: complain to TXU first; TXU must investigate and report within 21 days; ask for a
+  supervisory review (answer within 10 business days); then complain to the Public Utility Commission of
+  Texas or the Texas Attorney General Consumer Protection Division. While an informal billing complaint is
+  pending at the PUCT, TXU may not start collection or disconnection on the disputed part of the bill.
+  Contract terms are in the Terms of Service Agreement (TOSA), the Electricity Facts Label (EFL) and Your
+  Rights as a Customer (YRAC).
+
+channels:
+  - id: residential-phone
+    type: phone
+    label: Residential customer service
+    value: +1-866-278-4898
+    hours: 24/7
+    purposes: [billing_error, bill_increase, cancel_service, disconnection, deposit_refund, poor_service]
+    source: https://www.txu.com/help/support/contact-us
+    last_verified: 2026-10-12
+  - id: customer-assistance-phone
+    type: phone
+    label: Customer assistance and payment assistance (also for 3-day rescission)
+    value: +1-800-242-9113
+    hours: 24/7
+    purposes: [billing_error, disconnection, cancel_service, deposit_refund]
+    source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/YRAC.pdf
+    last_verified: 2026-10-12
+  - id: email-form
+    type: web_form
+    label: Residential "Email us" form
+    value: https://www.txu.com/help/support/contact-us/email-form
+    purposes: [billing_error, bill_increase, cancel_service, poor_service]
+    source: https://www.txu.com/help/support/contact-us
+    last_verified: 2026-10-12
+  - id: customer-email
+    type: email
+    label: Customer service email (also for 3-day rescission)
+    value: txuenergy@txu.com
+    purposes: [billing_error, cancel_service, deposit_refund]
+    source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/YRAC.pdf
+    last_verified: 2026-10-12
+  - id: executive-email
+    type: email
+    label: Executive feedback
+    value: txuexec@txu.com
+    purposes: [billing_error, bill_increase, cancel_service, disconnection, poor_service]
+    notes: TXU says issues sent here get a response within 1 business day.
+    source: https://www.txu.com/help/support/contact-us
+    last_verified: 2026-10-12
+  - id: mail
+    type: mail
+    label: TXU Energy mailing address
+    value: TXU Energy, P.O. Box 650764, Dallas, TX 75265-0764
+    purposes: [billing_error, cancel_service, deposit_refund]
+    source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/YRAC.pdf
+    last_verified: 2026-10-12
+  - id: energy-aid-email
+    type: email
+    label: TXU Energy Aid bill-payment assistance
+    value: energyaid@txu.com
+    purposes: [disconnection]
+    notes: Or call 2-1-1 or visit 211texas.org.
+    source: https://www.txu.com/why-txu-energy/txu-energy-aid
+    last_verified: 2026-10-12
+  - id: payment-assistance-page
+    type: portal
+    label: Payment assistance options (payment extension, deferred payment plan)
+    value: https://www.txu.com/help/billing-payments/payment-assistance
+    purposes: [disconnection]
+    source: https://www.txu.com/help/billing-payments/payment-assistance
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: residential-phone}
+  - {rung: supervisor, note: "Ask for a supervisory review; TXU must answer within 10 business days."}
+  - {rung: written_complaint, channel: executive-email}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Public Utility Commission of Texas. TXU must first have had the complaint; it must investigate within 21 days."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Texas Attorney General, Consumer Protection Division."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute with TXU (21-day investigation), ask for a supervisory review, then file with the PUCT; meter tests go through TXU to the TDU.
+    evidence: [the bill, EFL for the plan, meter readings, notes of each contact]
+    steps:
+      - do: Contact TXU with the disputed charge and ask for an investigation.
+        channel: residential-phone
+      - do: If you doubt the meter, ask TXU to request a meter test from the TDU.
+      - do: If not satisfied, ask for a supervisory review.
+      - do: Then file a complaint with the PUCT. Keep paying the undisputed part of the bill.
+    facts:
+      - kind: deadline
+        claim: The REP must investigate a complaint and report the results within 21 days. A supervisory review must be answered within 10 business days.
+        issues: [billing_error, poor_service]
+        source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/YRAC.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: While an informal billing complaint is pending at the PUCT, the REP may not start collection or disconnection or report the disputed amount to a credit bureau; it may still disconnect after notice for the undisputed part.
+        issues: [billing_error, disconnection]
+        source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/YRAC.pdf
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: A customer may request a meter test through the REP. If the meter was tested more than once in four years and works properly, the customer may be charged the TDU's approved fee for the extra test.
+        issues: [billing_error]
+        source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/YRAC.pdf
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: If charges are found unauthorized, the REP must remove them and refund or credit the money within 45 days.
+        issues: [billing_error]
+        source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/YRAC.pdf
+        last_verified: 2026-10-12
+  - issue: disconnection
+    summary: Ask for a payment extension or deferred payment plan; Texas rules require a 10-day notice and protect critical care customers and extreme weather days.
+    evidence: [disconnection notice, account number, physician statement for critical care]
+    steps:
+      - do: Call payment assistance before the disconnection date. Ask for a payment extension (up to the next bill's due date) or a deferred payment plan.
+        channel: customer-assistance-phone
+      - do: If an energy assistance agency will pay, have it send a pledge to TXU before the final due date.
+        channel: energy-aid-email
+      - do: If someone at home depends on electric life-support equipment, have the physician call and write to TXU confirming Critical Care status, and sign a deferred payment plan.
+      - do: If TXU will not agree, complain to the PUCT before the disconnection date.
+    facts:
+      - kind: deadline
+        claim: The REP must issue a written disconnection notice at least 10 days before the disconnection date, mailed no earlier than the day after the bill's due date. Critical Care and Chronic Condition households get written notice at least 21 days before.
+        issues: [disconnection]
+        source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/YRAC.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The REP may not disconnect for nonpayment during an extreme weather emergency, or when an energy assistance provider will send enough payment by the final due date and the customer has paid or arranged the rest.
+        issues: [disconnection]
+        source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/YRAC.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: A Critical Care Residential Customer is protected from disconnection for nonpayment for 63 days from the bill's issue date, if the physician contacts the REP, sends a written statement, and the customer enters a deferred payment plan.
+        issues: [disconnection]
+        source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/YRAC.pdf
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: TXU may charge a Disconnect Notice Fee of up to $20 per notice, and a Disconnect Recovery Charge of up to $30 if the bill is not paid before the disconnection date.
+        issues: [disconnection]
+        source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/TOSA.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: A TXU payment extension does not change the monthly due date and cannot go past the next bill's due date; late and notice fees may still apply.
+        issues: [disconnection]
+        source: https://www.txu.com/help/billing-payments/payment-assistance
+        last_verified: 2026-10-12
+  - issue: cancel_service
+    summary: Month-to-month plans cancel free; term plans owe the early cancellation fee on the EFL unless you move, cancel within 14 days of a terms-change notice, or cancel within 14 days of expiration.
+    evidence: [EFL with the early cancellation fee, contract end date, proof of move and forwarding address, any notice of changed terms]
+    steps:
+      - do: Check the EFL "Disclosure Chart" for the early cancellation fee and the contract end date.
+      - do: If you are moving, give TXU evidence of the move and a forwarding address so no fee is charged.
+        channel: residential-phone
+      - do: If you just switched to TXU, rescind before midnight of the 3rd federal business day after receiving the TOSA, by phone, fax or email, and state that you rescind under the 3-day right of rescission.
+        channel: customer-email
+      - do: Dispute any early cancellation fee charged despite an exception, then complain to the PUCT.
+    facts:
+      - kind: policy
+        claim: TXU charges no early cancellation fee if the customer moves and gives evidence of the move and a forwarding address, terminates within 14 days after TXU sends a notice of changed terms, or terminates within 14 days of the contract's expiration date.
+        issues: [cancel_service]
+        source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/TOSA.pdf
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: The early cancellation fee for a TXU contract is shown in the Disclosure Chart of the plan's EFL. Month-to-month contracts have no early cancellation fee.
+        issues: [cancel_service]
+        source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/TOSA.pdf
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: A customer switching to TXU may rescind without fees before midnight of the 3rd federal business day after first receiving the TOSA, by calling 1-800-242-9113, faxing 1-800-232-9488 or emailing txuenergy@txu.com.
+        issues: [cancel_service]
+        source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/TOSA.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If TXU terminates the contract after a disconnection, it may charge the early cancellation fee in the EFL.
+        issues: [cancel_service, disconnection]
+        source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/TOSA.pdf
+        last_verified: 2026-10-12
+  - issue: bill_increase
+    summary: Variable-price plans can change price without notice after the first bill; fixed-rate plans change only for pass-through charges, and an expired fixed plan rolls to month-to-month.
+    evidence: [EFL, contract expiration notices, bills before and after the increase]
+    steps:
+      - do: Check the EFL to see whether the plan is fixed, indexed or variable.
+      - do: If a fixed-rate price went up for a reason other than TDU, ERCOT or regulatory charges, dispute it as a billing error.
+        channel: residential-phone
+      - do: If a fixed plan expired and rolled to a month-to-month default product, choose a new plan; month-to-month plans can be left without a cancellation fee.
+    facts:
+      - kind: policy
+        claim: Variable price products have a term of 31 days or less. After the first billing cycle, the price may vary without advance notice by a method the provider sets.
+        issues: [bill_increase]
+        source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/TOSA.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Fixed rate products have a term of at least three months, and their price may change during the term only for actual changes in TDU charges, ERCOT or Texas Regional Entity fees, or new laws or regulatory charges.
+        issues: [bill_increase]
+        source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/TOSA.pdf
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: For a fixed rate product longer than four months, TXU sends three expiration notices and the final one at least 30 days before expiration. With no action, service continues on a TXU month-to-month default renewal product.
+        issues: [bill_increase]
+        source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/TOSA.pdf
+        last_verified: 2026-10-12
+  - issue: deposit_refund
+    summary: TXU refunds the deposit with interest after 12 consecutive on-time months, or when the account closes.
+    evidence: [deposit amount and date, payment history, final bill]
+    steps:
+      - do: After 12 on-time payments, ask TXU to credit the deposit plus interest.
+        channel: residential-phone
+      - do: After closing, check that the deposit plus interest, less the final balance, was refunded.
+    facts:
+      - kind: policy
+        claim: After 12 consecutive months of bills paid in full with no late payments, TXU refunds the deposit and accrued interest as a bill credit. On account closure, it refunds the deposit and interest after deducting any balance owed.
+        issues: [deposit_refund]
+        source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/TOSA.pdf
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: A TXU deposit is not more than the greater of one-fifth of the expected annual bill or the expected bill for the next two months.
+        issues: [deposit_refund]
+        source: https://www.txu.com/-/media/Project/VistraApps/DT/Files/Content-Pages/Help-Center/TOSA.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: TXU says it may waive the deposit for customers who are 55 or older, victims of family violence with a prescribed letter, and medically indigent customers with proof. A deposit can be split into two equal installments.
+        issues: [deposit_refund]
+        source: https://www.txu.com/help/support/deposits
+        last_verified: 2026-10-12
+  - issue: service_outage
+    summary: Report outages to the TDU, not to TXU.
+    evidence: [service address, ESI ID, outage start time]
+    steps:
+      - do: "Call the TDU for the area: Oncor 1-888-313-4747, CenterPoint 1-800-332-7143 or 713-207-2222, AEP Texas 1-866-223-8508, TNMP 1-888-866-7456."
+    facts:
+      - kind: contact
+        claim: TXU says the TDU maintains the power lines and restores power, and outages should be reported to the local TDU.
+        issues: [service_outage]
+        source: https://www.txu.com/help/support/power-outage
+        last_verified: 2026-10-12
+
+known_blockers:
+  - The TOSA used here is version TOSARESENT032022E (2022) and the YRAC is TXUEYRAC082023A; the plan's own EFL and TOSA control.
+  - Payment arrangements and plan changes need the account holder or sign-in.

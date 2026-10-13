@@ -1,0 +1,184 @@
+id: socalgas
+name: Southern California Gas Company
+aliases: [SoCalGas, SoCal Gas, The Gas Company]
+sector: utility
+parent: Sempra
+website: https://www.socalgas.com
+account_url: https://myaccount.socalgas.com/ui/
+notes: >-
+  Natural gas utility for central and southern California. Regulated by the California Public
+  Utilities Commission (CPUC). Sister company of SDG&E (both owned by Sempra). SoCalGas publishes
+  1-877-238-0092 as general customer service and 1-800-427-2200 on its gas emergency and Medical
+  Baseline pages.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: General customer service
+    value: +1-877-238-0092
+    hours: "Mon-Fri 7 a.m.-8 p.m., Sat 7 a.m.-6 p.m.; closed Sundays and holidays (gas odor and carbon monoxide questions 24/7)"
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    notes: The help center sends questions about deposits and shut-off for nonpayment to this number.
+    source: https://www.socalgas.com/about-us/contact-us
+    last_verified: 2026-10-12
+  - id: customer-service-spanish-phone
+    type: phone
+    label: Customer service in Spanish
+    value: +1-800-342-4545
+    hours: "Mon-Fri 7 a.m.-8 p.m."
+    source: https://www.socalgas.com/about-us/contact-us
+    last_verified: 2026-10-12
+  - id: business-phone
+    type: phone
+    label: Commercial, industrial and agricultural customers
+    value: +1-800-427-2000
+    hours: "Mon-Fri 7 a.m.-6 p.m."
+    source: https://www.socalgas.com/about-us/contact-us
+    last_verified: 2026-10-12
+  - id: emergency-phone
+    type: phone
+    label: Gas leak (evacuate first, then call from a safe place; call 911 if life or property is at risk)
+    value: +1-800-427-2200
+    source: https://www.socalgas.com/safety/emergency-information
+    last_verified: 2026-10-12
+  - id: complaint-mail
+    type: mail
+    label: Centralized correspondence
+    value: "SoCalGas, P.O. Box 1626, Monterey Park, CA 91754-8626"
+    purposes: [billing_error, poor_service]
+    notes: Listed on the contact page as the centralized correspondence address; SoCalGas does not publish a separate complaint form.
+    source: https://www.socalgas.com/about-us/contact-us
+    last_verified: 2026-10-12
+  - id: claims-form
+    type: web_form
+    label: Online claim form (hosted by Sempra's claims vendor)
+    value: https://webformprdsempra.dxc-ins.com/webform/Pagebuilder.aspx?SiteNum=1
+    purposes: [service_outage]
+    access: open
+    source: https://www.socalgas.com/claims
+    last_verified: 2026-10-12
+  - id: claims-mail
+    type: mail
+    label: Claims Department by mail (PDF claim form)
+    value: "SoCalGas, Attention: Claims Department-(GCT 14A3), PO Box 30048, Los Angeles, CA 90030"
+    purposes: [service_outage]
+    notes: "Fax: 1-818-701-3923, Attention: Claims Department. Form: https://www.socalgas.com/sites/default/files/SoCalGas-Claims-Form.pdf"
+    source: https://www.socalgas.com/claims
+    last_verified: 2026-10-12
+  - id: claims-phone
+    type: phone
+    label: Claims Department Message Center (claim status, request a callback)
+    value: +1-213-244-5800
+    purposes: [service_outage]
+    source: https://www.socalgas.com/claims
+    last_verified: 2026-10-12
+  - id: payment-arrangement
+    type: portal
+    label: Payment extension (My Account > My Bill > Payment Extension)
+    value: https://myaccount.socalgas.com/ui/login
+    purposes: [disconnection]
+    access: login
+    source: https://www.socalgas.com/help-center
+    last_verified: 2026-10-12
+  - id: amp-application
+    type: portal
+    label: Past Due Bill Forgiveness (Arrearage Management Plan) enrollment
+    value: https://myaccount.socalgas.com/ui/arrearage
+    purposes: [disconnection]
+    access: login
+    source: https://www.socalgas.com/billing-payment/assistance-programs/forgiveness
+    last_verified: 2026-10-12
+  - id: payment-assistance
+    type: web_form
+    label: Assistance programs (CARE, AMP, Gas Assistance Fund, LIHEAP, Medical Baseline, Level Pay)
+    value: https://www.socalgas.com/billing-payment/assistance-programs
+    purposes: [disconnection]
+    access: open
+    source: https://www.socalgas.com/billing-payment/assistance-programs
+    last_verified: 2026-10-12
+  - id: medical-baseline
+    type: web_form
+    label: Medical Baseline Allowance application (online, email, mail or fax)
+    value: https://www.socalgas.com/billing-payment/assistance-programs/medical-baseline-allowance
+    purposes: [disconnection]
+    access: open
+    notes: "Email MedicalBaselineProgram@socalgas.com; mail SoCalGas Medical Baseline Allowance Program, M. L. GT19A1, P.O. Box 513249, Los Angeles, CA 90051-1249; fax 213-244-4665. Medical provider completes Part 2."
+    source: https://www.socalgas.com/billing-payment/assistance-programs/medical-baseline-allowance
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, note: "Ask the representative for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, channel: complaint-mail}
+  - {rung: state_agency, agency_kind: utility_commission, note: "California Public Utilities Commission (CPUC), Consumer Affairs Branch."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "California Attorney General."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the bill with customer service and in writing; if SoCalGas does not fix it, complain to the CPUC.
+    evidence: [the disputed bill, previous bills, meter photos with dates, call notes with reference numbers]
+    steps:
+      - do: Call SoCalGas, say you dispute the bill, and ask for a bill review and a meter check if usage looks wrong. Get a reference number.
+        channel: customer-service-phone
+      - do: Put the dispute in writing with the account number, bill date and disputed amount.
+        channel: complaint-mail
+      - do: If SoCalGas does not resolve it, file a complaint with the CPUC Consumer Affairs Branch.
+
+  - issue: disconnection
+    summary: Call customer service before the shut-off date, request a payment extension, and apply for CARE and Past Due Bill Forgiveness.
+    evidence: [shut-off notice, account balance, CARE enrollment, Medical Baseline approval]
+    steps:
+      - do: Call customer service about the shut-off notice, or request a payment extension in My Account.
+        channel: customer-service-phone
+      - do: If you are on CARE with $250 or more past due (some over 90 days), enroll in Past Due Bill Forgiveness.
+        channel: amp-application
+      - do: Apply for CARE or LIHEAP through the assistance programs page.
+        channel: payment-assistance
+    facts:
+      - kind: compensation
+        claim: Past Due Bill Forgiveness forgives 1/12 of the eligible debt each time a current bill is paid in full and on time, up to $8,000 per enrollment period. It requires CARE enrollment, $250 or more past due with some at least 90 days old, six months as a customer and one on-time payment in the prior 24 months.
+        issues: [disconnection]
+        source: https://www.socalgas.com/billing-payment/assistance-programs/forgiveness
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: Missing two Past Due Bill Forgiveness payments in a row ends enrollment. Forgiven amounts stay forgiven; the remaining debt returns to the balance.
+        issues: [disconnection]
+        source: https://www.socalgas.com/billing-payment/assistance-programs/forgiveness
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: The Gas Assistance Fund gives a one-time grant up to $100.00 toward the gas bill through local non-profit agencies. The page currently says the fund is closed.
+        issues: [disconnection]
+        source: https://www.socalgas.com/billing-payment/assistance-programs/gas-assistance-fund
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: For damage or loss you believe SoCalGas caused, file a claim online or by mail or fax.
+    evidence: [dates, itemized losses with receipts, photos, repair estimates]
+    steps:
+      - do: File a claim online, or mail or fax the PDF claim form with supporting documents.
+        channel: claims-form
+      - do: Call the Claims Department Message Center for status.
+        channel: claims-phone
+    facts:
+      - kind: process
+        claim: A SoCalGas claims representative contacts the claimant within 3-5 business days. The goal is a final decision within 30-45 days; complex claims may take longer.
+        issues: [service_outage]
+        source: https://www.socalgas.com/claims
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: CARE gives 20% off the monthly gas bill for income-qualified households.
+    issues: [disconnection]
+    source: https://www.socalgas.com/billing-payment/assistance-programs
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Medical Baseline eligibility is based on medical condition, not income. It gives a daily allowance of .822 therms (about 25 more therms per month) at the lowest baseline rate. Non-permanent conditions recertify every two years; permanent conditions every four years.
+    issues: [disconnection]
+    source: https://www.socalgas.com/billing-payment/assistance-programs/medical-baseline-allowance
+    last_verified: 2026-10-12
+
+known_blockers:
+  - socalgas.com/contact-us returns 403 to automated fetches; use /about-us/contact-us.
+  - Payment extensions and Past Due Bill Forgiveness enrollment need a My Account sign-in.
+  - The Medical Baseline application needs a medical provider to complete Part 2.

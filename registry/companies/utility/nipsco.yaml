@@ -1,0 +1,132 @@
+id: nipsco
+name: Northern Indiana Public Service Company
+aliases: [NIPSCO]
+sector: utility
+parent: NiSource
+website: https://www.nipsco.com
+notes: >-
+  Electric and natural gas utility in northern Indiana. Regulated by the Indiana Utility Regulatory
+  Commission (IURC); the Indiana Office of Utility Consumer Counselor (OUCC) is the consumer advocate.
+  Hours on NIPSCO's contact page are Central Time.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service (1-800-4NIPSCO); also electric outages and emergencies 24/7
+    value: +1-800-464-7726
+    hours: "Mon-Fri 7 a.m.-7 p.m. Central for customer service; 24/7 for electric outages and emergencies"
+    purposes: [billing_error, bill_increase, disconnection, service_outage, deposit_refund, poor_service]
+    source: https://www.nipsco.com/contact-us
+    last_verified: 2026-10-12
+  - id: gas-emergency-phone
+    type: phone
+    label: Gas emergencies (go outside and call 911 first)
+    value: +1-800-634-3524
+    hours: 24/7
+    source: https://www.nipsco.com/contact-us
+    last_verified: 2026-10-12
+  - id: complaint-mail
+    type: mail
+    label: Customer service mailing address
+    value: "NIPSCO, 801 E. 86th Avenue, Merrillville, IN 46410"
+    purposes: [billing_error, poor_service]
+    notes: NIPSCO lists no complaint form or email on its contact page. Fax 1-866-248-7296.
+    source: https://www.nipsco.com/contact-us
+    last_verified: 2026-10-12
+  - id: document-upload
+    type: web_form
+    label: Document upload form (IDs, medical statements and other documents)
+    value: https://www.nipsco.com/help/forms/document-upload-form
+    purposes: [disconnection]
+    source: https://www.nipsco.com/contact-us
+    last_verified: 2026-10-12
+  - id: outage-report-online
+    type: web_form
+    label: Report a power outage
+    value: https://www.nipsco.com/outages/power-outages/report-a-power-outage
+    purposes: [service_outage]
+    source: https://www.nipsco.com/outages/report-an-outage
+    last_verified: 2026-10-12
+  - id: payment-arrangement
+    type: portal
+    label: Six or 12 month payment plan enrollment
+    value: https://www.nipsco.com/portal/payment-plan
+    purposes: [disconnection]
+    access: login
+    notes: The three-month plan is by phone at 1-800-464-7726.
+    source: https://www.nipsco.com/bills-and-payments/financial-support/payment-plans
+    last_verified: 2026-10-12
+  - id: payment-assistance
+    type: web_form
+    label: Income-eligible assistance programs (EAP, CARE, Hardship Program, SERV, SILVER)
+    value: https://www.nipsco.com/bills-and-payments/financial-support/income-eligible-assistance-programs
+    purposes: [disconnection]
+    access: open
+    source: https://www.nipsco.com/bills-and-payments/financial-support/income-eligible-assistance-programs
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, note: "Ask the representative for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, channel: complaint-mail}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Indiana Utility Regulatory Commission (IURC). The Indiana Office of Utility Consumer Counselor (OUCC) is the consumer advocate."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Indiana Attorney General."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the bill with customer service, follow up in writing, then complain to the IURC.
+    evidence: [the disputed bill, previous bills, meter photos with dates, call notes with reference numbers]
+    steps:
+      - do: Call NIPSCO, dispute the bill and ask for a meter check if usage looks wrong. Get a reference number.
+        channel: customer-service-phone
+      - do: Send a dated written dispute with the account number and amount.
+        channel: complaint-mail
+      - do: If not resolved, file a complaint with the Indiana Utility Regulatory Commission.
+
+  - issue: disconnection
+    summary: Pay or prove payment by 10 p.m. the day before the shutoff date, set up a 3, 6 or 12 month plan, apply for EAP or the Hardship Program, and use a medical statement for a 10-day delay.
+    evidence: [shutoff notice, account balance, household income documents, medical statement]
+    steps:
+      - do: Set up a six or 12 month plan online, or call for the three-month plan, before the shutoff date.
+        channel: payment-arrangement
+      - do: Apply for EAP through a local agency (household income at or below 60% of State Median Income), or the NIPSCO Hardship Program (151%-250% of the federal income level, gas customers).
+        channel: payment-assistance
+      - do: If shutoff would seriously threaten someone's health, get a statement from a licensed physician or public health official and call NIPSCO.
+        channel: customer-service-phone
+    facts:
+      - kind: deadline
+        claim: To avoid a scheduled shutoff, payment or proof of payment must reach NIPSCO by 10 p.m. on the day before the scheduled shut off date.
+        issues: [disconnection]
+        source: https://www.nipsco.com/bills-and-payments/financial-support/shutoff-and-reconnect-process
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: A statement from a licensed physician or public health official that shutoff would be a serious and immediate threat to health or safety delays shutoff for up to 10 days. One more 10-day delay is possible with another statement in a 12-month period.
+        issues: [disconnection]
+        source: https://www.nipsco.com/bills-and-payments/financial-support/shutoff-and-reconnect-process
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: NIPSCO offers Three Month, Six Month and 12 Month Standard Credit Agreements for a past-due balance, each with an initial down payment plus current charges each month.
+        issues: [disconnection]
+        source: https://www.nipsco.com/bills-and-payments/financial-support/payment-plans
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: CARE for gas heating customers reduces the bill by 15% to 32% depending on income (December 1 - May 31); eligible EAP customers are enrolled automatically.
+        issues: [disconnection]
+        source: https://www.nipsco.com/bills-and-payments/financial-support/income-eligible-assistance-programs
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: To reconnect after a shutoff, the customer pays the full past-due balance, a reconnection fee and a security deposit if NIPSCO does not already hold one. An adult over 18 must be present.
+        issues: [disconnection, deposit_refund]
+        source: https://www.nipsco.com/bills-and-payments/financial-support/shutoff-and-reconnect-process
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Report electric outages online or at 1-800-464-7726 (24/7).
+    evidence: [outage dates and times, outage reference number]
+    steps:
+      - do: Report the outage online or by phone.
+        channel: outage-report-online
+
+known_blockers:
+  - Six and 12 month payment plans are set up in the online portal (sign-in required).
+  - Medical statements must come from a licensed physician or public health official.

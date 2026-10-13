@@ -1,0 +1,172 @@
+id: dte-energy
+name: DTE Energy
+aliases: [DTE, DTE Electric, DTE Gas]
+sector: utility
+parent: DTE Energy Company
+website: https://www.dteenergy.com
+notes: >-
+  Electric (DTE Electric, southeast Michigan) and natural gas (DTE Gas, Michigan) utility. Regulated by
+  the Michigan Public Service Commission (MPSC), whose rules set automatic outage credits. On 2026-10-12
+  the DTE home page said website and app sign-in and payments were having technical issues.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Residential assistance (press 2 for electric emergency or power problem)
+    value: +1-800-477-4747
+    hours: "Mon-Fri 8 a.m.-5 p.m."
+    purposes: [billing_error, bill_increase, disconnection, service_outage, poor_service]
+    source: https://www.dteenergy.com/us/en/quicklinks/contact-us.html
+    last_verified: 2026-10-12
+  - id: emergency-phone
+    type: phone
+    label: Electric emergency or power problem (downed line or outage), press 2
+    value: +1-800-477-4747 ext. 2
+    purposes: [service_outage]
+    source: https://www.dteenergy.com/us/en/quicklinks/contact-us.html
+    last_verified: 2026-10-12
+  - id: gas-emergency-phone
+    type: phone
+    label: Gas Leak Hotline (call 911 first)
+    value: +1-800-947-5000
+    hours: 24/7
+    source: https://www.dteenergy.com/us/en/quicklinks/contact-us.html
+    last_verified: 2026-10-12
+  - id: business-phone
+    type: phone
+    label: Business assistance (855 DTE 4BIZ)
+    value: +1-855-383-4249
+    hours: "Mon-Fri 8 a.m.-5 p.m."
+    source: https://www.dteenergy.com/us/en/quicklinks/contact-us.html
+    last_verified: 2026-10-12
+  - id: outage-report-online
+    type: web_form
+    label: Report an outage (Outage Center)
+    value: https://outage.dteenergy.com/report-outage
+    purposes: [service_outage]
+    source: https://www.dteenergy.com/
+    last_verified: 2026-10-12
+  - id: complaint-form
+    type: web_form
+    label: File a Complaint or a Compliment
+    value: https://newlook.dteenergy.com/wps/wcm/connect/dte-web/quicklinks/file-compliant
+    purposes: [billing_error, poor_service, service_outage]
+    notes: Linked from the DTE Contact Us page; the complaint instructions did not render for automated review.
+    source: https://www.dteenergy.com/us/en/quicklinks/contact-us.html
+    last_verified: 2026-10-12
+  - id: claims-form
+    type: web_form
+    label: Damage claim form (hosted on Smartsheet)
+    value: https://app.smartsheet.com/b/form/87a711674dde4b57ae2b83ac7703b266
+    purposes: [service_outage]
+    access: open
+    notes: Customer of record or property owner only. Include invoices, receipts and photos.
+    source: https://www.dteenergy.com/us/en/residential/emergency-and-safety/problems/damages-claims.html
+    last_verified: 2026-10-12
+  - id: payment-arrangement
+    type: portal
+    label: Payment Agreement (set up in the online account)
+    value: https://www.dteenergy.com/us/en/residential/billing-and-payments/energy-assistance/payment-agreement.html
+    purposes: [disconnection]
+    access: login
+    source: https://www.dteenergy.com/us/en/residential/billing-and-payments/energy-assistance/payment-agreement.html
+    last_verified: 2026-10-12
+  - id: payment-assistance
+    type: web_form
+    label: Energy assistance and protection programs (Winter Protection Plan, medical hold, critical care)
+    value: https://www.dteenergy.com/us/en/residential/billing-and-payments/energy-assistance/general-assistance.html
+    purposes: [disconnection]
+    access: open
+    source: https://www.dteenergy.com/us/en/residential/billing-and-payments/energy-assistance/general-assistance.html
+    last_verified: 2026-10-12
+  - id: medical-hold-email
+    type: email
+    label: Medical emergency hold and critical care (submit the Medical Certification Form)
+    value: medicalhold@dteenergy.com
+    purposes: [disconnection]
+    notes: Or use the Document Submission Portal. Form must be completed in English by a physician or public health official.
+    source: https://www.dteenergy.com/us/en/residential/billing-and-payments/energy-assistance/general-assistance.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, note: "Ask the representative for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, channel: complaint-form}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Michigan Public Service Commission (MPSC)."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Michigan Attorney General."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the bill by phone or the complaint form; if DTE does not fix it, complain to the MPSC.
+    evidence: [the disputed bill, previous bills, meter photos with dates, call notes with reference numbers]
+    steps:
+      - do: Call DTE residential assistance, dispute the bill and ask for a meter check if usage looks wrong. Get a reference number.
+        channel: customer-service-phone
+      - do: Put the complaint in writing through the File a Complaint form.
+        channel: complaint-form
+      - do: If not resolved, complain to the Michigan Public Service Commission.
+
+  - issue: disconnection
+    summary: Call DTE for a payment agreement, enroll in the Winter Protection Plan (Nov 1-Mar 31) if eligible, and submit a medical hold for up to 21 days.
+    evidence: [shutoff notice, account balance, household income documents, Medical Certification Form]
+    steps:
+      - do: Call DTE before the shutoff date and ask for a payment plan, or set up a Payment Agreement online.
+        channel: customer-service-phone
+      - do: If you are income-qualified or 65 or older, enroll in the Winter Protection Plan.
+        channel: payment-assistance
+      - do: For a medical emergency, send the Medical Certification Form signed by a physician or public health official.
+        channel: medical-hold-email
+      - do: Apply for State Emergency Relief through MI Bridges (not while on the Winter Protection Plan).
+      - do: If DTE does not help, contact the MPSC before the shutoff date.
+    facts:
+      - kind: policy
+        claim: The Winter Protection Plan runs November 1 through March 31 for income-qualified customers and seniors 65 and older regardless of income. Customers pay at least 7% of the estimated annual bill each month. Seniors disconnected before applying are reconnected without payment.
+        issues: [disconnection]
+        source: https://www.dteenergy.com/us/en/residential/billing-and-payments/energy-assistance/general-assistance.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: A medical emergency hold confirmed by a physician or public health official lasts up to 21 days. Critical Care (life-support or home medical equipment) uses the same form and must be renewed annually.
+        issues: [disconnection]
+        source: https://www.dteenergy.com/us/en/residential/billing-and-payments/energy-assistance/general-assistance.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Active military protection gives up to 90 days, with possible extensions, when the customer or spouse is called to full-time active service; past-due amounts can go on a plan of up to 12 months.
+        issues: [disconnection]
+        source: https://www.dteenergy.com/us/en/residential/billing-and-payments/energy-assistance/general-assistance.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Payment Agreements are available to all residential and commercial customers with a past-due balance. They need an initial down payment, with the rest in monthly installments without late fees.
+        issues: [disconnection]
+        source: https://www.dteenergy.com/us/en/residential/billing-and-payments/energy-assistance/payment-agreement.html
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Report the outage; MPSC outage credits are automatic. DTE pays damage claims it is responsible for, not storm food loss.
+    evidence: [outage dates and times, invoices, receipts, photos]
+    steps:
+      - do: Report the outage online or by phone.
+        channel: outage-report-online
+      - do: Check that the automatic outage credit appears within 1-2 billing cycles (up to 90 days). Ask DTE if it does not.
+        channel: customer-service-phone
+      - do: If you believe DTE caused property damage, submit the damage claim form with invoices, receipts and photos.
+        channel: claims-form
+    facts:
+      - kind: compensation
+        claim: Customers with a qualifying outage between Oct. 1, 2025 and Sept. 30, 2026 receive a $42 bill credit; outages after Oct. 1, 2026 receive $44. Qualifying outages are more than 16 hours (event affecting 1% or less of customers), more than 48 hours (event affecting more than 1%), more than 96 hours in catastrophic conditions, or six outages in 12 months.
+        issues: [service_outage]
+        source: https://www.dteenergy.com/us/en/residential/emergency-and-safety/problems/damages-claims.html
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Outage credit eligibility is determined automatically with no request needed; the credit posts within 1-2 billing cycles or up to 90 days after the outage.
+        issues: [service_outage]
+        source: https://www.dteenergy.com/us/en/residential/emergency-and-safety/problems/damages-claims.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: DTE is not responsible for hotel or lodging costs, food loss, or appliances damaged by voltage surges caused by storms or weather. Online damage claims get a decision within 30 days.
+        issues: [service_outage]
+        source: https://www.dteenergy.com/us/en/residential/emergency-and-safety/problems/damages-claims.html
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Payment Agreements are set up in the online account (sign-in required).
+  - The Medical Certification Form must be completed in English by a physician or public health official.

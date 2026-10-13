@@ -1,0 +1,231 @@
+id: duke-energy
+name: Duke Energy
+aliases: [Duke, Duke Energy Carolinas, Duke Energy Progress, Duke Energy Florida, Duke Energy Indiana, Duke Energy Ohio, Duke Energy Kentucky, Piedmont Natural Gas]
+sector: utility
+website: https://www.duke-energy.com
+notes: >-
+  Electric operating companies: Duke Energy Carolinas and Duke Energy Progress (North Carolina and South
+  Carolina), Duke Energy Florida, Duke Energy Indiana, and Duke Energy Ohio/Kentucky (electric and gas).
+  Piedmont Natural Gas is Duke's gas utility in the Carolinas. Phone numbers differ by operating company;
+  the bill shows which one serves the account. Duke Energy Carolinas and Duke Energy Progress applied in
+  2025 to combine into one utility; Duke targets January 1, 2027. Duke sold its Tennessee Piedmont Natural
+  Gas business to Spire on March 31, 2026 (now Spire Tennessee). State commissions: North Carolina
+  Utilities Commission (consumer complaints go to its Public Staff), Public Service Commission of South
+  Carolina, Florida Public Service Commission, Indiana Utility Regulatory Commission, Public Utilities
+  Commission of Ohio, Kentucky Public Service Commission.
+
+channels:
+  - id: dec-customer-service-phone
+    type: phone
+    label: Duke Energy Carolinas residential customer service and pay by phone
+    value: +1-800-777-9898
+    hours: 7 a.m. to 7 p.m.
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    notes: Duke also lists this number for high water and nuclear emergencies.
+    source: https://www.duke-energy.com/Customer-Service/Business?jur=SC01
+    last_verified: 2026-10-12
+  - id: dep-customer-service-phone
+    type: phone
+    label: Duke Energy Progress customer service and pay by phone
+    value: +1-800-452-2777
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    source: https://be-right-back.duke-energy.com/home
+    last_verified: 2026-10-12
+  - id: def-customer-service-phone
+    type: phone
+    label: Duke Energy Florida customer service and pay by phone
+    value: +1-800-700-8744
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    source: https://be-right-back.duke-energy.com/home
+    last_verified: 2026-10-12
+  - id: dei-customer-service-phone
+    type: phone
+    label: Duke Energy Indiana customer service and pay by phone
+    value: +1-800-521-2232
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    source: https://be-right-back.duke-energy.com/home
+    last_verified: 2026-10-12
+  - id: deok-customer-service-phone
+    type: phone
+    label: Duke Energy Ohio and Kentucky customer service (billing, usage history, medical certificates)
+    value: +1-800-544-6900
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    source: https://be-right-back.duke-energy.com/home
+    last_verified: 2026-10-12
+  - id: dec-outage-phone
+    type: phone
+    label: Report an outage, Duke Energy Carolinas (800-POWERON)
+    value: +1-800-769-3766
+    purposes: [service_outage]
+    source: https://be-right-back.duke-energy.com/home
+    last_verified: 2026-10-12
+  - id: dep-outage-phone
+    type: phone
+    label: Report an outage, Duke Energy Progress
+    value: +1-800-419-6356
+    purposes: [service_outage]
+    source: https://be-right-back.duke-energy.com/home
+    last_verified: 2026-10-12
+  - id: def-outage-phone
+    type: phone
+    label: Report an outage, Duke Energy Florida
+    value: +1-800-228-8485
+    purposes: [service_outage]
+    source: https://be-right-back.duke-energy.com/home
+    last_verified: 2026-10-12
+  - id: dei-outage-phone
+    type: phone
+    label: Report an outage, Duke Energy Indiana
+    value: +1-800-343-3525
+    purposes: [service_outage]
+    source: https://be-right-back.duke-energy.com/home
+    last_verified: 2026-10-12
+  - id: deok-outage-phone
+    type: phone
+    label: Report an outage, Duke Energy Ohio and Kentucky
+    value: +1-800-543-5599
+    purposes: [service_outage]
+    source: https://be-right-back.duke-energy.com/home
+    last_verified: 2026-10-12
+  - id: outage-text
+    type: sms
+    label: Text OUT to 57801 from the mobile phone on the electric account to report an outage
+    value: "57801"
+    purposes: [service_outage]
+    notes: Text REG to the same number to sign up for outage alerts.
+    source: https://be-right-back.duke-energy.com/home
+    last_verified: 2026-10-12
+  - id: gas-emergency-phone
+    type: phone
+    label: Duke Energy natural gas emergencies (also call 911)
+    value: +1-800-634-4300
+    source: https://be-right-back.duke-energy.com/home
+    last_verified: 2026-10-12
+  - id: piedmont-phone
+    type: phone
+    label: Piedmont Natural Gas emergencies and pay bill (also call 911 for a gas emergency)
+    value: +1-800-752-7504
+    source: https://be-right-back.duke-energy.com/home
+    last_verified: 2026-10-12
+  - id: installment-plans-page
+    type: portal
+    label: Due date extensions and installment plans
+    value: https://www.duke-energy.com/home/billing/assistance/installment-plans
+    purposes: [disconnection]
+    source: https://www.duke-energy.com/home/billing/assistance/installment-plans
+    last_verified: 2026-10-12
+  - id: medical-certificate-request
+    type: web_form
+    label: Medical certificate request (Duke Energy Ohio and Kentucky)
+    value: https://www.duke-energy.com/home/billing/assistance/medical-certificate-request
+    purposes: [disconnection]
+    notes: The licensed medical practitioner must request the certificate. A request does not guarantee approval.
+    source: https://www.duke-energy.com/home/billing/assistance/medical-certificate-request
+    last_verified: 2026-10-12
+  - id: medically-essential-page
+    type: portal
+    label: Medically Essential program (Carolinas)
+    value: https://www.duke-energy.com/Home/Billing/Special-Assistance/Medically-Essential?jur=SC01
+    purposes: [disconnection]
+    source: https://www.duke-energy.com/Home/Billing/Special-Assistance/Medically-Essential?jur=SC01
+    last_verified: 2026-10-12
+  - id: life-support-request
+    type: web_form
+    label: Life Support Program request (helps Duke locate customers with electric life support equipment)
+    value: https://www.duke-energy.com/home/billing/special-assistance/life-support
+    purposes: [service_outage]
+    source: https://www.duke-energy.com/home/billing/special-assistance/life-support
+    last_verified: 2026-10-12
+  - id: share-the-light-page
+    type: portal
+    label: Share the Light Fund (bill assistance through partner agencies)
+    value: https://www.duke-energy.com/home/billing/special-assistance/share-the-light
+    purposes: [disconnection]
+    source: https://news.duke-energy.com/releases/duke-energy-launches-more-robust-customer-assistance-program-called-share-the-light-fund
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, note: "Call the customer service number for your operating company (on the bill)."}
+  - {rung: supervisor}
+  - {rung: written_complaint, note: "Duke publishes no complaint email, form or mailing address. Put the dispute in writing through the account or by mail to the address on the bill."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "North Carolina: informal complaint to the Public Staff of the North Carolina Utilities Commission, or a formal complaint to the Commission. Other states: the state commission listed in notes."}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the bill with Duke first, keep paying undisputed amounts, then go to the state commission.
+    evidence: [the bill, meter readings shown on the bill, earlier bills for comparison, notes of each call with date and name]
+    steps:
+      - do: Call customer service for your operating company. Ask whether the bill used an actual or an estimated reading, and ask for a correction.
+        channel: dec-customer-service-phone
+        note: Use the number for your own operating company. Each one is a separate channel in this file.
+      - do: If you think the meter is wrong, ask for a meter test and ask what it costs.
+      - do: Keep paying the part of the bill you do not dispute. Duke's South Carolina tariff says a claim against Duke cannot be set off against money owed for service.
+      - do: If Duke does not fix it, ask for a supervisor, then complain to the state utility commission.
+    facts:
+      - kind: fee
+        claim: Duke Energy Carolinas' South Carolina service regulations list a meter test charge of $50.00 for self-contained meters and $65.00 for all other meters, for tests beyond the commission's test schedule.
+        issues: [billing_error]
+        source: https://p-cd.duke-energy.com/-/media/pdfs/for-your-home/rates/electric-sc/scleafs.pdf?rev=63f20062096c48ce9b94acecd09f7166
+        last_verified: 2026-10-12
+      - kind: process
+        claim: In North Carolina, Duke says a customer may appeal a company decision with an informal complaint to the Public Staff of the North Carolina Utilities Commission, or a formal complaint with the Commission.
+        issues: [billing_error, disconnection]
+        source: https://www.duke-energy.com/-/media/pdfs/for-your-home/dec-powerpair-terms-and-conditions.pdf?rev=431cd69341c344dcb7170779f97802f5
+        last_verified: 2026-10-12
+  - issue: disconnection
+    summary: Ask for a due date extension or installment plan before the due date; use a medical certificate if someone's health is at risk.
+    evidence: [disconnection notice, account number, physician contact for a medical certificate]
+    steps:
+      - do: Call customer service before the due date. Ask for a due date extension (up to 10 business days) or an installment plan.
+        channel: dec-customer-service-phone
+        note: Use the number for your own operating company.
+      - do: In Ohio or Kentucky, if disconnection would be especially dangerous to someone's health, call 800-544-6900 to check eligibility for a medical certificate. The medical practitioner then requests it.
+        channel: medical-certificate-request
+      - do: Apply for help from the Share the Light Fund through a local partner agency.
+        channel: share-the-light-page
+      - do: If Duke will not agree to terms, complain to the state utility commission before the disconnection date.
+    facts:
+      - kind: policy
+        claim: A Due Date Extension gives up to 10 business days beyond the original due date.
+        issues: [disconnection]
+        source: https://www.duke-energy.com/home/billing/assistance/installment-plans
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Installment Plans for residential customers split past-due balances or deposits into equal monthly payments. No down payment is required, and the first payment is due with the next statement.
+        issues: [disconnection]
+        source: https://www.duke-energy.com/home/billing/assistance/installment-plans
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Duke's Medical Certification (Ohio and Kentucky) prevents disconnection for 30 days, or restores service if the certificate is provided within 21 days of disconnection. A household may get three certifications in a 12-month period and must enter an extended payment plan.
+        issues: [disconnection]
+        source: https://www.duke-energy.com/home/billing/special-assistance/medical-certification-and-customer-rights
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: In the Carolinas, the Medical Alert (Duke Energy Carolinas) and Medically Essential (Duke Energy Progress) programs flag the account but do not prevent disconnection for nonpayment.
+        issues: [disconnection]
+        source: https://p-cd.duke-energy.com/-/media/pdfs/for-your-home/bill-inserts-2022/05may/annual-3rd-party-medical-alert-reg-dep-carolinas.pdf?la=en&rev=a49ce0bc7c9149e4bfb6649a03a75d0c
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Share the Light Fund pays energy bills, deposits and reconnection or connection charges for qualifying customers through partner agencies.
+        issues: [disconnection]
+        source: https://news.duke-energy.com/releases/duke-energy-launches-more-robust-customer-assistance-program-called-share-the-light-fund
+        last_verified: 2026-10-12
+  - issue: service_outage
+    summary: Report the outage to the outage line for your operating company, by text, or in the app.
+    evidence: [account number or service address, outage start time]
+    steps:
+      - do: Report the outage by phone for your operating company, or text OUT to 57801 from the phone on the account.
+        channel: outage-text
+      - do: If someone uses electric life support equipment, register for the Life Support Program before an outage.
+        channel: life-support-request
+
+tips:
+  - kind: official
+    text: Each Duke operating company has its own customer service and outage number. Use the one that matches the company name on the bill.
+    source: https://be-right-back.duke-energy.com/home
+    last_verified: 2026-10-12
+
+known_blockers:
+  - duke-energy.com returned HTTP 403 to automated requests on 2026-10-12, and the main site showed a "Be Right Back" page. Values here come from that page and from search results on duke-energy.com.
+  - Account changes, payment arrangements and extensions need sign-in to the Duke Energy account or a call by the account holder.

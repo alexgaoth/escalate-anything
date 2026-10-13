@@ -1,0 +1,113 @@
+id: nv-energy
+name: NV Energy
+aliases: [Nevada Power Company, Nevada Power, Sierra Pacific Power Company, Sierra Pacific Power]
+sector: utility
+website: https://www.nvenergy.com
+notes: >-
+  Nevada Power Company (southern Nevada, electric) and Sierra Pacific Power Company (northern Nevada,
+  electric and gas) do business as NV Energy. Regulated by the Public Utilities Commission of Nevada
+  (PUCN). Termination rules are in NV Energy's Rule No. 6 tariffs. The PUCN tells customers to try the
+  utility first, ask for a supervisor, then file an informal complaint with its Consumer Complaint
+  Resolution Division.
+
+channels:
+  - id: report-outage-page
+    type: web_form
+    label: Report an outage
+    value: https://www.nvenergy.com/outages-and-emergencies/report-an-outage
+    purposes: [service_outage]
+    notes: URL taken from NV Energy's sitemap. The page loads with JavaScript; its content could not be read automatically.
+    source: https://www.nvenergy.com/sitemap.xml
+    last_verified: 2026-10-12
+  - id: payment-arrangement-page
+    type: portal
+    label: Payment arrangement
+    value: https://www.nvenergy.com/my-account/payment-arrangement-landing
+    purposes: [disconnection]
+    notes: URL taken from NV Energy's sitemap. The page loads with JavaScript; its content could not be read automatically.
+    source: https://www.nvenergy.com/sitemap.xml
+    last_verified: 2026-10-12
+  - id: assistance-programs-page
+    type: portal
+    label: Assistance programs
+    value: https://www.nvenergy.com/account-services/assistance-programs
+    purposes: [disconnection]
+    notes: URL taken from NV Energy's sitemap. The page loads with JavaScript; its content could not be read automatically.
+    source: https://www.nvenergy.com/sitemap.xml
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, note: "Call NV Energy customer service (number on the bill)."}
+  - {rung: supervisor, note: "The PUCN suggests asking for a supervisor and keeping a record of names and conversations."}
+  - {rung: written_complaint}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Public Utilities Commission of Nevada, Consumer Complaint Resolution Division (informal complaint), then a formal written complaint."}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: billing_error
+    summary: Contact NV Energy first; the first meter test in 12 months is free, and meter errors over 2% are corrected for 3 to 6 months back.
+    evidence: [the bill, meter readings, earlier bills, notes of each contact with names]
+    steps:
+      - do: Contact NV Energy customer service and ask for a review. Ask for a supervisor if needed, and keep a record of names.
+      - do: Ask for a meter test if you think the meter is inaccurate.
+      - do: If NV Energy does not resolve it, file an informal complaint with the PUCN Consumer Complaint Resolution Division.
+    facts:
+      - kind: fee
+        claim: In Nevada, the first meter test a customer requests in any 12-month period is free; the utility may charge for later tests in the same period.
+        issues: [billing_error]
+        source: https://puc.nv.gov/FAQ/Utility_Bills/
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: When a meter is inaccurate by more than 2 percent (and there is no tampering), the utility must adjust bills back three months for underpayment and six months for overcollection.
+        issues: [billing_error]
+        source: https://puc.nv.gov/FAQ/Utility_Bills/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: An estimated bill uses the consumption for the same period the previous year, and is corrected once the meter is read.
+        issues: [billing_error]
+        source: https://puc.nv.gov/FAQ/Utility_Bills/
+        last_verified: 2026-10-12
+  - issue: disconnection
+    summary: Nevada requires a 10-day notice and a second 48-hour notice; a medical certificate postpones termination 30 days, and extreme-temperature forecasts stop it.
+    evidence: [termination notice, account number, signed medical statement if it applies]
+    steps:
+      - do: Contact NV Energy before the termination date and ask for a payment arrangement.
+        channel: payment-arrangement-page
+      - do: If termination would be especially dangerous to a resident's health, get a written statement from a physician, public health official or advanced practice registered nurse, plus your signed statement that you cannot pay or can pay only in installments.
+      - do: If the forecast is 105 degrees F or higher, or 15 degrees F or lower, within 24 hours, tell NV Energy the moratorium applies.
+      - do: If NV Energy proceeds anyway, contact the PUCN Consumer Complaint Resolution Division before the termination date.
+    facts:
+      - kind: deadline
+        claim: A Nevada gas or electric utility must give 10 days' written notice before disconnection, and a second notice at least 48 hours before termination if the first goes unpaid.
+        issues: [disconnection]
+        source: https://puc.nv.gov/FAQ/Termination_of_Service/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Nevada utilities may not disconnect the day before a weekend, on a weekend, or on a state holiday, except for safety.
+        issues: [disconnection]
+        source: https://puc.nv.gov/FAQ/Termination_of_Service/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Nevada Power postpones residential termination for 30 days after it receives a certifying statement from a licensed physician, public health official or advanced practice registered nurse, and the customer's signed statement of inability to pay. A renewed medical certificate extends this by 30 more days.
+        issues: [disconnection]
+        source: https://www.nvenergy.com/publish/content/dam/nvenergy/brochures_arch/about-nvenergy/rates-regulatory/electric-rules-south/Rule_6_South.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Under a medical postponement, Nevada Power allows an installment period of up to 90 days to pay the bills.
+        issues: [disconnection]
+        source: https://www.nvenergy.com/publish/content/dam/nvenergy/brochures_arch/about-nvenergy/rates-regulatory/electric-rules-south/Rule_6_South.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Nevada Power postpones termination for nonpayment for any 24 hours for which the National Weather Service forecasts 105 degrees Fahrenheit or higher, or 15 degrees Fahrenheit or lower.
+        issues: [disconnection]
+        source: https://www.nvenergy.com/publish/content/dam/nvenergy/brochures_arch/about-nvenergy/rates-regulatory/electric-rules-south/Rule_6_South.pdf
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: NV Energy must restore service the same day if payment is received by 10:00 a.m., and within 24 hours of a later payment (with exceptions for causes beyond its control and multiunit complexes).
+        issues: [disconnection]
+        source: https://puc.nv.gov/FAQ/Termination_of_Service/
+        last_verified: 2026-10-12
+
+known_blockers:
+  - nvenergy.com renders with JavaScript; automated tools saw only the title "NV Energy" on every page. NV Energy's customer service, outage and emergency phone numbers were not confirmed and are not listed.
+  - The Rule No. 6 (south) tariff sheets used here carry effective dates from 2005 to 2017.

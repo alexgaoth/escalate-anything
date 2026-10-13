@@ -1,0 +1,201 @@
+id: southern-california-edison
+name: Southern California Edison
+aliases: [SCE, Edison, So Cal Edison]
+sector: utility
+parent: Edison International
+website: https://www.sce.com
+account_url: https://www.sce.com/mysce/myaccount
+notes: >-
+  Electric utility for central, coastal and southern California (not San Diego). Regulated by the
+  California Public Utilities Commission (CPUC). Claims for losses from the Eaton Fire are
+  handled only through SCE's separate Wildfire Recovery Compensation Program, not the general claims process.
+  SCE publishes 1-800-284-2365 as Customer Service/Customer Support and 1-800-655-4555 on the
+  Medical Baseline page.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: SCE Customer Service / Customer Support
+    value: +1-800-284-2365
+    purposes: [billing_error, bill_increase, disconnection, poor_service]
+    notes: The financial assistance page gives this number for payment arrangements and choosing a due date; the AMP page for enrolling by phone.
+    source: https://www.sce.com/customer-service-center/help-center/request-support
+    last_verified: 2026-10-12
+  - id: medical-baseline-phone
+    type: phone
+    label: Medical Baseline program questions
+    value: +1-800-655-4555
+    purposes: [disconnection]
+    source: https://www.sce.com/save-money/rebates-financial-assistance/bill-assistance-programs/medical-baseline-allowance
+    last_verified: 2026-10-12
+  - id: outage-phone
+    type: phone
+    label: Report an outage
+    value: +1-800-611-1911
+    purposes: [service_outage]
+    source: https://www.sce.com/customer-service-center/help-center/request-support
+    last_verified: 2026-10-12
+  - id: outage-report-online
+    type: web_form
+    label: Report an outage online
+    value: https://www.sce.com/outages-safety/report-outage-safety-issue/report-outage
+    purposes: [service_outage]
+    access: open
+    source: https://www.sce.com/outages-safety/report-outage-safety-issue/report-outage
+    last_verified: 2026-10-12
+  - id: claims-form
+    type: web_form
+    label: Submit a claim online (not Eaton Fire)
+    value: https://www.sce.com/apps/cmr
+    purposes: [service_outage]
+    access: open
+    notes: Submit a claim one way only; submitting several ways can slow processing.
+    source: https://www.sce.com/customer-service/request-support/claims
+    last_verified: 2026-10-12
+  - id: claims-phone
+    type: phone
+    label: Claims (English)
+    value: +1-800-251-3311
+    purposes: [service_outage]
+    source: https://www.sce.com/customer-service/request-support/claims
+    last_verified: 2026-10-12
+  - id: claims-spanish-phone
+    type: phone
+    label: Claims (Spanish)
+    value: +1-800-441-2233
+    purposes: [service_outage]
+    source: https://www.sce.com/customer-service/request-support/claims
+    last_verified: 2026-10-12
+  - id: claims-email
+    type: email
+    label: Claims Department email
+    value: claims@sce.com
+    purposes: [service_outage]
+    source: https://www.sce.com/customer-service/request-support/claims
+    last_verified: 2026-10-12
+  - id: claims-mail
+    type: mail
+    label: Claims Department by mail
+    value: "Southern California Edison Company, Attn: Claims Department, P.O. Box 900, Rosemead, CA 91770"
+    purposes: [service_outage]
+    source: https://www.sce.com/customer-service/request-support/claims
+    last_verified: 2026-10-12
+  - id: payment-arrangement
+    type: portal
+    label: Request a payment arrangement in My Account
+    value: https://www.sce.com/mysce/myaccount
+    purposes: [disconnection]
+    access: login
+    notes: Or call 1-800-284-2365.
+    source: https://www.sce.com/customer-service/billing-payment/financial-assistance
+    last_verified: 2026-10-12
+  - id: amp-application
+    type: web_form
+    label: Arrearage Management Plan (AMP) application
+    value: https://cloud.sce.com/amp_form
+    purposes: [disconnection]
+    access: open
+    notes: Needs the Service Account Number (starts with 8, upper left of the bill).
+    source: https://www.sce.com/save-money/income-qualified-programs/arrearage-management-plans
+    last_verified: 2026-10-12
+  - id: payment-assistance
+    type: web_form
+    label: Bill assistance programs (CARE/FERA, Energy Assistance Fund, AMP, Budget Billing, Medical Baseline)
+    value: https://www.sce.com/save-money/rebates-financial-assistance/bill-assistance-programs
+    purposes: [disconnection]
+    access: open
+    source: https://www.sce.com/save-money/rebates-financial-assistance/bill-assistance-programs
+    last_verified: 2026-10-12
+  - id: medical-baseline
+    type: web_form
+    label: Medical Baseline Allowance application (online DocuSign or mail-in form)
+    value: https://www.sce.com/save-money/rebates-financial-assistance/bill-assistance-programs/medical-baseline-allowance
+    purposes: [disconnection]
+    access: open
+    notes: "Online form sends a signature request to the medical professional by email. Mail-in: Southern California Edison, Medical Baseline Allowance Department, P.O. Box 9527, Azusa, CA 91702-9954."
+    source: https://www.sce.com/save-money/rebates-financial-assistance/bill-assistance-programs/medical-baseline-allowance
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, note: "Ask the representative for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, note: "SCE does not publish a complaint form or complaint address on the pages reviewed. Send a dated letter and keep call notes with reference numbers."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "California Public Utilities Commission (CPUC), Consumer Affairs Branch."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "California Attorney General."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the bill with SCE customer service and get a reference number; if SCE does not fix it, complain to the CPUC.
+    evidence: [the disputed bill, previous bills, meter photos with dates, call notes with reference numbers]
+    steps:
+      - do: Call SCE, say you dispute the bill, and ask for a bill review and, if usage looks wrong, a meter check. Get a reference number.
+        channel: customer-service-phone
+      - do: Put the dispute in writing with the account number, the bill date and the amount you dispute. Keep a copy.
+      - do: If SCE does not resolve it, file a complaint with the CPUC Consumer Affairs Branch.
+
+  - issue: disconnection
+    summary: Call before the shutoff date, ask for a payment arrangement, and apply for AMP, CARE/FERA or the Energy Assistance Fund.
+    evidence: [disconnection notice, account balance, CARE/FERA enrollment, Medical Baseline approval]
+    steps:
+      - do: Request a payment arrangement in My Account or by phone before the shutoff date.
+        channel: payment-arrangement
+      - do: If you are on CARE or FERA with more than $500 past due, apply for AMP debt forgiveness.
+        channel: amp-application
+      - do: Ask a local United Way agency for an Energy Assistance Fund grant.
+        channel: payment-assistance
+      - do: If someone in the home uses electric medical equipment, apply for Medical Baseline.
+        channel: medical-baseline
+    facts:
+      - kind: compensation
+        claim: The Arrearage Management Plan forgives 1/12 of the past-due amount for each on-time payment, up to $8,000. It needs CARE or FERA enrollment, more than $500 past due (some over 90 days), at least six months as a customer, and on-time payments for the next 12 months.
+        issues: [disconnection]
+        source: https://www.sce.com/save-money/income-qualified-programs/arrearage-management-plans
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: Missing two consecutive payments or three non-consecutive payments removes a customer from AMP. Net Energy Metering, Solar Billing Plan, Direct Access and master-metered customers cannot enroll.
+        issues: [disconnection]
+        source: https://www.sce.com/save-money/income-qualified-programs/arrearage-management-plans
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: The Energy Assistance Fund pays up to $200 (up to $300 for an all-electric household) toward the SCE bill once in a 12-month period for income-qualified residential customers. Apply through a United Way or partner agency.
+        issues: [disconnection]
+        source: https://www.sce.com/save-money/rebates-financial-assistance/bill-assistance-programs/energy-assistance-fund
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Report the outage; SCE pays claims for losses caused by its negligence, not for weather outages.
+    evidence: [outage dates and times, itemized losses with receipts, photos, repair estimates]
+    steps:
+      - do: Report the outage online or by phone.
+        channel: outage-report-online
+      - do: If you believe SCE caused your loss, submit one claim online, by phone, email or mail.
+        channel: claims-form
+      - do: For Eaton Fire losses, use the Wildfire Recovery Compensation Program, not the general claims process.
+    facts:
+      - kind: policy
+        claim: SCE is generally responsible for losses caused by its negligence. Outages and losses from forces outside its control, such as weather, are often not its responsibility. For damaged property it pays the least expensive of repair, fair market value or replacement.
+        issues: [service_outage]
+        source: https://www.sce.com/customer-service/request-support/claims
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: The statute of limitations for an SCE claim is 3 years for property damage and 2 years for bodily injury. SCE's goal is to decide most claims within 30 days of receipt.
+        issues: [service_outage]
+        source: https://www.sce.com/customer-service/request-support/claims
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Medical Baseline gives an extra 16.5 kWh per day at the lowest baseline rate, or a flat 11% discount on rate plans without a baseline such as Time-of-Use. A medical professional must sign the application.
+    issues: [disconnection]
+    source: https://www.sce.com/save-money/rebates-financial-assistance/bill-assistance-programs/medical-baseline-allowance
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: Medical Baseline recertification is every four years for permanent conditions (customer completes Part 1) and every two years for non-permanent conditions (medical professional completes Part 2).
+    issues: [disconnection]
+    source: https://www.sce.com/save-money/rebates-financial-assistance/bill-assistance-programs/medical-baseline-allowance
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Payment arrangements online need a My Account sign-in.
+  - The Medical Baseline application needs a medical professional's signature.
+  - SCE's tariff rules (deposits, disputed bills, meter tests, disconnection) are hosted in a SharePoint folder that did not load for review.

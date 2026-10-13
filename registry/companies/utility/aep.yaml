@@ -1,0 +1,237 @@
+id: aep
+name: American Electric Power
+aliases: [AEP, AEP Ohio, Ohio Power Company, Appalachian Power, Indiana Michigan Power, I&M, Kentucky Power, Public Service Company of Oklahoma, PSO, Southwestern Electric Power Company, SWEPCO, AEP Texas]
+sector: utility
+website: https://www.aep.com
+notes: >-
+  AEP operating companies and their states: AEP Ohio (Ohio Power Company, Ohio), Appalachian Power
+  (Virginia, West Virginia, Tennessee), Indiana Michigan Power (Indiana, Michigan), Kentucky Power
+  (eastern Kentucky), Public Service Company of Oklahoma (Oklahoma), SWEPCO (Louisiana, Arkansas, East
+  Texas and the north Texas Panhandle) and AEP Texas (south and west Texas). Each has its own website and
+  phone number; use the one on the bill. Texas retail electric providers list AEP Texas as the delivery
+  utility (TDU) for outages, so customers there are billed by their retail provider and complain about
+  bills to that provider. State commissions include the Public Utilities Commission of Ohio (PUCO),
+  Virginia State Corporation Commission, Public Service Commission of West Virginia, Tennessee Public
+  Utility Commission, Indiana Utility Regulatory Commission, Michigan Public Service Commission,
+  Kentucky Public Service Commission, Oklahoma Corporation Commission, Louisiana Public Service
+  Commission, Arkansas Public Service Commission and Public Utility Commission of Texas.
+
+channels:
+  - id: aep-ohio-phone
+    type: phone
+    label: AEP Ohio Customer Solutions Center, emergencies and safety hazards
+    value: +1-800-672-2231
+    hours: 24 hours for emergencies and hazards
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, service_outage, poor_service]
+    source: https://www.aepohio.com/contact/
+    last_verified: 2026-10-12
+  - id: aep-ohio-customer-concerns-mail
+    type: mail
+    label: AEP Ohio Customer Concerns (written complaints)
+    value: Customer Concerns, 4500 S. Hamilton Road, Groveport, OH 43125
+    purposes: [billing_error, disconnection, poor_service]
+    source: https://www.aepohio.com/lib/docs/global/CustomerHandbooks/AEP_Ohio_Handbook.pdf
+    last_verified: 2026-10-12
+  - id: aep-ohio-payment-arrangement
+    type: portal
+    label: AEP Ohio payment arrangement request
+    value: https://www.aepohio.com/account/bills/pay/assistance/arrangement
+    purposes: [disconnection]
+    source: https://www.aepohio.com/account/bills/pay/assistance/
+    last_verified: 2026-10-12
+  - id: aep-ohio-assistance-page
+    type: portal
+    label: AEP Ohio payment assistance (PIPP Plus, HEAP, Neighbor to Neighbor)
+    value: https://www.aepohio.com/account/bills/pay/assistance/
+    purposes: [disconnection]
+    source: https://www.aepohio.com/account/bills/pay/assistance/
+    last_verified: 2026-10-12
+  - id: appalachian-va-phone
+    type: phone
+    label: Appalachian Power Customer Solutions Center (Virginia) and emergencies
+    value: +1-800-956-4237
+    hours: 24 hours for emergencies and hazards
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, service_outage, poor_service]
+    source: https://www.appalachianpower.com/contact/
+    last_verified: 2026-10-12
+  - id: appalachian-tn-phone
+    type: phone
+    label: Appalachian Power Customer Solutions Center (Tennessee)
+    value: +1-800-967-4237
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    source: https://www.appalachianpower.com/contact/
+    last_verified: 2026-10-12
+  - id: appalachian-wv-phone
+    type: phone
+    label: Appalachian Power Customer Solutions Center (West Virginia)
+    value: +1-800-982-4237
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    source: https://www.appalachianpower.com/contact/
+    last_verified: 2026-10-12
+  - id: im-indiana-phone
+    type: phone
+    label: Indiana Michigan Power (Indiana) customer service and emergencies
+    value: +1-800-311-4634
+    hours: 24 hours for emergencies and hazards
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, service_outage, poor_service]
+    source: https://www.indianamichiganpower.com/contact/
+    last_verified: 2026-10-12
+  - id: im-michigan-phone
+    type: phone
+    label: Indiana Michigan Power (Michigan) customer service
+    value: +1-800-311-6424
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    source: https://www.indianamichiganpower.com/contact/
+    last_verified: 2026-10-12
+  - id: kentucky-power-phone
+    type: phone
+    label: Kentucky Power Customer Solutions Center and emergencies
+    value: +1-800-572-1113
+    hours: 24 hours for emergencies and hazards
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, service_outage, poor_service]
+    source: https://www.kentuckypower.com/contact/
+    last_verified: 2026-10-12
+  - id: pso-customer-phone
+    type: phone
+    label: PSO Customer Operations Center (833-PSO-POWR)
+    value: +1-833-776-7697
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    notes: Spanish line 888-216-3505.
+    source: https://www.psoklahoma.com/contact/
+    last_verified: 2026-10-12
+  - id: pso-outage-phone
+    type: phone
+    label: PSO safety hazards and outages (833-PSO-OUTG)
+    value: +1-833-776-6884
+    purposes: [service_outage]
+    notes: Spanish line 888-218-3924.
+    source: https://www.psoklahoma.com/contact/
+    last_verified: 2026-10-12
+  - id: swepco-customer-phone
+    type: phone
+    label: SWEPCO Customer Operations Center (East Texas, Louisiana, Arkansas)
+    value: +1-888-216-3523
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    source: https://www.swepco.com/contact/
+    last_verified: 2026-10-12
+  - id: swepco-outage-phone
+    type: phone
+    label: SWEPCO emergencies and outages (East Texas, Louisiana, Arkansas)
+    value: +1-888-218-3919
+    hours: 24 hours
+    purposes: [service_outage]
+    source: https://www.swepco.com/contact/
+    last_verified: 2026-10-12
+  - id: swepco-panhandle-phone
+    type: phone
+    label: SWEPCO Customer Operations Center (North Texas Panhandle)
+    value: +1-800-723-7430
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    source: https://www.swepco.com/contact/
+    last_verified: 2026-10-12
+  - id: aep-texas-phone
+    type: phone
+    label: AEP Texas customer service and emergencies
+    value: +1-877-373-4858
+    hours: 24 hours for emergencies and hazards
+    purposes: [billing_error, poor_service]
+    source: https://www.aeptexas.com/contact/
+    last_verified: 2026-10-12
+  - id: aep-texas-outage-phone
+    type: phone
+    label: AEP Texas outages (also SWEPCO North Texas Panhandle emergencies)
+    value: +1-866-223-8508
+    purposes: [service_outage]
+    source: https://www.aeptexas.com/contact/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, note: "Call the operating company's number from this file or the bill."}
+  - {rung: supervisor}
+  - {rung: written_complaint, channel: aep-ohio-customer-concerns-mail, note: "Published for AEP Ohio. Other operating companies publish only an online contact form on their Contact Us page."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "AEP Ohio says to contact the PUCO if a complaint is not resolved after calling AEP Ohio. Other states: the commission listed in notes."}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: billing_error
+    summary: Ask the operating company to review the bill and test the meter; AEP Ohio's first meter test is free.
+    evidence: [the bill, meter readings, earlier bills, notes of each call]
+    steps:
+      - do: Call the operating company and ask whether the reading was actual or estimated. Ask for a correction.
+        channel: aep-ohio-phone
+        note: Use your own operating company's number.
+      - do: Ask for a meter test. In Ohio you may be present at the test and get a written explanation of the results.
+      - do: In Ohio, if the call does not settle it, write to Customer Concerns, then contact the PUCO.
+        channel: aep-ohio-customer-concerns-mail
+      - do: If you buy power from another supplier in Ohio, ask that supplier about its charges (its number is on the AEP Ohio bill).
+    facts:
+      - kind: fee
+        claim: "AEP Ohio: the first meter test is free; there may be a fee for additional tests in the following three years. If the meter is outside tolerance, the account is credited for overpayments and fees."
+        issues: [billing_error]
+        source: https://www.aepohio.com/lib/docs/global/CustomerHandbooks/AEP_Ohio_Handbook.pdf
+        last_verified: 2026-10-12
+      - kind: process
+        claim: "AEP Ohio: file a complaint by calling customer service, through Contact Us at AEPOhio.com, or in writing to Customer Concerns. If it is not resolved, contact the PUCO."
+        issues: [billing_error, poor_service]
+        source: https://www.aepohio.com/lib/docs/global/CustomerHandbooks/AEP_Ohio_Handbook.pdf
+        last_verified: 2026-10-12
+  - issue: disconnection
+    summary: Ask for a payment plan; in Ohio use the winter one-third plan, PIPP Plus or a medical certification.
+    evidence: [disconnection notice, account number, physician certification if it applies, income documents for PIPP Plus]
+    steps:
+      - do: Call the operating company before the shutoff date and ask for a payment arrangement.
+        channel: aep-ohio-payment-arrangement
+      - do: "In Ohio, from November 1 to April 15, ask for the Winter Heating Season Plan (pay one-third of the total bill each month)."
+        channel: aep-ohio-phone
+      - do: If disconnection would be especially dangerous to someone's health, have a physician certify it.
+      - do: Apply for PIPP Plus, HEAP or Neighbor to Neighbor.
+        channel: aep-ohio-assistance-page
+    facts:
+      - kind: policy
+        claim: "AEP Ohio will not shut off service for unpaid bills if a physician certifies that it would be especially dangerous to the health of someone in the household; the limit is three 30-day medical certifications in a 12-month period."
+        issues: [disconnection]
+        source: https://www.aepohio.com/lib/docs/global/CustomerHandbooks/AEP_Ohio_Handbook.pdf
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: "AEP Ohio: from November 1 through April 15, residential customers are mailed an additional 10-day disconnect notice before service may be shut off."
+        issues: [disconnection]
+        source: https://www.aepohio.com/lib/docs/global/CustomerHandbooks/AEP_Ohio_Handbook.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: "AEP Ohio shuts off service only between 8:30 a.m. and 4 p.m. Monday through Thursday, and 8:30 a.m. to 12:30 p.m. on Friday and days before certain holidays."
+        issues: [disconnection]
+        source: https://www.aepohio.com/lib/docs/global/CustomerHandbooks/AEP_Ohio_Handbook.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: "AEP Ohio offers a One-Ninth Payment Plan year round (nine equal monthly payments on the arrears plus a budget plan) and a Winter Heating Season Plan from November 1 through April 15 (one-third of the total bill each month)."
+        issues: [disconnection]
+        source: https://www.aepohio.com/lib/docs/global/CustomerHandbooks/AEP_Ohio_Handbook.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: "PIPP Plus (Ohio) is for households at or below 175 percent of the federal poverty guidelines; after 24 on-time, in-full payments in a row, the outstanding balance is eliminated."
+        issues: [disconnection]
+        source: https://www.aepohio.com/account/bills/pay/assistance/
+        last_verified: 2026-10-12
+  - issue: deposit_refund
+    summary: AEP Ohio's cash deposit is capped by PUCO rules; ask for the refund terms in writing.
+    evidence: [deposit amount and date, payment history]
+    steps:
+      - do: Ask the operating company when the deposit will be refunded and what interest applies.
+        channel: aep-ohio-phone
+    facts:
+      - kind: limit
+        claim: "AEP Ohio's cash deposit can't be more than an average 30-day bill plus 30 percent. Residential customers may offer a guarantor instead."
+        issues: [deposit_refund]
+        source: https://www.aepohio.com/lib/docs/global/CustomerHandbooks/AEP_Ohio_Handbook.pdf
+        last_verified: 2026-10-12
+  - issue: service_outage
+    summary: Report outages online or to the operating company's emergency number.
+    evidence: [service address, outage start time]
+    steps:
+      - do: Report the outage online (the /outages/report page on the operating company site) or call its emergency number.
+        channel: aep-ohio-phone
+        note: Use the outage or emergency number for your own operating company.
+
+known_blockers:
+  - The AEP Ohio customer handbook used here is marked Revised 11.23.2021. Check the current handbook for changes.
+  - Outage status pages and most account changes need sign-in.

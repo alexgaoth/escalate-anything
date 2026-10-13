@@ -1,0 +1,147 @@
+id: centerpoint-energy
+name: CenterPoint Energy
+aliases: [CenterPoint, CenterPoint Energy Houston Electric]
+sector: utility
+website: https://www.centerpointenergy.com
+account_url: https://myaccount.centerpointenergy.com/MyAccounts/Index/
+notes: >-
+  Electric delivery in the Greater Houston area, and natural gas in Texas, Minnesota, Indiana and Ohio
+  (Indiana also has CenterPoint electric service). In Houston, CenterPoint is the transmission and
+  distribution utility (TDU): it handles outages and meters, but residential customers buy power from a
+  retail electric provider and send billing complaints to that provider. State regulators include the
+  Public Utility Commission of Texas (electric), the Railroad Commission of Texas (gas), the Minnesota
+  Public Utilities Commission, the Indiana Utility Regulatory Commission and the Public Utilities
+  Commission of Ohio.
+
+channels:
+  - id: houston-electric-phone
+    type: phone
+    label: Greater Houston electric (delivery utility) outages and service
+    value: +1-800-332-7143
+    purposes: [service_outage]
+    notes: Also 713-207-2222. On CenterPoint's contact page the dial links for these two numbers point to the Houston gas numbers instead; Texas retail providers list both numbers for CenterPoint electric outages.
+    source: https://www.txu.com/help/support/power-outage
+    last_verified: 2026-10-12
+  - id: houston-gas-phone
+    type: phone
+    label: Greater Houston gas customer service
+    value: +1-800-752-8036
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    notes: Also 713-659-2111.
+    source: https://www.centerpointenergy.com/en-us/contact-us
+    last_verified: 2026-10-12
+  - id: east-texas-gas-phone
+    type: phone
+    label: Beaumont and East Texas gas customer service
+    value: +1-800-376-9663
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    source: https://www.centerpointenergy.com/en-us/contact-us
+    last_verified: 2026-10-12
+  - id: gas-leak-phone
+    type: phone
+    label: Gas leaks (leave the building first; also call 911); also listed as South Texas gas customer service
+    value: +1-888-876-5786
+    source: https://www.centerpointenergy.com/en-us/safety/reporting/gas-leak
+    last_verified: 2026-10-12
+  - id: minnesota-gas-phone
+    type: phone
+    label: Minnesota residential gas service
+    value: +1-800-245-2377
+    notes: Also 612-372-4727.
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    source: https://www.centerpointenergy.com/en-us/contact-us
+    last_verified: 2026-10-12
+  - id: indiana-phone
+    type: phone
+    label: Indiana electric and gas customer service
+    value: +1-800-227-1376
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    source: https://www.centerpointenergy.com/en-us/contact-us
+    last_verified: 2026-10-12
+  - id: ohio-gas-phone
+    type: phone
+    label: Ohio gas customer service
+    value: +1-800-838-0933
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    notes: On CenterPoint's contact page this number's dial link points to the Indiana number (800-227-1376). Confirm on the bill.
+    source: https://www.centerpointenergy.com/en-us/contact-us
+    last_verified: 2026-10-12
+  - id: contact-form
+    type: web_form
+    label: Online contact form
+    value: https://www.centerpointenergy.com/en-us/contact-us/form
+    purposes: [billing_error, bill_increase, poor_service]
+    source: https://www.centerpointenergy.com/en-us/contact-us
+    last_verified: 2026-10-12
+  - id: assistance-page
+    type: portal
+    label: Payment extensions, payment arrangements and assistance programs by state
+    value: https://www.centerpointenergy.com/en-us/my-account/billing-payment/assistance-programs
+    purposes: [disconnection]
+    source: https://www.centerpointenergy.com/en-us/my-account/billing-payment/assistance-programs
+    last_verified: 2026-10-12
+  - id: critical-care-page
+    type: portal
+    label: Critical Care customer registration (electric-powered medical equipment)
+    value: https://www.centerpointenergy.com/en-us/my-account/billing-payment/critical-care-customers
+    purposes: [service_outage, disconnection]
+    source: https://www.centerpointenergy.com/en-us/my-account/billing-payment/critical-care-customers
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, note: "Gas, Indiana electric: the state customer service number. Houston electric billing: the retail electric provider."}
+  - {rung: supervisor}
+  - {rung: written_complaint, channel: contact-form}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Public Utility Commission of Texas for Houston electric; the state commission for gas and Indiana electric (see notes)."}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: billing_error
+    summary: Gas and Indiana customers dispute with CenterPoint; Houston electric customers dispute the bill with their retail provider, which can ask CenterPoint to test the meter.
+    evidence: [the bill, meter readings, earlier bills]
+    steps:
+      - do: For a gas bill or an Indiana electric bill, call the customer service number for your state and ask for a review or a meter test.
+        channel: houston-gas-phone
+        note: Use your own state's number.
+      - do: For a Houston electric bill, dispute it with your retail electric provider. It can request a meter test from CenterPoint.
+      - do: Put the dispute in writing through the online contact form.
+        channel: contact-form
+  - issue: disconnection
+    summary: Request a one-time due date extension or a payment arrangement in My Account, and apply for state assistance.
+    evidence: [disconnection notice, account number]
+    steps:
+      - do: Sign in to My Account and request a due date extension or a payment arrangement. Keep paying current charges on time.
+        channel: assistance-page
+      - do: Apply for the assistance programs for your state (PIPP Plus and HEAP in Ohio, EAP in Indiana and Minnesota, CEAP in Texas), or call 211.
+        channel: assistance-page
+      - do: In Minnesota, ask about the Cold Weather Rule and the Medical Hardship Program.
+        channel: minnesota-gas-phone
+    facts:
+      - kind: policy
+        claim: CenterPoint offers a one-time due date extension for a few extra days, generally with no fee, and payment arrangements that split the bill into smaller payments if current charges are paid on time.
+        issues: [disconnection]
+        source: https://www.centerpointenergy.com/en-us/my-account/billing-payment/assistance-programs
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: "Minnesota: the Cold Weather Rule and Medical Hardship Program give late-fee grace periods and enrollment in Levelized Billing or a four-month payment plan."
+        issues: [disconnection]
+        source: https://www.centerpointenergy.com/en-us/my-account/billing-payment/assistance-programs
+        last_verified: 2026-10-12
+  - issue: service_outage
+    summary: Houston electric outages go to CenterPoint; register for Critical Care if someone depends on electric medical equipment.
+    evidence: [service address, ESI ID or meter number, outage start time]
+    steps:
+      - do: Report a Houston electric outage by phone or on the outage tracker (tracker.centerpointenergy.com).
+        channel: houston-electric-phone
+      - do: Register for Critical Care and update it every year. It gives notice of planned outages but does not guarantee power.
+        channel: critical-care-page
+    facts:
+      - kind: policy
+        claim: Registered Critical Care customers get notice before planned power outages, but registration does not guarantee uninterrupted power in emergencies or storms. Registration must be updated every year.
+        issues: [service_outage]
+        source: https://www.centerpointenergy.com/en-us/my-account/billing-payment/critical-care-customers
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Payment extensions and arrangements are set up in My Account (sign-in).
+  - CenterPoint's contact page shows phone numbers whose dial links do not match the displayed numbers (Houston electric, Ohio gas).

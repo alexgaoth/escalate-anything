@@ -1,0 +1,123 @@
+id: xcel-energy
+name: Xcel Energy
+aliases: [Xcel, Public Service Company of Colorado]
+sector: utility
+website: https://www.xcelenergy.com
+account_url: https://www.xcelenergy.com/MyAccount
+notes: >-
+  Electric and gas utility with state offices in Colorado, Michigan, Minnesota, New Mexico, North Dakota,
+  South Dakota, Texas and Wisconsin. Its Colorado operating company is Public Service Company of Colorado.
+  Rules differ by state; the facts below are marked Colorado or Minnesota. State commissions include the
+  Colorado Public Utilities Commission and the Minnesota Public Utilities Commission; other states have
+  their own commissions.
+
+channels:
+  - id: customer-care-phone
+    type: phone
+    label: Customer care (agents or automated system)
+    value: +1-800-895-4999
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    notes: Xcel's Colorado tariff and its Minnesota Cold Weather Rule release both give this number.
+    source: https://newsroom.xcelenergy.com/news/cold-weather-rule-takes-effect-oct-1-6928294
+    last_verified: 2026-10-12
+  - id: mn-energy-assistance-page
+    type: portal
+    label: Minnesota energy assistance and payment options
+    value: https://mn.my.xcelenergy.com/s/billing-payment/energy-assistance
+    purposes: [disconnection]
+    notes: The page loads with JavaScript; its content could not be read automatically.
+    source: https://newsroom.xcelenergy.com/news/cold-weather-rule-takes-effect-oct-1-6928294
+    last_verified: 2026-10-12
+  - id: co-mailing-address
+    type: mail
+    label: Public Service Company of Colorado mailing address (from the Colorado tariff title page)
+    value: Public Service Company of Colorado, P.O. Box 840, Denver, CO 80201-0840
+    purposes: [billing_error, deposit_refund]
+    source: https://www.xcelenergy.com/staticfiles/xe-responsive/Company/Rates%20&%20Regulations/PSCo_Electric_Entire_Tariff.pdf
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-care-phone}
+  - {rung: supervisor, note: "Colorado: a customer with a disconnection notice may ask for an in-person hearing with a managerial representative within 15 days of the notice."}
+  - {rung: written_complaint, channel: co-mailing-address}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Colorado Public Utilities Commission, Minnesota Public Utilities Commission, or the commission in the customer's state."}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: billing_error
+    summary: In Colorado, ask in writing for a free meter test if the meter was not tested in the last 12 months.
+    evidence: [the bill, meter readings, earlier bills]
+    steps:
+      - do: Call customer care. Ask whether the reading was estimated and ask for a correction.
+        channel: customer-care-phone
+      - do: In Colorado, send a written request for a meter accuracy test.
+        channel: co-mailing-address
+      - do: If the meter runs fast beyond the commission's tolerance, ask for the refund for the period back to the previous test (up to 24 months).
+      - do: If not resolved, complain to the state public utilities commission.
+    facts:
+      - kind: policy
+        claim: "Colorado: on written request, Xcel tests the service meter free of charge if it has not been tested within the 12 months before the request."
+        issues: [billing_error]
+        source: https://www.xcelenergy.com/staticfiles/xe-responsive/Company/Rates%20&%20Regulations/PSCo_Electric_Entire_Tariff.pdf
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: "Colorado: if a tested meter runs fast beyond the error tolerance, the refund covers the period back to the previous meter test, not more than twenty-four (24) months. If it runs slow, Xcel may back-bill not more than six (6) months."
+        issues: [billing_error]
+        source: https://www.xcelenergy.com/staticfiles/xe-responsive/Company/Rates%20&%20Regulations/PSCo_Electric_Entire_Tariff.pdf
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: "Colorado: for an over-billing, the customer may choose a credit or a one-time payment; a one-time refund is made within thirty (30) days. An under-billed customer may get a payment arrangement as long as the under-billed period."
+        issues: [billing_error]
+        source: https://www.xcelenergy.com/staticfiles/xe-responsive/Company/Rates%20&%20Regulations/PSCo_Electric_Entire_Tariff.pdf
+        last_verified: 2026-10-12
+  - issue: disconnection
+    summary: Colorado requires 15 days' written notice and allows a 90-day medical delay; Minnesota protects heating service from October 1 to April 30 if the customer sets up a payment plan.
+    evidence: [disconnection notice, account number, physician certification if it applies, household income for Minnesota plans]
+    steps:
+      - do: Call customer care at once and set up a payment plan.
+        channel: customer-care-phone
+      - do: In Colorado, if disconnection would be especially dangerous to someone's health, have a Colorado-licensed physician certify it (by phone first, then in writing within 10 days).
+      - do: In Colorado, ask for a hearing with a managerial representative within 15 days of the notice if you dispute it.
+      - do: In Minnesota, ask for a Cold Weather Rule payment plan and for referrals to energy assistance.
+        channel: mn-energy-assistance-page
+    facts:
+      - kind: deadline
+        claim: "Colorado: Xcel may discontinue residential service for nonpayment only after not less than fifteen (15) days' written notice to the customer and any designated third party."
+        issues: [disconnection]
+        source: https://www.xcelenergy.com/staticfiles/xe-responsive/Company/Rates%20&%20Regulations/PSCo_Electric_Entire_Tariff.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: "Colorado: service is not discontinued for ninety (90) days when a Colorado-licensed physician certifies that it would be especially dangerous to the health of a household member. A phone certification must be confirmed in writing within ten (10) days, and the delay is available once in any 12 consecutive months."
+        issues: [disconnection]
+        source: https://www.xcelenergy.com/staticfiles/xe-responsive/Company/Rates%20&%20Regulations/PSCo_Electric_Entire_Tariff.pdf
+        last_verified: 2026-10-12
+      - kind: process
+        claim: "Colorado: a customer who receives a Notice of Discontinuance may ask for an in-person hearing with a managerial representative of the company within fifteen (15) days of the notice."
+        issues: [disconnection, billing_error]
+        source: https://www.xcelenergy.com/staticfiles/xe-responsive/Company/Rates%20&%20Regulations/PSCo_Electric_Entire_Tariff.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: "Minnesota: under the Cold Weather Rule, residential customers are protected from disconnection of their primary heating source from October 1 through April 30. A customer with a disconnection notice must contact the utility and set up a payment plan; income-eligible customers' payments do not exceed 10 percent of household income."
+        issues: [disconnection]
+        source: https://newsroom.xcelenergy.com/news/cold-weather-rule-takes-effect-oct-1-6928294
+        last_verified: 2026-10-12
+  - issue: deposit_refund
+    summary: In Colorado, a deposit is refunded after 12 months without a disconnection notice, or when service ends and bills are paid.
+    evidence: [deposit amount and date, payment history]
+    steps:
+      - do: After 12 months with no delinquency notices, ask customer care to refund the deposit with interest.
+        channel: customer-care-phone
+    facts:
+      - kind: policy
+        claim: "Colorado: deposits are refunded after a twelve (12) month period if no delinquency resulted in a written disconnection notice; after that the company reviews monthly or on request. Interest is paid on refund or yearly on request."
+        issues: [deposit_refund]
+        source: https://www.xcelenergy.com/staticfiles/xe-responsive/Company/Rates%20&%20Regulations/PSCo_Electric_Entire_Tariff.pdf
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: "Colorado: an applicant without a satisfactory credit record may be asked for a deposit of an estimated sixty (60) days' bill, payable in up to three monthly installments with half due first."
+        issues: [deposit_refund]
+        source: https://www.xcelenergy.com/staticfiles/xe-responsive/Company/Rates%20&%20Regulations/PSCo_Electric_Entire_Tariff.pdf
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Most xcelenergy.com pages redirect to a JavaScript site (my.xcelenergy.com) that automated tools cannot read. Outage and gas emergency phone numbers were not confirmed.

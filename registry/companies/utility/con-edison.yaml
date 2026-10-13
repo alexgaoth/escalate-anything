@@ -1,0 +1,248 @@
+id: con-edison
+name: Consolidated Edison Company of New York
+aliases: [Con Edison, Con Ed, ConEd, Consolidated Edison]
+sector: utility
+parent: Consolidated Edison, Inc.
+website: https://www.coned.com
+account_url: https://www.coned.com/en/accounts-billing/my-account
+notes: >-
+  Electric, gas and steam utility for New York City and Westchester County. Regulated by the New York
+  State Public Service Commission (Department of Public Service, DPS). Residential customers are
+  covered by the New York Home Energy Fair Practices Act (HEFPA). DPS requires customers to ask the
+  utility for help first.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service, billing assistance, and gas and electric emergencies (1-800-75-CONED)
+    value: +1-800-752-6633
+    purposes: [billing_error, bill_increase, disconnection, service_outage, poor_service]
+    notes: Con Edison says wait times are longer all day Mondays and 4-7 p.m. on other weekdays.
+    source: https://www.coned.com/en/contact-us
+    last_verified: 2026-10-12
+  - id: emergency-phone
+    type: phone
+    label: Gas and electric emergency (gas leak, carbon monoxide, downed line)
+    value: +1-800-752-6633
+    hours: 24/7
+    source: https://www.coned.com/en/contact-us
+    last_verified: 2026-10-12
+  - id: steam-emergency-phone
+    type: phone
+    label: Steam emergency, or to turn steam service on or off
+    value: +1-800-914-9112
+    source: https://www.coned.com/en/contact-us
+    last_verified: 2026-10-12
+  - id: disconnection-phone
+    type: phone
+    label: Disconnected service or credit notice
+    value: +1-877-262-6633
+    purposes: [disconnection]
+    source: https://www.coned.com/en/contact-us
+    last_verified: 2026-10-12
+  - id: complaint-form
+    type: web_form
+    label: Email contact form on the Contact Us page
+    value: https://www.coned.com/en/contact-us#coned-contact-email-form
+    purposes: [billing_error, poor_service, service_outage]
+    access: open
+    notes: Con Edison does not publish a separate complaint form or complaint address.
+    source: https://www.coned.com/en/contact-us
+    last_verified: 2026-10-12
+  - id: outage-report-online
+    type: web_form
+    label: Report an outage and check its status
+    value: https://www.coned.com/en/services-and-outages/report-track-service-issue/report-outage-status
+    purposes: [service_outage]
+    access: open
+    notes: Outage map at https://outagemap.coned.com/external/default.html
+    source: https://www.coned.com/en/contact-us
+    last_verified: 2026-10-12
+  - id: claims-form
+    type: web_form
+    label: Residential spoilage claim (food and prescription medicine lost in an outage not caused by weather)
+    value: https://www.coned.com/en/services-and-outages/claim-form/residential-spoilage-claim-form
+    purposes: [service_outage]
+    access: open
+    source: https://www.coned.com/en/services-and-outages/claim-form
+    last_verified: 2026-10-12
+  - id: claims-general-form
+    type: web_form
+    label: General (non-outage) claim form
+    value: https://www.coned.com/en/services-and-outages/claim-form/general-claim-form
+    access: open
+    source: https://www.coned.com/en/services-and-outages/claim-form
+    last_verified: 2026-10-12
+  - id: claims-email
+    type: email
+    label: Claims Department email (PDF claim forms)
+    value: NewClaims@conEd.com
+    purposes: [service_outage]
+    source: https://www.coned.com/en/services-and-outages/claim-form/download-a-claim-form
+    last_verified: 2026-10-12
+  - id: claims-mail
+    type: mail
+    label: Claims Department by mail
+    value: "Con Edison Claims Department, PO Box 801, New York, NY 10276"
+    purposes: [service_outage]
+    source: https://www.coned.com/en/services-and-outages/claim-form/download-a-claim-form
+    last_verified: 2026-10-12
+  - id: payment-arrangement
+    type: portal
+    label: Payment agreement enrollment in My Account
+    value: https://www.coned.com/en/accounts-billing/my-account/manage-my-account?sectionId=paymentAgreementEnrollment
+    purposes: [disconnection]
+    access: login
+    source: https://www.coned.com/en/accounts-billing/payment-plans-assistance
+    last_verified: 2026-10-12
+  - id: payment-assistance
+    type: web_form
+    label: Payment plans and assistance (Energy Affordability Program, financial statement form, budget billing)
+    value: https://www.coned.com/en/accounts-billing/payment-plans-assistance
+    purposes: [disconnection]
+    access: open
+    source: https://www.coned.com/en/accounts-billing/payment-plans-assistance
+    last_verified: 2026-10-12
+  - id: medical-certification
+    type: email
+    label: Life-support equipment and medical emergency certification
+    value: lifesupportequipment@coned.com
+    purposes: [disconnection]
+    notes: Or submit through My Account, by mail, or call 1-877-582-6633. Certification by a medical doctor, nurse practitioner, physician assistant or local board of health official.
+    source: https://www.coned.com/en/accounts-billing/payment-plans-assistance/special-services
+    last_verified: 2026-10-12
+  - id: medical-certification-phone
+    type: phone
+    label: Life-support equipment and medical emergency line
+    value: +1-877-582-6633
+    purposes: [disconnection]
+    source: https://www.coned.com/en/accounts-billing/payment-plans-assistance/special-services
+    last_verified: 2026-10-12
+  - id: concern-phone
+    type: phone
+    label: Senior Direct (CONCERN program sign-up)
+    value: +1-800-404-9097
+    hours: "Mon-Fri 8:30 a.m.-5 p.m."
+    purposes: [disconnection]
+    source: https://www.coned.com/en/accounts-billing/payment-plans-assistance/special-services
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, note: "Ask the representative for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, channel: complaint-form}
+  - {rung: state_agency, agency_kind: utility_commission, note: "New York State Public Service Commission / Department of Public Service. DPS asks customers to contact the utility first. With a final termination notice, call the DPS shut-off hotline instead of using the online form."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "New York Attorney General."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the bill with Con Edison first; if not resolved, complain to the NY Department of Public Service and keep paying the undisputed part.
+    evidence: [the disputed bill, previous bills, meter photos with dates, call notes with reference numbers]
+    steps:
+      - do: Call Con Edison or use the email contact form. Say which charges you dispute and why. Get a reference number.
+        channel: customer-service-phone
+      - do: Keep paying the part of the bill that is not in dispute.
+      - do: If Con Edison does not fix it, file a complaint with the NY Department of Public Service.
+    facts:
+      - kind: process
+        claim: DPS asks customers to first seek help from the utility, which is required by law to assist. While DPS investigates, the customer must pay the undisputed portion of the bill or service may be terminated.
+        issues: [billing_error]
+        source: https://dps.ny.gov/file-complaint
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Under HEFPA, a residential customer who files a complaint with the Department of Public Service cannot have service shut off for the disputed amount while the complaint is investigated, as long as the undisputed amount is paid.
+        issues: [billing_error, disconnection]
+        source: https://dps.ny.gov/brochure-your-rights-protections-electric-or-natural-gas-customer
+        last_verified: 2026-10-12
+
+  - issue: disconnection
+    summary: Call Con Edison at once for a payment agreement; HEFPA requires a written final notice and a 15-day wait, and gives medical, cold-weather and heat protections.
+    evidence: [final termination notice, account balance, medical certification, proof of income for the financial statement form]
+    steps:
+      - do: Call the credit notice line and ask for a payment agreement you can afford, or enroll online.
+        channel: disconnection-phone
+      - do: If anyone in the home has a serious medical condition or uses life-support equipment, submit a medical certification.
+        channel: medical-certification
+      - do: Apply for the Energy Affordability Program or HEAP, or submit the financial statement form for special payment terms.
+        channel: payment-assistance
+      - do: If you cannot reach an agreement, call the DPS emergency shut-off hotline before the shutoff date.
+    facts:
+      - kind: deadline
+        claim: Under HEFPA, service may not be disconnected unless the utility has given a written final notice and waited 15 days for the customer to pay or make a payment agreement.
+        issues: [disconnection]
+        source: https://dps.ny.gov/brochure-your-rights-protections-electric-or-natural-gas-customer
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Under HEFPA, shutoffs are only allowed 8:00 a.m.-4:00 p.m. Monday through Thursday, not on holidays, the day before a holiday, or the two weeks around Christmas and New Year's Day.
+        issues: [disconnection]
+        source: https://dps.ny.gov/brochure-your-rights-protections-electric-or-natural-gas-customer
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Service may not be shut off with a medical certification from a doctor or local board of health. If the condition lasts more than 30 days, the certificate must be renewed. A life-support certificate stays in effect until ended by DPS, but the customer must show inability to pay every three months.
+        issues: [disconnection]
+        source: https://dps.ny.gov/brochure-your-rights-protections-electric-or-natural-gas-customer
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Con Edison does not disconnect residential service on days when the Central Park high temperature with wind chill is forecast at 32 F or lower, or on the day before or the day of a forecast or actual heat index of 90 F or higher at Central Park, LaGuardia or JFK. After a heat index above 90 F, it also suspends disconnections for the next two days.
+        issues: [disconnection]
+        source: https://www.coned.com/en/accounts-billing/payment-plans-assistance/special-services/cold-heat-protections
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Between November 1 and April 15, Con Edison does not disconnect customers enrolled in the CONCERN program (households where everyone is 62 or older, 18 or younger, or permanently disabled).
+        issues: [disconnection]
+        source: https://www.coned.com/en/accounts-billing/payment-plans-assistance/special-services/cold-heat-protections
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Report the outage, then claim reimbursement for spoiled food and medicine within 30 days if the outage was a Con Edison distribution failure over 12 hours.
+    evidence: [outage dates and times, itemized list of spoiled food, receipts or photos for food over $280, pharmacy receipts for medicine]
+    steps:
+      - do: Report the outage and note the start and end times.
+        channel: outage-report-online
+      - do: Within 30 days of the outage, file the residential spoilage claim online with an itemized list and proof.
+        channel: claims-form
+      - do: If you use a PDF form, email or mail it to the Claims Department.
+        channel: claims-email
+    facts:
+      - kind: compensation
+        claim: Con Edison reimburses residential customers for food spoilage up to a $655 maximum, plus prescription medicine outside that cap, when an outage in its local distribution system lasted more than 12 hours within a 24-hour period. Outages caused by storms or other conditions beyond its control are not paid.
+        issues: [service_outage]
+        source: https://www.coned.com/en/services-and-outages/claim-form/residential-spoilage-claim-form
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Spoilage claims must be filed within 30 days of the date of the power outage. Review takes approximately 30 days.
+        issues: [service_outage]
+        source: https://www.coned.com/en/services-and-outages/claim-form/residential-spoilage-claim-form
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Food claims up to $280 need only an itemized list; claims from $280 to $655 also need proof such as receipts or photos. Medicine needs a pharmacy receipt showing the medicine, amount paid, date and days of supply.
+        issues: [service_outage]
+        source: https://www.coned.com/en/services-and-outages/claim-form/residential-spoilage-claim-form
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Under HEFPA, utilities may demand security deposits from existing customers who are delinquent, and customers may pay a deposit in up to 12 monthly installments. Late payment charges are limited to 1.5% per month.
+    issues: [deposit_refund, billing_error]
+    source: https://dps.ny.gov/brochure-your-rights-protections-electric-or-natural-gas-customer
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Payment extensions of up to 10 days can be requested in My Account. Residential customers with a significant change in finances may get special payment agreement terms through the Financial Statement Form.
+    issues: [disconnection]
+    source: https://www.coned.com/en/accounts-billing/payment-plans-assistance
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Business customers may qualify for a 6-month payment agreement with as low as a 30% down payment.
+    issues: [disconnection]
+    source: https://www.coned.com/en/accounts-billing/payment-plans-assistance/about-payment-agreements
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Customers can name a third party to receive a notice if the bill is overdue and service might be turned off.
+    issues: [disconnection]
+    source: https://www.coned.com/en/accounts-billing/payment-plans-assistance/special-services
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Payment agreements, payment extensions and life-support registration online need a My Account sign-in.
+  - Medical certification must come from a medical doctor, nurse practitioner, physician assistant or local board of health official.
+  - DPS says not to use its online complaint form after a final disconnection notice; call the hotline.

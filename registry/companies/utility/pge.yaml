@@ -1,0 +1,301 @@
+id: pge
+name: Pacific Gas and Electric Company
+aliases: [PG&E, PGE, Pacific Gas & Electric]
+sector: utility
+parent: PG&E Corporation
+website: https://www.pge.com
+account_url: https://myaccount.pge.com/myaccount/s/login
+notes: >-
+  Electric and gas utility for northern and central California. Regulated by the California Public
+  Utilities Commission (CPUC); billing complaints that PG&E does not resolve go to the CPUC Consumer
+  Affairs Branch. PG&E publishes two general customer service numbers: 1-877-660-6789 (contact page,
+  billing pages) and 1-800-743-5000 (claims page, help center). Residential nonpayment rules in
+  Electric Rule 11 were revised effective December 17, 2025.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Residential customer service (English)
+    value: +1-877-660-6789
+    hours: "Mon-Fri 7 a.m.-7 p.m., Sat 8 a.m.-5 p.m.; 24-hour automated and emergency service at other times"
+    purposes: [billing_error, bill_increase, disconnection, deposit_refund, poor_service]
+    source: https://www.pge.com/en/contact-us.html
+    last_verified: 2026-10-12
+  - id: customer-service-spanish-phone
+    type: phone
+    label: Residential customer service (Spanish)
+    value: +1-800-660-6789
+    hours: "Mon-Fri 7 a.m.-7 p.m., Sat 8 a.m.-5 p.m."
+    source: https://www.pge.com/en/contact-us.html
+    last_verified: 2026-10-12
+  - id: customer-service-alt-phone
+    type: phone
+    label: PG&E customer service (number used on the claims page and help center; also for downed powerlines after 911)
+    value: +1-800-743-5000
+    purposes: [billing_error, poor_service]
+    notes: The claims page says billing and solar issues are not handled as claims and directs them to this number.
+    source: https://www.pge.com/en/account/customer-service/claims.html
+    last_verified: 2026-10-12
+  - id: business-phone
+    type: phone
+    label: Business customer service
+    value: +1-800-468-4743
+    hours: "Mon-Fri 7 a.m.-6 p.m."
+    source: https://www.pge.com/en/contact-us.html
+    last_verified: 2026-10-12
+  - id: outage-phone
+    type: phone
+    label: 24-hour Power Outage Information Line (1-800-PGE-5002)
+    value: +1-800-743-5002
+    hours: 24/7
+    purposes: [service_outage]
+    source: https://www.pge.com/en/contact-us/report-an-emergency.html
+    last_verified: 2026-10-12
+  - id: emergency-phone
+    type: phone
+    label: Gas leak or downed powerline (call 911 first, then PG&E)
+    value: +1-877-660-6789
+    hours: 24/7
+    notes: "The emergency page says: if you smell gas, leave the area and call 911; for downed powerlines, stay away and call 911. Then call PG&E. The page lists 1-877-660-6789 (24-hour Customer Service Line) and 1-800-743-5000."
+    source: https://www.pge.com/en/contact-us/report-an-emergency.html
+    last_verified: 2026-10-12
+  - id: outage-report-online
+    type: web_form
+    label: View or report an outage online
+    value: https://www.pge.com/outages
+    purposes: [service_outage]
+    access: open
+    source: https://www.pge.com/en/contact-us.html
+    last_verified: 2026-10-12
+  - id: claims-form
+    type: web_form
+    label: Online claim form (property damage, food spoilage, business loss, injury)
+    value: https://claims.ss.pge.com/
+    purposes: [service_outage]
+    access: open
+    notes: Do not file both an online and a paper claim. Email supporting documents to ClaimDocs@pge.com with the claim number in the subject line.
+    source: https://www.pge.com/en/account/customer-service/claims.html
+    last_verified: 2026-10-12
+  - id: claims-email
+    type: email
+    label: Law Claims Department (paper or emailed claim form 62-1444)
+    value: lawclaims@pge.com
+    purposes: [service_outage]
+    source: https://www.pge.com/en/account/customer-service/claims.html
+    last_verified: 2026-10-12
+  - id: claims-mail
+    type: mail
+    label: Law Claims Department by mail
+    value: "Pacific Gas and Electric Company, Attn: Law Claims Department, 300 Lakeside Drive, Oakland, CA 94612"
+    purposes: [service_outage]
+    source: https://www.pge.com/en/account/customer-service/claims.html
+    last_verified: 2026-10-12
+  - id: claims-phone
+    type: phone
+    label: Claims phone
+    value: +1-415-973-4548
+    purposes: [service_outage]
+    source: https://www.pge.com/en/account/customer-service/claims.html
+    last_verified: 2026-10-12
+  - id: complaint-mail
+    type: mail
+    label: Correspondence Management Center (written complaints)
+    value: "PG&E Correspondence Management Center, P.O. Box 997310, Sacramento, CA 95899-7310"
+    purposes: [billing_error, poor_service]
+    notes: The help center article "How can I submit a complaint?" lists this address for complaints about employees and says other complaints go to 1-800-743-5000. The article page renders only with JavaScript.
+    source: https://help.pge.com/s/article/How-can-I-submit-a-complaint?language=en_US
+    last_verified: 2026-10-12
+  - id: payment-arrangement
+    type: portal
+    label: Payment plan or due date extension (My Account > Payment Arrangements)
+    value: https://www.pge.com/en/account/billing-and-assistance/pay-my-bill/payment-plan-and-due-date-extension.html
+    purposes: [disconnection]
+    access: login
+    notes: Also by phone at 1-877-660-6789. Online setup is not available with an active payment plan, recurring payment plan, AMP or Budget Billing.
+    source: https://www.pge.com/en/account/billing-and-assistance/pay-my-bill/payment-plan-and-due-date-extension.html
+    last_verified: 2026-10-12
+  - id: payment-assistance
+    type: web_form
+    label: Financial assistance programs (CARE, FERA, REACH, LIHEAP, AMP, Match My Payment)
+    value: https://www.pge.com/en/account/billing-and-assistance/financial-assistance.html
+    purposes: [disconnection]
+    access: open
+    source: https://www.pge.com/en/account/billing-and-assistance/financial-assistance.html
+    last_verified: 2026-10-12
+  - id: medical-baseline
+    type: web_form
+    label: Medical Baseline Program online application
+    value: https://www.pge.com/mblapp
+    purposes: [disconnection]
+    access: open
+    notes: "Paper form: Part A by the customer, Part B by the medical practitioner; mail to PG&E Billing Center Medical Baseline, P.O. Box 8329, Stockton, CA 95208, or email MBLApplications@pge.com within 90 days of the practitioner's signature."
+    source: https://www.pge.com/en/account/billing-and-assistance/financial-assistance/medical-baseline-program.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, note: "Ask the representative for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, channel: complaint-mail}
+  - {rung: state_agency, agency_kind: utility_commission, note: "California Public Utilities Commission (CPUC), Consumer Affairs Branch. PG&E's help center says billing disputes that PG&E staff cannot resolve go to the CPUC."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "California Attorney General."}
+
+playbooks:
+  - issue: billing_error
+    summary: Ask PG&E to investigate the bill within five days so service stays on; ask for a meter test if usage looks wrong; take an unresolved dispute to the CPUC.
+    evidence: [the disputed bill, previous bills for comparison, meter photos with dates, notes of calls with reference numbers]
+    steps:
+      - do: Call PG&E, say you dispute the bill and ask for a bill investigation. Do this within five days of receiving the bill to keep the disconnection hold. Keep paying bills that are not in dispute.
+        channel: customer-service-phone
+      - do: If the bill is based on an estimated read or usage looks too high, ask PG&E to test the meter (five working days' notice).
+        channel: customer-service-phone
+      - do: If PG&E says the bill is correct and you disagree, file a complaint with the CPUC Consumer Affairs Branch. You may deposit the disputed amount with the CPUC instead of paying PG&E; a residential customer who cannot pay the full amount does not have to deposit it.
+    facts:
+      - kind: policy
+        claim: PG&E will not terminate residential service when the customer has started a complaint or asked for an investigation within five days of receiving a disputed bill, until the customer has had a review by PG&E or the CPUC. The customer must keep paying undisputed bills.
+        issues: [billing_error, disconnection]
+        source: https://www.pge.com/tariffs/assets/pdf/tariffbook/ELEC_RULES_11.pdf
+        last_verified: 2026-10-12
+      - kind: process
+        claim: In place of paying a disputed bill, the customer may deposit the amount PG&E claims with the California Public Utilities Commission, with the bill and a statement of the basis for the dispute. A residential customer unable to pay the full disputed amount is not required to deposit it during Commission review.
+        issues: [billing_error]
+        source: https://www.pge.com/tariffs/assets/pdf/tariffbook/ELEC_RULES_10.pdf
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: A customer may require PG&E to test the electric meter on not less than five working days' notice. There is no charge, except a deposit of $1.00 to $5.00 per meter when a customer whose average monthly bill is under $150 asks within six months of installation or more often than once every six months; the deposit is returned if the meter is more than two percent fast or slow.
+        issues: [billing_error]
+        source: https://www.pge.com/tariffs/assets/pdf/tariffbook/ELEC_RULES_17.pdf
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: If a residential meter registers more than two percent fast, PG&E refunds the overcharge for up to three years (or only the months of the error if shorter). If it is more than 25 percent slow, PG&E may back-bill up to three months.
+        issues: [billing_error]
+        source: https://www.pge.com/tariffs/assets/pdf/tariffbook/ELEC_RULES_17.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Estimated bills are treated as a "billing error" under Rule 17.1 unless the estimate was caused by access problems, the customer, or a natural or man-made disaster.
+        issues: [billing_error]
+        source: https://www.pge.com/tariffs/assets/pdf/tariffbook/ELEC_RULES_17.pdf
+        last_verified: 2026-10-12
+
+  - issue: disconnection
+    summary: Ask for the 24-month payment plan and enroll in assistance programs; PG&E cannot disconnect in forecast extreme heat or cold, on weekends or holidays, or while a LIHEAP pledge is pending.
+    evidence: [15-day or 48-hour notice, account balance, Medical Baseline or LIHEAP documents]
+    steps:
+      - do: Call PG&E before the date on the notice. Say you cannot pay and ask for a 24-month payment arrangement, or set up a plan or extension online.
+        channel: payment-arrangement
+      - do: Ask PG&E to enroll you in every benefit program you qualify for (CARE, FERA, AMP) and apply for REACH or LIHEAP help.
+        channel: payment-assistance
+      - do: If someone in the home has a qualifying medical condition or device, apply for Medical Baseline.
+        channel: medical-baseline
+      - do: If you and PG&E cannot agree on payment arrangements, write to the CPUC Consumer Affairs Branch before the shutoff date.
+    facts:
+      - kind: deadline
+        claim: A residential bill is past due if not paid within 19 days after it is mailed. PG&E then mails a 15-day notice, then a 48-hour notice, and makes a reasonable attempt to contact an adult by phone or in person at least 24 hours before shutoff.
+        issues: [disconnection]
+        source: https://www.pge.com/tariffs/assets/pdf/tariffbook/ELEC_RULES_8.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: PG&E must offer a 24-month payment arrangement to a residential customer who says they cannot pay, and will not disconnect a customer who is current on the 24-month plan and on monthly bills.
+        issues: [disconnection]
+        source: https://www.pge.com/tariffs/assets/pdf/tariffbook/ELEC_RULES_11.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Residential service is not disconnected when PG&E forecasts temperatures above 100 degrees or below 32 degrees in a 72-hour look-ahead period, or on Saturdays, Sundays, legal holidays or when PG&E offices are closed.
+        issues: [disconnection]
+        source: https://www.pge.com/tariffs/assets/pdf/tariffbook/ELEC_RULES_11.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: PG&E does not disconnect a customer with a pending LIHEAP pledge, and must first offer to enroll eligible customers in all applicable PG&E benefit programs.
+        issues: [disconnection]
+        source: https://www.pge.com/tariffs/assets/pdf/tariffbook/ELEC_RULES_11.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: PG&E must visit Medical Baseline, Life Support or self-certified seriously ill customers in person within the 48 hours before, or at the time of, disconnection, and offer pay-by-phone or a 48-hour courtesy extension.
+        issues: [disconnection]
+        source: https://www.pge.com/tariffs/assets/pdf/tariffbook/ELEC_RULES_11.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Residential customers disconnected for the first time on or after December 17, 2025 have service restored when they agree to a payment plan for the balance. Restoration is within 24 hours of payment for remote reconnections or one business day for field reconnections.
+        issues: [disconnection]
+        source: https://www.pge.com/tariffs/assets/pdf/tariffbook/ELEC_RULES_11.pdf
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: REACH gives up to $800 toward a past-due bill after a disconnection notice; LIHEAP up to $1,000; the Arrearage Management Plan forgives up to $8,000 of debt for customers enrolled in CARE or FERA.
+        issues: [disconnection]
+        source: https://www.pge.com/en/account/billing-and-assistance/financial-assistance.html
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Report the outage; PG&E pays an automatic Safety Net payment after 48+ hours in a severe storm, and otherwise pays claims only where it was at fault.
+    evidence: [outage dates and times, itemized list of spoiled food with costs, receipts, photos, repair invoices]
+    steps:
+      - do: Report the outage online or by phone and note the outage times.
+        channel: outage-report-online
+      - do: For a loss you believe PG&E caused, file one claim per incident online, with itemized receipts and photos. Do not also file a paper claim.
+        channel: claims-form
+      - do: For a storm outage of 48 or more hours, do not file a claim; the Safety Net payment is automatic.
+    facts:
+      - kind: compensation
+        claim: Residential customers without power for 48 consecutive hours or more because of severe storm conditions may get an automatic Safety Net payment of $25-100, paid about 60 days after the storm outage. Do not submit a claim form for it.
+        issues: [service_outage]
+        source: https://www.pge.com/en/account/customer-service/claims.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: PG&E evaluates claims based on negligence and says it is not responsible for outages, food loss or damage from forces outside its control, including weather and grid-operator curtailments.
+        issues: [service_outage]
+        source: https://www.pge.com/en/account/customer-service/claims.html
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Food spoilage claims are paid only if submitted and resolved within one year of the incident. Tangible property damage claims have a three-year limit; personal injury and business interruption claims two years.
+        issues: [service_outage]
+        source: https://www.pge.com/en/account/customer-service/claims.html
+        last_verified: 2026-10-12
+      - kind: process
+        claim: PG&E's goal is to decide a claim within 30 days of receipt; complex claims or requests for more information can take longer.
+        issues: [service_outage]
+        source: https://www.pge.com/en/account/customer-service/claims.html
+        last_verified: 2026-10-12
+
+  - issue: deposit_refund
+    summary: PG&E may not charge residential credit deposits for new service; nonresidential deposits are refunded at closing or after 12 months of good payment.
+    evidence: [deposit receipt, final bill, account closure date]
+    steps:
+      - do: Ask PG&E to refund the deposit, or the part above unpaid bills, after service ends or after 12 months of on-time payment.
+        channel: customer-service-phone
+    facts:
+      - kind: policy
+        claim: Under CPUC Decision 20-06-003, PG&E is prohibited from requiring residential customers to pay establishment-of-credit deposits for new service.
+        issues: [deposit_refund]
+        source: https://www.pge.com/tariffs/assets/pdf/tariffbook/ELEC_RULES_7.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: When service ends, PG&E refunds the deposit or the part above unpaid bills. PG&E reviews accounts after 12 months and refunds the deposit if the customer had no more than two past-due bills and no disconnection for nonpayment in that period. Interest is paid at the 3-month prime commercial paper rate.
+        issues: [deposit_refund]
+        source: https://www.pge.com/tariffs/assets/pdf/tariffbook/ELEC_RULES_7.pdf
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: A payment plan splits an existing balance into monthly payments and cannot be changed once set up; a due date extension moves the due date up to 30 days. Both can be set up online or at 1-877-660-6789.
+    issues: [disconnection]
+    source: https://www.pge.com/en/account/billing-and-assistance/pay-my-bill/payment-plan-and-due-date-extension.html
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Medical Baseline eligibility is based on a qualifying medical condition or device, not income. It gives about 500 kWh of electricity and/or 25 therms of gas per month at the lowest price and extra alerts before a Public Safety Power Shutoff.
+    issues: [disconnection]
+    source: https://www.pge.com/en/account/billing-and-assistance/financial-assistance/medical-baseline-program.html
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: Medical Baseline customers with non-permanent conditions must recertify every two years with a medical practitioner's signature; permanent conditions self-certify every four years.
+    issues: [disconnection]
+    source: https://www.pge.com/en/account/billing-and-assistance/financial-assistance/medical-baseline-program.html
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Customers who do not qualify for Medical Baseline but whose health or safety would be at risk can set Self-Identified Vulnerable status in My Account. It gives extra notice before a nonpayment shutoff and lasts one year.
+    issues: [disconnection]
+    source: https://www.pge.com/en/account/billing-and-assistance/financial-assistance/vulnerable-customer-status.html
+    last_verified: 2026-10-12
+
+known_blockers:
+  - help.pge.com articles render only with JavaScript.
+  - Online payment arrangements, Self-Identified Vulnerable status and outage claims tracking need a My Account sign-in.
+  - The Medical Baseline application needs a medical practitioner to complete Part B.

@@ -1,0 +1,139 @@
+id: eversource
+name: Eversource Energy
+aliases: [Eversource, Connecticut Light and Power, CL&P, NSTAR, Public Service of New Hampshire, PSNH, Yankee Gas]
+sector: utility
+website: https://www.eversource.com
+notes: >-
+  Electric and gas utility in Connecticut, Massachusetts and New Hampshire. Regulators by state:
+  Connecticut Public Utilities Regulatory Authority (PURA), Massachusetts Department of Public Utilities
+  (DPU), New Hampshire Public Utilities Commission. eversource.com shows phone numbers, programs and
+  protections only after a town is selected (rendered by script), so state-specific customer service,
+  outage and gas emergency numbers were not confirmed for this file; ask the customer to read the
+  number on their bill or select their town at https://www.eversource.com/residential/contact-us.
+  Connecticut protections below are from PURA.
+
+channels:
+  - id: contact-page
+    type: web_form
+    label: Contact Us (select your town to see phone numbers and emergency lines)
+    value: https://www.eversource.com/residential/contact-us
+    purposes: [billing_error, bill_increase, disconnection, poor_service]
+    access: open
+    hours: "Phone Mon-Fri 8 a.m.-6 p.m. ET, English and Spanish"
+    source: https://www.eversource.com/residential/contact-us
+    last_verified: 2026-10-12
+  - id: outage-report-online
+    type: web_form
+    label: Report a power outage (phone number or sign-in)
+    value: https://www.eversource.com/cg/customer/reportoutage
+    purposes: [service_outage]
+    notes: Outage map at https://outagemap.eversource.com/external/default.html. For a gas emergency, move to a safe place and call 911 first.
+    source: https://www.eversource.com/residential/outages
+    last_verified: 2026-10-12
+  - id: claims-phone
+    type: phone
+    label: Claims Department (leave name and mailing or email address to receive a claim form)
+    value: +1-844-685-4475
+    purposes: [service_outage]
+    source: https://www.eversource.com/residential/services/claims
+    last_verified: 2026-10-12
+  - id: claims-form
+    type: web_form
+    label: Property damage claim
+    value: https://www.eversource.com/residential/services/claims/property-damage-claims
+    purposes: [service_outage]
+    source: https://www.eversource.com/residential/services/claims/property-damage-claims
+    last_verified: 2026-10-12
+  - id: payment-assistance
+    type: web_form
+    label: Payment plans and assistance (select town for state programs)
+    value: https://www.eversource.com/residential/account-billing/payment-assistance
+    purposes: [disconnection]
+    access: open
+    source: https://www.eversource.com/residential/account-billing
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: contact-page, note: "Call the customer service number for the customer's town (shown on the bill or after selecting the town)."}
+  - {rung: supervisor, note: "Ask the representative for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, note: "Eversource does not publish a complaint address or form. Send a dated letter or keep call notes with reference numbers; Connecticut PURA asks customers to show they tried to resolve the issue with the utility first."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Connecticut: Public Utilities Regulatory Authority (PURA). Massachusetts: Department of Public Utilities (DPU). New Hampshire: Public Utilities Commission."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Attorney General of Connecticut, Massachusetts or New Hampshire, by the account's state."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the bill with Eversource first and keep records; in Connecticut, PURA takes the complaint only after you tried the utility.
+    evidence: [the disputed bill, previous bills, meter photos with dates, call notes with reference numbers]
+    steps:
+      - do: Call Eversource customer service for your town and dispute the bill. Get a reference number.
+        channel: contact-page
+      - do: If not resolved, complain to the state regulator (PURA, DPU or NH PUC) with your records.
+    facts:
+      - kind: process
+        claim: PURA requires Connecticut customers to show they tried to resolve the issue with the utility first before PURA handles a complaint.
+        issues: [billing_error]
+        source: https://portal.ct.gov/pura/consumer-services/frequently-asked-questions
+        last_verified: 2026-10-12
+
+  - issue: disconnection
+    summary: Ask for a payment plan and, in Connecticut, apply for financial hardship or medical protection for winter protection and the Matching Payment Program.
+    evidence: [shutoff notice, account balance, benefit letters (CEAP, SNAP, TANF), physician's certification]
+    steps:
+      - do: Call Eversource and ask for a payment plan; service continues while plan payments are on time.
+        channel: payment-assistance
+      - do: In Connecticut, apply for Financial Hardship designation (renew each October) and the Matching Payment Program.
+        channel: payment-assistance
+      - do: If someone has a serious or life-threatening illness, ask for Medical Protection with a physician's certification.
+        channel: contact-page
+      - do: If Eversource does not help, contact the state regulator before the shutoff date.
+    facts:
+      - kind: policy
+        claim: Eversource says service continues uninterrupted for the duration of a payment plan as long as monthly payments are made on time.
+        issues: [disconnection]
+        source: https://www.eversource.com/residential/account-billing/payment-assistance/payment-plans
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Connecticut law requires 13 days' written notice before a shutoff. Residential service cannot be shut off on a Friday, weekend, legal holiday, the day before a holiday, or within an hour of the office closing.
+        issues: [disconnection]
+        source: https://portal.ct.gov/PURA/Consumer-Services/Customer-Rights--Responsibilities
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: In Connecticut, financial hardship or medically protected customers cannot be terminated for non-payment during the winter moratorium, November 1 to May 1 (PURA FAQ states November 1 - April 30).
+        issues: [disconnection]
+        source: https://portal.ct.gov/pura/consumer-services/payment-assistance-programs
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Eversource Connecticut Financial Hardship designation applies to customers receiving CEAP, SNAP, TANF or unemployment benefits, or with income at or below 60% of State Median Income. Medical Protection needs a physician's certification renewed annually and protects service in winter and at all times for life-threatening cases.
+        issues: [disconnection]
+        source: https://portal.ct.gov/pura/consumer-services/payment-assistance-programs
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: In Connecticut, the Matching Payment Program matches payments and energy assistance to clear past-due balances for hardship customers and gives year-round shut-off protection while payments are made. It replaced New Start, which closed to new enrollment on October 31, 2024. A Flexible Payment Arrangement over 18 months is available to all customers.
+        issues: [disconnection]
+        source: https://portal.ct.gov/pura/consumer-services/payment-assistance-programs
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Report the outage online; Eversource does not reimburse damage from service interruptions caused by storms, equipment failure or other causes beyond its control.
+    evidence: [outage dates and times, photos, itemized repair bills or estimates]
+    steps:
+      - do: Report the outage online with your phone number or account sign-in.
+        channel: outage-report-online
+      - do: For property damage you believe Eversource caused, call the Claims Department or use the property damage claim page. Keep damaged items until Eversource reviews them.
+        channel: claims-phone
+    facts:
+      - kind: policy
+        claim: Eversource says it will not reimburse damage from service interruptions caused by sudden equipment failure, storms, falling trees, weather, animals, motor vehicle accidents or other causes beyond its control. Interruption claims are handled under the state tariff schedule.
+        issues: [service_outage]
+        source: https://www.eversource.com/residential/services/claims/property-damage-claims
+        last_verified: 2026-10-12
+      - kind: process
+        claim: The claims process takes approximately 30 days; complex reviews may take longer. A decision waits until Eversource receives itemized bills and estimates.
+        issues: [service_outage]
+        source: https://www.eversource.com/residential/services/claims/property-damage-claims
+        last_verified: 2026-10-12
+
+known_blockers:
+  - eversource.com renders phone numbers and state programs only after a town is selected; automated fetches see placeholders.
+  - Outage reporting online needs the account phone number or a sign-in.
+  - Medical Protection needs a physician's certification.

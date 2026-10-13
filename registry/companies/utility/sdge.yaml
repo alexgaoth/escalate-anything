@@ -1,0 +1,169 @@
+id: sdge
+name: San Diego Gas & Electric
+aliases: [SDG&E, SDGE, San Diego Gas and Electric]
+sector: utility
+parent: Sempra
+website: https://www.sdge.com
+account_url: https://myenergycenter.com/
+notes: >-
+  Electric and natural gas utility for the San Diego, California area.
+  Regulated by the California Public Utilities Commission (CPUC). Sister company of SoCalGas
+  (both owned by Sempra).
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service (Energy Services Specialist)
+    value: +1-800-411-7343
+    hours: "Mon-Fri 7 a.m.-8 p.m., Sat 7 a.m.-6 p.m.; emergencies only at other times"
+    purposes: [billing_error, bill_increase, disconnection, poor_service, service_outage]
+    notes: The claims page also lists this Customer Service Center number for filing a claim by phone.
+    source: https://www.sdge.com/residential/customer-service/contact-us
+    last_verified: 2026-10-12
+  - id: emergency-phone
+    type: phone
+    label: Electric or gas emergency, suspected gas leak (evacuate, call 911 from a safe place, then SDG&E)
+    value: +1-800-611-7343
+    hours: 24/7
+    source: https://www.sdge.com/residential/customer-service/contact-us
+    last_verified: 2026-10-12
+  - id: outage-report-online
+    type: web_form
+    label: Report an outage online
+    value: https://www.sdge.com/report-outage
+    purposes: [service_outage]
+    access: open
+    notes: Outage map at https://outage.sdge.com/
+    source: https://www.sdge.com/residential/customer-service/outage-center
+    last_verified: 2026-10-12
+  - id: claims-form
+    type: web_form
+    label: Online claim form (hosted by SDG&E's claims vendor)
+    value: https://webformprdsempra.dxc-ins.com/webform/Pagebuilder.aspx?SiteNum=2
+    purposes: [service_outage]
+    access: open
+    notes: SDG&E's claims page says online submission is the fastest way to have a claim processed.
+    source: https://www.sdge.com/residential/customer-service/assistance-help/claims
+    last_verified: 2026-10-12
+  - id: claims-mail
+    type: mail
+    label: Claims Department by mail
+    value: "San Diego Gas & Electric, Attention: Claims Department, P.O. Box 129831, San Diego, CA 92112"
+    purposes: [service_outage]
+    notes: "Fax: 1-858-541-5737, Attention: Claims Department."
+    source: https://www.sdge.com/residential/customer-service/assistance-help/claims
+    last_verified: 2026-10-12
+  - id: payment-arrangement
+    type: portal
+    label: Payment extension or payment plan in My Energy Center
+    value: https://www.sdge.com/residential/pay-bill/payment-arrangements
+    purposes: [disconnection]
+    access: login
+    notes: Also in the mobile app under More > Billing Programs > Payment Arrangements.
+    source: https://www.sdge.com/residential/pay-bill/payment-arrangements
+    last_verified: 2026-10-12
+  - id: payment-assistance
+    type: web_form
+    label: Financial assistance programs (CARE, FERA, Neighbor-to-Neighbor, AMP, LIHEAP, Medical Baseline)
+    value: https://www.sdge.com/residential/pay-bill/get-payment-bill-assistance
+    purposes: [disconnection]
+    access: open
+    source: https://www.sdge.com/residential/pay-bill/get-payment-bill-assistance
+    last_verified: 2026-10-12
+  - id: medical-baseline
+    type: web_form
+    label: Medical Baseline Allowance application
+    value: https://www.sdge.com/residential/pay-bill/get-payment-bill-assistance/health-senior-support/qualifiying-based-medical-need
+    purposes: [disconnection]
+    access: open
+    notes: A physician must certify the application. Enrollment and recertification line 1-800-560-5551 (Mon-Fri 7 a.m.-4 p.m.).
+    source: https://www.sdge.com/residential/pay-bill/get-payment-bill-assistance/health-senior-support/qualifiying-based-medical-need
+    last_verified: 2026-10-12
+  - id: medical-baseline-phone
+    type: phone
+    label: Medical Baseline enrollment and recertification
+    value: +1-800-560-5551
+    hours: "Mon-Fri 7 a.m.-4 p.m."
+    purposes: [disconnection]
+    source: https://www.sdge.com/residential/pay-bill/get-payment-bill-assistance/health-senior-support/qualifiying-based-medical-need
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, note: "Ask the representative for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, note: "SDG&E does not publish a complaint address or form on its contact page. Send a dated letter or keep call notes with reference numbers."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "California Public Utilities Commission (CPUC), Consumer Affairs Branch."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "California Attorney General."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the bill with customer service and get a reference number; if SDG&E does not fix it, complain to the CPUC.
+    evidence: [the disputed bill, previous bills, meter photos with dates, call notes with reference numbers]
+    steps:
+      - do: Call SDG&E, say you dispute the bill, and ask for a bill review and a meter check if usage looks wrong. Get a reference number.
+        channel: customer-service-phone
+      - do: If SDG&E does not resolve it, file a complaint with the CPUC Consumer Affairs Branch.
+
+  - issue: disconnection
+    summary: Set up a payment extension or plan (up to 24 months for residential) before the shutoff date and apply for assistance.
+    evidence: [disconnection notice, account balance, CARE/FERA enrollment, Medical Baseline approval]
+    steps:
+      - do: Set up a payment extension or payment plan in My Energy Center or the app before the shutoff date.
+        channel: payment-arrangement
+      - do: Apply for CARE or FERA, then AMP debt forgiveness, Neighbor-to-Neighbor or LIHEAP.
+        channel: payment-assistance
+      - do: If someone in the home has a qualifying medical condition or device, apply for Medical Baseline.
+        channel: medical-baseline
+    facts:
+      - kind: policy
+        claim: SDG&E offers payment extensions and 2, 3 and 12 month payment plans, plus a 24-month plan for residential customers only. A down payment may be required.
+        issues: [disconnection]
+        source: https://www.sdge.com/residential/pay-bill/payment-arrangements
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If a payment on a 2, 3 or 12 month plan is late, short or returned, the plan is canceled, the full balance is due at once and service may be disconnected.
+        issues: [disconnection]
+        source: https://www.sdge.com/residential/pay-bill/payment-arrangements
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: The Neighbor-to-Neighbor Fund gives up to $150 toward the SDG&E bill for customers with temporary hardship who do not qualify for other state or federal aid.
+        issues: [disconnection]
+        source: https://www.sdge.com/residential/pay-bill/get-payment-bill-assistance
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Report the outage; file a claim if you believe SDG&E caused a loss. SDG&E is not liable for failures beyond its reasonable control such as weather.
+    evidence: [outage dates and times, itemized spoiled food or damaged items with costs, receipts, photos]
+    steps:
+      - do: Report the outage online or check the outage map.
+        channel: outage-report-online
+      - do: File a claim online, by mail or fax with itemized losses and receipts.
+        channel: claims-form
+    facts:
+      - kind: process
+        claim: A claims representative contacts the claimant within 3-5 business days. SDG&E's goal is a final decision within 30-45 days; complex claims may take longer.
+        issues: [service_outage]
+        source: https://www.sdge.com/residential/customer-service/assistance-help/claims
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: SDG&E says it is not liable for failures due to circumstances beyond its reasonable control, such as weather or third-party damage. It uses USDA guidelines to judge food spoilage claims.
+        issues: [service_outage]
+        source: https://www.sdge.com/residential/customer-service/assistance-help/claims
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: CARE saves 30% or more on the monthly energy bill and FERA saves 18% on the electric bill for income-qualified households.
+    issues: [disconnection]
+    source: https://www.sdge.com/residential/pay-bill/get-payment-bill-assistance
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: Medical Baseline customers with a non-permanent condition must submit a new application with a doctor's certification every two years; permanent conditions submit a self-certification every four years.
+    issues: [disconnection]
+    source: https://www.sdge.com/residential/pay-bill/get-payment-bill-assistance/health-senior-support/qualifiying-based-medical-need
+    last_verified: 2026-10-12
+
+known_blockers:
+  - sdge.com/contact-us returns 403 to automated fetches; use the /residential/customer-service/contact-us page.
+  - Payment arrangements are set up in My Energy Center (sign-in required).
+  - The online claim form is hosted by a third-party claims vendor (dxc-ins.com).

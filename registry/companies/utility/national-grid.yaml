@@ -1,0 +1,255 @@
+id: national-grid
+name: National Grid (US)
+aliases: [National Grid, Niagara Mohawk, National Grid NY, National Grid MA, KeySpan, Brooklyn Union Gas, KEDNY, KEDLI]
+sector: utility
+parent: National Grid plc
+website: https://www.nationalgridus.com
+account_url: https://myaccount.nationalgrid.com/
+notes: >-
+  National Grid's US customer site has separate regions with different phone numbers and rules:
+  Upstate New York (electric and gas), New York gas for Brooklyn, Queens and Staten Island (NY site),
+  Long Island gas (Long Island NY site; electric on Long Island is PSEG Long Island), and Massachusetts
+  (electric and gas). The site lists only Massachusetts and New York regions. New York customers are
+  regulated by the New York State Public Service Commission (Department of Public Service) under HEFPA;
+  Massachusetts customers by the Massachusetts Department of Public Utilities (DPU). Ask the customer
+  which region the account is in before calling.
+
+channels:
+  - id: customer-service-phone-upstate-ny
+    type: phone
+    label: Customer service, Upstate New York
+    value: +1-800-642-4272
+    hours: "Mon-Fri 7 a.m.-7 p.m."
+    purposes: [billing_error, bill_increase, disconnection, poor_service]
+    notes: The Upstate NY Consumer Advocate page says billing disputes and high bill complaints go to this call center.
+    source: https://www.nationalgridus.com/Upstate-NY-Home/Contact-Us/
+    last_verified: 2026-10-12
+  - id: outage-phone-upstate-ny
+    type: phone
+    label: Electricity outages, Upstate New York
+    value: +1-800-867-5222
+    hours: 24/7
+    purposes: [service_outage]
+    source: https://www.nationalgridus.com/Upstate-NY-Home/Contact-Us/
+    last_verified: 2026-10-12
+  - id: gas-emergency-phone-upstate-ny
+    type: phone
+    label: Gas emergencies, Upstate New York (or 911)
+    value: +1-800-892-2345
+    hours: 24/7
+    source: https://www.nationalgridus.com/Upstate-NY-Home/Contact-Us/
+    last_verified: 2026-10-12
+  - id: credit-phone-upstate-ny
+    type: phone
+    label: Disconnected accounts, repayment options and financial statement help, Upstate New York
+    value: +1-800-443-1837
+    purposes: [disconnection]
+    source: https://www.nationalgridus.com/Upstate-NY-Home/Bill-Help/More-Time-to-Pay
+    last_verified: 2026-10-12
+  - id: customer-service-phone-metro-ny
+    type: phone
+    label: Customer service and gas emergency, New York (Brooklyn, Queens, Staten Island gas site)
+    value: +1-718-643-4050
+    hours: "Customer service Mon-Fri 8 a.m.-8 p.m.; gas emergencies 24/7 (or 911)"
+    purposes: [billing_error, bill_increase, disconnection, poor_service]
+    source: https://www.nationalgridus.com/NY-Home/Contact-Us/
+    last_verified: 2026-10-12
+  - id: customer-service-phone-long-island
+    type: phone
+    label: Customer service, Long Island gas
+    value: +1-800-930-5003
+    hours: "Mon-Fri 8 a.m.-8 p.m."
+    purposes: [billing_error, bill_increase, disconnection, poor_service]
+    source: https://www.nationalgridus.com/Long-Island-NY-Home/Contact-Us/
+    last_verified: 2026-10-12
+  - id: gas-emergency-phone-long-island
+    type: phone
+    label: Gas emergencies, Long Island (or 911)
+    value: +1-800-490-0045
+    hours: 24/7
+    source: https://www.nationalgridus.com/Long-Island-NY-Home/Contact-Us/
+    last_verified: 2026-10-12
+  - id: customer-service-phone-ma
+    type: phone
+    label: Customer service, Massachusetts
+    value: +1-800-322-3223
+    hours: "Mon-Fri 7 a.m.-7 p.m."
+    purposes: [billing_error, bill_increase, disconnection, poor_service]
+    source: https://www.nationalgridus.com/MA-Home/Contact-Us/
+    last_verified: 2026-10-12
+  - id: outage-phone-ma
+    type: phone
+    label: Electric outages, Massachusetts
+    value: +1-800-465-1212
+    hours: 24/7
+    purposes: [service_outage]
+    source: https://www.nationalgridus.com/MA-Home/Contact-Us/
+    last_verified: 2026-10-12
+  - id: gas-emergency-phone-ma
+    type: phone
+    label: Gas emergencies, Massachusetts (or 911)
+    value: +1-800-233-5325
+    hours: 24/7
+    source: https://www.nationalgridus.com/MA-Home/Contact-Us/
+    last_verified: 2026-10-12
+  - id: credit-phone-ma
+    type: phone
+    label: Credit Department (disconnected accounts and repayment options), Massachusetts
+    value: +1-888-211-1313
+    purposes: [disconnection]
+    source: https://www.nationalgridus.com/MA-Home/Bill-Help/More-Time-to-Pay
+    last_verified: 2026-10-12
+  - id: amp-phone-ma
+    type: phone
+    label: Arrears Management Program enrollment, Massachusetts
+    value: +1-866-580-7617
+    purposes: [disconnection]
+    source: https://www.nationalgridus.com/MA-Home/Bill-Help/Arrears-Management-Program
+    last_verified: 2026-10-12
+  - id: outage-report-online
+    type: web_form
+    label: Report or check an outage (all regions)
+    value: https://myaccount.nationalgrid.com/outages
+    purposes: [service_outage]
+    source: https://www.nationalgridus.com/contact-us
+    last_verified: 2026-10-12
+  - id: payment-arrangement
+    type: portal
+    label: Enroll in a payment plan (My Account)
+    value: https://myaccount.nationalgrid.com/payment-plan
+    purposes: [disconnection]
+    access: login
+    source: https://www.nationalgridus.com/Upstate-NY-Home/Bill-Help/More-Time-to-Pay
+    last_verified: 2026-10-12
+  - id: consumer-advocate-upstate-ny
+    type: web_form
+    label: Speak with a Consumer Advocate, Upstate New York (hardship and special needs)
+    value: https://www.nationalgridus.com/Upstate-NY-Home/Bill-Help/customer-advocate
+    purposes: [disconnection]
+    access: open
+    notes: For financial hardship, illness, job loss, a death in the family, or special needs customers. Not for billing disputes.
+    source: https://www.nationalgridus.com/Upstate-NY-Home/Bill-Help/customer-advocate
+    last_verified: 2026-10-12
+  - id: medical-certification-ny
+    type: email
+    label: New York special protections (medical emergency, life support, elderly/blind/disabled)
+    value: Life.Support@nationalgrid.com
+    purposes: [disconnection]
+    notes: "Or online Protections Application, phone 1-800-642-4272, fax 1-315-460-9343, or mail National Grid, Credit & Collections, Residential Protections Team / D-1, 300 Erie Blvd West, Syracuse, NY 13202."
+    source: https://www.nationalgridus.com/Upstate-NY-Home/Bill-Help/Special-Protections
+    last_verified: 2026-10-12
+  - id: medical-certification-ma
+    type: email
+    label: Massachusetts special protections (serious or chronic illness, infant, elderly, winter financial hardship)
+    value: NEProtections@nationalgrid.com
+    purposes: [disconnection]
+    notes: "Or online Customer Protections Form, fax 1-866-460-8549, or mail National Grid, Attention: Protections, D1, 300 Erie Blvd W, Syracuse, NY 13202."
+    source: https://www.nationalgridus.com/MA-Home/Bill-Help/Special-Protections
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, note: "Call the customer service number for the account's region (Upstate NY, NY metro, Long Island, or Massachusetts)."}
+  - {rung: supervisor, note: "Ask the representative for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, note: "National Grid does not publish a complaint address or email. Use the account web form in My Account or send a dated letter; keep call notes with reference numbers."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "New York: New York State Public Service Commission / Department of Public Service (contact the utility first). Massachusetts: Department of Public Utilities (DPU)."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "New York Attorney General or Massachusetts Attorney General, by the account's state."}
+
+playbooks:
+  - issue: billing_error
+    summary: Call the regional customer service line to dispute the bill; New York customers can then go to DPS and keep service on for the disputed amount by paying the rest.
+    evidence: [the disputed bill, previous bills, meter photos with dates, call notes with reference numbers]
+    steps:
+      - do: Call the customer service line for the region and dispute the bill or ask for a high bill review. Get a reference number.
+        channel: customer-service-phone-upstate-ny
+        note: Use the line for the account's region.
+      - do: Keep paying the undisputed part of the bill.
+      - do: If not resolved, complain to the NY Department of Public Service or the Massachusetts DPU.
+    facts:
+      - kind: policy
+        claim: In New York under HEFPA, a residential customer who files a complaint with the Department of Public Service cannot have service shut off for the disputed amount while it is investigated, as long as the undisputed amount is paid.
+        issues: [billing_error, disconnection]
+        source: https://dps.ny.gov/brochure-your-rights-protections-electric-or-natural-gas-customer
+        last_verified: 2026-10-12
+      - kind: process
+        claim: The NY Department of Public Service asks customers to first seek help from the utility, which is required by law to assist.
+        issues: [billing_error]
+        source: https://dps.ny.gov/file-complaint
+        last_verified: 2026-10-12
+
+  - issue: disconnection
+    summary: Enroll in a payment plan, apply for discount and assistance programs, and file for special protections; terms differ between New York and Massachusetts.
+    evidence: [shutoff notice, account balance, medical letter, proof of age or infant birth certificate, financial statement]
+    steps:
+      - do: Enroll in a payment plan in My Account, or call the credit line for the region.
+        channel: payment-arrangement
+      - do: If someone is seriously ill, uses life-support equipment, or the household is elderly or has an infant (MA), apply for special protections.
+        channel: medical-certification-ny
+        note: Massachusetts customers use the MA protections channel.
+      - do: In Upstate New York, ask a Consumer Advocate about EAP, HEAP and other assistance.
+        channel: consumer-advocate-upstate-ny
+      - do: In Massachusetts, if you are on the Discount Rate with $200 or more at least 60 days past due, enroll in the Arrears Management Program.
+        channel: amp-phone-ma
+      - do: If you cannot reach an agreement, contact the NY DPS shut-off hotline or the Massachusetts DPU before the shutoff date.
+    facts:
+      - kind: policy
+        claim: Upstate New York Standard Payment Agreement is a 15% down payment with the balance in 10 monthly installments plus the current bill. A Minimum Payment Agreement can be as little as $0 down and $10 a month for EAP customers or recent HEAP/EHEAP recipients.
+        issues: [disconnection]
+        source: https://www.nationalgridus.com/Upstate-NY-Home/Bill-Help/More-Time-to-Pay
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Massachusetts Regular Rate Deferred Payment Agreement is a 25% down payment with the balance in up to 6 monthly installments plus the current bill. The Payment Assistance Bundle is a 10% down payment over 12 months with automatic payments and a Budget Plan.
+        issues: [disconnection]
+        source: https://www.nationalgridus.com/MA-Home/Bill-Help/More-Time-to-Pay
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: In New York under HEFPA, service may not be disconnected unless the utility has given a written final notice and waited 15 days for the customer to pay or make a payment agreement. Shutoffs are only allowed 8:00 a.m.-4:00 p.m. Monday through Thursday, excluding holidays, the day before a holiday, and the two weeks around Christmas and New Year's Day.
+        issues: [disconnection]
+        source: https://dps.ny.gov/brochure-your-rights-protections-electric-or-natural-gas-customer
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: In New York, a medical emergency certification gives 30 days of protection from termination, which may be extended for 30 or 60 days; renewal requires showing inability to pay. Elderly, blind or disabled customers get a contact attempt at least 72 hours before shutoff.
+        issues: [disconnection]
+        source: https://www.nationalgridus.com/Upstate-NY-Home/Bill-Help/Special-Protections
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: In Massachusetts, Serious Illness grants 90 days and Chronic Illness 180 days of protection, with documentation from a physician, physician assistant, nurse practitioner or local board of health. Financial Hardship protection applies from November 15 to March 15 when National Grid service provides heat.
+        issues: [disconnection]
+        source: https://www.nationalgridus.com/MA-Home/Bill-Help/Special-Protections
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: In Massachusetts, a household qualifies for Elderly Protection if all members are 65 or older; Infant protection applies when a child under 12 months lives in the household and the household has financial hardship.
+        issues: [disconnection]
+        source: https://www.nationalgridus.com/MA-Home/Bill-Help/Special-Protections
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: The Massachusetts Arrears Management Program forgives part of the past-due balance with each on-time payment, up to 100% (up to $12,000 per year), for Discount Rate (R2 or R4) customers with $200 or more at least 60 days past due.
+        issues: [disconnection]
+        source: https://www.nationalgridus.com/MA-Home/Bill-Help/Arrears-Management-Program
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Report the outage online or on the regional outage line.
+    evidence: [outage dates and times, outage reference number]
+    steps:
+      - do: Report or check the outage online, or call the outage line for the region.
+        channel: outage-report-online
+      - do: If someone in the home uses life-sustaining equipment, register it so National Grid calls during long outages (New York).
+        channel: medical-certification-ny
+    facts:
+      - kind: policy
+        claim: For New York Life Support Program households, National Grid makes two attempts to reach the customer by phone during prolonged unplanned outages. Annual recertification is required.
+        issues: [service_outage]
+        source: https://www.nationalgridus.com/Upstate-NY-Home/Bill-Help/Special-Protections
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: In New York under HEFPA, utilities may demand security deposits only from existing customers who are delinquent, and customers may pay a deposit in up to 12 monthly installments.
+    issues: [deposit_refund]
+    source: https://dps.ny.gov/brochure-your-rights-protections-electric-or-natural-gas-customer
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Phone numbers and rules differ by region; the regionalized pages on nationalgridus.com only render the right content with a region selected.
+  - The Upstate NY Minimum Payment Agreement cannot be set up in My Account; call 1-800-443-1837.
+  - Special protections need documentation from a medical professional or proof of age.
