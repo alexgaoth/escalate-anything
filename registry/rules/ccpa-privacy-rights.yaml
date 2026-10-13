@@ -1,0 +1,64 @@
+id: ccpa-privacy-rights
+title: California Consumer Privacy Act rights (know, delete, correct, opt out)
+citation: Cal. Civ. Code § 1798.100 et seq.
+jurisdiction: ca
+status: in_effect
+applies_to:
+  issues: [privacy_request]
+summary: >-
+  California residents can ask a covered business to disclose, delete or correct their personal
+  information, opt out of its sale or sharing, and limit use of sensitive information, without
+  discrimination. The business must confirm receipt within 10 business days and respond within 45 calendar
+  days (extendable to 90 days with notice). Opt-outs must be honored within 15 business days.
+points:
+  - kind: policy
+    claim: >-
+      Consumers have the right to know what personal information a business collects about them, to delete
+      it, to opt out of its sale or sharing, to correct inaccurate information, to limit use of sensitive
+      personal information, and not to be discriminated against for exercising these rights.
+    issues: [privacy_request]
+    source: https://oag.ca.gov/privacy/ccpa
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      Businesses must offer at least two methods to submit requests to know or delete; "One of those methods
+      has to be a toll-free phone number", and a business with a website must accept requests through it.
+      A business cannot require a consumer to create an account just to make a request to know.
+    issues: [privacy_request]
+    source: https://oag.ca.gov/privacy/ccpa
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      "Businesses must confirm receipt of your request within 10 business days" and "must substantively
+      respond to your request to delete, correct, or know your personal information within 45 calendar
+      days". The business may extend to 90 days total if it notifies the consumer.
+    issues: [privacy_request]
+    source: https://cppa.ca.gov/faq.html
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      A business must act on a request to opt out of sale or sharing (or to limit use of sensitive personal
+      information) "up to a maximum of 15 business days from the date they received your request".
+    issues: [privacy_request]
+    source: https://cppa.ca.gov/faq.html
+    last_verified: 2026-10-12
+  - kind: limit
+    claim: >-
+      The CCPA applies to for-profit businesses doing business in California that meet any of these: gross
+      annual revenue of $26.625 million or more in the preceding calendar year (as adjusted effective January
+      1, 2025); buy, sell or share the personal information of 100,000 or more California residents or
+      households; or derive 50% or more of annual revenue from selling or sharing California residents'
+      personal information.
+    issues: [privacy_request]
+    source: https://cppa.ca.gov/faq.html
+    last_verified: 2026-10-12
+  - kind: contact
+    claim: >-
+      Complaints about CCPA violations can be filed with the California Privacy Protection Agency at
+      https://cppa.ca.gov/webapplications/complaint (online or paper form), or as a consumer complaint with
+      the California Attorney General's office.
+    issues: [privacy_request]
+    source: https://cppa.ca.gov/faq.html
+    last_verified: 2026-10-12
+source: https://oag.ca.gov/privacy/ccpa
+last_verified: 2026-10-12

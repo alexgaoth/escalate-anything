@@ -1,0 +1,63 @@
+id: dol-ebsa
+name: U.S. Department of Labor, Employee Benefits Security Administration
+short_name: EBSA
+level: federal
+covers_sectors: [insurance_health]
+covers_issues: [claim_denial, claim_delay]
+website: https://www.dol.gov/agencies/ebsa
+when_to_use: >-
+  Use for a problem with a private-sector employer health or retirement plan (ERISA plan), such as a
+  denied or delayed claim, after you follow the plan's own claim and appeal steps. Government and church
+  plans are generally not covered.
+
+channels:
+  - id: health-plan-form
+    type: web_form
+    label: Request help from a Benefits Advisor (health plan)
+    value: https://www.askebsa.dol.gov/WebIntake/home.aspx/info?id=3
+    purposes: [claim_denial, claim_delay]
+    notes: >-
+      Asks for name, ZIP, state, phone, email, the last four digits of the Social Security number, and
+      an attestation that you are the person the information applies to. The account holder must
+      confirm this personally.
+    source: https://beta.dol.gov/about/agencies/ebsa/ask-ebsa
+    last_verified: 2026-10-12
+  - id: retirement-plan-form
+    type: web_form
+    label: Request help from a Benefits Advisor (retirement plan)
+    value: https://www.askebsa.dol.gov/WebIntake/home.aspx/info?id=4
+    source: https://beta.dol.gov/about/agencies/ebsa/ask-ebsa
+    last_verified: 2026-10-12
+  - id: phone
+    type: phone
+    label: EBSA Benefits Advisors
+    value: +1-866-444-3272
+    source: https://beta.dol.gov/about/agencies/ebsa/ask-ebsa
+    last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: >-
+      ERISA sets minimum standards for most voluntarily established retirement and health plans in
+      private industry. In general it does not cover group health plans of government entities or
+      church plans.
+    source: https://www.dol.gov/general/topic/health-plans/erisa
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      For a complaint under Title I of ERISA, expect a status report from the assigned benefits advisor
+      every 30 days.
+    source: https://www.askebsa.dol.gov/WebIntake/home.aspx/info?id=3
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      EBSA can help you understand your rights, but you should still review the plan documents and meet
+      the plan's claim and appeal deadlines.
+    issues: [claim_denial]
+    source: https://www.askebsa.dol.gov/WebIntake/home.aspx/info?id=3
+    last_verified: 2026-10-12
+
+notes: >-
+  On 2026-10-12, www.askebsa.dol.gov and the old Ask EBSA page redirected to
+  https://beta.dol.gov/about/agencies/ebsa/ask-ebsa, which links to the WebIntake forms above. EBSA
+  regional offices: https://www.dol.gov/agencies/ebsa/about-ebsa/about-us/regional-offices

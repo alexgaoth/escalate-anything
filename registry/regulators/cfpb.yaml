@@ -1,0 +1,95 @@
+id: cfpb
+name: Consumer Financial Protection Bureau
+short_name: CFPB
+level: federal
+covers_sectors: [bank, credit_union, payments, credit_bureau, student_loan]
+covers_issues:
+  - credit_report_error
+  - debt_collection
+  - transaction_dispute
+  - fee_reversal
+  - frozen_funds
+  - fraud
+  - student_loan_servicing
+website: https://www.consumerfinance.gov
+when_to_use: >-
+  Use for a problem with a consumer financial product (bank account, credit card, credit report, debt
+  collection, money transfer, mortgage, loan) after the company did not fix it. Put every fact and
+  document in one complaint, because a second complaint about the same problem is generally not accepted.
+
+channels:
+  - id: complaint-form
+    type: web_form
+    label: Submit a complaint
+    value: https://www.consumerfinance.gov/complaint/
+    purposes: [credit_report_error, debt_collection, transaction_dispute, fee_reversal, frozen_funds, fraud, billing_error, unauthorized_charge, student_loan_servicing]
+    notes: Online filing takes about 7 to 10 minutes. Your mailing address is required so the company can respond.
+    source: https://www.consumerfinance.gov/complaint/
+    last_verified: 2026-10-12
+  - id: complaint-phone
+    type: phone
+    label: Complaint line
+    value: +1-855-411-2372
+    hours: 9 a.m. to 6 p.m. ET, Monday through Friday, except federal holidays
+    notes: A phone complaint takes about 25 to 30 minutes.
+    source: https://www.consumerfinance.gov/complaint/
+    last_verified: 2026-10-12
+  - id: complaint-tty
+    type: phone
+    label: Complaint line, TTY/TDD
+    value: +1-855-729-2372
+    hours: 9 a.m. to 6 p.m. ET, Monday through Friday, except federal holidays
+    source: https://www.consumerfinance.gov/about-us/contact-us/
+    last_verified: 2026-10-12
+  - id: complaint-mail
+    type: mail
+    label: Complaints by mail
+    value: Consumer Financial Protection Bureau, PO Box 27170, Washington, DC 20038
+    source: https://www.consumerfinance.gov/about-us/contact-us/
+    last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: >-
+      The CFPB sends each complaint to the company for a response. If another government agency is
+      better able to help, the CFPB sends the complaint there and tells you.
+    source: https://www.consumerfinance.gov/complaint/process/
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      Companies generally respond in 15 days. In some cases the company says its response is in
+      progress and gives a final response within 60 days.
+    source: https://www.consumerfinance.gov/complaint/process/
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: You have 60 days after the company responds to give feedback about the response.
+    source: https://www.consumerfinance.gov/complaint/process/
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      The CFPB publishes information about the complaint in its public Consumer Complaint Database,
+      without information that directly identifies you.
+    source: https://www.consumerfinance.gov/complaint/process/
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      A complaint should give the key facts in your own words with the important dates, amounts and
+      communications, and may attach supporting documents up to 50 pages. A person filing for someone
+      else must say so, and companies generally need signed written authorization from the consumer.
+    source: https://www.consumerfinance.gov/complaint/
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      The CFPB says federal student loan programs are within the sole legal purview of the Department
+      of Education, and sends federal loan questions to studentaid.gov.
+    issues: [student_loan_servicing]
+    source: https://www.consumerfinance.gov/consumer-tools/student-loans/
+    last_verified: 2026-10-12
+
+notes: >-
+  2025-2026 status: the CFPB's funding, staffing and leadership were in litigation (a reduction-in-force
+  order and the acting director's refusal to request Federal Reserve funding; three district courts
+  rejected that refusal, the latest on 2026-09-25). On 2026-10-12 the complaint pages (modified
+  2026-10-05) still accepted complaints and described the 15-day company response, and the form had
+  added a path for debanking complaints under Executive Order 14331. For federal student loans, use
+  Federal Student Aid (ed-fsa) first.

@@ -1,0 +1,57 @@
+id: rosca-negative-option
+title: Restore Online Shoppers' Confidence Act (ROSCA) negative option requirements
+citation: 15 U.S.C. 8401-8405
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  issues: [cancel_service, unauthorized_charge, billing_error]
+summary: >-
+  A seller that charges consumers online through a negative option feature (for example an automatic
+  renewal or a free trial that converts to paid) must clearly disclose all material terms before taking
+  billing information, get the consumer's express informed consent before charging, and provide simple
+  mechanisms to stop recurring charges. The FTC enforces ROSCA.
+points:
+  - kind: policy
+    claim: >-
+      Before obtaining the consumer's billing information, the seller must provide text that "clearly and
+      conspicuously discloses all material terms of the transaction".
+    issues: [cancel_service, unauthorized_charge]
+    source: https://www.law.cornell.edu/uscode/text/15/8403
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The seller must obtain "a consumer's express informed consent before charging the consumer's credit
+      card, debit card, bank account, or other financial account".
+    issues: [unauthorized_charge, billing_error]
+    source: https://www.law.cornell.edu/uscode/text/15/8403
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The seller must provide "simple mechanisms for a consumer to stop recurring charges" on the consumer's
+      credit card, debit card, bank account or other financial account.
+    issues: [cancel_service]
+    source: https://www.law.cornell.edu/uscode/text/15/8403
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      A post-transaction third-party seller may not charge a consumer for an online sale unless it discloses
+      the material terms and gets express informed consent, including the consumer's full account number,
+      before charging. An initial merchant may not pass a customer's account number or other billing
+      information to such a seller.
+    issues: [unauthorized_charge]
+    source: https://www.law.cornell.edu/uscode/text/15/8402
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      A ROSCA violation is treated as a violation of an FTC rule on unfair or deceptive acts or practices,
+      and the FTC enforces ROSCA with its FTC Act powers and penalties. Report violations to the FTC.
+    issues: [cancel_service, unauthorized_charge]
+    source: https://www.law.cornell.edu/uscode/text/15/8404
+    last_verified: 2026-10-12
+source: https://www.law.cornell.edu/uscode/text/15/8403
+last_verified: 2026-10-12
+status_note: >-
+  ROSCA is a statute (Pub. L. 111-345, 2010) and is in force. It is separate from the FTC's 2024
+  "click-to-cancel" amendments to the Negative Option Rule, which the Eighth Circuit vacated on July 8, 2025
+  (see rules/ftc-click-to-cancel). ROSCA does not set a specific cancellation method; "simple mechanisms" is
+  the statutory standard.

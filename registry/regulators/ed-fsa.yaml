@@ -1,0 +1,74 @@
+id: ed-fsa
+name: U.S. Department of Education, Federal Student Aid
+short_name: Federal Student Aid
+level: federal
+covers_sectors: [student_loan]
+covers_issues: [student_loan_servicing]
+website: https://studentaid.gov
+when_to_use: >-
+  Use for a federal student loan problem (balance, status, payments, repayment plan) that the loan
+  servicer did not fix. Identify the problem, contact the servicer, then ask the FSA Ombudsman Group
+  for help.
+
+channels:
+  - id: ombudsman
+    type: web_form
+    label: FSA Ombudsman Group (prepare and submit a dispute)
+    value: https://studentaid.gov/feedback-ombudsman/disputes/prepare
+    purposes: [student_loan_servicing]
+    source: https://www.usa.gov/student-loan-problems
+    last_verified: 2026-10-12
+  - id: information-center
+    type: phone
+    label: Federal Student Aid Information Center
+    value: +1-800-433-3243
+    source: https://www.usa.gov/agencies/federal-student-aid-information-center
+    last_verified: 2026-10-12
+  - id: information-center-tty
+    type: phone
+    label: Federal Student Aid Information Center, TTY
+    value: +1-800-730-8913
+    source: https://www.usa.gov/agencies/federal-student-aid-information-center
+    last_verified: 2026-10-12
+  - id: defaulted-loans
+    type: phone
+    label: Defaulted loans
+    value: +1-800-621-3115
+    notes: TTY for defaulted loans is 1-877-825-9923.
+    source: https://www.usa.gov/agencies/federal-student-aid-information-center
+    last_verified: 2026-10-12
+  - id: email
+    type: email
+    label: Federal Student Aid customer service email
+    value: customerservice@studentaid.gov
+    source: https://www.usa.gov/agencies/federal-student-aid-information-center
+    last_verified: 2026-10-12
+  - id: mail
+    type: mail
+    label: Federal Student Aid Information Center mailing address
+    value: PO Box 1854, Monticello, KY 42633
+    notes: USA.gov lists this as the main address. It does not say it is a complaint address.
+    source: https://www.usa.gov/agencies/federal-student-aid-information-center
+    last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: >-
+      If you disagree with your loan servicer about the balance or status of your loan, identify the
+      problem, talk to the servicer, and if you still need help contact the Federal Student Aid
+      Ombudsman Group.
+    issues: [student_loan_servicing]
+    source: https://www.usa.gov/student-loan-problems
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      The CFPB says federal student loan programs are within the sole legal purview of the Department
+      of Education.
+    issues: [student_loan_servicing]
+    source: https://www.consumerfinance.gov/consumer-tools/student-loans/
+    last_verified: 2026-10-12
+
+notes: >-
+  studentaid.gov did not respond to automated page reads on 2026-10-12, so the Feedback Center form,
+  Ombudsman phone and response times could not be confirmed, and the effect of the 2025-2026 Department
+  of Education reorganization on complaint handling was not verified. Values above come from USA.gov.

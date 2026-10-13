@@ -1,0 +1,64 @@
+id: ftc-junk-fees-rule
+title: FTC Rule on Unfair or Deceptive Fees (live-event tickets and short-term lodging)
+citation: 16 CFR part 464 (90 FR 2066, January 10, 2025)
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  sectors: [lodging, travel_agency, retail]
+  issues: [billing_error, reservation_problem, refund_request]
+summary: >-
+  Since May 12, 2025, any business that offers, displays or advertises a price for live-event tickets or
+  short-term lodging (for example hotels, motels and inns) must show the total price, including all
+  mandatory fees, more prominently than other pricing information. Only government charges, shipping and
+  optional add-ons may be left out, and those must be disclosed before the consumer pays. Misrepresenting
+  any fee is prohibited.
+points:
+  - kind: policy
+    claim: >-
+      The rule covers live-event tickets and short-term lodging, including temporary sleeping accommodations at
+      a hotel, motel or inn.
+    issues: [billing_error, reservation_problem]
+    source: https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-464/section-464.1
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      "Total price" means the maximum total of all fees or charges a consumer must pay. Government charges,
+      shipping charges and fees for optional ancillary goods or services may be excluded.
+    issues: [billing_error]
+    source: https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-464/section-464.1
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      A business that offers, displays or advertises a price for a covered good or service must disclose the
+      total price more prominently than any other pricing information.
+    issues: [billing_error, reservation_problem]
+    source: https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-464/section-464.2
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Before the consumer consents to pay, the business must clearly disclose the nature, purpose and amount of
+      any fee excluded from the total price, and the final amount of payment.
+    issues: [billing_error]
+    source: https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-464/section-464.2
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      A business may not misrepresent the nature, purpose, amount or refundability of any fee, or the identity
+      of the good or service the fee is charged for.
+    issues: [billing_error, refund_request]
+    source: https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-464/section-464.3
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The FTC's compliance guide says the rule applies to any business that offers, displays or advertises
+      live-event tickets or short-term lodging, including third-party platforms, resellers and travel agents.
+    issues: [billing_error, reservation_problem]
+    source: https://www.ftc.gov/business-guidance/resources/rule-unfair-or-deceptive-fees-frequently-asked-questions
+    last_verified: 2026-10-12
+status_note: >-
+  In force since May 12, 2025 (final rule at 90 FR 2066, January 10, 2025). The eCFR shows part 464 current
+  with no amendments, and the Federal Register lists no document affecting 16 CFR part 464 after the January
+  2025 final rule as of 2026-10-12. The rule covers only live-event tickets and short-term lodging. It does
+  not supersede state laws except where they are inconsistent with it (16 CFR 464.4).
+source: https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-464
+last_verified: 2026-10-12

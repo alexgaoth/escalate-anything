@@ -1,0 +1,71 @@
+id: sec
+name: U.S. Securities and Exchange Commission
+short_name: SEC
+level: federal
+covers_sectors: []
+covers_issues: [fraud]
+website: https://www.sec.gov
+when_to_use: >-
+  Use for a problem with an investment account or the firm or person managing it, or to report
+  possible securities fraud. Complaints about a brokerage firm can also go to FINRA.
+
+channels:
+  - id: investor-complaint-form
+    type: web_form
+    label: Investor Complaint Form (problem with an investment account or financial professional)
+    value: https://help.sec.gov/s/investor-complaint
+    notes: The older link https://www.sec.gov/oiea/Complaint.html redirects here.
+    source: https://www.sec.gov/submit-tip-or-complaint/report-problem-investment-account-or-financial-professional
+    last_verified: 2026-10-12
+  - id: tcr-form
+    type: web_form
+    label: Tips, Complaints and Referrals (TCR) form for possible securities law violations
+    value: https://www.sec.gov/submit-tip-or-complaint/tcr-disclaimer
+    purposes: [fraud]
+    notes: The form opens only after the user clicks "I Accept" on terms of use. Ask the person before accepting.
+    source: https://www.sec.gov/submit-tip-or-complaint
+    last_verified: 2026-10-12
+  - id: investor-question-form
+    type: web_form
+    label: Ask an investment-related question
+    value: https://help.sec.gov/s/questions-and-feedback
+    source: https://www.sec.gov/submit-tip-or-complaint
+    last_verified: 2026-10-12
+  - id: oiea-phone
+    type: phone
+    label: Office of Investor Education and Assistance
+    value: +1-202-551-6500
+    source: https://www.sec.gov/about/divisions-offices/office-investor-education-assistance
+    last_verified: 2026-10-12
+  - id: oiea-email
+    type: email
+    label: Office of Investor Education and Assistance email
+    value: help@sec.gov
+    source: https://www.sec.gov/about/divisions-offices/office-investor-education-assistance
+    last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: >-
+      Staff evaluate tips about securities law violations but are generally unable to comment on any
+      action taken on a tip or complaint. The SEC investigates on a confidential basis.
+    source: https://www.sec.gov/submit-tip-or-complaint/tips-complaints-resources/filing-guidance-confidentiality
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      If the issue is a dispute with your broker, the SEC will likely need to share your identity with
+      that broker.
+    source: https://www.sec.gov/submit-tip-or-complaint/tips-complaints-resources/filing-guidance-confidentiality
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      If you suspect a scam, stop communicating with the people involved and do not give them any money.
+    issues: [fraud]
+    source: https://www.sec.gov/submit-tip-or-complaint/report-problem-investment-account-or-financial-professional
+    last_verified: 2026-10-12
+
+notes: >-
+  No sector in this registry is for investments, so covers_sectors is empty. State securities
+  regulators: https://www.nasaa.org/contact-your-regulator/. The SEC tip pages list no mailing address
+  or fax. Problems with a stock exchange or FINRA itself go to
+  https://www.sec.gov/submit-tip-or-complaint/report-problem-sec-or-self-regulatory-organization.

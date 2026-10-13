@@ -1,0 +1,53 @@
+id: dot-baggage-liability
+title: DOT domestic baggage liability limit
+citation: 14 CFR part 254 (limit revised by 89 FR 84815, October 24, 2024, effective January 22, 2025)
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  sectors: [airline]
+  issues: [lost_baggage, damaged_baggage, delayed_baggage]
+summary: >-
+  On domestic flights, a U.S. airline may not limit its liability for provable direct or consequential damages
+  from lost, damaged or delayed baggage to less than $4,700 per passenger. The limit was raised from $3,800
+  effective January 22, 2025. It does not apply to wheelchairs and other assistive devices.
+points:
+  - kind: limit
+    claim: >-
+      On flight segments using large aircraft (designed for more than 60 passenger seats), and on any segment on
+      the same ticket as such a segment, a carrier may not limit its liability for provable direct or
+      consequential damages from the loss of, damage to, or delay of a passenger's baggage in its custody to
+      less than $4,700 for each passenger.
+    issues: [lost_baggage, damaged_baggage, delayed_baggage]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-254/section-254.4
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The carrier must give conspicuous written notice on or with the ticket of its liability limit, or the
+      statement "Federal rules require any limit on an airline's baggage liability to be at least $4,700 per
+      passenger."
+    issues: [lost_baggage, damaged_baggage]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-254/section-254.5
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The part 254 limit does not apply to wheelchairs or other assistive devices. Compensation for a lost,
+      damaged or destroyed wheelchair or assistive device is based on the device's original purchase price.
+    issues: [lost_baggage, damaged_baggage, accessibility]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-D/part-382/subpart-I/section-382.131
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      DOT raised the limit from $3,800 to $4,700 by a rule effective January 22, 2025, and did not enforce the
+      new limit until March 20, 2025.
+    issues: [lost_baggage, damaged_baggage, delayed_baggage]
+    source: https://www.federalregister.gov/documents/2024/10/24/2024-23588/periodic-revisions-to-denied-boarding-compensation-and-domestic-baggage-liability-limits
+    last_verified: 2026-10-12
+status_note: >-
+  In force. Part 254 applies to air carriers providing scheduled or charter passenger service in interstate or
+  intrastate air transportation. The $4,700 amount was set by 89 FR 84815 (October 24, 2024), effective
+  January 22, 2025; DOT delayed enforcement until March 20, 2025 (90 FR 9952). Section 254.6 requires a review
+  every two years using the July CPI-U. No 2026 revision had been published in the Federal Register as of
+  2026-10-12. Part 254 covers interstate and intrastate transportation only; for international carriage see
+  rules/montreal-convention-baggage.
+source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-254
+last_verified: 2026-10-12

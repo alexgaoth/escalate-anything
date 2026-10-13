@@ -1,0 +1,77 @@
+id: erisa-claims-procedures
+title: ERISA claims procedure timelines for employer benefit plans
+citation: 29 CFR 2560.503-1
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  sectors: [insurance_health]
+  issues: [claim_denial, claim_delay]
+summary: >-
+  Employer-sponsored benefit plans covered by ERISA must decide claims and appeals within set deadlines.
+  Group health plans: 72 hours for urgent care, 15 days for pre-service and 30 days for post-service
+  claims; disability plans: 45 days; other plans: 90 days. Group health and disability claimants get at
+  least 180 days to appeal. If the plan does not follow the procedures, the claimant may sue.
+points:
+  - kind: deadline
+    claim: >-
+      Group health plan initial decisions: urgent care claims "not later than 72 hours after receipt of the
+      claim by the plan"; pre-service claims within 15 days, with one extension of up to 15 days;
+      post-service claims "not later than 30 days after receipt of the claim", with one extension of up to
+      15 days.
+    issues: [claim_delay, claim_denial]
+    source: https://www.law.cornell.edu/cfr/text/29/2560.503-1
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      Disability claims: notice of decision "not later than 45 days after receipt of the claim by the plan",
+      with an extension of up to 30 days and a second extension of up to 30 days. Other plans (not group
+      health or disability): not later than 90 days, with one extension of up to 90 days.
+    issues: [claim_delay, claim_denial]
+    source: https://www.law.cornell.edu/cfr/text/29/2560.503-1
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      Time to appeal a denial: group health plan and disability claimants must have at least 180 days after
+      receiving the adverse benefit determination. Claimants under other plans must have "at least 60 days
+      following receipt of a notification" of the adverse determination.
+    issues: [claim_denial]
+    source: https://www.law.cornell.edu/cfr/text/29/2560.503-1
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      Group health plan appeal decisions (one-level appeal): urgent care within 72 hours, pre-service within
+      30 days, post-service within 60 days after the plan receives the appeal. With two appeal levels, each
+      level has 15 days (pre-service) or 30 days (post-service).
+    issues: [claim_denial, claim_delay]
+    source: https://www.law.cornell.edu/cfr/text/29/2560.503-1
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      Appeal decisions for other plans are due not later than 60 days after the request for review (up to 60
+      more days in special circumstances); for disability plans the period is 45 days.
+    issues: [claim_denial, claim_delay]
+    source: https://www.law.cornell.edu/cfr/text/29/2560.503-1
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      On appeal, the plan must provide, "upon request and free of charge, reasonable access to, and copies
+      of, all documents" relevant to the claim.
+    issues: [claim_denial]
+    source: https://www.law.cornell.edu/cfr/text/29/2560.503-1
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      If the plan fails to establish or follow these claims procedures, "a claimant shall be deemed to have
+      exhausted the administrative remedies available under the plan" and may bring a civil action under
+      ERISA section 502(a).
+    issues: [claim_denial, claim_delay]
+    source: https://www.law.cornell.edu/cfr/text/29/2560.503-1
+    last_verified: 2026-10-12
+source: https://www.law.cornell.edu/cfr/text/29/2560.503-1
+last_verified: 2026-10-12
+status_note: >-
+  In force. Group health plans must also meet the ACA internal appeal and external review rules (see
+  rules/aca-appeals-external-review). Regulation text was read on the Cornell LII copy of the CFR because
+  ecfr.gov blocked automated access. The DOL EBSA claims procedure FAQs give the same 72-hour, 15-day,
+  45-day and 180-day figures:
+  https://www.dol.gov/agencies/ebsa/about-ebsa/our-activities/resource-center/faqs/benefit-claims-procedure-regulation

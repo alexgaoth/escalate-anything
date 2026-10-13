@@ -1,0 +1,88 @@
+id: montreal-convention-baggage
+title: Montreal Convention 1999 - baggage liability and claim deadlines
+citation: Convention for the Unification of Certain Rules for International Carriage by Air (Montreal, 1999), Articles 17, 19, 22, 31, 35
+jurisdiction: international
+status: in_effect
+applies_to:
+  sectors: [airline]
+  issues: [lost_baggage, damaged_baggage, delayed_baggage, flight_delay]
+summary: >-
+  For international air travel covered by the Montreal Convention, the airline is liable for lost, damaged or
+  delayed checked baggage up to 1,519 Special Drawing Rights (SDR) per passenger (revised limit effective
+  28 December 2024). Written complaints are due within 7 days of receiving a damaged bag and within 21 days
+  after a delayed bag is returned. A lawsuit must be brought within two years.
+points:
+  - kind: limit
+    claim: >-
+      The baggage liability limit in Article 22, paragraph 2 is 1,519 SDR for each passenger, effective as of
+      28 December 2024 (revised from 1,288 SDR set in 2019; the original limit was 1,000 SDR).
+    issues: [lost_baggage, damaged_baggage, delayed_baggage]
+    source: https://www.icao.int/sites/default/files/secretariat/legal/LEB%20Treaty%20Collection%20Documents/2024_Revised_Limits_of_Liability_Under_the_Montreal_Convention_of_1999_en.pdf
+    last_verified: 2026-10-12
+  - kind: limit
+    claim: >-
+      The liability limit for damage caused by delay of passengers (Article 22, paragraph 1) is 6,303 SDR,
+      effective as of 28 December 2024.
+    issues: [flight_delay]
+    source: https://www.icao.int/sites/default/files/secretariat/legal/LEB%20Treaty%20Collection%20Documents/2024_Revised_Limits_of_Liability_Under_the_Montreal_Convention_of_1999_en.pdf
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The baggage limit applies to destruction, loss, damage or delay of baggage, unless the passenger made a
+      special declaration of interest in delivery at destination when checking the bag and paid any
+      supplementary sum required (Article 22(2)).
+    issues: [lost_baggage, damaged_baggage, delayed_baggage]
+    source: https://laws-lois.justice.gc.ca/eng/acts/C-26/FullText.html
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      For damage to checked baggage, the passenger must complain to the carrier forthwith after discovering the
+      damage and at the latest within seven days from the date of receipt (Article 31(2)).
+    issues: [damaged_baggage]
+    source: https://laws-lois.justice.gc.ca/eng/acts/C-26/FullText.html
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      For delay, the complaint must be made at the latest within twenty-one days from the date on which the
+      baggage was placed at the passenger's disposal (Article 31(2)).
+    issues: [delayed_baggage]
+    source: https://laws-lois.justice.gc.ca/eng/acts/C-26/FullText.html
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      Every complaint must be made in writing within these times. If no complaint is made in time, no action
+      lies against the carrier, except in case of fraud on its part (Article 31(3) and (4)).
+    issues: [damaged_baggage, delayed_baggage]
+    source: https://laws-lois.justice.gc.ca/eng/acts/C-26/FullText.html
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      If the carrier admits the loss of checked baggage, or the bag has not arrived 21 days after the date it
+      ought to have arrived, the passenger may enforce the rights that flow from the contract of carriage
+      (Article 17(3)).
+    issues: [lost_baggage]
+    source: https://laws-lois.justice.gc.ca/eng/acts/C-26/FullText.html
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      The right to damages is extinguished if an action is not brought within two years from the date of
+      arrival at the destination, the date the aircraft ought to have arrived, or the date the carriage stopped
+      (Article 35(1)).
+    issues: [lost_baggage, damaged_baggage, delayed_baggage, flight_delay]
+    source: https://laws-lois.justice.gc.ca/eng/acts/C-26/FullText.html
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Under U.S. disability rules, Montreal Convention liability limits apply to mishandled wheelchairs and other
+      assistive devices on international flights.
+    issues: [accessibility, damaged_baggage]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-D/part-382/subpart-I/section-382.130
+    last_verified: 2026-10-12
+status_note: >-
+  In force for international carriage between States Parties. ICAO's 2024 review under Article 24 revised the
+  limits effective 28 December 2024 (baggage 1,519 SDR; passenger delay 6,303 SDR; death or injury
+  151,880 SDR; cargo 26 SDR per kg). Convention article text is quoted from Schedule VI of Canada's Carriage
+  by Air Act, which reproduces the Convention. SDR amounts convert to dollars at the current IMF rate; no
+  dollar value is given here.
+source: https://www.icao.int/sites/default/files/secretariat/legal/LEB%20Treaty%20Collection%20Documents/2024_Revised_Limits_of_Liability_Under_the_Montreal_Convention_of_1999_en.pdf
+last_verified: 2026-10-12

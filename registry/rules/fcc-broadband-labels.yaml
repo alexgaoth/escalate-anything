@@ -1,0 +1,75 @@
+id: fcc-broadband-labels
+title: FCC broadband consumer labels
+citation: 47 CFR 8.1 (Infrastructure Investment and Jobs Act section 60504); amended by FCC 26-48, 91 FR 52251 (August 13, 2026)
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  sectors: [internet_tv, wireless]
+  issues: [billing_error, bill_increase, price_negotiation]
+summary: >-
+  Fixed and mobile broadband providers must show a standard "broadband consumer label" for each plan they sell,
+  at every point of sale (website, stores, phone sales) and in the customer's online account. The label shows
+  the monthly price, introductory rates, fees, data allowance and typical speeds. An August 2026 FCC order
+  will relax some display rules, but most of those changes had not taken effect on 2026-10-12.
+points:
+  - kind: policy
+    claim: >-
+      Each provider of broadband internet access service must create and display a broadband consumer label for
+      each stand-alone plan it currently offers, prominently displayed, publicly available and easily
+      accessible to consumers, in the format the FCC prescribes.
+    issues: [billing_error, bill_increase]
+    source: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-8/section-8.1
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The label must be displayed at each point of sale, which includes the provider's website and any alternate
+      sales channel (provider-owned and third-party retail stores and phone sales), and on websites it must be
+      near the advertised plan. Providers with online account portals must make each customer's label easily
+      accessible there.
+    issues: [billing_error, price_negotiation]
+    source: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-8/section-8.1
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The label contains critical information about the plan, including pricing, introductory rates, data
+      allowances and performance metrics. Phone sales representatives must cover the monthly price, typical
+      speeds, latency, data allowance, contract term and early termination fees.
+    issues: [billing_error, bill_increase]
+    source: https://www.federalregister.gov/documents/2026/08/13/2026-16503/empowering-broadband-consumers-through-transparency
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Labels must be provided in English and in any other language in which the provider markets its services
+      in the United States.
+    issues: [billing_error]
+    source: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-8/section-8.1
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      Under the current text, a provider must archive labels for at least two years after a plan stops being
+      sold to new subscribers, and must give an existing customer on that plan the archived label within thirty
+      days of a request. The August 2026 order eliminates the archiving requirement once its amendments to
+      8.1(a) take effect.
+    issues: [billing_error, bill_increase]
+    source: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-8/section-8.1
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The FCC's August 2026 order (FCC 26-48) will let providers summarize the label orally on phone sales, show
+      passthrough fees as a single "up to" amount split into government and third-party charges, use a link or
+      icon instead of the full label at the point of sale and in account portals, and drop the machine-readable
+      spreadsheet and archiving requirements. Its changes to 8.1(a) are delayed until the FCC publishes an
+      effective date; its changes to 8.1(b) took effect September 14, 2026.
+    issues: [billing_error, bill_increase]
+    source: https://www.federalregister.gov/documents/2026/08/13/2026-16503/empowering-broadband-consumers-through-transparency
+    last_verified: 2026-10-12
+status_note: >-
+  In force. Large providers have had to comply since April 10, 2024 and providers with 100,000 or fewer
+  subscriber lines since October 10, 2024 (47 CFR 8.1(a)(7)). The FCC order of August 13, 2026 (FCC 26-48,
+  91 FR 52251) is effective September 14, 2026 except its revision of 8.1(a), which is delayed until the FCC
+  publishes an effective date in the Federal Register. No such notice had been published by 2026-10-12, and
+  the eCFR still shows the earlier 8.1(a) text (full label at point of sale, machine-readable file, two-year
+  archive). The label template is titled "[Fixed or Mobile] Broadband Consumer Disclosure Label". Label
+  requirements are enforced under the same processes as the FCC transparency rule.
+source: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-8/section-8.1
+last_verified: 2026-10-12

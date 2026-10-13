@@ -1,0 +1,76 @@
+id: dot-airline-commitments
+title: DOT Delay and Cancellation Dashboard - airline commitments for controllable disruptions
+citation: 14 CFR 259.5 (Customer Service Plans); FAA Reauthorization Act of 2024 (Pub. L. 118-63) section 506
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  sectors: [airline]
+  issues: [flight_cancellation, flight_delay]
+summary: >-
+  The ten largest U.S. airlines commit in their customer service plans to help passengers when a cancellation
+  or significant delay is within the airline's control. All ten guarantee a meal and free rebooking on the
+  same airline, and nine guarantee a hotel and ground transportation for controllable overnight disruptions.
+  DOT publishes these commitments on its Delay and Cancellation Dashboard, which still existed in August 2026.
+  Airlines must adhere to their plans. These are voluntary commitments, not a federal compensation rule.
+points:
+  - kind: policy
+    claim: >-
+      The 10 largest U.S. passenger carriers keep voluntary commitments in their customer service plans
+      (required by 14 CFR 259.5) to assist passengers affected by cancellations and significant delays that are
+      controllable by the carrier. All 10 guarantee a meal and rebooking without charge on the ticketed airline.
+      Nine guarantee hotel accommodation and ground transportation to and from the hotel for controllable
+      overnight delays and cancellations. Four commit to compensation in credits, travel vouchers or frequent
+      flyer miles.
+    issues: [flight_cancellation, flight_delay]
+    source: https://www.federalregister.gov/documents/2025/11/17/2025-20042/airline-passenger-rights-withdrawal
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Each covered carrier must adopt a Customer Service Plan for its scheduled flights and adhere to the plan's
+      terms.
+    issues: [flight_cancellation, flight_delay]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-259/section-259.5
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      DOT stated on December 10, 2025 that airlines are obligated to abide by their customer service commitments,
+      and that it aligned the "controllable" standard with the "Air Carrier" cause category in its delay
+      reporting rules (14 CFR 234.4).
+    issues: [flight_cancellation, flight_delay]
+    source: https://www.federalregister.gov/documents/2025/12/10/2025-22415/airline-customer-service-commitments-for-controllable-flight-disruptions-unscheduled-maintenance-in
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Since December 10, 2025, until further notice, DOT will not take action against airlines that do not
+      provide services, amenities or compensation for delays or cancellations caused by unscheduled maintenance
+      required by an FAA airworthiness directive that cannot be deferred (such as Emergency AD 2025-24-51).
+    issues: [flight_cancellation, flight_delay]
+    source: https://www.federalregister.gov/documents/2025/12/10/2025-22415/airline-customer-service-commitments-for-controllable-flight-disruptions-unscheduled-maintenance-in
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Effective October 19, 2026, ten event types move out of the "Air Carrier" (controllable) delay and
+      cancellation cause category into a new "Section 511(b)" category. They include extreme weather or
+      foreign-object damage to the aircraft, cybersecurity attacks, government system failures, non-deferrable
+      unscheduled maintenance, medical emergencies, removal of an unruly passenger, and airport closures from
+      volcanic ash, wind or wind shear. DOT expects fewer disruptions to trigger the airlines' commitments.
+    issues: [flight_cancellation, flight_delay]
+    source: https://www.federalregister.gov/documents/2026/09/03/2026-18040/cause-of-airline-delay-and-cancellation-categories-under-section-511b-of-the-faa-reauthorization-act
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      DOT stated in August 2026 that the delay and cancellation dashboard and the family seating dashboard
+      currently exist on its website, and that a seat size dashboard has not yet been created.
+    issues: [flight_cancellation, flight_delay]
+    source: https://www.federalregister.gov/documents/2026/08/31/2026-17721/aviation-consumer-protection-advisory-committee-notice-of-public-meeting
+    last_verified: 2026-10-12
+status_note: >-
+  In force as a disclosure and enforcement mechanism, not as a compensation rule. Section 506 of the FAA
+  Reauthorization Act of 2024 requires DOT to maintain the dashboard; DOT confirmed on August 31, 2026 that it
+  exists. DOT's December 10, 2025 notice (90 FR 57138) cites the dashboard at
+  transportation.gov/airconsumer/airline-cancellation-delay-dashboard. The commitments are chosen by each
+  airline and can change; check the airline's current customer service plan. DOT withdrew its 2024 proposal to
+  require compensation (see rules/dot-delay-compensation-proposal). A new cause-code rule (91 FR 56588)
+  narrows what counts as controllable from October 19, 2026.
+source: https://www.federalregister.gov/documents/2025/11/17/2025-20042/airline-passenger-rights-withdrawal
+last_verified: 2026-10-12

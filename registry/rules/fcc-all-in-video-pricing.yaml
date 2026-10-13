@@ -1,0 +1,54 @@
+id: fcc-all-in-video-pricing
+title: FCC "all-in" pricing rule for cable and satellite TV
+citation: 47 CFR 76.310 (FCC 24-29, MB Docket No. 23-203, 89 FR 28660, April 19, 2024; compliance dates at 89 FR 87983, November 6, 2024)
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  sectors: [internet_tv]
+  issues: [billing_error, bill_increase, price_negotiation]
+summary: >-
+  Cable operators and satellite (DBS) TV providers must show the total "all-in" price for video programming as
+  a single line item on bills, and as an aggregate price in any promotion that states a price. Providers may
+  add an itemized breakdown, but the aggregate price must be stated. Bills must also say when a promotional
+  price ends.
+points:
+  - kind: policy
+    claim: >-
+      Cable operators and DBS providers must state an aggregate price for the video programming they provide as
+      a clear, easy-to-understand and accurate single line item on subscribers' bills, including bills for legacy
+      or grandfathered plans. They may add an itemized explanation of the elements of that line item.
+    issues: [billing_error, bill_increase]
+    source: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-C/part-76/subpart-H/section-76.310
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      If a price is introductory or limited in time, the bill must state when it ends (the length of the
+      discount or the date the price changes), and must show the post-promotion rate 60 and 30 days before the
+      end of the introductory period.
+    issues: [bill_increase, price_negotiation]
+    source: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-C/part-76/subpart-H/section-76.310
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      A provider that states a video programming price in promotional materials (advertising and marketing)
+      must state the aggregate price clearly and accurately. If part of the price varies by location, it must
+      say where and how the consumer can get the subscriber-specific all-in price. If the price is time-limited,
+      it must state the post-promotion rate and how long each rate applies. This does not apply to marketing of
+      legacy plans no longer generally available to new customers.
+    issues: [billing_error, price_negotiation]
+    source: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-C/part-76/subpart-H/section-76.310
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      Compliance was required by December 19, 2024, except that cable operators with annual receipts of
+      $47 million or less had until March 19, 2025.
+    issues: [billing_error]
+    source: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-C/part-76/subpart-H/section-76.310
+    last_verified: 2026-10-12
+status_note: >-
+  In force. Adopted in FCC 24-29 (89 FR 28660, April 19, 2024); compliance dates were added at 89 FR 87983
+  (November 6, 2024). The eCFR version of 76.310 in effect since November 6, 2024 has no later amendment, and
+  no Federal Register document after November 2024 amending, staying or withdrawing 76.310 was found as of
+  2026-10-12. The rule applies to cable operators and DBS providers.
+source: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-C/part-76/subpart-H/section-76.310
+last_verified: 2026-10-12

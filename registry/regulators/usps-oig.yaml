@@ -1,0 +1,72 @@
+id: usps-oig
+name: USPS Office of Inspector General
+short_name: USPS OIG
+level: federal
+covers_sectors: [shipping]
+website: https://www.uspsoig.gov/
+when_to_use: >-
+  Use to report a USPS employee suspected of stealing or tampering with mail. For delivery delays, lost
+  packages and other service problems, go to USPS customer service first; for mail fraud and mail theft
+  by others, report to the Postal Inspection Service.
+
+channels:
+  - id: oig-contact
+    type: web_form
+    label: USPS OIG contact page (report employee mail theft or tampering)
+    value: https://www.uspsoig.gov/contact-us
+    notes: uspsoig.gov refused automated page reads (HTTP 406) on 2026-10-12, so the hotline form and phone number were not confirmed.
+    source: https://www.uspis.gov/report
+    last_verified: 2026-10-12
+  - id: usps-help
+    type: web_form
+    label: USPS customer service online form (not OIG) for delivery and service problems
+    value: https://emailus.usps.com/s/
+    notes: This is USPS itself, not the OIG. Use it first for delivery delays, lost mail and service issues.
+    source: https://www.usps.com/help/contact-us.htm
+    last_verified: 2026-10-12
+  - id: usps-customer-care
+    type: phone
+    label: USPS Customer Care, 1-800-ASK-USPS (not OIG)
+    value: +1-800-275-8777
+    hours: Monday to Friday 8 a.m. to 8:30 p.m. ET; Saturday 8 a.m. to 6 p.m. ET
+    notes: This is USPS itself, not the OIG. TTY users dial 7-1-1 for relay.
+    source: https://www.usps.com/help/contact-us.htm
+    last_verified: 2026-10-12
+  - id: uspis-mail-theft
+    type: web_form
+    label: U.S. Postal Inspection Service report form (mail theft, not OIG)
+    value: https://report.uspis.gov/
+    notes: Postal Inspection Service, a separate USPS law enforcement unit. Phone 1-877-876-2455.
+    source: https://www.uspis.gov/report
+    last_verified: 2026-10-12
+  - id: usps-consumer-advocate
+    type: mail
+    label: USPS Office of the Consumer Advocate (not OIG)
+    value: USPS Office of the Consumer Advocate, 475 L'Enfant Plaza SW, Room 4012, Washington, DC 20260-2200
+    source: https://www.usa.gov/agencies/u-s-postal-service
+    last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: Contact the USPS OIG to report USPS employees suspected of tampering with or stealing mail.
+    source: https://www.uspis.gov/report
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      For delivery delays or service issues, use the USPS help pages. For comments about USPS personnel,
+      facilities or services, use the USPS inquiry form.
+    issues: [lost_package, late_delivery]
+    source: https://www.uspis.gov/report
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      Mail fraud, mail theft, counterfeit postage and identity theft through the mail are reported to the
+      U.S. Postal Inspection Service, not the OIG.
+    source: https://www.uspis.gov/report
+    last_verified: 2026-10-12
+
+notes: >-
+  Who handles what: USPS customer service (1-800-ASK-USPS, emailus.usps.com) handles delivery delays,
+  lost or damaged mail and claims (https://www.usps.com/help/claims.htm). The Postal Inspection Service
+  (uspis.gov) takes reports of mail fraud and mail theft. The OIG takes reports of USPS employees
+  stealing or tampering with mail; do not send it routine service complaints.

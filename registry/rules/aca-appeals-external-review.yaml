@@ -1,0 +1,87 @@
+id: aca-appeals-external-review
+title: ACA internal appeals and external review for health coverage
+citation: 45 CFR 147.136 (with 29 CFR 2560.503-1 for group health plans)
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  sectors: [insurance_health]
+  issues: [claim_denial, claim_delay]
+summary: >-
+  After a health plan denies a claim, the patient has 180 days to file an internal appeal. The plan must
+  decide within 30 days (care not yet received), 60 days (care already received) or 72 hours (urgent care).
+  After a final denial, the patient can ask for an independent external review within 4 months; the plan
+  must accept the reviewer's decision.
+points:
+  - kind: deadline
+    claim: >-
+      "You must file your internal appeal within 180 days (6 months) of receiving notice that your claim was
+      denied."
+    issues: [claim_denial]
+    source: https://www.healthcare.gov/appeal-insurance-company-decision/internal-appeals/
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      The internal appeal must be completed within 30 days for a service not yet received and within 60
+      days for a service already received.
+    issues: [claim_denial, claim_delay]
+    source: https://www.healthcare.gov/appeal-insurance-company-decision/internal-appeals/
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      For urgent care claims, a group health plan must decide an appeal "not later than 72 hours after
+      receipt of the claimant's request for review".
+    issues: [claim_denial, claim_delay]
+    source: https://www.law.cornell.edu/cfr/text/29/2560.503-1
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      In urgent situations, "You may file an internal appeal and an external review request at the same
+      time."
+    issues: [claim_denial]
+    source: https://www.healthcare.gov/appeal-insurance-company-decision/internal-appeals/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Plans must continue coverage pending the outcome of an appeal, and may not reduce or end benefits for
+      an ongoing course of treatment without advance notice and an opportunity for advance review.
+    issues: [claim_denial]
+    source: https://www.law.cornell.edu/cfr/text/45/147.136
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      An external review must be requested within "4 months after the date you receive a notice or final
+      determination" from the insurer. A standard decision is due no later than 45 days after the request is
+      received; an expedited decision no later than 72 hours.
+    issues: [claim_denial]
+    source: https://www.healthcare.gov/appeal-insurance-company-decision/external-review/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The insurer is required by law to accept the external reviewer's decision. The HHS-administered
+      process is free; a state or insurer-contracted process may charge, but not more than $25 per review.
+    issues: [claim_denial]
+    source: https://www.healthcare.gov/appeal-insurance-company-decision/external-review/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      If the plan fails to strictly follow the internal claims and appeals requirements, the claimant "is
+      deemed to have exhausted the internal claims and appeals process", subject to a de minimis exception.
+    issues: [claim_denial, claim_delay]
+    source: https://www.law.cornell.edu/cfr/text/45/147.136
+    last_verified: 2026-10-12
+  - kind: limit
+    claim: >-
+      These internal appeal and external review requirements generally do not apply to grandfathered plans.
+    issues: [claim_denial]
+    source: https://www.law.cornell.edu/cfr/text/45/147.136
+    last_verified: 2026-10-12
+  - kind: contact
+    claim: >-
+      For plans that use the HHS-administered external review process, requests can be filed online with
+      MAXIMUS Federal Services, by calling 1-888-866-6205 for a form, or by email to ferp@maximus.com. For a
+      state process, the contact is in the final denial notice or Explanation of Benefits.
+    issues: [claim_denial]
+    source: https://www.healthcare.gov/appeal-insurance-company-decision/external-review/
+    last_verified: 2026-10-12
+source: https://www.law.cornell.edu/cfr/text/45/147.136
+last_verified: 2026-10-12

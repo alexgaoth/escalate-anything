@@ -1,0 +1,46 @@
+id: cfpb-overdraft-rule
+title: CFPB Overdraft Lending Rule for Very Large Financial Institutions (2024)
+citation: 89 FR 106768 (December 30, 2024); disapproved by Pub. L. 119-10 (S.J. Res. 18)
+jurisdiction: us-federal
+status: repealed
+applies_to:
+  sectors: [bank, credit_union]
+  issues: [fee_reversal]
+summary: >-
+  The CFPB's December 2024 overdraft rule for very large financial institutions (scheduled effective
+  October 1, 2025) was disapproved by Congress under the Congressional Review Act on May 9, 2025 and has no
+  force or effect. Do not cite it. The older Regulation E opt-in rule for ATM and one-time debit card
+  overdraft fees remains in force.
+points:
+  - kind: policy
+    claim: >-
+      Public Law 119-10 (S.J. Res. 18, approved May 9, 2025) disapproved the rule "relating to 'Overdraft
+      Lending: Very Large Financial Institutions'" (89 Fed. Reg. 106768) and states that "such rule shall
+      have no force or effect."
+    issues: [fee_reversal]
+    source: https://www.govinfo.gov/content/pkg/PLAW-119publ10/html/PLAW-119publ10.htm
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Under the Congressional Review Act, a disapproved rule may not be reissued in substantially the same
+      form, and a substantially similar new rule may not be issued, unless a later law specifically
+      authorizes it.
+    issues: [fee_reversal]
+    source: https://www.law.cornell.edu/uscode/text/5/801
+    last_verified: 2026-10-12
+  - kind: fee
+    claim: >-
+      Still in force (12 CFR 1005.17): a bank or credit union may not charge a fee for paying an ATM or
+      one-time debit card transaction through its overdraft service unless it gave a written notice of the
+      service, got the consumer's affirmative opt-in, and sent written confirmation that includes the right
+      to revoke consent. The opt-in rule does not cover checks, ACH or recurring debit card transactions.
+    issues: [fee_reversal]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1005/17/
+    last_verified: 2026-10-12
+source: https://www.govinfo.gov/content/pkg/PLAW-119publ10/html/PLAW-119publ10.htm
+last_verified: 2026-10-12
+status_note: >-
+  Not a court vacatur: Congress disapproved the rule under the Congressional Review Act (Pub. L. 119-10,
+  May 9, 2025), so it never took effect and "shall have no force or effect". The CFPB rule page (last modified July 2, 2025)
+  still lists it as a final rule with no status note. What remains in force: the Regulation E overdraft
+  opt-in rule (12 CFR 1005.17) and the account agreement.

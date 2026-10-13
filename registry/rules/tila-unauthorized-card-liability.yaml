@@ -1,0 +1,54 @@
+id: tila-unauthorized-card-liability
+title: Credit card unauthorized-use liability limit (Regulation Z)
+citation: 12 CFR 1026.12(b) (Regulation Z)
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  sectors: [bank, credit_union]
+  issues: [unauthorized_charge, fraud]
+summary: >-
+  A cardholder's liability for unauthorized use of a credit card cannot exceed the lesser of $50 or the
+  amount obtained before the cardholder notifies the card issuer. Notice can be in person, by phone or in
+  writing. A state law or the card agreement that sets lower liability controls.
+points:
+  - kind: limit
+    claim: >-
+      Liability for unauthorized use "shall not exceed the lesser of $50 or the amount of money, property,
+      labor, or services obtained by the unauthorized use before notification to the card issuer".
+    issues: [unauthorized_charge, fraud]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1026/12/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Unauthorized use means use by a person other than the cardholder who does not have actual, implied or
+      apparent authority for the use, and from which the cardholder receives no benefit.
+    issues: [unauthorized_charge, fraud]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1026/12/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The issuer can hold the cardholder liable only if the card is an accepted card, the issuer gave
+      adequate notice of the maximum potential liability and of how to report loss or theft, and the issuer
+      provided a means to identify the cardholder or authorized user.
+    issues: [unauthorized_charge]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1026/12/
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      Notice to the issuer may be given in person, by telephone or in writing, at the cardholder's option.
+      Written notice counts as given when received or when the time ordinarily required for transmission
+      has passed, whichever is earlier.
+    issues: [unauthorized_charge, fraud]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1026/12/
+    last_verified: 2026-10-12
+  - kind: limit
+    claim: >-
+      If state law or the cardholder agreement sets lower liability, "the lesser liability shall govern".
+      When an issuer gives 10 or more cards to employees of one organization, the issuer and the
+      organization may agree to different liability terms, but an employee can still be held liable only
+      as this section permits.
+    issues: [unauthorized_charge]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1026/12/
+    last_verified: 2026-10-12
+source: https://www.consumerfinance.gov/rules-policy/regulations/1026/12/
+last_verified: 2026-10-12

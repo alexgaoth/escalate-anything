@@ -1,0 +1,64 @@
+id: ncua
+name: National Credit Union Administration, Consumer Assistance Center
+short_name: NCUA
+level: federal
+covers_sectors: [credit_union]
+covers_issues: [fee_reversal, transaction_dispute, frozen_funds, billing_error]
+website: https://mycreditunion.gov
+when_to_use: >-
+  Use for a complaint about a federal credit union, or some federally insured state-chartered credit
+  unions, after you tried to resolve it with the credit union. The credit union first gets 60 calendar
+  days to resolve it.
+
+channels:
+  - id: complaint-portal
+    type: web_form
+    label: Submit a complaint (Consumer Assistance Center)
+    value: https://complaint.mycreditunion.gov/Complaint/
+    purposes: [fee_reversal, transaction_dispute, frozen_funds, billing_error]
+    source: https://mycreditunion.gov/consumer-assistance-center
+    last_verified: 2026-10-12
+  - id: phone
+    type: phone
+    label: Consumer Assistance Center
+    value: +1-800-755-1030
+    hours: Monday to Friday, 8 a.m. to 5 p.m. ET
+    source: https://mycreditunion.gov/about/consumer-assistance-center/contact-us
+    last_verified: 2026-10-12
+  - id: mail
+    type: mail
+    label: Consumer Assistance Center mailing address
+    value: NCUA Consumer Assistance Center, 1775 Duke Street, Alexandria, VA 22314-3418
+    source: https://mycreditunion.gov/about/consumer-assistance-center/contact-us
+    last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: >-
+      The Consumer Assistance Center handles federal credit unions and, in some cases, federally
+      insured state-chartered credit unions with total assets up to $10 billion, for complaints under
+      federal consumer financial protection laws. It forwards other complaints to the right federal or
+      state regulator.
+    source: https://mycreditunion.gov/consumer-assistance-center
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      Allow 10 business days for acknowledgment. The CAC forwards the complaint to the credit union
+      within 10 business days, and the credit union has 60 calendar days to try to resolve it before the
+      CAC starts a formal investigation.
+    source: https://mycreditunion.gov/consumer-assistance-center
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      If you disagree with the credit union's response, tell the CAC in writing within 30 calendar days
+      of the credit union's letter. An appeal of a CAC determination goes in writing to the Director of
+      the Division of Consumer Affairs within 30 days of the determination letter.
+    source: https://mycreditunion.gov/about/consumer-assistance-center/compliant-process
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      Include your name, address and phone, the credit union's full name and address, the staff you
+      dealt with and dates, copies of correspondence, a clear description, and the resolution you want.
+      Remove Social Security, card and account numbers from documents.
+    source: https://mycreditunion.gov/about/consumer-assistance-center/compliant-process
+    last_verified: 2026-10-12

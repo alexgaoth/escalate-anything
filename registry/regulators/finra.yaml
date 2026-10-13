@@ -1,0 +1,74 @@
+id: finra
+name: Financial Industry Regulatory Authority
+short_name: FINRA
+level: nonprofit
+covers_sectors: []
+website: https://www.finra.org
+when_to_use: >-
+  Use for a complaint about a brokerage firm or broker after you complained to the firm's branch
+  manager or compliance department. To recover money, consider FINRA arbitration; a FINRA complaint
+  alone may not get you paid.
+
+channels:
+  - id: investor-complaint-center
+    type: web_form
+    label: FINRA Investor Complaint Center
+    value: https://investor-complaints.datacollection.finra.org
+    source: https://www.finra.org/investors/need-help/file-a-complaint
+    last_verified: 2026-10-12
+  - id: senior-helpline
+    type: phone
+    label: FINRA Securities Helpline for Seniors (844-57-HELPS)
+    value: +1-844-574-3577
+    hours: Monday to Friday, 9 a.m. to 5 p.m. ET
+    notes: For senior investors with questions or concerns about brokerage accounts. Staff may call back or refer you to another regulator.
+    source: https://www.finra.org/investors/need-help/helpline-seniors
+    last_verified: 2026-10-12
+  - id: general-phone
+    type: phone
+    label: FINRA general inquiries
+    value: +1-301-590-6500
+    source: https://www.finra.org/investors/need-help/file-a-complaint
+    last_verified: 2026-10-12
+  - id: arbitration-claim
+    type: web_form
+    label: File an arbitration or mediation claim
+    value: https://www.finra.org/arbitration-mediation/file-claim#arbitration
+    notes: Cases are handled in the DR Portal (https://drportal.finra.org/), which needs a login.
+    source: https://www.finra.org/arbitration-mediation
+    last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: >-
+      FINRA investigates complaints against brokerage firms and their employees and can take
+      disciplinary action, such as fines, suspensions and bars from the industry.
+    source: https://www.finra.org/investors/need-help/file-a-complaint
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      FINRA gives no assurance that its action will return funds or securities to you, and relying only
+      on its investigation may close other avenues of redress.
+    source: https://www.finra.org/investors/have-problem/file-complaint/questions-ask-you-file-complaint
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      If you lost money or there was an unauthorized trade, complain in writing to the firm first and
+      keep copies of all correspondence.
+    source: https://www.finra.org/investors/need-help/file-a-complaint
+    last_verified: 2026-10-12
+  - kind: process
+    claim: FINRA no longer accepts complaints by fax.
+    source: https://www.finra.org/investors/need-help/file-a-complaint
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      A claim is not eligible for FINRA arbitration once six years have passed from the occurrence or
+      event that gave rise to it.
+    source: https://www.finra.org/rules-guidance/rulebooks/finra-rules/12206
+    last_verified: 2026-10-12
+
+notes: >-
+  FINRA is not a government agency. It is a private not-for-profit membership organization that works
+  under the supervision of the SEC. If FINRA does not have jurisdiction, it may pass the complaint to
+  another regulator, which can delay it. Check a broker in BrokerCheck: https://brokercheck.finra.org

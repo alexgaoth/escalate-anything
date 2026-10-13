@@ -1,0 +1,122 @@
+id: dot-refunds-rule
+title: DOT automatic refund rule for airline tickets and ancillary fees (2024)
+citation: 14 CFR part 260 and 14 CFR part 262 (89 FR 32760, April 26, 2024; amended 89 FR 65534, August 12, 2024)
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  sectors: [airline, travel_agency]
+  issues: [flight_cancellation, flight_delay, delayed_baggage, lost_baggage, ancillary_fee_refund, travel_credit, refund_request, accessibility]
+summary: >-
+  Airlines operating to, from or within the U.S. must give a full cash refund (to the original form of
+  payment) when they cancel or significantly change a flight and the passenger does not accept the
+  alternative. Refunds are due within 7 business days (credit card) or 20 calendar days (other payment).
+  Airlines must also refund checked bag fees for significantly delayed bags and fees for paid extras that
+  were not provided. Until July 7, 2027, DOT does not enforce the rule in one narrow case: a flight that is
+  only renumbered, with no significant change or delay.
+points:
+  - kind: policy
+    claim: >-
+      A "cancelled flight" is a covered flight that was published in the carrier's Computer Reservation
+      System at the time of the ticket sale but not operated by the carrier.
+    issues: [flight_cancellation]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-260/section-260.2
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      A "significantly delayed or changed flight" is one where, because of the carrier's change, the passenger
+      departs 3 or more hours earlier or arrives 3 or more hours later (domestic itineraries), or 6 or more
+      hours earlier or later (international itineraries); departs from or arrives at a different airport;
+      has more connection points; or is downgraded to a lower class of service. For a passenger with a
+      disability, a change of connecting airport or a substitute aircraft without a needed accessibility
+      feature also counts.
+    issues: [flight_cancellation, flight_delay, accessibility]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-260/section-260.2
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The merchant-of-record carrier must refund the airfare, including taxes and ancillary fees, to a
+      passenger with a nonrefundable ticket whose flight is cancelled or significantly delayed or changed, if
+      the passenger does not fly the changed flight or accept rebooking and does not accept a voucher or other
+      compensation. The refund is automatic when the flight is cancelled and no alternative is offered, when
+      the passenger rejects the alternative, or when the passenger does not respond to the offer before the
+      flight departs.
+    issues: [flight_cancellation, flight_delay, refund_request]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-260/section-260.6
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      A "prompt refund" is made within 7 business days after the earliest date the refund was requested for
+      credit card purchases, and within 20 calendar days for cash, check, debit card or other purchases.
+    issues: [flight_cancellation, refund_request, ancillary_fee_refund]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-260/section-260.2
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Refunds must be issued promptly in the original form of payment unless the consumer agrees to a cash
+      equivalent, and the carrier may not keep a processing fee for a refund that is due.
+    issues: [refund_request]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-260/section-260.10
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      A carrier may offer a voucher or credit instead of a refund only if the offer states the passenger's
+      right to a full refund, and the voucher stays valid for at least five years from the date it is issued.
+    issues: [travel_credit, flight_cancellation]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-260/section-260.6
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      A checked bag is "significantly delayed" if it is not delivered or picked up within 12 hours of the last
+      flight segment's arrival for domestic itineraries; within 15 hours for international itineraries whose
+      non-stop segment to or from the U.S. is 12 hours or less; or within 30 hours when that segment is more
+      than 12 hours. The 15- and 30-hour standards also apply to domestic segments of international itineraries.
+    issues: [delayed_baggage]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-260/section-260.2
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The carrier must refund the checked bag fee for a lost or significantly delayed bag. The passenger must
+      first file a Mishandled Baggage Report with the carrier that operated the flight (or the last segment of
+      a multi-carrier itinerary). No refund is due if the delay was caused by the passenger, for example by
+      not rechecking the bag at the first U.S. entry point for customs.
+    issues: [delayed_baggage, lost_baggage, ancillary_fee_refund]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-260/section-260.5
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The merchant-of-record carrier must give a prompt and automatic refund of any ancillary service fee
+      (for example Wi-Fi or a seat) when the service was not provided through no fault of the consumer. If
+      the service failed for only some passengers, the obligation starts when the affected passenger notifies
+      the carrier and the carrier confirms it.
+    issues: [ancillary_fee_refund]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-260/section-260.4
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      On request, carriers must give a transferable travel credit or voucher, valid for at least five years
+      from issuance, to a passenger who cannot travel because of a government restriction related to a serious
+      communicable disease, or who is advised by a licensed treating medical professional not to fly because
+      of a serious communicable disease. The carrier may require documentation and may charge a per-passenger
+      processing fee that was disclosed at purchase.
+    issues: [travel_credit]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-262
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Until July 7, 2027, DOT will not enforce the cancellation refund and notice requirements when a flight is
+      only given a different flight number, the passenger is rebooked on the renumbered flight, and that flight
+      operates without a significant change or delay. If a renumbered flight is significantly changed or
+      delayed, the refund requirements remain fully enforceable.
+    issues: [flight_cancellation]
+    source: https://www.federalregister.gov/documents/2026/07/07/2026-13675/airline-refunds-and-other-consumer-protections
+    last_verified: 2026-10-12
+status_note: >-
+  In force. 14 CFR part 260 (refunds) and part 262 (communicable-disease travel credits) were published April 26,
+  2024 (89 FR 32760), effective June 25, 2024, and amended August 12, 2024 (89 FR 65534) to conform to the FAA
+  Reauthorization Act of 2024. The eCFR shows the text current as of October 2026. Narrow enforcement
+  discretion: DOT notices of December 5, 2025 (90 FR 55999) and July 7, 2026 (91 FR 41556) pause enforcement,
+  until July 7, 2027, only for renumbered flights with no significant change or delay, while DOT works on a
+  rulemaking ("Refund III", docket DOT-OST-2025-2285) to redefine "cancelled flight". No proposed rule for
+  Refund III had been published in the Federal Register as of 2026-10-12. All other requirements are enforced.
+source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-260
+last_verified: 2026-10-12

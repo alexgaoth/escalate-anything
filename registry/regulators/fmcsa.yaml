@@ -1,0 +1,53 @@
+id: fmcsa
+name: Federal Motor Carrier Safety Administration
+short_name: FMCSA
+level: federal
+covers_sectors: [ground_transport]
+website: https://www.fmcsa.dot.gov
+when_to_use: >-
+  Use to report an interstate household goods mover or bus company through the National Consumer
+  Complaint Database. To get money back for lost or damaged goods, also file a
+  written claim with the mover and use the mover's arbitration program.
+
+channels:
+  - id: nccdb
+    type: web_form
+    label: National Consumer Complaint Database (movers and bus companies)
+    value: https://nccdb.fmcsa.dot.gov/
+    notes: Script-driven web app; it may not load for automated agents.
+    source: https://www.usa.gov/agencies/federal-motor-carrier-safety-administration
+    last_verified: 2026-10-12
+  - id: complaint-phone
+    type: phone
+    label: FMCSA consumer complaints line
+    value: +1-888-368-7238
+    source: https://www.usa.gov/agencies/federal-motor-carrier-safety-administration
+    last_verified: 2026-10-12
+  - id: information-line
+    type: phone
+    label: FMCSA information line
+    value: +1-800-832-5660
+    source: https://www.usa.gov/agencies/federal-motor-carrier-safety-administration
+    last_verified: 2026-10-12
+
+facts:
+  - kind: deadline
+    claim: >-
+      An interstate carrier may not give you less than 9 months to file a loss or damage claim against
+      it, or less than 2 years to sue after it gives written notice that it disallowed the claim.
+    issues: [damaged_item]
+    source: https://www.law.cornell.edu/uscode/text/49/14706
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      A household goods mover must have an arbitration program for individual shippers for loss and
+      damage disputes. Arbitration is binding for claims of $10,000 or less if the shipper requests it.
+    issues: [damaged_item]
+    source: https://www.law.cornell.edu/cfr/text/49/375.211
+    last_verified: 2026-10-12
+
+notes: >-
+  fmcsa.dot.gov and protectyourmove.gov blocked automated page reads on 2026-10-12, so FMCSA's own
+  description of what it does with a complaint (enforcement only, or help with the dispute) was not
+  confirmed. Contact details come from USA.gov. USA.gov also lists a consumer-complaint TTY number that
+  could not be confirmed on an FMCSA page, so it is left out.

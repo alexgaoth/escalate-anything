@@ -1,0 +1,54 @@
+id: federal-reserve
+name: Federal Reserve Consumer Help
+short_name: Federal Reserve
+level: federal
+covers_sectors: [bank]
+covers_issues: [fee_reversal, transaction_dispute, frozen_funds, billing_error]
+website: https://www.federalreserveconsumerhelp.gov
+when_to_use: >-
+  Use for a complaint about a financial institution supervised by the Federal Reserve System.
+  If you do not know the bank's regulator, Federal Reserve Consumer Help refers the complaint or tells
+  you where to file, but filing directly with the bank's own regulator is faster.
+
+channels:
+  - id: complaint-form
+    type: web_form
+    label: File a complaint
+    value: https://www.federalreserveconsumerhelp.gov/file-a-complaint/
+    purposes: [fee_reversal, transaction_dispute, frozen_funds, billing_error]
+    notes: Give a brief description with dates and names. Do not include account numbers or Social Security numbers, and do not attach documents.
+    source: https://www.federalreserveconsumerhelp.gov/file-a-complaint/
+    last_verified: 2026-10-12
+  - id: phone
+    type: phone
+    label: Federal Reserve Consumer Help
+    value: +1-888-851-1920
+    hours: 8 a.m. to 6 p.m. CST
+    notes: TTY users can call through 7-1-1 relay service.
+    source: https://www.federalreserveconsumerhelp.gov/contact-us/
+    last_verified: 2026-10-12
+  - id: mail
+    type: mail
+    label: Mailing address
+    value: Federal Reserve Consumer Help, PO Box 1200, Minneapolis, MN 55480
+    notes: Fax 1-877-888-2520 is also listed.
+    source: https://www.federalreserveconsumerhelp.gov/contact-us/
+    last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: >-
+      The complaint is reviewed and forwarded to the appropriate regulator when applicable. The
+      regulator contacts you if it needs more information.
+    source: https://www.federalreserveconsumerhelp.gov/file-a-complaint/
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      Filing directly with the bank's regulator is the most efficient way. Use FDIC BankFind to find
+      the regulator; brokerage complaints go to FINRA and securities or crypto complaints go to the SEC.
+    source: https://www.federalreserveconsumerhelp.gov/
+    last_verified: 2026-10-12
+
+notes: >-
+  An announcement shown from 2026-03-13 to 2026-12-31 asks consumers to file directly with the agency
+  that oversees their institution. The site does not state a response time.

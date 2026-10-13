@@ -1,0 +1,87 @@
+id: occ
+name: Office of the Comptroller of the Currency, Customer Assistance Group (HelpWithMyBank)
+short_name: OCC
+level: federal
+covers_sectors: [bank]
+covers_issues: [fee_reversal, transaction_dispute, frozen_funds, billing_error]
+website: https://www.helpwithmybank.gov
+when_to_use: >-
+  Use for a complaint about a national bank or federal savings association after the bank did not
+  fix it. Try the bank first, and check that the OCC regulates the bank before you file.
+
+channels:
+  - id: complaint-form
+    type: web_form
+    label: OCC online complaint form
+    value: https://occservices.occ.gov/csp?id=camp_complaint_submission
+    purposes: [fee_reversal, transaction_dispute, frozen_funds, billing_error]
+    notes: >-
+      The form times out after 30 minutes of inactivity. Explanation up to 4,000 characters; up to six
+      attachments of 5 MB or less. Do not include a Social Security number.
+    source: https://www.helpwithmybank.gov/file-a-complaint/index-file-a-complaint.html
+    last_verified: 2026-10-12
+  - id: phone
+    type: phone
+    label: Customer Assistance Group
+    value: +1-800-613-6743
+    hours: Monday to Friday, 7:00 a.m. to 7:00 p.m. CT
+    notes: English or Spanish. For relay services, dial 7-1-1.
+    source: https://helpwithmybank.gov/contact/index-contact-us.html
+    last_verified: 2026-10-12
+  - id: email
+    type: email
+    label: Customer Assistance Group email
+    value: Consumercomplaints@occ.treas.gov
+    source: https://helpwithmybank.gov/contact/index-contact-us.html
+    last_verified: 2026-10-12
+  - id: mail
+    type: mail
+    label: Customer Assistance Group mailing address
+    value: Comptroller of the Currency, Customer Assistance Group, P.O. Box 53570, Houston, TX 77052
+    notes: Fax (713) 336-4301 is also listed. A printable complaint form is at https://helpwithmybank.gov/file-a-complaint/customer-complaint-form.pdf
+    source: https://helpwithmybank.gov/contact/index-contact-us.html
+    last_verified: 2026-10-12
+  - id: case-status
+    type: web_form
+    label: Check case status
+    value: https://occservices.occ.gov/csp?id=camp_check_case_status
+    source: https://www.helpwithmybank.gov/file-a-complaint/index-file-a-complaint.html
+    last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: >-
+      The OCC handles complaints about national banks and federal savings associations. For other
+      banks, use the "Who regulates my bank" page to find the CFPB, FDIC, Federal Reserve, NCUA or state
+      regulator.
+    source: https://www.helpwithmybank.gov/file-a-complaint/index-file-a-complaint.html
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      Include your full name and mailing address as they appear on the bank's records, phone and email,
+      the bank's name and address, the account type, the person you contacted, and whether the bank has
+      responded.
+    source: https://www.helpwithmybank.gov/file-a-complaint/index-file-a-complaint.html
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      For a mailed or faxed complaint, the OCC sends a letter with a case number within five business
+      days of receipt. Online filers get an email confirmation.
+    source: https://helpwithmybank.gov/file-a-complaint/after-you-file-a-complaint/index-after-you-file-a-complaint.html
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: The OCC sends a results letter within 60 days after it has a complete file.
+    source: https://helpwithmybank.gov/file-a-complaint/after-you-file-a-complaint/index-after-you-file-a-complaint.html
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      The OCC contacts the bank only when it is a national bank, federal savings association or an
+      operating subsidiary of one, and the issue is within OCC jurisdiction. If you disagree with the
+      result, you can file an appeal.
+    source: https://helpwithmybank.gov/file-a-complaint/after-you-file-a-complaint/index-after-you-file-a-complaint.html
+    last_verified: 2026-10-12
+
+notes: >-
+  Check the regulator first at https://helpwithmybank.gov/who-regulates-my-bank/index-who-regulates-bank.html.
+  On 2026-10-12 the complaint page also invited complaints about unfair debanking under Executive Order
+  14331 (August 2025).

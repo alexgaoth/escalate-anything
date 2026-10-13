@@ -1,0 +1,66 @@
+id: magnuson-moss-warranty
+title: Magnuson-Moss Warranty Act
+citation: 15 U.S.C. 2302, 2310; FTC Disclosure and Pre-Sale Availability Rules
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  sectors: [retail]
+  issues: [warranty_claim, damaged_item]
+summary: >-
+  Federal law for written warranties on consumer products. Warrantors must disclose warranty terms in
+  simple language, may not void a warranty because the consumer used another brand of parts or service
+  (unless those are free or the FTC grants a waiver), and may not disclaim implied warranties when they give
+  a written warranty. Consumers can sue for breach and may recover attorneys' fees.
+points:
+  - kind: policy
+    claim: >-
+      A warrantor must "fully and conspicuously disclose in simple and readily understood language the terms
+      and conditions of such warranty", to the extent FTC rules require.
+    issues: [warranty_claim]
+    source: https://www.law.cornell.edu/uscode/text/15/2302
+    last_verified: 2026-10-12
+  - kind: limit
+    claim: >-
+      The FTC states that the "full" or "limited" title requirement applies to written warranties on consumer
+      products costing more than $10, and the single-document disclosure and pre-sale availability rules
+      apply to written warranties on consumer products costing more than $15.
+    issues: [warranty_claim]
+    source: https://www.ftc.gov/business-guidance/resources/businesspersons-guide-federal-warranty-law
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Tying prohibition: a warrantor may not condition a written or implied warranty on the consumer using an
+      article or service identified by brand, trade or corporate name, unless that article or service is
+      provided free under the warranty or the FTC grants a waiver (the product works properly only with it
+      and the waiver is in the public interest).
+    issues: [warranty_claim]
+    source: https://www.law.cornell.edu/uscode/text/15/2302
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      A company that gives a written warranty may not disclaim implied warranties. A limited warranty may
+      restrict the duration of implied warranties to the duration of the limited warranty.
+    issues: [warranty_claim]
+    source: https://www.ftc.gov/business-guidance/resources/businesspersons-guide-federal-warranty-law
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Under a "full" warranty, service must be free, available to anyone who owns the product during the
+      warranty period, and the warrantor must replace or refund if it cannot repair the product after a
+      reasonable number of tries. It may not limit the duration of implied warranties or impose unreasonable
+      duties, such as requiring return of a registration card.
+    issues: [warranty_claim, damaged_item]
+    source: https://www.ftc.gov/business-guidance/resources/businesspersons-guide-federal-warranty-law
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      A consumer damaged by a warrantor's failure to meet a written warranty, implied warranty or service
+      contract may sue in state court, or in federal court only if the amount in controversy is at least
+      $50,000 (each individual claim at least $25), and if successful may recover costs including attorneys'
+      fees. If the warranty requires an informal
+      dispute settlement mechanism that meets FTC rules, the consumer generally must use it before suing.
+    issues: [warranty_claim]
+    source: https://www.law.cornell.edu/uscode/text/15/2310
+    last_verified: 2026-10-12
+source: https://www.ftc.gov/business-guidance/resources/businesspersons-guide-federal-warranty-law
+last_verified: 2026-10-12

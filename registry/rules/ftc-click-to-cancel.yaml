@@ -1,0 +1,44 @@
+id: ftc-click-to-cancel
+title: FTC "Click-to-Cancel" amendments to the Negative Option Rule (2024)
+citation: 16 CFR part 425 (2024 amendments, published November 15, 2024)
+jurisdiction: us-federal
+status: vacated
+applies_to:
+  issues: [cancel_service]
+summary: >-
+  The FTC's 2024 amendments to the Negative Option Rule ("click-to-cancel") were vacated in full by the
+  U.S. Court of Appeals for the Eighth Circuit on July 8, 2025, and never took effect. Do not cite them.
+  For online subscriptions, cite ROSCA (rules/rosca-negative-option) and applicable state
+  automatic renewal laws instead.
+points:
+  - kind: policy
+    claim: >-
+      The Eighth Circuit (Custom Communications, Inc. v. FTC, No. 24-3137, filed July 8, 2025) granted the
+      petitions for review and vacated the entire 2024 Rule because of procedural errors in the rulemaking.
+    issues: [cancel_service]
+    source: https://ecf.ca8.uscourts.gov/opndir/25/07/243137P.pdf
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Effective February 12, 2026, the FTC restored 16 CFR part 425 to its pre-2024 form, renamed "Use of
+      Prenotification Negative Option Plans". The current rule covers only prenotification negative option
+      plans, not the 2024 click-to-cancel requirements.
+    issues: [cancel_service]
+    source: https://www.govinfo.gov/content/pkg/FR-2026-02-12/html/2026-02866.htm
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      On March 11, 2026 the FTC issued an Advance Notice of Proposed Rulemaking (published March 13, 2026)
+      asking whether to amend the Negative Option Rule. It contains no proposed rule text. The FTC rule page
+      lists no later action as of 2026-10-12.
+    issues: [cancel_service]
+    source: https://www.ftc.gov/legal-library/browse/rules/negative-option-rule
+    last_verified: 2026-10-12
+source: https://ecf.ca8.uscourts.gov/opndir/25/07/243137P.pdf
+last_verified: 2026-10-12
+status_note: >-
+  Vacated in full by the Eighth Circuit on July 8, 2025 (Custom Communications, Inc. v. FTC, 142 F.4th 1060).
+  The FTC removed the 2024 text effective February 12, 2026 and restored the pre-2024 prenotification
+  rule. A new rulemaking is only at the ANPRM stage (March 13, 2026), with no proposed text as of
+  2026-10-12. What remains in force: ROSCA (rules/rosca-negative-option), Section 5 of the FTC Act, and state
+  automatic renewal laws (for example rules/ca-automatic-renewal-law, rules/ny-automatic-renewal-law).

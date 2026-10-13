@@ -1,0 +1,67 @@
+id: hhs-ocr
+name: HHS Office for Civil Rights
+short_name: HHS OCR
+level: federal
+covers_sectors: [insurance_health]
+covers_issues: [privacy_request]
+website: https://www.hhs.gov/ocr/index.html
+when_to_use: >-
+  Use for a violation of health information privacy or security (HIPAA, including breach
+  notification), or for civil rights or conscience discrimination by a health care provider or
+  plan. File within 180 days.
+
+channels:
+  - id: complaint-portal
+    type: web_form
+    label: OCR Complaint Portal
+    value: https://ocrportal.hhs.gov/ocr/cp/complaint_frontpage.jsf
+    purposes: [privacy_request]
+    notes: Complaint types are civil rights and conscience, HIPAA privacy/security/breach notification, and Part 2 substance use disorder records.
+    source: https://ocrportal.hhs.gov/ocr/cp/complaint_frontpage.jsf
+    last_verified: 2026-10-12
+  - id: phone
+    type: phone
+    label: OCR Customer Response Center
+    value: +1-800-368-1019
+    source: https://ocrportal.hhs.gov/ocr/cp/complaint_frontpage.jsf
+    last_verified: 2026-10-12
+  - id: tdd
+    type: phone
+    label: OCR Customer Response Center, TDD
+    value: +1-800-537-7697
+    source: https://ocrportal.hhs.gov/ocr/cp/complaint_frontpage.jsf
+    last_verified: 2026-10-12
+  - id: email
+    type: email
+    label: OCR email
+    value: OCRMail@hhs.gov
+    notes: Listed on the complaint portal. The portal is the main filing path.
+    source: https://ocrportal.hhs.gov/ocr/cp/complaint_frontpage.jsf
+    last_verified: 2026-10-12
+
+facts:
+  - kind: deadline
+    claim: >-
+      A complaint must be filed within 180 days of the alleged violation. For HIPAA, the 180 days can
+      run from when you knew or should have known of it, and the Secretary can waive the limit for good
+      cause.
+    issues: [privacy_request]
+    source: https://www.law.cornell.edu/cfr/text/45/160.306
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      A HIPAA complaint must be in writing (paper or electronic), name the person or entity complained
+      about, and describe the acts or omissions believed to violate the rules.
+    issues: [privacy_request]
+    source: https://www.law.cornell.edu/cfr/text/45/160.306
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      Not every complaint results in an investigation, and OCR cannot contact every complainant.
+    source: https://ocrportal.hhs.gov/ocr/cp/complaint_frontpage.jsf
+    last_verified: 2026-10-12
+
+notes: >-
+  You may file for yourself or for someone else. The portal lists fax (202) 619-3818. hhs.gov blocked
+  automated page reads on 2026-10-12, so the OCR complaint mailing address and any 2025-2026 regional
+  office changes were not confirmed.

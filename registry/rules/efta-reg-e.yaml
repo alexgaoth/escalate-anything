@@ -1,0 +1,127 @@
+id: efta-reg-e
+title: Electronic Fund Transfer Act error resolution and unauthorized-transfer liability (Regulation E)
+citation: 12 CFR 1005.6; 12 CFR 1005.11; 12 CFR 1005.2(m) (Regulation E)
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  sectors: [bank, credit_union, payments]
+  issues: [unauthorized_charge, fraud, billing_error]
+summary: >-
+  For debit cards, ATM transfers, ACH and other electronic fund transfers from a consumer account
+  (including P2P payments that meet the EFT definition), the consumer has 60 days after the statement is
+  sent to report an error. The institution must investigate within 10 business days, or within 45 days if it
+  provisionally credits the account within 10 business days. Liability for unauthorized transfers is capped
+  at $50, $500 or more depending on how fast the consumer reports.
+points:
+  - kind: limit
+    claim: >-
+      If the consumer reports a lost or stolen access device within two business days after learning of
+      the loss or theft, liability is limited to "the lesser of $50 or the amount of unauthorized transfers
+      that occur before notice".
+    issues: [unauthorized_charge, fraud]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1005/6/
+    last_verified: 2026-10-12
+  - kind: limit
+    claim: >-
+      If the consumer does not report within two business days after learning of the loss or theft,
+      liability is "the lesser of $500 or the sum of" up to $50 of transfers in the first two business days
+      and later transfers the institution shows would have been prevented by timely notice.
+    issues: [unauthorized_charge, fraud]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1005/6/
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      An unauthorized transfer that appears on a periodic statement must be reported "within 60 days of the
+      financial institution's transmittal of the statement" to avoid liability for later transfers that
+      timely notice would have prevented. The institution must extend these time limits to a reasonable
+      period when extenuating circumstances (for example extended travel or hospitalization) delayed notice.
+    issues: [unauthorized_charge, fraud]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1005/6/
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      Notice of an unauthorized transfer may be given in person, by phone or in writing. Written notice is
+      considered given at the time the consumer mails it. Lower liability under state law or the account
+      agreement controls.
+    issues: [unauthorized_charge, fraud]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1005/6/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      An unauthorized EFT is a transfer from the consumer's account initiated by someone other than the
+      consumer without actual authority and from which the consumer receives no benefit. It does not include
+      a transfer by a person to whom the consumer gave the access device (until the consumer tells the
+      institution that person is no longer authorized), a transfer made with fraudulent intent by the
+      consumer or someone acting with the consumer, or a transfer by the institution or its employee.
+    issues: [unauthorized_charge, fraud]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1005/2/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Errors covered by the error-resolution procedure include an unauthorized EFT, an incorrect EFT to or
+      from the account, an omitted transfer on a statement, a computational or bookkeeping error, receiving
+      the wrong amount of cash from an ATM, and a request for documentation or clarification about a
+      transfer.
+    issues: [unauthorized_charge, fraud, billing_error]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1005/11/
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      The consumer must give notice of an error no later than 60 days after the institution sent the
+      periodic statement on which the error first appears. The notice must let the institution identify the
+      consumer's name and account and say why the consumer believes there is an error. If notice is oral,
+      the institution may require written confirmation within 10 business days.
+    issues: [unauthorized_charge, fraud, billing_error]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1005/11/
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      The institution must investigate and decide within 10 business days, report results within 3
+      business days after it completes the investigation, and correct an error within 1 business day after
+      it finds one. It may take up to 45 days only if it provisionally credits the disputed amount within 10
+      business days. It need not provisionally credit if it asked for written confirmation of an oral notice
+      and did not receive it within 10 business days.
+    issues: [unauthorized_charge, fraud, billing_error]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1005/11/
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      Longer periods apply in some cases: 20 business days instead of 10 for transfers within 30 days after
+      the first deposit to a new account, and 90 days instead of 45 for point-of-sale debit card
+      transactions, transfers not initiated within a state, and new-account transfers.
+    issues: [unauthorized_charge, fraud, billing_error]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1005/11/
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      If the institution finds no error, it must give a written explanation and tell the consumer of the
+      right to request the documents it relied on. If it debits a provisional credit, it must notify the
+      consumer of the date and amount and honor checks and preauthorized transfers for five business days
+      after the notice.
+    issues: [unauthorized_charge, fraud, billing_error]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1005/11/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      P2P (CFPB guidance, not rule text): the CFPB's Electronic Fund Transfers FAQs state that any P2P
+      payment that meets the definition of an EFT is covered by EFTA and Regulation E, and that when a
+      consumer is fraudulently induced into sharing account access information with a third party, the
+      resulting transfer by that third party is an unauthorized EFT.
+    issues: [fraud, unauthorized_charge]
+    source: https://www.consumerfinance.gov/compliance/compliance-resources/deposit-accounts-resources/electronic-fund-transfers/electronic-fund-transfers-faqs/
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      CFPB guidance (Electronic Fund Transfers FAQs): an institution must begin its investigation promptly
+      on an oral or written notice of error and may not require a police report or require the consumer to
+      contact the merchant first. Consumer negligence, such as writing a PIN on the card, cannot be used to
+      impose greater liability.
+    issues: [fraud, unauthorized_charge]
+    source: https://www.consumerfinance.gov/compliance/compliance-resources/deposit-accounts-resources/electronic-fund-transfers/electronic-fund-transfers-faqs/
+    last_verified: 2026-10-12
+source: https://www.consumerfinance.gov/rules-policy/regulations/1005/11/
+last_verified: 2026-10-12
+status_note: >-
+  Regulation E text is in force. The P2P and police-report points come from the CFPB Electronic Fund
+  Transfers FAQs (page last modified January 16, 2025, live on 2026-10-12, no withdrawal notice on the
+  page). They are interpretive guidance, not binding rule text.

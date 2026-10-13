@@ -1,0 +1,49 @@
+id: dot-24-hour-reservation
+title: DOT 24-hour reservation hold or cancellation requirement
+citation: 14 CFR 259.5(b)(4)
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  sectors: [airline]
+  issues: [cancel_service, refund_request]
+summary: >-
+  Airlines covered by 14 CFR part 259 must let a customer either hold a reservation at the quoted fare without
+  payment, or cancel it without penalty, for at least 24 hours after booking, when the booking is made one
+  week or more before the flight departs.
+points:
+  - kind: policy
+    claim: >-
+      Each covered carrier's Customer Service Plan must allow reservations to be held at the quoted fare without
+      payment, or cancelled without penalty, for at least twenty-four hours after the reservation is made, if
+      the reservation is made one week or more prior to a flight's departure.
+    issues: [cancel_service, refund_request]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-259/section-259.5
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Each covered carrier must adopt a Customer Service Plan for its scheduled flights and adhere to the plan's
+      terms.
+    issues: [cancel_service]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-259/section-259.5
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      A covered carrier is a U.S. certificated or commuter carrier, or a foreign air carrier operating to, from
+      or within the United States, that conducts scheduled passenger or public charter service with at least
+      one aircraft designed for 30 or more seats.
+    issues: [cancel_service]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-259/section-259.3
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      A covered carrier must acknowledge a written complaint within 30 days of receiving it and send a
+      substantive written response within 60 days of receiving it.
+    issues: [cancel_service, refund_request]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-259/section-259.7
+    last_verified: 2026-10-12
+status_note: >-
+  In force. Section 259.5 was adopted in 2011 (76 FR 23165, April 25, 2011) and amended in 2024 and on
+  July 2, 2026 (91 FR 40371). The current eCFR text of 259.5(b)(4) contains the 24-hour hold-or-cancel
+  standard.
+source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-259/section-259.5
+last_verified: 2026-10-12
