@@ -207,6 +207,28 @@ playbooks:
         source: https://www.wellsfargo.com/checking/overdraft-services/
         last_verified: 2026-10-12
 
+  - issue: frozen_funds
+    summary: Wells Fargo may freeze funds when it suspects questionable activity, until its concerns are resolved, a legal time limit passes, or a court orders otherwise.
+    evidence: [notices from Wells Fargo, balance when frozen, proof of identity and source of funds]
+    steps:
+      - do: Call general banking and ask why the funds are frozen and what Wells Fargo needs to resolve its concerns.
+        channel: banking-phone
+      - do: Send the requested documents and ask in writing when and how the funds will be released.
+        channel: banking-mail
+      - do: If the funds are not released, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: If Wells Fargo suspects suspicious, irregular, fraudulent, unauthorized or unlawful activity, it may freeze all or some funds and restrict access until the earliest of when its concerns are resolved, the time frame in applicable law, or a court order.
+        issues: [frozen_funds]
+        source: https://www.wellsfargo.com/fetch-pdf?formNumber=CCB2018C&subProductCode=ANY
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If a state or federal agency asks Wells Fargo to restrict funds, the bank complies and notifies you unless the law prohibits notice.
+        issues: [frozen_funds]
+        source: https://www.wellsfargo.com/fetch-pdf?formNumber=CCB2018C&subProductCode=ANY
+        last_verified: 2026-10-12
+
   - issue: billing_error
     summary: Write to the billing rights address within 60 days of the statement.
     evidence: [statement with the error, account number, amount, why it is wrong]

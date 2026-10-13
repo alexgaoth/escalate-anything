@@ -199,6 +199,28 @@ playbooks:
         source: https://www.bankofamerica.com/deposits/overdraft-services-faqs/
         last_verified: 2026-10-12
 
+  - issue: frozen_funds
+    summary: Restricted funds are not available until the restriction ends; if the bank closes the account it returns the balance by one of the listed methods.
+    evidence: [notices from Bank of America, balance when restricted, proof of identity]
+    steps:
+      - do: Call and ask why the account is restricted and what the bank needs to lift it.
+        channel: banking-phone
+      - do: If the account is being closed, ask in writing how the remaining balance will be returned.
+        channel: banking-mail
+      - do: If the funds are not released, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: The Bank of America Deposit Agreement says funds subject to a dispute or legal process, or restricted in any way, including for suspected unauthorized activity, are not available to authorize or pay your items.
+        issues: [frozen_funds]
+        source: https://www.bankofamerica.com/salesservices/deposits/resources/deposit-agreements/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: When an account with money in it is closed, Bank of America may hold the funds for pickup, apply them to outstanding items or claims, deposit them in another of your accounts, or mail you a check at the address on file.
+        issues: [frozen_funds]
+        source: https://www.bankofamerica.com/salesservices/deposits/resources/deposit-agreements/
+        last_verified: 2026-10-12
+
   - issue: billing_error
     summary: Dispute in writing to the billing inquiries address within 60 days of the statement.
     evidence: [statement with the error, account number, amount, why it is wrong]

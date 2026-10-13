@@ -7,11 +7,53 @@ website: https://www.americanexpress.com
 regulators: [cfpb, occ]
 notes: >-
   American Express National Bank is a national bank (OCC) and the issuer of U.S. consumer Amex cards.
-  americanexpress.com blocks automated page fetches, so the channels here come from the cardmember
-  agreements Amex files with the CFPB. For customer service, fraud and disputes, call the number on the
-  back of the card or use the online account; those numbers were not confirmed on an Amex page.
+  americanexpress.com blocks automated page fetches; the phone, dispute and savings channels come from
+  americanexpress.com search results, and the arbitration channels from the cardmember agreements Amex
+  files with the CFPB.
 
 channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service, consumer cards (also for fraud)
+    value: +1-800-528-4800
+    hours: 24/7
+    purposes: [transaction_dispute, unauthorized_charge, fraud, billing_error, fee_reversal, poor_service]
+    access: human_only
+    notes: Hearing-impaired callers dial 711, then this number. Amex's fraud FAQ gives the same number; from outside the U.S., call the number on the back of the card.
+    source: https://www.americanexpress.com/en-us/support/contacts/
+    last_verified: 2026-10-12
+  - id: dispute-online
+    type: portal
+    label: Dispute a charge online
+    value: https://www.americanexpress.com/us/customer-service/faq.dispute-a-charge.html
+    purposes: [transaction_dispute, billing_error, unauthorized_charge]
+    access: login
+    notes: Log in, view your transactions, select the transaction and click "Dispute this Charge", then follow the prompts. Contact the merchant first.
+    source: https://www.americanexpress.com/us/customer-service/faq.dispute-a-charge.html
+    last_verified: 2026-10-12
+  - id: billing-inquiry-documents-mail
+    type: mail
+    label: Documents for an existing billing inquiry (personal cards)
+    value: "American Express Customer Service, P.O. Box 981535, El Paso, TX 79998"
+    purposes: [transaction_dispute, billing_error]
+    notes: Put your account number and inquiry reference number on every document. The same FAQ gives fax 1-623-444-3001 and an online Document Upload Center. The FAQ page may be several years old; prefer the Document Upload Center or the address on your latest statement.
+    source: https://www.americanexpress.com/us/customer-service/faq.billing-inquiry-dispute-documentation.html
+    last_verified: 2026-10-12
+  - id: savings-dispute-phone
+    type: phone
+    label: American Express personal savings account, transaction disputes
+    value: +1-800-446-6307
+    purposes: [transaction_dispute, unauthorized_charge, frozen_funds]
+    access: human_only
+    source: https://www.americanexpress.com/us/customer-service/faq.dispute-transaction-on-personal-savings-account.html
+    last_verified: 2026-10-12
+  - id: savings-dispute-mail
+    type: mail
+    label: American Express personal savings account, written disputes
+    value: "American Express, P.O. Box 30384, Salt Lake City, UT 84130"
+    purposes: [transaction_dispute, unauthorized_charge]
+    source: https://www.americanexpress.com/us/customer-service/faq.dispute-transaction-on-personal-savings-account.html
+    last_verified: 2026-10-12
   - id: arbitration-rejection-mail
     type: mail
     label: Reject the arbitration provision (within 45 days after your first card purchase)
@@ -36,7 +78,7 @@ channels:
     last_verified: 2026-10-12
 
 escalation:
-  - {rung: frontline, note: "Call the number on the back of the card."}
+  - {rung: frontline, channel: customer-service-phone}
   - {rung: written_complaint, channel: claim-notice-mail, note: "The agreement requires a written claim notice before mediation, arbitration or a lawsuit."}
   - {rung: regulator, regulator: cfpb}
   - {rung: state_agency, agency_kind: financial_regulator}
@@ -44,10 +86,11 @@ escalation:
 
 playbooks:
   - issue: unauthorized_charge
-    summary: Contact Amex right away through the number on the back of the card.
+    summary: Call Amex right away at 1-800-528-4800 (24/7).
     evidence: [statement with the charge, date you noticed it, card status]
     steps:
-      - do: Call the number on the back of the card and report the card lost, stolen or used without permission.
+      - do: Call Amex and report the card lost, stolen or used without permission. From outside the U.S., call the number on the back of the card.
+        channel: customer-service-phone
       - do: For a billing error, write to the billing-rights address printed on your statement within 60 days.
       - do: If Amex does not resolve it, complain to the CFPB.
         regulator: cfpb
@@ -63,7 +106,10 @@ playbooks:
     evidence: [statement showing the charge, receipt, record of contact with the merchant]
     steps:
       - do: Try the merchant first and keep proof.
-      - do: Start the dispute in the online account or by calling the number on the back of the card.
+      - do: Log in, select the transaction and click "Dispute this Charge", or call customer service.
+        channel: dispute-online
+      - do: Send any documents Amex asks for, with the account number and inquiry reference number.
+        channel: billing-inquiry-documents-mail
       - do: If the dispute is denied and you still disagree, send a written claim notice before any mediation or arbitration.
         channel: claim-notice-mail
       - do: Complain to the CFPB.
@@ -75,7 +121,29 @@ playbooks:
         source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/AMERICAN_EXPRESS_NATIONAL_BANK/Blue_Cash_Everyday_Card_Cardmember_Agreement-255458.pdf
         last_verified: 2026-10-12
 
+  - issue: fraud
+    summary: Call Amex immediately; chat is also available after login.
+    evidence: [transaction details, messages from the scammer, police or FTC report number]
+    steps:
+      - do: Call Amex immediately and report the fraud.
+        channel: customer-service-phone
+      - do: Dispute any fraudulent charges that remain on the statement.
+        channel: dispute-online
+      - do: Report to the FTC at ReportFraud.ftc.gov, then complain to the CFPB if Amex does not act.
+        regulator: cfpb
+    facts:
+      - kind: contact
+        claim: Amex's fraud FAQ asks U.S. cardmembers who believe they are fraud victims to call 1-800-528-4800 immediately; outside the U.S., use the number on the back of the card.
+        issues: [fraud, unauthorized_charge]
+        source: https://www.americanexpress.com/us/customer-service/faq.fraud.html
+        last_verified: 2026-10-12
+
 facts:
+  - kind: deadline
+    claim: For an American Express personal savings account, Amex must hear from you no later than 60 calendar days after it sent the first statement on which the problem or error appeared.
+    issues: [transaction_dispute, unauthorized_charge]
+    source: https://www.americanexpress.com/us/customer-service/faq.dispute-transaction-on-personal-savings-account.html
+    last_verified: 2026-10-12
   - kind: deadline
     claim: You may reject the Amex arbitration provision by a written notice mailed within 45 days after your first card purchase.
     source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/AMERICAN_EXPRESS_NATIONAL_BANK/Blue_Cash_Everyday_Card_Cardmember_Agreement-255458.pdf
@@ -94,5 +162,6 @@ facts:
     last_verified: 2026-10-12
 
 known_blockers:
-  - americanexpress.com rejects automated fetches, so Amex customer service, fraud and dispute phone numbers and pages are not recorded here. Use the number on the back of the card.
+  - americanexpress.com rejects automated page fetches; an agent can link to its pages but may not be able to read them.
+  - No separate U.S. consumer complaint form or executive office was found on americanexpress.com; the written claim notice is the formal escalation.
   - Disputes and secure messages need sign-in to the Amex account.
