@@ -3,6 +3,7 @@ __pycache__/
 .venv/
 .pytest_cache/
 dist/
+site-dist/
 *.egg-info/
 .redress/
 .DS_Store

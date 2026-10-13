@@ -47,6 +47,20 @@ def cmd_export(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_site(args: argparse.Namespace) -> int:
+    from .site import build_site
+
+    reg = Registry.load()
+    problems = reg.validate()
+    if problems:
+        print(f"refusing to build the site: {len(problems)} validation problem(s); run 'redress validate'", file=sys.stderr)
+        return 1
+    out = Path(args.output)
+    counts = build_site(out, reg, base_url=args.base_url)
+    print(f"wrote {out}/ ({counts['companies']} companies, {counts['states']} states)", file=sys.stderr)
+    return 0
+
+
 def cmd_serve(args: argparse.Namespace) -> int:
     from .server import serve
 
@@ -218,6 +232,11 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("export", help="write the whole registry as one JSON file")
     p.add_argument("-o", "--output", default="dist/registry.json")
     p.set_defaults(func=cmd_export)
+
+    p = sub.add_parser("site", help="build the static website (index.html, JSON files, llms.txt)")
+    p.add_argument("-o", "--output", default="site-dist")
+    p.add_argument("--base-url", default="https://alexgaoth.github.io/redress/", help="public URL of the site, used in llms.txt")
+    p.set_defaults(func=cmd_site)
 
     p = sub.add_parser("serve", help="run the MCP server")
     p.add_argument("--transport", choices=["stdio", "http"], default="stdio")
