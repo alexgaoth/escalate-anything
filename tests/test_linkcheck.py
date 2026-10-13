@@ -12,6 +12,8 @@ def anyio_backend():
 
 def test_collect_urls_includes_sources_and_url_channels(fixture_registry):
     urls = collect_urls(fixture_registry)
+    assert "https://www.reddit.com/r/example/comments/1" in urls  # dossier link
+    assert any(w.startswith("guide:") for ws in urls.values() for w in ws)
     assert "https://www.example.com/baggage/claim" in urls  # web_form value
     assert "https://www.example.com/contact" in urls  # source
     assert not any(u.startswith("+1") for u in urls)  # phone values are not URLs
