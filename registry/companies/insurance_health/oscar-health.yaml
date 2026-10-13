@@ -1,0 +1,104 @@
+id: oscar-health
+name: Oscar Health
+aliases: [oscar, oscar insurance, hioscar]
+sector: insurance_health
+website: https://www.hioscar.com
+account_url: https://www.hioscar.com/auth/login
+regulators: [dol-ebsa, cms-no-surprises]
+
+channels:
+  - id: member-services-phone
+    type: phone
+    label: Oscar Care Team (member services)
+    value: +1-855-672-2755
+    hours: Mon-Fri 8 a.m.-8 p.m.
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill, poor_service]
+    notes: The number on the back of the member ID card takes precedence.
+    source: https://www.hioscar.com/get-coverage/member-services-team
+    last_verified: 2026-10-12
+  - id: account-message
+    type: portal
+    label: Message the Care Team, view EOBs and pay bills in the Oscar account
+    value: https://www.hioscar.com/auth/login
+    purposes: [claim_denial, claim_delay, billing_error]
+    access: login
+    source: https://www.hioscar.com/for-members/faqs
+    last_verified: 2026-10-12
+  - id: grievance-form
+    type: web_form
+    label: Grievance form
+    value: https://www.hioscar.com/member/grievances/
+    purposes: [claim_denial, poor_service, billing_error]
+    notes: The form page needs JavaScript; its fields could not be read automatically.
+    source: https://www.hioscar.com/forms
+    last_verified: 2026-10-12
+  - id: forms-phone
+    type: phone
+    label: Help finding forms
+    value: +1-855-672-2788
+    source: https://www.hioscar.com/forms
+    last_verified: 2026-10-12
+  - id: forms-page
+    type: web_form
+    label: Oscar forms (grievance form, prescription reimbursement, member rights)
+    value: https://www.hioscar.com/forms
+    purposes: [claim_denial, claim_delay]
+    access: open
+    source: https://www.hioscar.com/forms
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: member-services-phone, note: "Or message the Care Team in the Oscar account."}
+  - {rung: written_complaint, channel: grievance-form, note: "Internal grievance or appeal."}
+  - {rung: state_agency, agency_kind: insurance_department, note: "External review for individual and family plans; complaint to the state."}
+  - {rung: regulator, regulator: dol-ebsa, note: "Employer self-funded (ERISA) plans."}
+  - {rung: regulator, regulator: cms-no-surprises, note: "Surprise bills under the No Surprises Act."}
+
+playbooks:
+  - issue: claim_denial
+    summary: Ask the Care Team for the reason, file a grievance or appeal, then ask for external review through the state.
+    evidence: [EOB or denial letter, member ID card, medical records, provider letter of medical necessity]
+    steps:
+      - do: Read the EOB in your account. Ask the Care Team by message or phone for the reason, the appeal deadline and the appeal address.
+        channel: account-message
+      - do: File the grievance or appeal in writing as the denial letter instructs, or use the grievance form.
+        channel: grievance-form
+      - do: After the final internal denial, ask for external review through your state insurance department.
+  - issue: billing_error
+    summary: Compare the bill with the EOB, then ask the Care Team.
+    evidence: [provider bill, EOB, member ID card]
+    steps:
+      - do: Compare the provider bill with the EOB in your account.
+        channel: account-message
+      - do: Call or message the Care Team about the difference. Ask the provider to rebill to the EOB amount.
+        channel: member-services-phone
+      - do: If it is not fixed, file a grievance.
+        channel: grievance-form
+    facts:
+      - kind: contact
+        claim: Oscar tells members with EOB questions to call the Care Team at (855) 672-2755 or message the Care Team through the account.
+        issues: [billing_error]
+        source: https://www.hioscar.com/for-members/faqs
+        last_verified: 2026-10-12
+  - issue: surprise_medical_bill
+    summary: Contact Oscar right away, compare the bill with the EOB, then contact the CMS help desk.
+    evidence: [the bill, EOB, member ID card]
+    steps:
+      - do: Compare the bill with the EOB. Note whether it was emergency care or care at an in-network facility.
+        channel: account-message
+      - do: Contact the Care Team right away.
+        channel: member-services-phone
+      - do: Contact the CMS No Surprises Help Desk.
+        regulator: cms-no-surprises
+    facts:
+      - kind: process
+        claim: Oscar says that if lab work is sent to a lab other than BioReference, LabCorp or Quest Diagnostics, members should contact Oscar right away for help, to avoid a surprise bill.
+        issues: [surprise_medical_bill]
+        source: https://www.hioscar.com/for-members/faqs
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Oscar's public appeal pages and FAQ articles did not load for automated readers; appeal deadlines and addresses are in the denial letter and plan documents.
+  - EOBs and Care Team messages need an Oscar account login.
+
+notes: Oscar sells individual and family (IFP) plans on and off the exchange in several states, plus employer products. Appeal rules and external review depend on the state.

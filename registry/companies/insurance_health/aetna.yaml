@@ -1,0 +1,185 @@
+id: aetna
+name: Aetna
+aliases: [aetna health, aetna inc, aetna cvs health, aetna medicare, aetna better health, silverscript]
+sector: insurance_health
+parent: CVS Health
+website: https://www.aetna.com
+account_url: https://health.aetna.com/login
+regulators: [dol-ebsa, cms-no-surprises]
+
+channels:
+  - id: member-services-phone
+    type: phone
+    label: Corporate contact center (members should call the number on the ID card)
+    value: +1-800-872-3862
+    hours: Mon-Fri 8 AM-6 PM ET
+    purposes: [poor_service]
+    notes: Aetna asks health plan members to call the number on the member ID card for personalized service.
+    source: https://www.aetna.com/about-us/contact-aetna.html
+    last_verified: 2026-10-12
+  - id: claim-status
+    type: portal
+    label: Search claims and EOBs (member login)
+    value: https://health.aetna.com/manage/claims
+    purposes: [claim_delay, claim_denial, billing_error]
+    access: login
+    source: https://www.aetna.com/
+    last_verified: 2026-10-12
+  - id: grievance-form
+    type: web_form
+    label: Member complaint, grievance and appeal form (non-Medicare plans)
+    value: https://member.aetna.com/MemberPublic/featureRouter/forms?page=commGrievnForm
+    purposes: [claim_denial, poor_service, billing_error]
+    source: https://www.aetna.com/individuals-families/member-rights-resources/complaints-grievances-appeals.html
+    last_verified: 2026-10-12
+  - id: grievance-form-pdf
+    type: web_form
+    label: Printable complaint and appeal form 68192 (non-Medicare plans; print, then mail or fax)
+    value: https://www.aetna.com/content/dam/aetna/pdfs/aetnacom/data/forms_library/68192.pdf
+    purposes: [claim_denial, poor_service]
+    notes: Send it to the address on your EOB or denial letter. Aetna's appeal page does not publish one national address.
+    source: https://www.aetna.com/individuals-families/member-rights-resources/complaints-grievances-appeals.html
+    last_verified: 2026-10-12
+  - id: appeals-page
+    type: web_form
+    label: Appeal a denied claim (instructions)
+    value: https://www.aetna.com/individuals-families/member-rights-resources/claim-denials.html
+    purposes: [claim_denial]
+    access: open
+    source: https://www.aetna.com/individuals-families/member-rights-resources/claim-denials.html
+    last_verified: 2026-10-12
+  - id: external-review-info
+    type: web_form
+    label: Aetna External Review Program
+    value: https://www.aetna.com/individuals-families/member-rights-resources/claims-coverage/aetna-external-review-program.html
+    purposes: [claim_denial]
+    source: https://www.aetna.com/individuals-families/member-rights-resources/claims-coverage/aetna-external-review-program.html
+    last_verified: 2026-10-12
+  - id: external-review-phone
+    type: phone
+    label: National External Review Unit
+    value: +1-877-848-5855
+    purposes: [claim_denial]
+    source: https://www.aetna.com/individuals-families/member-rights-resources/claims-coverage/aetna-external-review-program.html
+    last_verified: 2026-10-12
+  - id: medicare-appeals-mail
+    type: mail
+    label: Aetna Medicare Advantage (HMO, PPO, HMO-POS) Part C appeals
+    value: Aetna Medicare Part C Appeals, PO Box 14067, Lexington, KY 40512
+    purposes: [claim_denial]
+    notes: "Fax 1-724-741-4953; expedited fax 1-724-741-4958."
+    source: https://www.aetna.com/medicare/contact-us/appeal.html
+    last_verified: 2026-10-12
+  - id: medicare-part-d-appeals-mail
+    type: mail
+    label: Aetna Medicare Part D redeterminations (MAPD and I-SNP)
+    value: Aetna Medicare Part D Appeals, PO Box 14579, Lexington, KY 40512
+    purposes: [claim_denial]
+    notes: "Fax 1-724-741-4954."
+    source: https://www.aetna.com/medicare/contact-us/appeal.html
+    last_verified: 2026-10-12
+  - id: pdp-appeals-phone
+    type: phone
+    label: SilverScript prescription drug plan (PDP) appeals and coverage determinations
+    value: +1-866-235-5660
+    hours: 24 hours a day, 7 days a week
+    purposes: [claim_denial]
+    notes: "Mail: SilverScript Insurance Company, Appeals and Coverage Determination, PO Box 52000 MC109, Phoenix, AZ 85072-2000. Fax 1-855-633-7673. TTY 711."
+    source: https://www.aetna.com/medicare/contact-us/appeal.html
+    last_verified: 2026-10-12
+  - id: medicaid-contact
+    type: web_form
+    label: Aetna Better Health (Medicaid) contact page
+    value: https://www.aetnabetterhealth.com/contact-us.html
+    source: https://www.aetna.com/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: member-services-phone, note: "Use the number on the back of the member ID card."}
+  - {rung: written_complaint, channel: grievance-form, note: "Internal appeal or grievance. Medicare plans use the Medicare appeal addresses."}
+  - {rung: state_agency, agency_kind: insurance_department, note: "External review for fully insured plans; complaint to the state where the plan is issued."}
+  - {rung: regulator, regulator: dol-ebsa, note: "Employer self-funded (ERISA) plans. Aetna's own External Review Program covers self-funded plans whose sponsor elects it."}
+  - {rung: regulator, regulator: cms-no-surprises, note: "Surprise bills under the No Surprises Act."}
+
+playbooks:
+  - issue: claim_denial
+    summary: Appeal within 180 days at the address on the EOB or online, ask for an urgent appeal if health is at risk, then external review.
+    evidence: [denial letter or EOB, member ID card, group name and number, medical records, provider letter of medical necessity]
+    steps:
+      - do: Call Member Services at the number on the ID card. Ask for the documents needed for your appeal.
+        channel: member-services-phone
+      - do: File the appeal online or mail the form to the address on your EOB. Include the group name, your name, member ID and any records you want reviewed.
+        channel: grievance-form
+      - do: If a delay could seriously risk health or cause severe pain, ask for an urgent appeal by calling the number on the ID card or on the denial letter.
+      - do: For a two-appeal plan, request the second review within 60 days of the first appeal decision.
+      - do: After internal appeals, ask for external review. For self-funded plans that elected the Aetna program, use the form sent with the final denial letter.
+        channel: external-review-info
+      - do: For fully insured plans, contact your state insurance department. For plans under federal health care reform, EBSA can help.
+        regulator: dol-ebsa
+      - do: Medicare Advantage members send claim appeals to the Part C appeals address or fax.
+        channel: medicare-appeals-mail
+    facts:
+      - kind: deadline
+        claim: For non-Medicare plans, you have 180 days to appeal from when you get notice of the denied claim, unless the plan brochure or Summary Plan Description gives more time.
+        issues: [claim_denial]
+        source: https://www.aetna.com/individuals-families/member-rights-resources/claim-denials.html
+        last_verified: 2026-10-12
+      - kind: process
+        claim: For one-appeal plans, Aetna decides pre-service appeals within 30 days and other appeals within 60 days. For two-appeal plans, it decides pre-service appeals within 15 days and other appeals within 30 days, and the second review must be requested within 60 days of the appeal decision letter.
+        issues: [claim_denial]
+        source: https://www.aetna.com/individuals-families/member-rights-resources/claim-denials.html
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: An urgent appeal that meets Aetna's guidelines is decided no later than 72 hours after the request for one-appeal plans, and no later than 36 hours for two-appeal plans.
+        issues: [claim_denial]
+        source: https://www.aetna.com/individuals-families/member-rights-resources/claim-denials.html
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Member Services can send you the documents you need for your appeal.
+        issues: [claim_denial]
+        source: https://www.aetna.com/individuals-families/member-rights-resources/claim-denials.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Aetna External Review Program applies to self-funded plans whose sponsors elect it, for medical necessity or experimental denials over $500 after the plan appeal process is exhausted. Reviews are generally decided within 30 calendar days, the decision binds Aetna and the plan, and the member pays no fee.
+        issues: [claim_denial]
+        source: https://www.aetna.com/individuals-families/member-rights-resources/claims-coverage/aetna-external-review-program.html
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: For Aetna Medicare Advantage plans, standard decisions on claim-denial appeals are made within 60 calendar days and expedited decisions are not available for claim denials. Expedited authorization appeals are decided within 72 hours.
+        issues: [claim_denial]
+        source: https://www.aetna.com/medicare/contact-us/appeal.html
+        last_verified: 2026-10-12
+  - issue: billing_error
+    summary: Compare the bill with the EOB, ask Member Services to fix processing errors, then file a complaint.
+    evidence: [provider bill, EOB, member ID card]
+    steps:
+      - do: Compare the provider bill with the EOB in the member account.
+        channel: claim-status
+      - do: Call Member Services to ask about a claim processed wrongly. Ask the provider to rebill to the EOB amount.
+        channel: member-services-phone
+      - do: If it is not fixed, file a complaint or appeal online.
+        channel: grievance-form
+  - issue: surprise_medical_bill
+    summary: Check the bill against the EOB, tell Aetna and the provider, then contact the CMS help desk.
+    evidence: [the bill, EOB, member ID card]
+    steps:
+      - do: Compare the bill with the EOB. Note whether it was emergency care or care at an in-network facility.
+        channel: claim-status
+      - do: Tell Aetna and the provider the bill may be a surprise bill.
+        channel: member-services-phone
+      - do: Contact the CMS No Surprises Help Desk.
+        regulator: cms-no-surprises
+
+facts:
+  - kind: process
+    claim: Aetna's state-help guidance says the state insurance office can help if you don't agree with a decision made by your health plan; in California, the Department of Insurance covers insured Traditional plans and the Department of Managed Health Care covers insured HMO and DMO plans.
+    issues: [claim_denial]
+    source: https://www.aetna.com/individuals-families/member-rights-resources/complaints-grievances-appeals.html
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Member phone numbers are plan-specific; Aetna directs members to the number on the ID card.
+  - Non-Medicare appeal addresses differ by plan; use the address on the EOB or denial letter.
+  - Claims and EOBs need member login.
+
+notes: Aetna is part of CVS Health. Medicare Advantage, Part D (SilverScript) and Medicaid (Aetna Better Health) plans have separate appeal channels and rules. Mailing address of Aetna Inc. is 151 Farmington Avenue, Hartford, CT 06156.

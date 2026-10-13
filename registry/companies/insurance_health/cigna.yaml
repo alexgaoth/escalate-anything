@@ -1,0 +1,143 @@
+id: cigna
+name: Cigna Healthcare
+aliases: [cigna, cigna health, the cigna group, mycigna, evernorth]
+sector: insurance_health
+parent: The Cigna Group
+website: https://www.cigna.com
+account_url: https://my.cigna.com/web/public/guest
+regulators: [dol-ebsa, cms-no-surprises]
+
+channels:
+  - id: member-services-phone
+    type: phone
+    label: Cigna Healthcare customer service
+    value: +1-800-997-1654
+    hours: 24/7/365
+    purposes: [claim_denial, claim_delay, billing_error, poor_service, surprise_medical_bill]
+    notes: Cigna also tells members to call the toll-free number on the ID card. TTY users dial 711.
+    source: https://www.cigna.com/contact-us/
+    last_verified: 2026-10-12
+  - id: claims-coverage-phone
+    type: phone
+    label: Medical, dental and vision coverage and claims
+    value: +1-800-244-6224
+    hours: 24/7/365
+    purposes: [claim_denial, claim_delay, billing_error]
+    source: https://www.cigna.com/contact-us/
+    last_verified: 2026-10-12
+  - id: behavioral-health-phone
+    type: phone
+    label: Behavioral health benefits
+    value: +1-800-433-5768
+    hours: 24/7/365
+    source: https://www.cigna.com/contact-us/
+    last_verified: 2026-10-12
+  - id: tty
+    type: phone
+    label: TTY/TDD relay
+    value: "711"
+    source: https://www.cigna.com/contact-us/
+    last_verified: 2026-10-12
+  - id: chat
+    type: chat
+    label: Live chat in myCigna (certain products only)
+    value: https://my.cigna.com/web/secure/consumer/contact-us
+    hours: Mon-Fri 9 am-8 pm ET
+    access: login
+    source: https://www.cigna.com/contact-us/
+    last_verified: 2026-10-12
+  - id: claim-status
+    type: portal
+    label: File a claim, view claims and EOBs (myCigna)
+    value: https://my.cigna.com/web/public/guest
+    purposes: [claim_delay, claim_denial, billing_error]
+    access: login
+    source: https://www.cigna.com/contact-us/
+    last_verified: 2026-10-12
+  - id: claims-mail
+    type: mail
+    label: Medical claims (member-submitted)
+    value: Cigna Healthcare, PO Box 182223, Chattanooga, TN 37422-7223
+    purposes: [claim_delay]
+    notes: Use the medical claim form. Dental claims go to PO Box 188037, Chattanooga, TN 37422-7223.
+    source: https://www.cigna.com/contact-us/
+    last_verified: 2026-10-12
+  - id: appeal-form
+    type: web_form
+    label: Medical appeal request form (printable PDF)
+    value: https://www.cigna.com/static/www-cigna-com/docs/medical-appeal-request.pdf
+    purposes: [claim_denial]
+    notes: Send it to the address on the denial letter or EOB. Behavioral health appeals use the Evernorth behavioral appeal form on the same forms page.
+    source: https://www.cigna.com/individuals-families/member-guide/customer-forms
+    last_verified: 2026-10-12
+  - id: forms-page
+    type: web_form
+    label: Customer forms (appeals, external review, appointment of representative, claim forms)
+    value: https://www.cigna.com/individuals-families/member-guide/customer-forms
+    purposes: [claim_denial, claim_delay]
+    access: open
+    source: https://www.cigna.com/individuals-families/member-guide/customer-forms
+    last_verified: 2026-10-12
+  - id: authorized-rep-form
+    type: web_form
+    label: Appointment of representative form (printable)
+    value: https://www.cigna.com/static/www-cigna-com/docs/cigna-healthcare-appointment-of-representative-printable.pdf
+    purposes: [claim_denial]
+    source: https://www.cigna.com/individuals-families/member-guide/customer-forms
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: member-services-phone, note: "Use the number on the back of the member ID card."}
+  - {rung: written_complaint, channel: appeal-form, note: "Internal appeal or grievance, sent to the address on the denial letter."}
+  - {rung: state_agency, agency_kind: insurance_department, note: "External review for fully insured plans; complaint to the state."}
+  - {rung: regulator, regulator: dol-ebsa, note: "Employer self-funded (ERISA) plans."}
+  - {rung: regulator, regulator: cms-no-surprises, note: "Surprise bills under the No Surprises Act."}
+
+playbooks:
+  - issue: claim_denial
+    summary: Call customer service, then file a written appeal with the medical appeal form, then ask for external review.
+    evidence: [denial letter or EOB, member ID card, medical records, provider letter of medical necessity]
+    steps:
+      - do: Call customer service. Ask for the reason, the plan provision and how to appeal. Cigna says it tries to resolve complaints on the first contact.
+        channel: member-services-phone
+      - do: If someone else will appeal for you, complete the appointment of representative form.
+        channel: authorized-rep-form
+      - do: Complete the medical appeal request form and send it with records to the address on the denial letter, within the deadline on that letter.
+        channel: appeal-form
+      - do: After the final internal denial, use the external review forms on the forms page (state forms apply in some states), or contact your state insurance department.
+        channel: forms-page
+      - do: For an employer self-funded plan, contact the Department of Labor if the plan does not follow the claims rules.
+        regulator: dol-ebsa
+    facts:
+      - kind: policy
+        claim: Cigna's member rights page says Cigna will hear and act on complaints and appeals, guide members through the grievance process if they disagree with a decision, and provide language interpretation and TTY services for complaint and appeal processes.
+        issues: [claim_denial]
+        source: https://www.cigna.com/legal/members/member-rights-and-responsibilities
+        last_verified: 2026-10-12
+  - issue: billing_error
+    summary: Compare the bill with the EOB in myCigna, then ask customer service and the provider to fix it.
+    evidence: [provider bill, EOB, member ID card]
+    steps:
+      - do: Compare the provider bill with the EOB in myCigna.
+        channel: claim-status
+      - do: Call the claims line about a claim processed wrongly. Ask the provider to rebill to the EOB amount.
+        channel: claims-coverage-phone
+      - do: If it is not fixed, file an appeal with the medical appeal form.
+        channel: appeal-form
+  - issue: surprise_medical_bill
+    summary: Check the bill against the EOB, tell Cigna and the provider, then contact the CMS help desk.
+    evidence: [the bill, EOB, member ID card]
+    steps:
+      - do: Compare the bill with the EOB. Note whether it was emergency care or care at an in-network facility.
+        channel: claim-status
+      - do: Tell Cigna customer service and the provider that the bill may be a surprise bill.
+        channel: member-services-phone
+      - do: Contact the CMS No Surprises Help Desk.
+        regulator: cms-no-surprises
+
+known_blockers:
+  - Claims, EOBs and chat need a myCigna login.
+  - Appeal and external review forms do not show one national address; use the address on the denial letter.
+  - Some external review forms on the forms page are state-specific.
+
+notes: Cigna Healthcare is part of The Cigna Group. Behavioral health appeals use Evernorth-branded forms. The plan type (fully insured or employer self-funded) decides whether state external review or federal ERISA rules apply.

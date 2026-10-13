@@ -1,0 +1,122 @@
+id: elevance-health
+name: Anthem (Elevance Health)
+aliases: [anthem, anthem blue cross, anthem blue cross and blue shield, anthem bcbs, elevance, elevance health, empire bluecross blueshield, empire blue, wellpoint]
+sector: insurance_health
+parent: Elevance Health, Inc.
+website: https://www.anthem.com
+account_url: https://www.anthem.com/login/
+regulators: [dol-ebsa, cms-no-surprises]
+
+channels:
+  - id: member-contact
+    type: chat
+    label: Anthem contact page (live chat and feedback; phone numbers by state)
+    value: https://www.anthem.com/contact-us/
+    purposes: [claim_denial, claim_delay, billing_error, poor_service]
+    notes: Phone numbers depend on the state and plan. The number on the back of the member ID card takes precedence. TTY 711.
+    source: https://www.anthem.com/contact-us
+    last_verified: 2026-10-12
+  - id: claim-status
+    type: portal
+    label: Submit or track a claim and view EOBs
+    value: https://www.anthem.com/login/?dplid=sso.dpl.claims.claimsoverview
+    purposes: [claim_delay, claim_denial, billing_error]
+    access: login
+    source: https://www.anthem.com/member-resources/claims
+    last_verified: 2026-10-12
+  - id: claim-forms
+    type: web_form
+    label: Member forms library (claim forms by state)
+    value: https://www.anthem.com/forms/
+    purposes: [claim_delay]
+    notes: Forms are organized by state. Plan-specific forms are behind member login.
+    source: https://www.anthem.com/member-resources/claims
+    last_verified: 2026-10-12
+  - id: medicare-appeals-page
+    type: web_form
+    label: Medicare complaints, grievances and appeals
+    value: https://www.anthem.com/medicare/complaints-grievances
+    purposes: [claim_denial, poor_service]
+    access: open
+    source: https://www.anthem.com/medicare/complaints-grievances
+    last_verified: 2026-10-12
+  - id: medicare-appeals-mail
+    type: mail
+    label: Appeals and grievances for Anthem Medicare plans
+    value: Appeals and Grievances, Mailstop OH0102-B325, 4361 Irwin Simpson Rd, Mason, OH 45040
+    purposes: [claim_denial, poor_service]
+    notes: "Fax 1-888-458-1406 (medical) or 1-888-458-1407 (pharmacy). For Medicare plans only; employer and individual plans use the address on the denial letter."
+    source: https://www.anthem.com/medicare/complaints-grievances
+    last_verified: 2026-10-12
+  - id: anthem-ny-language-line
+    type: phone
+    label: Anthem Blue Cross and Blue Shield (New York, formerly Empire) translation and alternate format services
+    value: +1-855-823-4568
+    source: https://www.anthembluecross.com/
+    last_verified: 2026-10-12
+  - id: corporate-mail
+    type: mail
+    label: Elevance Health corporate headquarters (not member services)
+    value: Elevance Health, Inc., 220 Virginia Avenue, Indianapolis, IN 46204
+    notes: Corporate phone 833-401-1577. Not a member service line.
+    source: https://www.elevancehealth.com/contact-us
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: member-contact, note: "Use the number on the back of the member ID card, or live chat."}
+  - {rung: written_complaint, channel: medicare-appeals-mail, note: "Internal appeal or grievance. Medicare plans use this address; other plans use the address on the denial letter."}
+  - {rung: state_agency, agency_kind: insurance_department, note: "External review for fully insured plans; complaint to the state."}
+  - {rung: regulator, regulator: dol-ebsa, note: "Employer self-funded (ERISA) plans."}
+  - {rung: regulator, regulator: cms-no-surprises, note: "Surprise bills under the No Surprises Act."}
+
+playbooks:
+  - issue: claim_denial
+    summary: Read the EOB and denial letter, file the internal appeal at the address on the letter, then ask for external review or complain to the state or Medicare.
+    evidence: [denial letter or EOB, member ID card, medical records, provider letter of medical necessity]
+    steps:
+      - do: Log in and download the EOB for the claim. Note the denial reason code.
+        channel: claim-status
+      - do: Ask member services or chat for the reason and the plan document section it relies on.
+        channel: member-contact
+      - do: File the internal appeal at the address and within the deadline printed on the denial letter. Medicare plan members use the Medicare appeals address or fax.
+        channel: medicare-appeals-mail
+      - do: After the final internal denial, request external review through the state insurance department (fully insured plans) or the plan's external review process. For employer self-funded plans, contact the Department of Labor.
+        regulator: dol-ebsa
+    facts:
+      - kind: process
+        claim: Anthem says that if a Medicare member has exhausted the options with Anthem, the member can submit feedback directly to Medicare through the Medicare complaint form.
+        issues: [claim_denial]
+        source: https://www.anthem.com/medicare/complaints-grievances
+        last_verified: 2026-10-12
+  - issue: billing_error
+    summary: Compare the provider bill with the EOB, then ask Anthem and the provider to correct it.
+    evidence: [provider bill, EOB, member ID card]
+    steps:
+      - do: Compare the provider bill with the EOB in the member account.
+        channel: claim-status
+      - do: If the provider billed more than the EOB patient responsibility, ask the provider to rebill. Ask Anthem by chat or phone to confirm the amount.
+        channel: member-contact
+      - do: If a claim was processed wrongly, file an appeal at the address on the EOB or denial letter.
+  - issue: surprise_medical_bill
+    summary: Check whether the No Surprises Act applies, then tell Anthem and the provider, and contact the CMS help desk.
+    evidence: [the bill, EOB, member ID card]
+    steps:
+      - do: Compare the bill with the EOB. Note whether the care was emergency care or given at an in-network facility.
+        channel: claim-status
+      - do: Tell Anthem and the provider that the bill may be a surprise bill.
+        channel: member-contact
+      - do: Contact the CMS No Surprises Help Desk.
+        regulator: cms-no-surprises
+
+facts:
+  - kind: process
+    claim: Anthem says that typically the doctor or provider, especially an in-plan provider, submits the claim. Members who must file themselves use the forms library and should file promptly and within the time limit.
+    issues: [claim_delay]
+    source: https://www.anthem.com/member-resources/claims
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Member phone numbers, appeal forms and plan documents depend on the state and plan and are mostly behind member login.
+  - Anthem publishes no public appeal address for employer or individual plans; use the address on the denial letter or EOB.
+
+notes: Elevance Health, Inc. (Indianapolis) operates Anthem Blue Cross and Blue Shield affiliated health plans in 14 states, and Wellpoint affiliated health plans. Carelon is its health services business. The former Empire BlueCross BlueShield site (empireblue.com) now redirects to anthembluecross.com, which uses the Anthem Blue Cross and Anthem Blue Cross and Blue Shield names for eastern and southeastern New York. Medicare and Medicaid plans have their own appeal rules.

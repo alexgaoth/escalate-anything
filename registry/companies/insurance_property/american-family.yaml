@@ -1,0 +1,118 @@
+id: american-family
+name: American Family Insurance
+aliases: [amfam, american family, american family mutual insurance company, myamfam]
+sector: insurance_property
+website: https://www.amfam.com
+account_url: https://myaccount.amfam.com/login
+regulators: []
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: 1-800-MYAMFAM (service, billing and 24/7 claims)
+    value: +1-800-692-6326
+    hours: "Claims and automated pay-by-phone 24/7; live billing and service Mon-Fri 7 AM-8 PM CT, Sat 8 AM-8 PM CT"
+    purposes: [claim_denial, claim_delay, bill_increase, billing_error, cancel_service, poor_service]
+    access: open
+    source: https://www.amfam.com/contact
+    last_verified: 2026-10-12
+  - id: claims-online
+    type: portal
+    label: File and track a claim in My Account or the MyAmFam app
+    value: https://myaccount.amfam.com/login
+    purposes: [claim_delay, claim_denial]
+    access: login
+    source: https://www.amfam.com/claims/file-your-claim
+    last_verified: 2026-10-12
+  - id: guest-claim
+    type: web_form
+    label: File a guest claim (without signing in)
+    value: https://www.amfam.com/claims/guest-file-your-claim
+    source: https://www.amfam.com/claims/file-your-claim
+    last_verified: 2026-10-12
+  - id: auto-claim-online
+    type: web_form
+    label: File an auto claim
+    value: https://file-claim.amfam.com/identification/search
+    source: https://www.amfam.com/contact-us
+    last_verified: 2026-10-12
+  - id: chat
+    type: chat
+    label: Chat online
+    value: https://chat-ui.amfam.com/
+    source: https://www.amfam.com/contact-us
+    last_verified: 2026-10-12
+  - id: complaint-form
+    type: web_form
+    label: Consumer Affairs feedback form
+    value: https://www.amfam.com/customer/forms/consumer-affairs
+    purposes: [claim_denial, claim_delay, poor_service, billing_error]
+    notes: Asks for comments or concerns and a requested resolution, plus policy number, agent, claim adjuster and claim number. Response by phone, mail or email within 10 business days. On 2026-10-12 the page said the form was temporarily unavailable.
+    source: https://www.amfam.com/customer/forms/consumer-affairs
+    last_verified: 2026-10-12
+  - id: complaint-mail
+    type: mail
+    label: American Family Insurance headquarters (Consumer Affairs alternate contact)
+    value: American Family Insurance, 6000 American Parkway, Madison, WI 53783
+    purposes: [claim_denial, claim_delay, poor_service]
+    source: https://www.amfam.com/customer/forms/consumer-affairs
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone, note: "Or the claim adjuster or local agent."}
+  - {rung: supervisor, note: "Ask for the claim adjuster's supervisor."}
+  - {rung: written_complaint, channel: complaint-form, note: "Consumer Affairs. If the form is unavailable, write to the Madison address. Ask for the denial and the policy language it relies on, in writing."}
+  - {rung: state_agency, agency_kind: insurance_department}
+  - {rung: arbitration, note: "Many policies have an appraisal clause for disputes about the amount of a loss. Check the policy."}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: claim_denial
+    summary: Ask the adjuster for the reason in writing, then file with Consumer Affairs and the state insurance department.
+    evidence: [claim number, policy number, adjuster name, denial letter, photos, estimates, receipts]
+    steps:
+      - do: Ask the claim adjuster for the denial reason and the policy language in writing.
+        channel: customer-service-phone
+      - do: Send a Consumer Affairs request with the claim number, adjuster name, your concerns and the resolution you want. Expect a reply within 10 business days.
+        channel: complaint-form
+      - do: If the form is unavailable, mail the same request to the headquarters address.
+        channel: complaint-mail
+      - do: If you disagree only about the amount, check the policy for an appraisal provision.
+      - do: File a complaint with your state insurance department.
+    facts:
+      - kind: process
+        claim: American Family says Consumer Affairs responds by phone, U.S. mail or email within 10 business days, Monday to Friday except holidays.
+        issues: [claim_denial, claim_delay]
+        source: https://www.amfam.com/customer/forms/consumer-affairs
+        last_verified: 2026-10-12
+  - issue: claim_delay
+    summary: Track the claim in My Account, call 1-800-MYAMFAM, then use Consumer Affairs.
+    evidence: [claim number, dates of each contact, documents sent]
+    steps:
+      - do: Track the claim status in My Account or the MyAmFam app and send what is missing.
+        channel: claims-online
+      - do: Call 1-800-MYAMFAM and ask for the adjuster or a supervisor.
+        channel: customer-service-phone
+      - do: Send a Consumer Affairs request if the claim still does not move.
+        channel: complaint-form
+      - do: File a complaint with your state insurance department.
+  - issue: bill_increase
+    summary: Ask the agent or 1-800-MYAMFAM what changed and which discounts apply.
+    evidence: [prior declarations page, renewal declarations page]
+    steps:
+      - do: Compare the old and new declarations pages.
+      - do: Ask the agent or customer service to explain the change and to review discounts and deductibles.
+        channel: customer-service-phone
+
+facts:
+  - kind: process
+    claim: For most claims American Family asks for the date and time of the event, a brief description, photos of the damage, and other parties' insurance and contact details.
+    issues: [claim_delay]
+    source: https://www.amfam.com/resources/faqs/claims-insurance
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Filing and tracking a claim online needs sign-in, except the guest claim form.
+  - The Consumer Affairs form was temporarily unavailable on 2026-10-12.
+
+notes: American Family Mutual Insurance Company, S.I. is named on amfam.com. Policies are often serviced by a local agent.

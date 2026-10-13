@@ -1,0 +1,141 @@
+id: progressive
+name: Progressive
+aliases: [progressive insurance, the progressive corporation, progressive auto insurance, progressive home]
+sector: insurance_property
+parent: The Progressive Corporation
+website: https://www.progressive.com
+account_url: https://www.progressive.com/rp/login
+regulators: []
+
+channels:
+  - id: claims-phone
+    type: phone
+    label: Report a claim or ask about a claim
+    value: +1-800-776-4737
+    purposes: [claim_denial, claim_delay]
+    access: open
+    source: https://www.progressive.com/claims/
+    last_verified: 2026-10-12
+  - id: customer-service-phone
+    type: phone
+    label: General customer service
+    value: +1-888-671-4405
+    hours: 24/7
+    purposes: [bill_increase, billing_error, cancel_service, poor_service]
+    source: https://www.progressive.com/contact-us/
+    last_verified: 2026-10-12
+  - id: main-phone
+    type: phone
+    label: Main line (the contact page also gives it for reporting a claim)
+    value: +1-855-347-3939
+    source: https://www.progressive.com/contact-us/
+    last_verified: 2026-10-12
+  - id: spanish-phone
+    type: phone
+    label: Servicio al cliente y reclamos en español
+    value: +1-833-951-4271
+    hours: "Customer service 6:00 AM - 12:00 AM EST daily; claims 7:00 AM - 7:30 PM CST daily"
+    source: https://www.progressive.com/contact-us/
+    last_verified: 2026-10-12
+  - id: roadside-phone
+    type: phone
+    label: Roadside assistance
+    value: +1-877-537-7878
+    source: https://www.progressive.com/claims/
+    last_verified: 2026-10-12
+  - id: claims-online
+    type: web_form
+    label: Report a claim online
+    value: https://www.progressive.com/support/report-a-claim/
+    source: https://www.progressive.com/contact-us/
+    last_verified: 2026-10-12
+  - id: claim-status
+    type: portal
+    label: View the status of an existing claim
+    value: https://account.apps.progressive.com/access/ez-claim/claim-info
+    purposes: [claim_delay, claim_denial]
+    access: login
+    source: https://www.progressive.com/claims/
+    last_verified: 2026-10-12
+  - id: contact-form
+    type: web_form
+    label: Email form on the contact page (topic "Your claim/claims process")
+    value: https://www.progressive.com/contact-us/
+    purposes: [poor_service, claim_delay, claim_denial, billing_error]
+    notes: The form is embedded in the contact page. Progressive publishes no separate complaint form or customer relations address.
+    source: https://www.progressive.com/contact-us/
+    last_verified: 2026-10-12
+  - id: corporate-mail
+    type: mail
+    label: Corporate headquarters
+    value: The Progressive Corporation, 300 North Commons Blvd., Mayfield Village, OH 44143
+    purposes: [claim_denial, poor_service]
+    source: https://www.progressive.com/contact-us/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: claims-phone, note: "Or the assigned claims rep."}
+  - {rung: supervisor, note: "Ask for the claims rep's manager."}
+  - {rung: written_complaint, channel: contact-form, note: "Ask for the denial and the policy language it relies on, in writing. A letter to headquarters is the paper option."}
+  - {rung: state_agency, agency_kind: insurance_department}
+  - {rung: arbitration, note: "Many policies have an appraisal clause for disputes about the amount of a loss. Check the policy."}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: claim_denial
+    summary: Ask the claims rep for the reason and the valuation in writing, send counter-evidence, then complain to the state.
+    evidence: [claim number, denial or valuation letter, policy and declarations page, photos, repair estimates, comparable vehicle listings for a total loss]
+    steps:
+      - do: Ask the claims rep for the denial reason and the policy language in writing. For a total loss, ask for the third-party valuation report and the comparable vehicles used.
+        channel: claims-phone
+      - do: Send your evidence and a written request for reconsideration through the contact form or by fax, with the claim number.
+        channel: contact-form
+      - do: If you disagree only about the amount, check the policy for an appraisal provision.
+      - do: File a complaint with your state insurance department.
+    facts:
+      - kind: process
+        claim: For a total loss, Progressive compares the vehicle's mileage, options and condition with current values of comparable vehicles, and works with a third party to determine actual cash value. It inspects the vehicle first.
+        issues: [claim_denial]
+        source: https://www.progressive.com/claims/total-loss/
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: If you have rental coverage, it covers up to three days after Progressive tells you the vehicle's value in a total loss.
+        issues: [claim_denial, claim_delay]
+        source: https://www.progressive.com/claims/total-loss/
+        last_verified: 2026-10-12
+  - issue: claim_delay
+    summary: Check the claim online, call the claims line, and escalate to a manager and the state.
+    evidence: [claim number, dates of each contact, documents sent]
+    steps:
+      - do: Check the claim status online and note what is pending.
+        channel: claim-status
+      - do: Call the claims line. Ask what is missing and when a decision will be made. Ask for a manager if there is no progress.
+        channel: claims-phone
+      - do: File a complaint with your state insurance department if the claim still does not move.
+  - issue: bill_increase
+    summary: Find what changed, then review coverage, deductibles and discounts, and compare quotes.
+    evidence: [prior declarations page, renewal declarations page, list of recent claims, tickets, drivers and vehicles]
+    steps:
+      - do: Review recent changes (tickets, accidents, claims, vehicles, drivers, a move). A change may affect the rate only at renewal.
+      - do: Ask customer service which discounts were lost and what a higher deductible or Snapshot would save.
+        channel: customer-service-phone
+      - do: Compare the rate with other insurers.
+    facts:
+      - kind: policy
+        claim: Progressive lists tickets, at-fault accidents, comprehensive claims, added vehicles or drivers, local claim trends, moving, age, coverage lapses and lost discounts as reasons a rate can go up, and says a change may not affect the rate until renewal.
+        issues: [bill_increase]
+        source: https://www.progressive.com/answers/why-insurance-rates-go-up/
+        last_verified: 2026-10-12
+
+facts:
+  - kind: contact
+    claim: "Progressive's general fax number is 1-877-280-5587."
+    issues: [claim_denial, claim_delay]
+    source: https://www.progressive.com/contact-us/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Claim status needs sign-in.
+  - No dedicated complaint channel; the email form is embedded in the contact page.
+
+notes: The contact page also lists a commercial customer service line (1-888-240-9839) and a fraud and identity theft line (1-888-288-0770).

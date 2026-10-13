@@ -1,0 +1,159 @@
+id: farmers
+name: Farmers Insurance
+aliases: [farmers, farmers insurance group, farmers insurance exchange, fire insurance exchange, truck insurance exchange, farmers groupselect]
+sector: insurance_property
+parent: Farmers Group, Inc. (attorney-in-fact for the Farmers Exchanges)
+website: https://www.farmers.com
+regulators: []
+
+channels:
+  - id: claims-phone
+    type: phone
+    label: Farmers Claims Call Center
+    value: +1-800-435-7764
+    hours: 24/7
+    purposes: [claim_denial, claim_delay]
+    access: open
+    source: https://www.farmers.com/contact-us/
+    last_verified: 2026-10-12
+  - id: claims-phone-spanish
+    type: phone
+    label: Claims in Spanish
+    value: +1-877-732-5266
+    source: https://www.farmers.com/contact-us/
+    last_verified: 2026-10-12
+  - id: customer-service-phone
+    type: phone
+    label: Farmers Customer Care Center (service, billing, cancellation)
+    value: +1-888-327-6335
+    hours: "Mon-Fri 7:00 a.m.-11:00 p.m. CST; Sat-Sun 8:00 a.m.-8:00 p.m. CST"
+    purposes: [bill_increase, billing_error, cancel_service, poor_service]
+    source: https://www.farmers.com/contact-us/
+    last_verified: 2026-10-12
+  - id: groupselect-phone
+    type: phone
+    label: Farmers GroupSelect auto and home (24/7 claim reporting)
+    value: +1-800-854-6011
+    hours: 24/7
+    purposes: [claim_denial, claim_delay]
+    source: https://www.farmers.com/contact-us/
+    last_verified: 2026-10-12
+  - id: main-phone
+    type: phone
+    label: Main line shown in the site header
+    value: +1-844-557-1662
+    source: https://www.farmers.com/claims/
+    last_verified: 2026-10-12
+  - id: tty
+    type: phone
+    label: Telecommunications Relay Service for hearing or speech disability
+    value: "711"
+    source: https://www.farmers.com/contact-us/
+    last_verified: 2026-10-12
+  - id: claims-online
+    type: web_form
+    label: Report a claim online
+    value: https://www.farmers.com/claims/efnol-landing/
+    notes: Needs the policy number.
+    source: https://www.farmers.com/claims/
+    last_verified: 2026-10-12
+  - id: claim-status
+    type: portal
+    label: View claim status, letters and payments, and upload documents
+    value: https://www.farmers.com/claims/cmp-landing/
+    purposes: [claim_delay, claim_denial]
+    access: login
+    source: https://www.farmers.com/claims/home-insurance-claims/
+    last_verified: 2026-10-12
+  - id: find-claims-rep
+    type: web_form
+    label: Find my claims representative
+    value: https://claims.farmers.com/claimportal/findrep?SO=01
+    purposes: [claim_delay, claim_denial]
+    source: https://www.farmers.com/claims/
+    last_verified: 2026-10-12
+  - id: customer-service-mail
+    type: mail
+    label: Customer service mailing address
+    value: Farmers Insurance, 6301 Owensmouth Ave, Woodland Hills, CA 91367
+    purposes: [claim_denial, poor_service, billing_error]
+    notes: Farmers publishes no separate complaint address. Use this address for a written complaint and include the policy and claim numbers.
+    source: https://www.farmers.com/contact-us/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: claims-phone, note: "Or the assigned Farmers claims representative or the local agent."}
+  - {rung: supervisor, note: "Ask for the claims representative's supervisor."}
+  - {rung: written_complaint, channel: customer-service-mail, note: "Ask for the denial and the policy language it relies on, in writing."}
+  - {rung: state_agency, agency_kind: insurance_department}
+  - {rung: arbitration, note: "Many policies have an appraisal clause for disputes about the amount of a loss. Check the policy."}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: claim_denial
+    summary: Read the claim letters in the portal, dispute with the claims representative, then write to Farmers and the state insurance department.
+    evidence: [claim number, policy number, claim letters, photos, estimates, receipts]
+    steps:
+      - do: Download the claim letters in the claim portal. Ask the claims representative for the policy language behind the decision.
+        channel: claim-status
+      - do: Call the Claims Call Center and ask for a review by the representative's supervisor. Give any new evidence.
+        channel: claims-phone
+      - do: Send a written complaint to the customer service address with the claim number and evidence.
+        channel: customer-service-mail
+      - do: If you disagree only about the amount, check the policy for an appraisal provision.
+      - do: File a complaint with your state insurance department.
+    facts:
+      - kind: process
+        claim: The Farmers claim portal lets you upload receipts or documents, view payments and claim letters, and track claim status.
+        issues: [claim_denial, claim_delay]
+        source: https://www.farmers.com/claims/home-insurance-claims/
+        last_verified: 2026-10-12
+  - issue: claim_delay
+    summary: Find the assigned representative, upload what is missing, then escalate.
+    evidence: [claim number, dates of each contact, documents sent]
+    steps:
+      - do: Check the claim status and upload missing documents in the portal.
+        channel: claim-status
+      - do: Find and contact the assigned claims representative. Ask what is still needed and when a decision is due.
+        channel: find-claims-rep
+      - do: Call the Claims Call Center and ask for a supervisor if the representative does not answer.
+        channel: claims-phone
+      - do: File a complaint with your state insurance department if the claim still does not move.
+    facts:
+      - kind: process
+        claim: After a claim is filed, a Farmers claim representative contacts the customer to talk through the events and explain coverages and next steps.
+        issues: [claim_delay]
+        source: https://www.farmers.com/claims/home-insurance-claims/
+        last_verified: 2026-10-12
+  - issue: bill_increase
+    summary: Review limits, deductibles and discounts with the agent or the Customer Care Center.
+    evidence: [prior declarations page, renewal declarations page]
+    steps:
+      - do: Compare the old and new declarations pages.
+      - do: Ask the agent or Customer Care Center about higher deductibles and discounts for bundling, automatic payment and the Signal driving app.
+        channel: customer-service-phone
+    facts:
+      - kind: policy
+        claim: Farmers attributes car insurance rate increases to inflation and repair costs, more accidents and injuries, healthcare costs, severe weather and crime, and says higher deductibles can mean lower premiums.
+        issues: [bill_increase]
+        source: https://www.farmers.com/learn/insurance-questions/why-did-my-car-insurance-rates-change/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Farmers attributes homeowners premium increases to construction costs, labor shortages, supply chain bottlenecks and more frequent natural disasters.
+        issues: [bill_increase]
+        source: https://www.farmers.com/learn/insurance-questions/why-do-homeowners-coverage-increase/
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: To cancel a Farmers policy, contact your agent. If you have no agent, call the service line 888-327-6335.
+    issues: [cancel_service]
+    source: https://www.farmers.com/faq/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Claim status, letters and uploads need sign-in to the claim portal.
+  - Farmers publishes no complaint form or complaint email; only a customer service postal address.
+  - Many policies are serviced by a local Farmers agent.
+
+notes: Farmers Insurance Exchange, Fire Insurance Exchange and Truck Insurance Exchange are reciprocal insurers owned by their policyholders. Farmers Group, Inc. and its subsidiaries manage them as attorneys-in-fact. Farmers GroupSelect auto and home has its own line.

@@ -1,0 +1,141 @@
+id: geico
+name: GEICO
+aliases: [geico insurance, government employees insurance company, geico auto insurance]
+sector: insurance_property
+parent: Berkshire Hathaway Inc.
+website: https://www.geico.com
+account_url: https://ecams.geico.com/ecams/login
+regulators: []
+
+channels:
+  - id: claims-phone
+    type: phone
+    label: Auto, motorcycle, ATV and RV claims (and all other GEICO policy claims)
+    value: +1-800-841-3000
+    hours: 24/7
+    purposes: [claim_denial, claim_delay]
+    access: open
+    source: https://www.geico.com/claims/claimsprocess/handling-your-claim/
+    last_verified: 2026-10-12
+  - id: customer-service-phone
+    type: phone
+    label: Sales and service
+    value: +1-800-207-7847
+    purposes: [bill_increase, billing_error, cancel_service, poor_service]
+    notes: GEICO says hold times are longer than usual and recommends geico.com or the GEICO Mobile app.
+    source: https://www.geico.com/contact-us/phone/
+    last_verified: 2026-10-12
+  - id: property-phone
+    type: phone
+    label: Property insurance (homeowners, renters, condo/co-op, mobile home, flood) service
+    value: +1-800-241-8098
+    notes: Home, renters and condo policies are placed with partner insurers. Claims go to the partner insurer; see the partner claims contacts page.
+    source: https://www.geico.com/contact-us/phone/
+    last_verified: 2026-10-12
+  - id: roadside-phone
+    type: phone
+    label: Emergency roadside service
+    value: +1-800-424-3426
+    source: https://www.geico.com/contact-us/phone/
+    last_verified: 2026-10-12
+  - id: claims-online
+    type: web_form
+    label: Report a claim online
+    value: https://claims.geico.com/ReportClaim
+    source: https://www.geico.com/contact-us/
+    last_verified: 2026-10-12
+  - id: claim-status
+    type: portal
+    label: Track a GEICO claim and message the adjuster
+    value: https://claims.geico.com/ClaimsExpress/Locate
+    purposes: [claim_delay, claim_denial]
+    access: login
+    source: https://www.geico.com/contact-us/
+    last_verified: 2026-10-12
+  - id: partner-claims-contacts
+    type: web_form
+    label: Claim phone numbers for policies written by GEICO partner insurers (home, renters, condo, flood, boat, business)
+    value: https://www.geico.com/claims/claimsprocess/partner-claims-contacts/
+    purposes: [claim_denial, claim_delay]
+    access: open
+    notes: A reference page, not a form. Find the insurer named on the policy and call its claim line.
+    source: https://www.geico.com/claims/claimsprocess/partner-claims-contacts/
+    last_verified: 2026-10-12
+  - id: contact-form
+    type: web_form
+    label: Email customer service (topics include claim status and "Your experience with GEICO")
+    value: https://www.geico.com/contact-us/email/
+    purposes: [poor_service, claim_delay, claim_denial, billing_error]
+    access: login
+    notes: Current customers log in to send a secure message. GEICO publishes no separate complaint form or mailing address.
+    source: https://www.geico.com/contact-us/email/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: claims-phone, note: "Or the assigned adjuster through the claim portal."}
+  - {rung: supervisor, note: "Ask for the adjuster's supervisor."}
+  - {rung: written_complaint, channel: contact-form, note: "Ask for the denial and the policy language it relies on, in writing."}
+  - {rung: state_agency, agency_kind: insurance_department}
+  - {rung: arbitration, note: "Appraisal or arbitration for disputes about the amount of a loss, depending on the policy and state rules."}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: claim_denial
+    summary: Dispute with the adjuster in writing, ask for a re-evaluation with evidence, then appraisal and the state insurance department.
+    evidence: [claim number, denial or valuation letter, policy and declarations page, photos, repair estimates, comparable vehicle listings for a total loss]
+    steps:
+      - do: For a home, renters or condo claim, confirm which partner insurer wrote the policy. That insurer, not GEICO, decides the claim.
+        channel: partner-claims-contacts
+      - do: Ask the adjuster in writing, through the claim portal, for the reason and the policy language. For a total loss, ask for the valuation report and the comparable vehicles used.
+        channel: claim-status
+      - do: Send your own evidence and ask for a re-evaluation.
+      - do: If you still disagree about the amount, check the policy for an appraisal provision and invoke it.
+      - do: File a complaint with your state insurance department.
+    facts:
+      - kind: process
+        claim: GEICO bases a total-loss actual cash value on factors that include recent sales prices of similar vehicles in your area, mileage, features, add-ons, modifications and prior damage. It tells customers to ask the assigned adjuster about their state's total-loss rules.
+        issues: [claim_denial]
+        source: https://www.geico.com/claims/claimsprocess/total-loss-process/
+        last_verified: 2026-10-12
+  - issue: claim_delay
+    summary: Use the claim portal to reach the adjuster, then call the claims line and escalate to a supervisor and the state.
+    evidence: [claim number, dates of each contact, documents sent]
+    steps:
+      - do: Check the claim status and message the assigned adjuster in the claim portal. Ask what is still needed.
+        channel: claim-status
+      - do: Call the claims line and ask for the adjuster's supervisor if there is no answer.
+        channel: claims-phone
+      - do: File a complaint with your state insurance department if the claim still does not move.
+    facts:
+      - kind: process
+        claim: GEICO states that a claim may be settled in as little as 48 hours, and that a drivable car is usually scheduled for inspection within 24 hours.
+        issues: [claim_delay]
+        source: https://www.geico.com/claims/claimsprocess/handling-your-claim/
+        last_verified: 2026-10-12
+  - issue: bill_increase
+    summary: Find what changed at renewal, then review coverage and discounts online or with service.
+    evidence: [prior declarations page, renewal declarations page, list of recent claims or violations]
+    steps:
+      - do: Log in and compare coverages, drivers, vehicles and discounts with the prior term.
+      - do: Ask service which discount changed or which claim or violation affected the rate. Ask about telematics, multi-car, good student and bundling discounts.
+        channel: customer-service-phone
+    facts:
+      - kind: policy
+        claim: GEICO lists changes in coverage, lost safe-driving discounts after a violation or accident, at-fault accident claims, multiple comprehensive claims, moving, adding a newly licensed driver, and a new car as reasons a rate can increase at renewal.
+        issues: [bill_increase]
+        source: https://www.geico.com/information/faq/rate-increase/
+        last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: GEICO's totaled-car guide says that if you still disagree after a re-evaluation, most policies allow an independent appraisal or arbitration, depending on the policy and state rules.
+    issues: [claim_denial]
+    source: https://www.geico.com/living/totaled-car-guide/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Claim tracking and secure messages need sign-in.
+  - GEICO homeowners, renters, condo and flood policies are written by partner insurers; GEICO cannot decide those claims.
+  - Phone hold times are long; GEICO steers customers to the app and website.
+
+notes: GEICO is an indirect wholly owned subsidiary of Berkshire Hathaway Inc. It writes auto coverage itself. Home, renters, condo, flood, boat and many business policies sold by GEICO are written by partner insurers listed on its partner claims contacts page.

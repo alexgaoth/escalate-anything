@@ -1,0 +1,118 @@
+id: kaiser-permanente
+name: Kaiser Permanente
+aliases: [kaiser, kp, kaiser foundation health plan, kaiser foundation health plan inc, kaiser health plan]
+sector: insurance_health
+website: https://healthy.kaiserpermanente.org
+regulators: [dol-ebsa, cms-no-surprises]
+
+channels:
+  - id: complaint-form
+    type: web_form
+    label: Submit a complaint (file a grievance report)
+    value: https://healthy.kaiserpermanente.org/support/submit-a-complaint
+    purposes: [claim_denial, poor_service, billing_error]
+    notes: Linked from the support center as "File a grievance report".
+    source: https://healthy.kaiserpermanente.org/support
+    last_verified: 2026-10-12
+  - id: grievance-status
+    type: portal
+    label: Grievance and appeal case status
+    value: https://healthy.kaiserpermanente.org/secure/support/complaints-grievances-appeals
+    purposes: [claim_denial, poor_service]
+    access: login
+    source: https://healthy.kaiserpermanente.org/support
+    last_verified: 2026-10-12
+  - id: member-services-message
+    type: portal
+    label: Email member services (secure message)
+    value: https://healthy.kaiserpermanente.org/secure/messages?compose=member-services
+    purposes: [claim_denial, claim_delay, billing_error, poor_service]
+    access: login
+    notes: For non-urgent questions. Kaiser Permanente says it responds within 3 days.
+    source: https://healthy.kaiserpermanente.org/support
+    last_verified: 2026-10-12
+  - id: claim-summary
+    type: portal
+    label: Review visit-cost and claims summary
+    value: https://healthy.kaiserpermanente.org/secure/coverage-costs/claims-summary#/
+    purposes: [claim_delay, claim_denial, billing_error]
+    access: login
+    source: https://healthy.kaiserpermanente.org/support
+    last_verified: 2026-10-12
+  - id: claims-help
+    type: web_form
+    label: Claims help (submitting claims and appeal rights)
+    value: https://healthy.kaiserpermanente.org/support/claims-summary-help
+    purposes: [claim_denial, claim_delay]
+    access: open
+    source: https://healthy.kaiserpermanente.org/support
+    last_verified: 2026-10-12
+  - id: billing
+    type: portal
+    label: Pay premium and medical bills
+    value: https://healthy.kaiserpermanente.org/secure/billing
+    purposes: [billing_error]
+    access: login
+    source: https://healthy.kaiserpermanente.org/support
+    last_verified: 2026-10-12
+  - id: advice-phone
+    type: phone
+    label: Call for advice (getting care; not a claims or billing line)
+    value: +1-800-218-1059
+    notes: TTY 711.
+    source: https://healthy.kaiserpermanente.org/support
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: member-services-message, note: "Or the member services number on the back of the member ID card."}
+  - {rung: written_complaint, channel: complaint-form, note: "Grievance or appeal. Track it in the grievance case status page."}
+  - {rung: state_agency, agency_kind: insurance_department, note: "External review for fully insured plans; complaint to the state. In California, HMO plans are regulated by the Department of Managed Health Care."}
+  - {rung: regulator, regulator: dol-ebsa, note: "Employer self-funded (ERISA) plans."}
+  - {rung: regulator, regulator: cms-no-surprises, note: "Surprise bills under the No Surprises Act."}
+
+playbooks:
+  - issue: claim_denial
+    summary: Read the EOB for appeal steps, file a grievance or appeal, track it online, then go to the state regulator.
+    evidence: [EOB or Statement of Accumulation, denial letter, member ID card (medical record number), medical records, receipts for out-of-plan care]
+    steps:
+      - do: Open the claims summary and the EOB or Statement of Accumulation. It gives the steps to submit an appeal.
+        channel: claim-summary
+      - do: Ask member services by secure message or by the number on the ID card to explain the decision.
+        channel: member-services-message
+      - do: File the grievance or appeal. Then track the case status online.
+        channel: complaint-form
+      - do: After the final internal decision, ask for external or independent medical review through the state regulator (fully insured plans), or contact the Department of Labor for employer self-funded plans.
+        regulator: dol-ebsa
+    facts:
+      - kind: policy
+        claim: Kaiser Permanente says you have the right to appeal the plan's payment decision on any claim you personally submit, and that the EOB or Statement of Accumulation gives the steps to submit an appeal.
+        issues: [claim_denial]
+        source: https://healthy.kaiserpermanente.org/support/claims-summary-help
+        last_verified: 2026-10-12
+  - issue: billing_error
+    summary: Compare the bill with the claims summary, message member services, then file a complaint.
+    evidence: [bill, claims or visit-cost summary, member ID card]
+    steps:
+      - do: Compare the bill with the visit-cost and claims summary.
+        channel: claim-summary
+      - do: Send a secure message to member services that names the charge and the amount you expected.
+        channel: member-services-message
+      - do: If it is not fixed, submit a complaint.
+        channel: complaint-form
+  - issue: surprise_medical_bill
+    summary: For out-of-network emergency care, submit the claim to Kaiser Permanente, compare the bill with the EOB, then contact the CMS help desk.
+    evidence: [the bill, EOB, member ID card, emergency visit records]
+    steps:
+      - do: Submit the out-of-plan emergency claim to Kaiser Permanente for reimbursement (see claims help).
+        channel: claims-help
+      - do: Compare the provider bill with the EOB. Tell Kaiser Permanente and the provider that the bill may be a surprise bill.
+        channel: member-services-message
+      - do: Contact the CMS No Surprises Help Desk.
+        regulator: cms-no-surprises
+
+known_blockers:
+  - Member services messages, claims summaries and grievance status need a kp.org login.
+  - Kaiser Permanente does not show region member services numbers on public pages without JavaScript; use the number on the member ID card.
+  - The complaint page and EOB give the region-specific appeal procedure.
+
+notes: Kaiser Permanente (Oakland, California) comprises Kaiser Foundation Health Plan, Inc., Kaiser Foundation Hospitals and The Permanente Medical Groups, serving 12.9 million members in nine regions (Northern and Southern California, Hawaii, Colorado, Georgia, Mid-Atlantic States, Northwest, Washington and Nevada). Each region has its own health plan company. Risant Health and its affiliates are outside these figures. Medicare and Medicaid members have their own appeal rules.
