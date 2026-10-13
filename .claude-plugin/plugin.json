@@ -1,0 +1,7 @@
+{
+  "name": "redress",
+  "version": "0.1.0",
+  "description": "Resolve problems with large US companies: playbooks, verified contacts, escalation ladders, a local case log and bill watching.",
+  "author": { "name": "Alex Gao" },
+  "keywords": ["consumer", "complaints", "refunds", "bills", "escalation"]
+}
