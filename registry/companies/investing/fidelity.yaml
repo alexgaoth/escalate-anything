@@ -1,0 +1,207 @@
+id: fidelity
+name: Fidelity Investments
+aliases: [fidelity, fidelity brokerage services, fidelity brokerage, fidelity netbenefits, netbenefits, fidelity investments brokerage]
+sector: investing
+website: https://www.fidelity.com
+official_domains: [fidelity.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Fidelity's fraud page says reputable businesses will not contact you to request your personal information.
+      source: https://www.fidelity.com/security/identify-fraud-and-phishing-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: When you report a suspicious email to Fidelity, do not include any account number, username or password.
+      source: https://www.fidelity.com/security/identify-fraud-and-phishing-scams
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Imposter scam - a caller claims to be from Fidelity or another provider and asks you to read back a one-time passcode that the caller triggered, for example by starting a password reset.
+      source: https://www.fidelity.com/security/identify-fraud-and-phishing-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Remote access scam - a caller claims to be from a well-known company, asks for access to your computer, and then says you have malware that you must pay to fix.
+      source: https://www.fidelity.com/security/identify-fraud-and-phishing-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Fidelity also warns of smishing texts with fraudulent links, "gold grifting" (tricking people into buying gold and handing it over), romance scams and lottery or inheritance scams.
+      source: https://www.fidelity.com/security/identify-fraud-and-phishing-scams
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Report emails that impersonate Fidelity
+      value: phishing@fidelity.com
+      purposes: [fraud]
+      notes: >-
+        Attach the suspected email and give your full name, email address and the phone number on your accounts.
+        Say whether you opened any links or images and whether you entered your login credentials.
+      source: https://www.fidelity.com/security/identify-fraud-and-phishing-scams
+      last_verified: 2026-10-13
+regulators: [sec, finra]
+notes: >-
+  Retail brokerage accounts are with Fidelity Brokerage Services LLC (FINRA CRD 7784), 900 Salem Street,
+  Smithfield, RI 02917. The CFPB complaint database has no complaints for "FIDELITY INVESTMENTS" received
+  July 2025 to June 2026; brokerage complaints go to FINRA and the SEC.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service (general)
+    value: +1-800-343-3548
+    hours: 24/7
+    purposes: [account_transfer, frozen_funds, account_access, poor_service]
+    access: human_only
+    source: https://www.fidelity.com/customer-service/contact-us
+    last_verified: 2026-10-13
+  - id: fraud-phone
+    type: phone
+    label: Account blocked or compromised, unauthorized activity
+    value: +1-800-544-6666
+    purposes: [fraud, unauthorized_charge, account_access]
+    access: human_only
+    notes: Fidelity Charitable donors use +1-800-952-4438.
+    source: https://www.fidelity.com/security/report-an-issue
+    last_verified: 2026-10-13
+  - id: workplace-phone
+    type: phone
+    label: Workplace accounts (401(k), health savings and other workplace plans)
+    value: +1-800-835-5095
+    hours: Mon.–Fri. 8:30 a.m.–8:30 p.m. ET
+    access: human_only
+    source: https://www.fidelity.com/customer-service/contact-us
+    last_verified: 2026-10-13
+  - id: stock-plan-phone
+    type: phone
+    label: Employer Stock Plan Services
+    value: +1-800-544-9354
+    hours: Sun. 5 p.m.–Fri. 12 a.m. ET
+    access: human_only
+    source: https://www.fidelity.com/customer-service/contact-us
+    last_verified: 2026-10-13
+  - id: live-chat
+    type: chat
+    label: Live chat with a Fidelity team member (virtual assistant 24/7)
+    value: https://www.fidelity.com/customer-service/contact-us
+    hours: Mon.–Fri. 8 a.m.–10 p.m. ET; Sat.–Sun. 9 a.m.–4 p.m. ET
+    purposes: [account_transfer, poor_service]
+    source: https://www.fidelity.com/customer-service/contact-us
+    last_verified: 2026-10-13
+  - id: report-security-issue
+    type: web_form
+    label: Report fraud or suspicious activity (steps and secure email form)
+    value: https://www.fidelity.com/security/report-an-issue
+    purposes: [fraud, account_access]
+    notes: The secure email form needs sign-in; Fidelity says it responds in 24 to 48 hours. Call the fraud line if the account may be compromised.
+    source: https://www.fidelity.com/security/report-an-issue
+    last_verified: 2026-10-13
+  - id: phishing-email
+    type: email
+    label: Report emails that impersonate Fidelity
+    value: phishing@fidelity.com
+    purposes: [fraud]
+    source: https://www.fidelity.com/security/identify-fraud-and-phishing-scams
+    last_verified: 2026-10-13
+  - id: accounts-mail
+    type: mail
+    label: Mail for current accounts (regular mail)
+    value: "Fidelity Investments, PO Box 770001, Cincinnati, OH 45277-0002"
+    purposes: [poor_service, frozen_funds]
+    notes: Fidelity lists no separate complaint address. Use this address for written correspondence about an existing account.
+    source: https://www.fidelity.com/customer-service/mailing-addresses
+    last_verified: 2026-10-13
+  - id: transfers-mail
+    type: mail
+    label: Mail for transfers of assets (TOA)
+    value: "Fidelity Investments, ATTN: TOA, PO Box 770001, Cincinnati, OH 45277-0036"
+    purposes: [account_transfer]
+    source: https://www.fidelity.com/customer-service/mailing-addresses
+    last_verified: 2026-10-13
+  - id: brokercheck
+    type: portal
+    label: FINRA BrokerCheck record for Fidelity Brokerage Services LLC (CRD 7784)
+    value: https://brokercheck.finra.org/firm/summary/7784
+    source: https://api.brokercheck.finra.org/search/firm?query=fidelity%20brokerage&hl=true&nrows=12&start=0&r=25&wt=json
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: accounts-mail, note: "Fidelity publishes no complaint address. FINRA asks you to complain in writing to the firm's branch manager or compliance department first and keep copies."}
+  - {rung: regulator, regulator: finra}
+  - {rung: regulator, regulator: sec}
+  - {rung: arbitration, note: "Brokerage account agreements usually require FINRA arbitration. Read your own Fidelity customer agreement."}
+
+playbooks:
+  - issue: fraud
+    summary: Call 800-544-6666 at once; the Customer Protection Guarantee depends on prompt reporting.
+    evidence: [account activity showing the unauthorized transactions, date you noticed them, messages or caller details, FTC report number]
+    steps:
+      - do: Call the fraud line and report the unauthorized activity, lost device or missing statements immediately.
+        channel: fraud-phone
+      - do: Forward any phishing email that led to the problem.
+        channel: phishing-email
+      - do: Change your Fidelity password and security questions, and the passwords of your email and other online accounts.
+      - do: Ask Equifax, Experian and TransUnion to place a fraud alert, and file a report with the FTC.
+        regulator: ftc
+      - do: If Fidelity does not resolve it, complain in writing, then file with FINRA.
+        regulator: finra
+    facts:
+      - kind: compensation
+        claim: Under its Customer Protection Guarantee, Fidelity will reimburse you for losses from unauthorized activity in covered accounts that occurs through no fault of your own.
+        issues: [fraud, unauthorized_charge]
+        source: https://www.fidelity.com/security/customer-protection-guarantee
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: To be eligible, you must review account materials promptly and no later than 30 days after they are posted or delivered, and immediately report unauthorized activity, errors, a lost device or missing statements by calling 800-544-6666.
+        issues: [fraud, unauthorized_charge]
+        source: https://www.fidelity.com/security/customer-protection-guarantee
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: Report unauthorized trades or withdrawals by phone at once, then follow up in writing.
+    evidence: [statement or confirmation with the unauthorized activity, date you noticed it]
+    steps:
+      - do: Call the fraud line immediately.
+        channel: fraud-phone
+      - do: Confirm the report in writing and keep a copy.
+        channel: accounts-mail
+      - do: If it is not resolved, file a FINRA complaint.
+        regulator: finra
+
+  - issue: account_transfer
+    summary: Fidelity lists no fee for a transfer of assets; send transfer paperwork to the TOA address.
+    evidence: [transfer request confirmation, statements from both firms]
+    steps:
+      - do: For a transfer out, start it at the receiving firm. For a transfer in, use the TOA mailing address for paper forms.
+        channel: transfers-mail
+      - do: If the transfer stalls, call customer service and ask what is missing and the expected date.
+        channel: customer-service-phone
+      - do: If it is still blocked, file a FINRA complaint.
+        regulator: finra
+    facts:
+      - kind: fee
+        claim: Fidelity's commissions and fees page lists "Transfer of assets" at $0 per transfer.
+        issues: [account_transfer]
+        source: https://www.fidelity.com/trading/commissions-margin-rates
+        last_verified: 2026-10-13
+
+  - issue: account_access
+    summary: If the account is blocked or may be compromised, call the fraud line.
+    evidence: [account email and phone, ID, date access was lost]
+    steps:
+      - do: Call the fraud line and say the account is blocked or may be compromised.
+        channel: fraud-phone
+      - do: Never read back a one-time passcode to a caller. Fidelity warns that imposters trigger passcodes and ask for them.
+
+facts:
+  - claim: BrokerCheck lists 24 regulatory events and 130 arbitrations for Fidelity Brokerage Services LLC.
+    source: https://api.brokercheck.finra.org/search/firm/7784?hl=true&nrows=12&query=&r=25&wt=json
+    last_verified: 2026-10-13
+  - claim: The CFPB complaint database shows 0 complaints for FIDELITY INVESTMENTS received from July 1, 2025 to June 30, 2026.
+    source: https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/?company=FIDELITY%20INVESTMENTS&date_received_min=2025-07-01&date_received_max=2026-06-30&size=0
+    last_verified: 2026-10-13
+
+known_blockers:
+  - Phone lines verify the account holder by voice.
+  - The secure email form for security issues needs sign-in.
+  - Fidelity publishes no complaint address or executive office on its contact pages.

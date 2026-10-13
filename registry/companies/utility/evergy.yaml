@@ -1,0 +1,274 @@
+id: evergy
+name: Evergy
+aliases: [Evergy Inc., Evergy Kansas Central, Evergy Kansas Metro, Evergy Missouri Metro, Evergy Missouri West, KCP&L Greater Missouri Operations Company]
+sector: utility
+website: https://www.evergy.com
+account_url: https://www.evergy.com/manage-account/my-account
+notes: >-
+  Electric utility in Kansas and Missouri. Evergy's contact page gives one number for Kansas Metro,
+  Missouri Metro and Missouri West customers (1-888-471-5275) and another for Kansas Central customers
+  (1-800-383-1183); its scams page says these are the only two official support lines. Kansas service is
+  regulated by the Kansas Corporation Commission (KCC); Missouri service by the Missouri Public Service
+  Commission (PSC). Evergy Missouri West's tariff (Rule 2.05, effective March 12, 2026) has Evergy try to
+  reach the customer by phone call, text message or email before a disconnection, but Evergy's scams page
+  says Evergy will never text about billing or possible disconnection. Treat any text that asks for payment
+  as suspect and check the balance in My Account or by calling the number above. The Missouri tariff
+  facts below come from the Evergy Missouri West tariff only; Evergy Missouri Metro has its own tariff,
+  which was not checked.
+
+channels:
+  - id: customer-service-metro-mo-phone
+    type: phone
+    label: Customer service for Kansas Metro, Missouri Metro and Missouri West
+    value: +1-888-471-5275
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, poor_service]
+    notes: The contact page lists no hours. The payment options page also uses this number to pay by phone.
+    source: https://www.evergy.com/contact-us
+    last_verified: 2026-10-13
+  - id: customer-service-kansas-central-phone
+    type: phone
+    label: Customer service for Kansas Central
+    value: +1-800-383-1183
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, poor_service]
+    notes: The contact page lists no hours.
+    source: https://www.evergy.com/contact-us
+    last_verified: 2026-10-13
+  - id: outage-phone
+    type: phone
+    label: Report an outage or a downed power line (call 911 first for downed lines)
+    value: +1-888-544-4852
+    purposes: [service_outage]
+    source: https://www.evergy.com/report-outage
+    last_verified: 2026-10-13
+  - id: outage-report-online
+    type: web_form
+    label: Report an outage online
+    value: https://www.evergy.com/report-outage
+    purposes: [service_outage]
+    access: open
+    notes: Identify the account by phone number, account number or address. The phone number must match the one on the account.
+    source: https://www.evergy.com/report-outage
+    last_verified: 2026-10-13
+  - id: payment-agreement
+    type: portal
+    label: Payment agreement (installment plan or payment extension) in My Account
+    value: https://www.evergy.com/ma/my-account/make-a-payment/payment-agreement
+    purposes: [disconnection, payment_assistance]
+    access: login
+    notes: The energy assistance page also says installment plans are available at an Evergy Connect location or by calling 1-888-471-5275.
+    source: https://www.evergy.com/manage-account/billing-link/energy-assistance
+    last_verified: 2026-10-13
+  - id: energy-assistance-page
+    type: web_form
+    label: Energy assistance, medical hardship and payment arrangement options
+    value: https://www.evergy.com/manage-account/billing-link/energy-assistance
+    purposes: [disconnection, payment_assistance]
+    access: open
+    source: https://www.evergy.com/manage-account/billing-link/energy-assistance
+    last_verified: 2026-10-13
+  - id: special-friend-form
+    type: web_form
+    label: Special Friend registration (a third party who gets notice before disconnection)
+    value: https://www.evergy.com/community/special-friend-form
+    purposes: [disconnection]
+    notes: For customers 60 or older, disabled, or often away from home. The Special Friend is not responsible for the bill.
+    source: https://www.evergy.com/manage-account/billing-link/energy-assistance
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, note: "Call the number for your Evergy company: 1-888-471-5275 (Kansas Metro, Missouri Metro, Missouri West) or 1-800-383-1183 (Kansas Central)."}
+  - {rung: supervisor, note: "Ask the representative for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, note: "Evergy's contact page lists no complaint email, form or mailing address. The Missouri West tariff accepts a billing dispute by written notice, in person, or by telephone during business hours."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Kansas: Kansas Corporation Commission (KCC) Public Affairs and Consumer Protection, 1-800-662-0027 or 785-271-3140, complaint form at https://kcc-connect.kcc.ks.gov/s/file-a-complaint; the KCC helps when you have been unable to resolve the issue with the utility. Missouri: Missouri Public Service Commission Consumer Services, 1-800-392-4211; the PSC says to contact the utility first."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Kansas Attorney General or Missouri Attorney General."}
+
+playbooks:
+  - issue: billing_error
+    summary: Register the dispute with Evergy before the shutoff date, pay the undisputed part, then go to the KCC or the Missouri PSC.
+    evidence: [the disputed bill, earlier bills for comparison, meter photos with dates, notes of calls with reference numbers]
+    steps:
+      - do: Call Evergy and say which charge you dispute. In Missouri, register the dispute at least 24 hours before any proposed disconnection date.
+        channel: customer-service-metro-mo-phone
+        note: Kansas Central customers call 1-800-383-1183.
+      - do: Pay the part of the bill that is not in dispute within four business days of registering the dispute, or by the delinquent date of the bill if that is later.
+      - do: If Evergy does not resolve it, file an informal complaint with the Missouri PSC or the Kansas Corporation Commission.
+    facts:
+      - kind: deadline
+        claim: "Evergy Missouri West: a dispute must be registered with the company at least twenty-four (24) hours before the proposed discontinuance date to avoid disconnection. It can be made by written notice, in person or by telephone during normal business hours."
+        issues: [billing_error, disconnection]
+        source: https://www.evergy.com/-/media/documents/billing/missouri/detailed_tariffs_mo/mo-west/mo-west-rule.pdf
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: "Evergy Missouri West: the customer must pay the amount not in dispute within four (4) business days of registering the dispute or by the delinquent date of the disputed bill, whichever is later. If the parties cannot agree on that amount, the company may require up to fifty percent (50%) of the disputed charge or an amount based on usage in a like period."
+        issues: [billing_error]
+        source: https://www.evergy.com/-/media/documents/billing/missouri/detailed_tariffs_mo/mo-west/mo-west-rule.pdf
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: "Evergy Missouri West: a residential overcharge is adjusted for the whole period it can be shown to have existed, up to sixty (60) consecutive billing periods; a residential undercharge is back-billed for up to twelve (12) consecutive billing periods. No adjustment is made for a meter error of three percent (3%) or less."
+        issues: [billing_error]
+        source: https://www.evergy.com/-/media/documents/billing/missouri/detailed_tariffs_mo/mo-west/mo-west-rule.pdf
+        last_verified: 2026-10-13
+      - kind: process
+        claim: The Missouri PSC asks customers to contact the utility first and to file an informal complaint only if the dispute is not resolved. Hotline 1-800-392-4211; online at efis.psc.mo.gov; mail to Missouri Public Service Commission, Attn Consumer Services Unit, 200 Madison Street, P.O. Box 360, Jefferson City, MO 65102-0360.
+        issues: [billing_error, disconnection]
+        source: https://psc.mo.gov/General/Submit_A_Complaint
+        last_verified: 2026-10-13
+
+  - issue: disconnection
+    summary: Ask for an installment plan or payment extension before the shutoff date. Missouri and Kansas cold-weather rules and a 21-day medical extension can stop a shutoff.
+    evidence: [disconnection notice, account balance, medical documents, energy assistance application or pledge]
+    steps:
+      - do: Call Evergy before the date on the notice. Ask for an installment plan or a payment extension, or set one up in My Account.
+        channel: payment-agreement
+      - do: If a disconnection would make a medical emergency in the home worse, ask for a Medical Extension.
+        channel: customer-service-metro-mo-phone
+      - do: From November 1 to March 31, ask for a Cold Weather Rule payment plan.
+      - do: Apply for energy assistance and ask Evergy which programs you qualify for.
+        channel: energy-assistance-page
+      - do: If Evergy will not agree to a plan the rules require, contact the KCC or the Missouri PSC before the shutoff date.
+    facts:
+      - kind: policy
+        claim: Evergy delays disconnection for nonpayment for at least 21 days from the date a Medical Extension is approved, when there is a medical emergency in the home. The limit is one Medical Extension per calendar year.
+        issues: [disconnection]
+        source: https://www.evergy.com/manage-account/billing-link/energy-assistance
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Evergy Missouri West tariff: the company postpones a residential disconnection for up to twenty-one (21) days if it would aggravate an existing medical emergency of the customer, a family member or another permanent resident. The company may require satisfactory evidence of the medical emergency."
+        issues: [disconnection]
+        source: https://www.evergy.com/-/media/documents/billing/missouri/detailed_tariffs_mo/mo-west/mo-west-rule.pdf
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: "Evergy Missouri West: written notice must be mailed at least ten (10) days before a residential disconnection, or handed to the customer at least ninety-six (96) hours before. The company also tries to reach the customer at least five days before (preferred contact method), at least two days before (two phone calls) and one business day before. Disconnection is allowed only between 8:00 a.m. and 4:00 p.m."
+        issues: [disconnection]
+        source: https://www.evergy.com/-/media/documents/billing/missouri/detailed_tariffs_mo/mo-west/mo-west-rule.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Evergy Missouri West Cold Weather Rule (November 1 to March 31): no disconnection of electric space heating service on a day when the National Weather Service forecast for the next seventy-two (72) hours predicts a temperature below thirty-two degrees Fahrenheit (32F)."
+        issues: [disconnection]
+        source: https://www.evergy.com/-/media/documents/billing/missouri/detailed_tariffs_mo/mo-west/mo-west-rule.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Evergy Missouri West Cold Weather Rule payment plan: the company first offers a twelve (12) month Average Payment Plan covering arrears, current and estimated bills. For a customer who has not defaulted on a Cold Weather Rule plan, the initial payment is no more than twelve percent (12%) of the 12-month average payment amount unless both agree otherwise; after a default it is eighty percent (80%) of the balance. A LIHEAP pledge for the amount counts as the payment."
+        issues: [disconnection, payment_assistance]
+        source: https://www.evergy.com/-/media/documents/billing/missouri/detailed_tariffs_mo/mo-west/mo-west-rule.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Evergy Missouri West Hot Weather Rule (June 1 to September 30): no disconnection of residential cooling service on a day when the National Weather Service forecast for the next seventy-two (72) hours predicts a temperature above ninety-five degrees Fahrenheit (95F) or a heat index above one hundred five degrees Fahrenheit (105F)."
+        issues: [disconnection]
+        source: https://www.evergy.com/-/media/documents/billing/missouri/detailed_tariffs_mo/mo-west/mo-west-rule.pdf
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: "Evergy Missouri West: a registered elderly or disabled customer (65 or older, a physician's medical form, or a federal disability award letter) must renew the registration every year, by October 1. During the Cold Weather Rule period the additional party on the registration form also gets the 10-day notice."
+        issues: [disconnection]
+        source: https://www.evergy.com/-/media/documents/billing/missouri/detailed_tariffs_mo/mo-west/mo-west-rule.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Kansas Cold Weather Rule (November 1 through March 31, residential customers of KCC-regulated utilities): the utility cannot disconnect when the temperature is forecast to drop below 35 degrees Fahrenheit. The KCC Cold Weather Rule page says within the following 48-hour period; the KCC FAQ page says 24-hour period."
+        issues: [disconnection]
+        source: https://kcc.ks.gov/consumer-information/cold-weather-rule
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Kansas Cold Weather Rule payment plan: pay 1/12 of the overdue amount plus 1/12 of the current bill, plus disconnection and reconnection fees and any applicable deposit, then the rest in equal payments over 11 months. The customer may also negotiate a faster plan."
+        issues: [disconnection, payment_assistance]
+        source: https://kcc.ks.gov/consumer-information/cold-weather-rule
+        last_verified: 2026-10-13
+
+  - issue: payment_assistance
+    summary: Evergy offers installment plans, payment extensions and adjustable due dates, and refers customers to state and local assistance programs.
+    evidence: [current bill, household income documents, Social Security or SSI award letter for an adjustable due date]
+    steps:
+      - do: Ask for an installment plan or payment extension in My Account, at an Evergy Connect location or by phone.
+        channel: payment-agreement
+      - do: If you get Social Security or SSI, ask for an Adjustable Due Date that matches your benefit payment date.
+        channel: customer-service-metro-mo-phone
+      - do: Ask Evergy which state and local energy assistance programs you can apply for. Apply early; credits can take weeks to post.
+        channel: energy-assistance-page
+    facts:
+      - kind: process
+        claim: Some energy assistance programs can take up to 30 days to apply to an Evergy account. Customers must meet income or other requirements.
+        issues: [payment_assistance]
+        source: https://www.evergy.com/manage-account/billing-link/energy-assistance
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Evergy offers an Average Payment Plan, an Adjustable Due Date for qualified customers on Social Security or SSI, a Payment Extension (amount moves to the next bill) and an Installment Plan. An installment plan stays active only if each payment is on time.
+        issues: [payment_assistance, disconnection]
+        source: https://www.evergy.com/manage-account/billing-link/energy-assistance
+        last_verified: 2026-10-13
+
+  - issue: service_outage
+    summary: Report the outage online or by phone. For a downed line, stay away and call 911 first.
+    evidence: [service address, outage start time, outage reference number]
+    steps:
+      - do: Report the outage online, in the Evergy app or by phone.
+        channel: outage-report-online
+      - do: For a downed power line, stay at least 30 feet away, call 911, then call Evergy.
+        channel: outage-phone
+    facts:
+      - kind: process
+        claim: For downed power lines Evergy says to stay at least 30 feet away, not touch the lines, call 911 first and then call Evergy at 888-544-4852.
+        issues: [service_outage]
+        source: https://www.evergy.com/report-outage
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Payment agreements and bill verification need a My Account sign-in.
+  - The tariff index pages ask the user to choose a service area before they show tariff documents.
+  - No general damage claim form was found on evergy.com. Search results show a surge damage claim form only for customers enrolled in Evergy Home Protection Plans (not checked on the page itself).
+
+official_domains: [evergy.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Evergy will never ask a customer to buy a prepaid debit card to pay for service, and will not ask customers to pay with gift cards.
+      source: https://www.evergy.com/community/safety/utility-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Evergy will never call to demand account or payment information, will never call to ask for payment on the same day as the disconnection, and will never threaten to disconnect if immediate payment is not made.
+      source: https://www.evergy.com/community/safety/utility-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Evergy says it will never send a text to discuss energy billing or possible disconnection.
+      source: https://www.evergy.com/community/safety/utility-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Evergy will never send someone to a home or business to ask for payment through a third-party app, and does not do door-to-door sales. It emails an actual statement only when the customer asks for it.
+      source: https://www.evergy.com/community/safety/utility-scams
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Callers claim to be Evergy employees and ask for personal or credit card information, or say the meter is defective.
+      source: https://www.evergy.com/community/safety/utility-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: People dressed as Evergy employees come to the door and threaten disconnection unless an immediate payment is made.
+      source: https://www.evergy.com/community/safety/utility-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Fake emailed bills say payment is due immediately, and texts threaten disconnection unless an immediate payment is made through a link.
+      source: https://www.evergy.com/community/safety/utility-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Scammers create fake websites that appear as clickable links when customers search for Evergy. Evergy says to go directly to evergy.com to log in and pay.
+      source: https://www.evergy.com/community/safety/utility-scams
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: scam-report-form
+      type: web_form
+      label: Report a scam to Evergy
+      value: https://apps.evergy.com/CustomerScamForm
+      access: open
+      source: https://www.evergy.com/community/safety/utility-scams
+      last_verified: 2026-10-13
+    - id: scam-verify-metro-mo-phone
+      type: phone
+      label: Verify a caller or visitor (Missouri and Kansas City metro customers)
+      value: +1-888-471-5275
+      source: https://www.evergy.com/community/safety/utility-scams
+      last_verified: 2026-10-13
+    - id: scam-verify-kansas-phone
+      type: phone
+      label: Verify a caller or visitor (Kansas customers)
+      value: +1-800-383-1183
+      source: https://www.evergy.com/community/safety/utility-scams
+      last_verified: 2026-10-13

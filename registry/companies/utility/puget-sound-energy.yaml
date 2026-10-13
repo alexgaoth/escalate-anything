@@ -1,0 +1,343 @@
+id: puget-sound-energy
+name: Puget Sound Energy
+aliases: [PSE, Puget Sound Energy Inc.]
+sector: utility
+website: https://www.pse.com
+notes: >-
+  Electric and natural gas utility in western Washington. Regulated by the Washington Utilities and
+  Transportation Commission (UTC), Consumer Protection Section. PSE's rights and responsibilities
+  brochure says to call PSE first, then ask for a supervisor, and the supervisor must tell you of
+  your right to contact the UTC (1-888-333-9882, consumer@utc.wa.gov). The same number,
+  1-888-225-5773, is used for customer service, gas and electric emergencies and outages.
+  Disconnection rules come from WAC 480-100-128 (electric) and the winter low-income payment
+  program in WAC 480-100-143.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: PSE Customer Care Center (billing, account, disconnection notices)
+    value: +1-888-225-5773
+    hours: "Mon-Fri 7:30 a.m.-6:30 p.m.; 24-hour emergency and outage service only at other times"
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, poor_service]
+    notes: Translator services for other languages are available on this number. TTY 1-800-962-9498; TRS 1-866-831-5161.
+    source: https://www.pse.com/en/contactpse
+    last_verified: 2026-10-13
+  - id: emergency-outage-phone
+    type: phone
+    label: Gas or electric emergency, downed power line or power outage (24 hours)
+    value: +1-888-225-5773
+    hours: 24/7
+    purposes: [service_outage]
+    source: https://www.pse.com/-/media/PDFs/6275_WB_2025.pdf
+    last_verified: 2026-10-13
+  - id: outage-report-online
+    type: web_form
+    label: Report an electric outage online
+    value: https://www.pse.com/en/outage
+    purposes: [service_outage]
+    access: open
+    notes: You can report an outage at an address without signing in. Sign-in gives account-specific restoration information.
+    source: https://www.pse.com/en/outage
+    last_verified: 2026-10-13
+  - id: customer-care-email
+    type: email
+    label: PSE customer care email
+    value: customercare@pse.com
+    purposes: [billing_error, poor_service]
+    notes: The contact page lists this address for business customers; the rights and responsibilities brochure lists it under "How to reach us" for all customers.
+    source: https://www.pse.com/-/media/PDFs/6275_WB_2025.pdf
+    last_verified: 2026-10-13
+  - id: feedback-form
+    type: web_form
+    label: Non-emergency account questions and other inquiries (online "Send email" form)
+    value: https://www.pse.com/en/logcustomerfeedback
+    purposes: [billing_error, poor_service]
+    source: https://www.pse.com/en/contactpse
+    last_verified: 2026-10-13
+  - id: secure-messaging
+    type: portal
+    label: Secure messaging in the PSE account
+    value: https://www.pse.com/en/account-and-billing/secure-messaging
+    purposes: [billing_error, poor_service]
+    access: login
+    source: https://www.pse.com/en/contactpse
+    last_verified: 2026-10-13
+  - id: payment-arrangement
+    type: portal
+    label: Payment arrangement (weekly, bi-weekly or monthly)
+    value: https://www.pse.com/account-and-billing/Payment%20Assistance/payment-arrangement
+    purposes: [disconnection, payment_assistance]
+    access: login
+    notes: Sign in to see eligibility. For an arrangement longer than 3 months for non-energy charges (such as Construction Services), call 888-225-5773.
+    source: https://www.pse.com/account-and-billing/Payment%20Assistance/payment-arrangement
+    last_verified: 2026-10-13
+  - id: bill-assistance-application
+    type: web_form
+    label: Apply for Bill Discount Rate, PSE HELP or Past Due Bill Forgiveness
+    value: https://www.pse.com/en/BPCC/signin
+    purposes: [disconnection, payment_assistance]
+    access: open
+    notes: Apply with a PSE digital account or as a guest. Application help by email at billdiscount@pse.com or by phone at 888-225-5773.
+    source: https://www.pse.com/en/account-and-billing/assistance-programs/HELP-BDR
+    last_verified: 2026-10-13
+  - id: assistance-programs
+    type: web_form
+    label: Assistance programs overview (Bill Discount Rate, HELP, LIHEAP agencies, Warm Home Fund)
+    value: https://www.pse.com/en/account-and-billing/assistance-programs
+    purposes: [payment_assistance]
+    access: open
+    source: https://www.pse.com/en/account-and-billing/assistance-programs
+    last_verified: 2026-10-13
+  - id: life-support-email
+    type: email
+    label: Life Support registration (return the Life Support Request form)
+    value: CC-Medical@pse.com
+    purposes: [disconnection]
+    notes: Or call 1-888-225-5773. Annual status review form required.
+    source: https://www.pse.com/en/Customer-Service/life-support-and-medical-emergencies
+    last_verified: 2026-10-13
+  - id: claims-email
+    type: email
+    label: PSE Claims Department (property damage claims)
+    value: claims@pse.com
+    purposes: [property_damage_claim, service_outage]
+    notes: Send the claims inquiry form (PDF at https://www.pse.com/-/media/PDFs/Claims/6260_0930_New_Liability_Claims_form.pdf). The claims page lists no mailing address.
+    source: https://www.pse.com/en/Customer-Service/claims
+    last_verified: 2026-10-13
+  - id: claims-phone
+    type: phone
+    label: PSE Claims Department
+    value: +1-425-457-5700
+    purposes: [property_damage_claim]
+    source: https://www.pse.com/en/Customer-Service/claims
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, channel: customer-service-phone, note: "PSE's brochure says to ask for a supervisor if you are not satisfied; the supervisor must tell you of your right to contact the UTC."}
+  - {rung: written_complaint, channel: customer-care-email}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Washington Utilities and Transportation Commission (UTC), Consumer Protection Section: 1-888-333-9882, consumer@utc.wa.gov, complaint form at https://www.utc.wa.gov/FileComplaint. The UTC says to contact the company first and ask for a supervisor."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Washington Attorney General's Office (PSE's scam page links https://www.atg.wa.gov/file-complaint)."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the bill with PSE, ask for a supervisor, then go to the UTC; pay the undisputed part and service stays on while you pursue the dispute.
+    evidence: [the disputed bill, earlier bills, meter photos with dates, call notes with names and reference numbers]
+    steps:
+      - do: Call PSE Customer Care and dispute the bill. Ask whether the read was actual or estimated, and ask PSE to re-check the meter if usage looks wrong.
+        channel: customer-service-phone
+      - do: If you are not satisfied, ask for a supervisor. Write down the name and the outcome.
+        channel: customer-service-phone
+      - do: Keep paying every amount that is not in dispute.
+      - do: If PSE does not resolve it, file a complaint with the Washington UTC (1-888-333-9882 or consumer@utc.wa.gov).
+    facts:
+      - kind: process
+        claim: If a PSE supervisor does not resolve a bill or service dispute, the supervisor must inform the customer of the right to contact the UTC Consumer Protection Section at 1-888-333-9882 or consumer@utc.wa.gov.
+        issues: [billing_error, poor_service]
+        source: https://www.pse.com/-/media/PDFs/6275_WB_2025.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: PSE will not discontinue service while the customer is pursuing any remedy with a PSE representative or with the UTC. Amounts not in dispute must be paid when due.
+        issues: [billing_error, disconnection]
+        source: https://www.pse.com/-/media/PDFs/6275_WB_2025.pdf
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: The UTC says companies will re-check a customer's meter on request once a year for no charge.
+        issues: [billing_error]
+        source: https://www.utc.wa.gov/consumers/energy-service/energy-consumer-rights
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: The UTC says a company must let a customer repay a back bill over the same length of time the charges built up (for example, 12 months of errors allows a 12-month plan), and the customer may see how the back bill was calculated.
+        issues: [billing_error]
+        source: https://www.utc.wa.gov/consumers/energy-service/energy-consumer-rights
+        last_verified: 2026-10-13
+      - kind: process
+        claim: Once UTC staff start an investigation, the company must respond within two full working days, according to the UTC.
+        issues: [billing_error, disconnection]
+        source: https://www.utc.wa.gov/consumers/energy-service/energy-consumer-rights
+        last_verified: 2026-10-13
+
+  - issue: disconnection
+    summary: Washington requires two notices before a shutoff, bars weekend and holiday shutoffs, gives a 5-business-day medical grace period, and protects low-income heating customers from November 15 to March 15.
+    evidence: [disconnection notice, account balance, medical emergency certificate, energy assistance application]
+    steps:
+      - do: Call PSE before the disconnection date. Ask for a payment arrangement and apply for bill assistance.
+        channel: customer-service-phone
+      - do: If someone in the home has a serious medical condition, tell PSE at once. Within five business days, give PSE a medical emergency certificate, pay at least 10 percent of the past-due balance and agree to pay the rest within 120 days.
+        channel: customer-service-phone
+      - do: Between November 15 and March 15, if you heat with electricity and have low income, tell PSE you cannot pay and apply for energy assistance with a local agency to use the winter low-income payment program.
+      - do: If PSE will not agree, contact the UTC before the disconnection date.
+    facts:
+      - kind: deadline
+        claim: Under WAC 480-100-128, the first written disconnection notice must be served at least eight business days before the disconnection date (eleven days if mailed from outside Washington, Oregon or Idaho). A second notice is required at least two business days before if delivered to the premises, or three business days if mailed.
+        issues: [disconnection]
+        source: https://app.leg.wa.gov/WAC/default.aspx?cite=480-100-128
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Before disconnecting for nonpayment, PSE sends two notifications by mail and makes a good faith effort to reach the customer by phone. Except to protect life or property, PSE will not disconnect on Saturdays, Sundays, legal holidays or any day when service cannot be reestablished within 24 hours.
+        issues: [disconnection]
+        source: https://www.pse.com/-/media/PDFs/6275_WB_2025.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: For a medical emergency, PSE postpones disconnection (or restores service) for a grace period of five business days. Within that time the customer must provide a medical emergency certificate from a medical professional, pay at least 10 percent of the past-due balance and agree to pay the rest within 120 days along with later bills.
+        issues: [disconnection]
+        source: https://www.pse.com/en/Customer-Service/life-support-and-medical-emergencies
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: Under WAC 480-100-128, a medical certificate is valid for no longer than sixty days unless renewed.
+        issues: [disconnection]
+        source: https://app.leg.wa.gov/WAC/default.aspx?cite=480-100-128
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Winter low-income payment program (WAC 480-100-143): from November 15 to March 15 an electric utility may not cut off residential space heating if the customer notifies the utility of inability to pay (normally within five business days of a delinquency notice), applies for energy assistance and weatherization, and pays no more than seven percent of monthly income plus one-twelfth of billings from the application date through March 15. All amounts owed must be paid by October 15."
+        issues: [disconnection, payment_assistance]
+        source: https://app.leg.wa.gov/WAC/default.aspx?cite=480-100-143
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: A customer may name a third party to receive disconnection notices. PSE then delays disconnection five business days after the original disconnection date and after notifying the third party.
+        issues: [disconnection]
+        source: https://www.pse.com/-/media/PDFs/6275_WB_2025.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Customers approved for PSE's Life Support program get 48 hours' notice before disconnection for nonpayment. Approval does not guarantee service or give priority in outage restoration.
+        issues: [disconnection]
+        source: https://www.pse.com/en/Customer-Service/life-support-and-medical-emergencies
+        last_verified: 2026-10-13
+
+  - issue: payment_assistance
+    summary: Apply for the Bill Discount Rate (5-45% off) and a PSE HELP grant ($250-$1000), then Past Due Bill Forgiveness (up to $2,500 after 12 on-time payments); set up a payment arrangement online.
+    evidence: [current bill, household income for the household size, county of residence]
+    steps:
+      - do: Apply for Bill Discount Rate and PSE HELP online, with a PSE account or as a guest.
+        channel: bill-assistance-application
+      - do: If you are on Bill Discount Rate and got HELP this program year, apply for Past Due Bill Forgiveness.
+        channel: bill-assistance-application
+      - do: Set up a weekly, bi-weekly or monthly payment arrangement for billed charges.
+        channel: payment-arrangement
+      - do: For LIHEAP, contact the county agency listed on PSE's assistance page.
+        channel: assistance-programs
+    facts:
+      - kind: compensation
+        claim: PSE's Bill Discount Rate gives a 5-45% discount for a 13-month term. PSE HELP gives a $250-$1000 grant per program year (October-September), applied to the PSE account.
+        issues: [payment_assistance]
+        source: https://www.pse.com/en/account-and-billing/assistance-programs/HELP-BDR
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: For Bill Discount Rate and HELP, household income must be at or below 80% of area median income or 200% of the federal poverty level, whichever is higher.
+        issues: [payment_assistance]
+        source: https://www.pse.com/en/account-and-billing/assistance-programs/HELP-BDR
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: PSE said HELP applications received September 1-30, 2026 will not be processed and to apply starting October 1, 2026; Bill Discount Rate stays open.
+        issues: [payment_assistance]
+        source: https://www.pse.com/en/account-and-billing/assistance-programs/HELP-BDR
+        last_verified: 2026-10-13
+      - kind: compensation
+        claim: Past Due Bill Forgiveness covers up to $2,500 of past-due balance. After 12 on-time full payments the enrolled past-due balance is gone; a third missed payment removes the customer. It requires PSE HELP in the current program year and Bill Discount Rate, and two years since last starting the program.
+        issues: [payment_assistance]
+        source: https://www.pse.com/en/account-and-billing/assistance-programs/past-due-bill-forgiveness
+        last_verified: 2026-10-13
+
+  - issue: service_outage
+    summary: Report the outage; PSE credits $50 if a non-major-storm outage lasts more than 24 hours, and $50 after 120 consecutive hours, if you report or ask within 7 days of restoration.
+    evidence: [outage start and restoration times, date you reported it, service address]
+    steps:
+      - do: Report the outage online or by phone so the 24-hour clock starts.
+        channel: outage-report-online
+      - do: Within seven calendar days after restoration, ask PSE for the outage guarantee credit if it was not applied.
+        channel: customer-service-phone
+    facts:
+      - kind: compensation
+        claim: PSE credits $50 if power is out for longer than 24 hours, barring a major storm or other event. The 24 hours start when PSE is first notified (or when safe access is available). Exclusions include major storms, outages caused by customer equipment and lack of safe access.
+        issues: [service_outage]
+        source: https://www.pse.com/pages/customer-service-guarantees
+        last_verified: 2026-10-13
+      - kind: compensation
+        claim: PSE credits $50 if power is out for 120 consecutive hours or longer; qualifications are in electric Schedule 131.
+        issues: [service_outage]
+        source: https://www.pse.com/pages/customer-service-guarantees
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: For both outage guarantees, the customer must report the outage to PSE or request the credit within seven (7) calendar days after restoration.
+        issues: [service_outage]
+        source: https://www.pse.com/pages/customer-service-guarantees
+        last_verified: 2026-10-13
+      - kind: compensation
+        claim: PSE credits the bill $50 if it does not keep an appointment to install new service, reconnect existing service or inspect natural gas equipment (Schedule 130; some maintenance work such as Meter Upgrade exchanges is excluded).
+        issues: [poor_service]
+        source: https://www.pse.com/pages/customer-service-guarantees
+        last_verified: 2026-10-13
+
+  - issue: property_damage_claim
+    summary: Send PSE's claims inquiry form to the Claims Department; PSE investigates and pays only if it finds it was responsible.
+    evidence: [photos, repair estimates or invoices, receipts, date and time of the incident, outage reference if any]
+    steps:
+      - do: Fill in the claims inquiry form and email it with photos and receipts to the Claims Department.
+        channel: claims-email
+      - do: Call the Claims Department with questions.
+        channel: claims-phone
+      - do: If PSE denies the claim and you disagree, ask for the reason in writing and contact the UTC.
+    facts:
+      - kind: process
+        claim: PSE says it investigates how the incident occurred and determines whether it is responsible; if it is, PSE calculates compensation for the loss. The claims page states no filing deadline.
+        issues: [property_damage_claim]
+        source: https://www.pse.com/en/Customer-Service/claims
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Payment arrangements, secure messaging and account-specific outage status need a PSE account sign-in.
+  - PSE's rights and responsibilities PDF and claims form PDF use embedded fonts that automated text extraction reads poorly; the brochure carries the print code "6275 01/18" although the file name says 2025.
+  - The medical emergency certificate must come from the medical professional who provides the person's health care.
+
+official_domains: [pse.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: PSE says it never asks or requires customers to buy a prepaid debit card or pay through cash apps to avoid disconnection.
+      source: https://www.pse.com/en/pages/scam-alerts
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: PSE does not ask for bank information to issue a refund; any refund is credited to the PSE account.
+      source: https://www.pse.com/en/pages/scam-alerts
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: PSE workers do not go door to door offering to restore power for a fee or asking whether your power is out.
+      source: https://www.pse.com/en/pages/scam-alerts
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: PSE's secure online payment portal is available only through pse.com or the MyPSE app.
+      source: https://www.pse.com/en/pages/scam-alerts
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Spoofed calls show PSE's name and number and threaten disconnection, usually within 30 minutes, unless the customer pays with a prepaid debit or money card.
+      source: https://www.pse.com/en/pages/scam-alerts
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Callers claim an overpayment and ask for bank information to issue a refund.
+      source: https://www.pse.com/en/pages/scam-alerts
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Messages ask the customer to call back an unfamiliar 1-800 or other area-code number about an overdue bill.
+      source: https://www.pse.com/en/pages/scam-alerts
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Door-to-door visitors offer to restore power for a fee.
+      source: https://www.pse.com/en/pages/scam-alerts
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-scam-pse
+      type: phone
+      label: Verify a call or report a scam to PSE (customer care)
+      value: +1-888-225-5773
+      notes: PSE's scam page says to contact PSE and local authorities and links to the Contact us page, which lists this number.
+      source: https://www.pse.com/en/contactpse
+      last_verified: 2026-10-13
+    - id: report-scam-ftc
+      type: web_form
+      label: Report utility impostor fraud to the FTC (linked from PSE's scam page)
+      value: https://reportfraud.ftc.gov/?orgcode=PSE
+      access: open
+      source: https://www.pse.com/en/pages/scam-alerts
+      last_verified: 2026-10-13

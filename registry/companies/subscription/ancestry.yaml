@@ -1,0 +1,213 @@
+id: ancestry
+name: Ancestry
+aliases: [ancestry.com, ancestrydna, ancestry dna, ancestry membership, ancestry world explorer, ancestry all access]
+sector: subscription
+website: https://www.ancestry.com
+account_url: https://www.ancestry.com/account
+official_domains: [ancestry.com, ancestry.co.uk, ancestry.ca, ancestry.com.au, ancestry.de, ancestry.fr, ancestry.it, ancestry.mx, ancestry.se]
+security:
+  never_asks:
+    - kind: policy
+      claim: '"Ancestry will never request personal information via email or text message." Ancestry does not send messages from consumer email services such as Gmail, Outlook or iCloud.'
+      source: https://help.ancestry.com/hc/en-us/articles/53933287257875-How-to-Identify-Phishing
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Ancestry lists its sending domains as @ancestry.com and @email.ancestry.com, plus country versions such as @email.ancestry.co.uk, @email.ancestry.ca and @email.ancestry.com.au.
+      source: https://help.ancestry.com/hc/en-us/articles/53933287257875-How-to-Identify-Phishing
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-issue-form
+      type: web_form
+      label: Report a suspicious email to Ancestry
+      value: https://support.ancestry.com/s/reportissue?language=en_US
+      purposes: [fraud]
+      source: https://help.ancestry.com/hc/en-us/articles/53933287257875-How-to-Identify-Phishing
+      last_verified: 2026-10-13
+regulators: [ftc]
+
+channels:
+  - id: account-settings
+    type: portal
+    label: 'Ancestry Account Settings: Membership section > Cancel membership (or Cancel trial)'
+    value: https://www.ancestry.com/account
+    purposes: [cancel_service, free_trial_conversion]
+    access: login
+    notes: Keep going until you get a cancellation confirmation number; a confirmation email follows. Repeat for each membership. Only the purchaser can cancel an invited family plan.
+    source: https://help.ancestry.com/hc/en-us/articles/53933302397331
+    last_verified: 2026-10-13
+  - id: order-history
+    type: portal
+    label: Ancestry order history (check renewal and cancellation-fee charges)
+    value: https://www.ancestry.com/order-history
+    purposes: [unauthorized_charge, billing_error]
+    access: login
+    source: https://help.ancestry.com/hc/en-us/articles/55944136072211-Why-was-I-charged-after-I-canceled-my-membership
+    last_verified: 2026-10-13
+  - id: member-services-phone
+    type: phone
+    label: Ancestry phone support (United States, toll free)
+    value: +1-800-401-3193
+    hours: 7 days a week, 7:00 am-11:00 pm ET
+    purposes: [cancel_service, refund_request, unauthorized_charge, billing_error, free_trial_conversion]
+    notes: TTY users can ask the relay Communications Assistant to dial 1-800-240-7608.
+    source: https://help.ancestry.com/hc/en-us/p/international-support
+    last_verified: 2026-10-13
+  - id: contact-support
+    type: web_form
+    label: Ancestry Member Services contact page
+    value: https://www.ancestry.com/support/s/contactsupport
+    purposes: [cancel_service, refund_request, billing_error]
+    source: https://www.ancestry.com/c/legal/renewal-cancellation-terms
+    last_verified: 2026-10-13
+  - id: apple-cancel
+    type: web_form
+    label: Cancel an Ancestry membership bought in the iOS app (Apple)
+    value: https://support.apple.com/en-us/HT202039
+    purposes: [cancel_service]
+    source: https://help.ancestry.com/hc/en-us/articles/53933302336403
+    last_verified: 2026-10-13
+  - id: apple-refund
+    type: web_form
+    label: Ask Apple for a refund of an Ancestry membership bought in the iOS app
+    value: https://support.apple.com/en-us/HT204084
+    purposes: [refund_request]
+    source: https://help.ancestry.com/hc/en-us/articles/53933302336403
+    last_verified: 2026-10-13
+  - id: google-play-cancel
+    type: web_form
+    label: Cancel an Ancestry membership bought in the Android app (Google Play)
+    value: https://support.google.com/googleplay/answer/7018481
+    purposes: [cancel_service]
+    source: https://help.ancestry.com/hc/en-us/articles/53933302336403
+    last_verified: 2026-10-13
+  - id: google-play-refund
+    type: web_form
+    label: Google Play refund policy (Ancestry bought in the Android app)
+    value: https://support.google.com/googleplay/answer/2479637
+    purposes: [refund_request]
+    source: https://help.ancestry.com/hc/en-us/articles/53933349156627
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: member-services-phone}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel in Account Settings (Membership > Cancel membership) and keep the confirmation number. Monthly plans must be cancelled more than two business days before renewal. App-store purchases are cancelled with Apple or Google.
+    evidence: [cancellation confirmation number, confirmation email, renewal date, billing provider shown in Account Settings]
+    steps:
+      - do: In Account Settings, check the "billed through" row. If Apple or Google bills you, cancel there; deleting the app does not cancel.
+        channel: apple-cancel
+      - do: For Ancestry-billed memberships, sign in, open Account Settings, find the membership under Membership and select Cancel membership. Continue until you get a cancellation confirmation number.
+        channel: account-settings
+      - do: Cancel a monthly membership before two business days ahead of the renewal date.
+      - do: If you cannot cancel online, call Ancestry phone support (7 am-11 pm ET, every day).
+        channel: member-services-phone
+    facts:
+      - kind: deadline
+        claim: '"Monthly subscriptions may be cancelled at any time prior to two business days before your renewal date." Subscriptions "automatically renew, except for gift and pay-per-view subscriptions."'
+        issues: [cancel_service]
+        source: https://www.ancestry.com/c/legal/renewal-cancellation-terms
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: After you cancel, you keep access for the remainder of the period you paid for. When the membership expires the account becomes a free Registered Guest account; trees and DNA results stay available.
+        issues: [cancel_service]
+        source: https://help.ancestry.com/hc/en-us/articles/53933302397331
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: Six-month or 12-month subscriptions paid in monthly installments on ancestry.com may carry a cancellation fee if cancelled before the term ends - the lesser of $25 USD (6-month) or $50 USD (12-month), or the remaining cost of the subscription, plus applicable taxes.
+        issues: [cancel_service, early_termination_fee]
+        source: https://www.ancestry.com/c/legal/renewal-cancellation-terms
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: '"When you buy a membership through the app, the membership must be canceled by the company you bought it through."'
+        issues: [cancel_service]
+        source: https://help.ancestry.com/hc/en-us/articles/53933302336403
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: Only a first-ever, upfront-billed term that did not start with a trial can be cancelled for a full refund, within 14 days. Monthly fees and renewals are not refundable. DNA kits can be returned within 60 days, less a $15 fee.
+    evidence: [order number, purchase date, whether the membership started with a trial, kit order date]
+    steps:
+      - do: Check whether you qualify - first subscription term with Ancestry, billed upfront, not started with a free or paid trial, and within 14 days.
+      - do: Call Ancestry and ask to cancel immediately for a full refund (access ends at once).
+        channel: member-services-phone
+      - do: If Apple or Google billed you, ask them for the refund.
+        channel: apple-refund
+    facts:
+      - kind: deadline
+        claim: If an upfront-billed subscription "did not begin with a free or paid trial," then "during the first 14 days of your first subscription term with Ancestry" you may cancel immediately "for a full refund and immediate loss of access," or cancel at the end of the term with no refund.
+        issues: [refund_request]
+        source: https://www.ancestry.com/c/legal/renewal-cancellation-terms
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: '"You are not eligible for any refunds after your subscription renews or if you have previously subscribed to Ancestry." Monthly subscriptions "are not eligible for a refund, except as outlined" in the terms.'
+        issues: [refund_request]
+        source: https://www.ancestry.com/c/legal/renewal-cancellation-terms
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: A US AncestryDNA kit is "eligible for a refund if you request a refund and return the kit within 60 days of placing your kit order," less a "$15 processing fee"; shipping and processing charges are not refunded. Kits bought from Amazon, Walmart, Legacy.com or Target.com are refunded by those sellers.
+        issues: [refund_request]
+        source: https://www.ancestry.com/c/legal/renewal-cancellation-terms
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: '"Refunds purchased through the Ancestry app are handled by the company you purchased the membership through."'
+        issues: [refund_request]
+        source: https://help.ancestry.com/hc/en-us/articles/53933302336403
+        last_verified: 2026-10-13
+
+  - issue: free_trial_conversion
+    summary: Cancel more than two days before the trial ends. A converted trial is not refundable, and the 14-day refund option does not apply to memberships that started with a trial.
+    evidence: [trial start and end dates, cancellation confirmation number]
+    steps:
+      - do: In Account Settings, select Cancel trial under Membership at least two days before the trial ends, and keep the confirmation number.
+        channel: account-settings
+    facts:
+      - kind: deadline
+        claim: For a free or paid trial, "you may cancel at any time prior to two days before the end of the trial period and incur no further charge." "If you do not cancel by that time, your subscription will start once your trial period ends."
+        issues: [free_trial_conversion]
+        source: https://www.ancestry.com/c/legal/renewal-cancellation-terms
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: '"You are eligible for one free and one paid trial per user." After a trial ends and you are charged, no refunds are issued except as outlined in the terms.'
+        issues: [free_trial_conversion, refund_request]
+        source: https://www.ancestry.com/c/legal/renewal-cancellation-terms
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: A charge after cancelling usually means the cancellation did not complete, it was too close to renewal, a paused membership resumed, there is a second membership or account, or it is an early-cancellation fee.
+    evidence: [cancellation confirmation number and email, order history entry, card statement]
+    steps:
+      - do: Check membership status in Account Settings and the charge in order history. Look for a cancellation confirmation email.
+        channel: order-history
+      - do: If you find no paid membership, you may have a second account. Call phone support to locate it and ask about a refund.
+        channel: member-services-phone
+      - do: If you have a cancellation confirmation from before the deadline and Ancestry will not refund, dispute the charge with your card issuer.
+    facts:
+      - kind: policy
+        claim: Ancestry lists reasons for a charge after cancelling - the membership is still active, it was cancelled too close to renewal, a paused membership resumed, there are multiple memberships or accounts, or an early termination fee for a semi-annual or annual membership paid monthly. "Uninstalling the Ancestry app does not cancel your membership."
+        issues: [unauthorized_charge, cancel_service]
+        source: https://help.ancestry.com/hc/en-us/articles/55944136072211-Why-was-I-charged-after-I-canceled-my-membership
+        last_verified: 2026-10-13
+
+  - issue: bill_increase
+    summary: Ancestry renews at the rate stated at purchase unless it notifies you; it says it gives reasonable notice of price changes, which may apply from the next renewal.
+    evidence: [price change notice, previous charge amount]
+    steps:
+      - do: If you do not accept a new price, cancel before the renewal date (monthly - more than two business days before).
+        channel: account-settings
+    facts:
+      - kind: policy
+        claim: At the start of each billing term "you will be charged the rate stated at the time of purchase" unless notified otherwise, and "Ancestry will give you reasonable notice of any change in price or terms before they go into effect." New prices may apply at renewal.
+        issues: [bill_increase]
+        source: https://www.ancestry.com/c/legal/renewal-cancellation-terms
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Cancelling online and checking order history need sign-in to the Ancestry account.
+  - Memberships bought in the Ancestry app are cancelled and refunded only by Apple or Google.
+  - An invited family plan member cannot cancel; only the purchaser can.

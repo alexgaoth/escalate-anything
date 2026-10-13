@@ -1,0 +1,346 @@
+id: carnival-cruise-line
+name: Carnival Cruise Line
+aliases: [carnival, carnival cruises, carnival cruise lines, carnival.com]
+sector: cruise
+parent: Carnival Corporation & plc
+website: https://www.carnival.com
+regulators: [fmc]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer Service (questions about a current reservation) and bookings
+    value: +1-800-764-7419
+    hours: Mon–Fri 9:00 a.m.–10:00 p.m. ET; Sat–Sun 9:00 a.m.–6:00 p.m. ET
+    purposes: [refund_request, travel_credit, reservation_problem, cancel_service, billing_error]
+    notes: >-
+      The contact page lists this number for "Ready to book?" and for "questions about your current reservation".
+      From the United Kingdom 0808-234-0680 (same hours). Australia 13 31 94 and New Zealand 0800 442 095, Mon–Sun
+      9:00 a.m.–8:00 p.m. AET. The contact page lists no phone number for Guest Care (post-cruise).
+    source: https://www.carnival.com/about-carnival/contact-us
+    last_verified: 2026-10-13
+  - id: pre-cruise-specialist-phone
+    type: phone
+    label: Pre-cruise service specialist (questions about an upcoming cruise)
+    value: +1-800-438-6744 ext. 70355
+    hours: Mon–Fri 9:00 a.m.–10:00 p.m., Sat–Sun 9:00 a.m.–6:00 p.m. EST
+    purposes: [reservation_problem, travel_credit, refund_request]
+    notes: From outside the U.S. call +1-305-599-2600 ext. 70355. Listed on the Contact Guest Care form page.
+    source: https://www.carnival.com/request-forms/contact-guest-care
+    last_verified: 2026-10-13
+  - id: online-support-phone
+    type: phone
+    label: Online Support (website and technical support)
+    value: +1-800-845-2599
+    hours: Mon–Fri 9:00 a.m.–10:00 p.m. ET; Sat–Sun 9:00 a.m.–6:00 p.m. ET
+    purposes: [account_access]
+    source: https://www.carnival.com/about-carnival/contact-us
+    last_verified: 2026-10-13
+  - id: guest-care-form
+    type: web_form
+    label: Contact Guest Care form (past sailings, denied boarding, cancellations)
+    value: https://www.carnival.com/request-forms/contact-guest-care
+    purposes: [poor_service, refund_request, reservation_problem, travel_credit, billing_error, accessibility]
+    notes: >-
+      The contact page sends post-cruise questions to the Guest Care team through this form. "Need Assistance With"
+      choices: Denied Boarding, Past Sailing - Sailed and Need Assistance, Did Not Sail - Cancellation, and Future
+      Sailing. Fields: first and last name, booking number, email address, ship, sail date, detailed comments and
+      attachments. The page text did not show a sign-in requirement or a response time; CAPTCHA was not checked.
+    source: https://www.carnival.com/request-forms/contact-guest-care
+    last_verified: 2026-10-13
+  - id: post-cruise-inquiries
+    type: portal
+    label: Post-Cruise Inquiries hub (Guest Care, Fun Shops receipts, photos, lost and found, Sail & Sign)
+    value: https://www.carnival.com/post-cruise-inquiries
+    purposes: [billing_error, lost_item, poor_service]
+    notes: >-
+      Links to the Guest Care form and to separate forms for Fun Shops receipts, photo products, lost and found (an
+      external form on chargerback.com), the casino and medical records. Sail & Sign statements need sign-in to the
+      carnival.com account; they appear 1–2 days after the sail date and go back seven years. Spa (One Spa World) and
+      art (Park West Gallery) purchases are handled by those companies; the page gives their contacts.
+    source: https://www.carnival.com/post-cruise-inquiries
+    last_verified: 2026-10-13
+  - id: guest-access-phone
+    type: phone
+    label: Guest Access team (guests with disabilities)
+    value: +1-800-438-6744 ext. 70025
+    purposes: [accessibility]
+    notes: >-
+      Australia 1-300-385-625; New Zealand 0800-442-095. Ticket Contract Section 6(c) lists the Guest Access Desk as
+      305-599-2600 ext. 70025. The accessibility FAQ page lists no hours.
+    source: https://www.carnival.com/about-carnival/special-needs/faqs
+    last_verified: 2026-10-13
+  - id: guest-access-email
+    type: email
+    label: Guest Access team email (accessibility questions and post-cruise ADA concerns)
+    value: access@carnival.com
+    purposes: [accessibility]
+    notes: Carnival says all post-cruise ADA concerns will be responded to within 30 days.
+    source: https://www.carnival.com/about-carnival/special-needs/faqs
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: guest-care-form}
+  - {rung: regulator, regulator: fmc, note: "For a refund Carnival owes after it cancelled or delayed a cruise (nonperformance)."}
+  - {rung: payment_dispute, note: "Card dispute for a refund Carnival owes but has not paid."}
+
+playbooks:
+  - issue: refund_request
+    summary: >-
+      If Carnival cancels your cruise or delays it more than 3 calendar days and you do not accept the alternative,
+      claim a refund on or before the 180th calendar day after the original embarkation date. If you cancel, the
+      charge depends on the cruise length and the days before departure; taxes, fees and prepaid gratuities come back.
+    evidence: [booking number, cancellation or delay notice from Carnival, proof of payment and amount, fare type (for example Early Saver), date and method of your cancellation]
+    steps:
+      - do: If you cancel, check the cancellation charge for your cruise length and the number of days before departure. Government taxes and fees and prepaid service gratuities are refunded without penalty.
+      - do: If Carnival cancelled the cruise or delayed it more than 3 calendar days and you do not want the alternative, ask Carnival (or your travel advisor, if you booked through one) for the refund on or before the 180th calendar day after the original embarkation date. Choose the refund, not a future cruise credit, if you want money back.
+        channel: customer-service-phone
+      - do: Put the claim in writing through the Guest Care form ("Did Not Sail - Cancellation"), with the booking number, the cancellation notice and proof of payment.
+        channel: guest-care-form
+      - do: If Carnival denies the nonperformance claim or does not answer, file with the Federal Maritime Commission.
+        regulator: fmc
+      - do: If a refund Carnival owes is still not paid, dispute the charge with your card issuer.
+    facts:
+      - kind: fee
+        claim: >-
+          Cancellation charges per guest for 2–5 day cruises (except Alaskan, European, Transatlantic and Panama Canal
+          cruises): none up to 76 days before departure (except non-refundable Cruise Charges); the deposit from 75 to
+          56 days; the deposit or 50% of Total Fare, whichever is greater, from 55 to 30 days; the deposit or 75% of
+          Total Fare, whichever is greater, from 29 to 15 days; 100% of Total Fare 14 days or less before departure.
+        issues: [refund_request, cancel_service]
+        source: https://www.carnival.com/popups/bookingengine/deposit-and-final-payment-cancellation-policy
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: >-
+          Cancellation charges per guest for cruises of 6 days or more, and for all Alaskan, European, Transatlantic and
+          Panama Canal cruises: none up to 91 days before departure (except non-refundable Cruise Charges); the deposit
+          from 90 to 56 days; the deposit or 50% of Total Fare, whichever is greater, from 55 to 30 days; the deposit or
+          75% of Total Fare, whichever is greater, from 29 to 15 days; 100% of Total Fare 14 days or less before departure.
+        issues: [refund_request, cancel_service]
+        source: https://www.carnival.com/popups/bookingengine/deposit-and-final-payment-cancellation-policy
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          Government taxes and fees and any prepaid service gratuity are not subject to a cancellation penalty and are
+          refunded in case of cancellation. For multiple-occupancy cabins, the cancellation charges apply to the entire
+          cabin reservation. No refunds are made for no-shows, late cancellations or unused tickets except as the
+          Cancellation and Refund Policy provides.
+        issues: [refund_request, cancel_service]
+        source: https://www.carnival.com/popups/bookingengine/deposit-and-final-payment-cancellation-policy
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: >-
+          Carnival's Nonperformance of Cruise Refund Policy says that if Carnival cancels or delays your cruise by more
+          than 3 calendar days and you do not accept an alternative, you are entitled to a refund of the cruise fare and
+          charges for accommodations, services and facilities; contact Carnival (or your travel advisor) on or before the
+          180th calendar day after the originally scheduled embarkation, and Carnival responds by email within 180 days of
+          the claim. Carnival may offer a future cruise credit instead, and you are free to choose either. This text comes
+          from a search-result snippet; the help page did not load without JavaScript. The FMC links to this page as
+          Carnival's official nonperformance policy.
+        issues: [refund_request, travel_credit]
+        source: https://help.carnival.com/app/answers/detail/a_id/10034
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          Ticket Contract Section 8(c) lets Carnival cancel the contract without previous notice. If it cancels because of
+          mechanical failure, the guest is entitled to the Total Cruise Price or a proportional share as determined by
+          Carnival; for other reasons, to a Future Cruise Credit or an Onboard Credit equal to the Total Cruise Price paid
+          or a proportional part, and Carnival has no further liability.
+        issues: [refund_request, travel_credit]
+        source: https://www.carnival.com/about-carnival/legal-notice/ticket-contract
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          Ticket Contract Section 8(e) says Carnival may cancel a voyage that is hindered or prevented without liability to
+          refund passage money or fares paid in advance. This contract text is narrower than Carnival's separate
+          nonperformance refund policy.
+        issues: [refund_request]
+        source: https://www.carnival.com/about-carnival/legal-notice/ticket-contract
+        last_verified: 2026-10-13
+
+  - issue: travel_credit
+    summary: >-
+      Cancelling an Early Saver fare before final payment gives a future cruise credit worth the deposit less $50 per
+      person, to be used within 12 months. When Carnival cancels for a reason other than mechanical failure, the contract
+      gives a future cruise credit or onboard credit; for a nonperformance cancellation you can choose a refund instead.
+    evidence: [booking number, fare type and deposit paid, cancellation date, credit amount and expiry date]
+    steps:
+      - do: Check the fare type. The Early Saver deposit is non-refundable; a cancellation before the final payment date gets a non-refundable, non-transferable future cruise credit.
+      - do: Book the new cruise within 12 months of the cancellation date. Any unused part of the credit is forfeited.
+        channel: customer-service-phone
+      - do: If Carnival cancelled your cruise or delayed it more than 3 calendar days and gave only a credit, ask in writing for a refund instead (see refund_request).
+        channel: guest-care-form
+      - do: If Carnival refuses the nonperformance refund, file with the Federal Maritime Commission.
+        regulator: fmc
+    facts:
+      - kind: limit
+        claim: >-
+          For an Early Saver cancellation before the final payment due date, the future cruise credit equals the deposit
+          minus a $50 per person service fee. It must be used for a new reservation within 12 months from the date of
+          cancellation, only on Carnival sailings available in U.S. dollars and only toward the price of that cruise. Any
+          unused portion is forfeited.
+        issues: [travel_credit, cancel_service]
+        source: https://www.carnival.com/popups/bookingengine/deposit-and-final-payment-cancellation-policy
+        last_verified: 2026-10-13
+
+  - issue: reservation_problem
+    summary: >-
+      Carnival's contract lets it change ports and the itinerary without compensation, except for mechanical failures and
+      federal requirements. For denied boarding or a problem on a past sailing, send written particulars to Guest Care
+      within 30 days after you leave the ship; a suit must start within six months.
+    evidence: [booking number, ship and sail date, what was promised and what happened, photos, names, receipts for extra costs]
+    steps:
+      - do: Raise the problem on board at Guest Services before you leave the ship, and note names and times.
+      - do: Within 30 days after you leave the ship, send written particulars through the Guest Care form (choose "Denied Boarding" or "Past Sailing").
+        channel: guest-care-form
+      - do: If Carnival owes a refund and does not pay, dispute the charge with your card issuer.
+      - do: Note the forum rules before you sue. Non-injury claims for less than $8,000 go to small claims court in Miami-Dade County, Florida; larger ones go to arbitration. A suit must start within six months after you leave the ship.
+    facts:
+      - kind: policy
+        claim: >-
+          Ticket Contract Section 8(d) says Carnival may change the duration or itinerary of the cruise at any time and may
+          change or omit ports for any reason. Except for mechanical failures and federal requirements, it has no liability
+          for compensation or other damages for these changes, and refers to its change-of-itinerary policy.
+        issues: [reservation_problem]
+        source: https://www.carnival.com/about-carnival/legal-notice/ticket-contract
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: >-
+          Ticket Contract Section 14(b): for claims other than personal injury, illness or death, written particulars must
+          be given within 30 days after the guest is landed from the vessel; a suit must be commenced within six months
+          after landing and served within 120 days after commencement.
+        issues: [reservation_problem, poor_service, refund_request, accessibility]
+        source: https://www.carnival.com/about-carnival/legal-notice/ticket-contract
+        last_verified: 2026-10-13
+
+  - issue: accessibility
+    summary: >-
+      Tell Carnival about a need in writing at booking and complete the pre-cruise forms. Send post-cruise ADA concerns to
+      the Guest Access team at access@carnival.com; Carnival says it responds within 30 days. The contract's 30-day notice
+      and six-month suit limits also cover ADA claims.
+    evidence: [booking number, pre-cruise forms and requests sent, dates, names, what was not provided, photos]
+    steps:
+      - do: At booking, notify Carnival in writing of the special need and complete all applicable pre-cruise forms. Call the Guest Access team with questions.
+        channel: guest-access-phone
+      - do: Meet the advance-notice deadlines on the accessibility FAQ (for example hydraulic-lift transfers 14 days before sailing, service dog documents one week before).
+      - do: On board, ask Guest Services for help; a TTY is available there 24 hours a day.
+      - do: After the cruise, email the Guest Access team a written complaint within 30 days after you leave the ship.
+        channel: guest-access-email
+      - do: If Carnival does not resolve it, you can also file an ADA complaint with the U.S. Department of Justice (see the facts below).
+    facts:
+      - kind: deadline
+        claim: >-
+          Carnival's accessibility FAQ sets these advance-notice times: mobility devices as soon as the need is known;
+          hydraulic-lift airport transfers (North America) no later than 14 days prior to sailing; service dog documents
+          (U.S. sailings) no later than one week prior to sailing; a 60-day notice is strongly encouraged for a sign
+          language interpreter; 30-day advance notice is required for accessible airport transfers in Europe.
+        issues: [accessibility]
+        source: https://www.carnival.com/about-carnival/special-needs/faqs
+        last_verified: 2026-10-13
+      - kind: process
+        claim: >-
+          All post-cruise ADA concerns will be responded to within 30 days, according to Carnival's accessibility FAQ.
+          The designated ADA Responsibility Officer is the Vice President, Guest Operations.
+        issues: [accessibility]
+        source: https://www.carnival.com/about-carnival/special-needs/faqs
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          Ticket Contract Section 6(c) asks guests with special needs to notify Carnival in writing at the time of booking,
+          and says Carnival does not provide one-on-one personal care assistance. Section 14(b) applies its 30-day notice
+          and six-month suit limits expressly to claims involving civil rights and the Americans with Disabilities Act.
+        issues: [accessibility]
+        source: https://www.carnival.com/about-carnival/legal-notice/ticket-contract
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          On July 23, 2015, the United States and Carnival Corporation entered into an ADA settlement agreement covering 62
+          ships of Carnival Cruise Line, Princess Cruises and Holland America Line. Carnival Corporation agreed to provide
+          three percent of total cabins as accessible cabins, pay a $55,000 civil penalty and pay $350,000 in damages to
+          complainants. This is an archived DOJ page; it does not say whether the agreement is still in force.
+        issues: [accessibility]
+        source: https://archive.ada.gov/carnival/carnival_fact_sheet.html
+        last_verified: 2026-10-13
+      - kind: contact
+        claim: >-
+          The Department of Justice takes ADA complaints online at https://civilrights.justice.gov/report, by mail to U.S.
+          Department of Justice, Civil Rights Division, 950 Pennsylvania Avenue, NW, Washington, DC 20530, and answers
+          questions on the ADA Information Line 800-514-0301 (TTY 1-833-610-1264).
+        issues: [accessibility]
+        source: https://www.ada.gov/file-a-complaint/
+        last_verified: 2026-10-13
+
+facts:
+  - kind: deadline
+    claim: >-
+      Ticket Contract Section 14(a): for personal injury, illness or death, written notice with full particulars must be
+      given within 185 days after the date of the injury, event, illness or death; a suit must be filed within one year
+      after that date and served on Carnival within 120 days after filing.
+    issues: [safety_incident]
+    source: https://www.carnival.com/about-carnival/legal-notice/ticket-contract
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: >-
+      Ticket Contract Section 14(c) requires disputes not covered by 14(d) or 14(e), including injury, illness and death
+      claims, to be litigated in the U.S. District Court for the Southern District of Florida in Miami, or in a Miami-Dade
+      County court if there is no federal jurisdiction.
+    issues: [safety_incident, poor_service]
+    source: https://www.carnival.com/about-carnival/legal-notice/ticket-contract
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: >-
+      Ticket Contract Sections 14(d) and 14(e): claims other than personal injury, illness or death that seek less than
+      $8,000 must be brought in small claims court in Miami-Dade County, Florida; those seeking more than $8,000.00 go to
+      binding arbitration administered by National Arbitration and Mediation (NAM) in Miami-Dade County (attorney fees,
+      costs and interest excluded from the amount). Section 15 waives class actions and class arbitration.
+    issues: [refund_request, poor_service, reservation_problem]
+    source: https://www.carnival.com/about-carnival/legal-notice/ticket-contract
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: >-
+      Ticket Contract Section 1(c) says the Total Cruise Price is earned when paid and is non-refundable except as
+      described on Carnival's website and in Section 7. Section 7 says Restricted Air is non-refundable any time after
+      booking.
+    issues: [refund_request]
+    source: https://www.carnival.com/about-carnival/legal-notice/ticket-contract
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: >-
+      The Post-Cruise Inquiries page says only your bank can release a hold from your account, and "CARNIVAL IS NOT ABLE
+      TO EXPEDITE THE RELEASE OF BANK HOLDS." Holds may exceed the actual charges and last a few days.
+    issues: [billing_error]
+    source: https://www.carnival.com/post-cruise-inquiries
+    last_verified: 2026-10-13
+
+tips:
+  - kind: official
+    text: Carnival's cancellation policy strongly recommends trip cancellation insurance, because cancellation charges reach 100% of the Total Fare 14 days or less before departure.
+    issues: [refund_request, cancel_service]
+    source: https://www.carnival.com/popups/bookingengine/deposit-and-final-payment-cancellation-policy
+    last_verified: 2026-10-13
+
+known_blockers:
+  - help.carnival.com answer pages (including the nonperformance refund policy) render only with JavaScript; a plain fetch returns an empty page.
+  - The Guest Care form needs the booking number, ship and sail date. Guest Care has no published phone number.
+  - Sail & Sign statements need sign-in to the carnival.com account.
+  - Carnival says it cannot speed up the release of bank holds; only the card issuer can.
+
+notes: >-
+  Checked on 2026-10-13 by loading carnival.com pages. The Ticket Contract page did not show a revision date. The
+  nonperformance refund policy (help.carnival.com answer 10034) did not load; its terms come from a search-result snippet,
+  and the FMC's refund page links to it. The cancellation schedule is from the booking-engine policy page and matches
+  Ticket Contract Section 7. Final payment due dates, deposit amounts and refund processing times for voluntary
+  cancellations were not found on a loadable page. A search-result snippet mentioned a Guest Care email address; it is
+  not recorded because the page that shows it could not be loaded.
+
+official_domains: [carnival.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: >-
+        The FTC warned on January 10, 2020 about illegal robocalls that offered two free cruise tickets for a phone survey,
+        then passed people to telemarketers who sold upgrades and charged $59 in port taxes and fees per person. The alert
+        does not name Carnival. The FTC says to hang up without pressing any numbers and report the call at donotcall.gov.
+      source: https://consumer.ftc.gov/consumer-alerts/2020/01/free-cruise-try-illegal-robocall-upsell
+      last_verified: 2026-10-13

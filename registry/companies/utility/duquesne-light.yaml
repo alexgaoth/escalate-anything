@@ -1,0 +1,218 @@
+id: duquesne-light
+name: Duquesne Light Company
+aliases: [Duquesne Light, DLC]
+sector: utility
+website: https://www.duquesnelight.com
+notes: >-
+  Electric distribution utility for Pittsburgh, Allegheny County and Beaver County, Pennsylvania. Regulated by
+  the Pennsylvania Public Utility Commission (PUC), Bureau of Consumer Services. duquesnelight.com HTML pages
+  return no text to automated fetches; values below come from Duquesne Light PDFs (sample residential bill
+  dated 2026, Customer Assistance Programs guide with 2026 income guidelines), its newsroom, PA PUC pages, and
+  search-result summaries where noted. Customers who buy supply from a competitive supplier call that supplier
+  about supply charges (the supplier's number is on the bill).
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Residential customer service (TTY 711)
+    value: +1-888-393-7100
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, deposit_refund, poor_service]
+    notes: >-
+      A search-result summary of https://duquesnelight.com/customer-support/contact says agents are available
+      Monday-Friday 8 a.m.-5 p.m. and the automated system 24/7, and that business customers use 412-393-7300.
+      Older DLC pages list 412-393-7100.
+    source: https://duquesnelight.com/docs/default-source/pdf-library/understanding-your-bill_residential.pdf?sfvrsn=e03fef44_4
+    last_verified: 2026-10-13
+  - id: written-mail
+    type: mail
+    label: Written correspondence (from the bill's "Contact us ... in writing" line)
+    value: Duquesne Light Company, 411 7th Ave., Ste 3, Pittsburgh, PA 15219
+    purposes: [billing_error, disconnection, poor_service]
+    notes: Payments go to a different address (PO Box 371324, Pittsburgh PA 15250-7324 on the sample bill).
+    source: https://duquesnelight.com/docs/default-source/pdf-library/understanding-your-bill_residential.pdf?sfvrsn=e03fef44_4
+    last_verified: 2026-10-13
+  - id: universal-services-phone
+    type: phone
+    label: Universal Services Center (CAP, Hardship Fund, CARES, LIHEAP help)
+    value: +1-888-393-7600
+    hours: "Mon-Fri 8 a.m.-5 p.m."
+    purposes: [payment_assistance, disconnection]
+    source: https://duquesnelight.com/docs/default-source/wattchoice/customer-assistance-programs-guide.pdf?sfvrsn=9415ed44_2
+    last_verified: 2026-10-13
+  - id: cap-application
+    type: portal
+    label: Customer Assistance Program (CAP) online application
+    value: https://duquesnelight.com/CAP
+    purposes: [payment_assistance, disconnection]
+    notes: Printed in the guide as DuquesneLight.com/CAP.
+    source: https://duquesnelight.com/docs/default-source/wattchoice/customer-assistance-programs-guide.pdf?sfvrsn=9415ed44_2
+    last_verified: 2026-10-13
+  - id: payment-arrangement-portal
+    type: portal
+    label: Payment arrangement online application
+    value: https://duquesnelight.com/account-billing/payment-assistance/payment-arrangements/payment-arrangement-application
+    purposes: [payment_assistance, disconnection]
+    notes: A search-result summary of the payment arrangements page says the online portal is for active residential customers. Customers whose service is off can use the Restoration Portal.
+    source: https://newsroom.duquesnelight.com/need-help-managing-your-electric-bill
+    last_verified: 2026-10-13
+  - id: outage-phone
+    type: phone
+    label: Report outages, downed or low wires and other hazards
+    value: +1-888-393-7000
+    hours: 24/7
+    purposes: [service_outage]
+    notes: Seen only in a search-result summary of this page (the page returns no text to automated fetches). The same summary also shows 412-393-7000. Outages can also be reported online or in the app.
+    source: https://duquesnelight.com/outages-safety/report-outage
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, channel: customer-service-phone, note: "Duquesne Light does not publish a separate escalation line. Ask for a supervisor and a reference number."}
+  - {rung: written_complaint, channel: written-mail}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Pennsylvania Public Utility Commission (PUC), 1-800-692-7380. The PUC says you must contact the utility before you file a complaint; use the informal complaint process first."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Pennsylvania Office of Attorney General, Bureau of Consumer Protection (1-800-441-2555, per a 2019 Duquesne Light release)."}
+
+playbooks:
+  - issue: billing_error
+    summary: Call Duquesne Light before the due date, then write, then file an informal complaint with the PA PUC.
+    evidence: [the disputed bill, earlier bills, meter readings (the bill marks each reading Act or Est), call notes with reference numbers]
+    steps:
+      - do: Call before the due date. Check whether the reading on page 2 of the bill is marked "Act" (actual) or "Est" (estimated) and ask for a correction.
+        channel: customer-service-phone
+      - do: If the call does not fix it, write to Duquesne Light with the account number, the charge and the correction you want.
+        channel: written-mail
+      - do: If it is still not fixed, file an informal complaint with the PA PUC.
+    facts:
+      - kind: process
+        claim: Duquesne Light's bill says to contact it with billing questions before the due date, and that its website has rate schedules and how to verify bill accuracy.
+        issues: [billing_error]
+        source: https://duquesnelight.com/docs/default-source/pdf-library/understanding-your-bill_residential.pdf?sfvrsn=e03fef44_4
+        last_verified: 2026-10-13
+      - kind: process
+        claim: The PA PUC says that for most concerns you must contact the utility before you file a complaint through the PUC, and recommends the informal complaint process first.
+        issues: [billing_error, disconnection, poor_service]
+        source: https://www.puc.pa.gov/complaints/
+        last_verified: 2026-10-13
+
+  - issue: disconnection
+    summary: Call before the shutoff date for a payment arrangement or CAP; use a medical certificate if someone is seriously ill; Pennsylvania's winter rules run December 1 to March 31.
+    evidence: [termination notice, account number, medical certificate from a licensed physician, physician assistant or nurse practitioner, household income documents]
+    steps:
+      - do: Call Duquesne Light at once and ask for a payment arrangement, or apply online.
+        channel: payment-arrangement-portal
+      - do: If your income is at or below 150% of the federal poverty guidelines, apply for CAP. Ask the Universal Services Center about a Hardship Fund grant or a LIHEAP Crisis grant.
+        channel: universal-services-phone
+      - do: If someone in the household is seriously ill, have a licensed physician, physician assistant or nurse practitioner send a medical certificate. Keep paying what you can.
+      - do: If no affordable arrangement is offered, call the PA PUC hotline (1-800-692-7380) before the shutoff date.
+    facts:
+      - kind: policy
+        claim: Duquesne Light's bill says DLC may contact customers on the day of a scheduled disconnect for nonpayment, but it reaches out well before then.
+        issues: [disconnection]
+        source: https://duquesnelight.com/docs/default-source/pdf-library/understanding-your-bill_residential.pdf?sfvrsn=e03fef44_4
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: "Pennsylvania (PUC fact sheet, February 2026): before disconnection the utility sends a 10-day notice and attempts contact at least three days before the disconnection date. A termination notice is valid for 60 days; termination can occur any time between day 11 and day 60 after the notice."
+        issues: [disconnection]
+        source: https://www.puc.pa.gov/media/3827/26_protections_for_responsible_utility_customers_020426.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Pennsylvania (PUC fact sheet): the Winter Moratorium protects consumers from utility termination between December 1 and March 31, but service can be terminated in winter without PUC approval if the customer fails to be a responsible utility customer or has income outside the utility's income-qualifying guidelines."
+        issues: [disconnection]
+        source: https://www.puc.pa.gov/media/3827/26_protections_for_responsible_utility_customers_020426.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Pennsylvania (PUC fact sheet): service will not be disconnected while a household member is certified as seriously ill by a licensed physician, physician assistant or nurse practitioner. Initial medical certification can last up to 30 days, with extension of up to an additional 60 days. The customer must keep paying the bill."
+        issues: [disconnection]
+        source: https://www.puc.pa.gov/media/3827/26_protections_for_responsible_utility_customers_020426.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Pennsylvania (PUC fact sheet): the utility must offer one payment arrangement and may be required to offer another; the PUC may be able to establish one payment arrangement. The PUC cannot set a payment arrangement on CAP arrears."
+        issues: [disconnection, payment_assistance]
+        source: https://www.puc.pa.gov/media/3827/26_protections_for_responsible_utility_customers_020426.pdf
+        last_verified: 2026-10-13
+
+  - issue: payment_assistance
+    summary: Payment arrangements are open to all residential customers; CAP, the Hardship Fund, LIHEAP and CARES help income-eligible or hardship households.
+    evidence: [current bill, proof of income for all household members, names and birth dates of household members]
+    steps:
+      - do: For a past-due balance, apply for a payment arrangement online or by phone.
+        channel: payment-arrangement-portal
+      - do: Apply for CAP online or through a CAP agency appointment.
+        channel: cap-application
+      - do: Call the Universal Services Center about the Hardship Fund (Dollar Energy Fund), CARES or LIHEAP.
+        channel: universal-services-phone
+      - do: Apply for LIHEAP through COMPASS (www.compass.state.pa.us) or the LIHEAP helpline 866-857-7095 while the program is open.
+    facts:
+      - kind: policy
+        claim: "Duquesne Light payment arrangements have no income requirement. Installments are billed with current monthly charges, and both must be paid on time and in full each month."
+        issues: [payment_assistance]
+        source: https://duquesnelight.com/docs/default-source/wattchoice/customer-assistance-programs-guide.pdf?sfvrsn=9415ed44_2
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Duquesne Light CAP: the monthly payment is based on household income and size. 1/36th of the debt frozen at enrollment is forgiven for each full monthly payment; three consecutive years of full payments eliminate it."
+        issues: [payment_assistance]
+        source: https://duquesnelight.com/docs/default-source/wattchoice/customer-assistance-programs-guide.pdf?sfvrsn=9415ed44_2
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: "Duquesne Light CAP 2026 income guidelines (maximum gross monthly income): 1 person $1,995; 2 $2,705; 3 $3,415; 4 $4,125; add $710 for each additional household member."
+        issues: [payment_assistance]
+        source: https://duquesnelight.com/docs/default-source/wattchoice/customer-assistance-programs-guide.pdf?sfvrsn=9415ed44_2
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: "Duquesne Light Hardship Fund (Dollar Energy Fund grants): the electric balance must be at least $100 (seniors 62 and over may have a zero balance); income must be at or below 200%; income-eligible customers must have paid up to $150 in the past 90 days (seniors up to $100; CAP customers 3 CAP payments or $150, whichever is lower)."
+        issues: [payment_assistance, disconnection]
+        source: https://duquesnelight.com/docs/default-source/wattchoice/customer-assistance-programs-guide.pdf?sfvrsn=9415ed44_2
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: LIHEAP opens November 1 and closes the first Friday in April. Crisis grants are for customers facing termination or already disconnected; the Cash grant must be applied for first.
+        issues: [payment_assistance, disconnection]
+        source: https://duquesnelight.com/docs/default-source/wattchoice/customer-assistance-programs-guide.pdf?sfvrsn=9415ed44_2
+        last_verified: 2026-10-13
+
+  - issue: service_outage
+    summary: Report outages online, in the app or by phone; check breakers first if only your home is out.
+    evidence: [service address, outage start time]
+    steps:
+      - do: If neighbors have power, check your breakers or fuses first. Then report the outage online, in the app, or by phone.
+        channel: outage-phone
+
+known_blockers:
+  - duquesnelight.com HTML pages return no text to automated fetches; PDFs under duquesnelight.com/docs and newsroom.duquesnelight.com are readable.
+  - The damage-claim channel (a phone number and an online claim) appeared only in a search-result summary without a clear source page, so it is not listed. Ask customer service for the claim process.
+
+official_domains: [duquesnelight.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Duquesne Light says it does not ask for prepaid card purchases or go door-to-door selling products.
+      source: https://duquesnelight.com/docs/default-source/pdf-library/understanding-your-bill_residential.pdf?sfvrsn=e03fef44_4
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Duquesne Light says it will never threaten immediate shut-off for missing a payment, and will always schedule an appointment in advance if an employee needs to access your home (2019 release).
+      source: https://newsroom.duquesnelight.com/here-for-you-with-tips-to-avoid-common-utility-scams
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Callers threaten same-day shutoff and tell customers to pay with a prepaid card. Caller ID may be spoofed, and call-back numbers may mimic Duquesne Light's greeting.
+      source: https://newsroom.duquesnelight.com/here-for-you-with-tips-to-avoid-common-utility-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: People posing as utility workers try to get into homes, sometimes in pairs so one distracts the resident while the other steals.
+      source: https://newsroom.duquesnelight.com/here-for-you-with-tips-to-avoid-common-utility-scams
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-scam-phone
+      type: phone
+      label: Verify a caller or visitor, or report a scam
+      value: +1-888-393-7100
+      notes: The bill says to ask for company ID and to call this number if unsure. A 2019 release lists 412-393-7100 for the same purpose.
+      source: https://duquesnelight.com/docs/default-source/pdf-library/understanding-your-bill_residential.pdf?sfvrsn=e03fef44_4
+      last_verified: 2026-10-13
+    - id: report-scam-form
+      type: web_form
+      label: Report a scam online
+      value: https://duquesnelight.com/customer-support/avoid-scams/report-scams
+      notes: Seen in search results with the text "Report it to Duquesne Light at 888-393-7100 or by submitting a report online." The page returns no text to automated fetches.
+      source: https://duquesnelight.com/customer-support/avoid-scams/report-scams
+      last_verified: 2026-10-13

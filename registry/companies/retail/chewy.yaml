@@ -1,0 +1,143 @@
+id: chewy
+name: Chewy
+aliases: [chewy.com, chewy autoship, chewy+, chewy plus, chewy pharmacy]
+sector: retail
+also_sectors: [subscription]
+website: https://www.chewy.com
+account_url: https://www.chewy.com/app/login
+official_domains: [chewy.com]
+regulators: [ftc]
+notes: >-
+  Chewy is an online pet retailer with two recurring programs: Autoship (repeat deliveries)
+  and Chewy+ (a paid membership). Chewy's Terms of Use (last updated July 1, 2026) require binding
+  individual arbitration administered by the American Arbitration Association, with a small-claims
+  carve-out and at least 60 days' written notice before filing. Chewy's help pages load their text
+  with scripts and could not be read by automated fetches on 2026-10-13; return-policy values below
+  come from search-result text and are marked as such. No Chewy page on phishing or impersonation
+  scams was found.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Chewy customer service ("Get help from our experts 24/7")
+    value: +1-800-672-4399
+    hours: 24/7
+    purposes: [refund_request, damaged_item, lost_package, cancel_service, billing_error, unauthorized_charge]
+    notes: The Autoship and Chewy+ terms name this number for cancelling either program.
+    source: https://www.chewy.com/help
+    last_verified: 2026-10-13
+  - id: account
+    type: portal
+    label: Chewy account (Your Account; Autoship Manager and Chewy+ membership)
+    value: https://www.chewy.com/app/login
+    purposes: [cancel_service, refund_request]
+    access: login
+    source: https://www.chewy.com/app/content/ans-terms
+    last_verified: 2026-10-13
+  - id: legal-email
+    type: email
+    label: Chewy Legal (questions about the Terms of Use, including your legal relationship with Chewy)
+    value: legal@chewy.com
+    notes: 'Mail: Chewy Legal, 7700 West Sunrise Boulevard, Plantation, Florida 33322.'
+    source: https://www.chewy.com/app/content/terms
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor}
+  - {rung: written_complaint}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: refund_request
+    summary: Chewy accepts returns within 365 days for a complete refund and pays return shipping; prescription medications are excluded unless wrong or damaged.
+    evidence: [order number, the item in the condition received, photos if damaged]
+    steps:
+      - do: Call Chewy customer service (24/7) to start a return or ask for a refund.
+        channel: customer-service-phone
+      - do: If Chewy refuses a refund you are owed, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: Chewy accepts returns within 365 days of the sale date for a complete refund and pays the return shipping, if the product is not used or expired and is in the condition received. Read from search-result text of Chewy's Return Policy page on 2026-10-13; the page blocked automated fetches.
+        issues: [refund_request]
+        source: https://cms.chewy.com/cms/help/customer/return.html
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: Chewy does not accept returns or replacements on prescription medications unless the medication is wrong or damaged, in which case it exchanges or refunds case by case. Read from search-result text of Chewy's Return Policy page on 2026-10-13; the page blocked automated fetches.
+        issues: [refund_request]
+        source: https://cms.chewy.com/cms/help/customer/return.html
+        last_verified: 2026-10-13
+
+  - issue: damaged_item
+    summary: Contact Chewy customer care promptly for a refund or a replacement.
+    evidence: [order number, photos of the item and box]
+    steps:
+      - do: Call Chewy customer service and ask for a refund or a replacement at no extra cost.
+        channel: customer-service-phone
+    facts:
+      - kind: policy
+        claim: For items damaged in delivery, contact Customer Care promptly; Chewy will issue a refund or send a replacement at no additional cost. Read from search-result text of Chewy's help pages on 2026-10-13; the pages blocked automated fetches.
+        issues: [damaged_item]
+        source: https://cms.chewy.com/cms/help/customer/return.html
+        last_verified: 2026-10-13
+
+  - issue: cancel_service
+    summary: Cancel Autoship in Autoship Manager or by phone at any time; end Chewy+ in your account or by phone, with access to the end of the paid term.
+    evidence: [account email, Autoship order or Chewy+ charge date, cancellation confirmation]
+    steps:
+      - do: For Autoship, cancel in Autoship Manager in Your Account, or call customer service. Edit or cancel before 12:00 AM on the day before the ship date, because the order is authorized about 24 hours before shipping.
+        channel: account
+      - do: For Chewy+, end the membership in your account or by calling customer service, before the next charge.
+        channel: customer-service-phone
+      - do: If you end Chewy+ within 3 business days of signing up or of converting from a free trial, ask for the full fee refund.
+      - do: Dispute any charge made after a confirmed cancellation with your card issuer.
+    facts:
+      - kind: policy
+        claim: '"You can cancel at any time via Autoship Manager, which can be found in Your Account" or "by calling Customer Service at 800-672-4399." (Autoship Terms, last updated September 24, 2026.)'
+        issues: [cancel_service]
+        source: https://www.chewy.com/app/content/ans-terms
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: '"up to 72 hours prior to the ship date selected by you, you will receive a pre-shipment email notification"; you can edit or cancel until the window "ending 12:00 AM the day preceding your designated ship date." "Approximately 24 hours prior to your designated ship date, your order will be authorized." "You will not be charged until your order ships."'
+        issues: [cancel_service, unauthorized_charge]
+        source: https://www.chewy.com/app/content/ans-terms
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'The Autoship price is "the price of that item as stated in the pre-shipment email notification you receive or lower"; "Chewy will not change the price of your next shipment once you have authorized an order."'
+        issues: [bill_increase]
+        source: https://www.chewy.com/app/content/ans-terms
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: '"You may end your Chewy+ membership by visiting your account or calling Customer Service at 1-800-672-4399." After ending, "you can continue to use your Chewy+ membership until the end of your paid membership term." (Chewy+ Terms, last updated 10/5/26.)'
+        issues: [cancel_service]
+        source: https://www.chewy.com/app/content/membership-terms
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'Chewy+ renews automatically "UNLESS YOU NOTIFY US BEFORE A CHARGE THAT YOU DO NOT WANT TO AUTO RENEW", charging the then-applicable fee to a payment method on file. Chewy may change member fees, benefits and terms "at any time without notice."'
+        issues: [cancel_service, bill_increase]
+        source: https://www.chewy.com/app/content/membership-terms
+        last_verified: 2026-10-13
+
+  - issue: free_trial_conversion
+    summary: A full Chewy+ fee refund is due if you end the membership within 3 business days of converting from a free trial; later, only if no eligible purchases or benefits were used since the last charge.
+    evidence: [date of the trial conversion charge, date you ended the membership, list of orders since the charge]
+    steps:
+      - do: End Chewy+ in your account or by phone within 3 business days of the conversion charge, and ask for the full membership fee refund to the original payment method.
+        channel: customer-service-phone
+      - do: If the refund is refused while you meet the terms, quote the Chewy+ Terms and then dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: '"If you end within 3 business days of signing up for or converting from a free trial to a paid membership", Chewy "will refund your full membership fee on the original method of the payment", but may withhold the value of benefits used in those 3 business days if that value is less than the fee.'
+        issues: [free_trial_conversion, refund_request, cancel_service]
+        source: https://www.chewy.com/app/content/membership-terms
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: 'At other times, Chewy "will refund your full membership fee only if you and your account did not make any eligible purchases" and did not use Chewy+ benefits since your latest Chewy+ membership charge.'
+        issues: [free_trial_conversion, refund_request, cancel_service]
+        source: https://www.chewy.com/app/content/membership-terms
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Autoship Manager and Chewy+ cancellation online need the account holder's sign-in; the 24/7 phone line is the alternative.

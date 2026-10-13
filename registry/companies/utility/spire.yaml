@@ -1,0 +1,260 @@
+id: spire
+name: Spire Inc.
+aliases: [Spire, Spire Energy, Spire Missouri, Spire Alabama, Spire Gulf, Spire Mississippi, Spire Tennessee]
+sector: utility
+website: https://www.spireenergy.com
+account_url: https://myaccount.spireenergy.com/
+notes: >-
+  Natural gas utility. Operating companies: Spire Missouri (Eastern and Western Missouri; Missouri Public
+  Service Commission), Spire Alabama (Central and Northern Alabama) and Spire Gulf (the Mobile, Alabama
+  area), both regulated by the Alabama Public Service Commission, and Spire Mississippi (Mississippi Public
+  Service Commission). Each region has its own phone number, which is also its 24/7 gas emergency line.
+  Since March 31, 2026, former Piedmont Natural Gas customers in Tennessee are served by Spire, but Piedmont
+  keeps billing them until the transition is complete in 2027; they keep calling 800-752-7504. Spire's
+  Cold Weather page prints 800-542-1234 for Western Missouri, while the contact page prints 800-582-1234;
+  the contact page number is used here. The Missouri tariff facts below come from Spire Missouri's Rules
+  and Regulations (P.S.C. MO. No. 9); Alabama and Mississippi rules were not checked.
+
+channels:
+  - id: eastern-missouri-phone
+    type: phone
+    label: Eastern Missouri customer service and 24/7 gas emergencies
+    value: +1-800-887-4173
+    hours: "Customer service Mon-Fri 7 a.m.-5 p.m.; gas emergencies 24/7"
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, poor_service]
+    notes: Spire's February 2024 scam alert also gives this number for paying by phone 24/7.
+    source: https://www.spireenergy.com/contact-us
+    last_verified: 2026-10-13
+  - id: western-missouri-phone
+    type: phone
+    label: Western Missouri customer service and 24/7 gas emergencies
+    value: +1-800-582-1234
+    hours: "Customer service Mon-Fri 7 a.m.-5 p.m.; gas emergencies 24/7"
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, poor_service]
+    notes: Spire's Cold Weather page (https://www.spireenergy.com/coldweather) prints 800-542-1234 for Western Missouri; the two Spire pages disagree.
+    source: https://www.spireenergy.com/contact-us
+    last_verified: 2026-10-13
+  - id: alabama-phone
+    type: phone
+    label: Alabama customer service and 24/7 gas emergencies (Central and Northern Alabama and the Mobile area)
+    value: +1-800-292-4008
+    hours: "Customer service Mon-Fri 8 a.m.-5 p.m.; gas emergencies 24/7"
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, poor_service]
+    source: https://www.spireenergy.com/contact-us
+    last_verified: 2026-10-13
+  - id: mississippi-phone
+    type: phone
+    label: Mississippi customer service and 24/7 gas emergencies
+    value: +1-877-945-5427
+    hours: "Customer service Mon-Fri 8 a.m.-5 p.m.; gas emergencies 24/7"
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, poor_service]
+    source: https://www.spireenergy.com/contact-us
+    last_verified: 2026-10-13
+  - id: tennessee-phone
+    type: phone
+    label: Tennessee customer service and gas emergencies (former Piedmont Natural Gas customers)
+    value: +1-800-752-7504
+    hours: "Customer service Mon-Fri 6:30 a.m.-6 p.m."
+    purposes: [billing_error, disconnection, payment_assistance]
+    notes: Piedmont Natural Gas still bills Tennessee customers for Spire until 2027, and the Tennessee page links bill payment to piedmontng.com.
+    source: https://www.spireenergy.com/information-tennessee-customers
+    last_verified: 2026-10-13
+  - id: write-us-form
+    type: web_form
+    label: Email Spire customer service (web form)
+    value: https://www.spireenergy.com/write-us
+    purposes: [billing_error, poor_service]
+    access: open
+    notes: Topics include Billing and Service order. Question limited to 500 characters. Needs name, email, service address and a 10-digit phone number; account number optional. Not for gas emergencies or urgent matters.
+    source: https://www.spireenergy.com/write-us
+    last_verified: 2026-10-13
+  - id: my-account
+    type: portal
+    label: Spire My Account (payment plans or arrangements, Budget Billing)
+    value: https://myaccount.spireenergy.com/
+    purposes: [disconnection, payment_assistance]
+    access: login
+    notes: The Cold Weather page says to log in or call the automated phone system for payment plans or arrangements and Budget Billing.
+    source: https://www.spireenergy.com/coldweather
+    last_verified: 2026-10-13
+  - id: assistance-page
+    type: web_form
+    label: Payment assistance options by region
+    value: https://www.spireenergy.com/assistance
+    purposes: [payment_assistance, disconnection]
+    access: open
+    notes: The region-specific options load dynamically and were not visible to an automated fetch.
+    source: https://www.spireenergy.com/coldweather
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, note: "Call the number for your region: Eastern Missouri 800-887-4173, Western Missouri 800-582-1234, Alabama 800-292-4008, Mississippi 877-945-5427, Tennessee 800-752-7504."}
+  - {rung: supervisor, note: "Ask the representative for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, channel: write-us-form}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Missouri: Missouri Public Service Commission, 1-800-392-4211; it says to contact the utility first. Alabama: Alabama Public Service Commission, 1-800-392-8050; it asks consumers to first contact the utility. Mississippi: Mississippi Public Service Commission, 601-961-5434, online complaint portal. Tennessee: Tennessee Public Utility Commission."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "The attorney general of your state."}
+
+playbooks:
+  - issue: billing_error
+    summary: Register the dispute with Spire before any shutoff date, pay the undisputed part, ask for a meter test, then go to the state commission.
+    evidence: [the disputed bill, earlier bills for comparison, meter photos with dates, notes of calls with reference numbers]
+    steps:
+      - do: Call Spire for your region and say which charge you dispute. In Missouri, register the dispute at least 24 hours before any proposed disconnection date.
+        channel: eastern-missouri-phone
+        note: Use the number for your region.
+      - do: Put the dispute in writing through the web form and keep a copy.
+        channel: write-us-form
+      - do: Pay the part of the bill that is not in dispute. In Missouri, do this within four working days of registering the dispute, or by the delinquent date if later.
+      - do: If usage looks wrong, ask for a meter test. In Missouri the first test in 12 months is free.
+      - do: If Spire does not resolve it, file a complaint with your state's Public Service Commission.
+    facts:
+      - kind: deadline
+        claim: "Spire Missouri: a dispute can be made by written notice, in person or by telephone during normal business hours, and must be registered at least twenty-four (24) hours before the proposed discontinuance date to avoid disconnection."
+        issues: [billing_error, disconnection]
+        source: https://www.spireenergy.com/sites/default/files/2025-03/RulesRegs_Missouri_03052025.pdf
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: "Spire Missouri: the customer must pay the amount not in dispute within four (4) working days of registering the dispute or by the delinquent date of the disputed bill, whichever is later. If the parties cannot agree on that amount, the customer pays the lesser of up to fifty percent (50%) of the disputed charge or an amount based on usage in a like period."
+        issues: [billing_error]
+        source: https://www.spireenergy.com/sites/default/files/2025-03/RulesRegs_Missouri_03052025.pdf
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: "Spire Missouri tests a customer's meter on written or verbal request. One test in a twelve-month period is free; the customer pays for more tests in that period unless the meter is inaccurate by more than 2%. The customer may be present. If the meter is off by more than 2%, bills are adjusted for half the time since the previous test, within the tariff's limit."
+        issues: [billing_error]
+        source: https://www.spireenergy.com/sites/default/files/2025-03/RulesRegs_Missouri_03052025.pdf
+        last_verified: 2026-10-13
+      - kind: process
+        claim: The Alabama Public Service Commission asks consumers to first contact the utility and to keep notes of the date, time, staff member's name and the utility's response. Complaints go to 800-392-8050 (toll free) or 334-242-5211, Monday to Friday 8 a.m. to 5 p.m., or the online complaint form.
+        issues: [billing_error, disconnection]
+        source: https://psc.alabama.gov/file-a-complaint/
+        last_verified: 2026-10-13
+      - kind: process
+        claim: The Missouri PSC asks customers to contact the utility first and to file an informal complaint only if the dispute is not resolved. Hotline 1-800-392-4211; online at efis.psc.mo.gov.
+        issues: [billing_error, disconnection]
+        source: https://psc.mo.gov/General/Submit_A_Complaint
+        last_verified: 2026-10-13
+
+  - issue: disconnection
+    summary: Ask for a payment arrangement before the shutoff date. In Missouri, the Cold Weather Rule (November 1 to March 31) and a 21-day medical postponement can stop a shutoff.
+    evidence: [disconnection notice, account balance, medical documents, LIHEAP or agency pledge]
+    steps:
+      - do: Before the date on the notice, set up a payment arrangement in My Account or through the automated phone system, or call your region's number.
+        channel: my-account
+      - do: In Missouri, if a shutoff would aggravate a medical emergency in the home, tell Spire and be ready to give reasonable evidence.
+        channel: eastern-missouri-phone
+        note: Western Missouri customers call 800-582-1234.
+      - do: In Missouri from November 1 to March 31, ask for a Cold Weather Rule payment plan.
+      - do: Call 211 or apply for LIHEAP; an agency pledge can count as the required Cold Weather Rule payment in Missouri.
+        channel: assistance-page
+      - do: If Spire will not help, contact your state's Public Service Commission before the shutoff date.
+    facts:
+      - kind: deadline
+        claim: "Spire Missouri: written notice must be sent at least ten (10) days before a residential disconnection (by first class mail, or electronically for e-bill customers), or handed to the customer at least ninety-six (96) hours before. Disconnection is allowed only between 8:00 a.m. and 4:00 p.m., and not on a day when Spire personnel cannot reconnect service or on the day before such a day."
+        issues: [disconnection]
+        source: https://www.spireenergy.com/sites/default/files/2025-03/RulesRegs_Missouri_03052025.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Spire Missouri postpones a disconnection for up to twenty-one (21) days if it would aggravate an existing medical emergency of the customer, a family member or another permanent resident. If asked, the person must give reasonable evidence of the necessity."
+        issues: [disconnection]
+        source: https://www.spireenergy.com/sites/default/files/2025-03/RulesRegs_Missouri_03052025.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Spire Missouri Cold Weather Rule: no disconnection of residential heating service on a day when the National Weather Service forecast (issued between 6:00 a.m. and 9:00 a.m.) for the next twenty-four (24) hours predicts a temperature below thirty-two degrees Fahrenheit (32F)."
+        issues: [disconnection]
+        source: https://www.spireenergy.com/sites/default/files/2025-03/RulesRegs_Missouri_03052025.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Spire Missouri Cold Weather Rule payment plan: Spire first offers a twelve (12)-month budget plan covering arrears, current and estimated bills. For a customer who has not defaulted on a Cold Weather Rule plan, the initial payment is no more than twelve percent (12%) of the annual budget amount unless both agree otherwise. A LIHEAP, Utilicare or ECIP pledge for the amount counts as the payment."
+        issues: [disconnection, payment_assistance]
+        source: https://www.spireenergy.com/sites/default/files/2025-03/RulesRegs_Missouri_03052025.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Spire Missouri, November 1 through March 31: Spire restores service on an initial payment of the lesser of 50% or $500 of the pre-existing arrears, with reconnection and related fees deferred and the rest on a 12-month plan. A customer threatened with disconnection may keep service by entering this plan. Spire need not offer this more than once every two years, or to a customer who defaulted on such a plan three or more times."
+        issues: [disconnection, payment_assistance]
+        source: https://www.spireenergy.com/sites/default/files/2025-03/RulesRegs_Missouri_03052025.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Spire Missouri: on a Cold Weather Rule payment plan, late payment charges are not assessed except for missed plan payments, and no interest is charged on the balance for the deferral period."
+        issues: [disconnection]
+        source: https://www.spireenergy.com/sites/default/files/2025-03/RulesRegs_Missouri_03052025.pdf
+        last_verified: 2026-10-13
+
+  - issue: payment_assistance
+    summary: Set up a payment arrangement or Budget Billing; call 211 for LIHEAP and DollarHelp (Missouri and Alabama).
+    evidence: [current bill, household income documents, LIHEAP application]
+    steps:
+      - do: Set up a payment arrangement or Budget Billing in My Account or through the automated phone system.
+        channel: my-account
+      - do: Apply for LIHEAP. Missouri customers apply at mydss.mo.gov; Alabama customers find their community action agency at adeca.alabama.gov. Reapply every year.
+        channel: assistance-page
+      - do: Call 2-1-1 to find local help, including DollarHelp in Missouri and Alabama. Ask your Spire region about Spire assistance programs.
+    facts:
+      - kind: policy
+        claim: "Spire's LIHEAP page lists these requirements: responsible for paying home heating and cooling costs, a U.S. citizen or legal resident, $3,000 or less in bank accounts, retirement accounts and investments, and meeting income guidelines. Applicants must reapply each year."
+        issues: [payment_assistance]
+        source: https://www.spireenergy.com/liheap
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: DollarHelp is a winter heating bill assistance program for Spire customers in Alabama and Missouri, given through local community action agencies. Call 2-1-1 to find the local agency.
+        issues: [payment_assistance]
+        source: https://www.spireenergy.com/dollarhelp
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Payment arrangements and Budget Billing need a My Account sign-in (or Spire's automated phone system).
+  - The payment assistance and rates pages load region-specific content dynamically; automated fetches see only navigation.
+  - No Spire damage claim form or claims contact was found on spireenergy.com.
+  - Tennessee customers are billed by Piedmont Natural Gas until 2027.
+
+official_domains: [spireenergy.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Spire does not request email payments and will never request payment in person.
+      source: https://www.spireenergy.com/stop-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Spire does not request or accept any form of payment at a customer's home or business.
+      source: https://spireenergy.com/tuscaloosa-scam-news-release
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Spire will never ask for payment through cash apps such as Venmo, Zelle, Google Pay or others.
+      source: https://www.spireenergy.com/scam-alert-news-release-february-2024
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Spire will never ask job candidates for credit card or other financial information, or to buy electronics or gift cards.
+      source: https://www.spireenergy.com/stop-scams
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: In Missouri, callers posing as Spire representatives ask for bill payment over the phone (Spire alert dated February 7, 2024).
+      source: https://www.spireenergy.com/scam-alert-news-release-february-2024
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: A person in an orange vest claiming to work for Spire came to a home, threatened to disconnect gas service unless paid immediately, and took a credit card payment on a handheld card device.
+      source: https://spireenergy.com/tuscaloosa-scam-news-release
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Real Spire email comes from an @SpireEnergy.com address or an authorized contractor's address, not from services such as Hotmail or Gmail. Workers, including contractors, carry a Spire badge.
+      source: https://www.spireenergy.com/stop-scams
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: scam-report-alabama-phone
+      type: phone
+      label: Report a suspicious call or an in-person payment demand (Alabama)
+      value: +1-800-292-4008
+      source: https://spireenergy.com/tuscaloosa-scam-news-release
+      last_verified: 2026-10-13
+    - id: scam-report-eastern-missouri-phone
+      type: phone
+      label: Verify a suspicious call (hang up and call Spire directly; Eastern Missouri)
+      value: +1-800-887-4173
+      source: https://www.spireenergy.com/scam-alert-news-release-february-2024
+      last_verified: 2026-10-13
+    - id: recruitment-fraud-email
+      type: email
+      label: Verify a Spire job posting or report recruitment fraud
+      value: careers@spireenergy.com
+      source: https://www.spireenergy.com/stop-scams
+      last_verified: 2026-10-13

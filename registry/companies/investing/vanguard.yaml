@@ -1,0 +1,153 @@
+id: vanguard
+name: Vanguard
+aliases: [the vanguard group, vanguard brokerage services, vanguard marketing corporation, vanguard investments]
+sector: investing
+parent: The Vanguard Group, Inc.
+website: https://investor.vanguard.com
+official_domains: [vanguard.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Vanguard says it will never reach out to ask for your login information or your full Social Security number.
+      source: https://investor.vanguard.com/trust-security
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Vanguard says it will never request access to your computer or mobile device.
+      source: https://investor.vanguard.com/trust-security
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Vanguard's Security Center warns of fraudulent emails (phishing), texts (smishing), phone calls (vishing) and pop-up scams that claim to be Vanguard.
+      source: https://investor.vanguard.com/trust-security
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails or texts that claim to be Vanguard
+      value: phish@vanguard.com
+      purposes: [fraud]
+      source: https://investor.vanguard.com/trust-security
+      last_verified: 2026-10-13
+regulators: [sec, finra]
+notes: >-
+  Vanguard Brokerage Services is a division of Vanguard Marketing Corporation (FINRA CRD 7452). The CFPB
+  database lists a "Vanguard Financial Services, Inc." that we could not link to The Vanguard Group, so no
+  CFPB count is given.
+
+channels:
+  - id: personal-investors-phone
+    type: phone
+    label: Client Services for personal investors
+    value: +1-877-662-7447
+    hours: Monday through Friday, 8 a.m. to 8 p.m. ET
+    purposes: [account_transfer, frozen_funds, account_access, poor_service]
+    access: human_only
+    source: https://corporate.vanguard.com/content/corporatesite/us/en/corp/contact-us.html
+    last_verified: 2026-10-13
+  - id: retirement-plan-phone
+    type: phone
+    label: Client Services for retirement plan participants
+    value: +1-800-523-1188
+    hours: Monday through Friday, 8:30 a.m. to 9 p.m. ET
+    access: human_only
+    source: https://corporate.vanguard.com/content/corporatesite/us/en/corp/contact-us.html
+    last_verified: 2026-10-13
+  - id: fraud-phone
+    type: phone
+    label: Report fraud or unauthorized activity
+    value: +1-877-223-6977
+    purposes: [fraud, unauthorized_charge, account_access]
+    access: human_only
+    notes: The Security Center does not list hours for this line.
+    source: https://investor.vanguard.com/trust-security
+    last_verified: 2026-10-13
+  - id: fraud-email
+    type: email
+    label: Fraud reporting email
+    value: fraud@vanguard.com
+    purposes: [fraud, unauthorized_charge]
+    source: https://investor.vanguard.com/trust-security
+    last_verified: 2026-10-13
+  - id: phishing-email
+    type: email
+    label: Report phishing that claims to be Vanguard
+    value: phish@vanguard.com
+    purposes: [fraud]
+    source: https://investor.vanguard.com/trust-security
+    last_verified: 2026-10-13
+  - id: support-center
+    type: web_form
+    label: Vanguard Support Center (FAQs and contact options)
+    value: https://support.vanguard.com/
+    notes: investor.vanguard.com/contact-us redirects here. The page needs JavaScript.
+    source: https://corporate.vanguard.com/content/corporatesite/us/en/corp/contact-us.html
+    last_verified: 2026-10-13
+  - id: brokercheck
+    type: portal
+    label: FINRA BrokerCheck record for Vanguard Marketing Corporation (CRD 7452)
+    value: https://brokercheck.finra.org/firm/summary/7452
+    source: https://api.brokercheck.finra.org/search/firm?query=vanguard&hl=true&nrows=12&start=0&r=25&wt=json
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: personal-investors-phone}
+  - {rung: written_complaint, note: "Vanguard publishes no complaint address on its contact pages. FINRA asks you to complain in writing to the firm's branch manager or compliance department and keep copies."}
+  - {rung: regulator, regulator: finra}
+  - {rung: regulator, regulator: sec}
+  - {rung: arbitration, note: "The Vanguard Brokerage Account Agreement contains a predispute arbitration agreement."}
+
+playbooks:
+  - issue: fraud
+    summary: Call the fraud line or email fraud@vanguard.com; Vanguard promises to reimburse unauthorized losses if you meet its conditions.
+    evidence: [account activity with the unauthorized transactions, messages or caller details, FTC report number]
+    steps:
+      - do: Call the fraud line and report the unauthorized activity.
+        channel: fraud-phone
+      - do: Forward the phishing email or text.
+        channel: phishing-email
+      - do: Report the scam to the FTC at ReportFraud.ftc.gov.
+        regulator: ftc
+      - do: If Vanguard does not resolve it, complain in writing, then file with FINRA.
+        regulator: finra
+    facts:
+      - kind: compensation
+        claim: Vanguard's Security Center says Vanguard will "reimburse every dollar taken" through unauthorized activity, as set out in its terms, if you meet the listed conditions.
+        issues: [fraud, unauthorized_charge]
+        source: https://investor.vanguard.com/trust-security
+        last_verified: 2026-10-13
+
+  - issue: account_transfer
+    summary: Start the transfer at the receiving firm; Vanguard may charge $100 to close an account or transfer all of it out.
+    evidence: [transfer request confirmation, statements from both firms]
+    steps:
+      - do: Ask the receiving firm to start the ACATS transfer.
+      - do: If it stalls, call Vanguard and ask what is missing and the expected date.
+        channel: personal-investors-phone
+      - do: If it is still blocked, file a FINRA complaint.
+        regulator: finra
+    facts:
+      - kind: fee
+        claim: Vanguard Brokerage Services may charge a $100 processing fee for each account closure and full transfer of account assets to another firm (fee schedule effective July 10, 2026). The fee does not apply to clients with at least $5 million in qualifying assets, Wealth Management clients, or accounts in a Vanguard-affiliated advisory service.
+        issues: [account_transfer]
+        source: https://personal1.vanguard.com/pdf/v414.pdf
+        last_verified: 2026-10-13
+
+facts:
+  - kind: policy
+    claim: Vanguard's brokerage account agreement contains a predispute arbitration agreement. The legacy agreement sends disputes to arbitration under the rules of FINRA or a national securities exchange. Seen in search-engine extracts of Vanguard forms; the current agreement was not read in full.
+    source: https://personal1.vanguard.com/pdf/v718.pdf
+    last_verified: 2026-10-13
+  - claim: BrokerCheck shows Vanguard Marketing Corporation (CRD 7452) as an active broker-dealer with disclosures.
+    source: https://api.brokercheck.finra.org/search/firm?query=vanguard&hl=true&nrows=12&start=0&r=25&wt=json
+    last_verified: 2026-10-13
+
+tips:
+  - kind: official
+    text: Caller ID can be faked. If you are unsure about a call, hang up and call the number on vanguard.com, in the Vanguard app or on your statement. Seen in a search-engine extract of the Security Center.
+    issues: [fraud]
+    source: https://investor.vanguard.com/trust-security
+    last_verified: 2026-10-13
+
+known_blockers:
+  - Phone lines verify the account holder by voice.
+  - The Support Center and account pages need JavaScript and sign-in.

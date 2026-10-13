@@ -1,0 +1,135 @@
+id: charles-schwab
+name: Charles Schwab
+aliases: [schwab, charles schwab & co, schwab brokerage, schwab one, td ameritrade, thinkorswim]
+sector: investing
+parent: The Charles Schwab Corporation
+website: https://www.schwab.com
+official_domains: [schwab.com]
+security:
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails, or screenshots of suspicious texts, that claim to be Schwab
+      value: phishing@schwab.com
+      purposes: [fraud]
+      notes: Seen in search results of Schwab's Security Knowledge Center; schwab.com blocked automated page fetches on 2026-10-13.
+      source: https://www.schwab.com/schwabsafe/security-knowledge-center
+      last_verified: 2026-10-13
+regulators: [sec, finra]
+notes: >-
+  Brokerage accounts are with Charles Schwab & Co., Inc. (FINRA CRD 5393). schwab.com returned a bot-check
+  page to automated fetches on 2026-10-13, so the phone numbers, fees and agreement terms below were read from
+  search-engine extracts of Schwab's own pages. Confirm them on schwab.com before relying on them.
+  Schwab Bank deposit complaints go to the Texas Department of Savings and Mortgage Lending (877-276-5550),
+  according to Schwab's bank complaint notice.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service (Schwab investment professionals)
+    value: +1-800-435-4000
+    hours: 24/7
+    purposes: [account_transfer, frozen_funds, fee_reversal, poor_service]
+    access: human_only
+    notes: Seen in search results of Schwab's Satisfaction Guarantee and contact pages; not fetched directly.
+    source: https://www.schwab.com/satisfaction-guarantee
+    last_verified: 2026-10-13
+  - id: fraud-phone
+    type: phone
+    label: Suspected fraud or identity theft on a Schwab account
+    value: +1-877-862-6352
+    purposes: [fraud, unauthorized_charge, account_access]
+    access: human_only
+    notes: Seen in search results of the SchwabSafe page; not fetched directly.
+    source: https://www.schwab.com/schwabsafe
+    last_verified: 2026-10-13
+  - id: phishing-email
+    type: email
+    label: Report phishing that claims to be Schwab
+    value: phishing@schwab.com
+    purposes: [fraud]
+    notes: Seen in search results; not fetched directly.
+    source: https://www.schwab.com/schwabsafe/security-knowledge-center
+    last_verified: 2026-10-13
+  - id: brokercheck
+    type: portal
+    label: FINRA BrokerCheck record for Charles Schwab & Co., Inc. (CRD 5393)
+    value: https://brokercheck.finra.org/firm/summary/5393
+    source: https://api.brokercheck.finra.org/search/firm?query=charles%20schwab&hl=true&nrows=12&start=0&r=25&wt=json
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, note: "Schwab publishes no brokerage complaint address that we could verify. FINRA asks you to complain in writing to the branch manager or compliance department and keep copies."}
+  - {rung: regulator, regulator: finra}
+  - {rung: regulator, regulator: sec}
+  - {rung: arbitration, note: "The Schwab Brokerage Account Agreement has a predispute arbitration clause; claims are filed with FINRA."}
+
+playbooks:
+  - issue: fraud
+    summary: Call the Schwab fraud line at once and forward phishing to phishing@schwab.com.
+    evidence: [account activity with the unauthorized transactions, messages or caller details, FTC report number]
+    steps:
+      - do: Call Schwab's fraud line and report the unauthorized activity.
+        channel: fraud-phone
+      - do: Forward suspicious emails or screenshots of texts.
+        channel: phishing-email
+      - do: Report the scam to the FTC at ReportFraud.ftc.gov.
+        regulator: ftc
+      - do: If Schwab does not resolve it, complain in writing, then file with FINRA.
+        regulator: finra
+    facts:
+      - kind: compensation
+        claim: Schwab's Security Guarantee says Schwab will cover losses in any of your Schwab accounts due to unauthorized activity. Seen in a search-engine extract of the SchwabSafe page; read the conditions on schwab.com.
+        issues: [fraud, unauthorized_charge]
+        source: https://www.schwab.com/schwabsafe
+        last_verified: 2026-10-13
+
+  - issue: account_transfer
+    summary: Start the transfer at the receiving firm; Schwab's pricing guide lists $50 for a full transfer out.
+    evidence: [transfer request confirmation, statements from both firms]
+    steps:
+      - do: Ask the receiving firm to start the ACATS transfer, and ask it for the status if it stalls.
+      - do: Ask Schwab what is holding the transfer and the expected date.
+        channel: customer-service-phone
+      - do: If it is still blocked, file a FINRA complaint.
+        regulator: finra
+    facts:
+      - kind: fee
+        claim: Schwab's April 2026 Pricing Guide for Individual Investors lists a transfer-out fee of $50 per account for a full transfer and $0 for a partial transfer. Seen in a search-engine extract of the pricing guide.
+        issues: [account_transfer]
+        source: https://www.schwab.com/legal/schwab-pricing-guide-for-individual-investors
+        last_verified: 2026-10-13
+
+  - issue: fee_reversal
+    summary: Ask for a refund under the Satisfaction Guarantee within 90 days of the fee.
+    evidence: [statement showing the fee or commission, date charged]
+    steps:
+      - do: Call customer service, explain the concern and ask for a refund of the fee or commission under the Satisfaction Guarantee.
+        channel: customer-service-phone
+    facts:
+      - kind: deadline
+        claim: Under Schwab's Satisfaction Guarantee, refund requests must be received within 90 days of the date the fee was charged, and the guarantee is only for current clients. Seen in a search-engine extract of the guarantee page.
+        issues: [fee_reversal]
+        source: https://www.schwab.com/satisfaction-guarantee
+        last_verified: 2026-10-13
+
+facts:
+  - kind: policy
+    claim: The Schwab Brokerage Account Agreement contains a predispute arbitration clause; any party may start arbitration by filing a written claim with FINRA, and AAA is used only if FINRA or an eligible exchange is unavailable. The clause survives account closure. Seen in a search-engine extract of the agreement.
+    source: https://www.schwab.com/legal/schwab-brokerage-account-agreement
+    last_verified: 2026-10-13
+  - claim: The CFPB received 354 complaints about CHARLES SCHWAB CORPORATION, THE from July 1, 2025 to June 30, 2026, mostly about checking or savings accounts (299). 336 were closed with explanation and 18 with monetary relief.
+    source: https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/?company=CHARLES%20SCHWAB%20CORPORATION%2C%20THE&date_received_min=2025-07-01&date_received_max=2026-06-30&size=0
+    last_verified: 2026-10-13
+
+tips:
+  - kind: official
+    text: If a call, text or email that claims to be Schwab worries you, contact Schwab at 800-435-4000 using the number from the official website, not the one in the message. Seen in a search-engine extract of Schwab's Security Knowledge Center.
+    issues: [fraud]
+    source: https://www.schwab.com/schwabsafe/security-knowledge-center
+    last_verified: 2026-10-13
+
+known_blockers:
+  - schwab.com shows a bot-check page to automated browsers; hand the browser to the person.
+  - Phone lines verify the account holder by voice.

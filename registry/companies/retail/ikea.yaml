@@ -1,0 +1,192 @@
+id: ikea
+name: IKEA
+aliases: [ikea us, ikea usa, ikea.com, ikea family]
+sector: retail
+website: https://www.ikea.com/us/en/
+account_url: https://www.ikea.com/us/en/customer-service/track-manage-order/
+official_domains: [ikea.com, ikea-usa.com]
+regulators: [ftc]
+notes: >-
+  This file covers IKEA US (ikea.com/us). IKEA's US website terms are governed by Pennsylvania law,
+  and claims must be filed only in the state or federal courts in Montgomery County, Pennsylvania.
+  Returns are not accepted at IKEA Planning Studio or IKEA Pick Up Point locations. No IKEA US
+  page on phishing or impersonation scams was found.
+
+channels:
+  - id: customer-support-phone
+    type: phone
+    label: IKEA US Customer Support Center
+    value: +1-888-888-4532
+    hours: Monday to Sunday, 8:00 AM to 12:00 AM (time zone not stated)
+    purposes: [refund_request, damaged_item, lost_package, price_adjustment, warranty_claim, late_delivery]
+    notes: Also used for missing parts, rescheduling deliveries, return pick-ups and FedEx returns of small recent purchases.
+    source: https://www.ikea.com/us/en/customer-service/contact-us/
+    last_verified: 2026-10-13
+  - id: start-return
+    type: portal
+    label: Start a return online
+    value: https://www.ikea.com/us/en/returns/
+    purposes: [refund_request]
+    source: https://www.ikea.com/us/en/customer-service/returns-claims/return-policy/
+    last_verified: 2026-10-13
+  - id: track-manage-order
+    type: portal
+    label: Track & Manage order (cancel or change an online order)
+    value: https://www.ikea.com/us/en/customer-service/track-manage-order/
+    purposes: [late_delivery, lost_package]
+    source: https://www.ikea.com/us/en/customer-service/faq/
+    last_verified: 2026-10-13
+  - id: store-returns-desk
+    type: in_person
+    label: Exchanges & returns desk at an IKEA store
+    value: https://www.ikea.com/us/en/stores/
+    purposes: [refund_request, damaged_item, warranty_claim]
+    notes: Bring the item, proof of purchase and a valid government-issued photo ID.
+    source: https://www.ikea.com/us/en/customer-service/returns-claims/troubleshooting/
+    last_verified: 2026-10-13
+  - id: contact-page
+    type: web_form
+    label: IKEA US Contact Us page
+    value: https://www.ikea.com/us/en/customer-service/support/
+    purposes: [poor_service]
+    source: https://www.ikea.com/us/en/customer-service/contact-us/
+    last_verified: 2026-10-13
+  - id: spare-parts
+    type: portal
+    label: Order spare parts (hardware with a 6-digit part number)
+    value: https://www.ikea.com/us/en/customer-service/returns-claims/spareparts/
+    purposes: [damaged_item]
+    source: https://www.ikea.com/us/en/customer-service/faq/
+    last_verified: 2026-10-13
+  - id: whirlpool-appliance-phone
+    type: phone
+    label: Whirlpool, for IKEA appliances bought more than 365 days ago
+    value: +1-866-664-2449
+    purposes: [warranty_claim]
+    source: https://www.ikea.com/us/en/customer-service/faq/
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-support-phone}
+  - {rung: supervisor}
+  - {rung: written_complaint}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: refund_request
+    summary: Unopened items within 365 days and opened items within 180 days, with proof of purchase and photo ID; refund to the original payment method.
+    evidence: [receipt or online order confirmation, government-issued photo ID, the card used for the purchase, the item]
+    steps:
+      - do: Take the item to the Exchanges & returns desk at an IKEA store, or start the return online.
+        channel: start-return
+      - do: For a delivered item that needs pick-up, or a small recent purchase you want to return by FedEx, call the Customer Support Center.
+        channel: customer-support-phone
+      - do: If IKEA refuses a refund you are owed, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: 'New, unopened products can be returned "within 365 days" with proof of purchase for a full refund; opened products within 180 days with proof of purchase.'
+        issues: [refund_request]
+        source: https://www.ikea.com/us/en/customer-service/returns-claims/
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: '"We do not accept returns on plants, cut fabric, custom countertops and as-is products." Items that were modified, or are dirty, stained or damaged, cannot be refunded or exchanged.'
+        issues: [refund_request]
+        source: https://www.ikea.com/us/en/customer-service/returns-claims/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: '"You must have your receipt and valid government issued photo ID" to return or exchange. Refunds go to the original form of payment, for the net price on the receipt; the value of an unreturned promotional item is deducted.'
+        issues: [refund_request]
+        source: https://www.ikea.com/us/en/customer-service/returns-claims/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Mattresses can be exchanged once within 90 days if not dirty, marked or damaged; a lower-priced replacement is refunded as an IKEA refund card.
+        issues: [refund_request]
+        source: https://www.ikea.com/us/en/customer-service/returns-claims/love-it-or-exchange-it-pub0eb41b20/
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: '"Shipping fees will not be refunded for returns." (Delivery terms, section 4.)'
+        issues: [refund_request]
+        source: https://www.ikea.com/us/en/customer-service/terms-conditions/delivery-terms-and-conditions-pub7aa7b291/
+        last_verified: 2026-10-13
+
+  - issue: damaged_item
+    summary: Inspect at delivery, note visible damage, and call within 48 hours; or bring the damaged item and proof of purchase to a store.
+    evidence: [order confirmation or receipt, photos of the damage, notes made at delivery]
+    steps:
+      - do: Inspect the delivery and note any visible packaging defects, damaged items or missing merchandise at delivery.
+      - do: Call the Customer Support Center within 48 hours of delivery.
+        channel: customer-support-phone
+      - do: Or bring the damaged item and proof of purchase to an IKEA store.
+        channel: store-returns-desk
+      - do: If only one part is damaged, ask for a replacement part.
+    facts:
+      - kind: deadline
+        claim: For damaged, missing or incorrect pieces, "please contact us at 1-888-888-4532 within 48 hours of your delivery." (Delivery terms, sections 1.3 and 2.2.)
+        issues: [damaged_item, lost_package]
+        source: https://www.ikea.com/us/en/customer-service/terms-conditions/delivery-terms-and-conditions-pub7aa7b291/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: If you accept a delivery without noting visible defects, "we may not be able to replace your items or refund your purchase." (Delivery terms, section 2.2.)
+        issues: [damaged_item]
+        source: https://www.ikea.com/us/en/customer-service/terms-conditions/delivery-terms-and-conditions-pub7aa7b291/
+        last_verified: 2026-10-13
+
+  - issue: lost_package
+    summary: Report missing items or an order that did not arrive to the Customer Support Center; missing pieces must be reported within 48 hours of delivery.
+    evidence: [order confirmation, delivery date]
+    steps:
+      - do: Call the Customer Support Center to report missing items.
+        channel: customer-support-phone
+      - do: Or bring the order confirmation to a store.
+        channel: store-returns-desk
+    facts:
+      - kind: contact
+        claim: '"To report missing items, please contact the IKEA US Customer Support Center at 1-888-888-4532."'
+        issues: [lost_package]
+        source: https://www.ikea.com/us/en/customer-service/faq/
+        last_verified: 2026-10-13
+
+  - issue: price_adjustment
+    summary: IKEA Family members get 90-Day Price Protection if the card was scanned (in store) or they were signed in (online).
+    evidence: [original receipt showing the IKEA Family card scan, or online order number]
+    steps:
+      - do: For an in-store purchase, bring the original receipt to an IKEA store.
+        channel: store-returns-desk
+      - do: For an online purchase made while signed in to IKEA Family, call to request the difference.
+        channel: customer-support-phone
+    facts:
+      - kind: policy
+        claim: '"If the price of an eligible product drops within 90 days of your purchase, we''ll refund you the difference." It applies only to IKEA Family members; the receipt must show the card was scanned, or the member was signed in for an online purchase. Services are not eligible.'
+        issues: [price_adjustment]
+        source: https://www.ikea.com/us/en/ikea-family/ikea-family-faq-pub89c591d0
+        last_verified: 2026-10-13
+
+  - issue: warranty_claim
+    summary: Product-specific limited warranties; contact the store with the original receipt. IKEA repairs or replaces.
+    evidence: [original purchase receipt, product name, photos of the fault]
+    steps:
+      - do: Check the product's warranty term on the warranties page, then contact your local IKEA store or the Customer Support Center with the receipt.
+        channel: customer-support-phone
+      - do: For an IKEA appliance bought more than 365 days ago, contact Whirlpool.
+        channel: whirlpool-appliance-phone
+    facts:
+      - kind: policy
+        claim: 'Warranties start on the purchase date and "The original purchase receipt is required as proof of purchase." IKEA decides coverage and will repair or replace; if the item is no longer sold, "IKEA will provide an appropriate replacement."'
+        issues: [warranty_claim]
+        source: https://www.ikea.com/us/en/customer-service/returns-claims/guarantee/
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: Examples from the warranties page, 25 years for SEKTION kitchen cabinet frames and fronts, UTRUSTA hinges and MAXIMERA drawers; 10 years for sofa and armchair frames and seat/back cushions (covers excluded); 5-year limited warranty for appliances.
+        issues: [warranty_claim]
+        source: https://www.ikea.com/us/en/customer-service/returns-claims/guarantee/
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: Warranties exclude incorrect assembly or installation, misuse, normal wear and tear, cuts, scratches, accidents and non-residential use unless stated; for appliances, cosmetic damage not reported within 30 days of purchase is excluded.
+        issues: [warranty_claim]
+        source: https://www.ikea.com/us/en/customer-service/returns-claims/guarantee/
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Store returns need a government-issued photo ID, which IKEA keeps in a database to authorize returns; an agent cannot complete these.

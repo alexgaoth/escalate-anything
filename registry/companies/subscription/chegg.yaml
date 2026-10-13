@@ -1,0 +1,67 @@
+id: chegg
+name: Chegg
+aliases: [chegg study, chegg study pack, chegg inc, chegg.com]
+sector: subscription
+website: https://www.chegg.com
+official_domains: [chegg.com]
+notes: chegg.com refused every automated fetch on 2026-10-13 (HTTP 403), so Chegg's Terms of Use and refund terms could not be read. The cancellation path below is from search-result text of Chegg's help article; confirm it in the account.
+regulators: [ftc]
+
+channels:
+  - id: account-orders
+    type: portal
+    label: 'Chegg website on a desktop or laptop: My Account > Orders > Cancel Subscription'
+    value: https://www.chegg.com
+    purposes: [cancel_service]
+    access: login
+    notes: Read from search-result text of Chegg's help article "How do I cancel my Chegg Study subscription?" on 2026-10-13; chegg.com blocked automated fetches. The direct URL of the Orders page was not verified, so this points to the home page.
+    source: https://www.chegg.com/en/contactus?a=How-do-I-cancel-my-Chegg-Study-subscription---id--LiAlcgGuQN6HnOLVkrpNgw
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: account-orders}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel on a desktop or laptop under My Account > Orders > Cancel Subscription, then confirm on the next page. Access continues to the end of the current billing period. Chegg offers a pause of up to six months instead.
+    evidence: [cancellation confirmation screen or email, billing date]
+    steps:
+      - do: On a desktop or laptop, sign in, go to My Account > Orders, find the subscription and click Cancel Subscription.
+        channel: account-orders
+        note: Read from search-result text of Chegg's help article on 2026-10-13; chegg.com blocked automated fetches.
+      - do: On the next page, click the orange Cancel Subscription button at the bottom to confirm. Chegg will offer "Pause instead"; decline it if you want to cancel. Keep a screenshot of the confirmation.
+      - do: If you are charged after cancelling, dispute the charge with your card issuer and keep the confirmation as evidence.
+    facts:
+      - kind: process
+        claim: Chegg's help article says to cancel on a desktop or laptop via My Account > Orders > Cancel Subscription, then confirm with the orange Cancel Subscription button; after cancelling you will not be charged again and keep access for the rest of the current billing period. A pause of up to six months is offered instead. Read from search-result text on 2026-10-13; chegg.com blocked automated fetches.
+        issues: [cancel_service]
+        source: https://www.chegg.com/en/contactus?a=How-do-I-cancel-my-Chegg-Study-subscription---id--LiAlcgGuQN6HnOLVkrpNgw
+        last_verified: 2026-10-13
+
+  - issue: privacy_request
+    summary: A 2023 FTC order requires Chegg to let users request access to, and deletion of, their data and to offer multifactor authentication.
+    evidence: [Chegg account email, date of request]
+    steps:
+      - do: Ask Chegg in writing for a copy of your data or for deletion, and keep the date and any reference number. If Chegg does not act, report it to the FTC.
+        regulator: ftc
+    facts:
+      - kind: policy
+        claim: 'The FTC''s final order (announced January 27, 2023) requires Chegg to "allow users to request access to and deletion of their data," to "offer users multifactor authentication to secure their accounts," to limit the data it collects and retains, and to run a comprehensive information security program.'
+        issues: [privacy_request, account_access]
+        source: https://www.ftc.gov/news-events/news/press-releases/2023/01/ftc-finalizes-order-ed-tech-provider-chegg-lax-security-exposed-student-data
+        last_verified: 2026-10-13
+
+facts:
+  - kind: policy
+    claim: The FTC alleged (October 31, 2022) that Chegg's data security failures exposed information about millions of customers and employees, including a 2018 breach of a cloud database holding about 40 million customers' data. Exposed customer data included names, email addresses and passwords, and for some users scholarship data.
+    issues: [privacy_request, account_access]
+    source: https://www.ftc.gov/news-events/news/press-releases/2022/10/ftc-brings-action-against-ed-tech-provider-chegg-careless-security-exposed-personal-data-millions
+    last_verified: 2026-10-13
+
+known_blockers:
+  - chegg.com blocked automated fetches on 2026-10-13. No Chegg refund terms, phone number, chat link or Terms of Use text are recorded here.
+  - Cancelling needs sign-in, and Chegg's help article says to use a desktop or laptop.

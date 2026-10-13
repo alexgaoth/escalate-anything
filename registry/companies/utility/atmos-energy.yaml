@@ -1,0 +1,280 @@
+id: atmos-energy
+name: Atmos Energy Corporation
+aliases: [Atmos Energy, Atmos]
+sector: utility
+website: https://www.atmosenergy.com
+account_url: https://www.atmosenergy.com/accountcenter/logon/login.html
+notes: >-
+  Natural gas distribution utility in eight states: Colorado, Kansas, Kentucky, Louisiana, Mississippi,
+  Tennessee, Texas and Virginia. One customer service number serves all states. Each state has its own
+  regulator and rules: Colorado Public Utilities Commission, Kansas Corporation Commission, Kentucky Public
+  Service Commission, Louisiana Public Service Commission, Mississippi Public Service Commission, Tennessee
+  Public Utility Commission, Virginia State Corporation Commission, and in Texas the Railroad Commission of
+  Texas (RRC), which regulates gas utilities there (not the Public Utility Commission of Texas). In Texas,
+  customers inside city limits complain to their city; the RRC has original jurisdiction outside city
+  limits. Disconnection protections differ by state; the facts below say which state each covers.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer Support Center (all states)
+    value: +1-888-286-6700
+    hours: "Mon-Fri 7 a.m.-6 p.m. Central"
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, poor_service]
+    notes: The claims page says billing concerns and complaints are not claims and go to this number.
+    source: https://www.atmosenergy.com/company/contact-us
+    last_verified: 2026-10-13
+  - id: emergency-phone
+    type: phone
+    label: 24-hour gas emergency line (leave the area first; call 911 and Atmos Energy from a safe distance)
+    value: +1-866-322-8667
+    hours: 24/7
+    source: https://www.atmosenergy.com/company/contact-us
+    last_verified: 2026-10-13
+  - id: relay-service
+    type: phone
+    label: Speech and hearing impaired (Telecommunications Relay Services)
+    value: "711"
+    source: https://www.atmosenergy.com/company/contact-us
+    last_verified: 2026-10-13
+  - id: complaint-form
+    type: web_form
+    label: Compliments and complaints form
+    value: https://www.atmosenergy.com/accountcenter/complimentcomplaint/complimentComplaintAction.html
+    purposes: [billing_error, poor_service]
+    access: open
+    notes: Name, email and phone are required; account number is optional. Subjects include "Rereads / High bill concerns", "Budget Billing" and "General billing question". No sign-in or CAPTCHA was seen.
+    source: https://www.atmosenergy.com/company/contact-us
+    last_verified: 2026-10-13
+  - id: customer-care-mail
+    type: mail
+    label: Customer Care by mail
+    value: "Atmos Energy Corporation, Attn: Customer Care, P.O. Box 650205, Dallas, Texas 75265-0205"
+    purposes: [billing_error, poor_service]
+    source: https://www.atmosenergy.com/company/contact-us
+    last_verified: 2026-10-13
+  - id: payment-mail
+    type: mail
+    label: Bill payments by mail (address is for paying bills only)
+    value: "PO Box 740353, Cincinnati, OH 45274-0353"
+    source: https://www.atmosenergy.com/company/contact-us
+    last_verified: 2026-10-13
+  - id: account-center
+    type: portal
+    label: Account Center (installment plan under the Payment Assistance tab, Budget Billing, balance check)
+    value: https://www.atmosenergy.com/accountcenter/logon/login.html
+    purposes: [disconnection, payment_assistance]
+    access: login
+    source: https://www.atmosenergy.com/bill-assistance/
+    last_verified: 2026-10-13
+  - id: bill-assistance-page
+    type: web_form
+    label: Bill payment assistance (installment plans, state programs, LIHEAP links)
+    value: https://www.atmosenergy.com/bill-assistance/
+    purposes: [payment_assistance, disconnection]
+    access: open
+    source: https://www.atmosenergy.com/bill-assistance/
+    last_verified: 2026-10-13
+  - id: commercial-payment-plan-email
+    type: email
+    label: Business accounts - installment plan requests
+    value: commercialpaymentplan@atmosenergy.com
+    purposes: [payment_assistance]
+    source: https://www.atmosenergy.com/bill-assistance/
+    last_verified: 2026-10-13
+  - id: claims-page
+    type: web_form
+    label: Claims process (online claim form, or PDF forms for property damage, personal injury, business interruption and expense reimbursement)
+    value: https://www.atmosenergy.com/customer-service/claims-process
+    purposes: [property_damage_claim]
+    access: open
+    notes: The online form is hosted on live.origamirisk.com through a tokenized link on the claims page. Each claimant must sign and date a PDF form.
+    source: https://www.atmosenergy.com/customer-service/claims-process
+    last_verified: 2026-10-13
+  - id: claims-email
+    type: email
+    label: Claims Department (submit claim form and documents; general claim questions)
+    value: claims@atmosenergy.com
+    purposes: [property_damage_claim]
+    source: https://www.atmosenergy.com/customer-service/claims-process
+    last_verified: 2026-10-13
+  - id: claims-mail
+    type: mail
+    label: Claims Department by mail
+    value: "Atmos Energy Corporation, Attention: Claims Department, P.O. Box 650205, Dallas, Texas 75265-0205"
+    purposes: [property_damage_claim]
+    source: https://www.atmosenergy.com/customer-service/claims-process
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, note: "Ask the Customer Support Associate for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, channel: complaint-form}
+  - {rung: state_agency, agency_kind: utility_commission, note: "The commission in your state (see notes). Texas: inside city limits, complain to the city; outside city limits, Railroad Commission of Texas Gas Services Department, 512-463-7164, toll 877-228-5740, gascomplaints@rrc.texas.gov. The RRC encourages customers to complain to the utility first. Virginia: payment plan disputes can be filed with the State Corporation Commission."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "The attorney general of your state."}
+
+playbooks:
+  - issue: billing_error
+    summary: Ask Atmos Energy for a re-read or bill review, put the complaint in writing, then go to your state's commission (in Texas, the city or the Railroad Commission).
+    evidence: [the disputed bill, earlier bills, meter photos with dates, notes of calls with reference numbers]
+    steps:
+      - do: Call the Customer Support Center and ask whether the reading was actual or estimated. Ask for a re-read or a correction.
+        channel: customer-service-phone
+      - do: Send the complaint in writing with the "Rereads / High bill concerns" subject. Keep a copy.
+        channel: complaint-form
+      - do: If it is not fixed, complain to your state's commission. In Texas, complain to the city if you live inside city limits, or to the Railroad Commission if outside.
+    facts:
+      - kind: policy
+        claim: If Atmos Energy cannot read the meter, the bill is calculated from past usage; any over- or under-charge is corrected the following month. Residential meters are read monthly.
+        issues: [billing_error]
+        source: https://www.atmosenergy.com/company/frequently-asked-questions/
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: "Texas (RRC Quality of Service rule): if a meter test shows the meter is more than nominally defective, the utility must correct readings for the last six months or since the last meter test, whichever is shorter. A meter that did not register may be back-billed for no more than three months. Estimates are allowed if an actual reading is taken at least every six months."
+        issues: [billing_error]
+        source: https://www.rrc.texas.gov/media/24ljizyq/osd-gs-customer-information-regarding-your-natural-gas-bill.pdf
+        last_verified: 2026-10-13
+      - kind: process
+        claim: "Texas: after a complaint to the Railroad Commission, the gas utility must give the Commission an initial response by the next working day and a final response within 15 days, unless more time is needed. Customers inside city limits must file with the city."
+        issues: [billing_error, disconnection]
+        source: https://www.rrc.texas.gov/media/24ljizyq/osd-gs-customer-information-regarding-your-natural-gas-bill.pdf
+        last_verified: 2026-10-13
+
+  - issue: disconnection
+    summary: Set up an installment plan before the termination date. Kansas and Texas have winter weather protections; rules differ by state.
+    evidence: [termination notice, account balance, assistance agency application or pledge]
+    steps:
+      - do: Before the termination date, set up an installment plan in the Account Center (Payment Assistance tab) or by phone. There is no fee.
+        channel: account-center
+      - do: Pay so the payment posts by the workday before the scheduled termination date.
+      - do: Apply for help through your state's assistance agency or call 211.
+        channel: bill-assistance-page
+      - do: If Atmos Energy refuses a plan the state rules require, contact your state's commission before the termination date.
+    facts:
+      - kind: deadline
+        claim: Atmos Energy will not terminate service on the date on the notice if the payment is posted by the workday before the scheduled termination date.
+        issues: [disconnection]
+        source: https://www.atmosenergy.com/company/frequently-asked-questions/
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: After a disconnection for nonpayment, the customer may have to pay the entire balance, a reconnection fee, a returned check fee and a new or increased deposit before service is restored. Atmos Energy gives the amounts at 888-286-6700.
+        issues: [disconnection]
+        source: https://www.atmosenergy.com/company/frequently-asked-questions/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Kansas Cold Weather Rule (November 1 through March 31, residential customers of KCC-regulated electric, natural gas and water utilities): no disconnection when the temperature is forecast to drop below 35 degrees Fahrenheit. The KCC Cold Weather Rule page says within the following 48-hour period; the KCC FAQ page says 24-hour period."
+        issues: [disconnection]
+        source: https://kcc.ks.gov/consumer-information/cold-weather-rule
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Kansas Cold Weather Rule payment plan: pay 1/12 of the overdue amount plus 1/12 of the current bill, plus disconnection and reconnection fees and any applicable deposit, then the rest in equal payments over 11 months."
+        issues: [disconnection, payment_assistance]
+        source: https://kcc.ks.gov/consumer-information/cold-weather-rule
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Texas: Railroad Commission rule 16 TAC 7.460 suspends gas utility disconnections during an extreme weather emergency. Amendments effective December 5, 2023 added a civil penalty table for disconnecting residential customers during such an emergency."
+        issues: [disconnection]
+        source: https://www.rrc.texas.gov/media/psxhjfrk/plain-lang-summ-adopted-7-460-english-111723.pdf
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: "Texas: gas bills are due no later than 15 days from the bill date. The RRC says to contact the utility for payment arrangements before the bill is due or before service is shut off, and to pay arrangements on time."
+        issues: [disconnection]
+        source: https://www.rrc.texas.gov/media/24ljizyq/osd-gs-customer-information-regarding-your-natural-gas-bill.pdf
+        last_verified: 2026-10-13
+
+  - issue: payment_assistance
+    summary: Atmos Energy offers fee-free installment plans and Budget Billing; bill help comes from state agencies and Sharing the Warmth through local agencies.
+    evidence: [current bill, household income documents, LIHEAP or agency approval]
+    steps:
+      - do: Set up an installment plan in the Account Center (Payment Assistance tab) or by phone.
+        channel: account-center
+      - do: Find your state's energy assistance agency on the bill assistance page or by calling 211. Apply early; funds are first come, first served.
+        channel: bill-assistance-page
+      - do: In Colorado, apply for LEAP or Energy Outreach Colorado; that funding is needed before enrolling in the Percentage of Income Payment Plan.
+    facts:
+      - kind: fee
+        claim: Atmos Energy installment plans spread a balance over time with no charge or fee. In Louisiana, installment plans allow up to 12 months to repay.
+        issues: [payment_assistance, disconnection]
+        source: https://www.atmosenergy.com/bill-assistance/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: In Kansas, Kentucky, Mississippi, Tennessee, Texas and Virginia, financial help is available on a first-come, first-served basis to eligible residential customers through the state agency for each state. In Virginia, payment plan disputes can be filed with the State Corporation Commission.
+        issues: [payment_assistance]
+        source: https://www.atmosenergy.com/bill-assistance/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Colorado: the Percentage of Income Payment Plan gives a fixed bill credit based on an affordable percentage of household income. The customer must first get funding through LEAP, Energy Outreach Colorado, the Colorado Energy Office or the PUC Utility Bill Help Program. LEAP heating season applications run November 1 through April 30 (Heat Help Line 866-432-8435)."
+        issues: [payment_assistance]
+        source: https://www.atmosenergy.com/bill-assistance/
+        last_verified: 2026-10-13
+      - kind: compensation
+        claim: Sharing the Warmth donations go to local non-profit agencies that help eligible customers pay gas bills; Atmos Energy says more than $4.9 million was donated through the program in 2025. The local agency decides eligibility.
+        issues: [payment_assistance]
+        source: https://www.atmosenergy.com/bill-assistance/
+        last_verified: 2026-10-13
+
+  - issue: property_damage_claim
+    summary: If you think Atmos Energy caused damage or injury, file a claim with the signed form and supporting documents; a licensed adjuster then contacts you.
+    evidence: [photos, repair estimates or invoices, receipts, dates, any service order or incident number]
+    steps:
+      - do: File the claim online, or download the PDF form for your type of claim; each claimant signs and dates it.
+        channel: claims-page
+      - do: Send the form and supporting documents by email or mail.
+        channel: claims-email
+      - do: Answer the adjuster's requests for documents promptly. Billing complaints are not claims; take those to customer service.
+      - do: If the claim is denied and you disagree, ask for the reason in writing, then contact your state's commission.
+    facts:
+      - kind: policy
+        claim: Atmos Energy accepts property damage, personal injury and business interruption claims when the customer thinks the company is responsible. Damage caused by Acts of God or third parties is generally not eligible, and some losses are excluded by laws, regulations or tariffs.
+        issues: [property_damage_claim]
+        source: https://www.atmosenergy.com/customer-service/claims-process
+        last_verified: 2026-10-13
+      - kind: process
+        claim: After a claim is submitted, one of Atmos Energy's licensed adjusters contacts the claimant by phone or email. The claims page states no filing deadline.
+        issues: [property_damage_claim]
+        source: https://www.atmosenergy.com/customer-service/claims-process
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Installment plans, Budget Billing and balance checks in the Account Center need a sign-in.
+  - The online claim form is a tokenized third-party link (live.origamirisk.com); start from the claims page.
+  - Atmos Energy's own pages give no state-by-state disconnection notice periods or medical certificate rules; ask Atmos Energy or the state commission.
+
+official_domains: [atmosenergy.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Atmos Energy employees will not collect payments in person.
+      source: https://www.atmosenergy.com/customer-service/beware-utility-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Atmos Energy will not demand payment by prepaid debit card, gift card, cryptocurrency, or an unauthorized third-party payment or mobile application.
+      source: https://www.atmosenergy.com/customer-service/beware-utility-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Atmos Energy will not try to contact customers after business hours unless there is an emergency or to turn gas service on after an outage.
+      source: https://www.atmosenergy.com/customer-service/beware-utility-scams
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Callers pose as utility employees and demand immediate payment of a past-due balance, or offer a discount if the bill is paid immediately over the phone.
+      source: https://www.atmosenergy.com/customer-service/beware-utility-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Fake websites rank high in search results and fake toll-free numbers pose as Atmos Energy customer service. Atmos Energy says to check the balance in the Account Center instead.
+      source: https://www.atmosenergy.com/customer-service/beware-utility-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Bogus emails ask for immediate payment of the bill, and impostors come to the door posing as employees. Atmos Energy says to ask for the employee badge and call Atmos Energy to verify.
+      source: https://www.atmosenergy.com/customer-service/beware-utility-scams
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: scam-verify-phone
+      type: phone
+      label: Verify a caller or employee, or report a suspected scam (also contact local law enforcement)
+      value: +1-888-286-6700
+      hours: "Mon-Fri 7 a.m.-6 p.m. Central"
+      notes: The scams page lists no reporting email or online form.
+      source: https://www.atmosenergy.com/customer-service/beware-utility-scams
+      last_verified: 2026-10-13

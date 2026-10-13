@@ -1,0 +1,112 @@
+id: bjs-wholesale
+name: BJ's Wholesale Club
+aliases: [bj's, bjs, bjs.com, bj's wholesale, bjs wholesale club, bj's membership, bj's easy renewal]
+sector: retail
+also_sectors: [subscription]
+website: https://www.bjs.com
+official_domains: [bjs.com]
+regulators: [ftc]
+notes: >-
+  BJ's is a paid-membership warehouse club. Membership auto-renews each year through Easy Renewal.
+  On 2026-10-13 bjs.com and help.bjs.com returned HTTP 403 to automated fetches, so every value in
+  this file was read from search-result text of the named BJ's pages, not from the pages
+  themselves. Recheck before relying on them. No BJ's page on phishing or impersonation scams was
+  read.
+
+channels:
+  - id: member-care-phone
+    type: phone
+    label: BJ's Member Care (800-BJS-CLUB)
+    value: +1-800-257-2582
+    hours: Mon-Fri 8am-7pm, Sat 8am-6pm, Sun 12pm-6pm ET
+    purposes: [cancel_service, refund_request, damaged_item, lost_package, billing_error, unauthorized_charge]
+    notes: Read from search-result text of the BJ's Help Center on 2026-10-13; the site blocked automated fetches. Have the membership number ready.
+    source: https://help.bjs.com/hc/en-us
+    last_verified: 2026-10-13
+  - id: help-chat
+    type: chat
+    label: BJ's online help and chat
+    value: https://www.bjs.com/help
+    purposes: [cancel_service, refund_request, damaged_item, lost_package]
+    notes: Read from search-result text of the BJ's cancellation article on 2026-10-13; the site blocked automated fetches.
+    source: https://www.bjs.com/help/how-do-i-cancel-my-membership-/
+    last_verified: 2026-10-13
+  - id: customer-care-email
+    type: email
+    label: BJ's Customer Care email
+    value: CustomerCare@bjs.com
+    purposes: [cancel_service, refund_request]
+    notes: Read from search-result text of the BJ's cancellation article on 2026-10-13; the site blocked automated fetches.
+    source: https://www.bjs.com/help/how-do-i-cancel-my-membership-/
+    last_verified: 2026-10-13
+  - id: membership-mail
+    type: mail
+    label: Cancel membership by mail
+    value: BJ's Wholesale Club, Inc., Attn. Membership, P.O. Box 9157, Marlborough, MA 01752
+    purposes: [cancel_service, refund_request]
+    notes: Read from search-result text of the BJ's money-back guarantee article on 2026-10-13; the site blocked automated fetches.
+    source: https://help.bjs.com/hc/en-us/articles/26709903274004-What-is-BJ-s-membership-money-back-guarantee
+    last_verified: 2026-10-13
+  - id: member-services-desk
+    type: in_person
+    label: Member services desk at any BJ's club
+    value: Any BJ's Wholesale Club location, member services desk
+    purposes: [cancel_service, refund_request, damaged_item]
+    notes: Read from search-result text on 2026-10-13; the site blocked automated fetches.
+    source: https://help.bjs.com/hc/en-us/articles/26709903274004-What-is-BJ-s-membership-money-back-guarantee
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: member-care-phone}
+  - {rung: supervisor, channel: member-services-desk}
+  - {rung: written_complaint, channel: customer-care-email}
+  - {rung: payment_dispute, note: "Card dispute for a membership charge after a cancellation."}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel at a club, by phone, chat, email or mail and ask for the current-period fee refund (first cancellation only); turning off Easy Renewal is separate and should be done at least 3 business days before the renewal billing date.
+    evidence: [membership number, renewal billing date and amount, cancellation confirmation]
+    steps:
+      - do: Cancel at the member services desk, by calling 800-BJS-CLUB, through chat, by email or by mail, and ask for a refund of the fees paid for the current membership period.
+        channel: member-care-phone
+      - do: To stop only the next renewal, opt out of Easy Renewal at the member services desk, on BJs.com, or by phone. This does not cancel the membership.
+        channel: member-services-desk
+      - do: Do either at least 3 business days before the renewal billing date.
+      - do: Dispute any renewal charge made after a confirmed cancellation with your card issuer.
+    facts:
+      - kind: policy
+        claim: A dissatisfied primary member can cancel at any time and get a refund of the fees paid for the current membership period. Refunds are not paid for second or subsequent cancellations; upgrade and add-on fees are not refunded; cancelling forfeits all rewards balances. Read from search-result text on 2026-10-13; the page blocked automated fetches.
+        issues: [cancel_service, refund_request]
+        source: https://help.bjs.com/hc/en-us/articles/26709903274004-What-is-BJ-s-membership-money-back-guarantee
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: '"Complete the cancellation at least 3 business days prior to your renewal billing date to ensure that you are not charged." Turning off Easy Renewal is separate from cancelling the membership. Read from search-result text on 2026-10-13; the page blocked automated fetches.'
+        issues: [cancel_service]
+        source: https://help.bjs.com/hc/en-us/articles/26709012696596-How-do-I-opt-out-of-Easy-Renewal
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: Most items within 365 days in new condition with accessories, electronics within 90 days, with proof of purchase; refunds go to the original form of payment.
+    evidence: [membership card, receipt or order number, the item with all accessories]
+    steps:
+      - do: Return the item with proof of purchase at the member services desk of any club, or contact Member Care for an online order.
+        channel: member-services-desk
+      - do: For a membership fee refund, use the cancel_service steps.
+        channel: member-care-phone
+      - do: If BJ's refuses a refund you are owed, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: '"BJ''s accepts returns on most items within 365 days of purchase, unless otherwise specified. Items must be returned in new condition with all accessories intact." Electronics have a 90-day window; Final Sale items are non-refundable. Read from search-result text on 2026-10-13; the page blocked automated fetches.'
+        issues: [refund_request]
+        source: https://www.bjs.com/info/returns/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: '"All returns require proof of purchase." "All refunds are issued to the original form of payment." Read from search-result text on 2026-10-13; the page blocked automated fetches.'
+        issues: [refund_request]
+        source: https://www.bjs.com/info/returns/
+        last_verified: 2026-10-13
+
+known_blockers:
+  - bjs.com and help.bjs.com block automated fetches (HTTP 403); online cancellation and Easy Renewal changes need the member's sign-in.

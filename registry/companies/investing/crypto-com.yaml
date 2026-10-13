@@ -1,0 +1,66 @@
+id: crypto-com
+name: Crypto.com
+aliases: [crypto com, cryptocom, foris dax, crypto.com app, crypto.com exchange]
+sector: investing
+website: https://crypto.com
+official_domains: [crypto.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Crypto.com says it will never send you a link to install software on your device, and will never remotely access your account or device.
+      source: https://help.crypto.com/en/articles/6484926-avoiding-digital-currency-scams
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Crypto.com warns of investment scams that resemble Ponzi or pyramid schemes, romance scams that build a relationship before asking for money, and "pig butchering" scams that combine the two.
+      source: https://help.crypto.com/en/articles/6484926-avoiding-digital-currency-scams
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: support-chat
+      type: chat
+      label: Report a suspected scam or impersonation to Crypto.com Customer Support
+      value: https://chat.crypto.com
+      purposes: [fraud]
+      source: https://help.crypto.com/en/articles/6484926-avoiding-digital-currency-scams
+      last_verified: 2026-10-13
+regulators: [cfpb, ftc]
+notes: >-
+  CFPB complaints about the U.S. Crypto.com app are filed under "Foris DAX, Inc.". Crypto.com's published
+  Complaints Handling Policy covers Foris DAX MT Limited (EEA, escalation to Malta's financial arbiter); we
+  found no U.S. complaint procedure, U.S. phone number or U.S. complaint address.
+
+channels:
+  - id: support-chat
+    type: chat
+    label: Customer Support chat (web or in-app chat in the Crypto.com App)
+    value: https://chat.crypto.com
+    purposes: [fraud, account_access, frozen_funds, account_transfer, unauthorized_charge, poor_service]
+    source: https://help.crypto.com/en/articles/6484926-avoiding-digital-currency-scams
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: support-chat}
+  - {rung: written_complaint, channel: support-chat, note: "Ask for the complaint to be logged and keep the reference."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+
+playbooks:
+  - issue: fraud
+    summary: Report the scam in chat at once, report to law enforcement and the FTC, and expect crypto sent to a scammer to be hard to recover.
+    evidence: [transaction IDs and wallet addresses, screenshots of the scammer's messages, police or FTC report number]
+    steps:
+      - do: Report the scam to Crypto.com Customer Support through chat.
+        channel: support-chat
+      - do: Report it to local law enforcement. Crypto.com says it works with any agency that contacts it.
+      - do: Report it to the FTC at ReportFraud.ftc.gov.
+        regulator: ftc
+      - do: If Crypto.com does not respond, file with the CFPB.
+        regulator: cfpb
+
+facts:
+  - claim: The CFPB received 212 complaints about Foris DAX, Inc. from July 1, 2025 to June 30, 2026. 206 were closed with explanation, 3 with monetary relief and 2 with non-monetary relief; 12 responses were not timely. The top issue was fraud or scam (59).
+    source: https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/?company=Foris%20DAX%2C%20Inc.&date_received_min=2025-07-01&date_received_max=2026-06-30&size=0
+    last_verified: 2026-10-13
+
+known_blockers:
+  - Support is by chat; no U.S. phone line or complaint address is published.

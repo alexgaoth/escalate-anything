@@ -1,0 +1,224 @@
+id: ppl-electric
+name: PPL Electric Utilities
+aliases: [PPL, PPL Electric]
+sector: utility
+parent: PPL Corporation
+website: https://www.pplelectric.com
+account_url: https://selfserve.pplelectric.com/account-summary/
+notes: >-
+  Electric distribution utility in central and eastern Pennsylvania. Regulated by the Pennsylvania Public
+  Utility Commission (PUC), Bureau of Consumer Services. pplelectric.com pages render only with JavaScript and
+  return no text to automated fetches, so values below come from PPL's own blog (stories.pplelectric.com),
+  PA PUC pages, and search-result summaries of pplelectric.com where noted. Customers who buy supply from a
+  competitive supplier still call PPL for outages, delivery charges and shutoff questions.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service (1-800-DIAL-PPL), also used to verify calls and report scams
+    value: +1-800-342-5775
+    hours: "Mon-Fri 8 a.m.-5 p.m. for representatives (see notes)"
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, service_outage, deposit_refund, poor_service]
+    notes: >-
+      Hours come from PPL Care replies on stories.pplelectric.com and from a search-result summary of
+      https://pplelectric.com/contact (a JavaScript page). That summary also says downed wires can be reported on
+      this number 24/7 (say "downed power line"). For billing, say "billing" at the prompts; for OnTrack, say "OnTrack".
+    source: https://stories.pplelectric.com/2026/02/25/national-consumer-protection-week-how-to-spot-and-avoid-utility-scams/
+    last_verified: 2026-10-13
+  - id: payment-arrangements-phone
+    type: phone
+    label: Payment arrangements line
+    value: +1-800-358-6623
+    purposes: [disconnection, payment_assistance]
+    notes: Given in a PPL reply in the comments of this PPL blog post, not in the post body. If it does not work, use 1-800-342-5775.
+    source: https://stories.pplelectric.com/2025/01/29/payment-support-for-every-household/
+    last_verified: 2026-10-13
+  - id: letters-mail
+    type: mail
+    label: Mailing address for letters (not for payments)
+    value: PPL Electric Utilities, 827 Hausman Road, Allentown, PA 18104-9392
+    purposes: [billing_error, disconnection, poor_service]
+    notes: >-
+      Seen only in a search-result summary of the PPL contact page, which needs JavaScript. The same summary gives
+      PO Box 419054, St. Louis, MO 63141-9054 as the payment address. Confirm the address on your bill before mailing.
+    source: https://pplelectric.com/contact
+    last_verified: 2026-10-13
+  - id: assistance-programs
+    type: portal
+    label: Assistance programs (OnTrack, Operation HELP, WRAP, LIHEAP, payment arrangements, budget billing)
+    value: https://pplelectric.com/site/Ways-to-Save/Assistance-Programs
+    purposes: [payment_assistance, disconnection]
+    source: https://www.puc.pa.gov/about-the-puc/consumer-education/utility-assistance-programs/
+    last_verified: 2026-10-13
+  - id: bill-toolkit
+    type: portal
+    label: Bill Toolkit (payment arrangement, OnTrack, Operation HELP, budget billing)
+    value: https://pplelectric.com/site/Ways-to-Save/Bill-Toolkit
+    purposes: [payment_assistance]
+    source: https://stories.pplelectric.com/2026/06/01/get-ready-for-summer-with-our-bill-toolkit/
+    last_verified: 2026-10-13
+  - id: my-account
+    type: portal
+    label: My Account (apply for help with "Get help paying", payment arrangements, budget billing)
+    value: https://selfserve.pplelectric.com/account-summary/
+    access: login
+    purposes: [payment_assistance, disconnection, billing_error]
+    notes: PPL's blog says to sign in and click "Get help paying" to apply online.
+    source: https://stories.pplelectric.com/2025/02/03/were-answering-your-top-10-questions/
+    last_verified: 2026-10-13
+  - id: outages-page
+    type: portal
+    label: Outages and Issues (report an outage, outage status)
+    value: https://www.pplelectric.com/site/Outages-and-Issues/
+    purposes: [service_outage]
+    source: https://stories.pplelectric.com/2026/06/01/get-ready-for-summer-with-our-bill-toolkit/
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, channel: customer-service-phone, note: "PPL does not publish a separate escalation line. Ask the representative for a supervisor and a reference number."}
+  - {rung: written_complaint, channel: letters-mail}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Pennsylvania Public Utility Commission (PUC), 1-800-692-7380. The PUC says you must contact the utility before you file a complaint; use the informal complaint process first."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Pennsylvania Office of Attorney General, Bureau of Consumer Protection."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the bill with PPL first and get a reference number; if not resolved, file an informal complaint with the PA PUC.
+    evidence: [the disputed bill, earlier bills, meter photos with dates, call notes with reference numbers]
+    steps:
+      - do: Call PPL and say "billing" at the prompts. Ask whether the reading was actual or estimated and ask for a correction. Get a reference number.
+        channel: customer-service-phone
+      - do: If the call does not fix it, write to PPL with the account number, the charge and the correction you want.
+        channel: letters-mail
+      - do: If PPL still does not fix it, file an informal complaint with the PA PUC online or by phone.
+    facts:
+      - kind: process
+        claim: The PA PUC says that for most concerns you must contact the utility before you file a complaint through the PUC, and recommends the informal complaint process first.
+        issues: [billing_error, disconnection, poor_service]
+        source: https://www.puc.pa.gov/complaints/
+        last_verified: 2026-10-13
+
+  - issue: disconnection
+    summary: Call PPL before the shutoff date for a payment arrangement or OnTrack; use a medical certificate if someone is seriously ill; Pennsylvania's winter rules run December 1 to March 31.
+    evidence: [termination notice, account number, medical certificate from a licensed physician, physician assistant or nurse practitioner, household income documents]
+    steps:
+      - do: Call PPL at once and ask for a payment arrangement. Ask whether you qualify for OnTrack.
+        channel: customer-service-phone
+      - do: If someone in the household is seriously ill, have a licensed physician, physician assistant or nurse practitioner send PPL a medical certificate. Keep paying what you can.
+      - do: Apply for a LIHEAP grant, which PPL says can help prevent a shut-off.
+        channel: assistance-programs
+      - do: If PPL will not offer an arrangement you can pay, call the PA PUC hotline (1-800-692-7380) before the shutoff date.
+    facts:
+      - kind: deadline
+        claim: "Pennsylvania (PUC fact sheet, February 2026): before disconnection the utility sends a 10-day notice and attempts contact at least three days before the disconnection date. A termination notice is valid for 60 days; termination can occur any time between day 11 and day 60 after the notice."
+        issues: [disconnection]
+        source: https://www.puc.pa.gov/media/3827/26_protections_for_responsible_utility_customers_020426.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Pennsylvania (PUC fact sheet): the Winter Moratorium protects consumers from utility termination between December 1 and March 31, but service can be terminated in winter without PUC approval if the customer fails to be a responsible utility customer or has income outside the utility's income-qualifying guidelines."
+        issues: [disconnection]
+        source: https://www.puc.pa.gov/media/3827/26_protections_for_responsible_utility_customers_020426.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Pennsylvania (PUC fact sheet): service will not be disconnected while a household member is certified as seriously ill by a licensed physician, physician assistant or nurse practitioner. Initial medical certification can last up to 30 days, with extension of up to an additional 60 days. The customer must keep paying the bill."
+        issues: [disconnection]
+        source: https://www.puc.pa.gov/media/3827/26_protections_for_responsible_utility_customers_020426.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Pennsylvania (PUC fact sheet): the utility must offer one payment arrangement and may be required to offer another; the PUC may be able to establish one payment arrangement. The PUC cannot set a payment arrangement on CAP arrears."
+        issues: [disconnection, payment_assistance]
+        source: https://www.puc.pa.gov/media/3827/26_protections_for_responsible_utility_customers_020426.pdf
+        last_verified: 2026-10-13
+      - kind: process
+        claim: The PUC fact sheet says to contact the utility first to file a complaint or make payment arrangements; if there is no resolution, you may decline the arrangement and file a complaint with the PUC (1-800-692-7380).
+        issues: [disconnection, billing_error]
+        source: https://www.puc.pa.gov/media/3827/26_protections_for_responsible_utility_customers_020426.pdf
+        last_verified: 2026-10-13
+
+  - issue: payment_assistance
+    summary: PPL offers payment arrangements, budget billing and due date extensions to everyone, and OnTrack, Operation HELP, WRAP and LIHEAP to income-eligible households.
+    evidence: [current bill, household income documents for all members]
+    steps:
+      - do: Check the Bill Toolkit or the assistance programs page, or sign in and click "Get help paying".
+        channel: bill-toolkit
+      - do: Call PPL and say "OnTrack" at the prompts to ask about the income-based payment plan.
+        channel: customer-service-phone
+      - do: If you already have OnTrack, also apply for a LIHEAP grant.
+        channel: assistance-programs
+    facts:
+      - kind: policy
+        claim: "PPL (January 2025): payment arrangements let customers pay a past-due balance over time; budget billing averages the last 12 months of use; customers who are current can apply for a due date extension."
+        issues: [payment_assistance]
+        source: https://stories.pplelectric.com/2025/01/29/payment-support-for-every-household/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "PPL (January 2025): OnTrack gives income-eligible customers a fixed monthly payment based on income and may include debt forgiveness; LIHEAP offers grants up to $2,000 to help pay winter heating bills or prevent a shut-off."
+        issues: [payment_assistance, disconnection]
+        source: https://stories.pplelectric.com/2025/01/29/payment-support-for-every-household/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: PPL says a customer does not need to be past due to apply for help, and that a LIHEAP grant larger than the monthly OnTrack payment is applied to the bill each month until the credit is used up.
+        issues: [payment_assistance]
+        source: https://stories.pplelectric.com/2025/02/03/were-answering-your-top-10-questions/
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: "Pennsylvania CAP income limits effective January 2026 (150% of federal poverty guidelines, monthly household income): 1 person $1,995; 2 $2,705; 3 $3,415; 4 $4,125; add $710 for each additional person."
+        issues: [payment_assistance]
+        source: https://www.puc.pa.gov/about-the-puc/consumer-education/utility-assistance-programs/
+        last_verified: 2026-10-13
+
+  - issue: service_outage
+    summary: Report outages online or by phone; report downed wires by phone at any hour.
+    evidence: [service address, outage start time]
+    steps:
+      - do: Report the outage on the Outages and Issues page or in the PPL app.
+        channel: outages-page
+      - do: For a downed wire, stay away and call PPL; say "downed power line".
+        channel: customer-service-phone
+
+known_blockers:
+  - pplelectric.com pages (contact, assistance, scams) render only with JavaScript and return no text to automated fetches. stories.pplelectric.com (PPL's blog) is readable.
+  - Online payment arrangements and assistance applications need sign-in to My Account.
+  - No published damage-claim channel was found; ask customer service.
+
+official_domains: [pplelectric.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: PPL Electric says it will never demand immediate payment over the phone.
+      source: https://stories.pplelectric.com/2026/02/25/national-consumer-protection-week-how-to-spot-and-avoid-utility-scams/
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: PPL Electric says it will never ask for payment using gift cards, prepaid cards or cryptocurrency.
+      source: https://stories.pplelectric.com/2026/02/25/national-consumer-protection-week-how-to-spot-and-avoid-utility-scams/
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: PPL Electric says it will never show up at your door to demand cash.
+      source: https://stories.pplelectric.com/2026/02/25/national-consumer-protection-week-how-to-spot-and-avoid-utility-scams/
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: PPL Electric says it will never ask for personal financial information through an unexpected call, text or email.
+      source: https://stories.pplelectric.com/2026/02/25/national-consumer-protection-week-how-to-spot-and-avoid-utility-scams/
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Callers pose as PPL Electric, say the account is past due, threaten immediate shutoff and demand payment through apps or gift cards.
+      source: https://stories.pplelectric.com/2026/02/25/national-consumer-protection-week-how-to-spot-and-avoid-utility-scams/
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Lookalike websites and search ads that use PPL's name appear in search results and collect personal or payment information. PPL says to type pplelectric.com into the address bar.
+      source: https://stories.pplelectric.com/2026/09/29/dont-fall-for-online-tricks-4-simple-ways-to-protect-your-account/
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Texts and emails claim a bill is overdue and link to a fake payment page.
+      source: https://stories.pplelectric.com/2026/02/25/national-consumer-protection-week-how-to-spot-and-avoid-utility-scams/
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-scam-phone
+      type: phone
+      label: Verify a call or message, or report a scam attempt
+      value: +1-800-342-5775
+      notes: PPL also says to report scams to local authorities or the FTC (ReportFraud.ftc.gov).
+      source: https://stories.pplelectric.com/2026/09/29/dont-fall-for-online-tricks-4-simple-ways-to-protect-your-account/
+      last_verified: 2026-10-13

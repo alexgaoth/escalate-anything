@@ -1,0 +1,119 @@
+id: hr-block
+name: H&R Block
+aliases: [h&r block, hr block, h and r block, hrblock, h&r block online, h&r block tax pro go, tax identity shield]
+sector: subscription
+parent: H&R Block, Inc.
+website: https://www.hrblock.com
+official_domains: [hrblock.com]
+regulators: [ftc]
+notes: >-
+  hrblock.com returned HTTP 403 to automated fetches on 2026-10-13, so values from its own help
+  and guarantee pages were read only from search-result text and are marked as such. The FTC's
+  2024 case over "free" advertising and downgrading (Docket No. 9427) ended in a final consent
+  order on January 8, 2025 with a $7 million payment for consumer redress. Tax Identity Shield
+  terms were read on taxidentityshield.hrblock.com.
+
+channels:
+  - id: online-support-phone
+    type: phone
+    label: H&R Block Online support (say "downgrade" to remove a product from your cart)
+    value: +1-855-897-8639
+    hours: Mon-Fri 7 am-7 pm CT
+    purposes: [cancel_service, refund_request, billing_error]
+    notes: Read from search-result text on 2026-10-13; hrblock.com blocked automated fetches (HTTP 403), so the number and hours were not seen on the live page. Have your Blockcare ID, phone number or email ready.
+    source: https://www.hrblock.com/tax-center/support/online/online-tax-filing/while-filing-online-return/change-or-downgrade-my-account/
+    last_verified: 2026-10-13
+  - id: main-phone
+    type: phone
+    label: H&R Block general customer line (1-800-HRBLOCK)
+    value: +1-800-472-5625
+    purposes: [refund_request, billing_error]
+    notes: Read from search-result text on 2026-10-13; hrblock.com blocked automated fetches (HTTP 403).
+    source: https://www.hrblock.com/support/
+    last_verified: 2026-10-13
+  - id: tax-identity-shield-phone
+    type: phone
+    label: Tax Identity Shield, cancel or request a refund
+    value: +1-855-472-8657
+    purposes: [cancel_service, refund_request]
+    source: https://www.taxidentityshield.hrblock.com/terms-and-conditions
+    last_verified: 2026-10-13
+  - id: tax-identity-shield-mail
+    type: mail
+    label: Tax Identity Shield mailing address
+    value: H&R Block, One HR Block Way, Kansas City, MO 64105
+    purposes: [cancel_service, refund_request]
+    source: https://taxidentityshield.hrblock.com/contact-us
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: online-support-phone}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Downgrade H&R Block Online with the automated option the FTC order requires; call online support if it fails. Cancel Tax Identity Shield by phone; a refund needs a request within 30 days of purchase.
+    evidence: [account email or Blockcare ID, product and price shown before and after, purchase date, cancellation reference]
+    steps:
+      - do: To leave a paid H&R Block Online product, use the in-product downgrade option. Under the FTC order it must not require a call or live chat.
+      - do: If the downgrade does not work, call H&R Block Online support and say "downgrade".
+        channel: online-support-phone
+      - do: To cancel Tax Identity Shield, call within 30 days of purchase to get a refund.
+        channel: tax-identity-shield-phone
+      - do: If H&R Block makes you call or chat to downgrade, or deletes your entered data, report it to the FTC and cite the January 8, 2025 order (Docket No. 9427).
+        regulator: ftc
+    facts:
+      - kind: policy
+        claim: 'The FTC''s final order requires that, "By February 15, 2025, the company is required to allow consumers to downgrade products using a chatbot" or other automated means, and, "by the 2026 tax filing season, to stop completely deleting consumers'' previously entered information."'
+        issues: [cancel_service]
+        source: https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-hr-block-requiring-them-pay-7-million-overhaul-advertising-customer-service
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: The November 2024 proposed order said downgrading must have an easily noticeable, always-available option that does not require calling or chatting with a live agent, and a downgraded user must return to the point where they upgraded.
+        issues: [cancel_service]
+        source: https://www.ftc.gov/news-events/news/press-releases/2024/11/ftc-action-stops-hr-blocks-unfair-downgrading-practices-deceptive-promises-free-filing
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: 'Tax Identity Shield (2026 terms): "you may contact us at 855-472-8657 to cancel or request a refund." "Cancellations and refunds will only be made if requested within thirty (30) days of purchase." Benefits run until April 30, 2027.'
+        issues: [cancel_service, refund_request]
+        source: https://www.taxidentityshield.hrblock.com/terms-and-conditions
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: Tax Identity Shield is refundable on request within 30 days of purchase. The software satisfaction guarantee needs notice within 60 days and the original media or UPC code and receipt by mail (read from search-result text only).
+    evidence: [receipt, purchase date, UPC code or original media (software), account email]
+    steps:
+      - do: For Tax Identity Shield, call within 30 days of purchase.
+        channel: tax-identity-shield-phone
+      - do: For H&R Block tax software, notify H&R Block within 60 days of purchase and mail the original media or UPC code with a copy of the receipt. Confirm the mailing address on the guarantees page before you send it.
+        note: https://www.hrblock.com/guarantees/
+      - do: For other refund questions, call H&R Block.
+        channel: main-phone
+    facts:
+      - kind: deadline
+        claim: 'H&R Block tax software 100% satisfaction guarantee: if dissatisfied for any reason before you file, H&R Block refunds the purchase price (excluding shipping, taxes and rebates) if you notify it within sixty (60) days of the initial purchase and mail the original media or UPC code and a copy of the store receipt. Read from search-result text on 2026-10-13; hrblock.com blocked automated fetches (HTTP 403).'
+        issues: [refund_request]
+        source: https://www.hrblock.com/guarantees/
+        last_verified: 2026-10-13
+      - kind: compensation
+        claim: The FTC's January 8, 2025 final order requires H&R Block to pay "$7 million to be used to compensate consumers harmed by the company's unlawful practices." The FTC pages read on 2026-10-13 do not describe how or whether payments were distributed.
+        issues: [refund_request]
+        source: https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-hr-block-requiring-them-pay-7-million-overhaul-advertising-customer-service
+        last_verified: 2026-10-13
+
+facts:
+  - kind: process
+    claim: 'FTC In the Matter of H&R Block (Docket No. 9427): administrative complaint February 23, 2024 (data wiping on downgrade and "free" advertising); matter withdrawn from adjudication October 21, 2024; proposed consent order November 12, 2024; final Decision and Order January 8, 2025 (vote 5-0). The FTC case page shows status "Closed".'
+    source: https://www.ftc.gov/legal-library/browse/cases-proceedings/hr-block-matter
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: The final order requires H&R Block's "free" advertising to disclose either the percentage of taxpayers eligible for the "free" products or that the majority of taxpayers do not qualify.
+    source: https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-hr-block-requiring-them-pay-7-million-overhaul-advertising-customer-service
+    last_verified: 2026-10-13
+
+known_blockers:
+  - hrblock.com blocked automated fetches (HTTP 403) on 2026-10-13; the phone numbers, hours and software guarantee terms here come from search-result text and should be confirmed on the live page.
+  - The software guarantee needs a mailed request; the mailing address was not verified, so confirm it on hrblock.com/guarantees before sending.

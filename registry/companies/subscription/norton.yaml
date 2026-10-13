@@ -1,0 +1,173 @@
+id: norton
+name: Norton
+aliases: [norton 360, norton antivirus, norton antivirus plus, norton lifelock, lifelock by norton, nortonlifelock, symantec norton, gen digital]
+sector: subscription
+parent: Gen Digital Inc.
+website: https://us.norton.com
+account_url: https://my.norton.com/
+official_domains: [norton.com, nortonlifelock.com, lifelock.com, securenorton.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: '"Norton never sends calendar invites related to billing or payment." A calendar event about a Norton subscription or renewal charge is a scam.'
+      source: https://support.norton.com/sp/en/us/home/current/solutions/v105274822
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Norton publishes the sender domains it uses for email, including @norton.com, @mail.norton.com, @email.norton.com, @subscriptions.norton.com, @login.norton.com, @securenorton.com, @nortonlifelock.com and @lifelock.com. An invoice from a Gmail or other unlisted address is not from Norton.
+      source: https://support.norton.com/sp/en/us/home/current/solutions/v71088498
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: 'Fake Norton renewal emails: Norton describes scam emails that contain "a Norton Renewal notice, an attached invoice, and a phone number to call to cancel a pending credit card charge." Norton says not to call numbers in the message and to verify any unexpected charge directly through your Norton account.'
+      source: https://support.norton.com/sp/en/us/home/current/solutions/v105274822
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: 'Fake calendar invitations claim "your subscription is expiring," with urgent renewal notices showing very high charges, fake registration or membership numbers, and often several phone numbers.'
+      source: https://support.norton.com/sp/en/us/home/current/solutions/v105274822
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: 'The FTC says tech support scammers "use the names of well-known companies like Geek Squad, McAfee, and Norton" and send notices that you were charged hundreds of dollars to renew a subscription. If you call, they ask for remote access, send you to a spoofed refund website, then claim they "refunded you too much money" and demand repayment by gift card, wire, crypto or payment app.'
+      source: https://consumer.ftc.gov/articles/how-spot-avoid-and-report-tech-support-scams
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-spam-email
+      type: email
+      label: Forward suspicious Norton emails and calendar invites as an attachment
+      value: spam@norton.com
+      purposes: [fraud]
+      notes: Norton asks you to forward the message as an attachment, then delete it (and delete a fake calendar event).
+      source: https://support.norton.com/sp/en/us/home/current/solutions/v105274822
+      last_verified: 2026-10-13
+regulators: [ftc]
+
+channels:
+  - id: my-norton-account
+    type: portal
+    label: 'My Norton account: My Account > My Subscriptions > Cancel Renewal or Manage Subscriptions'
+    value: https://my.norton.com/
+    purposes: [cancel_service, free_trial_conversion, bill_increase]
+    access: login
+    notes: Cancel before the billing date. The change can take up to 24 hours to show in the account; the confirmation email can take 24 to 48 hours.
+    source: https://support.norton.com/sp/en/us/home/current/solutions/kb20100113164023EN
+    last_verified: 2026-10-13
+  - id: support-contact
+    type: web_form
+    label: Norton Member Services and Support contact page (cancellation and refund requests)
+    value: https://support.norton.com/sp/en/us/home/current/contact
+    purposes: [refund_request, cancel_service, unauthorized_charge, billing_error, free_trial_conversion]
+    notes: The refund policy says to "Contact us to submit a request." The contact page loads its options in the browser; automated fetches on 2026-10-13 showed no phone number or chat link, so none is listed here.
+    source: https://support.norton.com/sp/en/us/home/current/solutions/kb20100113164023EN
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: support-contact}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Turn off automatic renewal in your Norton account before the billing date; service continues to the end of the paid period. To also get money back, submit a cancellation and refund request inside the refund window.
+    evidence: [Norton account email, order number or product key, cancellation confirmation email, billing date]
+    steps:
+      - do: Sign in to your Norton account, open My Account > My Subscriptions, and choose Cancel Renewal or Manage Subscriptions for the subscription. Follow the on-screen steps until you see a confirmation message.
+        channel: my-norton-account
+      - do: Do this before the billing date. Check the account again after 24 hours, and keep the confirmation email (it can take 24 to 48 hours).
+      - do: If you cannot cancel online, or you also want a refund, contact Norton Member Services and Support to submit a request.
+        channel: support-contact
+      - do: If you bought Norton through an app store, service provider, retailer or other reseller, cancel and ask for a refund with that seller; their terms apply.
+    facts:
+      - kind: process
+        claim: 'To stop automatic renewal, "Before your billing date," contact Norton or sign in and use My Account > My Subscriptions > Cancel Renewal or Manage Subscriptions. The change may take up to 24 hours to appear, and the confirmation email 24 to 48 hours.'
+        issues: [cancel_service]
+        source: https://support.norton.com/sp/en/us/home/current/solutions/kb20100113164023EN
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: After you cancel renewal, "Your subscription will continue through the end of your already paid period."
+        issues: [cancel_service]
+        source: https://support.norton.com/sp/en/us/home/current/solutions/kb20100113164023EN
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Purchases completed, fulfilled, renewed or billed by a third party (such as an app store, service provider, reseller, retailer or vendor) are not covered by Norton's refund policy; "different cancellation and refund terms may apply."
+        issues: [cancel_service, refund_request]
+        source: https://support.norton.com/sp/en/us/home/current/solutions/kb20100113164023EN
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: Annual plans and each annual renewal get a full refund if requested within 60 days of the charge; a new monthly plan within 14 days of purchase. Later monthly charges are not refundable.
+    evidence: [order number, product serial number or product key, charge date and amount, card statement]
+    steps:
+      - do: Check the charge date. Annual purchase or annual renewal - 60 days from the charge. First monthly purchase - 14 days.
+      - do: Contact Norton Member Services and Support and submit a cancellation and refund request. Have the order number, serial number or product key ready.
+        channel: support-contact
+      - do: After the refund, uninstall and delete all copies of the software, as the policy requires.
+      - do: If Norton refuses a refund inside the window, or you cancelled and were still charged, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: Under the 60-day Money Back Guarantee, an annual subscription "is eligible for a full refund, if requested within 60 days of the date of purchase." "Each subsequent annual charge is also eligible for a full refund if requested within 60 days of being charged."
+        issues: [refund_request, bill_increase]
+        source: https://support.norton.com/sp/en/us/home/current/solutions/kb20100113164023EN
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: '"The purchase of a monthly subscription is eligible for a full refund if requested within 14 days of the date of purchase." "Subsequent monthly charges are not eligible for a refund."'
+        issues: [refund_request]
+        source: https://support.norton.com/sp/en/us/home/current/solutions/kb20100113164023EN
+        last_verified: 2026-10-13
+      - kind: process
+        claim: '"Requests are typically processed within a few days." Refunds are issued to the payment method used for the charge, unless otherwise mutually agreed. "Upon cancellation, you must uninstall and delete all copies of the software from your device(s)."'
+        issues: [refund_request]
+        source: https://support.norton.com/sp/en/us/home/current/solutions/kb20100113164023EN
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: Not refundable under the policy include NFR and complimentary items, certain bundles sold with third-party products, repeat purchases already refunded, services already redeemed or set up, and purchases billed by a third party.
+        issues: [refund_request]
+        source: https://support.norton.com/sp/en/us/home/current/solutions/kb20100113164023EN
+        last_verified: 2026-10-13
+
+  - issue: free_trial_conversion
+    summary: For trials that needed a payment method, cancel renewal before the trial ends. If it converted, the first charge is refundable within 14 days (monthly) or 60 days (annual).
+    evidence: [trial start date, first charge date and amount, order number]
+    steps:
+      - do: Before the trial ends, turn off renewal in your Norton account.
+        channel: my-norton-account
+      - do: If the trial already converted, ask for a refund of the first charge within 14 days (monthly) or 60 days (annual).
+        channel: support-contact
+    facts:
+      - kind: deadline
+        claim: For a trial that required a payment method, if you do not cancel, "the first monthly charge following the end of your trial is eligible for a full refund" if requested within 14 days of being charged; the first annual charge is refundable if requested within 60 days. Later monthly charges are not refundable.
+        issues: [free_trial_conversion, refund_request]
+        source: https://support.norton.com/sp/en/us/home/current/solutions/kb20100113164023EN
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: First check whether the "charge" is real. Fake Norton renewal invoices are common; call no number in the message. A real Norton annual renewal can be refunded within 60 days.
+    evidence: [card or bank statement, the suspicious email with full headers, Norton order number if the charge is real]
+    steps:
+      - do: Do not call any number or click any link in the email, invoice or calendar invite. Check your card or bank statement and sign in to your Norton account directly.
+        channel: my-norton-account
+      - do: If there is no matching charge, the message is a scam. Forward it as an attachment to spam@norton.com and delete it.
+      - do: If there is a real Norton charge you did not expect, contact Norton and ask for a refund inside the 60-day (annual) or 14-day (first monthly) window.
+        channel: support-contact
+      - do: If you gave a caller remote access, card details or money, contact your bank or card issuer at once, and report it to the FTC.
+        regulator: ftc
+    facts:
+      - kind: policy
+        claim: 'The FTC says: "If you get a message about a tech support subscription renewal and you think it''s real, contact the company directly" using contact details you know are real, and check your statements for an unauthorized transaction.'
+        issues: [unauthorized_charge, fraud]
+        source: https://consumer.ftc.gov/articles/how-spot-avoid-and-report-tech-support-scams
+        last_verified: 2026-10-13
+
+  - issue: bill_increase
+    summary: Norton's support pages fetched did not state renewal price terms. If an annual renewal costs more than you expected, the full renewal charge is refundable if you ask within 60 days.
+    evidence: [renewal charge date and amount, previous year's price, order number]
+    steps:
+      - do: Turn off automatic renewal in your Norton account before the next billing date.
+        channel: my-norton-account
+      - do: For an annual renewal charged in the last 60 days, ask Norton for a full refund.
+        channel: support-contact
+
+known_blockers:
+  - Cancelling renewal online needs sign-in to the Norton account. us.norton.com and Norton's license agreement pages blocked automated fetches on 2026-10-13, so renewal-price terms are not recorded here.
+  - Norton's contact page shows its phone and chat options only in a browser; no Norton phone number is listed here. Do not use "Norton refund" phone numbers from search results or emails; many are scams.
+  - Purchases made through an app store, retailer, service provider or other reseller must be cancelled and refunded with that seller.

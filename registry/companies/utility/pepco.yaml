@@ -1,0 +1,277 @@
+id: pepco
+name: Potomac Electric Power Company
+aliases: [Pepco, PEPCO]
+sector: utility
+parent: Exelon Corporation
+website: https://www.pepco.com
+notes: >-
+  Electric distribution utility for Washington, D.C. and suburban Maryland (Montgomery and Prince George's
+  counties). Regulated by the Public Service Commission of the District of Columbia (DC PSC) and the Maryland
+  Public Service Commission (MD PSC); the Office of the People's Counsel in each jurisdiction represents
+  residential ratepayers. pepco.com HTML pages return no text to automated fetches; values below come from
+  Pepco's "At Your Service" customer handbooks: the DC edition 2024-2025 and the Maryland edition 2023-2024.
+  Rules differ between DC and Maryland, so each fact names its jurisdiction. Delmarva Power and Atlantic City
+  Electric are separate Exelon utilities with their own websites and phone numbers; they are not covered here.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service, billing disputes and payment plans (DC and Maryland; 200 languages)
+    value: +1-202-833-7500
+    hours: "Mon-Fri 7 a.m.-8 p.m."
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, deposit_refund, poor_service]
+    source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+    last_verified: 2026-10-13
+  - id: customer-service-tollfree
+    type: phone
+    label: Customer service (toll-free)
+    value: +1-800-424-8028
+    hours: "Mon-Fri 7 a.m.-8 p.m."
+    purposes: [billing_error, disconnection, payment_assistance, poor_service]
+    source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+    last_verified: 2026-10-13
+  - id: outage-phone
+    type: phone
+    label: Report outages and downed wires (877-PEPCO-62)
+    value: +1-877-737-2662
+    hours: 24/7
+    purposes: [service_outage]
+    notes: To get automatic call-backs, register the service-address phone number by calling 202-835-1007 and saying "update phone number" (Maryland handbook).
+    source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+    last_verified: 2026-10-13
+  - id: outage-text
+    type: sms
+    label: Text OUT to report an outage, STAT for restoration updates
+    value: "48710"
+    purposes: [service_outage]
+    notes: First text ADD OUTAGE to 48710 to sign up.
+    source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+    last_verified: 2026-10-13
+  - id: contact-form
+    type: web_form
+    label: Online question form
+    value: https://www.pepco.com/ContactForm
+    purposes: [billing_error, poor_service]
+    notes: Printed in the handbook as pepco.com/ContactForm.
+    source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+    last_verified: 2026-10-13
+  - id: correspondence-mail
+    type: mail
+    label: Customer Correspondence (written complaints)
+    value: "Pepco, Customer Correspondence, 7th Floor, 701 Ninth Street, N.W., Washington, D.C. 20068-0001"
+    purposes: [billing_error, disconnection, poor_service]
+    notes: Include the account number, service address, email address and daytime and home phone numbers.
+    source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+    last_verified: 2026-10-13
+  - id: dc-customer-care-center
+    type: in_person
+    label: Customer Care Center, Washington, D.C.
+    value: 701 Ninth Street, N.W., Washington, D.C.
+    hours: "Mon-Fri 8:30 a.m.-5:15 p.m."
+    notes: A second DC center is at 2300 Martin Luther King, Jr., Ave., S.E. (Mon-Fri 9 a.m.-5 p.m.).
+    source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+    last_verified: 2026-10-13
+  - id: md-customer-care-center
+    type: in_person
+    label: Customer Care Center, Rockville, Maryland
+    value: 201 West Gude Drive, Rockville, MD
+    hours: "Mon-Fri 10 a.m.-2 p.m."
+    source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt1fd79e9d210eba91/65a84264b6e834000a071f5e/AYS_Pepco-MD_Customer_Handbook_1.24-ADA.pdf
+    last_verified: 2026-10-13
+  - id: medical-program-form
+    type: web_form
+    label: Emergency Medical Equipment Notification Program form (postpones disconnection with a medical certification)
+    value: https://www.pepco.com/EMENP
+    purposes: [disconnection]
+    notes: Printed in the handbooks as pepco.com/EMENP. The form is also available by calling 202-833-7500.
+    source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+    last_verified: 2026-10-13
+  - id: dc-amp-phone
+    type: phone
+    label: DC Arrearage Management Program enrollment
+    value: +1-202-496-5830
+    purposes: [payment_assistance, disconnection]
+    source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+    last_verified: 2026-10-13
+  - id: dc-amp-email
+    type: email
+    label: DC Arrearage Management Program enrollment (email)
+    value: EnergyAssistanceMailbox@pepco.com
+    purposes: [payment_assistance]
+    source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+    last_verified: 2026-10-13
+  - id: pay-by-phone
+    type: phone
+    label: Pay by phone (credit card, debit card or electronic funds transfer; convenience fees may apply)
+    value: +1-833-260-2451
+    notes: Listed in the DC handbook. The Maryland handbook says to pay by phone through 202-833-7500.
+    source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, channel: customer-service-phone, note: "Pepco does not publish a separate escalation line. Ask for a supervisor and a reference number."}
+  - {rung: written_complaint, channel: correspondence-mail}
+  - {rung: state_agency, agency_kind: utility_commission, note: "DC: Public Service Commission of the District of Columbia, 1325 G Street N.W., Suite 800, 202-626-5120; Pepco's DC handbook says to include a summary of your efforts to resolve the dispute with the utility. Maryland: Maryland Public Service Commission, Consumer Affairs Division, 410-767-8028 or 800-492-0474 option 2; appeal within 7 days of Pepco's dispute decision; the PSC may dismiss a complaint if the customer did not negotiate with Pepco in good faith. People's Counsel: DC 202-727-3071, Maryland 800-207-4055."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "District of Columbia Office of the Attorney General, or Maryland Attorney General, Consumer Protection Division."}
+
+playbooks:
+  - issue: billing_error
+    summary: Call Pepco for a bill review and pay the undisputed part; ask for a free meter test; in Maryland appeal to the PSC within 7 days of Pepco's decision.
+    evidence: [the disputed bill, earlier bills, meter readings or My Account interval data, call notes with reference numbers]
+    steps:
+      - do: Call Pepco and ask for a review of the bill. Pay the undisputed portion so service continues.
+        channel: customer-service-phone
+      - do: Ask for a meter accuracy test. In DC it is free once every 12 months, and you may ask for a test refereed by the Commission.
+        channel: customer-service-phone
+      - do: If not resolved, write to Customer Correspondence with your account number and the correction you want.
+        channel: correspondence-mail
+      - do: "Maryland: within 7 days of Pepco's decision, appeal to the MD PSC Consumer Affairs Division. DC: file a complaint with the DC PSC."
+    facts:
+      - kind: policy
+        claim: "DC and Maryland: during a bill dispute you must pay the undisputed portion of the bill for service to continue. If Pepco's review finds the bill accurate, the full balance is due."
+        issues: [billing_error, disconnection]
+        source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: "DC: customers may request a meter accuracy test at no charge every 12 months, as well as a meter test refereed by the Commission."
+        issues: [billing_error]
+        source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: "Maryland: within seven (7) days of receiving notice of Pepco's decision on a dispute, the customer may appeal to the Maryland PSC by letter, website or phone. The PSC may dismiss the complaint if the customer did not negotiate with Pepco in good faith."
+        issues: [billing_error, disconnection]
+        source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt1fd79e9d210eba91/65a84264b6e834000a071f5e/AYS_Pepco-MD_Customer_Handbook_1.24-ADA.pdf
+        last_verified: 2026-10-13
+
+  - issue: disconnection
+    summary: Call Pepco for a payment plan before the shutoff date; use the medical certification program; weather rules block shutoffs on very cold or hot days.
+    evidence: [disconnection notice, account number, medical provider certification if it applies, proof of payment or of a formal dispute]
+    steps:
+      - do: Call Pepco before the shutoff date and ask for a payment installment plan or other plan.
+        channel: customer-service-phone
+      - do: If someone has a serious illness or relies on life-support equipment, get the medical certification form and have the medical provider return it.
+        channel: medical-program-form
+      - do: Ask about energy assistance (DC RAD and the Arrearage Management Program; Maryland MEAP, EUSP and USPP).
+        channel: customer-service-phone
+      - do: If Pepco will not agree to an arrangement, contact the DC PSC or the Maryland PSC before the shutoff date.
+    facts:
+      - kind: deadline
+        claim: "DC: for nonpayment, Pepco sends a final notice of disconnection at least 15 days before the scheduled disconnection date in most cases."
+        issues: [disconnection]
+        source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "DC: disconnection is postponed in winter when the temperature or wind chill is forecast to be 32 degrees F or below during the next 24 hours, or during a holiday or weekend; in summer it is suspended on days when the forecast temperature or heat index exceeds 95 degrees F for a 24-hour period."
+        issues: [disconnection]
+        source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "DC: termination may be postponed for 21 days with a medical provider's certification that an occupant has a serious illness or relies on life-support equipment and that termination would be detrimental to their health and safety."
+        issues: [disconnection]
+        source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: "Maryland (2023-2024 handbook): Pepco may terminate service for non-payment after 14 days' written notice. The notice is sent separately from the bill."
+        issues: [disconnection]
+        source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt1fd79e9d210eba91/65a84264b6e834000a071f5e/AYS_Pepco-MD_Customer_Handbook_1.24-ADA.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Maryland: from November 1 through March 31, winter termination procedures apply; Pepco attempts to contact customers in arrears by phone or visit, and can terminate only after filing an affidavit with the PSC if the customer does not enter a payment agreement."
+        issues: [disconnection]
+        source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt1fd79e9d210eba91/65a84264b6e834000a071f5e/AYS_Pepco-MD_Customer_Handbook_1.24-ADA.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Maryland: Pepco will not terminate for nonpayment when the forecast temperature at 6 a.m. is 32 degrees F or below during an extreme weather period, or (residential, summer) when it is 95 degrees F or above during an extreme weather period."
+        issues: [disconnection]
+        source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt1fd79e9d210eba91/65a84264b6e834000a071f5e/AYS_Pepco-MD_Customer_Handbook_1.24-ADA.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Maryland: termination may be postponed for 30 days with a medical provider's certification that an occupant has a serious illness or relies on life-support equipment."
+        issues: [disconnection]
+        source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt1fd79e9d210eba91/65a84264b6e834000a071f5e/AYS_Pepco-MD_Customer_Handbook_1.24-ADA.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Maryland (the DC handbook lists the same three cases for residential customers): service will not be terminated if the customer shows reasonable evidence that the bill was paid, if the bill is the subject of a formal dispute, or if payment is made to the Pepco service person who comes to terminate."
+        issues: [disconnection]
+        source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt1fd79e9d210eba91/65a84264b6e834000a071f5e/AYS_Pepco-MD_Customer_Handbook_1.24-ADA.pdf
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: "Maryland (the DC handbook states the same fee and timing): service terminated for nonpayment is restored on payment of the minimum due, a $35 reconnection fee and any deposit; it is normally reconnected within 24 hours once all requirements are met."
+        issues: [disconnection]
+        source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt1fd79e9d210eba91/65a84264b6e834000a071f5e/AYS_Pepco-MD_Customer_Handbook_1.24-ADA.pdf
+        last_verified: 2026-10-13
+
+  - issue: payment_assistance
+    summary: Ask Pepco for budget billing, an extended due date or a payment installment plan; DC customers can use RAD and the Arrearage Management Program; Maryland customers can apply for MEAP, EUSP and USPP.
+    evidence: [current bill, household income documents, DOEE certification for DC programs]
+    steps:
+      - do: Call Pepco and ask which payment plan fits (Budget Billing, Extended Due Date, Payment Installment Plan; in Maryland also One-Time Payment Delay).
+        channel: customer-service-phone
+      - do: "DC: apply for LIHEAP and the Residential Aid Discount through DOEE (call 3-1-1), then enroll in the Arrearage Management Program."
+        channel: dc-amp-phone
+      - do: "Maryland: apply for MEAP, EUSP and USPP through your local energy assistance office or the Office of Home Energy Programs, 1-800-332-6347."
+    facts:
+      - kind: policy
+        claim: "DC: the Arrearage Management Program is available to customers who qualify for the Residential Aid Discount and have at least $300 in arrearages. Enroll at 202-496-5830 or EnergyAssistanceMailbox@pepco.com."
+        issues: [payment_assistance]
+        source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "DC: to be eligible for the Residential Aid Discount (RAD), customers must be certified by DOEE (call 3-1-1 or visit doee.dc.gov/UDP)."
+        issues: [payment_assistance]
+        source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Maryland: Pepco offers Budget Billing, Extended Due Date, a Payment Installment Plan (current bill plus a portion of the unpaid balance) and a One-Time Payment Delay that lets eligible customers delay paying their current bill for 30 days."
+        issues: [payment_assistance]
+        source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt1fd79e9d210eba91/65a84264b6e834000a071f5e/AYS_Pepco-MD_Customer_Handbook_1.24-ADA.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Maryland: MEAP-eligible customers may also qualify for the Utility Service Protection Plan (USPP), which helps customers avoid termination from November through March."
+        issues: [payment_assistance, disconnection]
+        source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt1fd79e9d210eba91/65a84264b6e834000a071f5e/AYS_Pepco-MD_Customer_Handbook_1.24-ADA.pdf
+        last_verified: 2026-10-13
+
+  - issue: service_outage
+    summary: Report outages online, in the app, by text or by phone at any time.
+    evidence: [service address or account number, outage start time]
+    steps:
+      - do: Call 877-PEPCO-62 and ask for a call-back, or report online at pepco.com under Outages.
+        channel: outage-phone
+      - do: Or text OUT to 48710 (after signing up with ADD OUTAGE).
+        channel: outage-text
+
+facts:
+  - kind: limit
+    claim: "DC: a residential deposit, if required, is two months of the estimated average annual bill or $100, whichever is less. The deposit and interest are refunded or credited after 12 consecutive months of paying all proper charges."
+    issues: [deposit_refund]
+    source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+    last_verified: 2026-10-13
+  - kind: limit
+    claim: "Maryland: a deposit, if required, is two months of the estimated average annual bill; it is assessed on the first bill, and the customer may ask to pay it over the first three months. Customers over 60 may be exempt on new service."
+    issues: [deposit_refund]
+    source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt1fd79e9d210eba91/65a84264b6e834000a071f5e/AYS_Pepco-MD_Customer_Handbook_1.24-ADA.pdf
+    last_verified: 2026-10-13
+
+tips:
+  - kind: official
+    text: Pepco employees must carry a photo-identification card. Ask to see it, and call 202-833-7500 if you doubt that someone represents Pepco.
+    source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+    last_verified: 2026-10-13
+
+known_blockers:
+  - pepco.com HTML pages return no text to automated fetches; the handbook PDFs on azure-na-assets.contentstack.com are readable.
+  - The Maryland handbook used here is the 2023-2024 edition. Check the current edition or the Maryland PSC for rule changes.
+  - No Pepco scam-warning page or damage-claim channel could be read; ask customer service for the claim process.
+
+official_domains: [pepco.com]
+
+security:
+  report_phishing:
+    - id: verify-representative-phone
+      type: phone
+      label: Verify someone who claims to represent Pepco
+      value: +1-202-833-7500
+      source: https://azure-na-assets.contentstack.com/v3/assets/bltbb7c204688a1a6a8/blt6b4515e85411093d/676420cc206a960ef6ae4d1d/AYS_Pepco-DC_Guide_10.24-ADA.pdf
+      last_verified: 2026-10-13

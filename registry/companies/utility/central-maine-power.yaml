@@ -1,0 +1,138 @@
+id: central-maine-power
+name: Central Maine Power Company
+aliases: [CMP, Central Maine Power]
+sector: utility
+parent: Avangrid (Iberdrola)
+website: https://www.cmpco.com
+notes: >-
+  Electric transmission and distribution utility for central and southern Maine. An Avangrid company (Avangrid
+  has been a wholly owned subsidiary of Iberdrola since December 2024). Regulated by the Maine Public Utilities
+  Commission (MPUC), Consumer Assistance and Safety Division. Customers who buy supply from a competitive
+  electricity provider still call CMP for outages and delivery. cmpco.com timed out or dropped the connection
+  for every automated fetch, so CMP's own channels come from CMP statements quoted in news reports and from
+  search-result summaries where noted; the Maine rules come from MPUC pages.
+
+channels:
+  - id: residential-phone
+    type: phone
+    label: Residential customer service, also to verify a caller or check an account
+    value: +1-800-750-4000
+    hours: Live support Mon-Fri 7:30 a.m.-6 p.m.; self-service 24x7
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, deposit_refund, poor_service]
+    notes: For TTY, dial 711 and ask the Maine Relay Service to call this number.
+    source: https://www.cmpco.com/support/contactus
+    last_verified: 2026-10-13
+  - id: business-phone
+    type: phone
+    label: Non-residential customer service
+    value: +1-800-565-3181
+    hours: Live support Mon-Fri 7:30 a.m.-5 p.m.
+    source: https://www.cmpco.com/support/contactus
+    last_verified: 2026-10-13
+  - id: credit-collections-phone
+    type: phone
+    label: Credit and collections (payment arrangements, shutoff notices)
+    value: +1-800-686-4044
+    purposes: [disconnection, payment_assistance]
+    source: https://www.cmpco.com/support/contactus
+    last_verified: 2026-10-13
+  - id: emergency-phone
+    type: phone
+    label: Electricity emergency or outage
+    value: +1-800-696-1000
+    purposes: [service_outage]
+    source: https://www.cmpco.com/support/contactus
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: residential-phone}
+  - {rung: supervisor, channel: residential-phone}
+  - {rung: written_complaint, note: "CMP's contact page offers an online form for written questions; ask customer service for the complaint address."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Maine Public Utilities Commission, Consumer Assistance and Safety Division, 1-800-452-4699 (Mon-Fri 9 a.m.-4 p.m.). The MPUC says you must first contact the utility and attempt to resolve the complaint."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Maine Office of the Attorney General, Consumer Protection Division."}
+
+playbooks:
+  - issue: billing_error
+    summary: Raise the bill with CMP first, then file with the Maine PUC Consumer Assistance and Safety Division.
+    evidence: [the disputed bill, earlier bills, meter photos with dates, call notes with reference numbers]
+    steps:
+      - do: Call CMP and ask for a correction and a reference number.
+        channel: residential-phone
+      - do: If CMP does not fix it, file a complaint with the MPUC online or at 1-800-452-4699.
+      - do: If an electricity supplier you did not choose appears on the bill, tell the company you dispute the change, switch back, and file a complaint with the MPUC.
+    facts:
+      - kind: process
+        claim: The Maine PUC says you must first contact the utility and attempt to resolve your complaint before filing with the Consumer Assistance and Safety Division.
+        issues: [billing_error, disconnection, poor_service]
+        source: https://www.maine.gov/mpuc/consumer-assistance/file-complaint
+        last_verified: 2026-10-13
+
+  - issue: disconnection
+    summary: From November 15 to April 15, income-eligible customers can get a special winter payment arrangement; call the MPUC at once for urgent termination problems.
+    evidence: [disconnection notice, account number, proof of income, HEAP or SSI eligibility]
+    steps:
+      - do: Call CMP before the disconnection date and ask for a payment arrangement. Between November 15 and April 15, ask for a Special Payment Arrangement if you qualify.
+        channel: residential-phone
+      - do: Ask about the Arrearage Management Program and the Low-Income Assistance Program.
+        channel: residential-phone
+      - do: For an urgent termination issue, call the MPUC Consumer Assistance Hotline, 1-800-452-4699 (Mon-Fri 9 a.m.-4 p.m.).
+    facts:
+      - kind: policy
+        claim: "Maine PUC: from November 15 through April 15, residential customers with income at or below 150% of federal poverty guidelines, or who qualify for HEAP or SSI, may qualify for Special Payment Arrangements and should not be disconnected because they cannot pay the entire amount owed by a bill's due date."
+        issues: [disconnection, payment_assistance]
+        source: https://www.maine.gov/mpuc/consumer-assistance/faq
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Maine PUC: while the customer keeps a Special Payment Arrangement, the utility cannot charge late fees on the overdue amount."
+        issues: [disconnection, payment_assistance]
+        source: https://www.maine.gov/mpuc/consumer-assistance/faq
+        last_verified: 2026-10-13
+      - kind: process
+        claim: The Maine PUC gives 1-800-452-4699 (Mon-Fri 9:00 a.m.-4:00 p.m.) for urgent service termination issues.
+        issues: [disconnection]
+        source: https://www.maine.gov/mpuc/consumer-assistance/file-complaint
+        last_verified: 2026-10-13
+
+  - issue: payment_assistance
+    summary: CMP customers can use the Arrearage Management Program, the Low-Income Assistance Program discount and LIHEAP, mostly through Community Action Agencies.
+    evidence: [current bill, past-due amount and age, LIHEAP eligibility or household income documents]
+    steps:
+      - do: Apply for LIHEAP through MaineHousing or your local Community Action Agency.
+      - do: If you are LIHEAP-eligible with an old past-due balance, ask your Community Action Agency or CMP about the Arrearage Management Program.
+        channel: residential-phone
+      - do: Ask about the Low-Income Assistance Program (LIAP) monthly discount.
+    facts:
+      - kind: policy
+        claim: "Maine PUC: CMP runs an Arrearage Management Program. Customers eligible for LIHEAP with an arrearage of $500 or more that is at least 90 days old may participate; when they pay on time, 1/12 of the arrearage, up to a maximum of $300, is forgiven every month."
+        issues: [payment_assistance]
+        source: https://www.maine.gov/mpuc/consumer-assistance/faq
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Maine PUC: LIAP eligibility is based on LIHEAP eligibility or a DHHS means-tested program, with household income at or below 150% of the Federal Poverty Guidelines; CMP customers get the benefit as a monthly discount or credit. From October 1, 2026, DHHS uses SNAP, TANF and MaineCare data to find eligible households, and utilities apply the discount automatically unless the customer opts out."
+        issues: [payment_assistance]
+        source: https://www.maine.gov/mpuc/consumer-assistance/programs
+        last_verified: 2026-10-13
+
+known_blockers:
+  - cmpco.com (and all Avangrid sites) timed out or dropped the connection for every automated fetch on 2026-10-13. No CMP outage number, mailing address, damage-claim channel or online form could be sourced; use the numbers on the bill.
+
+official_domains: [cmpco.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: "CMP says it will never ask to see your bill or private account information, send employees inside your home to use your computer or devices, take photos of your electric bill, visit your home to offer discounts or sign-ups, or ask for payment by prepaid debit card or any other nonrefundable method (consumer alert, March 26, 2026)."
+      source: https://www.cmpco.com/w/consumer-alert-watch-out-for-ongoing-scams
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: "CMP warns of disconnection threats demanding immediate payment by prepaid debit card, fake meter-upgrade payments in cash or prepaid cards, and calls claiming a recent payment failed because of a 'system glitch' that ask for banking details. CMP employees carry an ID badge and drive CMP-branded vehicles."
+      source: https://www.cmpco.com/w/consumer-alert-watch-out-for-ongoing-scams
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: verify-caller
+      type: phone
+      label: Hang up and call CMP to verify a caller or check whether your account has an issue
+      value: +1-800-750-4000
+      source: https://www.cmpco.com/w/consumer-alert-watch-out-for-ongoing-scams
+      last_verified: 2026-10-13

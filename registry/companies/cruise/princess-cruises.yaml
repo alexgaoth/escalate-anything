@@ -1,0 +1,322 @@
+id: princess-cruises
+name: Princess Cruises
+aliases: [princess, princess cruise lines, princess cruise lines ltd, 1-800-princess]
+sector: cruise
+parent: Carnival Corporation & plc
+website: https://www.princess.com
+regulators: [fmc]
+
+channels:
+  - id: sales-support-phone
+    type: phone
+    label: Sales & Support (1-800-PRINCESS)
+    value: +1-800-774-6237
+    hours: Mon–Fri 9:00 a.m.–10:00 p.m. ET; Sat–Sun 9:00 a.m.–8:00 p.m. ET
+    purposes: [refund_request, travel_credit, reservation_problem, cancel_service, accessibility]
+    notes: >-
+      The pre-cruise FAQ also tells guests to call this number to report a suspected scam, and to choose option 5 to
+      cancel a Future Cruise Package. Alaska cruisetours have a separate line, 1-888-260-0837.
+    source: https://book.princess.com/captaincircle/customerCare.page
+    last_verified: 2026-10-13
+  - id: live-chat
+    type: chat
+    label: Live Chat (pre-cruise support)
+    value: https://book.princess.com/captaincircle/customerCare.page
+    hours: Mon–Fri 9:00 a.m.–12:00 a.m. ET; Sat–Sun 10:00 a.m.–9:00 p.m. ET
+    purposes: [reservation_problem, travel_credit]
+    notes: The Contact Us page shows a "Live Chat with Us" button but no direct chat URL.
+    source: https://book.princess.com/captaincircle/customerCare.page
+    last_verified: 2026-10-13
+  - id: support-request-form
+    type: web_form
+    label: Support Request form (post-cruise questions and comments, out-of-pocket reimbursement, future cruise deposits)
+    value: https://book.princess.com/captaincircle/customerCare.page
+    purposes: [poor_service, reservation_problem, refund_request, travel_credit]
+    notes: >-
+      The form is on the Contact Us page. "What can we help you with?" topics: Pre-cruise Support, Post Cruise
+      Questions/Comments, Captain's Circle Membership, Contact/Profile Preferences, Out of Pocket Reimbursement and Future
+      Cruise Deposits. Out-of-pocket reimbursement takes about four weeks from receipt and is paid by mailed check.
+    source: https://book.princess.com/captaincircle/customerCare.page
+    last_verified: 2026-10-13
+  - id: head-office-mail
+    type: mail
+    label: Princess Cruises head office, Santa Clarita (listed on the Contact Us page without a label)
+    value: Princess Cruises, 24305 Town Center Drive, Santa Clarita, CA 91355
+    purposes: [poor_service, refund_request]
+    notes: The page does not say which department handles mail at this address. Use a method with delivery confirmation.
+    source: https://book.princess.com/captaincircle/customerCare.page
+    last_verified: 2026-10-13
+  - id: access-office-email
+    type: email
+    label: Access Office (accessibility requests, service animal approval, oxygen)
+    value: AccessOfficePrincess@PrincessCruises.com
+    purposes: [accessibility]
+    notes: The page says the North America team supports all accessibility-related inquiries globally. Medical inquiries go to GuestMedical@HAGroup.com.
+    source: https://www.princess.com/accessibility-at-sea
+    last_verified: 2026-10-13
+  - id: mobility-questionnaire
+    type: web_form
+    label: Mobility Questionnaire (for guests bringing or renting a mobility device)
+    value: https://www.princess.com/en-us/mobility-device-form
+    purposes: [accessibility]
+    notes: Complete it before the cruise. The page gives no deadline.
+    source: https://www.princess.com/accessibility-at-sea
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: sales-support-phone}
+  - {rung: written_complaint, channel: support-request-form}
+  - {rung: regulator, regulator: fmc, note: "For a refund Princess owes after it cancelled or delayed a cruise (nonperformance)."}
+  - {rung: payment_dispute, note: "Card dispute for a refund Princess owes but has not paid."}
+
+playbooks:
+  - issue: refund_request
+    summary: >-
+      If Princess cancels your cruise or delays it more than 3 calendar days and you do not take the alternative, send the
+      refund claim on or before the 180th calendar day after the original embarkation. If you cancel, the charge depends
+      on the booking date, cruise length and days before departure. Refunds go to the original payment method.
+    evidence: [travel summary or booking confirmation, proof of payment and amount, cancellation or delay notice, date you cancelled]
+    steps:
+      - do: If you cancel, check the cancellation schedule that applies to your booking date (on or after, or before, September 2, 2026) and cruise length. Prepaid shore excursions and onboard purchases are refunded in full.
+      - do: If Princess cancelled the cruise or delayed it more than 3 calendar days and you do not accept the alternative cruise or do not travel, send a copy of the travel summary, proof of payment (and amount) and the cancellation or delay notice. Booked directly? Send it to the Contact Center; booked through a travel advisor? Send it to the advisor. Do it on or before the 180th calendar day after the original embarkation.
+        channel: sales-support-phone
+      - do: Also put the claim in writing through the Support Request form, so you have a dated record.
+        channel: support-request-form
+      - do: If Princess denies the nonperformance claim or does not reply within 180 days, file with the Federal Maritime Commission.
+        regulator: fmc
+      - do: If a refund Princess owes is still not paid, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: >-
+          Princess's Nonperformance of Cruise Refund Policy: if Princess cancels your cruise, or delays it for more than 3
+          calendar days, and you do not accept an alternative cruise or choose not to travel on the delayed one, submit the
+          claim on or before the 180th calendar day after the original scheduled embarkation. Princess replies by email
+          within 180 days of the date the claim is made.
+        issues: [refund_request]
+        source: https://www.princess.com/legal/nonperformance-of-cruise-refund-policy/
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: >-
+          For bookings made on or after September 2, 2026, cruises up to 44 days: 120 days or more before departure, the
+          deposit (unless a refundable deposit was purchased); 113–119 days, 25% of Items; 91–112 days, 50%; 61–90 days,
+          75%; 60 days or less, 100%. For cruises of 45+ days: deposit only from 121 days or more; 113–120 days, 30%;
+          61–112 days, 50%; 60 days or less, 100%. "Items" means the Total Cruise Price plus any cruise package and
+          pre-purchased gifts or special services.
+        issues: [refund_request, cancel_service]
+        source: https://www.princess.com/en-us/plan/standard-cancellation-refund-policy
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: >-
+          For bookings made before September 2, 2026, 1–13 day cruises: 90 days or more before departure, the deposit
+          (unless a refundable deposit was purchased); 75–89 days, 25% of Items; 61–74 days, 50%; 31–60 days, 75%; 30 days
+          or less, 100%. 14–24 day cruises: 120 days or more, the deposit; 113–119 days, 25%; 91–112 days, 50%; 61–90
+          days, 75%; 60 days or less, 100%. 25–44 day cruises: 120 days or more, the deposit; 113–119 days, 25%; 61–112
+          days, 50%; 60 days or less, 100%.
+        issues: [refund_request, cancel_service]
+        source: https://www.princess.com/en-us/plan/standard-cancellation-refund-policy
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          With a non-refundable deposit, or a promotion that is 100% non-refundable from payment, you are not entitled to
+          any refund of the deposit (and, for 100% non-refundable promotions, of the Cruise Charges). For reduced-deposit
+          promotions, the initial cancellation fee cannot exceed the deposit paid.
+        issues: [refund_request, cancel_service]
+        source: https://www.princess.com/en-us/plan/standard-cancellation-refund-policy
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          The Passage Contract says refunds are made directly to the method of payment used at booking, or to your travel
+          advisor. On cancellation, the balance of prepaid Government Taxes and Fees and Required Cruise Fees and Expenses
+          is refunded after deducting any cancellation fees.
+        issues: [refund_request]
+        source: https://www.princess.com/en-us/legal/passage-contract/pcl
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          Passage Contract Section 8: Princess may, for any reason and without prior notice, cancel the cruise or deviate
+          from scheduled ports. If the cruise is cancelled because of mechanical failure, you are entitled to a full refund
+          of the Total Cruise Price; if Princess cancels before the cruise begins, it refunds the Total Cruise Price less any
+          air or accommodation charges incurred. In other cases the contract says Princess is not liable for damages or a
+          refund of the Cruise Charges.
+        issues: [refund_request, reservation_problem]
+        source: https://www.princess.com/en-us/legal/passage-contract/pcl
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: >-
+          Princess's FAQ says its Cancellation Protection waives cancellation fees only if Princess is notified by
+          telephone or in writing at least 72 hours prior to midnight on the guest's scheduled departure date; it does not
+          cover trip interruption.
+        issues: [refund_request, cancel_service]
+        source: https://www.princess.com/faq/pre-cruise
+        last_verified: 2026-10-13
+
+  - issue: travel_credit
+    summary: >-
+      The standard cancellation policy gives no cruise credit; credit comes only through Princess Vacation Protection or
+      a Future Cruise Package. Book Future Cruise Package credits within 18 months of purchase.
+    evidence: [booking number, credit or Future Cruise Deposit details, purchase date, expiry date]
+    steps:
+      - do: Check whether the credit came from Princess Vacation Protection, a Future Cruise Package or a Future Cruise Deposit bought on board. The balance is in your My Princess account.
+      - do: To extend a Future Cruise Deposit, use the Support Request form (topic Future Cruise Deposits); each holder needs a separate request.
+        channel: support-request-form
+      - do: If Princess cancelled or delayed your cruise more than 3 calendar days, you can claim a refund instead of a credit (see refund_request).
+        channel: sales-support-phone
+      - do: If Princess refuses the nonperformance refund, file with the Federal Maritime Commission.
+        regulator: fmc
+    facts:
+      - kind: policy
+        claim: >-
+          "The standard Princess cancellation policy does not grant cruise credit." Eligible U.S. and Canadian residents
+          (excluding New York, British Columbia, Puerto Rico and Quebec) may get cruise credit through Princess Vacation
+          Protection.
+        issues: [travel_credit]
+        source: https://www.princess.com/en-us/plan/standard-cancellation-refund-policy
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: >-
+          Future cruise credits from a Future Cruise Package must be booked within 18 months of the package purchase date.
+          A Future Cruise Package can be cancelled within seven business days after purchase (30 days in Florida) by calling
+          1-800-PRINCESS, option 5.
+        issues: [travel_credit]
+        source: https://www.princess.com/faq/pre-cruise
+        last_verified: 2026-10-13
+      - kind: process
+        claim: >-
+          Future Cruise Deposit extension requests are processed within 10 business days, need a separate request for each
+          holder, and cover only Future Cruise Deposits bought on board a previous sailing.
+        issues: [travel_credit]
+        source: https://book.princess.com/captaincircle/customerCare.page
+        last_verified: 2026-10-13
+
+  - issue: reservation_problem
+    summary: >-
+      When Princess changes a voyage or itinerary, claim reasonable extra expenses through the Out of Pocket Reimbursement
+      option; it takes about four weeks and pays by mailed check. Non-injury claims need written notice within 15 days of
+      the cruise's end.
+    evidence: [booking number, change notice from Princess, receipts for extra expenses, what was promised and what happened]
+    steps:
+      - do: Raise the problem on board at the Guest Services desk before the cruise ends.
+      - do: Within 15 days of the actual or scheduled end of the cruise, send written notice through the Support Request form. For extra costs caused by a Princess change, choose Out of Pocket Reimbursement and attach receipts.
+        channel: support-request-form
+      - do: If a refund Princess owes is not paid, dispute the charge with your card issuer.
+    facts:
+      - kind: policy
+        claim: >-
+          Out of Pocket Reimbursement covers reasonable expenses from changes Princess made to a voyage or itinerary. It
+          takes about four weeks from receipt and is paid by mailed check. Alternative holiday plans and wages are not
+          reimbursed.
+        issues: [reservation_problem]
+        source: https://book.princess.com/captaincircle/customerCare.page
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: >-
+          Passage Contract Section 17: for claims other than injury, illness or death, written notice must be delivered to
+          Princess within 15 days of the actual or scheduled termination date of the cruise; legal action must be commenced
+          within 1 year from the scheduled termination date and served within 90 days after commencement.
+        issues: [reservation_problem, poor_service, refund_request]
+        source: https://www.princess.com/en-us/legal/passage-contract/pcl
+        last_verified: 2026-10-13
+
+  - issue: accessibility
+    summary: >-
+      Raise stateroom needs at booking, and email the Access Office for service animals, oxygen and equipment. Some
+      requests have deadlines: large print or Braille menus 60 days before sailing, dietary requests 90 days.
+    evidence: [booking number, ship and sailing date, requests sent and replies, what was not provided]
+    steps:
+      - do: At booking, tell your travel advisor or Princess reservations about accessible stateroom, transfer, interpreter and equipment needs.
+        channel: sales-support-phone
+      - do: Email the Access Office for service animal approval (booking number, ship, sailing date and the animal's trained tasks), oxygen and other accessibility questions.
+        channel: access-office-email
+      - do: If you bring or rent a mobility device, complete the Mobility Questionnaire before the cruise.
+        channel: mobility-questionnaire
+      - do: Ask for large print, Braille or electronic menus at least 60 days before sailing, and submit dietary requests in the Princess app 90 days before the voyage.
+      - do: After the cruise, send written notice of the problem within 15 days of the end of the cruise (the contract deadline for non-injury claims), for example by email to the Access Office and through the Support Request form.
+        channel: access-office-email
+    facts:
+      - kind: deadline
+        claim: >-
+          Princess's accessibility page says to notify Princess at least 60 days before sailing for large print, Braille or
+          electronic menus, to submit dietary requests and food allergies through the Princess app 90 days before the
+          voyage, and to request sign language interpreters, special equipment and accessible transfers at booking.
+          Emotional support animals are not permitted.
+        issues: [accessibility]
+        source: https://www.princess.com/accessibility-at-sea
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          The July 23, 2015 ADA settlement between the United States and Carnival Corporation covers Princess Cruises ships
+          among 62 ships and requires three percent of total cabins to be accessible. This is an archived DOJ page; it does
+          not say whether the agreement is still in force.
+        issues: [accessibility]
+        source: https://archive.ada.gov/carnival/carnival_fact_sheet.html
+        last_verified: 2026-10-13
+      - kind: contact
+        claim: >-
+          The Department of Justice takes ADA complaints online at https://civilrights.justice.gov/report and answers
+          questions on the ADA Information Line 800-514-0301 (TTY 1-833-610-1264).
+        issues: [accessibility]
+        source: https://www.ada.gov/file-a-complaint/
+        last_verified: 2026-10-13
+
+facts:
+  - kind: deadline
+    claim: >-
+      Passage Contract Section 17: for injury, illness or death, written notice must be delivered to Princess within 6
+      months from the date of the injury, illness or death; a suit must be filed within 1 year from that date and served
+      within 90 days of filing.
+    issues: [safety_incident]
+    source: https://www.princess.com/en-us/legal/passage-contract/pcl
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: >-
+      Passage Contract Section 17: injury, illness and death claims must be litigated in the U.S. District Court for the
+      Southern District of Florida in Miami. All other claims go to binding arbitration in Miami-Dade County, Florida,
+      except small claims. The contract waives class actions and class arbitration (the waiver does not apply to
+      Australian guests). The contract shown is "Updated August 2026 Version 1.0".
+    issues: [refund_request, poor_service, reservation_problem, safety_incident]
+    source: https://www.princess.com/en-us/legal/passage-contract/pcl
+    last_verified: 2026-10-13
+  - kind: process
+    claim: >-
+      Princess publishes two passage contracts; the Princess Cruise Lines, Ltd. contract applies to most voyages, and a
+      second one applies to select voyages from Australia, Japan, Singapore, China and Korea. Booked guests can see the
+      contract for their voyage in Manage Booking.
+    source: https://www.princess.com/legal/passage_contract/
+    last_verified: 2026-10-13
+
+known_blockers:
+  - The Contact Us page does not give direct URLs for Live Chat or the Support Request form; both open from the page.
+  - Princess publishes no email address for post-cruise complaints; the written route is the Support Request form or mail.
+  - Credit balances and the voyage-specific passage contract are in My Princess / Manage Booking, which needs sign-in.
+
+notes: >-
+  Checked on 2026-10-13 by loading princess.com pages. The Passage Contract page is "Updated August 2026 Version 1.0";
+  Section 7 and the standard cancellation policy both show the schedule for bookings made on or after September 2, 2026.
+  The standard policy page gives no refund processing time. The contract requires notice "delivered to Carrier" but the
+  loaded text gave no notice address. The Contact Us page also lists UK, Australian and New Zealand numbers.
+
+official_domains: [princess.com, princesscruises.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: >-
+        "Princess Cruises will NEVER ask for your Princess.com online account password or your credit card number."
+        Customer service representatives will never ask for your account password. If someone contacts you unexpectedly,
+        hang up and call Princess back at a number you already know, not a callback number the caller gives.
+      source: https://www.princess.com/faq/pre-cruise
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: >-
+        The FTC warned on January 10, 2020 about illegal robocalls that offered two free cruise tickets for a phone survey,
+        then passed people to telemarketers who sold upgrades and charged $59 in port taxes and fees per person. The alert does not name Princess.
+      source: https://consumer.ftc.gov/consumer-alerts/2020/01/free-cruise-try-illegal-robocall-upsell
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-scam-phone
+      type: phone
+      label: Report a suspected scam to Princess Customer Service
+      value: +1-800-774-6237
+      hours: Mon–Fri 9:00 a.m.–10:00 p.m. ET; Sat–Sun 9:00 a.m.–8:00 p.m. ET
+      source: https://www.princess.com/faq/pre-cruise
+      last_verified: 2026-10-13

@@ -1,0 +1,110 @@
+id: noom
+name: Noom
+aliases: [noom weight, noom inc, noom med, noom app]
+sector: subscription
+website: https://www.noom.com
+official_domains: [noom.com]
+regulators: [ftc]
+notes: >-
+  Noom sells auto-renewing weight-loss subscriptions (Noom Weight) and telehealth programs (Noom Med).
+  noom.com returned HTTP 403 to every automated fetch on 2026-10-13, including the Terms and the help
+  center, so the cancellation and refund details here come from search-result text of Noom's own help
+  pages. Check them on the live page before relying on them. In 2022 Noom settled a New York federal
+  class action over trials that converted to auto-renewing subscriptions (see facts).
+
+channels:
+  - id: in-app-cancel
+    type: app
+    label: Cancel in the Noom app (profile picture > Settings > Manage Subscription)
+    value: Noom app > profile picture (top left) > Settings > Manage Subscription
+    purposes: [cancel_service, free_trial_conversion]
+    access: login
+    notes: Read from search-result text of this help page on 2026-10-13; the page blocked automated fetches. The same page says you can also cancel on the web by signing in to the Subscription Portal and clicking Cancel Subscription, but no portal URL was confirmed on a Noom page.
+    source: https://www.noom.com/support/faqs/subscription-and-billing/2025/10/how-to-cancel-your-noom-subscription-or-trial/
+    last_verified: 2026-10-13
+  - id: support-chat
+    type: app
+    label: Noom support chat (chat button, bottom-right of the website or app) or contact form
+    value: Chat button in the bottom-right corner of the Noom website or app
+    purposes: [refund_request, billing_error, cancel_service]
+    access: login
+    notes: Read from search-result text of Noom's refund policy page on 2026-10-13; the page blocked automated fetches.
+    source: https://www.noom.com/support/faqs/subscription-and-billing/2025/10/noom-refund-policy/
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: support-chat}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel in the app (profile picture > Settings > Manage Subscription) or in the web Subscription Portal before the next billing date. If Apple or Google bills you, cancel in that store. Deleting the app does not cancel.
+    evidence: [cancellation confirmation or screenshot, date cancelled, billing date, charges after that date]
+    steps:
+      - do: In the Noom app, tap your profile picture, then Settings, then Manage Subscription, and follow the prompts to cancel.
+        channel: in-app-cancel
+      - do: If you paid through the App Store or Google Play, cancel in that store's subscription settings.
+      - do: Cancel before the next billing date and keep the confirmation. Uninstalling the app does not cancel.
+      - do: If cancelling fails, contact support by chat and ask for written confirmation.
+        channel: support-chat
+    facts:
+      - kind: process
+        claim: Noom's help page lists three ways to cancel, in the app, on the web through the Subscription Portal, or through the device's app store; iOS and Android charges must be cancelled through the App Store or Google Play, and uninstalling the app does not cancel. (Read from search-result text on 2026-10-13; the page blocked automated fetches.)
+        issues: [cancel_service]
+        source: https://www.noom.com/support/faqs/subscription-and-billing/2025/10/how-to-cancel-your-noom-subscription-or-trial/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: After you cancel, the subscription stays active until the end of the current billing cycle. (Read from search-result text on 2026-10-13; the page blocked automated fetches.)
+        issues: [cancel_service]
+        source: https://www.noom.com/support/faqs/subscription-and-billing/2025/10/how-to-cancel-your-noom-subscription-or-trial/
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: For Noom Weight, ask within 14 days of purchase for a refund of an initial subscription or add-on charge, by chat or the contact form. Noom Med has no refund once a prescription is written.
+    evidence: [date and amount of the charge, reason for the request, cancellation confirmation]
+    steps:
+      - do: Within 14 days of the purchase, open the support chat or contact form. Give the date of the charge and the reason.
+        channel: support-chat
+      - do: If Noom refuses a charge you cancelled in time, dispute it with your card issuer.
+    facts:
+      - kind: deadline
+        claim: Noom Weight initial subscription or add-on charges "may be eligible for a refund" if you contact Noom within 14 days of purchase, through the chat button or the contact form, with the date of the charge and the reason. (Read from search-result text on 2026-10-13; the page blocked automated fetches.)
+        issues: [refund_request]
+        source: https://www.noom.com/support/faqs/subscription-and-billing/2025/10/noom-refund-policy/
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: No refunds are available once a prescription has been written for Noom Med programs that include medication, or once a clinical visit has occurred for the Telehealth for Branded Meds Program. (Read from search-result text on 2026-10-13; the page blocked automated fetches.)
+        issues: [refund_request]
+        source: https://www.noom.com/support/faqs/subscription-and-billing/2025/10/noom-refund-policy/
+        last_verified: 2026-10-13
+
+  - issue: free_trial_conversion
+    summary: Cancel a trial the same way as a subscription, before it converts. Noom settled a 2022 class action over trials that converted to auto-renewing plans and agreed to clearer disclosures and an account-page cancel button.
+    evidence: [trial sign-up date and offer terms, cancellation confirmation, the first charge]
+    steps:
+      - do: Cancel the trial in the app before it ends.
+        channel: in-app-cancel
+      - do: If charged after the trial, ask for a refund by chat within 14 days of the charge.
+        channel: support-chat
+      - do: If Noom refuses and you cancelled in time, dispute the charge with your card issuer and report it to the FTC.
+        regulator: ftc
+    facts:
+      - kind: compensation
+        claim: In February 2022 Noom agreed to pay $56 million and provide an additional $6 million in subscription credits to settle a New York federal class action filed in May 2020. It agreed to enhance auto-renewal disclosures, require a separate action such as a check box or digital signature to accept auto-renewal, and provide "a button on the customer's account page for easier cancellation."
+        issues: [free_trial_conversion, cancel_service]
+        source: https://www.hunton.com/privacy-and-cybersecurity-law-blog/fitness-app-agrees-to-pay-56-million-to-settle-class-action-alleging-dark-pattern-practices0
+        last_verified: 2026-10-13
+      - kind: compensation
+        claim: On July 13, 2022 Bloomberg Law reported that Magistrate Judge Katherine H. Parker (S.D.N.Y.) "granted final approval of a $56 million settlement" and awarded class counsel $18 million.
+        issues: [free_trial_conversion]
+        source: https://news.bloomberglaw.com/litigation/nooms-56-million-deal-in-unwanted-subscriptions-suit-finalized
+        last_verified: 2026-10-13
+
+known_blockers:
+  - noom.com (Terms and help center) returned HTTP 403 to automated fetches on 2026-10-13. Cancellation and refund details are from search-result text.
+  - Cancelling and chat need sign-in to the Noom app or website. No direct Subscription Portal URL was confirmed on a Noom page.
+  - Subscriptions bought through the App Store or Google Play must be cancelled there.
+  - No Noom phone number for customer service was found.

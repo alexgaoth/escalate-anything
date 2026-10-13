@@ -1,0 +1,345 @@
+id: pacificorp
+name: PacifiCorp
+aliases: [Rocky Mountain Power, RMP, Pacific Power]
+sector: utility
+website: https://www.pacificorp.com
+account_url: https://csapps.pacificpower.net/idm/login
+notes: >-
+  Electric utility that operates as Rocky Mountain Power (rockymountainpower.net) in Utah, Wyoming and
+  Idaho, and as Pacific Power (pacificpower.net) in Oregon, Washington and California. Both brands use
+  customer service 1-888-221-7070 and outage line 1-877-508-5088; Rocky Mountain Power account sign-in is
+  https://csapps.rockymountainpower.net/idm/login. State commissions: Utah Public Service Commission
+  (informal complaints go first to the Utah Division of Public Utilities, 801-530-7622 or 800-874-0904),
+  Wyoming Public Service Commission, Idaho Public Utilities Commission, Public Utility Commission of
+  Oregon (503-378-6600 or 800-522-2404, puc.consumer@puc.oregon.gov), Washington Utilities and
+  Transportation Commission, and California Public Utilities Commission. Wildfire: PacifiCorp's wildfire
+  litigation page covers the 2020 Labor Day fires (Oregon), the Slater fire and the 2022 McKinney fire
+  (California); it settles claims through litigation and settlements and publishes no wildfire claims
+  intake process. Standard damage claims start with a claim form requested at 1-888-221-7070.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service (Rocky Mountain Power and Pacific Power, toll free)
+    value: +1-888-221-7070
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, poor_service, property_damage_claim]
+    notes: The scam pages say "call us anytime toll free" at this number; no business hours were found on a fetchable page. The contact-us pages on csapps.* need JavaScript.
+    source: https://www.rockymountainpower.net/my-account/scams.html
+    last_verified: 2026-10-13
+  - id: pacific-power-customer-service-phone
+    type: phone
+    label: Pacific Power customer service (same number, listed on Pacific Power pages)
+    value: +1-888-221-7070
+    purposes: [billing_error, disconnection, payment_assistance, poor_service]
+    source: https://www.pacificpower.net/assistance
+    last_verified: 2026-10-13
+  - id: outage-phone
+    type: phone
+    label: Report an outage or downed wires (both brands)
+    value: +1-877-508-5088
+    purposes: [service_outage]
+    source: https://www.pacificpower.net/outages-safety.html
+    last_verified: 2026-10-13
+  - id: pacific-power-outage-text
+    type: sms
+    label: Pacific Power outage report by text (text OUT to 722797)
+    value: "722797"
+    purposes: [service_outage]
+    source: https://www.pacificpower.net/outages-safety.html
+    last_verified: 2026-10-13
+  - id: rmp-outage-text
+    type: sms
+    label: Rocky Mountain Power outage report by text (text OUT to 759677)
+    value: "759677"
+    purposes: [service_outage]
+    source: https://www.rockymountainpower.net/outages-safety.html
+    last_verified: 2026-10-13
+  - id: rmp-outage-phone
+    type: phone
+    label: Rocky Mountain Power outage and downed wires line
+    value: +1-877-508-5088
+    purposes: [service_outage]
+    source: https://www.rockymountainpower.net/outages-safety.html
+    last_verified: 2026-10-13
+  - id: pacific-power-claims-email
+    type: email
+    label: Pacific Power - request a claim (Statement of Damage) form by email
+    value: PacificPowerCustomerService@PacifiCorp.com
+    purposes: [property_damage_claim]
+    notes: Or call 1-888-221-7070 for a mailed form. Call that number as soon as possible for urgent claims or bodily injury.
+    source: https://www.pacificpower.net/working-with-us/claims.html
+    last_verified: 2026-10-13
+  - id: rmp-claims-email
+    type: email
+    label: Rocky Mountain Power - request a claim (Statement of Damage) form by email
+    value: RockyMountainPowerCustomerService@PacifiCorp.com
+    purposes: [property_damage_claim]
+    notes: Or call 1-888-221-7070 for a mailed form.
+    source: https://www.rockymountainpower.net/working-with-us/claims.html
+    last_verified: 2026-10-13
+  - id: pacific-power-payment-arrangement
+    type: portal
+    label: Pacific Power payment arrangements ("Need more time to pay?")
+    value: https://csapps.pacificpower.net/idm/my-account/payments/payment-arrangements
+    purposes: [disconnection, payment_assistance]
+    access: login
+    notes: The www.pacificpower.net payment-arrangements page redirects here; the page needs JavaScript and sign-in.
+    source: https://www.pacificpower.net/
+    last_verified: 2026-10-13
+  - id: rmp-payment-arrangement
+    type: portal
+    label: Rocky Mountain Power payment arrangements ("Need more time to pay?")
+    value: https://csapps.rockymountainpower.net/idm/my-account/payments/payment-arrangements
+    purposes: [disconnection, payment_assistance]
+    access: login
+    notes: The www.rockymountainpower.net payment-arrangements page redirects here; the page needs JavaScript and sign-in.
+    source: https://www.rockymountainpower.net/
+    last_verified: 2026-10-13
+  - id: pacific-power-assistance
+    type: web_form
+    label: Pacific Power bill payment assistance by state (Oregon LID, Washington LIBA, California CARE)
+    value: https://www.pacificpower.net/assistance
+    purposes: [payment_assistance]
+    access: open
+    source: https://www.pacificpower.net/assistance
+    last_verified: 2026-10-13
+  - id: rmp-assistance
+    type: web_form
+    label: Rocky Mountain Power bill payment assistance by state (Utah HELP, HEAT, Wyoming LIEAP, Idaho LIHEAP)
+    value: https://www.rockymountainpower.net/my-account/payments/bill-payment-assistance.html
+    purposes: [payment_assistance]
+    access: open
+    source: https://www.rockymountainpower.net/my-account/payments/bill-payment-assistance.html
+    last_verified: 2026-10-13
+  - id: pacific-power-medical-certificate
+    type: web_form
+    label: Pacific Power Medical Certificate online application
+    value: https://csapps.pacificpower.net/public/medical-web-form
+    purposes: [disconnection]
+    notes: "Printable form: https://www.pacificpower.net/content/dam/pcorp/documents/en/pacificpower/my-account/Medical_Certificate_Print_Application.pdf. Mail to Pacific Power, Attention: Medical Certificates, PO Box 400, Portland, Oregon 97207-0400, or fax 1-877-283-7697."
+    source: https://www.pacificpower.net/my-account/payments/bill-payment-assistance/medical-certificate.html
+    last_verified: 2026-10-13
+  - id: rmp-medical-certificate-fax
+    type: fax
+    label: Rocky Mountain Power Medical Certificate (fax, Attention Medical Certificates)
+    value: +1-877-283-7697
+    purposes: [disconnection]
+    notes: "Form: https://www.rockymountainpower.net/content/dam/pcorp/documents/en/rockymountainpower/my-account/Medical_Certificate_RMP.pdf. Mail: Rocky Mountain Power, Attention: Medical Certificates, PO Box 400, Portland, Oregon 97207-0400."
+    source: https://www.rockymountainpower.net/my-account/payments/bill-payment-assistance/medical-certificate.html
+    last_verified: 2026-10-13
+  - id: utah-dpu-complaint-form
+    type: web_form
+    label: Utah Division of Public Utilities online complaint form (Rocky Mountain Power, Utah)
+    value: https://dpu.utah.gov/online-complaint-form/
+    purposes: [billing_error, disconnection, poor_service]
+    access: open
+    notes: "Utah's informal complaint step after contacting the utility. DPU phone 801-530-7622 or 800-874-0904."
+    source: https://psc.utah.gov/complaint-process/
+    last_verified: 2026-10-13
+  - id: oregon-puc-complaint-form
+    type: web_form
+    label: Oregon PUC complaint form (Pacific Power, Oregon)
+    value: https://puc.oregon.gov/complaint
+    purposes: [billing_error, disconnection, poor_service]
+    access: open
+    notes: "Phone 503-378-6600 or 800-522-2404 (TTY 711), email puc.consumer@puc.oregon.gov, Mon-Fri 8 a.m.-5 p.m."
+    source: https://www.oregon.gov/puc/pages/consumer-information-center.aspx
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, channel: customer-service-phone, note: "Ask for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, note: "Both brands' contact-us pages (csapps.pacificpower.net and csapps.rockymountainpower.net) offer a contact form that needs JavaScript; no complaint mailing address was found."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Commission for the service state: Utah PSC (first an informal complaint with the Utah Division of Public Utilities; the PSC says to contact the company first and a formal complaint needs the informal step first), Wyoming PSC, Idaho PUC, Oregon PUC (says to contact the utility first), Washington UTC, California PUC."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Attorney general of the service state."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute with customer service and a supervisor, then file with the state commission; in Utah, the Division of Public Utilities takes the informal complaint first.
+    evidence: [the disputed bill, earlier bills, meter photos with dates, call notes with names and reference numbers]
+    steps:
+      - do: Call customer service, say which charge is wrong and what it should be. Get a reference number.
+        channel: customer-service-phone
+      - do: If not resolved, ask for a supervisor.
+        channel: customer-service-phone
+      - do: "Utah: file an informal complaint with the Division of Public Utilities; a formal PSC complaint is possible only after that."
+        channel: utah-dpu-complaint-form
+      - do: "Oregon: file with the Oregon PUC. Other states: the commission named in this file's notes."
+        channel: oregon-puc-complaint-form
+    facts:
+      - kind: process
+        claim: The Utah PSC says to first try to resolve the problem with the utility, then file an informal complaint with the Division of Public Utilities (by letter, phone or online). A customer may not file a formal complaint with the PSC without first trying the informal process.
+        issues: [billing_error, disconnection, poor_service]
+        source: https://psc.utah.gov/complaint-process/
+        last_verified: 2026-10-13
+      - kind: process
+        claim: The Oregon PUC says customers should first try to resolve a complaint with the utility, then contact PUC Consumer Services.
+        issues: [billing_error, disconnection, poor_service]
+        source: https://www.oregon.gov/puc/pages/consumer-information-center.aspx
+        last_verified: 2026-10-13
+
+  - issue: disconnection
+    summary: Ask for a payment arrangement and submit a medical certificate if it applies; Oregon pauses shutoffs in heat, cold, smoke and wildfire evacuations, and Washington gives a 5-business-day medical grace period.
+    evidence: [disconnection notice, account balance, medical certificate, income information]
+    steps:
+      - do: Call before the disconnection date and ask for a payment arrangement, or set one up online.
+        channel: customer-service-phone
+      - do: If someone in the home has a medical condition, have a qualified medical professional complete the Medical Certificate and send it in.
+        channel: pacific-power-medical-certificate
+      - do: Apply for your state's bill assistance programs.
+        channel: pacific-power-assistance
+      - do: If the company will not agree, contact the state commission before the disconnection date.
+    facts:
+      - kind: policy
+        claim: "Pacific Power (Oregon) does not disconnect for nonpayment starting 24 hours before a forecast low at or below 32 F (November-April) or a winter storm warning that threatens life or property; from May to October when the forecast low is at or below 32 F and the high at or below 60 F; starting 24 hours before a local Heat Advisory, Heat Watch or Heat Warning; and when the Air Quality Index is at or above 100. Protections extend 48 hours after these events."
+        issues: [disconnection]
+        source: https://www.pacificpower.net/my-account/payments/bill-payment-assistance/oregon-customer-protections.html
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Pacific Power (Oregon) does not disconnect customers in an area under a level 2 or level 3 wildfire evacuation notice or order; residential protection lasts two days after the order is lifted.
+        issues: [disconnection]
+        source: https://www.pacificpower.net/my-account/payments/bill-payment-assistance/oregon-customer-protections.html
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: In Oregon, Pacific Power disconnects for nonpayment between 8 a.m. and 2 p.m. Residential customers disconnected in the 7 days before a weather event are reconnected if they ask within 7 calendar days after it ends; income-qualified and medical certificate customers pay no reconnection fee or balance for these reconnections.
+        issues: [disconnection]
+        source: https://www.pacificpower.net/my-account/payments/bill-payment-assistance/oregon-customer-protections.html
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Pacific Power (Oregon) income-qualified customers (Low-Income Discount, LIHEAP or OEAP recipients, or self-attested household income of 60% or less of State Median Income) pay no late fees and no deposit, and with medical certificate customers may reconnect for less than the past-due balance on a six-month payment plan."
+        issues: [disconnection, payment_assistance]
+        source: https://www.pacificpower.net/my-account/payments/bill-payment-assistance/oregon-customer-protections.html
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: The Oregon PUC says electric utilities must give 15-day and 5-day notices before disconnection and may not disconnect for nonpayment on a weekend or holiday or the day before one.
+        issues: [disconnection]
+        source: https://www.oregon.gov/puc/pages/consumer-information-center.aspx
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Washington (WAC 480-100-128, applies to Pacific Power's Washington service): for a medical emergency the utility must postpone disconnection for five business days; the customer must give a medical certificate, pay at least ten percent of the delinquent balance and agree to pay the rest within 120 days. A certificate lasts no longer than sixty days unless renewed."
+        issues: [disconnection]
+        source: https://app.leg.wa.gov/WAC/default.aspx?cite=480-100-128
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: PacifiCorp says Medical Certificate enrollment does not guarantee against disconnection for nonpayment, and certificates must be renewed under each state's requirements. Certificates are completed by a qualified medical professional such as an MD, DO, PA or NP.
+        issues: [disconnection]
+        source: https://www.rockymountainpower.net/my-account/payments/bill-payment-assistance/medical-certificate.html
+        last_verified: 2026-10-13
+
+  - issue: payment_assistance
+    summary: Each state has its own programs; Oregon has a Low-Income Discount, Washington LIBA, California CARE (25% off), Utah HELP bill credits via HEAT agencies.
+    evidence: [current bill, household income, state of service]
+    steps:
+      - do: "Pacific Power (OR, WA, CA): pick your state's program on the assistance page, or call 1-888-221-7070."
+        channel: pacific-power-assistance
+      - do: "Rocky Mountain Power (UT, WY, ID): apply for HEAT/HELP (Utah), LIEAP (Wyoming) or LIHEAP (Idaho) through the agencies on the assistance page."
+        channel: rmp-assistance
+      - do: Ask for a payment arrangement for the past-due balance.
+        channel: customer-service-phone
+    facts:
+      - kind: compensation
+        claim: Pacific Power's California CARE program gives income-qualifying residential customers a 25% discount on monthly bills.
+        issues: [payment_assistance]
+        source: https://www.pacificpower.net/assistance
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Rocky Mountain Power's Utah Home Electric Lifeline Program (HELP) gives a monthly bill credit to customers whose income meets HEAT Program guidelines; apply through the local HEAT agency (jobs.utah.gov/heat).
+        issues: [payment_assistance]
+        source: https://www.rockymountainpower.net/my-account/payments/bill-payment-assistance.html
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: Wyoming's LIEAP utility bill assistance season closes on April 30, according to Rocky Mountain Power's assistance page.
+        issues: [payment_assistance]
+        source: https://www.rockymountainpower.net/my-account/payments/bill-payment-assistance.html
+        last_verified: 2026-10-13
+
+  - issue: service_outage
+    summary: Report the outage by phone or text; PacifiCorp generally does not pay outage or food spoilage claims.
+    evidence: [outage start and end times, service address]
+    steps:
+      - do: Report the outage at 1-877-508-5088, or text OUT to 722797 (Pacific Power) or 759677 (Rocky Mountain Power).
+        channel: outage-phone
+    facts:
+      - kind: policy
+        claim: PacifiCorp's claims pages say it generally does not pay claims for power outages or food spoilage, or for damage from weather (lightning, floods, extreme heat or winds), emergency de-energization or a Public Safety Power Shutoff, animals or third-party vehicle accidents.
+        issues: [service_outage, property_damage_claim]
+        source: https://www.rockymountainpower.net/working-with-us/claims.html
+        last_verified: 2026-10-13
+
+  - issue: property_damage_claim
+    summary: Request a Statement of Damage form by phone or email, send repair estimates and receipts; PacifiCorp aims to resolve claims within 30 days of a complete file. Wildfire losses from fires in litigation go through the courts and settlements, not this form.
+    evidence: [date and time of the incident, detailed repair estimates, original receipts (send copies), photos, a technician's statement for unrepairable items]
+    steps:
+      - do: Call 1-888-221-7070 or email the brand's customer service address to get the Statement of Damage form.
+        channel: pacific-power-claims-email
+        note: Rocky Mountain Power customers use the RMP claims email.
+      - do: Fill in each section, attach repair estimates, copies of receipts and photos. Keep the damaged items until the claim ends.
+      - do: Consider also filing with your own insurer; PacifiCorp says the insurer will likely seek reimbursement from the company.
+      - do: If the claim is denied and you disagree, ask for the reason in writing and contact the state commission.
+    facts:
+      - kind: process
+        claim: PacifiCorp aims to resolve claims within 30 days from receiving the claim and all supporting documents. The claims pages state no filing deadline.
+        issues: [property_damage_claim]
+        source: https://www.pacificpower.net/working-with-us/claims.html
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: PacifiCorp may cover losses from events it could have foreseen or prevented, such as an improper disconnection or damage to a driveway or fence caused by a company vehicle.
+        issues: [property_damage_claim]
+        source: https://www.rockymountainpower.net/working-with-us/claims.html
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: PacifiCorp's wildfire litigation page says it has settled nearly 4,500 wildfire claims for a total of $2.2 billion, covering 2020 Labor Day fires (including Beachie Creek/Santiam Canyon, Echo Mountain Complex, South Obenchain, 242 and Archie Creek), the Slater fire and the 2022 McKinney fire. The page describes no claims intake process; it reports the Oregon Court of Appeals reversed and remanded the James class action on April 8, 2026, and lists an Oregon Supreme Court order allowing review.
+        issues: [property_damage_claim]
+        source: https://www.pacificorp.com/about/information-wildfire/information-wildfire-litigation.html
+        last_verified: 2026-10-13
+
+known_blockers:
+  - csapps.pacificpower.net and csapps.rockymountainpower.net pages (contact us, payment arrangements, outage report, medical web form) render only with JavaScript; www pages redirect there.
+  - Payment arrangements and account details need a sign-in.
+  - Claims start with a form that must be requested by phone or email; there is no online claim form.
+  - Medical certificates must be completed by a qualified medical professional.
+  - Utah, Wyoming, Idaho and California tariff rules for disconnection were not readable by automated fetch; only Oregon and Washington protections are recorded here.
+
+official_domains: [pacificorp.com, pacificpower.net, rockymountainpower.net]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Rocky Mountain Power and Pacific Power will not contact a customer demanding immediate payment to avoid same-day disconnection.
+      source: https://www.rockymountainpower.net/my-account/scams.html
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Rocky Mountain Power and Pacific Power do not ask customers to make payments by purchasing a prepaid card.
+      source: https://www.pacificpower.net/scam
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Pacific Power will not demand immediate payment for damaged or broken electrical equipment or any other service.
+      source: https://www.pacificpower.net/scam
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Callers threaten that service will be interrupted within 30-60 minutes and demand payment with prepaid cards such as Green Dot or MoneyPak.
+      source: https://www.rockymountainpower.net/my-account/scams.html
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Scammers spoof caller ID so the call appears to come from the utility, and also contact customers by text, social media, email or in person.
+      source: https://www.pacificpower.net/scam
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Scammers demand immediate payment for supposedly damaged or broken electrical equipment. Real employees carry an ID badge with name, photo, company logo and a verification number.
+      source: https://www.rockymountainpower.net/my-account/scams.html
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-scam-rmp
+      type: phone
+      label: Verify a caller or report a scam (Rocky Mountain Power)
+      value: +1-888-221-7070
+      notes: The page also says to report to local police and the FTC (877-FTC-HELP).
+      source: https://www.rockymountainpower.net/my-account/scams.html
+      last_verified: 2026-10-13
+    - id: report-scam-pacific-power
+      type: phone
+      label: Verify a caller or report a scam (Pacific Power)
+      value: +1-888-221-7070
+      source: https://www.pacificpower.net/scam
+      last_verified: 2026-10-13

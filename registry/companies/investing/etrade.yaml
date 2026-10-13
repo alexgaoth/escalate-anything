@@ -1,0 +1,85 @@
+id: etrade
+name: E*TRADE from Morgan Stanley
+aliases: [etrade, e*trade, e-trade, e trade, etrade from morgan stanley, power etrade]
+sector: investing
+parent: Morgan Stanley
+website: https://us.etrade.com
+official_domains: [etrade.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: E*TRADE says it will never ask for your password, even when it contacts you about your account. Seen in a search-engine extract of the E*TRADE Security Center.
+      source: https://us.etrade.com/security-center
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: E*TRADE warns that links in emails and texts can lead to lookalike sites built to steal your logon credentials, and says to type etrade.com or use a saved bookmark instead. Seen in a search-engine extract of the E*TRADE Security Statement.
+      source: https://us.etrade.com/l/f/agreement-library/security-statement
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: security-phone
+      type: phone
+      label: Report a questionable email, text or lookalike site that claims to be E*TRADE
+      value: +1-800-387-2331
+      purposes: [fraud]
+      access: human_only
+      notes: Seen in search-engine extracts of the Security Center and Security Statement; us.etrade.com did not answer automated fetches on 2026-10-13.
+      source: https://us.etrade.com/security-center
+      last_verified: 2026-10-13
+regulators: [sec, finra]
+notes: >-
+  E*TRADE from Morgan Stanley is a business of Morgan Stanley. BrokerCheck lists "E*TRADE FROM MORGAN STANLEY"
+  as another name of Morgan Stanley Smith Barney LLC (CRD 149777), and shows E*TRADE Securities LLC
+  (CRD 29106) as inactive. us.etrade.com did not answer automated fetches on 2026-10-13, so the values below
+  come from search-engine extracts of E*TRADE's own pages and from BrokerCheck.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service, including security and fraud concerns
+    value: +1-800-387-2331
+    purposes: [fraud, unauthorized_charge, account_access, account_transfer, poor_service]
+    access: human_only
+    notes: Seen in search-engine extracts of E*TRADE's Security Center and elder-fraud pages; not fetched directly.
+    source: https://us.etrade.com/security-center
+    last_verified: 2026-10-13
+  - id: brokercheck
+    type: portal
+    label: FINRA BrokerCheck record for Morgan Stanley Smith Barney LLC, which carries E*TRADE from Morgan Stanley accounts (CRD 149777)
+    value: https://brokercheck.finra.org/firm/summary/149777
+    source: https://api.brokercheck.finra.org/search/firm?query=morgan%20stanley%20smith%20barney&hl=true&nrows=12&start=0&r=25&wt=json
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, note: "We could not verify an E*TRADE complaint address. FINRA asks you to complain in writing to the firm's branch manager or compliance department and keep copies."}
+  - {rung: regulator, regulator: finra}
+  - {rung: regulator, regulator: sec}
+  - {rung: arbitration, note: "Section 12 of the E*TRADE from Morgan Stanley Client Agreement is a predispute arbitration clause."}
+
+playbooks:
+  - issue: fraud
+    summary: Call 800-387-2331 about any suspicious message or unauthorized activity, then escalate to FINRA.
+    evidence: [account activity with the unauthorized transactions, the suspicious message, FTC report number]
+    steps:
+      - do: Call E*TRADE customer service and report the suspicious message or unauthorized activity.
+        channel: customer-service-phone
+      - do: Do not click links in the message; type etrade.com into the browser instead.
+      - do: Report the scam to the FTC at ReportFraud.ftc.gov.
+        regulator: ftc
+      - do: If E*TRADE does not resolve it, complain in writing, then file with FINRA.
+        regulator: finra
+
+facts:
+  - kind: policy
+    claim: The E*TRADE from Morgan Stanley Client Agreement for self-directed accounts (effective May 20, 2026) contains a predispute arbitration clause in Section 12. Claims go to arbitration before a self-regulatory organization or exchange of which Morgan Stanley is a member, chosen by the customer in writing. Seen in a search-engine extract of the agreement.
+    source: https://us.etrade.com/l/f/agreement-library/client-agreement
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: BrokerCheck lists E*TRADE FROM MORGAN STANLEY as another name of Morgan Stanley Smith Barney LLC (CRD 149777), and E*TRADE Securities LLC (CRD 29106) as inactive.
+    source: https://api.brokercheck.finra.org/search/firm?query=e*trade&hl=true&nrows=12&start=0&r=25&wt=json
+    last_verified: 2026-10-13
+
+known_blockers:
+  - us.etrade.com refuses automated connections; hand the browser to the person.
+  - Phone lines verify the account holder by voice.
