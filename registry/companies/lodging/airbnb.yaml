@@ -1,0 +1,168 @@
+id: airbnb
+name: Airbnb
+aliases: [airbnb inc, airbnb payments, aircover]
+sector: lodging
+website: https://www.airbnb.com
+account_url: https://www.airbnb.com/trips
+regulators: [ftc]
+notes: >-
+  Airbnb is a platform; each stay is a contract with an independent host. US payments are handled by Airbnb Payments, Inc.
+  Problems with a stay go through the Rebooking and Refund Policy (report within 72 hours of discovery) and the Resolution
+  Center (money requests between host and guest, with Airbnb mediation on request). Terms of Service and Payments Terms
+  last updated February 5, 2026. Airbnb publishes no phone number on its public contact page; contact options appear after sign-in.
+
+channels:
+  - id: contact-support
+    type: portal
+    label: Contact Airbnb support (sign in to see options)
+    value: https://www.airbnb.com/help/contact_us
+    purposes: [reservation_problem, refund_request, damage_claim, deposit_refund, poor_service]
+    access: login
+    notes: The page says "Log in to contact us"; a separate entry point is for safety issues.
+    source: https://www.airbnb.com/help/contact_us
+    last_verified: 2026-10-12
+  - id: resolution-center
+    type: portal
+    label: Resolution Center (send or request money; ask Airbnb to mediate)
+    value: https://www.airbnb.com/resolutions
+    purposes: [refund_request, damage_claim, deposit_refund, reservation_problem]
+    access: login
+    source: https://www.airbnb.com/help/article/767
+    last_verified: 2026-10-12
+  - id: help-center
+    type: portal
+    label: Airbnb Help Center
+    value: https://www.airbnb.com/help
+    access: open
+    source: https://www.airbnb.com/help/contact_us
+    last_verified: 2026-10-12
+  - id: arbitration-notice-mail
+    type: mail
+    label: Pre-Dispute Notice and arbitration notice address (US Terms of Service, Section 23)
+    value: CSC Lawyers Incorporating Service, 2710 Gateway Oaks Drive, Suite 150N, Sacramento, California 95833
+    purposes: [refund_request, damage_claim]
+    notes: A written Pre-Dispute Notice is required at least 30 days before starting arbitration.
+    source: https://www.airbnb.com/help/article/2908
+    last_verified: 2026-10-12
+  - id: arbitration-opt-out-email
+    type: email
+    label: Arbitration opt-out for changes to the arbitration terms
+    value: arbitration.opt.out@airbnb.com
+    notes: Send within 30 days of the date a change to the arbitration terms takes effect; postal alternative is 888 Brannan St, San Francisco, CA 94103, Attn Arbitration Opt-Out.
+    source: https://www.airbnb.com/help/article/2908
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: resolution-center, note: "Message the host first; then ask Airbnb to step in."}
+  - {rung: written_complaint, channel: contact-support}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: arbitration-notice-mail, note: "Send a Pre-Dispute Notice 30 days before AAA arbitration; small claims court is allowed."}
+
+playbooks:
+  - issue: reservation_problem
+    summary: Report the problem to the host or Airbnb within 72 hours of discovering it, with photos; Airbnb can rebook you or refund you.
+    evidence: [reservation code, photos or video of the problem, messages with the host, time you discovered the problem]
+    steps:
+      - do: Message the host through Airbnb and photograph or film the problem.
+      - do: Within 72 hours of discovery, the guest who booked must contact Airbnb or the host. Ask for rebooking in a similar place or a full or partial refund.
+        channel: contact-support
+      - do: If the host cancelled before check-in, ask for a refund to the original payment method instead of the travel credit.
+      - do: If Airbnb refuses, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: Guests must report Reservation Issues within 72 hours after discovery to qualify under the Rebooking and Refund Policy.
+        issues: [reservation_problem, refund_request]
+        source: https://www.airbnb.com/help/article/2868
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Reservation Issues include a host cancelling before check-in, the host failing to provide access, uninhabitable conditions, and a listing significantly different from the one advertised; Airbnb may refund in full or part or help find a similar place.
+        issues: [reservation_problem]
+        source: https://www.airbnb.com/help/article/2868
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: For a host cancellation before check-in, the guest generally receives a travel credit unless the guest asks for a refund to the original payment method.
+        issues: [reservation_problem, refund_request, travel_credit]
+        source: https://www.airbnb.com/help/article/2868
+        last_verified: 2026-10-12
+  - issue: refund_request
+    summary: The listing's cancellation policy sets the refund; a 24-hour free cancellation period applies to bookings made at least 7 days before check-in.
+    evidence: [reservation code, cancellation policy shown at booking, booking and cancellation times]
+    steps:
+      - do: Check the listing's cancellation policy in the trip details.
+      - do: Cancel from Trips. For an agreed refund outside the policy, ask the host to send it through the Resolution Center.
+        channel: resolution-center
+      - do: Submit Resolution Center requests within 60 days after checkout; if you cannot agree with the host, ask Airbnb to mediate (you have 1 hour to respond to a mediation request).
+        channel: resolution-center
+    facts:
+      - kind: policy
+        claim: "Standard stays (27 nights or fewer): Flexible gives a full refund until 24 hours before check-in; Moderate until 5 days before; Limited until 14 days before; Firm until 30 days before. Limited and Firm refund 50% from 7 days up to that limit, and no refund inside 7 days."
+        issues: [refund_request]
+        source: https://www.airbnb.com/help/article/475
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: A 24-hour cancellation period applies to all standard cancellation policies for shorter stays, if the reservation was confirmed at least 7 days before check-in (listing's local time).
+        issues: [refund_request]
+        source: https://www.airbnb.com/help/article/475
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Resolution Center requests can be submitted up to 60 days after the reservation's checkout date.
+        issues: [refund_request, damage_claim, deposit_refund]
+        source: https://www.airbnb.com/help/article/767
+        last_verified: 2026-10-12
+  - issue: damage_claim
+    summary: A host must ask you to pay through the Resolution Center within 14 days of checkout; you are notified and can respond before Airbnb charges your card.
+    evidence: [your check-in and check-out photos or video, messages with the host, the host's request and photos, checkout instructions]
+    steps:
+      - do: Take photos or video at check-in and check-out.
+      - do: When a host request arrives (email or Resolution Center), ask for photos, invoices or estimates, and the date the damage was found.
+        channel: resolution-center
+      - do: Decline or answer the request in the Resolution Center with your own evidence. If the host asks Airbnb to step in, send your evidence when Airbnb contacts you.
+        channel: resolution-center
+      - do: If Airbnb charges your payment method and you dispute the decision, contact support in writing, then use the card dispute or arbitration notice.
+        channel: contact-support
+    facts:
+      - kind: deadline
+        claim: Under the Host Damage Protection Terms, a host must try to recover the loss from the guest (for example through the Resolution Center) and notify Airbnb within fourteen (14) days of the guest's checkout, and file the payment request form within thirty (30) days of checkout.
+        issues: [damage_claim]
+        source: https://www.airbnb.com/help/article/2869
+        last_verified: 2026-10-12
+      - kind: process
+        claim: The Terms of Service say a guest is notified of a Damage Report and given an opportunity to respond; if Airbnb finds the report valid, Airbnb Payments can collect the amount from the guest.
+        issues: [damage_claim]
+        source: https://www.airbnb.com/help/article/2908
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Airbnb Payments may charge the payment method used for the booking, or another method on file, to collect Damage Report amounts, and says it notifies you in writing before charging Additional Amounts.
+        issues: [damage_claim]
+        source: https://www.airbnb.com/help/article/2909
+        last_verified: 2026-10-12
+  - issue: deposit_refund
+    summary: Airbnb has no general security deposit; some hosts with connected software collect one through the Resolution Center.
+    evidence: [reservation code, deposit request, checkout photos]
+    steps:
+      - do: Check the Resolution Center for the host's security deposit request and its status.
+        channel: resolution-center
+      - do: If the host keeps the deposit without a valid damage claim, ask Airbnb to mediate within 60 days of checkout.
+        channel: resolution-center
+    facts:
+      - kind: policy
+        claim: Resolution Center requests can cover security deposits from select hosts connected through software.
+        issues: [deposit_refund]
+        source: https://www.airbnb.com/help/article/767
+        last_verified: 2026-10-12
+
+facts:
+  - kind: fee
+    claim: Guests pay a service fee of 14.1% to 16.5% of the booking subtotal; it is shown in the price breakdown before booking.
+    source: https://www.airbnb.com/help/article/1857
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: The US Terms of Service require binding individual AAA arbitration after a 30-day Pre-Dispute Notice, with a class action waiver; either side may use small claims court.
+    source: https://www.airbnb.com/help/article/2908
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Contacting Airbnb support and using the Resolution Center require sign-in by the account holder.
+  - Only the guest who made the booking can report a Reservation Issue.
+  - Mediation requests must be answered within 1 hour.

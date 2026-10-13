@@ -1,0 +1,130 @@
+id: instacart
+name: Instacart
+aliases: [instacart, instacart+, instacart plus, maplebear]
+sector: gig_delivery
+website: https://www.instacart.com
+regulators: [ftc]
+notes: >-
+  Grocery delivery and pickup, operated by Maplebear Inc. (d/b/a Instacart). Terms last updated May 7, 2026.
+  For orders placed through a retailer's own app or website (for example Kroger), Instacart says to contact
+  that retailer. Problems must be reported within 3 days of pickup or delivery.
+
+channels:
+  - id: support-phone
+    type: phone
+    label: Instacart customer support
+    value: +1-888-246-7822
+    purposes: [refund_request, billing_error, unauthorized_charge, cancel_service, poor_service, lost_package, damaged_item]
+    source: https://www.instacart.com/help/section/809794019/1992925010
+    last_verified: 2026-10-12
+  - id: report-problem
+    type: app
+    label: Report a problem with an order (app Get help, or website Report a problem)
+    value: "App: select the order > Get help. Website: select the order > Report a problem"
+    purposes: [refund_request, lost_package, damaged_item]
+    access: login
+    source: https://www.instacart.com/help/section/3252458959/3279632311
+    last_verified: 2026-10-12
+  - id: help-center
+    type: portal
+    label: Instacart Help Center (Connect with Instacart)
+    value: https://www.instacart.com/help
+    purposes: [refund_request, billing_error, unauthorized_charge, poor_service]
+    source: https://www.instacart.com/help/section/809794019/1992925010
+    last_verified: 2026-10-12
+  - id: instacart-plus-manage
+    type: app
+    label: Cancel Instacart+ (Your Instacart+ membership > Cancel membership)
+    value: "App: Account > Your Instacart+ membership > Cancel membership. Web: menu > Your Instacart+ membership > Cancel membership"
+    purposes: [cancel_service]
+    access: login
+    source: https://www.instacart.com/help/section/107169420/423178048
+    last_verified: 2026-10-12
+  - id: safety-report
+    type: app
+    label: Report a safety issue on an order
+    value: "Select the order > Get help > Other issues > Report safety issue"
+    purposes: [poor_service]
+    access: login
+    notes: In an emergency, call 911.
+    source: https://www.instacart.com/help/section/3252458959/117065158
+    last_verified: 2026-10-12
+  - id: legal-notice-mail
+    type: mail
+    label: Notice of dispute (Legal Department)
+    value: "Instacart, ATTN: Legal Department, 50 Beale Street, Suite 600, San Francisco, CA 94105"
+    notes: Must include contact details, a description of the claim, the remedy and amount sought, and your personal signature. Allow 60 days before arbitration.
+    source: https://www.instacart.com/terms
+    last_verified: 2026-10-12
+  - id: arbitration-opt-out-email
+    type: email
+    label: Arbitration opt-out
+    value: arbitration-opt-out@instacart.com
+    notes: Within 30 days of first accepting the Terms. Include first and last name, account email and a clear statement that you opt out.
+    source: https://www.instacart.com/terms
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: report-problem}
+  - {rung: frontline, channel: support-phone}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: legal-notice-mail, note: "Signed written notice, then at least 60 days to resolve it before arbitration."}
+
+playbooks:
+  - issue: refund_request
+    summary: Report missing, damaged or wrong items in the app or website within 3 days; ask within 24 hours for a same-day refund.
+    evidence: [order details, photos of damaged or wrong items, list of missing items]
+    steps:
+      - do: "Open the order and choose Get help (app) or Report a problem (website). Do it within 3 days of pickup or delivery, and within 24 hours for a same-day refund."
+        channel: report-problem
+      - do: Choose a refund to the payment method or a credit toward a future order.
+      - do: If self-report does not work, contact Instacart support.
+        channel: support-phone
+      - do: If Instacart does not refund an item you paid for and did not get, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: Instacart accepts problem reports within 3 days of pickup or delivery (not for restaurant orders). For a same-day refund, request it within 24 hours of receiving the order.
+        issues: [refund_request, lost_package, damaged_item]
+        source: https://www.instacart.com/help/section/3252458959/420247006
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: For missing or damaged items, Instacart gives a refund or a credit toward a future order, up to what you paid for the item. Refunds are processed immediately, but the bank may take longer to show them.
+        issues: [refund_request]
+        source: https://www.instacart.com/help/section/3252458959/420247006
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: Check for authorization holds and Instacart+ renewals first; if the charge still does not fit, contact Instacart, then the bank.
+    evidence: [statement with the charge, order history]
+    steps:
+      - do: Compare the charge with your orders. Authorization holds can be higher than the order total and are released by the bank later; a recurring charge is an Instacart+ renewal.
+      - do: If it still does not match, contact Instacart.
+        channel: help-center
+      - do: If Instacart does not reverse it, dispute it with your bank or card issuer.
+    facts:
+      - kind: policy
+        claim: Instacart's Terms say multiple pending authorizations are not duplicate charges, and you are charged once for the final order total.
+        issues: [unauthorized_charge, billing_error]
+        source: https://www.instacart.com/terms
+        last_verified: 2026-10-12
+
+  - issue: cancel_service
+    summary: Cancel Instacart+ under Your Instacart+ membership. Annual members get a refund only within the first 5 days and only if they placed no orders with it.
+    evidence: [cancellation confirmation email, date of cancellation, any later charge]
+    steps:
+      - do: "App: Account > Your Instacart+ membership > Cancel membership > Continue > Confirm cancellation. Website: menu > Your Instacart+ membership > Cancel membership."
+        channel: instacart-plus-manage
+      - do: Keep the confirmation email. If charged after cancelling, contact support.
+        channel: support-phone
+      - do: If Instacart does not refund a charge made after cancellation, dispute it with your card issuer.
+    facts:
+      - kind: policy
+        claim: Annual Instacart+ members can cancel within the first 5 calendar days of the paid membership for a refund only if no orders used the membership; other cancellations get no refund, and benefits continue to the end of the billing period. Charges may apply up to 6 hours before renewal.
+        issues: [cancel_service, refund_request]
+        source: https://www.instacart.com/help/section/107169420/423178048
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Order problem reports and Instacart+ cancellation need the customer signed in.
+  - Orders placed through a retailer's own app or website are handled by that retailer, not Instacart.

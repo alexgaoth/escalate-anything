@@ -1,0 +1,213 @@
+id: greyhound
+name: Greyhound Lines, Inc.
+aliases: [greyhound, greyhound lines, greyhound bus]
+sector: ground_transport
+parent: Flix SE
+website: https://www.greyhound.com
+account_url: https://shop.greyhound.com/rebooking/login
+regulators: [fmcsa]
+notes: >-
+  Greyhound is owned by Flix (FlixBus acquired it in 2021). Tickets on greyhound.com are sold by FlixBus, Inc. ("Flix")
+  as a broker for independent bus operators such as Greyhound; the operator of a trip is shown during booking. Greyhound
+  keeps its own phone lines and help center (help.greyhound.com); FlixBus-branded trips use FlixBus channels (see flixbus).
+  The Terms & Conditions of Purchase (dated 7/13/2026) state two different claim-notice deadlines (90 days and 21 days).
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Greyhound toll-free booking and customer service (US)
+    value: +1-800-231-2222
+    hours: 7 days a week, 24 hours a day
+    purposes: [refund_request, poor_service]
+    notes: Phone bookings carry a $25 fee. Greyhound says Customer Service cannot modify a ticket before departure; use Manage My Booking.
+    source: https://www.greyhound.com/help-and-info/contact-us
+    last_verified: 2026-10-12
+  - id: spanish-phone
+    type: phone
+    label: Greyhound en Español (within US)
+    value: +1-800-531-5332
+    source: https://www.greyhound.com/help-and-info/contact-us
+    last_verified: 2026-10-12
+  - id: tty-phone
+    type: phone
+    label: Greyhound TTY/TDD
+    value: +1-800-345-3109
+    hours: 7 days a week, 24 hours a day
+    purposes: [accessibility]
+    source: https://www.greyhound.com/help-and-info/contact-us
+    last_verified: 2026-10-12
+  - id: disability-assistance-phone
+    type: phone
+    label: Customers with Disabilities Travel Assistance
+    value: +1-800-752-4841
+    purposes: [accessibility]
+    notes: Greyhound says the representative can waive the standard convenience fee if a disability prevents booking online.
+    source: https://www.greyhound.com/help-and-info/customers-with-disabilities
+    last_verified: 2026-10-12
+  - id: ada-email
+    type: email
+    label: ADA Compliance (disability discrimination complaints)
+    value: ada.support@greyhound.com
+    purposes: [accessibility]
+    source: https://www.greyhound.com/help-and-info/customers-with-disabilities
+    last_verified: 2026-10-12
+  - id: ada-phone
+    type: phone
+    label: ADA Compliance Specialist
+    value: +1-214-849-7841
+    purposes: [accessibility]
+    source: https://www.greyhound.com/help-and-info/customers-with-disabilities
+    last_verified: 2026-10-12
+  - id: ada-mail
+    type: mail
+    label: ADA Compliance mailing address
+    value: Greyhound Lines, Inc., ATTN ADA Compliance, PO Box 660362-0362, Dallas, TX 75266-0362
+    purposes: [accessibility]
+    notes: The page addresses this to a named ADA Compliance Specialist.
+    source: https://www.greyhound.com/help-and-info/customers-with-disabilities
+    last_verified: 2026-10-12
+  - id: feedback-form
+    type: web_form
+    label: Greyhound feedback form (complaints and past-ride safety issues)
+    value: https://help.greyhound.com/s/feedback-form?language=en_US
+    purposes: [poor_service, accessibility, refund_request]
+    source: https://www.greyhound.com/help-and-info/contact-us
+    last_verified: 2026-10-12
+  - id: delay-refund-form
+    type: web_form
+    label: Trip delay refund request form
+    value: https://help.greyhound.com/s/refund-form?language=en_US
+    purposes: [refund_request]
+    source: https://www.greyhound.com/help-and-info/contact-us
+    last_verified: 2026-10-12
+  - id: manage-my-booking
+    type: portal
+    label: Manage My Booking (change, cancel, voucher refund)
+    value: https://shop.greyhound.com/rebooking/login
+    purposes: [refund_request]
+    access: login
+    notes: Log in with the booking number and the email or phone number used at purchase.
+    source: https://www.greyhound.com/help-and-info/contact-us
+    last_verified: 2026-10-12
+  - id: lost-item-form
+    type: web_form
+    label: Lost and found request (help center)
+    value: https://help.greyhound.com/s/?language=en_US
+    purposes: [lost_baggage]
+    source: https://www.greyhound.com/travel-info/baggage
+    last_verified: 2026-10-12
+  - id: feedback-mail
+    type: mail
+    label: Feedback and general customer mail
+    value: Greyhound Lines, Inc, P.O. Box 660691, MS 470, Dallas, TX 75266-0691
+    purposes: [poor_service, refund_request]
+    source: https://www.greyhound.com/help-and-info/contact-us
+    last_verified: 2026-10-12
+  - id: risk-email
+    type: email
+    label: Flix risk department (proof of loss form for baggage lost or damaged in a collision or accident)
+    value: RiskNA@flixbus.com
+    purposes: [lost_baggage]
+    source: https://www.greyhound.com/greyhound-terms-and-conditions-of-travel
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: feedback-form}
+  - {rung: regulator, regulator: fmcsa, note: "Interstate bus carrier."}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "Terms & Conditions of Purchase require individual AAA arbitration, except personal injury, lost or damaged luggage, ADA and Title VI claims, and injunctive relief."}
+
+playbooks:
+  - issue: refund_request
+    summary: Voluntary cancellations get a voucher on a sliding scale; carrier cancellations get a full refund; delays over 120 minutes allow a voucher or a free rebooking.
+    evidence: [booking number, email or phone used at purchase, departure time, delay or cancellation notice]
+    steps:
+      - do: Cancel in Manage My Booking at least 15 minutes before departure. The voucher is emailed immediately.
+        channel: manage-my-booking
+      - do: If the bus is delayed 120 minutes or more from the origin, do not board if you want money back; withdraw and ask for a voucher or a free rebooking through the delay refund form.
+        channel: delay-refund-form
+      - do: If Greyhound or the operator cancelled the trip, ask for a full refund including fees.
+        channel: customer-service-phone
+      - do: If the refund is not given, send a written complaint, then dispute the charge with your card issuer.
+        channel: feedback-form
+    facts:
+      - kind: policy
+        claim: "Voluntary cancellation up to 15 minutes before departure gets a voucher for a percentage of the ticket price: less than 2 days before departure 20%, 2 to 6 days 40%, 7 to 29 days 70%, 30 days or more 100%. Booking and service fees are non-refundable."
+        issues: [refund_request]
+        source: https://www.greyhound.com/manage-my-booking/cancellation-policy
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Cancellation vouchers are valid for 12 months across the network, have no cash value and cannot be resold.
+        issues: [refund_request, travel_credit]
+        source: https://www.greyhound.com/help-and-info/travel-dilemmas/ticket-refunds-exchanges
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If the bus is delayed 120 minutes or more from the original departure point, you can withdraw and get a voucher for the ticket price or rebook for free; if you travel on the delayed bus, no refund is available.
+        issues: [refund_request]
+        source: https://www.greyhound.com/help-and-info/travel-dilemmas/ticket-refunds-exchanges
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: For involuntary cancellations the customer receives a refund for the full amount of the ticket fare, including any fees paid.
+        issues: [refund_request]
+        source: https://www.greyhound.com/terms-and-conditions-of-purchase
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: Greyhound's Terms & Conditions of Travel allow reimbursement of up to two nights of lodging, capped at $80 per night per ticketed customer, in the delay situations described in Part G.
+        issues: [refund_request]
+        source: https://www.greyhound.com/greyhound-terms-and-conditions-of-travel
+        last_verified: 2026-10-12
+  - issue: accessibility
+    summary: Disclose a wheelchair at booking; complain to the ADA Compliance Specialist, who generally investigates within 30 days.
+    evidence: [name on booking, booking number, date and location, what happened, description of the people involved, your contact details]
+    steps:
+      - do: Disclose the wheelchair or mobility scooter when booking; only two wheelchair spaces are available per bus. For departures within 24 hours, call to confirm.
+        channel: disability-assistance-phone
+      - do: For trips with another bus operator, contact each operator early; they may need 48 hours' notice for an accessible bus.
+      - do: File a complaint with the ADA Compliance Specialist by email, phone or mail with the booking details.
+        channel: ada-email
+      - do: If you disagree with the findings, ask for the claim to be re-reviewed.
+      - do: Escalate to FMCSA if Greyhound does not resolve it.
+        regulator: fmcsa
+    facts:
+      - kind: process
+        claim: Greyhound says the ADA Compliance Specialist generally completes an investigation within 30 days from receipt of the complaint, and closes the claim if requested information is not provided.
+        issues: [accessibility]
+        source: https://www.greyhound.com/help-and-info/customers-with-disabilities
+        last_verified: 2026-10-12
+  - issue: lost_baggage
+    summary: Greyhound disclaims liability for lost or damaged baggage except in a collision or accident; use the lost and found form.
+    evidence: [booking number, bag description, route and date, photos, receipts]
+    steps:
+      - do: Submit a lost and found request; if you used more than one bus operator, check with each carrier.
+        channel: lost-item-form
+      - do: For bags lost or damaged in a collision or accident, ask for a proof of loss form and send written notice within the claim deadline.
+        channel: risk-email
+    facts:
+      - kind: limit
+        claim: Liability for baggage lost or damaged in a bus collision or accident is no greater than $250 per adult ticket and $125 per child ticket; otherwise Flix and bus operators disclaim liability for lost or damaged baggage.
+        issues: [lost_baggage]
+        source: https://www.greyhound.com/greyhound-terms-and-conditions-of-travel
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Written notice of a claim for damages must be received by the bus operator or Flix within ninety (90) days of the event; the purchase terms also contain a conflicting twenty-one (21) day version. A lawsuit must start within one year of a written denial.
+        issues: [lost_baggage]
+        source: https://www.greyhound.com/terms-and-conditions-of-purchase
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If a lost bag is found, Greyhound can send it back to addresses in the contiguous United States; elsewhere the passenger must arrange shipping.
+        issues: [lost_baggage]
+        source: https://www.greyhound.com/travel-info/baggage
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Greyhound's Terms & Conditions of Purchase name FlixBus, Inc. as the seller and require individual AAA arbitration under the Consumer Arbitration Rules, excluding personal injury, lost or damaged luggage, ADA and Title VI claims, and injunctive relief.
+    source: https://www.greyhound.com/terms-and-conditions-of-purchase
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Drivers and Customer Service cannot change a ticket before departure; changes and cancellations go through Manage My Booking.
+  - Voluntary refunds are vouchers only.
+  - help.greyhound.com is a Salesforce site that may not render for automated fetches.

@@ -1,0 +1,199 @@
+id: amtrak
+name: Amtrak (National Railroad Passenger Corporation)
+aliases: [national railroad passenger corporation, amtrak guest rewards, acela]
+sector: ground_transport
+website: https://www.amtrak.com
+account_url: https://www.amtrak.com/planning-booking/changes-refunds
+regulators: []
+notes: >-
+  Amtrak is a federally chartered passenger railroad; FMCSA does not regulate it. Disability discrimination complaints
+  can also go to the Amtrak Office of Inspector General or the Federal Railroad Administration (FRA) Office for Civil
+  Rights, which are not in the registry's regulator list. Amtrak Connection (7000 and 8000 series) bus segments follow the
+  operating carrier's baggage policies.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Reservations and Customer Service (1-800-USA-RAIL)
+    value: +1-800-872-7245
+    purposes: [refund_request, accessibility, lost_baggage, poor_service]
+    notes: Also the number to report an accessibility issue and, for baggage claims, to ask for Customer Relations. TTY/TDD users dial 711.
+    source: https://www.amtrak.com/contact-us/helpful-links-and-phone-numbers
+    last_verified: 2026-10-12
+  - id: customer-service-sms
+    type: sms
+    label: Text Amtrak customer service
+    value: +1-800-872-7245
+    hours: 7 am to 11 pm ET
+    purposes: [accessibility]
+    source: https://www.amtrak.com/contact-us/helpful-links-and-phone-numbers
+    last_verified: 2026-10-12
+  - id: live-chat
+    type: chat
+    label: Chat with a live agent
+    value: https://www.amtrak.com/contact-us/chat
+    hours: Every day 7:00am - 11:00pm ET
+    purposes: [refund_request, accessibility, poor_service]
+    source: https://www.amtrak.com/contact-us
+    last_verified: 2026-10-12
+  - id: email-form
+    type: web_form
+    label: E-mail Us contact form (subjects include Travel Experience Feedback, Accessibility Requests/Feedback, Guest Rewards)
+    value: https://www.amtrak.com/contact-us/email
+    purposes: [poor_service, accessibility, account_access, privacy_request]
+    access: captcha
+    notes: Amtrak says it cannot change or cancel tickets through this form; a representative responds within 7-10 days.
+    source: https://www.amtrak.com/contact-us/email
+    last_verified: 2026-10-12
+  - id: refunds-mail
+    type: mail
+    label: Amtrak Refunds (required for cash refunds; send original tickets by certified mail, return receipt requested)
+    value: Amtrak Refunds, Box 70, 2955 Market Street, Philadelphia, PA 19104-2898
+    purposes: [refund_request]
+    source: https://www.amtrak.com/planning-booking/changes-refunds/refund-and-cancellation-policy
+    last_verified: 2026-10-12
+  - id: baggage-claims-mail
+    type: mail
+    label: Office of Customer Relations, Baggage Claims
+    value: "Attn: Baggage Claims, Amtrak, 1 Massachusetts Ave NW, Washington, DC 20001"
+    purposes: [lost_baggage]
+    source: https://www.amtrak.com/onboard/baggage-policy/lost-items-limited-liability-for-baggage
+    last_verified: 2026-10-12
+  - id: headquarters-mail
+    type: mail
+    label: Amtrak Headquarters (disability discrimination complaints)
+    value: Amtrak Headquarters, One Massachusetts Ave NW, Washington, DC 20001
+    purposes: [accessibility]
+    source: https://www.amtrak.com/planning-booking/accessible-travel-services/non-discrimination-policy
+    last_verified: 2026-10-12
+  - id: guest-rewards-phone
+    type: phone
+    label: Amtrak Guest Rewards
+    value: +1-800-307-5000
+    purposes: [account_access]
+    source: https://www.amtrak.com/contact-us/helpful-links-and-phone-numbers
+    last_verified: 2026-10-12
+  - id: lost-item-report
+    type: web_form
+    label: Lost item report (items lost on a train or in a station; run by Chargerback for Amtrak)
+    value: https://www.chargerback.com/reportLostItemCBEmbed.asp?CustomerID=16387
+    notes: For items left on board or in a station, not for checked baggage claims.
+    source: https://www.amtrak.com/onboard/baggage-policy
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: email-form}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "Amtrak's terms and conditions include a binding arbitration agreement."}
+
+playbooks:
+  - issue: refund_request
+    summary: Cancel before departure; the refund depends on the fare type. Request it online, by phone, at a station, or by mail for cash tickets.
+    evidence: [reservation number, fare type, purchase date, cancellation confirmation, doctor's note for an illness waiver]
+    steps:
+      - do: Cancel before the train departs. Unused tickets that are not cancelled before departure are forfeit.
+      - do: Request the refund on Amtrak.com or in the Amtrak app for most online purchases, or call 1-800-USA-RAIL.
+        channel: customer-service-phone
+      - do: For a cash purchase, mail the original tickets by certified mail, return receipt requested, to Amtrak Refunds.
+        channel: refunds-mail
+      - do: If you or someone in your party is ill, ask for the illness waiver and provide a doctor's note.
+      - do: If you bought through a travel agency, ask the agency for the refund (except during a service disruption).
+      - do: If Amtrak does not pay a refund it owes, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: Reserved fares paid by cash, credit or debit card get a full refund to the original form of payment if cancelled within 24 hours of purchase and before departure; unreserved tickets must be cancelled within 1 hour.
+        issues: [refund_request]
+        source: https://www.amtrak.com/planning-booking/changes-refunds/refund-and-cancellation-policy
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: "Coach, Acela Business and Acela First fares: Flex gets a full refund with no fee if cancelled before departure; Value forfeits 30% and refunds 70%; Sale forfeits 50% and refunds 50%."
+        issues: [refund_request]
+        source: https://www.amtrak.com/planning-booking/changes-refunds/refund-and-cancellation-policy
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: "Private rooms: cancelled 121 or more days before departure, full refund; 15-120 days before, 75% refunded and 25% forfeited; within 14 days, 75% is issued as a non-refundable eVoucher and 25% is forfeited."
+        issues: [refund_request]
+        source: https://www.amtrak.com/planning-booking/changes-refunds/refund-and-cancellation-policy
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: With a doctor's note, Amtrak waives the normal change and cancellation policies for the ill passenger's entire party.
+        issues: [refund_request]
+        source: https://www.amtrak.com/planning-booking/changes-refunds/refund-and-cancellation-policy
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Tickets become non-refundable one year after payment; eVouchers and other exchange credits are valid for one year after the original ticket was issued.
+        issues: [refund_request, travel_credit]
+        source: https://www.amtrak.com/planning-booking/changes-refunds/refund-and-cancellation-policy
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Fares are non-refundable and non-changeable after departure; a no-show forfeits the full value of the segment.
+        issues: [refund_request]
+        source: https://www.amtrak.com/planning-booking/changes-refunds/refund-and-cancellation-policy
+        last_verified: 2026-10-12
+  - issue: accessibility
+    summary: Ask for a reasonable modification at least 72 hours ahead; complain to Amtrak, the Amtrak OIG or the FRA if it is not provided.
+    evidence: [reservation number, date and train number, request confirmation, names of employees, photos]
+    steps:
+      - do: Ask for the modification as early as possible and no later than 72 hours before departure, by the contact form subject "Accessibility Requests/Feedback", by phone (TTY 711), text, chat, or at a staffed station.
+        channel: email-form
+      - do: If help is not provided on the day, ask any Amtrak employee for an on-the-spot modification.
+      - do: Report the problem to 1-800-USA-RAIL and in writing through the contact form.
+        channel: customer-service-phone
+      - do: For disability discrimination, file a complaint with Amtrak by mail or online.
+        channel: headquarters-mail
+      - do: "You can also complain to the Amtrak Office of Inspector General (P.O. Box 76654, Washington DC 20013; 1-800-468-5469) or the FRA Office for Civil Rights (Civil.Rights@DOT.GOV, 202-493-0669)."
+    facts:
+      - kind: deadline
+        claim: Amtrak asks for reasonable modification requests no later than 72 hours before departure and says it will respond to requests within 72 hours.
+        issues: [accessibility]
+        source: https://www.amtrak.com/planning-booking/accessible-travel-services/accessible-travel-request
+        last_verified: 2026-10-12
+      - kind: contact
+        claim: Amtrak says a disability discrimination complaint can be filed directly with the FRA Office for Civil Rights by email to Civil.Rights@DOT.GOV (the fastest method), by phone at (202) 493-0669, or by mail.
+        issues: [accessibility]
+        source: https://www.amtrak.com/planning-booking/accessible-travel-services/non-discrimination-policy
+        last_verified: 2026-10-12
+  - issue: lost_baggage
+    summary: Report damage before leaving the station; claim lost checked bags in writing within 30 days.
+    evidence: [ticket, baggage claim check, list of contents with values, receipts, photos of damage]
+    steps:
+      - do: Report damaged or stolen baggage at the baggage claim location before you leave the station.
+      - do: Submit a lost checked baggage claim within 30 days of the incident to the Office of Customer Relations.
+        channel: baggage-claims-mail
+      - do: Call 1-800-USA-RAIL and ask for Customer Relations to follow up.
+        channel: customer-service-phone
+      - do: For items left on a train or in a station, file a lost item report.
+        channel: lost-item-report
+    facts:
+      - kind: deadline
+        claim: Lost checked baggage claims must be submitted within 30 days of the incident to the Office of Customer Relations.
+        issues: [lost_baggage]
+        source: https://www.amtrak.com/onboard/baggage-policy/lost-items-limited-liability-for-baggage
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: Amtrak's liability for checked baggage is limited to a maximum of $500 per ticketed passenger; passengers may declare additional valuation up to $2,500 by paying the applicable charge.
+        issues: [lost_baggage]
+        source: https://www.amtrak.com/onboard/baggage-policy/lost-items-limited-liability-for-baggage
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: Liability is limited to $50.00 per bag for Red Cap service and $100.00 per bag for Parcel Check service, with no additional valuation for Parcel Check.
+        issues: [lost_baggage]
+        source: https://www.amtrak.com/onboard/baggage-policy/lost-items-limited-liability-for-baggage
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Signing in to or joining Amtrak Guest Rewards means agreeing to the terms and conditions, which include a binding arbitration agreement.
+    source: https://www.amtrak.com/terms-and-conditions
+    last_verified: 2026-10-12
+  - kind: fee
+    claim: Each traveler can check up to 4 bags, 2 free and 2 at $20 per bag.
+    source: https://www.amtrak.com/onboard/baggage-policy
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The E-mail Us form is protected by reCAPTCHA Enterprise and cannot change or cancel tickets.
+  - Cash refunds need the original paper tickets sent by certified mail.
+  - Amtrak reports longer than normal hold times on 1-800-USA-RAIL.

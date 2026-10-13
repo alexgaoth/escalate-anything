@@ -1,0 +1,103 @@
+id: wyndham
+name: Wyndham Hotels & Resorts
+aliases: [wyndham hotels, wyndham rewards, wyndham hotel group, days inn, super 8, la quinta, ramada, microtel, howard johnson]
+sector: lodging
+website: https://www.wyndhamhotels.com
+account_url: https://www.wyndhamhotels.com/contact-us
+regulators: [ftc]
+notes: >-
+  Brands listed on wyndhamhotels.com include La Quinta, Days Inn, Super 8, Ramada,
+  Baymont, Howard Johnson, Travelodge, Microtel, Wingate and AmericInn, all "by Wyndham". The same site also lists vacation
+  club brands (Club Wyndham, WorldMark) and Caesars Rewards properties; those are not covered by this entry. Website Terms
+  of Use (Wyndham Hotel Group, LLC) last updated March 12, 2026.
+channels:
+  - id: customer-care-phone
+    type: phone
+    label: Wyndham Customer Care/Help
+    value: +1-800-466-1589
+    purposes: [billing_error, refund_request, reservation_problem, poor_service]
+    source: https://www.wyndhamhotels.com/contact-us
+    last_verified: 2026-10-12
+  - id: reservations-phone
+    type: phone
+    label: Wyndham reservations (US and Canada)
+    value: +1-800-407-9832
+    purposes: [reservation_problem, refund_request]
+    source: https://www.wyndhamhotels.com/contact-us
+    last_verified: 2026-10-12
+  - id: rewards-phone
+    type: phone
+    label: Wyndham Rewards Member Services
+    value: +1-844-405-4141
+    purposes: [account_access]
+    source: https://www.wyndhamhotels.com/contact-us
+    last_verified: 2026-10-12
+  - id: about-my-stay-form
+    type: web_form
+    label: About My Stay (guest feedback and complaints about a hotel stay)
+    value: https://www.wyndhamhotels.com/contact-us/about-my-stay
+    purposes: [poor_service, billing_error, refund_request, reservation_problem, deposit_refund]
+    source: https://www.wyndhamhotels.com/contact-us
+    last_verified: 2026-10-12
+  - id: accessibility-email
+    type: email
+    label: Wyndham accessibility
+    value: accessibility@wyndham.com
+    purposes: [accessibility]
+    source: https://www.wyndhamhotels.com/contact-us
+    last_verified: 2026-10-12
+  - id: rewards-help-center
+    type: portal
+    label: Wyndham Rewards help center
+    value: https://help.wyndhamrewards.com/s/?language=en_US
+    purposes: [account_access]
+    source: https://www.wyndhamhotels.com/contact-us
+    last_verified: 2026-10-12
+  - id: legal-notice-mail
+    type: mail
+    label: Arbitration demand / legal notice address (Terms of Use, Section 12)
+    value: Wyndham Hotel Group, LLC., Attn Legal Department, 22 Sylvan Way, Parsippany, New Jersey, 07054
+    purposes: [billing_error, refund_request]
+    source: https://www.wyndhamhotels.com/content/whg-ecomm-responsive/en-us/whg/about-us/terms-of-use-more-info.display.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-care-phone, note: "Front desk first while you are at the hotel."}
+  - {rung: written_complaint, channel: about-my-stay-form}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: legal-notice-mail, note: "Terms of Use require individual JAMS arbitration (NAM for mass filings)."}
+
+playbooks:
+  - issue: billing_error
+    summary: Ask the hotel, then Customer Care, then put it in writing on the About My Stay form.
+    evidence: [folio, confirmation number, card statement, rate quoted at booking]
+    steps:
+      - do: Ask the hotel to correct the folio.
+      - do: If it does not, call Wyndham Customer Care with the folio and the correct amount.
+        channel: customer-care-phone
+      - do: Send the dispute in writing through the About My Stay form and keep the confirmation.
+        channel: about-my-stay-form
+      - do: If not corrected, dispute the charge with your card issuer.
+  - issue: reservation_problem
+    summary: Ask the hotel for an equal room; afterwards complain in writing to Wyndham.
+    evidence: [confirmation number, photos, receipts for a replacement stay]
+    steps:
+      - do: Ask the front desk for an equal alternative at the hotel's cost.
+      - do: Call Customer Care while you are still there if the hotel refuses.
+        channel: customer-care-phone
+      - do: Afterwards, ask for a refund and your extra costs through the About My Stay form.
+        channel: about-my-stay-form
+
+facts:
+  - kind: deadline
+    claim: Wyndham Best Rate claims must be filed within 24 hours of booking the reservation.
+    source: https://www.wyndhamhotels.com/contact-us
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Wyndham's Terms of Use require claims to be brought individually and filed with JAMS (NAM administers mass filings); for relief of $10,000 or less either party may elect arbitration by telephone, video or written submissions.
+    source: https://www.wyndhamhotels.com/content/whg-ecomm-responsive/en-us/whg/about-us/terms-of-use-more-info.display.html
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Wyndham's cancellation, deposit-hold and resort-fee policies are set per hotel and were not found on a corporate page.
