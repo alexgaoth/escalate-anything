@@ -274,7 +274,7 @@ issues:
 
   - id: travel_credit
     name: Travel credit or voucher problem
-    sectors: [airline, travel_agency, lodging]
+    sectors: [airline, travel_agency, lodging, cruise]
     description: A credit or voucher expired, cannot be used, or was given instead of a refund you were owed.
     evidence: [credit number, terms of the credit, original booking]
     steps:
@@ -289,6 +289,26 @@ issues:
     steps:
       - Ask for the airline's Complaints Resolution Official (CRO) at the airport.
       - File a written complaint with the airline, then with the U.S. DOT.
+
+  - id: event_cancelled
+    name: Event cancelled, postponed or changed
+    sectors: [ticketing]
+    description: The event was cancelled, postponed, moved or changed, and you want a refund.
+    evidence: [order confirmation, the organizer's notice, ticket and fee amounts]
+    steps:
+      - Read the ticket seller's policy for cancelled and postponed events; the refund window can be short.
+      - Request the refund through the seller's order page, including fees where the policy covers them.
+      - If refused for a cancelled event, dispute the charge with your card issuer.
+
+  - id: account_transfer
+    name: Account transfer or withdrawal blocked
+    sectors: [investing, payments]
+    description: A transfer to another broker, a withdrawal or a crypto transfer is delayed or blocked.
+    evidence: [transfer request confirmation, account statements, messages from the platform]
+    steps:
+      - Ask in writing for the reason, what the platform needs, and the expected completion date.
+      - For a brokerage transfer, ask the receiving firm to check the transfer status too.
+      - Escalate to FINRA or the SEC (brokerages), or the CFPB and your state financial regulator (payment and crypto apps).
 
   # ---- Shipping, retail and delivery ------------------------------------
   - id: lost_package
@@ -398,7 +418,7 @@ issues:
 
   - id: transaction_dispute
     name: Dispute with a merchant through the bank
-    sectors: [bank, credit_union, payments]
+    sectors: [bank, credit_union, payments, investing]
     description: A merchant did not deliver or refund, and you want the bank or card issuer to recover the money.
     evidence: [statement, receipt, your attempts to resolve it with the merchant]
     steps:
@@ -407,7 +427,7 @@ issues:
 
   - id: fraud
     name: Fraud or scam
-    sectors: [bank, credit_union, payments, credit_bureau]
+    sectors: [bank, credit_union, payments, credit_bureau, investing]
     description: Money was taken by fraud or a scam.
     evidence: [transaction details, messages from the scammer, police or FTC report number]
     steps:
@@ -417,7 +437,7 @@ issues:
 
   - id: frozen_funds
     name: Account frozen or closed
-    sectors: [bank, credit_union, payments]
+    sectors: [bank, credit_union, payments, investing]
     description: The bank or app froze or closed the account and holds your money.
     evidence: [notices, balance at closure, account agreement]
     steps:
@@ -505,7 +525,7 @@ issues:
 
   - id: reservation_problem
     name: Reservation not honored
-    sectors: [lodging, car_rental, travel_agency]
+    sectors: [lodging, car_rental, travel_agency, cruise]
     description: The hotel, rental or agency did not honor a confirmed reservation, or it was not as described.
     evidence: [confirmation, photos, what you paid for alternatives]
     steps:

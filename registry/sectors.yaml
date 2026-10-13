@@ -24,6 +24,7 @@ regulators:
   - {id: usps-oig, name: "USPS Office of Inspector General"}
   - {id: sec, name: "U.S. Securities and Exchange Commission"}
   - {id: finra, name: "Financial Industry Regulatory Authority"}
+  - {id: fmc, name: "Federal Maritime Commission, Consumer Affairs and Dispute Resolution Services"}
   - {id: bbb, name: "Better Business Bureau"}
 
 sectors:
@@ -244,3 +245,57 @@ sectors:
       - {rung: written_complaint, note: "Cancel in writing, by certified mail when the contract requires it."}
       - {rung: payment_dispute}
       - {rung: state_agency, agency_kind: attorney_general}
+
+  - id: ticketing
+    name: Event tickets and resale
+    federal_regulators: [ftc]
+    state_agency_kinds: [attorney_general]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: written_complaint}
+      - {rung: payment_dispute, note: "Card dispute for a cancelled event that was not refunded."}
+      - {rung: regulator, regulator: ftc}
+      - {rung: state_agency, agency_kind: attorney_general}
+
+  - id: debt_collector
+    name: Debt collectors and debt buyers
+    federal_regulators: [cfpb, ftc]
+    state_agency_kinds: [financial_regulator, attorney_general]
+    default_escalation:
+      - {rung: written_complaint, note: "Dispute the debt in writing within the validation period and ask for verification."}
+      - {rung: regulator, regulator: cfpb}
+      - {rung: state_agency, agency_kind: attorney_general}
+      - {rung: small_claims}
+
+  - id: investing
+    name: Brokerages and crypto platforms
+    federal_regulators: [sec, finra, cfpb]
+    state_agency_kinds: [financial_regulator, attorney_general]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: written_complaint}
+      - {rung: regulator, regulator: finra, note: "For broker-dealers."}
+      - {rung: regulator, regulator: sec}
+      - {rung: arbitration, note: "Brokerage account agreements usually require FINRA arbitration."}
+
+  - id: home_services
+    name: Home security and home services
+    federal_regulators: [ftc]
+    state_agency_kinds: [attorney_general]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: retention}
+      - {rung: written_complaint, note: "Cancel in writing; keep proof of delivery."}
+      - {rung: payment_dispute}
+      - {rung: state_agency, agency_kind: attorney_general}
+      - {rung: small_claims}
+
+  - id: cruise
+    name: Cruise lines
+    federal_regulators: [fmc]
+    state_agency_kinds: [attorney_general]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: written_complaint}
+      - {rung: regulator, regulator: fmc}
+      - {rung: payment_dispute}
