@@ -16,7 +16,7 @@ Raise problems at the front desk while you are still at the hotel. After the sta
 - Booking.com's terms say that cancellation and no-show fees, and any refund, depend on the property's own policy. [Booking.com terms](https://www.booking.com/content/terms.html)
 - Hyatt says cancellation and deposit policies vary by hotel and by confirmed rate, and the policy is given when you book. [Hyatt: payment and cancellation](https://www.hyatt.com/help/faqs/payment-and-cancellation)
 - Vacation rentals are contracts with independent hosts. Airbnb's Rebooking and Refund Policy needs a report within 72 hours after you discover the problem. [Airbnb Rebooking and Refund Policy](https://www.airbnb.com/help/article/2868) Vrbo's VrboCare terms need notice within 30 business days of the first event. [VrboCare terms](https://www.vrbo.com/lp/b/bwc-guarantee)
-- Dispute terms differ. Marriott.com's terms require individual AAA arbitration and claims within one year. [Marriott terms of use](https://www.marriott.com/about/terms) Hilton's Site Usage Agreement has no arbitration clause but requires individual claims in Virginia courts within one year. [Hilton Site Usage Agreement](https://www.hilton.com/en/p/site-usage-agreement/)
+- Dispute terms differ. Marriott.com's terms require individual AAA arbitration and claims within one year. [Marriott terms of use](https://www.marriott.com/about/terms-of-use.mi) Hilton's Site Usage Agreement has no arbitration clause but requires individual claims in Virginia courts within one year. [Hilton Site Usage Agreement](https://www.hilton.com/en/p/site-usage-agreement/)
 
 ## Your leverage
 
