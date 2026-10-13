@@ -88,12 +88,16 @@ redress never sends, submits or pays anything. Your agent drafts; you approve. C
 
 | Area | What you get | Companies |
 |---|---|---|
-| ✈️ Travel | Refunds, cancellations, lost and delayed bags, damage claims, DOT complaints | United, American, Delta, Southwest, Marriott, Airbnb, Expedia, Hertz, cruise lines |
+| ✈️ Travel | Refunds, cancellations, lost and delayed bags, damage claims, DOT complaints | United, American, Delta, Southwest, Marriott, Airbnb, Expedia, Hertz |
+| 🚢 Cruises & 🎟️ tickets | Cancelled events and sailings, fees, refunds, FMC and FTC complaints | Carnival, Royal Caribbean, Norwegian, Ticketmaster, StubHub, SeatGeek |
 | 📱 Phone, internet, TV | Bill increases, retention offers, cancellation, equipment returns, FCC complaints | AT&T, Verizon, T-Mobile, Xfinity, Spectrum, Optimum, DIRECTV, Starlink |
-| 🏦 Money | Card and transfer disputes, fraud, frozen accounts, credit report errors, debt collectors | Chase, Bank of America, Wells Fargo, Capital One, PayPal, Cash App, Equifax |
-| ⚡ Utilities | High bills, meter tests, shutoff protection, payment plans, outage claims | PG&E, Con Edison, Duke, ComEd, FPL, TXU and dozens more |
+| 🏦 Money | Card and transfer disputes, fraud, frozen accounts, buy-now-pay-later, credit report errors | Chase, Bank of America, Wells Fargo, Capital One, Chime, SoFi, PayPal, Affirm, Equifax |
+| 📈 Investing & crypto | Blocked transfers and withdrawals, account takeovers, FINRA and SEC complaints | Robinhood, Fidelity, Schwab, Vanguard, Coinbase, Kraken |
+| 📨 Debt collectors | Validation notices, disputes in writing, credit report fixes | Portfolio Recovery, Midland Credit, LVNV, Jefferson Capital |
+| ⚡ Utilities | High bills, meter tests, shutoff protection, payment plans, outage claims | PG&E, Con Edison, Duke, ComEd, FPL, PPL, FirstEnergy and dozens more |
+| 🏠 Home services | Long contracts, early termination fees, cancelling in writing, door-to-door sales | ADT, Vivint, SimpliSafe, Brinks Home, Terminix, Orkin |
 | 🩺 Insurance | Claim denials, appeals, external review, surprise medical bills | UnitedHealthcare, Aetna, Cigna, Kaiser, State Farm, GEICO, Progressive |
-| 🛒 Shopping & subscriptions | Returns, missing packages, price adjustments, cancellations, free-trial charges | Amazon, Walmart, Apple, Netflix, SiriusXM, Adobe, Planet Fitness |
+| 🛒 Shopping & subscriptions | Returns, missing packages, price adjustments, cancellations, free-trial charges, auto-renewals | Amazon, Walmart, Apple, Netflix, SiriusXM, Adobe, Norton, Peloton, Planet Fitness |
 | 🛡️ Scams | Is this call, text, email or link real? What will this company never ask for? | Every company, plus look-alike domain detection |
 | 🏛️ Regulators | The right federal agency and **your state's** attorney general, utility commission and insurance department | All 50 states and DC |
 
