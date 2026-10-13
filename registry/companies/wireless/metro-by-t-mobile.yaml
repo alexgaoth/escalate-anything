@@ -1,0 +1,170 @@
+id: metro-by-t-mobile
+name: Metro by T-Mobile
+aliases: [metro, metro pcs, metropcs, metro by tmobile, metro by t mobile, metrobyt-mobile]
+sector: wireless
+parent: T-Mobile US, Inc.
+website: https://www.metrobyt-mobile.com
+regulators: [fcc]
+notes: >-
+  Prepaid wireless brand of T-Mobile (formerly MetroPCS). Metro's Terms and Conditions (effective
+  September 1, 2026) send disputes to the same T-Mobile Customer Relations address in Albuquerque as
+  T-Mobile postpaid. Service is paid in advance and charges are non-refundable. The Metro "Transfer
+  number" support page returned Access Denied in the browser on 2026-10-12, so the port-out PIN steps
+  are not recorded here.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Metro by T-Mobile customer service and payments (888-8-METRO-8)
+    value: +1-888-863-8768
+    purposes: [billing_error, cancel_service, refund_request, equipment_return]
+    notes: Also the number to call at once if someone made unauthorized changes to the account.
+    source: https://www.metrobyt-mobile.com/support/security/how-to-avoid-account-takeover-fraud
+    last_verified: 2026-10-12
+  - id: short-code-611
+    type: phone
+    label: Customer service short code from a Metro phone
+    value: "*611"
+    notes: The Terms and Conditions write it as 611. To make a payment from a Metro phone, the contact page lists *99.
+    source: https://www.metrobyt-mobile.com/contact-us
+    last_verified: 2026-10-12
+  - id: mymetro-app
+    type: app
+    label: myMetro app and online account (account changes, Port Out Protection)
+    value: myMetro app
+    access: login
+    source: https://www.metrobyt-mobile.com/contact-us
+    last_verified: 2026-10-12
+  - id: customer-relations-mail
+    type: mail
+    label: T-Mobile Customer Relations (written disputes and Notice of Dispute for Metro)
+    value: T-Mobile Customer Relations, P.O. Box 37380, Albuquerque, NM 87176-7380
+    purposes: [billing_error, cancel_service, refund_request, poor_service]
+    source: https://www.metrobyt-mobile.com/terms-and-conditions
+    last_verified: 2026-10-12
+  - id: return-policy
+    type: portal
+    label: Metro return policy
+    value: https://www.metrobyt-mobile.com/support/orders/return-policy
+    purposes: [refund_request, equipment_return]
+    source: https://www.metrobyt-mobile.com/support/orders/return-policy
+    last_verified: 2026-10-12
+  - id: phone-unlock-policy
+    type: portal
+    label: Metro by T-Mobile Phone Unlock Policy
+    value: https://www.metrobyt-mobile.com/terms-and-conditions/phone-unlock-policy
+    purposes: [cancel_service]
+    source: https://www.metrobyt-mobile.com/terms-and-conditions/phone-unlock-policy
+    last_verified: 2026-10-12
+  - id: handset-protection-claims
+    type: phone
+    label: Premium handset protection claims
+    value: +1-800-316-2075
+    notes: Claims can also be filed at https://fastclaim.com/metro/
+    source: https://www.metrobyt-mobile.com/contact-us
+    last_verified: 2026-10-12
+  - id: registered-agent-phone
+    type: phone
+    label: Registered agent (Corporation Service Company) - to serve a demand for arbitration
+    value: +1-866-403-5272
+    notes: Use only to begin arbitration or another legal proceeding, after the 60-day Notice of Dispute period.
+    source: https://www.metrobyt-mobile.com/terms-and-conditions
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: customer-relations-mail, note: "Written dispute within 60 days of the disputed charge; same address for the Notice of Dispute."}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "60 days after the Notice of Dispute: AAA consumer arbitration or small claims court."}
+
+playbooks:
+  - issue: billing_error
+    summary: Call customer service, then dispute in writing to T-Mobile Customer Relations within 60 days of the charge.
+    evidence: [account number, mobile number, the charge and its date, payment receipt, what you expected to pay and why]
+    steps:
+      - do: Call 888-863-8768 or *611 and ask for the charge to be corrected. Note the representative's name and date.
+        channel: customer-service-phone
+      - do: If that does not fix it, write to T-Mobile Customer Relations within 60 days after you first receive the disputed charge.
+        channel: customer-relations-mail
+      - do: For a formal claim, send a Notice of Dispute to the same address with the account holder name, account number, mobile number, a description with documents, and the amount and relief you want.
+        channel: customer-relations-mail
+      - do: If Metro does not resolve it, file an FCC complaint. After 60 days from the Notice of Dispute, you may start AAA arbitration or go to small claims court.
+        regulator: fcc
+    facts:
+      - kind: deadline
+        claim: Unless the law provides otherwise, you must notify Metro by T-Mobile in writing of any dispute about your account or charges within 60 days after the date you first receive the disputed charge. If you do not, you may not pursue a claim in arbitration or in court.
+        issues: [billing_error]
+        source: https://www.metrobyt-mobile.com/terms-and-conditions
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Accepting a credit, refund or other compensation to resolve a disputed charge fully and finally resolves the issue under the Terms. Unless the law provides otherwise, disputed charges must be paid until the dispute is resolved.
+        issues: [billing_error]
+        source: https://www.metrobyt-mobile.com/terms-and-conditions
+        last_verified: 2026-10-12
+
+  - issue: cancel_service
+    summary: Port the number to the new carrier (service ends when the port completes) or cancel by phone; prepaid charges are not refunded.
+    evidence: [account number, account PIN, cancellation date, payment history]
+    steps:
+      - do: To keep the number, turn off Port Out Protection in the myMetro app or online account (Account, Account Options, Account Protection) and give the new carrier your Metro account number and account PIN. Do not cancel Metro first.
+        channel: mymetro-app
+      - do: To cancel without porting, call customer service. Turn off AutoPay so no further payment is taken.
+        channel: customer-service-phone
+      - do: Dispute any charge after cancellation in writing within 60 days.
+        channel: customer-relations-mail
+    facts:
+      - kind: policy
+        claim: If you terminate service, termination takes effect at the end of the current month of service unless you port out your number; if you port your number to another carrier, service ends when the port is complete.
+        issues: [cancel_service]
+        source: https://www.metrobyt-mobile.com/terms-and-conditions
+        last_verified: 2026-10-12
+      - kind: process
+        claim: A number cannot be ported without verification of the 6-15 digit account PIN. Generating a port-out PIN, a SIM change and turning account protection features on or off require a one-time PIN sent to the device.
+        issues: [cancel_service]
+        source: https://www.metrobyt-mobile.com/support/security/how-to-avoid-account-takeover-fraud
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Metro unlocks a device free of charge when it was bought from Metro, is not reported lost, stolen or blocked, and 365 days have passed since its activation date. Eligible devices are unlocked remotely within two business days.
+        issues: [cancel_service]
+        source: https://www.metrobyt-mobile.com/terms-and-conditions/phone-unlock-policy
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: Only a device returned within 14 days in like-new condition is refunded; service charges are not.
+    evidence: [receipt, original box and accessories, delivery date or purchase date]
+    steps:
+      - do: Return the device within 14 days with the receipt, in the original box, with all accessories. In-store purchases go back to the same store; online purchases go back by mail with the return slip from the box.
+        channel: return-policy
+      - do: If a refund is refused or short, call customer service, then dispute in writing within 60 days.
+        channel: customer-service-phone
+    facts:
+      - kind: deadline
+        claim: A device can be returned within 14 days - for in-store purchases, 14 days from purchase and activation of the new line; for online or shipped upgrade orders, 14 days from delivery. The same 14-day window applies to a T-Mobile 5G Gateway.
+        issues: [refund_request, equipment_return]
+        source: https://www.metrobyt-mobile.com/support/orders/return-policy
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Accessories bought online are final sale. Prepaid service fees, monthly charges, in-store upgrades, app downloads, add-ons and other fees are not refundable, and defects covered by the manufacturer's warranty go through the warranty process. Refunds are less rebates and shipping costs.
+        issues: [refund_request, equipment_return]
+        source: https://www.metrobyt-mobile.com/support/orders/return-policy
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Charges you pay are non-refundable even if you cancel a service or make a return during the remorse period, and there is no refund for unused service.
+        issues: [refund_request, cancel_service]
+        source: https://www.metrobyt-mobile.com/terms-and-conditions
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: Before arbitration or court, send a written Notice of Dispute to T-Mobile Customer Relations, P.O. Box 37380, Albuquerque, NM 87176-7380. Neither side may start a proceeding until 60 days after receipt; arbitration is administered by the AAA under its Consumer Arbitration Rules, and small claims court is an option.
+    source: https://www.metrobyt-mobile.com/terms-and-conditions
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: To the extent the law allows, an arbitration or court proceeding must start within two (2) years of the date the claim arises.
+    source: https://www.metrobyt-mobile.com/terms-and-conditions
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Port-out PIN generation, SIM changes and account protection changes require a one-time PIN sent to the customer's device.
+  - The Metro "Transfer number" support page returned Access Denied to the browser on 2026-10-12.

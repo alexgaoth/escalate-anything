@@ -1,0 +1,210 @@
+id: att
+name: AT&T
+aliases: [at&t wireless, at&t mobility, att wireless, at&t fiber, at&t internet, at&t prepaid]
+sector: wireless
+also_sectors: [internet_tv]
+website: https://www.att.com
+regulators: [fcc]
+notes: >-
+  AT&T wireless (postpaid and AT&T Prepaid), AT&T Fiber and AT&T Internet. Disputes for consumer
+  services fall under the AT&T Consumer Service Agreement (Notice of Dispute, then small claims or
+  JAMS arbitration). Cricket Wireless is a separate AT&T prepaid brand with its own entry.
+
+channels:
+  - id: wireless-phone
+    type: phone
+    label: AT&T Mobility (wireless) customer care
+    value: +1-800-331-0500
+    purposes: [billing_error, bill_increase, price_negotiation, cancel_service, equipment_return, service_outage]
+    notes: Same line reaches the loyalty team ("Talk to one of our loyalty experts by calling 800.331.0500"). Also used to start a return by mail.
+    source: https://www.att.com/noticeofdispute
+    last_verified: 2026-10-12
+  - id: short-code-611
+    type: phone
+    label: Customer care short code from any AT&T phone (wireless and prepaid)
+    value: "611"
+    source: https://www.att.com/noticeofdispute
+    last_verified: 2026-10-12
+  - id: prepaid-phone
+    type: phone
+    label: AT&T Prepaid customer care
+    value: +1-800-901-9878
+    source: https://www.att.com/noticeofdispute
+    last_verified: 2026-10-12
+  - id: home-services-phone
+    type: phone
+    label: Internet, TV or landline customer care (AT&T Fiber and AT&T Internet)
+    value: +1-800-288-2020
+    purposes: [billing_error, bill_increase, cancel_service, equipment_return, service_outage]
+    source: https://www.att.com/noticeofdispute
+    last_verified: 2026-10-12
+  - id: support-chat
+    type: chat
+    label: Support contact hub (chat options and numbers by service)
+    value: https://www.att.com/support/contact-us/
+    notes: Select a service to see chat options and numbers. AT&T's cancellation article says to choose Chat when available.
+    source: https://www.att.com/support/contact-us/
+    last_verified: 2026-10-12
+  - id: number-transfer-pin
+    type: portal
+    label: Number Transfer PIN instructions (online account Settings, AT&T app, or dial *PORT)
+    value: https://www.att.com/support/article/wireless/KM1447526/
+    purposes: [cancel_service]
+    access: login
+    notes: Only users with primary online access can request the PIN. Dialing *PORT needs the account passcode.
+    source: https://www.att.com/support/article/wireless/KM1447526/
+    last_verified: 2026-10-12
+  - id: notice-of-dispute-online
+    type: web_form
+    label: Notice of Dispute (online)
+    value: https://www.att.com/noticeofdispute
+    purposes: [billing_error, bill_increase, cancel_service, equipment_return, service_outage, poor_service]
+    access: open
+    notes: The "Submit Notice of Dispute" button opens a form at attlit123.my.site.com. Save the Case Reference Number.
+    source: https://www.att.com/support/article/wireless/KM1041882/
+    last_verified: 2026-10-12
+  - id: notice-of-dispute-mail
+    type: mail
+    label: Notice of Dispute (mail the signed PDF form)
+    value: AT&T Legal Department - Notice of Dispute, 208 S. Akard, Office #2900.13, Dallas, Texas 75202
+    purposes: [billing_error, bill_increase, cancel_service, equipment_return, service_outage, poor_service]
+    source: https://www.att.com/support/article/wireless/KM1041882/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: wireless-phone}
+  - {rung: retention, channel: wireless-phone, note: "Ask for a loyalty expert."}
+  - {rung: written_complaint, channel: notice-of-dispute-online, note: "Formal written dispute under the Consumer Service Agreement. AT&T has 60 days to resolve it."}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "60 days after AT&T receives a complete Notice of Dispute: small claims court or JAMS arbitration."}
+
+playbooks:
+  - issue: billing_error
+    summary: Raise the charge with customer care, then file a Notice of Dispute within 180 days of the bill date.
+    evidence: [the bill with the charge, account number, what you expected to pay and why, chat transcript or rep name]
+    steps:
+      - do: Call wireless customer care or use chat. Ask for the charge to be corrected and get a reference number.
+        channel: wireless-phone
+      - do: If customer care does not fix it, submit a Notice of Dispute online (or mail the signed form). Do this within 180 days of the bill date.
+        channel: notice-of-dispute-online
+      - do: If AT&T does not resolve it within 60 days of the complete Notice, file an FCC complaint, or go to small claims court or JAMS arbitration.
+        regulator: fcc
+    facts:
+      - kind: deadline
+        claim: Under the Consumer Service Agreement, for a billing dispute you have 180 days from the date of the bill either to notify customer service or submit a Notice of Dispute; otherwise you waive the right to dispute that bill. This does not apply in states that prohibit the provision.
+        issues: [billing_error]
+        source: https://www.att.com/legal/terms.consumerServiceAgreement.html
+        last_verified: 2026-10-12
+  - issue: bill_increase
+    summary: Use "See what changed" in the billing center, then ask customer care or the loyalty team about the changed lines.
+    evidence: [last bill before the increase, first bill after the increase, promotion terms]
+    steps:
+      - do: Sign in to the billing center and select "See what changed". The option appears only when the bill changed by $5 or more.
+      - do: Check whether a promotion ended. When a promo period ends, its credits stop and the total goes up by that amount.
+      - do: If a charge is wrong, handle it as a billing error. If it is allowed, ask the loyalty team for a lower price.
+        channel: wireless-phone
+    facts:
+      - kind: policy
+        claim: AT&T says that at the end of a promo period, any credits from that promo stop.
+        issues: [bill_increase]
+        source: https://att.com/support/article/wireless/KM1051879/Support
+        last_verified: 2026-10-12
+  - issue: price_negotiation
+    summary: Call 800.331.0500 and ask for a loyalty expert.
+    evidence: [current bill, current AT&T offers, competitor offers]
+    steps:
+      - do: Call wireless customer care and ask to talk to a loyalty expert. Give a specific target price and a competitor offer.
+        channel: wireless-phone
+      - do: Get the new price, its end date and any conditions in writing (chat transcript or order confirmation).
+  - issue: cancel_service
+    summary: Cancel by chat or phone. To switch carriers, get a Number Transfer PIN and let the new carrier move the number before you cancel.
+    evidence: [account number, cancellation confirmation, final bill]
+    steps:
+      - do: To keep the number, request a Number Transfer PIN (online account Settings, AT&T app, or dial *PORT) and give it to the new carrier. Do not disconnect AT&T service first.
+        channel: number-transfer-pin
+      - do: To cancel without porting, choose Chat when available or call 800.331.0500. Illinois, Massachusetts and New York accounts that ordered service online may be able to cancel online.
+        channel: wireless-phone
+      - do: Check the final bill. Any unpaid installment balance is due when the line is cancelled.
+      - do: Dispute charges after the cancellation date with a Notice of Dispute, then the FCC.
+        channel: notice-of-dispute-online
+    facts:
+      - kind: limit
+        claim: The Number Transfer PIN expires 4 days after you request it (14 days for business accounts). Only users with primary online access can request it, and Wireless Account Lock blocks a transfer.
+        issues: [cancel_service]
+        source: https://www.att.com/support/article/wireless/KM1447526/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If you cancel during a bill period, you are responsible for the entire period. The remaining unpaid installment balance is due immediately when you cancel the line linked to the plan.
+        issues: [cancel_service]
+        source: https://www.att.com/support/article/wireless/KM1008472/
+        last_verified: 2026-10-12
+  - issue: equipment_return
+    summary: Return a new device within 14 days. Send back an old device you owe AT&T within 30 days.
+    evidence: [order number, receipt, return tracking number, device IMEI]
+    steps:
+      - do: Return or exchange a new wireless device within 14 days from purchase (or from the shipping date). For a mail return, call 800.331.0500 within the window to get a prepaid shipping label by email.
+        channel: wireless-phone
+      - do: When you must send your original device back to AT&T, use the prepaid label in the new device box or print one at att.com/checkmyorder, and ship it within 30 days.
+      - do: If you are charged after a return, send the tracking number and ask for removal. Then use a Notice of Dispute.
+        channel: notice-of-dispute-online
+    facts:
+      - kind: deadline
+        claim: Wireless devices bought from att.com, by phone or at an AT&T-branded store can be returned within 14 days from purchase date (or shipping date if shipped), for a full refund less any applicable restocking fees.
+        issues: [equipment_return]
+        source: https://att.com/shop/wireless/returnpolicy.html
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: Returns to an AT&T-branded store may have a restocking fee of up to $55. Apple devices returned in unopened packaging have no restocking fee. Online orders returned within the 14-day policy have no restocking fee.
+        issues: [equipment_return]
+        source: https://att.com/shop/wireless/returnpolicy.html
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: AT&T says to send the original device back within 30 days; if you do not, you are charged the remaining balance on the device's installment plan.
+        issues: [equipment_return]
+        source: https://www.att.com/support/article/wireless/KM1436349/
+        last_verified: 2026-10-12
+  - issue: service_outage
+    summary: AT&T Guarantee gives an automatic one-day credit for a qualifying network interruption. Ask customer care if it does not appear.
+    evidence: [outage date, start and end time, location, account number]
+    steps:
+      - do: Check the bill for the automatic AT&T Guarantee credit after a qualifying outage.
+      - do: If no credit appears, call customer care, describe the outage and ask for the credit.
+        channel: wireless-phone
+      - do: If refused, file a Notice of Dispute, then an FCC complaint.
+        channel: notice-of-dispute-online
+    facts:
+      - kind: compensation
+        claim: AT&T says that if there is ever a qualifying network interruption, you are automatically credited for a full day of service (AT&T Guarantee). Qualification rules are in the AT&T Guarantee terms.
+        issues: [service_outage]
+        source: https://www.att.com/why-att/
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: To start a dispute under the AT&T Consumer Service Agreement, send a Notice of Dispute online at att.com/noticeofdispute or by mail to AT&T Legal Department - Notice of Dispute, 208 S. Akard, Office #2900.13, Dallas, Texas 75202.
+    issues: [billing_error, poor_service]
+    source: https://www.att.com/support/article/wireless/KM1041882/
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: If AT&T cannot resolve the dispute 60 days after receiving your completed Notice of Dispute, you can file in small claims court or start an arbitration with JAMS.
+    issues: [billing_error, poor_service]
+    source: https://www.att.com/support/article/wireless/KM1041882/
+    last_verified: 2026-10-12
+  - kind: fee
+    claim: Consumer postpaid wireless late payment fee is up to $7 per bill cycle; device installment charges are not subject to it. The restoral fee after a suspension is up to $35.
+    issues: [billing_error, bill_increase]
+    source: https://www.att.com/legal/terms.otherWirelessFeeSchedule.html
+    last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: AT&T's cancellation page invites customers to talk to a loyalty expert at 800.331.0500 before cancelling. Use it for price negotiation.
+    issues: [price_negotiation, cancel_service]
+    source: https://www.att.com/support/article/wireless/KM1008472/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Number Transfer PIN can be requested only by users with primary online access, or by dialing *PORT with the account passcode.
+  - Billing center tools ("See what changed") need sign-in.
+  - A Customer Privacy Waiver (Account Authorization form) is required before AT&T discusses a dispute with anyone other than the account holder, including an agent or attorney.

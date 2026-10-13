@@ -1,0 +1,190 @@
+id: mint-mobile
+name: Mint Mobile
+aliases: [mint, mintmobile, mint sim, ka'ena]
+sector: wireless
+parent: T-Mobile US, Inc.
+website: https://www.mintmobile.com
+regulators: [fcc]
+notes: >-
+  Online-only prepaid wireless (Mint Mobile, LLC), owned by T-Mobile through Ka'ena Corporation. Plans
+  are paid in advance in 3-, 6- or 12-month blocks. The Plan Terms & Conditions (last updated June 9, 2026)
+  send the Notice of Dispute to Mint Mobile Customer Relations in Albuquerque. Mint does not publish
+  port-out PIN steps on its own help pages; a competitor's help page says the PIN comes from Mint
+  support by chat or phone.
+
+channels:
+  - id: customer-care-phone
+    type: phone
+    label: Mint Mobile Customer Care
+    value: +1-800-683-7392
+    purposes: [billing_error, cancel_service, refund_request]
+    hours: 7 days a week, 5 a.m. to 7 p.m. Pacific
+    source: https://www.mintmobile.com/help/how-do-i-contact-mint-mobile/
+    last_verified: 2026-10-12
+  - id: short-code-611
+    type: phone
+    label: Customer Care short code from a Mint phone
+    value: "611"
+    source: https://www.mintmobile.com/help/how-do-i-contact-mint-mobile/
+    last_verified: 2026-10-12
+  - id: chat
+    type: chat
+    label: Mint Mobile chat
+    value: https://www.mintmobile.com/chat
+    purposes: [billing_error, cancel_service, refund_request]
+    source: https://www.mintmobile.com/help/how-do-i-contact-mint-mobile/
+    last_verified: 2026-10-12
+  - id: refund-request-form
+    type: web_form
+    label: Refund request form (on the Return Policy page)
+    value: https://www.mintmobile.com/return-policy/
+    purposes: [refund_request, cancel_service]
+    access: open
+    notes: Needs the order number (starts with MT), name, email, the product to return and the reason. Customer Care reviews the request and emails when it is approved.
+    source: https://www.mintmobile.com/return-policy/
+    last_verified: 2026-10-12
+  - id: customer-relations-mail
+    type: mail
+    label: Mint Mobile Customer Relations (Notice of Dispute and written notices)
+    value: Mint Mobile Customer Relations, P.O. Box 37380, Albuquerque, NM 87176-7380
+    purposes: [billing_error, refund_request, cancel_service, poor_service]
+    source: https://www.mintmobile.com/plan-terms-and-conditions/
+    last_verified: 2026-10-12
+  - id: device-unlock-policy
+    type: portal
+    label: Mint Mobile Device Unlock Policy
+    value: https://www.mintmobile.com/mint-mobile-device-unlock-policy/
+    purposes: [cancel_service]
+    source: https://www.mintmobile.com/mint-mobile-device-unlock-policy/
+    last_verified: 2026-10-12
+  - id: registered-agent-phone
+    type: phone
+    label: Registered agent (Corporation Service Company) - to serve a demand for arbitration
+    value: +1-866-403-5272
+    notes: Use only to begin arbitration or another legal proceeding, after the 60-day Notice of Dispute period. Puerto Rico customers use Fast Solutions, LLC.
+    source: https://www.mintmobile.com/plan-terms-and-conditions/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-care-phone}
+  - {rung: written_complaint, channel: customer-relations-mail, note: "Written dispute with documents within 60 days of the bill or charge; same address for the Notice of Dispute."}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "60 days after the Notice of Dispute: AAA consumer arbitration or small claims court."}
+
+playbooks:
+  - issue: billing_error
+    summary: Contact Customer Care, then dispute in writing with documents within 60 days of the charge.
+    evidence: [order number, account number, mobile number, the charge and its date, what you expected to pay and why]
+    steps:
+      - do: Call Customer Care or use chat and ask for the charge to be corrected. Save the chat transcript or the representative's name.
+        channel: chat
+      - do: If that does not fix it, send a written dispute with supporting documents within 60 days after you first receive the bill or charge.
+        channel: customer-relations-mail
+      - do: For a formal claim, send a Notice of Dispute with the account holder name, account number, mobile number, a description, documents, a good-faith damages calculation and the relief you want.
+        channel: customer-relations-mail
+      - do: If Mint does not resolve it, file an FCC complaint. After 60 days from the Notice of Dispute, you may start AAA arbitration or go to small claims court.
+        regulator: fcc
+    facts:
+      - kind: deadline
+        claim: Unless the law provides otherwise, you must notify Mint of any dispute about your bill or charges in writing, with supporting documentation, within sixty (60) days (twenty (20) days for Puerto Rico customers) after you first receive the disputed bill or charge, or you may not pursue a claim in arbitration or in court.
+        issues: [billing_error]
+        source: https://www.mintmobile.com/plan-terms-and-conditions/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Except for Puerto Rico customers and unless the law provides otherwise, you must pay disputed charges until the dispute is resolved. Accepting a credit or refund to resolve a disputed charge fully and finally resolves the issue.
+        issues: [billing_error]
+        source: https://www.mintmobile.com/plan-terms-and-conditions/
+        last_verified: 2026-10-12
+
+  - issue: cancel_service
+    summary: Turn off Auto Renew at least 24 hours before the cycle ends; to keep the number, get a Number Transfer PIN from Mint support before the new carrier ports it.
+    evidence: [order number, account number, Auto Renew cancellation confirmation, plan end date]
+    steps:
+      - do: Cancel Auto Renew on the Mint Mobile website or by calling Customer Care, at least 24 hours before the end of the payment cycle.
+        channel: customer-care-phone
+      - do: To keep your number, ask Mint support by chat or phone for a Number Transfer PIN and give it to the new carrier with your Mint account number. Do not let the Mint plan expire first.
+        channel: chat
+      - do: Within 7 calendar days of activation of a plan bought on mintmobile.com, you can instead cancel for a full refund with the refund request form.
+        channel: refund-request-form
+    facts:
+      - kind: deadline
+        claim: You must change or cancel Auto Renew 24 hours before the end of your payment cycle for the change to take effect. You can cancel by calling (800) 683-7392 or in your account preferences on the Mint Mobile website.
+        issues: [cancel_service]
+        source: https://www.mintmobile.com/plan-terms-and-conditions/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Except as required by law and the Return Policy, you get no refund of amounts paid for a service plan when you cancel it or Mint terminates, suspends or adjusts it.
+        issues: [cancel_service, refund_request]
+        source: https://www.mintmobile.com/plan-terms-and-conditions/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If an account is deactivated for nonpayment it stays suspended for 60 days, then is cancelled and the remaining balance is forfeited; Mint may reassign the number and may be unable to transfer it to another carrier.
+        issues: [cancel_service]
+        source: https://www.mintmobile.com/plan-terms-and-conditions/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: A device bought in full from Mint is locked for 60 days after activation on the Mint network; a financed device stays locked until the financing is paid off, but at least 60 days. Mint unlocks automatically where technically feasible; otherwise call (800) 683-7392.
+        issues: [cancel_service]
+        source: https://www.mintmobile.com/mint-mobile-device-unlock-policy/
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: Use the refund request form within 7 days - of activation for a plan, of delivery for a phone or SIM. Report damage within 3 business days of delivery.
+    evidence: [order number (starts with MT), activation or delivery date, photos for damage claims, Return Authorization Number]
+    steps:
+      - do: Fill in the refund request form on the Return Policy page. For a plan, do it within 7 calendar days of activation; you do not need to send the SIM kit back.
+        channel: refund-request-form
+      - do: For a phone, SIM kit or accessory, request the refund within 7 calendar days of delivery. After approval, ship it back within 15 days with the Return Authorization Number on the outside of the package.
+        channel: refund-request-form
+      - do: If the item arrived damaged, choose "Device received damaged" in the form within 3 business days of delivery.
+        channel: refund-request-form
+      - do: If the refund is refused, contact Customer Care, then send a written dispute within 60 days.
+        channel: customer-relations-mail
+    facts:
+      - kind: deadline
+        claim: For wireless service plans bought on mintmobile.com, refund and cancellation requests can be made for any reason within seven (7) calendar days of activation; the full purchase price and associated taxes and fees are refunded when the refund request form is completed.
+        issues: [refund_request, cancel_service]
+        source: https://www.mintmobile.com/return-policy/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Phones, SIM kits and accessories bought on mintmobile.com can be returned within seven (7) calendar days of the original delivery date and must be shipped back within fifteen (15) days of approval. Claims for damage or delivery discrepancies must be made within three (3) business days of delivery or they are declined.
+        issues: [refund_request, damaged_item]
+        source: https://www.mintmobile.com/return-policy/
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: A phone that is not in "Like-New Condition" (for example used, over 25 minutes of talk time, damaged or locked) may be refused or charged a restocking fee - $70 for a full retail price of $600 or more, $40 for $300-$599, and $20 under $300.
+        issues: [refund_request]
+        source: https://www.mintmobile.com/return-policy/
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: Return shipping is paid by the customer and shipping and handling fees are non-refundable - a minimum $9.99 up to the shipping amount paid. Refused packages carry a $25.00 handling fee. Refunds are paid within 10 business days, minus shipping and handling.
+        issues: [refund_request]
+        source: https://www.mintmobile.com/return-policy/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Return Policy covers only purchases made directly from mintmobile.com. Purchases from retailers such as Target, Amazon, Costco or Best Buy follow that retailer's return policy.
+        issues: [refund_request]
+        source: https://www.mintmobile.com/return-policy/
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: Before arbitration or court, send a written Notice of Dispute to Mint Mobile Customer Relations, P.O. Box 37380, Albuquerque, NM 87176-7380. Neither side may start a proceeding until 60 days after receipt. Arbitration is administered by the AAA under its Consumer Arbitration Rules; either side may choose small claims court.
+    source: https://www.mintmobile.com/plan-terms-and-conditions/
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: All service plans, including promotional and trial plans, must be activated within 45 days after purchase or Mint may suspend or terminate them.
+    source: https://www.mintmobile.com/plan-terms-and-conditions/
+    last_verified: 2026-10-12
+
+tips:
+  - kind: community
+    text: To transfer a number away from Mint you need the Mint account number, the billing address and a Number Transfer PIN, which Mint creates on request through support chat or phone. It is not the account security PIN.
+    issues: [cancel_service]
+    source: https://help.boostmobile.com/docs/number-transfer-mint-mobile
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Mint is online-only with no stores; refunds go through the web form and returns need a Return Authorization Number emailed after approval.
+  - Mint's own help pages do not publish how to get a Number Transfer PIN; the person must ask support.

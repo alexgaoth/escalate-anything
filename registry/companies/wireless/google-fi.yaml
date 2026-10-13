@@ -1,0 +1,103 @@
+id: google-fi
+name: Google Fi Wireless
+aliases: [google fi, project fi, fi wireless]
+sector: wireless
+parent: Google LLC
+website: https://fi.google.com
+account_url: https://fi.google.com/account
+regulators: [fcc]
+notes: >-
+  Google's wireless service. Support is reached from the Google Fi help center after Google
+  sign-in. The Google Fi Terms of Service page (fi.google.com/about/tos) did not load for
+  automated reading on 2026-10-12, so dispute and arbitration terms are not recorded here.
+
+channels:
+  - id: contact-support
+    type: web_form
+    label: Contact Google Fi support (help center, after sign-in)
+    value: https://support.google.com/fi/gethelp
+    access: login
+    purposes: [billing_error, cancel_service, equipment_return, service_outage]
+    notes: Redirects to Google sign-in. Phone and chat options appear after sign-in.
+    source: https://support.google.com/fi/
+    last_verified: 2026-10-12
+  - id: help-community
+    type: web_form
+    label: Google Fi help community
+    value: https://support.google.com/fi/community?hl=en
+    source: https://support.google.com/fi/
+    last_verified: 2026-10-12
+  - id: account-manage-plan
+    type: portal
+    label: Fi app or website, Account > Manage plan (cancel, leave Fi, get transfer info)
+    value: https://fi.google.com/account
+    access: login
+    purposes: [cancel_service]
+    source: https://support.google.com/fi/answer/6079398?hl=en
+    last_verified: 2026-10-12
+  - id: google-store-order-history
+    type: portal
+    label: Google Store order history (start a phone return)
+    value: https://store.google.com/orderhistory
+    access: login
+    purposes: [equipment_return]
+    source: https://support.google.com/fi/answer/6183893?hl=en
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: contact-support}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel or get transfer info in the Fi app or website under Account > Manage plan. Expect two final statements.
+    evidence: [Google account email, Fi account number and transfer PIN, final statements]
+    steps:
+      - do: To switch carriers, go to Account > Manage plan > Leave Google Fi, choose to transfer your number, then select "Get Transfer Info" under the "Cancellation pending" banner. Give the account number and PIN to the new carrier. Do not pause service during the transfer.
+        channel: account-manage-plan
+      - do: To cancel without porting, go to Account > Manage plan > Cancel service and follow the on-screen steps.
+        channel: account-manage-plan
+      - do: Pay any remaining device installment balance; it is due when the account closes. Check both final statements and expect any refund within 30 days after the second one.
+      - do: If a refund does not arrive, contact support, then file an FCC complaint.
+        channel: contact-support
+    facts:
+      - kind: limit
+        claim: An unused Google Fi transfer PIN expires after 14 days. Fi service continues until the new carrier activates the number, and the transfer closes the Fi account.
+        issues: [cancel_service]
+        source: https://support.google.com/fi/answer/10888419?hl=en
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If you financed a phone through Google Fi, the full balance is due when you close the account. You receive two final statements, and any eligible refund is issued within 30 days after the second statement; the full process can take up to 90 days. Service credits are not refundable.
+        issues: [cancel_service, billing_error]
+        source: https://support.google.com/fi/answer/6079398?hl=en
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: On the Flexible plan, cancelling before the cycle ends gives a credit for the remaining days; on Unlimited plans, cancelling mid-cycle means you are charged the full cycle amount.
+        issues: [cancel_service]
+        source: https://support.google.com/fi/answer/12831079?hl=en
+        last_verified: 2026-10-12
+  - issue: equipment_return
+    summary: Return a phone bought from Google Fi within 15 days of delivery through Google Store order history.
+    evidence: [order number, delivery date, return tracking number]
+    steps:
+      - do: Open Google Store order history, find the order, select "View details" and follow the return steps within 15 days of delivery.
+        channel: google-store-order-history
+      - do: Ship the phone within 14 days of receiving the label, with original packaging and accessories. Remove the SIM and erase your data.
+      - do: If the refund does not appear within 14 business days of Google receiving the phone, contact support.
+        channel: contact-support
+    facts:
+      - kind: deadline
+        claim: A Google Fi phone can be returned within 15 days of the phone's delivery. After you receive the shipping label, you have 14 days to ship it back.
+        issues: [equipment_return]
+        source: https://support.google.com/fi/answer/6183893?hl=en
+        last_verified: 2026-10-12
+      - kind: process
+        claim: For a fully paid phone, the refund goes to the original card within 14 business days of Google receiving it; for monthly payments, you get a credit on the next statement.
+        issues: [equipment_return]
+        source: https://support.google.com/fi/answer/6183893?hl=en
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Contacting support requires Google account sign-in; no public phone number is shown before sign-in.
+  - Transfer info (account number and PIN) and cancellation are only in the signed-in Fi app or website.

@@ -1,0 +1,360 @@
+id: t-mobile
+name: T-Mobile
+aliases: [t-mobile us, tmobile, t mobile, uscellular, us cellular, united states cellular, t-mobile home internet, t-mobile fiber, t-mobile prepaid]
+sector: wireless
+also_sectors: [internet_tv]
+parent: T-Mobile US, Inc.
+website: https://www.t-mobile.com
+regulators: [fcc]
+notes: >-
+  T-Mobile postpaid and prepaid wireless, T-Mobile 5G Home Internet and T-Mobile Fiber. T-Mobile
+  completed its acquisition of UScellular's wireless business on August 1, 2025; UScellular customers
+  moved to T-Mobile (the T-Mobile unlock policy page still points current UScellular customers to the
+  UScellular unlocking policy). T-Mobile also owns Mint Mobile (Ka'ena Corporation) and Metro by
+  T-Mobile, which have their own entries. The Terms and Conditions (effective September 1, 2026) send
+  billing disputes and Notices of Dispute to T-Mobile Customer Relations in Albuquerque. T-Mobile does
+  not publish an Office of the President or executive escalation channel, and its support pages publish
+  no outage credit policy.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: T-Mobile Customer Service (also bill payment)
+    value: +1-800-937-8997
+    purposes: [billing_error, bill_increase, price_negotiation, cancel_service, equipment_return, service_outage]
+    hours: Customer Care representatives daily 4 a.m. to 9 p.m. Pacific Time
+    source: https://www.t-mobile.com/contact-us
+    last_verified: 2026-10-12
+  - id: short-code-611
+    type: phone
+    label: Customer Service short code from a T-Mobile phone
+    value: "611"
+    source: https://www.t-mobile.com/contact-us
+    last_verified: 2026-10-12
+  - id: billing-dispute-phone
+    type: phone
+    label: Number named in the Terms and Conditions for bill questions and disputes
+    value: +1-888-898-3087
+    purposes: [billing_error]
+    source: https://www.t-mobile.com/responsibility/legal/terms-and-conditions
+    last_verified: 2026-10-12
+  - id: t-life-chat
+    type: app
+    label: T-Life app (24/7 support; live agent chat)
+    value: T-Life app
+    purposes: [billing_error, bill_increase, cancel_service, equipment_return]
+    access: login
+    hours: Live agent chat 4 a.m. to 12 a.m. Pacific Time
+    notes: Most SIM and eSIM changes must be done in T-Life after T-Mobile added security measures.
+    source: https://www.t-mobile.com/contact-us
+    last_verified: 2026-10-12
+  - id: home-internet-support-phone
+    type: phone
+    label: T-Mobile 5G Home Internet Technical Support
+    value: +1-844-275-9310
+    purposes: [service_outage, equipment_return]
+    source: https://www.t-mobile.com/contact-us
+    last_verified: 2026-10-12
+  - id: fiber-support-phone
+    type: phone
+    label: T-Mobile Fiber Technical Support
+    value: +1-844-783-4237
+    purposes: [service_outage]
+    source: https://www.t-mobile.com/contact-us
+    last_verified: 2026-10-12
+  - id: international-phone
+    type: phone
+    label: International Customer Service (free from a T-Mobile handset while abroad)
+    value: +1-505-998-3793
+    source: https://www.t-mobile.com/contact-us
+    last_verified: 2026-10-12
+  - id: new-customer-returns-phone
+    type: phone
+    label: Return Authorization line for new customers who bought by phone or online
+    value: +1-866-675-1292
+    purposes: [equipment_return, cancel_service, refund_request]
+    notes: Current customers returning an upgrade device call 1-800-937-8997 instead.
+    source: https://www.t-mobile.com/responsibility/legal/return-policy
+    last_verified: 2026-10-12
+  - id: customer-relations-mail
+    type: mail
+    label: T-Mobile Customer Relations (billing disputes and Notice of Dispute)
+    value: T-Mobile Customer Relations, P.O. Box 37380, Albuquerque, NM 87176-7380
+    purposes: [billing_error, bill_increase, cancel_service, equipment_return, poor_service]
+    notes: Do not send payments to this address. The Terms and Conditions name this address for written billing disputes and for the Notice of Dispute required before arbitration.
+    source: https://www.t-mobile.com/responsibility/legal/terms-and-conditions
+    last_verified: 2026-10-12
+  - id: cancel-service-page
+    type: portal
+    label: Cancel service support (what happens when you cancel)
+    value: https://www.t-mobile.com/support/account/cancel-service
+    purposes: [cancel_service]
+    notes: The page asks customers to call before cancelling and links to the contact page. It has no online cancel button.
+    source: https://www.t-mobile.com/support/account/cancel-service
+    last_verified: 2026-10-12
+  - id: port-out-pin
+    type: portal
+    label: Transfer your number out - Temporary Port Out PIN and Port Out Protection
+    value: https://www.t-mobile.com/support/account/transfer-your-phone-number/
+    purposes: [cancel_service]
+    access: login
+    notes: Only the Primary Account Holder can generate a Temporary Port Out PIN (in T-Life or on T-Mobile.com) and remove Port Out Protection on postpaid accounts.
+    source: https://www.t-mobile.com/support/account/transfer-your-phone-number/
+    last_verified: 2026-10-12
+  - id: device-unlock-policy
+    type: portal
+    label: Device Unlock Policy
+    value: https://www.t-mobile.com/responsibility/consumer-info/policies/sim-unlock-policy
+    purposes: [cancel_service]
+    source: https://www.t-mobile.com/responsibility/consumer-info/policies/sim-unlock-policy
+    last_verified: 2026-10-12
+  - id: return-policy
+    type: portal
+    label: T-Mobile Return Policy (device and accessory returns)
+    value: https://www.t-mobile.com/responsibility/legal/return-policy
+    purposes: [equipment_return, refund_request, cancel_service]
+    source: https://www.t-mobile.com/responsibility/legal/return-policy
+    last_verified: 2026-10-12
+  - id: gateway-return
+    type: portal
+    label: Return a coverage device or Home Internet gateway (prepaid label by email)
+    value: https://www.t-mobile.com/support/coverage/return-a-t-mobile-coverage-device
+    purposes: [equipment_return, cancel_service]
+    notes: Contact T-Mobile to start a mail return; the prepaid label usually arrives by email within 24 hours. Put the Return Authorization Slip in the box and drop it at a UPS store or in the mail.
+    source: https://www.t-mobile.com/support/coverage/return-a-t-mobile-coverage-device
+    last_verified: 2026-10-12
+  - id: registered-agent-phone
+    type: phone
+    label: Registered agent (Corporation Service Company) - to serve a demand for arbitration
+    value: +1-855-898-6293
+    notes: Use only to begin arbitration or another legal proceeding, after the 60-day Notice of Dispute period.
+    source: https://www.t-mobile.com/responsibility/legal/terms-and-conditions
+    last_verified: 2026-10-12
+  - id: corporate-hq-mail
+    type: mail
+    label: T-Mobile US corporate headquarters (principal executive offices)
+    value: T-Mobile US, Inc., 12920 SE 38th Street, Bellevue, Washington 98006-1350
+    notes: Address from T-Mobile's SEC filing. It is not the complaint or Notice of Dispute address; use T-Mobile Customer Relations in Albuquerque for those.
+    source: https://www.sec.gov/Archives/edgar/data/1283699/000128369925000154/tmus-20250930.htm
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: retention, channel: customer-service-phone, note: "The cancel page asks customers to call so T-Mobile can review the account and offer options before they cancel."}
+  - {rung: written_complaint, channel: customer-relations-mail, note: "Written billing dispute within 60 days of the bill, and the Notice of Dispute required before arbitration."}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "60 days after T-Mobile receives the Notice of Dispute: AAA consumer arbitration (send a letter to the registered agent and to AAA) or small claims court."}
+
+playbooks:
+  - issue: billing_error
+    summary: Raise the charge with customer care, then send a written dispute to Customer Relations within 60 days of the bill.
+    evidence: [the bill with the charge, account number, mobile number, what you expected to pay and why, chat transcript or rep name]
+    steps:
+      - do: Call customer service (or 611) or use T-Life chat. Ask for the charge to be corrected and note the representative's name and date.
+        channel: customer-service-phone
+      - do: If that does not fix it, write to T-Mobile Customer Relations. Do this within 60 days after you first receive the disputed bill or charge.
+        channel: customer-relations-mail
+      - do: Pay the disputed amount while the dispute is open to avoid suspension and late fees; T-Mobile applies any credit to a future bill.
+      - do: For a formal claim, send a Notice of Dispute to the same address with the account holder name, billing account number, mobile number, a description with documents, and the amount and relief you want.
+        channel: customer-relations-mail
+      - do: If T-Mobile does not resolve it, file an FCC complaint. After 60 days from the Notice of Dispute, you may start AAA arbitration or go to small claims court.
+        regulator: fcc
+    facts:
+      - kind: deadline
+        claim: Unless the law provides otherwise, you must notify T-Mobile in writing of any dispute about your bill or charges within 60 days after the date you first receive the disputed bill or charge. If you do not, you may not pursue a claim in arbitration or in court.
+        issues: [billing_error]
+        source: https://www.t-mobile.com/responsibility/legal/terms-and-conditions
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If you accept a credit, refund or other compensation to resolve a bill dispute, the Terms say the issue is fully and finally resolved. Unless the law provides otherwise, you must keep paying disputed charges until the dispute is resolved.
+        issues: [billing_error]
+        source: https://www.t-mobile.com/responsibility/legal/terms-and-conditions
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: A dispute about taxes or fees caused by your Place of Primary Use address must be raised as a refund request within 60 days of the date of the bill that contains the tax or fee.
+        issues: [billing_error]
+        source: https://www.t-mobile.com/responsibility/legal/terms-and-conditions
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Puerto Rico customers must notify T-Mobile of billing disputes no later than 20 days from the date the bill was sent; T-Mobile gives a determination within 20 days, and a review can then be requested from the Puerto Rico Telecommunications Bureau within 30 calendar days.
+        issues: [billing_error]
+        source: https://www.t-mobile.com/responsibility/legal/terms-and-conditions
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: T-Mobile recommends paying the full amount due when you have disputed charges, to avoid service interruption and late fees; credits are applied to a future bill.
+        issues: [billing_error]
+        source: https://www.t-mobile.com/support/account/whats-impacting-your-bill/
+        last_verified: 2026-10-12
+
+  - issue: bill_increase
+    summary: Check which price promotion covers the account (5-Year Price Guarantee, Price Lock or Un-contract Promise), then raise the change with customer care.
+    evidence: [last bill before the increase, first bill after the increase, plan name and activation date, the price promotion that applies]
+    steps:
+      - do: Compare the two bills and find each changed line. Taxes, fees, add-ons and third-party services are outside every T-Mobile price promotion.
+      - do: Find which promotion applies from the plan and activation date. Call customer service or 611 and ask for the plan price to be restored if the increase breaks the promotion.
+        channel: customer-service-phone
+      - do: If you were on Last Month Price Lock or the Un-contract Promise and T-Mobile raised the plan price, tell T-Mobile within 60 days that you are leaving so it covers your final month's recurring service charges.
+        channel: customer-service-phone
+      - do: If the increase breaks a written promotion, dispute it in writing as a billing error within 60 days.
+        channel: customer-relations-mail
+    facts:
+      - kind: policy
+        claim: Under the 5-Year Price Guarantee, the monthly price for talk, text and T-Mobile 5G data is guaranteed for 5 years from account activation (or from plan enrollment for accounts activated before April 23, 2025). It excludes taxes/fees, per-use charges, plan add-ons, third-party services and network management practices.
+        issues: [bill_increase]
+        source: https://www.t-mobile.com/cell-phone-plans/price-lock-faqs
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Under Last Month Price Lock (eligible plans activated or switched January 18, 2024 to April 22, 2025) and the Un-contract Promise (accounts activated before April 28, 2022), if T-Mobile changes the price and you decide to leave, tell T-Mobile within 60 days and it covers your final month's recurring service charges.
+        issues: [bill_increase, cancel_service]
+        source: https://www.t-mobile.com/cell-phone-plans/price-lock-faqs
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: T-Mobile gives at least 14 days' notice of a change to Services, Products or Rate Plan terms that has a material adverse effect on you. Surcharges may change without notice regardless of any price-related promotion, subject to that 14-day notice policy.
+        issues: [bill_increase]
+        source: https://www.t-mobile.com/responsibility/legal/terms-and-conditions
+        last_verified: 2026-10-12
+
+  - issue: price_negotiation
+    summary: Call customer care before cancelling; T-Mobile says it reviews the account for options to keep you.
+    evidence: [current bill, current T-Mobile plans and offers, competitor offers]
+    steps:
+      - do: Call customer service or 611. Say you are thinking about cancelling and ask what options and plans they can offer. Give a specific target price.
+        channel: customer-service-phone
+      - do: Before changing plans, ask whether the new plan keeps your current price promotion. Changing between eligible plans does not restart the 5-Year Price Guarantee period.
+      - do: Get the new price, its end date and conditions in writing (T-Life chat transcript or order confirmation).
+        channel: t-life-chat
+    facts:
+      - kind: process
+        claim: T-Mobile's cancel page says to call before you cancel so it can review your account and see what options it can offer to keep you.
+        issues: [price_negotiation, cancel_service]
+        source: https://www.t-mobile.com/support/account/cancel-service
+        last_verified: 2026-10-12
+
+  - issue: cancel_service
+    summary: To switch carriers, get a Temporary Port Out PIN and let the new carrier move the number; otherwise call to cancel. Expect to pay through the end of the bill cycle and any device balance.
+    evidence: [account number, Temporary Port Out PIN, cancellation confirmation, final bill, return tracking numbers]
+    steps:
+      - do: To keep your number, have the Primary Account Holder turn off Port Out Protection and generate a Temporary Port Out PIN, then give the new carrier the T-Mobile account number, the PIN and the account PIN/passcode. Do not cancel T-Mobile first.
+        channel: port-out-pin
+      - do: To cancel without porting, call customer service or 611.
+        channel: customer-service-phone
+      - do: If you cancel a device bought in the last 14 days (store) or 20 days after shipping (phone or online), return it under the Return Policy and ask to cancel the new activation.
+        channel: return-policy
+      - do: Return Home Internet gateways and mesh extenders with the emailed prepaid label.
+        channel: gateway-return
+      - do: Check the final bill. A credit balance may be refunded automatically 30 days after the final bill. Dispute charges after the cancellation in writing within 60 days.
+        channel: customer-relations-mail
+    facts:
+      - kind: policy
+        claim: Cancellations are future dated and typically take effect at the end of the current billing cycle. If you port your number to another carrier, you are billed through the end of the billing cycle.
+        issues: [cancel_service]
+        source: https://www.t-mobile.com/support/account/cancel-service
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Service is deactivated immediately when you port your number to another carrier, but you are still charged for a full billing cycle. Cancelling a service may accelerate payments under equipment installment plans or lease agreements.
+        issues: [cancel_service]
+        source: https://www.t-mobile.com/responsibility/legal/terms-and-conditions
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Only the Primary Account Holder can generate a Temporary Port Out PIN, and only the Primary Account Holder can remove Port Out Protection on a postpaid account.
+        issues: [cancel_service]
+        source: https://www.t-mobile.com/support/account/transfer-your-phone-number/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If a credit balance remains 30 days after the final bill, a refund may be issued automatically. A final credit balance under $1.00 is refunded only on request.
+        issues: [cancel_service, refund_request]
+        source: https://www.t-mobile.com/support/account/cancel-service
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: T-Mobile unlocks an eligible postpaid device free of charge after it has been active on the requesting line for at least 40 days, if any financing or lease is paid in full and a cancelled account has a zero balance. It unlocks remotely within two business days of eligibility when the device supports it.
+        issues: [cancel_service]
+        source: https://www.t-mobile.com/responsibility/consumer-info/policies/sim-unlock-policy
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: A prepaid device is eligible for unlock after 365 days on the T-Mobile network, or earlier if the account had more than $100 in refills per active line and more than 14 days have passed since purchase; no more than 2 unlocks per line in 12 months.
+        issues: [cancel_service]
+        source: https://www.t-mobile.com/responsibility/consumer-info/policies/sim-unlock-policy
+        last_verified: 2026-10-12
+
+  - issue: equipment_return
+    summary: Return a new device within 14 days (store purchase) or 20 days after shipping (phone or online); return Home Internet gateways promptly with the prepaid label.
+    evidence: [receipt or order number, Return Authorization, return tracking number, device IMEI or serial number]
+    steps:
+      - do: For a store purchase, return the device with the receipt and all box contents to a T-Mobile store within 14 days of purchase.
+        channel: return-policy
+      - do: For a phone or online order, return it to a store or call for a Return Authorization and an emailed prepaid label within 20 days of the ship date. New customers call 1-866-675-1292; current customers returning an upgrade call 1-800-937-8997.
+        channel: new-customer-returns-phone
+      - do: For a Home Internet gateway or coverage device, contact T-Mobile to start the return, pack the Return Authorization Slip, and ship with the prepaid label. Keep the tracking number.
+        channel: gateway-return
+      - do: If a non-return or restocking fee appears after you returned the equipment, send the tracking number and ask for removal. Then dispute it in writing within 60 days.
+        channel: customer-relations-mail
+    facts:
+      - kind: deadline
+        claim: A device or accessory bought in a T-Mobile store can be returned or exchanged for a refund within 14 days of the purchase or lease date. A device bought by phone or online can be returned within 20 days of the date it shipped.
+        issues: [equipment_return, refund_request]
+        source: https://www.t-mobile.com/responsibility/legal/return-policy
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: The restocking fee is based on the device Full Retail Price - $75 for devices of $600 or more, $50 for $300-$599, and $25 for less than $300. Refunds exclude rebates, applicable taxes and fees, and shipping costs.
+        issues: [equipment_return, refund_request]
+        source: https://www.t-mobile.com/responsibility/legal/return-policy
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Devices bought through Costco can be returned within 90 days; Costco's T-Mobile support team handles returns at 833-906-2803.
+        issues: [equipment_return]
+        source: https://www.t-mobile.com/responsibility/legal/return-policy
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Refunds for a returned new device may take up to 30 days to process. Everything in the box must be returned; SIM cards do not need to be returned.
+        issues: [equipment_return, refund_request]
+        source: https://www.t-mobile.com/support/devices/return-a-new-device
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: After a Home Internet line is cancelled, a return label is emailed automatically, and the gateway and mesh Wi-Fi extender must be returned within 14 days. Failure to return on time may result in a non-return fee of up to $370 plus tax.
+        issues: [equipment_return, cancel_service]
+        source: https://www.t-mobile.com/support/account/cancel-service
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: Gateway and coverage device returns have no shipping or restocking charge. If T-Mobile does not receive the device within 30 days of starting the return, or it arrives damaged or inoperable, you pay the replacement or repair cost of up to $370.
+        issues: [equipment_return]
+        source: https://www.t-mobile.com/support/coverage/return-a-t-mobile-coverage-device
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: Before arbitration or court, you must send a written Notice of Dispute to T-Mobile Customer Relations, P.O. Box 37380, Albuquerque, NM 87176-7380 with the account holder name, billing account number, mobile number, a description with documents, and a good-faith damages calculation and requested relief. Neither side may start a proceeding until 60 days after receipt.
+    source: https://www.t-mobile.com/responsibility/legal/terms-and-conditions
+    last_verified: 2026-10-12
+  - kind: process
+    claim: Arbitration is administered by the American Arbitration Association under its Consumer Arbitration Rules. To begin, send a letter requesting arbitration to T-Mobile's registered agent (Corporation Service Company) and to the AAA. Either side may choose small claims court for an eligible claim before the arbitrator is appointed.
+    source: https://www.t-mobile.com/responsibility/legal/terms-and-conditions
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: To the extent the law allows, an arbitration or court proceeding must start within two (2) years of the date the claim arises.
+    source: https://www.t-mobile.com/responsibility/legal/terms-and-conditions
+    last_verified: 2026-10-12
+  - kind: limit
+    claim: The Terms and Conditions say T-Mobile does not promise uninterrupted service and is not liable for problems with service availability or quality; they state no outage credit.
+    issues: [service_outage]
+    source: https://www.t-mobile.com/responsibility/legal/terms-and-conditions
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Prepaid service is non-refundable, even if returned during the cancellation period, and there is no compensation for unused airtime or data.
+    issues: [refund_request]
+    source: https://www.t-mobile.com/responsibility/legal/terms-and-conditions
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: T-Mobile completed the acquisition of the UScellular wireless business on August 1, 2025.
+    source: https://www.sec.gov/Archives/edgar/data/1283699/000128369925000154/tmus-20250930.htm
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: T-Mobile acquired 100% of the equity of Ka'ena Corporation and its subsidiaries, including Mint Mobile LLC.
+    source: https://www.sec.gov/Archives/edgar/data/1283699/000128369925000154/tmus-20250930.htm
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Only the Primary Account Holder can generate a Temporary Port Out PIN or remove Port Out Protection; an agent cannot do this for the person.
+  - Calls to customer care require the account PIN/passcode; online access requires the T-Mobile ID password.
+  - Cancellation is by phone; the cancel support page has no online cancel button.
+  - T-Mobile support pages hide key details in collapsed sections that do not show in plain page text.

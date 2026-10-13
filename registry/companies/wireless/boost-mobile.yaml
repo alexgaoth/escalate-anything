@@ -1,0 +1,133 @@
+id: boost-mobile
+name: Boost Mobile
+aliases: [boost, boost subscriberco]
+sector: wireless
+parent: EchoStar Corporation (Boost SubscriberCo L.L.C.)
+website: https://www.boostmobile.com
+regulators: [fcc]
+notes: >-
+  Boost Mobile is a division of Boost SubscriberCo L.L.C., an EchoStar brand. In August 2025
+  EchoStar agreed to sell its 3.45 GHz and 600 MHz spectrum to AT&T and amended its network
+  agreement into a hybrid MNO relationship: primary connectivity on AT&T's towers, with continued
+  access to the T-Mobile network. The AT&T spectrum sale closed on July 28, 2026. DISH DBS and
+  affiliated entities including DISH Wireless L.L.C. were in Chapter 11 from June 30, 2026 and
+  emerged on October 1, 2026. EchoStar's August 3, 2026 release on the separate Hughes Chapter 11
+  filing said it had no impact on Boost Mobile.
+
+channels:
+  - id: customer-care-phone
+    type: phone
+    label: Customer Care (general questions), 833-50-BOOST
+    value: +1-833-502-6678
+    hours: Every day, 8 a.m. to midnight ET
+    purposes: [billing_error, cancel_service, equipment_return, service_outage]
+    notes: The Terms say billing dispute information is available by calling 833-50-BOOST.
+    source: https://help.boostmobile.com/docs/contact-our-support-teams
+    last_verified: 2026-10-12
+  - id: site-header-phone
+    type: phone
+    label: Phone number in the boostmobile.com site header
+    value: +1-833-212-6678
+    notes: The home page does not state what this number is for.
+    source: https://www.boostmobile.com/
+    last_verified: 2026-10-12
+  - id: activation-phone
+    type: phone
+    label: Activation Support
+    value: +1-866-957-8278
+    hours: Every day, 8 a.m. to midnight ET
+    source: https://help.boostmobile.com/docs/contact-our-support-teams
+    last_verified: 2026-10-12
+  - id: chat
+    type: chat
+    label: Boost Mobile Chat (chat icon on the help center)
+    value: https://help.boostmobile.com/docs/contact-our-support-teams
+    hours: Every day, 8 a.m. to midnight ET
+    purposes: [billing_error, cancel_service, equipment_return, service_outage]
+    source: https://help.boostmobile.com/docs/contact-our-support-teams
+    last_verified: 2026-10-12
+  - id: dispute-notice-mail
+    type: mail
+    label: Dispute Resolution Notice (written, by mail)
+    value: "Boost SubscriberCo, Attn: P.O. Box 9033, Littleton, Colorado 80120-9033"
+    purposes: [billing_error, cancel_service, service_outage, poor_service]
+    notes: The notice must include a declaration signed under penalty of perjury. No email or online option is listed.
+    source: https://help.boostmobile.com/docs/general-terms-conditions
+    last_verified: 2026-10-12
+  - id: arbitration-opt-out-mail
+    type: mail
+    label: Arbitration opt-out (written notice)
+    value: "Boost SubscriberCo, Attn: Dispute Resolution, P.O. Box 9033, Littleton, Colorado 80120-9033"
+    source: https://help.boostmobile.com/docs/general-terms-conditions
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-care-phone}
+  - {rung: written_complaint, channel: dispute-notice-mail, note: "Starts the 60-day period before arbitration or small claims."}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "AAA Consumer Arbitration Rules, at least 60 days after the notice; small claims court is an alternative."}
+
+playbooks:
+  - issue: billing_error
+    summary: Call 833-50-BOOST, then mail a signed Dispute Resolution Notice. Wait 60 days before arbitration or small claims.
+    evidence: [account number, the charge and the correct amount, payment records]
+    steps:
+      - do: Call Customer Care or chat. Ask for the correction and a reference number.
+        channel: customer-care-phone
+      - do: If not fixed, mail a written Dispute Resolution Notice with a declaration signed under penalty of perjury.
+        channel: dispute-notice-mail
+      - do: After 60 days, file an FCC complaint, or start AAA arbitration or a small claims case.
+        regulator: fcc
+  - issue: cancel_service
+    summary: Plans have no contract. Cancel within 30 days of account creation to get service fees back under the money-back guarantee.
+    evidence: [account creation date, cancellation confirmation, payment records]
+    steps:
+      - do: Cancel by Customer Care or chat. Note the date and get a confirmation.
+        channel: customer-care-phone
+      - do: If you cancel within 30 days of account creation and you ported in a number with AutoPay on, ask for the refund of Boost service fees under the 30-Day Money-Back Guarantee.
+        channel: customer-care-phone
+    facts:
+      - kind: policy
+        claim: Customers who cancel within 30 days of account creation have Boost service fees refunded. Activation fees and phone payments are not refunded. Port-in and AutoPay are required.
+        issues: [cancel_service]
+        source: https://www.boostmobile.com/30-day-money-back-guarantee
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Boost does not offer refunds or accept returns on Re-Boost cards.
+        issues: [cancel_service]
+        source: https://help.boostmobile.com/docs/general-terms-conditions
+        last_verified: 2026-10-12
+
+facts:
+  - kind: deadline
+    claim: Neither party may start arbitration or a small claims action until at least sixty (60) days after a Dispute Resolution Notice is given. Arbitration is under the AAA Consumer Arbitration Rules.
+    issues: [billing_error, poor_service]
+    source: https://help.boostmobile.com/docs/general-terms-conditions
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: You may opt out of arbitration within 30 days of setting up an account, starting services or receiving a phone, whichever comes first, by written notice to Boost SubscriberCo, Attn Dispute Resolution, P.O. Box 9033, Littleton, Colorado 80120-9033.
+    source: https://help.boostmobile.com/docs/general-terms-conditions
+    last_verified: 2026-10-12
+  - kind: limit
+    claim: The Terms limit Boost's total liability to service credits that will not exceed five hundred US dollars ($500).
+    issues: [service_outage]
+    source: https://help.boostmobile.com/docs/general-terms-conditions
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Postpaid accounts get a 10-day grace period to pay.
+    issues: [billing_error]
+    source: https://help.boostmobile.com/docs/general-terms-conditions
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: EchoStar sold all of its 3.45 GHz and 600 MHz spectrum licenses to AT&T Mobility II LLC; the sale closed on July 28, 2026.
+    source: https://www.sec.gov/Archives/edgar/data/1415404/000141540426000035/sats-20260728x8k.htm
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Under the amended network agreement announced in August 2025, primary connectivity for Boost Mobile subscribers is provided by AT&T's towers, and subscribers keep access to the T-Mobile network.
+    source: https://www.sec.gov/Archives/edgar/data/1001082/000141540425000035/tmb-20250825xex99.htm
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The help center does not publish port-out (Number Transfer PIN) steps for leaving Boost; ask Customer Care.
+  - The dispute notice needs a declaration signed under penalty of perjury, so the account holder must sign it.
