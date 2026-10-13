@@ -1,0 +1,203 @@
+id: southwest-airlines
+name: Southwest Airlines
+aliases: [southwest airlines co, southwest.com, southwest air]
+sector: airline
+website: https://www.southwest.com
+regulators: [us-dot]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Reservations and customer service (1-800-I-FLY-SWA)
+    value: +1-800-435-9792
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, travel_credit, accessibility]
+    notes: Spanish line 1-800-826-6667 (1-800-VAMONOS).
+    source: https://www.southwest.com/assets/pdfs/corporate-commitments/contract-of-carriage.pdf
+    last_verified: 2026-10-12
+  - id: tty-phone
+    type: phone
+    label: TTY service
+    value: +1-800-533-1305
+    purposes: [accessibility]
+    source: https://www.southwest.com/assets/pdfs/corporate-commitments/contract-of-carriage.pdf
+    last_verified: 2026-10-12
+  - id: customer-care-form
+    type: web_form
+    label: Help Center Contact Us (compliment and complaint sections)
+    value: https://support.southwest.com/helpcenter/s/contact-us
+    purposes: [flight_cancellation, flight_delay, denied_boarding, poor_service, ancillary_fee_refund, travel_credit, delayed_baggage, lost_baggage, damaged_baggage]
+    notes: The complaint section says "Please provide the details of your experience and we will research and respond as soon as possible."
+    source: https://support.southwest.com/helpcenter/s/contact-us
+    last_verified: 2026-10-12
+  - id: refund-form
+    type: web_form
+    label: Non-refundable Ticket Refund Request
+    value: https://support.southwest.com/helpcenter/s/request-ticket-refund
+    purposes: [flight_cancellation, flight_delay, refund_request]
+    notes: Covers Southwest-initiated cancellations, significant schedule revisions and significant delays, plus some other cases. Needs confirmation number and flight details; no sign-in stated.
+    source: https://support.southwest.com/helpcenter/s/request-ticket-refund
+    last_verified: 2026-10-12
+  - id: reimbursement-form
+    type: web_form
+    label: Southwest LUV Voucher or expense reimbursement request
+    value: https://support.southwest.com/helpcenter/s/request-reimbursement-or-voucher
+    purposes: [flight_delay, flight_cancellation]
+    notes: For delays or cancellations within Southwest's control. Submit within one year of the flight.
+    source: https://support.southwest.com/helpcenter/s/request-reimbursement-or-voucher
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: customer-care-form}
+  - {rung: regulator, regulator: us-dot}
+  - {rung: payment_dispute, note: "Card dispute for a refund Southwest owes but has not paid."}
+
+playbooks:
+  - issue: flight_cancellation
+    summary: Decline the rebooking and do not hold the value as a Flight Credit if you want money back; request a refund to the original form of payment.
+    evidence: [confirmation number, flight number and date, cancellation or schedule-change notice]
+    steps:
+      - do: Decide whether to rebook or take a refund. Choosing to hold the value as a Flight Credit gives up the form-of-payment refund.
+      - do: Submit the Non-refundable Ticket Refund Request, citing the Southwest-initiated cancellation.
+        channel: refund-form
+      - do: If the cancellation was within Southwest's control and you waited 3+ hours or needed a hotel, request reimbursement or a LUV Voucher.
+        channel: reimbursement-form
+      - do: If the refund is not paid, complain in writing, then file with the U.S. DOT and dispute the charge with the card issuer.
+        channel: customer-care-form
+    facts:
+      - kind: policy
+        claim: Contract of Carriage section 9.b says a passenger whose flight is cancelled or Significantly Delayed or Changed is eligible for a form-of-payment refund if they do not fly, do not accept alternative transportation, and do not choose to hold the value as Flight Credit or Transferable Flight Credit.
+        issues: [flight_cancellation, flight_delay]
+        source: https://www.southwest.com/assets/pdfs/corporate-commitments/contract-of-carriage.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Contract of Carriage defines a Significantly Delayed or Changed Flight to include a departure three hours or more earlier, or an arrival three hours or more later, than originally scheduled on domestic itineraries (six hours for international).
+        issues: [flight_cancellation, flight_delay]
+        source: https://www.southwest.com/assets/pdfs/corporate-commitments/contract-of-carriage.pdf
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Contract of Carriage section 4.c.(3) says credit card refunds are processed "typically no later than seven business days" and cash refunds by check "typically no later than 20 calendar days" from the date Southwest determines the refund is due. A refund that requires a request must be requested no later than one year from the ticket issue date.
+        issues: [flight_cancellation, refund_request]
+        source: https://www.southwest.com/assets/pdfs/corporate-commitments/contract-of-carriage.pdf
+        last_verified: 2026-10-12
+
+  - issue: flight_delay
+    summary: For a delay within Southwest's control of 3+ hours, ask for a food voucher, lodging and transport if needed, and claim receipts within one year.
+    evidence: [confirmation number, scheduled and actual times, cause given by Southwest, receipts]
+    steps:
+      - do: At the airport, ask for a food voucher and, if no same-day flight is available, a hotel and ground transportation.
+      - do: Submit receipts or ask for a LUV Voucher through the reimbursement form within one year of the flight.
+        channel: reimbursement-form
+      - do: If the delay is a significant change and you do not travel, request a refund.
+        channel: refund-form
+    facts:
+      - kind: compensation
+        claim: Southwest's reimbursement form covers delays of three hours or more within Southwest's control, or controllable cancellations with a wait of three hours or more, with a food voucher on request or reimbursement of reasonable meal costs, lodging or reimbursement if no same-day flight is available, and ground transportation if the hotel has no airport shuttle.
+        issues: [flight_delay, flight_cancellation]
+        source: https://support.southwest.com/helpcenter/s/request-reimbursement-or-voucher
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: A LUV Voucher may be issued when Southwest cancelled or significantly delayed a flight for a reason it can control, the disruption happened less than eight days before departure, and you arrived at your final destination three or more hours late.
+        issues: [flight_delay, flight_cancellation]
+        source: https://support.southwest.com/helpcenter/s/request-reimbursement-or-voucher
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Reimbursement or voucher requests must be submitted "no later than one year from the date of the delayed/canceled flight(s)."
+        issues: [flight_delay, flight_cancellation]
+        source: https://support.southwest.com/helpcenter/s/request-reimbursement-or-voucher
+        last_verified: 2026-10-12
+
+  - issue: delayed_baggage
+    summary: Report a missing bag within 4 hours of arrival and get a Baggage report number; bag fees are refunded at 12 hours.
+    evidence: [bag tag, Baggage report number, receipts for essentials]
+    steps:
+      - do: Report the bag to Southwest at the airport within 4 hours of the flight's arrival and get a Baggage report number.
+      - do: Keep receipts for reasonable expenses and submit them with the claim.
+        channel: customer-care-form
+      - do: If the bag arrives 12 or more hours late, ask for the checked bag fee back.
+    facts:
+      - kind: deadline
+        claim: Contract of Carriage section 7.g.(8)(i) says that for loss or substantial delay, you must notify Southwest and receive a Baggage report number not later than four (4) hours after the flight's arrival or receipt of the bag.
+        issues: [delayed_baggage, lost_baggage]
+        source: https://www.southwest.com/assets/pdfs/corporate-commitments/contract-of-carriage.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: With a Baggage report number, Southwest refunds the excess, oversize or overweight charge paid if baggage is lost or delayed by twelve (12) or more hours after the arrival of the flight.
+        issues: [delayed_baggage, lost_baggage, ancillary_fee_refund]
+        source: https://www.southwest.com/assets/pdfs/corporate-commitments/contract-of-carriage.pdf
+        last_verified: 2026-10-12
+
+  - issue: lost_baggage
+    summary: After the report, complete the Property Loss Claim form within 30 days of the date Southwest issues it.
+    evidence: [bag tag, Baggage report number, contents list with values, receipts]
+    steps:
+      - do: Make sure you reported the bag within 4 hours and have a Baggage report number.
+      - do: Complete the Property Loss Claim form Southwest sends by mail or through its Baggage Claim Web Portal within 30 days of issue.
+      - do: If the settlement is refused or too low, complain in writing, then file with the U.S. DOT.
+        channel: customer-care-form
+    facts:
+      - kind: deadline
+        claim: Contract of Carriage section 7.g.(8)(iii) says the Property Loss Claim form must be completed and postmarked (paper) or submitted through the Baggage Claim Web Portal (online) within thirty (30) days of date of issue by Southwest.
+        issues: [lost_baggage]
+        source: https://www.southwest.com/assets/pdfs/corporate-commitments/contract-of-carriage.pdf
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: The Contract of Carriage sets Southwest's standard baggage liability at $4,700, with excess valuation of up to $1,250 more (total maximum $5,950). Reimbursement is the documented original purchase price less depreciation.
+        issues: [lost_baggage, damaged_baggage, delayed_baggage]
+        source: https://www.southwest.com/assets/pdfs/corporate-commitments/contract-of-carriage.pdf
+        last_verified: 2026-10-12
+
+  - issue: damaged_baggage
+    summary: Report damage in person at the airport within 24 hours and get a Baggage report number.
+    evidence: [photos of the damage, bag tag, Baggage report number, repair estimate]
+    steps:
+      - do: Show the damaged bag to Southwest at the airport within 24 hours of arrival or receipt of the bag. Get a Baggage report number.
+      - do: Follow up in writing with photos and a repair estimate.
+        channel: customer-care-form
+    facts:
+      - kind: deadline
+        claim: Contract of Carriage section 7.g.(8)(ii) says damage must be reported in person at the airport, with a Baggage report number issued, not later than 24 hours after the flight's arrival or receipt of the bag.
+        issues: [damaged_baggage]
+        source: https://www.southwest.com/assets/pdfs/corporate-commitments/contract-of-carriage.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Southwest is not liable for normal wear and tear such as cuts, scratches, scuffs, stains, dents, punctures, marks and dirt.
+        issues: [damaged_baggage]
+        source: https://www.southwest.com/assets/pdfs/corporate-commitments/contract-of-carriage.pdf
+        last_verified: 2026-10-12
+
+  - issue: denied_boarding
+    summary: If bumped involuntarily, compensation is paid on the spot under Contract of Carriage section 9.c.
+    evidence: [boarding pass, written Notice of Denied Boarding, arrival time of the new flight]
+    steps:
+      - do: Ask for the written explanation of denied boarding compensation and payment the same day.
+      - do: If not paid, complain in writing, then file with the U.S. DOT.
+        channel: customer-care-form
+    facts:
+      - kind: compensation
+        claim: For domestic itineraries, involuntary denied boarding compensation is at least 200% of the fare or $1075.00 (whichever is lower) if the alternate flight arrives more than 1 but less than 2 hours late, and at least 400% of the fare or $2150.00 (whichever is lower) otherwise. It is paid on the day and at the place of denied boarding, or sent within 24 hours.
+        issues: [denied_boarding]
+        source: https://www.southwest.com/assets/pdfs/corporate-commitments/contract-of-carriage.pdf
+        last_verified: 2026-10-12
+
+  - issue: travel_credit
+    summary: Flight Credits from tickets issued or changed on or after May 28, 2025 expire; ask for a cash refund instead if Southwest caused the disruption.
+    evidence: [confirmation number of the original ticket, credit details, cancellation notice]
+    steps:
+      - do: If the credit came from a Southwest cancellation or significant change, ask for a refund to the original form of payment.
+        channel: refund-form
+    facts:
+      - kind: policy
+        claim: Flight Credits created from tickets issued or changed on or after May 28, 2025, have an expiration date by which travel must be booked and flown.
+        issues: [travel_credit]
+        source: https://www.southwest.com/assets/pdfs/corporate-commitments/contract-of-carriage.pdf
+        last_verified: 2026-10-12
+
+known_blockers:
+  - No baggage claim portal URL or baggage phone number was found; the Contract of Carriage says Southwest sends the Property Loss Claim form by mail or through its Baggage Claim Web Portal.
+  - The Customer Service Commitment PDF on southwest.com is dated 03/14/2019 and still says the first two checked bags are free; the current Contract of Carriage (58th revision, effective 09/24/2026) says fees for checked baggage apply.
+
+notes: >-
+  Contract of Carriage is the 58th revision, effective 09/24/2026. It now says checked bag fees apply and that Flight
+  Credits from tickets issued or changed on or after May 28, 2025 expire, and it describes Basic fares. Older Southwest
+  commitment documents that describe free checked bags are out of date.

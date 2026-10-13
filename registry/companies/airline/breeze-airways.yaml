@@ -1,0 +1,118 @@
+id: breeze-airways
+name: Breeze Airways
+aliases: [breeze, flybreeze, flybreeze.com]
+sector: airline
+website: https://www.flybreeze.com
+regulators: [us-dot]
+
+channels:
+  - id: text
+    type: sms
+    label: Text the Guest Empowerment Team
+    value: +1-501-273-3931
+    purposes: [flight_cancellation, flight_delay, refund_request, travel_credit, delayed_baggage, lost_baggage, damaged_baggage, accessibility]
+    notes: Breeze publishes no phone line for voice support and warns that fraudsters post fake Breeze phone numbers. A Breeze maintenance page shows 501-273-3932; the support pages use 3931.
+    source: https://www.flybreeze.com/support?a=Fraud-and-Scam-Protection---id--cEr2FnXYS3ajYvIUJGZX_Q
+    last_verified: 2026-10-12
+  - id: refund-policy
+    type: portal
+    label: Cancellation and Refund Policy (help center)
+    value: https://www.flybreeze.com/support?a=Cancellation-and-Refund-Policy---id--q0dZqkqJQbW20h7xpRsZjw
+    purposes: [flight_cancellation, refund_request, travel_credit]
+    source: https://www.flybreeze.com/support?a=Cancellation-and-Refund-Policy---id--q0dZqkqJQbW20h7xpRsZjw
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: text}
+  - {rung: written_complaint, note: "Breeze Contact Center by email, text or messaging (the Contract of Carriage definition); no complaint form URL was confirmed."}
+  - {rung: regulator, regulator: us-dot}
+  - {rung: payment_dispute, note: "Card dispute for a refund Breeze owes but has not paid."}
+
+playbooks:
+  - issue: flight_cancellation
+    summary: Cancel only the unflown segments for a refund to the original form of payment; taking the delayed or rebooked flight ends the refund right.
+    evidence: [confirmation code, cancellation or delay notice, Flight Credit details]
+    steps:
+      - do: Do not take the delayed or rebooked flight if you want money back.
+      - do: Cancel the unflown segments for a refund to the original form of payment, or ask the Guest Empowerment Team by text.
+        channel: text
+      - do: If the cause was within Breeze's control, check for Flight Credit compensation.
+      - do: If the refund does not arrive, file with the U.S. DOT, then dispute the charge.
+        regulator: us-dot
+    facts:
+      - kind: policy
+        claim: The Contract of Carriage (updated as of March 20, 2025) says that for a "Significantly delayed or changed flight" as defined in DOT regulations, guests may be entitled to a refund consistent with DOT regulations, and itinerary changes are free when a flight is cancelled, modified or delayed more than two hours.
+        issues: [flight_cancellation, flight_delay]
+        source: https://media.flybreeze.com/docs/policies/contractofcarriage.pdf
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Breeze's disruption help page says only unflown segments can be cancelled for a full refund to the original form of payment, and to allow 7 business days to see the refund.
+        issues: [flight_cancellation, refund_request]
+        source: https://www.flybreeze.com/support?a=Disrupted-Flight-Options---id--hRq-gf4JQ4KUQMpcHYY5wQ
+        last_verified: 2026-10-12
+
+  - issue: flight_delay
+    summary: Controllable delays earn Flight Credit scaled to the delay; meals and hotels are a courtesy, not an obligation.
+    evidence: [confirmation code, scheduled and actual times, cause given by Breeze, receipts]
+    steps:
+      - do: Ask the Guest Empowerment Team for the Flight Credit owed for a controllable delay, and for any voucher or expense reimbursement.
+        channel: text
+      - do: For a delay over three hours, you may cancel the unflown segments for a refund instead.
+    facts:
+      - kind: compensation
+        claim: Breeze gives Flight Credit compensation scaled to the length of a controllable delay, and none for disruptions caused by weather, air traffic control or other circumstances outside its control.
+        issues: [flight_delay, flight_cancellation]
+        source: https://www.flybreeze.com/support?a=Disrupted-Flight-Options---id--hRq-gf4JQ4KUQMpcHYY5wQ
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Contract of Carriage says Breeze may provide limited electronic vouchers and/or expense reimbursement options as a courtesy, with no obligation to provide them.
+        issues: [flight_delay, flight_cancellation]
+        source: https://media.flybreeze.com/docs/policies/contractofcarriage.pdf
+        last_verified: 2026-10-12
+
+  - issue: delayed_baggage
+    summary: Report the missing bag to a Team Member at the arrival airport within one hour; follow up through the Contact Center after 10 days.
+    evidence: [bag tag, report number, receipts]
+    steps:
+      - do: File a report with a Team Member at the arrival airport within one hour of arrival.
+      - do: If the bag is not returned within 10 days of the report, submit a follow-up claim through the Contact Center.
+        channel: text
+    facts:
+      - kind: deadline
+        claim: Contract of Carriage section 7.J requires a report with a Team Member at the arrival airport within one (1) hour of arrival for bags that do not arrive, and a follow-up claim through the Breeze Contact Center if the bag is not returned within ten (10) days.
+        issues: [delayed_baggage, lost_baggage]
+        source: https://media.flybreeze.com/docs/policies/contractofcarriage.pdf
+        last_verified: 2026-10-12
+
+  - issue: lost_baggage
+    summary: Report within one hour, follow up after 10 days, and check the $4,700 limit.
+    evidence: [bag tag, report number, contents list with values, receipts]
+    steps:
+      - do: Submit the follow-up claim through the Contact Center with a contents list and values.
+        channel: text
+    facts:
+      - kind: limit
+        claim: The Contract of Carriage limits liability for loss, delay or damage to checked baggage (other than assistive devices) to up to $4,700 per guest on domestic flights.
+        issues: [lost_baggage, damaged_baggage, delayed_baggage]
+        source: https://media.flybreeze.com/docs/policies/contractofcarriage.pdf
+        last_verified: 2026-10-12
+
+  - issue: damaged_baggage
+    summary: Report damage to a Team Member at the arrival airport within one hour of arrival.
+    evidence: [photos of the damage, bag tag, report number]
+    steps:
+      - do: File a damage report with a Team Member at the arrival airport within one hour of arrival.
+      - do: Follow up with photos through the Contact Center.
+        channel: text
+    facts:
+      - kind: deadline
+        claim: Contract of Carriage section 7.J requires a damage report with a Team Member at the arrival airport within one (1) hour of arrival, unless applicable law allows longer.
+        issues: [damaged_baggage]
+        source: https://media.flybreeze.com/docs/policies/contractofcarriage.pdf
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Breeze has no voice phone support; agents must use text or website chat.
+  - flybreeze.com returned 403 to direct fetches; values come from flybreeze.com search results and the Contract of Carriage PDF.
+
+notes: The Contract of Carriage PDF (media.flybreeze.com) is dated "Updated as of March 20, 2025".

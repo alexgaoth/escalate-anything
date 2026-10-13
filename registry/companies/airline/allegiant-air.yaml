@@ -1,0 +1,247 @@
+id: allegiant-air
+name: Allegiant Air
+aliases: [allegiant, allegiant airlines, allegiantair.com]
+sector: airline
+parent: Allegiant Travel Company
+website: https://www.allegiantair.com
+account_url: https://www.allegiantair.com/my-trips
+regulators: [us-dot]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Allegiant Reservations Center / Customer Care
+    value: +1-702-505-8888
+    hours: 24 hours a day
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, travel_credit, accessibility]
+    notes: Also the number to ask for a Complaint Resolution Official (CRO), available 24/7.
+    source: https://www.allegiantair.com/passengers-special-needs
+    last_verified: 2026-10-12
+  - id: tty-phone
+    type: phone
+    label: TTY/TDD
+    value: +1-702-430-3283
+    purposes: [accessibility]
+    source: https://www.allegiantair.com/customer-service-plan
+    last_verified: 2026-10-12
+  - id: text
+    type: sms
+    label: Send Us a Text
+    value: +1-866-432-6165
+    source: https://www.allegiantair.com/contactus
+    last_verified: 2026-10-12
+  - id: customer-care-form
+    type: web_form
+    label: Customer Request For Assistance form ("Email Us")
+    value: https://www.allegiantair.com/customer-request-assistance
+    purposes: [flight_cancellation, flight_delay, denied_boarding, poor_service, ancillary_fee_refund, travel_credit, delayed_baggage, lost_baggage, damaged_baggage, accessibility]
+    notes: The baggage page links "Mishandled Bag Report" to this form for travelers who could not report at the airport. For disability issues, select "Disability & Wheelchair Assistance" as the nature of the request.
+    source: https://www.allegiantair.com/baggage-1
+    last_verified: 2026-10-12
+  - id: customer-relations-mail
+    type: mail
+    label: Customer Relations mailing address
+    value: "Allegiant Travel Company, ATTN: Customer Relations, PO Box 371730, Las Vegas, NV 89137"
+    purposes: [poor_service, flight_cancellation, refund_request]
+    source: https://www.allegiantair.com/contactus
+    last_verified: 2026-10-12
+  - id: baggage-mail
+    type: mail
+    label: System Baggage Services (receipts for delayed-bag purchases)
+    value: System Baggage Services, PO Box 371730, Las Vegas, NV 89137
+    purposes: [delayed_baggage]
+    notes: The baggage page also gives fax 702.853.4267 and an email address for receipts.
+    source: https://www.allegiantair.com/baggage-1
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: customer-care-form}
+  - {rung: regulator, regulator: us-dot}
+  - {rung: payment_dispute, note: "Card dispute for a refund Allegiant owes but has not paid."}
+
+playbooks:
+  - issue: flight_cancellation
+    summary: Decline the rebooking and any voucher to get a full refund, including taxes and ancillary fees, to the original form of payment.
+    evidence: [confirmation number, cancellation or reschedule notice, receipts]
+    steps:
+      - do: In Manage Travel, decline the rebooking and ask for a refund. If you do nothing, Allegiant cancels the itinerary after 72 hours.
+      - do: If a rescheduled flight was turned into a credit voucher, call Customer Care to redeem it for a refund.
+        channel: customer-service-phone
+      - do: For a controllable cancellation, ask for a meal voucher (3+ hours) and a hotel or reimbursement of reasonable overnight costs.
+      - do: If the refund is not paid within 7 business days, send a written request, then file with the U.S. DOT and dispute the charge.
+        channel: customer-care-form
+    facts:
+      - kind: policy
+        claim: The Customer Service Plan says that if a customer declines rebooking after a controllable delay or cancellation, Allegiant issues a full refund, including taxes and ancillary fees, to the original form of payment.
+        issues: [flight_cancellation, ancillary_fee_refund]
+        source: https://www.allegiantair.com/customer-service-plan
+        last_verified: 2026-10-12
+      - kind: process
+        claim: If you take no action on a cancelled flight, "Allegiant will automatically cancel your itinerary in 72 hours" and refund to the original payment method. A rescheduled flight you decline becomes a credit voucher, which can be redeemed for a refund by calling Customer Care.
+        issues: [flight_cancellation, travel_credit]
+        source: https://www.allegiantair.com/flight-disruptions
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Contract of Carriage Art. 90.G says card refunds are processed "no later than seven (7) business days" from receipt of the request and cash or check refunds "no later than twenty (20) calendar days".
+        issues: [flight_cancellation, refund_request]
+        source: https://www.allegiantair.com/contract-carriage
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Contract of Carriage Art. 85.E.1 treats a change of "three hours or more for domestic itineraries" as a significant delay.
+        issues: [flight_cancellation, flight_delay]
+        source: https://www.allegiantair.com/contract-carriage
+        last_verified: 2026-10-12
+
+  - issue: flight_delay
+    summary: For a controllable delay of 3+ hours, ask for a meal voucher; for an overnight delay, a hotel or reimbursement. Weather delays get no expenses.
+    evidence: [confirmation number, scheduled and actual times, cause given by Allegiant, receipts]
+    steps:
+      - do: Ask the agent for a meal voucher once the controllable delay reaches 3 hours, and for a hotel if stranded overnight.
+      - do: Submit receipts for reasonable hotel and ground transportation costs.
+        channel: customer-care-form
+    facts:
+      - kind: compensation
+        claim: The Customer Service Plan provides a meal voucher (or an appropriate meal and beverage) for controllable delays of "3 hours or more", hotel accommodations when available or reimbursement of reasonable overnight expenses, and reimbursement of reasonable ground transportation if it is not provided.
+        issues: [flight_delay, flight_cancellation]
+        source: https://www.allegiantair.com/customer-service-plan
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: For weather disruptions, "Allegiant will not be liable for any meals, alternate transportation or any other overnight expenses incurred."
+        issues: [flight_delay, flight_cancellation]
+        source: https://www.allegiantair.com/flight-disruptions
+        last_verified: 2026-10-12
+
+  - issue: delayed_baggage
+    summary: Complete a Mishandled Baggage Report at the airport within 12 hours of arrival, then mail or email receipts to System Baggage Services.
+    evidence: [bag tag, Mishandled Baggage Report, receipts with purchase date and items, confirmation number]
+    steps:
+      - do: Report the bag at the Allegiant Baggage Service Office. If you could not, file online within 12 hours of arrival.
+        channel: customer-care-form
+      - do: Send receipts showing purchase date, items, total, confirmation number and your mailing address to System Baggage Services.
+        channel: baggage-mail
+      - do: Ask for the bag fee back for a lost or significantly delayed bag.
+    facts:
+      - kind: deadline
+        claim: The baggage page says "The report must be submitted within (12) hours of arrival time." The Contract of Carriage (Art. 80.1) allows 24 hours and requires amended claims within 21 days. Report within 12 hours to be safe.
+        issues: [delayed_baggage, lost_baggage, damaged_baggage]
+        source: https://www.allegiantair.com/baggage-1
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: After a Mishandled Bag Report, "please allow up to 45 days from submission to process your claim" for a bag fee refund.
+        issues: [delayed_baggage, ancillary_fee_refund]
+        source: https://www.allegiantair.com/baggage-1
+        last_verified: 2026-10-12
+
+  - issue: lost_baggage
+    summary: File the Mishandled Baggage Report quickly, return the claim form by its stated date, and check the $4,700 limit.
+    evidence: [bag tag, report number, contents list with values, receipts]
+    steps:
+      - do: File the Mishandled Baggage Report within 12 hours of arrival.
+        channel: customer-care-form
+      - do: Return the claim form by the date stated on it, signed and complete.
+      - do: If the claim is denied, complain in writing, then file with the U.S. DOT.
+        channel: customer-relations-mail
+    facts:
+      - kind: limit
+        claim: Contract of Carriage Art. 75.1 says Allegiant's baggage liability "in no event shall be greater than four thousand, seven hundred dollars ($4,700) Domestic."
+        issues: [lost_baggage, damaged_baggage, delayed_baggage]
+        source: https://www.allegiantair.com/contract-carriage
+        last_verified: 2026-10-12
+
+  - issue: damaged_baggage
+    summary: Report damage within 12 hours of arrival (24 hours for missing contents; 72 hours for mobility devices).
+    evidence: [photos of the damage, bag tag, report number, repair estimate]
+    steps:
+      - do: Report the damage to an airline representative at the airport, within 12 hours of arrival.
+      - do: Return the signed claim form by its stated date with photos and an estimate.
+        channel: customer-care-form
+    facts:
+      - kind: deadline
+        claim: Allegiant's liability page says claims must be submitted "12 hours of flight arrival for damaged bags" and within 24 hours for missing contents; unsigned or incomplete claim forms may be denied.
+        issues: [damaged_baggage]
+        source: https://www.allegiantair.com/luggage-limitations-liability
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Damage to a wheelchair or mobility device "must be reported no more than 72 hours after your flight's arrival."
+        issues: [damaged_baggage, accessibility]
+        source: https://www.allegiantair.com/passengers-special-needs
+        last_verified: 2026-10-12
+
+  - issue: denied_boarding
+    summary: If bumped involuntarily, ask for the written notice and compensation under Contract of Carriage Art. 105.
+    evidence: [boarding pass, written denied-boarding notice, arrival time of the new flight]
+    steps:
+      - do: Ask the agent for the written statement of denied boarding compensation.
+      - do: If not paid, complain in writing, then file with the U.S. DOT.
+        channel: customer-care-form
+    facts:
+      - kind: compensation
+        claim: For domestic oversales, Contract of Carriage Art. 105 gives no compensation for an arrival delay under 1 hour, 200% of the fare (maximum $1,075) for 1 to 2 hours, and 400% of the fare (maximum $2,150) for over 2 hours.
+        issues: [denied_boarding]
+        source: https://www.allegiantair.com/contract-carriage
+        last_verified: 2026-10-12
+
+  - issue: ancillary_fee_refund
+    summary: Declining rebooking after a controllable disruption refunds ancillary fees too; a lost or significantly delayed bag refunds the bag fee after a Mishandled Bag Report.
+    evidence: [receipt for the fee, confirmation number, Mishandled Bag Report]
+    steps:
+      - do: File the Mishandled Bag Report, then allow up to 45 days for the bag fee refund.
+        channel: customer-care-form
+      - do: If the refund is not paid, send a written request to Customer Relations, then file with the U.S. DOT.
+        channel: customer-relations-mail
+    facts:
+      - kind: deadline
+        claim: The Customer Service Plan refunds the bag fee for a lost or significantly delayed bag if a mishandled baggage report is filed, within 7 business days for cards and 20 calendar days for other payments.
+        issues: [ancillary_fee_refund, delayed_baggage, lost_baggage]
+        source: https://www.allegiantair.com/customer-service-plan
+        last_verified: 2026-10-12
+
+  - issue: accessibility
+    summary: Call Customer Care and ask for a Complaint Resolution Official (CRO), available 24/7.
+    evidence: [assistance request confirmation, dates, names, photos of damage]
+    steps:
+      - do: Call Customer Care and ask for a CRO.
+        channel: customer-service-phone
+      - do: Submit the Customer Request For Assistance form with "Disability & Wheelchair Assistance" selected.
+        channel: customer-care-form
+      - do: Report damage to a wheelchair or mobility device within 72 hours of arrival.
+      - do: File with the U.S. DOT if the issue is not resolved.
+        regulator: us-dot
+
+  - issue: travel_credit
+    summary: Travel credit must be used within one year of the original reservation and cannot be extended.
+    evidence: [credit or voucher number, original reservation]
+    steps:
+      - do: If the credit came from a rescheduled or cancelled flight, call Customer Care and ask to redeem it for a refund.
+        channel: customer-service-phone
+    facts:
+      - kind: deadline
+        claim: 'Allegiant says "Travel must be completed within one year of the date of the initial reservation", and "Voucher expiration dates cannot be extended."'
+        issues: [travel_credit]
+        source: https://www.allegiantair.com/reservations-ticketing
+        last_verified: 2026-10-12
+
+facts:
+  - kind: deadline
+    claim: Allegiant's reservations page says "Eligible refunds will be issued to the original form of payment within 5 to 7 days."
+    issues: [refund_request]
+    source: https://www.allegiantair.com/reservations-ticketing
+    last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: Allegiant's Customer Service Plan mentions rebooking on an Allegiant airline partner, but the same plan says Allegiant has no codeshare partners, so expect rebooking only on Allegiant flights.
+    issues: [flight_cancellation]
+    source: https://www.allegiantair.com/customer-service-plan
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Allegiant's baggage pages give different reporting windows (12 hours on the baggage page, 24 hours in the Contract of Carriage). Use the shorter one.
+  - Email addresses for baggage and disability teams are obscured on the pages; use the Customer Request For Assistance form instead.
+
+notes: >-
+  Contract of Carriage effective on and after July 21, 2026. Allegiant completed its acquisition of Sun Country
+  Airlines on May 13, 2026 (stories.suncountry.com/merger-faqs; DOT interim approval April 15, 2026 per
+  newsroom.allegiantair.com). The two airlines keep operating separately, with separate websites and loyalty programs,
+  until they receive a single FAA operating certificate. Sun Country has its own file (sun-country-airlines).

@@ -1,0 +1,76 @@
+id: spirit-airlines
+name: Spirit Airlines
+aliases: [spirit airlines llc, spirit airlines inc, spirit.com, spirit aviation holdings]
+sector: airline
+parent: Spirit Aviation Holdings, Inc.
+website: https://www.spirit.com
+regulators: [us-dot]
+
+channels:
+  - id: restructuring-site
+    type: portal
+    label: Spirit wind-down and restructuring information site
+    value: https://spiritrestructuring.com
+    purposes: [flight_cancellation, travel_credit, refund_request]
+    notes: Named in Spirit's May 2, 2026 wind-down release as the source of information about the wind-down. On 2026-10-12 the site returned an HTTP 522 error.
+    source: https://www.prnewswire.com/news-releases/spirit-airlines-begins-orderly-wind-down-of-operations-302760586.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: restructuring-site, note: "Information only. Spirit no longer operates flights or a customer service center that could be confirmed."}
+  - {rung: regulator, regulator: us-dot}
+  - {rung: payment_dispute, note: "For a ticket paid by credit or debit card whose automatic refund did not arrive, dispute the charge with the card issuer."}
+
+playbooks:
+  - issue: flight_cancellation
+    summary: Spirit stopped flying on May 2, 2026. Card purchases made through Spirit are refunded automatically; travel agency bookings go back through the agency.
+    evidence: [confirmation code, card statement with the Spirit charge, booking receipt, travel agency booking reference if any]
+    steps:
+      - do: Do not go to the airport. All Spirit flights were cancelled.
+      - do: If you paid Spirit by credit or debit card, check the card statement for the automatic refund.
+      - do: If you booked through a travel agent, ask the agent for the refund.
+      - do: If a card refund has not arrived, dispute the charge with the card issuer. Give the cancellation date of May 2, 2026.
+      - do: File a complaint with the U.S. DOT if no refund is paid.
+        regulator: us-dot
+    facts:
+      - kind: policy
+        claim: Spirit said on May 2, 2026 that "All Spirit flights have been cancelled" and that it "will automatically process refunds for any flights purchased through Spirit with a credit or debit card to the original form of payment."
+        issues: [flight_cancellation, refund_request]
+        source: https://www.prnewswire.com/news-releases/spirit-airlines-begins-orderly-wind-down-of-operations-302760586.html
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Spirit said guests who booked flights through a travel agent "should contact the travel agent directly to request a refund."
+        issues: [flight_cancellation, refund_request]
+        source: https://www.prnewswire.com/news-releases/spirit-airlines-begins-orderly-wind-down-of-operations-302760586.html
+        last_verified: 2026-10-12
+
+  - issue: travel_credit
+    summary: Spirit vouchers, credits and Free Spirit points are handled in the bankruptcy process, not by the airline.
+    evidence: [voucher or credit number and amount, Free Spirit account number and balance, original booking]
+    steps:
+      - do: Save proof of every voucher, credit and points balance (screenshots, emails).
+      - do: Watch the restructuring site for the claims process and deadlines.
+        channel: restructuring-site
+    facts:
+      - kind: policy
+        claim: Spirit said compensation for vouchers, credits and Free Spirit points "will be determined at a later date through the bankruptcy process."
+        issues: [travel_credit]
+        source: https://www.prnewswire.com/news-releases/spirit-airlines-begins-orderly-wind-down-of-operations-302760586.html
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Spirit Aviation Holdings, Spirit Airlines and affiliates filed voluntary Chapter 11 petitions on August 29, 2025 in the United States Bankruptcy Court for the Southern District of New York. Spirit Airlines, LLC is a wholly owned subsidiary of Spirit Aviation Holdings, Inc.
+    source: https://www.sec.gov/Archives/edgar/data/1498710/000162828026018265/flyy-20251231.htm
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Spirit ceased all flight operations on May 2, 2026. spirit.com and its customer support site refused connections on 2026-10-12, and spiritrestructuring.com returned an error.
+  - Refunds of vouchers, credits and Free Spirit points depend on the bankruptcy process; an agent cannot get them from the airline directly.
+
+notes: >-
+  After an earlier Chapter 11 case, Spirit reorganized in March 2025 under the new parent Spirit Aviation Holdings,
+  Inc. (FY2025 Form 10-K), and filed Chapter 11 again on August 29, 2025 (S.D.N.Y.). On May 2, 2026 it announced an orderly
+  wind-down "effective immediately" and cancelled all flights (PR Newswire release). Do not expect live phone, chat,
+  baggage or complaint channels. For card-paid tickets the practical routes are the automatic refund, then a card
+  dispute and a U.S. DOT complaint.

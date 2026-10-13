@@ -1,0 +1,178 @@
+id: american-airlines
+name: American Airlines
+aliases: [american airlines inc, aa.com, american air]
+sector: airline
+parent: American Airlines Group
+website: https://www.aa.com
+regulators: [us-dot]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Reservations and ticket changes (English)
+    value: +1-800-433-7300
+    hours: 24 hours
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, travel_credit]
+    notes: Spanish +1-800-633-3711. Hearing or speech impaired callers can dial 711.
+    source: https://www.aa.com/web/i18n/customer-service/contact-american/reservations-and-ticket-changes.html
+    last_verified: 2026-10-12
+  - id: refund-form
+    type: web_form
+    label: Request a refund
+    value: https://www.aa.com/refunds/
+    purposes: [flight_cancellation, flight_delay, refund_request, ancillary_fee_refund]
+    notes: One request per ticket number; seats and bags have their own ticket numbers. Also used to request reimbursement of hotel, transport and meal costs after a disruption within American's control.
+    source: https://www.aa.com/refunds/
+    last_verified: 2026-10-12
+  - id: baggage-claim-form
+    type: web_form
+    label: Online bag claim (needs the 13-character file ID)
+    value: https://www.aa.com/contactbags
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    notes: The address comes from American's Passenger Property Questionnaire (Form OP124 Rev 12/28/2024).
+    source: https://www.aa.com/ppq
+    last_verified: 2026-10-12
+  - id: baggage-mail
+    type: mail
+    label: American Airlines Central Baggage (mailed claims with the Passenger Property Questionnaire)
+    value: American Airlines Central Baggage, P.O. Box 619619, DFW Airport, TX 75261-9616
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    source: https://www.aa.com/i18n/travel-info/baggage/delayed-or-damaged-baggage.jsp
+    last_verified: 2026-10-12
+  - id: disability-phone
+    type: phone
+    label: Disability Team (problems with special assistance on a past trip)
+    value: +1-800-892-3624
+    hours: 24/7
+    purposes: [accessibility]
+    source: https://www.aa.com/web/i18n/customer-service/contact-american/special-assistance.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, note: "Customer Relations via the Contact American web form on aa.com; the form URL was not confirmed."}
+  - {rung: regulator, regulator: us-dot}
+  - {rung: payment_dispute, note: "Card dispute for a refund American owes but has not paid."}
+
+playbooks:
+  - issue: flight_cancellation
+    summary: Decline rebooking to get a full refund of fare, taxes and fees; submit one refund request per ticket number.
+    evidence: [confirmation code, ticket numbers (including seat and bag tickets), cancellation or schedule-change notice]
+    steps:
+      - do: Do not accept a rebooking or fly the changed flight if you want a refund.
+      - do: Submit a refund request for each ticket number, including separate seat and bag tickets.
+        channel: refund-form
+      - do: If the disruption was within American's control, request reimbursement of hotel, transport and meal costs through the same page.
+        channel: refund-form
+      - do: If the refund is not paid, file a complaint with the U.S. DOT, then dispute the charge with the card issuer.
+        regulator: us-dot
+    facts:
+      - kind: policy
+        claim: American gives a full refund of fare, taxes and fees if a cancellation or significant change occurs and you decide not to rebook. Significant changes include itinerary changes of 3 or more hours domestic or 4 or more hours international, a different departure or arrival airport, a downgrade, or more connections.
+        issues: [flight_cancellation, flight_delay]
+        source: https://www.aa.com/refunds/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Refund requests must be submitted while the ticket is valid, 1 year from the ticket issue date.
+        issues: [refund_request, flight_cancellation]
+        source: https://www.aa.com/refunds/
+        last_verified: 2026-10-12
+
+  - issue: flight_delay
+    summary: For a delay American causes, ask for a food and beverage credit at 3 hours and a hotel voucher if delayed overnight away from home.
+    evidence: [confirmation code, scheduled and actual times, cause given by American, receipts]
+    steps:
+      - do: Ask for the food and beverage credit once the delay reaches 3 hours after scheduled departure.
+      - do: If delayed overnight away from home, ask for a hotel voucher; if none is available, keep receipts for reimbursement.
+      - do: Submit receipts for reimbursement.
+        channel: refund-form
+    facts:
+      - kind: compensation
+        claim: The Customer Service Plan gives a food and beverage credit if a delay American causes is 3 or more hours after scheduled departure, and a voucher for an approved hotel if delayed overnight away from your city of residence, or reimbursement of reasonable hotel costs if no voucher is available. For weather delays, the customer pays for hotel, meals and other expenses.
+        issues: [flight_delay, flight_cancellation]
+        source: https://www.aa.com/web/i18n/customer-service/support/customer-service-plan.html
+        last_verified: 2026-10-12
+
+  - issue: delayed_baggage
+    summary: Report within 4 hours of arrival, claim online with the 13-character file ID, and send expense receipts within 30 days.
+    evidence: [13-character file ID, ticket receipt, baggage claim checks, original dated itemized receipts]
+    steps:
+      - do: Report the bag before leaving the airport (QR code at baggage claim or the Baggage Service Office), within 4 hours of arrival. Keep the 13-character file ID.
+      - do: Submit the online claim with the file ID.
+        channel: baggage-claim-form
+      - do: Send expense receipts within 30 days of the delay.
+        channel: baggage-claim-form
+    facts:
+      - kind: deadline
+        claim: For flights within the U.S., report delayed bags within 4 hours of arriving at your destination, or within 12 hours if you used Bags VIP Luggage Delivery.
+        issues: [delayed_baggage]
+        source: https://www.aa.com/i18n/travel-info/baggage/delayed-or-damaged-baggage.jsp
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: To be reimbursed for necessities, send the 13-character file ID, ticket receipt and baggage claim checks, and original dated itemized receipts within 30 days of the delay.
+        issues: [delayed_baggage]
+        source: https://www.aa.com/i18n/travel-info/baggage/delayed-or-damaged-baggage.jsp
+        last_verified: 2026-10-12
+
+  - issue: lost_baggage
+    summary: If the bag is missing 5 or more days, submit the online claim with contents; liability is capped at $4,700 domestic.
+    evidence: [13-character file ID, contents list with values, receipts for items over $100, photo ID]
+    steps:
+      - do: After 5 days, submit the online claim and the Passenger Property Questionnaire.
+        channel: baggage-claim-form
+      - do: If you cannot file online, mail the questionnaire and documents to Central Baggage.
+        channel: baggage-mail
+    facts:
+      - kind: limit
+        claim: American's liability for lost, delayed or damaged bags on domestic flights is limited to $4,700.
+        issues: [lost_baggage, damaged_baggage, delayed_baggage]
+        source: https://www.aa.com/i18n/travel-info/baggage/liability-limitations.jsp
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If American cannot find the bag, any expense reimbursement already paid is deducted from the final settlement.
+        issues: [lost_baggage]
+        source: https://www.aa.com/i18n/travel-info/baggage/delayed-or-damaged-baggage.jsp
+        last_verified: 2026-10-12
+
+  - issue: damaged_baggage
+    summary: Report damage before leaving the airport; the Conditions of Carriage give 6 hours after receiving the bag for U.S. flights.
+    evidence: [photos of the damage, 13-character file ID, the damaged bag and contents]
+    steps:
+      - do: Report the damage before leaving the airport and keep the file ID.
+      - do: Submit the online claim; keep the damaged bag and contents until the claim is resolved.
+        channel: baggage-claim-form
+    facts:
+      - kind: deadline
+        claim: The Conditions of Carriage give a damage-report window of 6 hours after receiving the bag for U.S. flights (7 days for international). An older American page said 24 hours, so report as early as possible.
+        issues: [damaged_baggage]
+        source: https://www.aa.com/web/i18n/customer-service/support/conditions-of-carriage.html
+        last_verified: 2026-10-12
+
+  - issue: denied_boarding
+    summary: If bumped involuntarily on a domestic flight, American pays 200% or 400% of the one-way fare, capped at $1,075 or $2,150.
+    evidence: [boarding pass, written denied-boarding notice, arrival time of the new flight]
+    steps:
+      - do: Ask the gate agent for the written statement of compensation. You can also take a refund with no fees.
+      - do: If not paid, file with the U.S. DOT.
+        regulator: us-dot
+    facts:
+      - kind: compensation
+        claim: For domestic travel, the Conditions of Carriage pay nothing for an arrival delay under one hour, 200% of the one-way fare (maximum $1,075) for one to two hours, and 400% (maximum $2,150) for two hours or more.
+        issues: [denied_boarding]
+        source: https://www.aa.com/web/i18n/customer-service/support/conditions-of-carriage.html
+        last_verified: 2026-10-12
+
+facts:
+  - kind: deadline
+    claim: American's Customer Service Plan says cash or check refunds are made within 20 business days of receiving the request and required information.
+    issues: [refund_request]
+    source: https://www.aa.com/web/i18n/customer-service/support/customer-service-plan.html
+    last_verified: 2026-10-12
+
+known_blockers:
+  - aa.com returned HTTP 403 to direct fetches on 2026-10-12. Values here were confirmed from aa.com pages through search results.
+  - The bag claim form needs the 13-character file ID from the airport report.
+
+notes: >-
+  All values were confirmed from aa.com search results, not from a direct page load. American's own pages disagree on
+  the damaged-bag window (6 hours in the Conditions of Carriage, 24 hours on an older page).

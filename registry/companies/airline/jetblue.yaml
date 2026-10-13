@@ -1,0 +1,232 @@
+id: jetblue
+name: JetBlue Airways
+aliases: [jetblue airways, jet blue, jetblue.com]
+sector: airline
+parent: JetBlue Airways Corporation
+website: https://www.jetblue.com
+account_url: https://www.jetblue.com/manage-trips
+regulators: [us-dot]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Reservations and customer service (1-800-JETBLUE)
+    value: +1-800-538-2583
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request]
+    notes: The Contract of Carriage gives the number as 1-800-JETBLUE; deaf or hard of hearing customers can dial 711 for TTY/TDD.
+    source: https://cms.jetblue.com/public/dam/ui-assets/p/legal/Contract_of_Carriage.pdf
+    last_verified: 2026-10-12
+  - id: chat
+    type: chat
+    label: Contact chat
+    value: https://www.jetblue.com/contact-us/chat
+    purposes: [flight_cancellation, flight_delay, refund_request, travel_credit]
+    source: https://www.jetblue.com/help/refunds
+    last_verified: 2026-10-12
+  - id: customer-care-form
+    type: web_form
+    label: Contact Us (compliments, complaints and other questions)
+    value: https://www.jetblue.com/contact-us
+    purposes: [flight_cancellation, flight_delay, denied_boarding, poor_service, ancillary_fee_refund, travel_credit]
+    notes: The page is rendered by script; the Customer Service Plan names it as the channel for compliments and complaints.
+    source: https://www.jetblue.com/customer-assurance/customer-service-plan
+    last_verified: 2026-10-12
+  - id: baggage-claim-form
+    type: portal
+    label: Online bag claim for delayed or damaged bags (NetTracer)
+    value: https://app.nettracer.aero/pax/jetblue/bso/login
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    notes: File within four hours of landing. Upload receipts for replaced items through the same customer portal.
+    source: https://www.jetblue.com/help/bag-claims
+    last_verified: 2026-10-12
+  - id: baggage-phone
+    type: phone
+    label: Central Baggage Services
+    value: +1-866-538-5438
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    notes: Call this number to report damage found after the bag was delivered, within four hours of delivery.
+    source: https://www.jetblue.com/help/bag-claims
+    last_verified: 2026-10-12
+  - id: disability-phone
+    type: phone
+    label: Accessibility concerns line (1-855-ADA-LINE); ask for a Complaints Resolution Official
+    value: +1-855-232-5463
+    purposes: [accessibility]
+    source: https://www.jetblue.com/customer-assurance/customer-service-plan
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: customer-care-form}
+  - {rung: regulator, regulator: us-dot}
+  - {rung: payment_dispute, note: "Card dispute for a refund JetBlue owes but has not paid."}
+
+playbooks:
+  - issue: flight_cancellation
+    summary: Cancel the affected flight before departure to get a refund to the original form of payment, including seat and bag fees.
+    evidence: [confirmation code, original and rebooked itinerary, cancellation notice, TrueBlue number]
+    steps:
+      - do: If the automatic rebooking does not work, either rebook within 5 days at no cost or cancel the flight in Manage Trips for a refund to the original form of payment.
+      - do: Cancel online or contact JetBlue before the flight departs; otherwise use chat.
+        channel: chat
+      - do: For a controllable cancellation, ask for the $12 meal voucher (3+ hour arrival delay) and a hotel if stranded overnight.
+      - do: If the refund does not arrive, complain in writing, then file with the U.S. DOT and dispute the charge with the card issuer.
+        channel: customer-care-form
+    facts:
+      - kind: policy
+        claim: After a JetBlue cancellation you can "Cancel and refund to the original form of payment, including ancillary fees (seats, pets, bags, etc.)", but "the customer must cancel online or contact us prior to flight departure."
+        issues: [flight_cancellation, ancillary_fee_refund]
+        source: https://www.jetblue.com/help/delays-and-cancellations
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Customer Service Plan says that if no action is taken within seven (7) days of the cancelled flight, the entire itinerary is refunded automatically.
+        issues: [flight_cancellation]
+        source: https://www.jetblue.com/customer-assurance/customer-service-plan
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: JetBlue's refunds page lists 7-10 business days for credit card refunds and extras (seats, pets, bags) to the original payment method. The Contract of Carriage says cash or check refunds are made within twenty (20) days of receipt of all necessary information.
+        issues: [flight_cancellation, refund_request]
+        source: https://www.jetblue.com/help/refunds
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: The Customer Bill of Rights gives TrueBlue members 5,000 TrueBlue points for a controllable cancellation less than 4 hours before scheduled departure. A TrueBlue account must be attached to the reservation before the disruption; non-members get no points.
+        issues: [flight_cancellation]
+        source: https://www.jetblue.com/customer-assurance/customer-bill-of-rights
+        last_verified: 2026-10-12
+
+  - issue: flight_delay
+    summary: For a controllable delay of 3+ hours, JetBlue owes a $12 meal voucher, a hotel if overnight, and 5,000 TrueBlue points to members.
+    evidence: [confirmation code, scheduled and actual times, cause given by JetBlue, hotel and transport receipts]
+    steps:
+      - do: Check the email on the reservation for the digital meal voucher.
+      - do: If stranded overnight and no contracted hotel is offered, book a reasonable hotel and submit receipts within 10 days.
+        channel: customer-care-form
+      - do: If the delay is 3+ hours domestic (6+ international) and you no longer want to fly, cancel before departure for a refund.
+        channel: chat
+    facts:
+      - kind: compensation
+        claim: For controllable arrival delays of three hours or more, JetBlue gives each ticketed customer a $12 digital meal voucher and, if away from home overnight, a hotel at a contracted facility based on availability.
+        issues: [flight_delay, flight_cancellation]
+        source: https://www.jetblue.com/customer-assurance/customer-service-plan
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: If no contracted hotel is available or ground transportation is not provided, JetBlue reimburses reasonable hotel and ground transportation costs with valid receipts; requests must be submitted within 10 days of the expense.
+        issues: [flight_delay, flight_cancellation]
+        source: https://www.jetblue.com/customer-assurance/customer-bill-of-rights
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: A controllable delay of more than 3 hours past the scheduled departure earns 5,000 TrueBlue points for TrueBlue members, issued automatically. "Most ATC delays are not eligible for compensation."
+        issues: [flight_delay]
+        source: https://www.jetblue.com/help/delays-and-cancellations
+        last_verified: 2026-10-12
+
+  - issue: delayed_baggage
+    summary: File the online bag claim within four hours of landing and upload receipts for essentials.
+    evidence: [bag tag, claim number, original receipts for replaced items]
+    steps:
+      - do: File the delayed bag claim online within four hours of landing, or at the airport baggage office.
+        channel: baggage-claim-form
+      - do: Keep all original receipts for items you buy and upload them to the claim.
+        channel: baggage-claim-form
+      - do: Send confirming written notice within 21 days of the event.
+        channel: customer-care-form
+    facts:
+      - kind: deadline
+        claim: Contract of Carriage section on Notice of Claims says initial notice of loss, damage or delay of baggage must be given within four (4) hours after arrival of the flight, and confirming written notice must be given not more than twenty-one (21) days after the event.
+        issues: [delayed_baggage, lost_baggage, damaged_baggage]
+        source: https://cms.jetblue.com/public/dam/ui-assets/p/legal/Contract_of_Carriage.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Bag fees are refunded automatically if the bag is not delivered within 12 hours of arrival for domestic flights (15 hours for international).
+        issues: [delayed_baggage, ancillary_fee_refund]
+        source: https://www.jetblue.com/customer-assurance/customer-service-plan
+        last_verified: 2026-10-12
+
+  - issue: lost_baggage
+    summary: Keep the claim open, send written notice within 21 days, and check the $4,700 liability limit before accepting an offer.
+    evidence: [bag tag, claim number, contents list with values, receipts]
+    steps:
+      - do: Make sure the claim was filed within four hours of landing.
+        channel: baggage-claim-form
+      - do: Send confirming written notice with the contents and values within 21 days.
+        channel: customer-care-form
+      - do: Ask for the bag fee back if it was not refunded automatically.
+    facts:
+      - kind: limit
+        claim: The Contract of Carriage limits JetBlue's liability for loss, damage or delay of baggage to $4,700 per passenger unless excess coverage was bought (maximum $5,000) or the item is a wheelchair, mobility aid or assistive device.
+        issues: [lost_baggage, damaged_baggage, delayed_baggage]
+        source: https://cms.jetblue.com/public/dam/ui-assets/p/legal/Contract_of_Carriage.pdf
+        last_verified: 2026-10-12
+
+  - issue: damaged_baggage
+    summary: Report damage within four hours of landing online, or within four hours of delivery by phone if the damage is found after delivery.
+    evidence: [photos of the damage, bag tag, claim number, repair estimate]
+    steps:
+      - do: File the damage claim online within four hours of landing.
+        channel: baggage-claim-form
+      - do: If you find damage after the bag was delivered to you, call Central Baggage Services within four hours of delivery.
+        channel: baggage-phone
+    facts:
+      - kind: deadline
+        claim: JetBlue's bag claims page says to file delayed or damaged bags "using the online claim form within four hours of landing", and to report damage found after delivery "within four hours of delivery".
+        issues: [damaged_baggage, delayed_baggage]
+        source: https://www.jetblue.com/help/bag-claims
+        last_verified: 2026-10-12
+
+  - issue: denied_boarding
+    summary: If bumped involuntarily, JetBlue's Customer Bill of Rights pays up to $2,150.
+    evidence: [boarding pass, written denied-boarding notice]
+    steps:
+      - do: Ask the gate agent for the written statement of denied boarding compensation.
+      - do: If not paid, complain in writing, then file with the U.S. DOT.
+        channel: customer-care-form
+    facts:
+      - kind: compensation
+        claim: The Customer Bill of Rights says "customers who are involuntarily denied boarding shall receive up to $2,150", for JetBlue-operated flights only.
+        issues: [denied_boarding]
+        source: https://www.jetblue.com/customer-assurance/customer-bill-of-rights
+        last_verified: 2026-10-12
+
+  - issue: ancillary_fee_refund
+    summary: Seats, bags and other extras go back to the original form of payment; bag fees for a late bag are refunded automatically.
+    evidence: [receipt for the fee, confirmation code, bag claim number for a late bag]
+    steps:
+      - do: When you cancel an impacted flight, check that seats, pets and bags are refunded to the original payment method.
+        channel: chat
+      - do: If a bag fee was not refunded after a bag was more than 12 hours late (domestic), ask through chat or the Contact Us page.
+        channel: customer-care-form
+    facts:
+      - kind: deadline
+        claim: JetBlue's refunds page lists 7-10 business days for refunds of extras (seats, pets, bags) to the original payment method.
+        issues: [ancillary_fee_refund]
+        source: https://www.jetblue.com/help/refunds
+        last_verified: 2026-10-12
+
+  - issue: accessibility
+    summary: Call the accessibility line and ask for a Complaints Resolution Official.
+    evidence: [assistance request confirmation, dates, names, photos of damage]
+    steps:
+      - do: Call 1-855-ADA-LINE and ask for a CRO.
+        channel: disability-phone
+      - do: Follow up in writing through Contact Us, then file with the U.S. DOT.
+        channel: customer-care-form
+
+  - issue: travel_credit
+    summary: Travel credit is valid 12 months from the original ticketing date and cannot be moved back to a card; ask for a cash refund if JetBlue caused the cancellation.
+    evidence: [travel credit details, original ticket, cancellation notice]
+    steps:
+      - do: If the credit came from a JetBlue cancellation or significant delay, ask for a refund to the original form of payment instead.
+        channel: chat
+    facts:
+      - kind: deadline
+        claim: Travel credit is "valid for 12 months from original ticketing date", and once a refund goes to travel credit it cannot be moved back to the original payment method.
+        issues: [travel_credit]
+        source: https://www.jetblue.com/help/refunds
+        last_verified: 2026-10-12
+
+known_blockers:
+  - The Contact Us and Share a Concern pages are rendered by script; the complaint form fields did not load for this research.
+  - Customer Bill of Rights points require a TrueBlue account attached to the reservation before the disruption.
+
+notes: >-
+  Contract of Carriage PDF is marked "2026-07-29 Revision: 103". JetBlue's delays page says Customer Bill of Rights compensation is issued as TrueBlue points instead of travel credit starting in early 2026.

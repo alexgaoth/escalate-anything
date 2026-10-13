@@ -1,0 +1,209 @@
+id: alaska-airlines
+name: Alaska Airlines
+aliases: [alaska air, alaskaair.com, hawaiian airlines, hawaiian air, hawaiianairlines.com]
+sector: airline
+parent: Alaska Air Group
+website: https://www.alaskaair.com
+account_url: https://www.alaskaair.com/trips
+regulators: [us-dot]
+
+channels:
+  - id: help-center
+    type: portal
+    label: Alaska Airlines help center
+    value: https://www.alaskaair.com/content/about-us/help-contact
+    purposes: [flight_cancellation, flight_delay, refund_request, travel_credit]
+    source: https://www.alaskaair.com/content/about-us/contact-us
+    last_verified: 2026-10-12
+  - id: customer-care-form
+    type: web_form
+    label: Feedback and complaints (links to Flight Feedback, General feedback and Accessibility feedback forms)
+    value: https://www.alaskaair.com/content/about-us/feedback
+    purposes: [flight_cancellation, flight_delay, denied_boarding, poor_service, accessibility, ancillary_fee_refund]
+    notes: The page itself lists the forms; the form links are rendered by script.
+    source: https://www.alaskaair.com/content/about-us/contact-us
+    last_verified: 2026-10-12
+  - id: hawaiian-feedback-form
+    type: web_form
+    label: Hawaiian Airlines Give feedback
+    value: https://www.hawaiianairlines.com/content/ha/about-us/feedback
+    purposes: [poor_service, flight_cancellation, flight_delay]
+    notes: For trips on the Hawaiian Airlines brand.
+    source: https://www.hawaiianairlines.com/contact-us
+    last_verified: 2026-10-12
+  - id: baggage-phone
+    type: phone
+    label: Alaska Central Baggage (toll free within the U.S. and Canada)
+    value: +1-877-815-8253
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage, accessibility]
+    notes: The Contract of Carriage names this number in Rule 15 for reporting a lost or damaged wheelchair or assistive device after leaving the airport.
+    source: https://www.alaskaair.com/content/legal/contract-of-carriage/view-all
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: help-center}
+  - {rung: written_complaint, channel: customer-care-form}
+  - {rung: regulator, regulator: us-dot}
+  - {rung: payment_dispute, note: "Card dispute for a refund Alaska owes but has not paid."}
+
+playbooks:
+  - issue: flight_cancellation
+    summary: Refuse the rebooking and any voucher if you want money back; Alaska then refunds to the original form of payment.
+    evidence: [confirmation code, ticket number, original and new itinerary, cancellation or schedule-change notice]
+    steps:
+      - do: Decide before accepting anything. Accepting the rebooked flight or a voucher removes the refund right under Rule 8.
+      - do: Ask for a refund of the affected segments to the original form of payment through the help center or trip page.
+        channel: help-center
+      - do: If the cancellation was within Alaska's control, ask for a meal (3+ hours) and, if overnight 100+ miles from home, a hotel and ground transportation.
+      - do: If the refund is refused or late, send a written complaint, then file with the U.S. DOT.
+        channel: customer-care-form
+      - do: Dispute the charge with the card issuer if the refund is still not paid.
+    facts:
+      - kind: policy
+        claim: Contract of Carriage Rule 8.B.b says that for a cancellation or significantly delayed or changed flight, Alaska refunds the affected segments to the original form of payment if you decide not to fly, do not accept rebooking (or none is offered), and do not accept a voucher.
+        issues: [flight_cancellation, flight_delay]
+        source: https://www.alaskaair.com/content/legal/contract-of-carriage/view-all
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Contract of Carriage defines a significantly delayed or changed flight to include a departure or arrival three or more hours earlier or later than originally scheduled, a different airport, a downgrade, or more connection points.
+        issues: [flight_cancellation, flight_delay]
+        source: https://www.alaskaair.com/content/legal/contract-of-carriage/view-all
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Rule 17 says Alaska issues refunds for eligible tickets within seven (7) business days for credit card purchases and twenty (20) business days for cash, check or other forms of payment. No refunds for tickets presented later than one year from the date of issuance.
+        issues: [flight_cancellation, refund_request]
+        source: https://www.alaskaair.com/content/legal/contract-of-carriage/view-all
+        last_verified: 2026-10-12
+
+  - issue: flight_delay
+    summary: For a delay caused by Alaska, ask for a meal after 3 hours and a hotel if stranded overnight 100+ miles from home.
+    evidence: [confirmation code, scheduled and actual times, cause given by Alaska, hotel and transport receipts]
+    steps:
+      - do: Ask an agent for the meal (delay over 3 hours) and, for an overnight delay within Alaska's control, a hotel voucher and ground transportation.
+      - do: If no voucher hotel is available, book a reasonable hotel, keep receipts and claim reimbursement in writing.
+        channel: customer-care-form
+      - do: Note that accepting a travel credit instead waives these amenities.
+    facts:
+      - kind: compensation
+        claim: Contract of Carriage Rule 8.E says that for an overnight stay at an airport 100 or more miles from home because of a cancellation or delay within Alaska's control, Alaska provides a hotel voucher with round-trip ground transportation, or reimburses reasonable hotel and ground transportation costs if no voucher hotels are available.
+        issues: [flight_delay, flight_cancellation]
+        source: https://www.alaskaair.com/content/legal/contract-of-carriage/view-all
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: Rule 8.E.b says Alaska will offer a reasonable meal to each ticketed guest at the airport if a delay caused by Alaska will extend beyond three (3) hours. Rule 8.E.d lets Alaska offer a travel credit instead, and accepting it waives the other amenities.
+        issues: [flight_delay, flight_cancellation]
+        source: https://www.alaskaair.com/content/legal/contract-of-carriage/view-all
+        last_verified: 2026-10-12
+
+  - issue: delayed_baggage
+    summary: Report the missing bag within 24 hours, then give written notice and proof within 45 days.
+    evidence: [bag tag, Mishandled Baggage Report number, receipts for essentials]
+    steps:
+      - do: Report the bag in person to an Alaska representative at the airport, or in writing, within 24 hours. Get the report number.
+      - do: Call Central Baggage for status.
+        channel: baggage-phone
+      - do: Send written notice and proof of loss (receipts for essentials) within 45 days.
+        channel: customer-care-form
+    facts:
+      - kind: deadline
+        claim: Contract of Carriage Rule 15.Q says that for travel within the U.S.A., loss of, damage to or delay of baggage must be reported in person or in writing to an Alaska representative within twenty-four (24) hours.
+        issues: [delayed_baggage, lost_baggage, damaged_baggage]
+        source: https://www.alaskaair.com/content/legal/contract-of-carriage/view-all
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Rule 15.R.b says that for domestic carriage, notice and proof of loss must be presented in writing to an office of Alaska within forty-five (45) days, and legal action must be started within two years.
+        issues: [delayed_baggage, lost_baggage, damaged_baggage]
+        source: https://www.alaskaair.com/content/legal/contract-of-carriage/view-all
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Rule 17.C.b refunds bag fees for a lost bag or a bag not returned within 12 hours (domestic) or 15/30 hours (international) after you could deplane, provided you file a Mishandled Baggage Report.
+        issues: [delayed_baggage, lost_baggage, ancillary_fee_refund]
+        source: https://www.alaskaair.com/content/legal/contract-of-carriage/view-all
+        last_verified: 2026-10-12
+
+  - issue: lost_baggage
+    summary: Keep the report open, send written proof of loss within 45 days, and ask for the bag fee back.
+    evidence: [bag tag, report number, contents list with values, receipts or photos]
+    steps:
+      - do: Make sure the bag was reported within 24 hours and you have the report number.
+      - do: Send the written claim with contents, values and proof within 45 days.
+        channel: customer-care-form
+      - do: Ask for the checked bag fee refund.
+    facts:
+      - kind: limit
+        claim: Rule 15 limits Alaska's liability for loss, damage or delay of baggage to USD $4,700.00 per ticketed passenger on domestic travel. Passengers may declare a higher value up to USD $5,000.00 for a charge of USD $1.00 per USD $100.00.
+        issues: [lost_baggage, damaged_baggage, delayed_baggage]
+        source: https://www.alaskaair.com/content/legal/contract-of-carriage/view-all
+        last_verified: 2026-10-12
+
+  - issue: damaged_baggage
+    summary: Report damage within 24 hours and send written proof within 45 days.
+    evidence: [photos of the damage, bag tag, report number, repair estimate]
+    steps:
+      - do: Show the damage to an Alaska representative at the airport, or report it in writing within 24 hours.
+      - do: Send the written claim with photos and a repair estimate within 45 days.
+        channel: customer-care-form
+    facts:
+      - kind: deadline
+        claim: For a lost or damaged wheelchair or assistive device, Rule 15 requires a written report within 24 hours of arrival. On travel to or from Canada, a passenger who cannot report in time may contact Alaska Central Baggage within seven calendar days.
+        issues: [damaged_baggage, accessibility]
+        source: https://www.alaskaair.com/content/legal/contract-of-carriage/view-all
+        last_verified: 2026-10-12
+
+  - issue: denied_boarding
+    summary: If bumped involuntarily, ask for the written notice and compensation under Rule 8.
+    evidence: [boarding pass, written denied-boarding notice, arrival time of the new flight]
+    steps:
+      - do: Ask the gate agent for the written statement of denied boarding compensation.
+      - do: If not paid, send a written complaint, then file with the U.S. DOT.
+        channel: customer-care-form
+    facts:
+      - kind: compensation
+        claim: For domestic travel, Rule 8 gives no compensation if the alternate flight arrives within 1 hour of the original arrival, 200% of the one-way fare (no more than $1,075) for an arrival delay of 1 to 2 hours, and 400% of the one-way fare (no more than $2,150) for an arrival delay over 2 hours.
+        issues: [denied_boarding]
+        source: https://www.alaskaair.com/content/legal/contract-of-carriage/view-all
+        last_verified: 2026-10-12
+
+  - issue: ancillary_fee_refund
+    summary: A downgrade earns back the upgrade fee or fare difference; a lost or significantly delayed bag earns back the bag fee.
+    evidence: [receipt for the fee, boarding pass showing the downgrade, Mishandled Baggage Report number]
+    steps:
+      - do: For a downgrade, ask for the upgrade fee or the fare difference to Main Cabin.
+        channel: customer-care-form
+      - do: For a late or lost bag, file a Mishandled Baggage Report and ask for the bag fee refund.
+    facts:
+      - kind: policy
+        claim: Rule 17.C.a says that if you are downgraded, Alaska refunds the upgrade fee; if you paid for first class and travel in a lower class, Alaska refunds the difference to the applicable Main Cabin fare.
+        issues: [ancillary_fee_refund]
+        source: https://www.alaskaair.com/content/legal/contract-of-carriage/view-all
+        last_verified: 2026-10-12
+
+  - issue: travel_credit
+    summary: An Alaska credit is valid one year from issue; ask for a refund instead if the credit came from an Alaska cancellation or significant change.
+    evidence: [credit number, original ticket, cancellation notice]
+    steps:
+      - do: If the credit replaced a refund you were owed under Rule 8, ask for a refund to the original form of payment.
+        channel: customer-care-form
+    facts:
+      - kind: deadline
+        claim: The Contract of Carriage defines a Credit as valid for one (1) year from the date of issuance; it must be used for travel booked and flown within that year.
+        issues: [travel_credit]
+        source: https://www.alaskaair.com/content/legal/contract-of-carriage/view-all
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: The Contract of Carriage (revised August 25, 2026) covers carriage by both Alaska Airlines, Inc. and Hawaiian Airlines, Inc., which it refers to collectively as "Alaska".
+    source: https://www.alaskaair.com/content/legal/contract-of-carriage/view-all
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The main alaskaair.com and hawaiianairlines.com help and policy pages are rendered by script; phone numbers and form links did not load for this research.
+  - No general reservations phone number was confirmed from an official page.
+
+notes: >-
+  Alaska Air Group owns both Alaska Airlines and Hawaiian Airlines. The two received a single FAA operating
+  certificate on October 29, 2025 (news.alaskaair.com), and Hawaiian moved to Alaska's Sabre passenger service
+  system on April 22, 2026, with one record locator for both brands. Both brands remain, with bookings on
+  alaskaair.com and hawaiianairlines.com, one Contract of Carriage and one Customer Service Commitment, and the
+  loyalty program Atmos Rewards. This file covers Hawaiian Airlines.
