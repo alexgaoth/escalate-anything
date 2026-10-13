@@ -301,7 +301,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("site", help="build the static website (index.html, JSON files, llms.txt)")
     p.add_argument("-o", "--output", default="site-dist")
-    p.add_argument("--base-url", default="https://alexgaoth.github.io/redress/", help="public URL of the site, used in llms.txt")
+    p.add_argument("--base-url", default="https://intro.alexgaoth.com/redress/", help="public URL of the site, used in llms.txt")
     p.set_defaults(func=cmd_site)
 
     p = sub.add_parser("serve", help="run the MCP server")
