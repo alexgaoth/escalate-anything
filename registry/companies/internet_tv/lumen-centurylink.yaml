@@ -225,3 +225,29 @@ notes: >-
   (V.02.02.2026) is between AT&T and the customer and incorporates the AT&T Consumer Services Agreement, and
   quantumfiber.com carries AT&T branding. CenturyLink copper/DSL service remains with Lumen; its site does not
   mention AT&T. Quantum Fiber channels are kept here for lookup; for AT&T Fiber accounts use the AT&T file.
+
+official_domains: [centurylink.com, centurylink.net, lumen.com, quantumfiber.com]
+security:
+  never_asks:
+  - kind: policy
+    claim: CenturyLink will never contact you via email or phone to get your personal information, including your Social Security number or your credit card number.
+    source: https://www.centurylink.com/aboutus/legal/online-security.html
+    last_verified: 2026-10-12
+  known_scams:
+  - kind: policy
+    claim: Fraudulent websites and emails pose as CenturyLink and ask you to confirm account or personal details, sometimes with urgent requests for money.
+    source: https://www.centurylink.com/aboutus/legal/online-security.html
+    last_verified: 2026-10-12
+  report_phishing:
+  - id: report-impersonation-residential
+    type: phone
+    label: Report CenturyLink impersonation or a fraudulent site (residential customers)
+    value: +1-800-366-8201
+    source: https://www.centurylink.com/aboutus/legal/online-security.html
+    last_verified: 2026-10-12
+  - id: report-impersonation-business
+    type: phone
+    label: Report CenturyLink impersonation or a fraudulent site (small business customers)
+    value: +1-877-365-0045
+    source: https://www.centurylink.com/aboutus/legal/online-security.html
+    last_verified: 2026-10-12

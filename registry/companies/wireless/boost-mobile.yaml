@@ -131,3 +131,31 @@ facts:
 known_blockers:
   - The help center does not publish port-out (Number Transfer PIN) steps for leaving Boost; ask Customer Care.
   - The dispute notice needs a declaration signed under penalty of perjury, so the account holder must sign it.
+
+official_domains: [boostmobile.com]
+security:
+  never_asks:
+  - kind: policy
+    claim: Boost Mobile will never ask you for sensitive information via call, text or email, and will never ask for personal or account information by text message.
+    source: https://help.boostmobile.com/docs/protect-yourself-from-fraud
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Boost Mobile lists its legitimate email senders as BoostMobile@email.my.boostmobile.com, donotreply@system.boostmobile.com, boost@service.boostmobile.com, boost@updates.boostmobile.com and boost@offers.boostmobile.com, and says not to respond to emails from other addresses.
+    source: https://www.boostmobile.com/fraud-prevention
+    last_verified: 2026-10-12
+  known_scams:
+  - kind: policy
+    claim: 'Port-out and SIM-swap scams: scammers use your personal details to move your number to a device they control and bypass multi-factor authentication.'
+    source: https://www.boostmobile.com/fraud-prevention
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: 'Boost lists these signs of a scam: requests to pay by money order, wire transfer or gift card, spoofed caller ID, and requests for personal information.'
+    source: https://www.boostmobile.com/fraud-prevention
+    last_verified: 2026-10-12
+  report_phishing:
+  - id: report-fraud-phone
+    type: phone
+    label: Report suspicious calls or texts, SIM swap or port-out fraud (833-50-BOOST)
+    value: +1-833-502-6678
+    source: https://help.boostmobile.com/docs/protect-yourself-from-fraud
+    last_verified: 2026-10-12

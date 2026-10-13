@@ -127,3 +127,5 @@ facts:
 known_blockers:
   - No published support phone number; support is chat in the app or website and needs sign-in.
   - The help center and contact pages need JavaScript and do not load for simple fetches.
+
+official_domains: [visible.com]

@@ -187,3 +187,31 @@ notes: >-
   DIRECTV (satellite, DIRECTV STREAM / via Internet) also serves U-verse TV customers; U-verse TV terms and fee
   schedules are in the DIRECTV legal policy center. Site trademarks are held by DIRECTV, LLC. Current ownership
   (TPG and AT&T) and the end of the 2024 DIRECTV-DISH deal were not confirmed on a fetched official page.
+
+official_domains: [directv.com]
+security:
+  never_asks:
+  - kind: policy
+    claim: DIRECTV representatives will never reach out to ask for personal or account information.
+    source: https://www.directv.com/support/article/000086841
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: DIRECTV representatives will never ask you to pay upfront for discounted services or promotions, or to replace your current equipment, and will not accept prepaid or third-party retail gift cards as payment.
+    source: https://www.directv.com/support/article/000086841
+    last_verified: 2026-10-12
+  known_scams:
+  - kind: policy
+    claim: Scammers ask for advance payment for 'discounted services or upgraded equipment', often by prepaid credit card or retail gift card, and may give a toll-free number to seem legitimate.
+    source: https://www.directv.com/support/article/000086841
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Fake emails, texts or social media messages ask you to 'verify your account', or claim an order was cancelled, a payment failed or fraud was detected.
+    source: https://www.directv.com/support/article/000086841
+    last_verified: 2026-10-12
+  report_phishing:
+  - id: report-fraudulent-account
+    type: web_form
+    label: Report a DIRECTV account opened in your name (identity theft claim)
+    value: https://accountverification.directv.com
+    source: https://www.directv.com/support/article/000086841
+    last_verified: 2026-10-12

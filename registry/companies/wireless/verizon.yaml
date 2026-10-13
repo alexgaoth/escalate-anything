@@ -232,3 +232,58 @@ known_blockers:
   - Cancellation and number transfers need the Account Owner (or an Account Manager for transfers), with the Account PIN or the last 4 SSN digits.
   - Generating a Number Transfer PIN online needs sign-in to My Verizon on a standard monthly account.
   - Verizon's contact page and main customer agreement page block automated fetches; the support-path agreement page works.
+
+official_domains: [verizon.com]
+security:
+  never_asks:
+  - kind: policy
+    claim: Verizon will never contact you to request any password, PIN, Social Security number or payment information.
+    source: https://www.verizon.com/about/account-security/sim-swapping
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Verizon will never ask for personal or account information by email or text message.
+    source: https://www.verizon.com/about/account-security/phishing
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Verizon does not send text messages that ask for credit card or payment information, or for your username, password, account PIN, Social Security number or other sensitive account or personal information.
+    source: https://www.verizon.com/about/account-security/overview
+    last_verified: 2026-10-12
+  known_scams:
+  - kind: policy
+    claim: 'SIM swap: a criminal moves your phone number to a SIM card or eSIM profile they control. Verizon offers free SIM Protection to lock lines against transactions that need a new SIM.'
+    source: https://www.verizon.com/about/account-security/sim-swapping
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: 'Port-out fraud: your number is moved to another carrier without your request. Verizon offers free Number Lock, which only the Account Owner or an Account Manager can turn on or off.'
+    source: https://www.verizon.com/about/privacy/account-security/unauthorized-port-outs
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: 'Smishing: text messages that claim to be from Verizon and contain malicious links or return phone numbers.'
+    source: https://www.verizon.com/about/account-security/phishing
+    last_verified: 2026-10-12
+  report_phishing:
+  - id: report-spam-text
+    type: sms
+    label: Forward suspicious texts that claim to be from Verizon to 7726 (SPAM)
+    value: '7726'
+    source: https://www.verizon.com/about/account-security/phishing
+    last_verified: 2026-10-12
+  - id: report-phishing-email
+    type: email
+    label: Forward suspicious emails that claim to be from Verizon
+    value: phishing@verizon.com
+    source: https://www.verizon.com/about/account-security/phishing
+    last_verified: 2026-10-12
+  - id: report-sim-swap-port-out
+    type: phone
+    label: Report a SIM change or number port you did not request (or dial *611 from a Verizon phone)
+    value: +1-800-922-0204
+    notes: After hours, use Chat With Us, sign in and type 'Live Agent'.
+    source: https://www.verizon.com/about/privacy/account-security/unauthorized-port-outs
+    last_verified: 2026-10-12
+  - id: fraud-claim
+    type: web_form
+    label: File a fraud claim with Verizon
+    value: https://www.verizon.com/account-security/file-a-fraud-claim
+    source: https://www.verizon.com/about/account-security/overview
+    last_verified: 2026-10-12

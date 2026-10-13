@@ -101,3 +101,16 @@ playbooks:
 known_blockers:
   - Contacting support requires Google account sign-in; no public phone number is shown before sign-in.
   - Transfer info (account number and PIN) and cancellation are only in the signed-in Fi app or website.
+
+official_domains: [google.com]
+security:
+  never_asks:
+  - kind: policy
+    claim: Google will never call you about your account security, ask for passwords, or ask you to read out a verification code or approve a device prompt over the phone. Google Fi accounts are Google Accounts.
+    source: https://support.google.com/faqs/answer/17170932?hl=en
+    last_verified: 2026-10-12
+  known_scams:
+  - kind: policy
+    claim: Scammers contact people by phone, text or email posing as Google Account Security or Support, claim the account is compromised, and try to get passwords, get around two-factor authentication or get a fraudulent sign-in approved. They may spoof caller ID.
+    source: https://support.google.com/faqs/answer/17170932?hl=en
+    last_verified: 2026-10-12

@@ -223,3 +223,44 @@ notes: >-
   Spectrum ("Cox is now Spectrum" on cox.com). Spectrum says its Customer Commitments will be introduced to former Cox
   markets in the future, so outage-credit terms may not yet apply there. The two phone numbers (855-757-7328 in the
   annual notice, 855-707-7328 from moderators) are both Spectrum residential lines.
+
+official_domains: [spectrum.com, spectrum.net, charter.net]
+security:
+  never_asks:
+  - kind: policy
+    claim: Spectrum will never ask you to pay a fee to get a discount.
+    source: https://www.spectrum.net/support/general/scam-and-fraud-alerts
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Spectrum does not accept payment by cryptocurrency, gift card, or apps such as Venmo, Zelle, Cash App or PayPal.
+    source: https://www.spectrum.net/support/general/scam-and-fraud-alerts
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Spectrum will never text you asking for personal payment information, and will never ask you to ship equipment back unless you contacted Spectrum first.
+    source: https://www.spectrum.net/support/general/scam-and-fraud-alerts
+    last_verified: 2026-10-12
+  known_scams:
+  - kind: policy
+    claim: A caller offers a deal such as '40% off your bill for two years' but first asks you to pay a fee. Spectrum says this offer is fake.
+    source: https://www.spectrum.net/support/general/scam-and-fraud-alerts
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: 'Reshipping scam: a person pretending to represent Spectrum collects account details, orders a device, then asks you to forward the package elsewhere.'
+    source: https://www.spectrum.net/support/general/scam-and-fraud-alerts
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: 'Equipment upgrade scam: an email offers a lower monthly rate for an immediate ''upgrade payment''. Spectrum says it never charges a one-time equipment fee.'
+    source: https://www.spectrum.net/support/general/scam-and-fraud-alerts
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: The FCC warned on September 10, 2025 about robocalls and texts claiming a 50% discount on Comcast, Spectrum or Prime bills is about to expire; callers who call back are told to prepay several months of service with gift cards.
+    source: https://docs.fcc.gov/public/attachments/DOC-414472A1.pdf
+    last_verified: 2026-10-12
+  report_phishing:
+  - id: report-phishing-email
+    type: email
+    label: Forward spoofed Spectrum or Charter emails
+    value: phishing@charter.net
+    notes: Do not alter the email; forward it in its entirety, including the email header information.
+    source: https://www.spectrum.net/support/internet/email-security
+    last_verified: 2026-10-12

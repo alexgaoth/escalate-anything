@@ -216,3 +216,28 @@ notes: >-
   redirects to optimum.com. The residential terms (effective October 24, 2024) name CSC Holdings, LLC and affiliates as
   "Optimum". Optimum says it serves about 4.4 million customers in 21 states. Offer terms on optimum.com allow cancellation by
   phone (877-694-9474) or by signing in at optimum.net.
+
+official_domains: [optimum.com, optimum.net, optimummobile.com]
+security:
+  never_asks:
+  - kind: policy
+    claim: Optimum will never ask you to make a payment by gift card, wire transfer, cryptocurrency, payment applications (Venmo, Zelle, Cash App, PayPal) or other nontraditional methods.
+    source: https://www.optimum.net/pages/phishing-alerts.html
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Optimum will never send you an email asking you to click on a link to make a payment, and will never contact you requesting personal information or passwords.
+    source: https://www.optimum.net/pages/phishing-alerts.html
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Optimum will never call you stating there is an issue with your equipment and a payment is required to fix it; Optimum says it never makes unsolicited phone calls to its customers.
+    source: https://www.optimum.net/pages/phishing-alerts.html
+    last_verified: 2026-10-12
+  known_scams:
+  - kind: policy
+    claim: Fake third-party bill-payment websites and fake phone numbers pose as Optimum. Optimum says not to use search engines to pay or find contact numbers; use the number on your bill or the Contact Us page.
+    source: https://www.optimum.net/pages/phishing-alerts.html
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Tech-support calls claim your computer is infected, ask for remote access, then charge a fee.
+    source: https://www.optimum.net/pages/phishing-alerts.html
+    last_verified: 2026-10-12

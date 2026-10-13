@@ -183,3 +183,28 @@ notes: >-
   owns Sling TV, Boost Mobile and Hughes; EchoStar said on June 22, 2026 that it will change its Nasdaq ticker from
   SATS to ECHO. Sling TV has its own support and is not covered by this file. Corporate headquarters - 9601 S. Meridian
   Blvd., Englewood, CO 80112.
+
+official_domains: [dish.com, mydish.com, dishemail.com]
+security:
+  never_asks:
+  - kind: policy
+    claim: DISH will never call you asking for account details such as your account number, security code, receiver number or location ID.
+    source: https://support.dish.com/helpful-tools/consumer-protection
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: DISH will never require that you use one particular payment method.
+    source: https://support.dish.com/helpful-tools/consumer-protection
+    last_verified: 2026-10-12
+  known_scams:
+  - kind: policy
+    claim: Scammers ask for upfront payment by money order (such as Green Dot or Western Union) or gift cards, or offer deals that require paying 6 months or a year in advance. DISH bills monthly.
+    source: https://support.dish.com/helpful-tools/consumer-protection
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Callers spoof DISH's phone number so the call appears to come from DISH. Verify by calling 800-333-DISH (800-333-3474).
+    source: https://support.dish.com/helpful-tools/consumer-protection
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Spoofed emails say immediate action is needed to prevent an installation from being cancelled.
+    source: https://support.dish.com/helpful-tools/consumer-protection
+    last_verified: 2026-10-12

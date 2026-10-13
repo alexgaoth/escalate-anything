@@ -143,3 +143,5 @@ facts:
 known_blockers:
   - Support asks for the device serial number (MEID DEC) or the Straight Talk phone number; the account holder must have them.
   - No published page explains how to get the Number Transfer PIN; Customer Care must help.
+
+official_domains: [straighttalk.com]
