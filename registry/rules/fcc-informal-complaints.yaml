@@ -1,0 +1,54 @@
+id: fcc-informal-complaints
+title: FCC informal complaints against common carriers
+citation: 47 CFR 1.711 and 1.716-1.718 (Communications Act section 208)
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  sectors: [wireless, internet_tv]
+  issues: [billing_error, unauthorized_charge, poor_service, service_outage, cancel_service]
+summary: >-
+  A consumer can file a written informal complaint with the FCC against a common carrier under section 208 of
+  the Communications Act. The FCC forwards it to the carrier, which must respond in writing to the FCC
+  with a copy to the complainant, by a due date the FCC may set. If the complaint is not resolved, the
+  complainant has 6 months from the carrier's response to file a formal complaint that keeps the original
+  filing date.
+points:
+  - kind: policy
+    claim: >-
+      Complaints against carriers under section 208 of the Communications Act may be either formal or informal.
+    issues: [billing_error, poor_service]
+    source: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-1/subpart-E/section-1.711
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      An informal complaint must be in writing and should contain the complainant's name, address and telephone
+      number; the name of the carrier; a complete statement of the facts showing that the carrier did or
+      failed to do something in violation of the Communications Act; and the specific relief or satisfaction
+      sought.
+    issues: [billing_error, unauthorized_charge, poor_service]
+    source: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-1/subpart-E/section-1.716
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      The FCC forwards informal complaints to the carrier for investigation and may set a due date for a written
+      response. The carrier's response goes to the FCC with a copy to the complainant and must say whether the
+      carrier has satisfied the complaint or refuses or is unable to do so.
+    issues: [billing_error, unauthorized_charge, poor_service]
+    source: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-1/subpart-E/section-1.717
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      If the informal complaint is not satisfied, the complainant may file a formal complaint (in the form in
+      47 CFR 1.721) within 6 months from the date of the carrier's response, or from the response due date if
+      the carrier did not respond. A timely formal complaint relates back to the filing date of the informal
+      complaint. If none is filed in time, the informal complaint proceeding is closed.
+    issues: [billing_error, unauthorized_charge, poor_service]
+    source: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-1/subpart-E/section-1.718
+    last_verified: 2026-10-12
+status_note: >-
+  In force. Sections 1.717 and 1.718 were revised at 83 FR 44831 (September 4, 2018); 1.717 also has a version
+  effective January 22, 2024. These rules apply to complaints against common carriers under section 208 of
+  the Communications Act. The regulation does not set a fixed number of days for the carrier's response; the
+  FCC sets the due date for each complaint.
+source: https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-1/subpart-E/section-1.717
+last_verified: 2026-10-12

@@ -1,0 +1,70 @@
+id: bbb
+name: Better Business Bureau
+short_name: BBB
+level: nonprofit
+covers_sectors:
+  - retail
+  - subscription
+  - lodging
+  - travel_agency
+  - car_rental
+  - gig_delivery
+  - shipping
+  - fitness
+  - wireless
+  - internet_tv
+covers_issues: [poor_service, refund_request, billing_error, damaged_item, warranty_claim]
+website: https://www.bbb.org
+when_to_use: >-
+  Use when a business did not resolve a complaint and you want a neutral intermediary and a public
+  record on the business's BBB profile. BBB is a nonprofit, not a government agency, and cannot force
+  the business to act.
+
+channels:
+  - id: complaint-form
+    type: web_form
+    label: File a complaint with BBB
+    value: https://www.bbb.org/file-a-complaint
+    purposes: [poor_service, refund_request, billing_error, damaged_item, warranty_claim]
+    notes: >-
+      Script-driven page. bbb.org robots.txt disallows automated access to /file-a-complaint/*. Sign-in
+      is offered to follow complaints; it is not confirmed whether it is required to file.
+    source: https://www.bbb.org/consumer-complaints/file-a-complaint/get-started
+    last_verified: 2026-10-12
+  - id: bbb-directory
+    type: web_form
+    label: Find your local BBB
+    value: https://www.bbb.org/bbb-directory
+    source: https://www.bbb.org/all/bbb-dispute-handling-and-resolution
+    last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: BBB is a nonprofit organization. It is not a government agency and holds no regulatory power.
+    source: https://www.bbb.org/all/faq
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: BBB forwards the complaint to the business, usually within two business days.
+    source: https://www.bbb.org/consumer-complaints/file-a-complaint/get-started
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      BBB contacts the business, asks for a response and acts as a neutral intermediary. It does not
+      take sides and cannot force a business to act.
+    source: https://www.bbb.org/all/faq
+    last_verified: 2026-10-12
+  - kind: process
+    claim: The complaint becomes part of the business's public BBB profile.
+    source: https://www.bbb.org/all/faq
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      You do not have to contact the business before filing, but your local BBB will encourage it.
+      Conciliation and mediation are voluntary; arbitration needs a contract clause or a signed agreement
+      to arbitrate.
+    source: https://www.bbb.org/all/bbb-dispute-handling-and-resolution
+    last_verified: 2026-10-12
+
+notes: >-
+  BBB has no phone number on its national FAQ; contact the local BBB through the directory. Scam
+  reports go to BBB Scam Tracker: https://www.bbb.org/scamtracker

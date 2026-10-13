@@ -1,0 +1,62 @@
+id: dot-ancillary-fee-disclosure
+title: DOT 2024 airline ancillary fee transparency rule (vacated)
+citation: 89 FR 34620 (April 30, 2024), "Enhancing Transparency of Airline Ancillary Service Fees"; current rules at 14 CFR 399.84 and 399.85
+jurisdiction: us-federal
+status: vacated
+applies_to:
+  sectors: [airline, travel_agency]
+  issues: [ancillary_fee_refund, billing_error]
+summary: >-
+  DOT's 2024 rule requiring airlines and ticket agents to show passenger-specific bag and change or
+  cancellation fees before purchase never took effect. The Fifth Circuit stayed it in July 2024 and, sitting en
+  banc, vacated it on February 3, 2026. Do not cite it. Effective July 2, 2026, DOT restored the older 2011
+  baggage fee disclosure rules in 14 CFR 399.85, which remain in force.
+points:
+  - kind: policy
+    claim: >-
+      The 2024 rule (89 FR 34620) would have required carriers and ticket agents to disclose passenger-specific
+      fees for checked baggage and for changing or cancelling a flight before ticket purchase. It was stayed by
+      a Fifth Circuit panel on July 29, 2024 and vacated by the en banc Fifth Circuit on February 3, 2026
+      (Airlines for America v. U.S. Department of Transportation, 166 F.4th 487) for violating the APA's
+      notice-and-comment requirements.
+    issues: [ancillary_fee_refund, billing_error]
+    source: https://www.federalregister.gov/documents/2026/07/02/2026-13450/increasing-flexibility-on-disclosure-of-airline-ancillary-fees
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Carriers must promptly and prominently disclose on their homepage any increase in the fee for a carry-on
+      bag or the first or second checked bag, or any change in the baggage allowance, and keep the notice up for
+      at least three months after the change takes effect.
+    issues: [billing_error]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-F/part-399/subpart-G/section-399.85
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Carriers and ticket agents must disclose, on the first screen that shows a fare for a selected itinerary,
+      that additional airline fees for baggage may apply and where the consumer can see those fees.
+    issues: [billing_error, ancillary_fee_refund]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-F/part-399/subpart-G/section-399.85
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      E-ticket confirmations for travel within, to or from the U.S. must state the free baggage allowance and the
+      fee for a carry-on bag and the first and second checked bags, as specific charges. Carriers must give this
+      in text; ticket agents may use text or a hyperlink.
+    issues: [billing_error, ancillary_fee_refund]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-F/part-399/subpart-G/section-399.85
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Carriers that market on U.S. websites must prominently disclose the fees for all optional services, with a
+      conspicuous link from the homepage. Failure to give these notices is an unfair and deceptive practice
+      under 49 U.S.C. 41712.
+    issues: [billing_error, ancillary_fee_refund]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-F/part-399/subpart-G/section-399.85
+    last_verified: 2026-10-12
+status_note: >-
+  Vacated. A Fifth Circuit panel stayed the 2024 rule on July 29, 2024 (110 F.4th 672); the en banc Fifth
+  Circuit vacated it on February 3, 2026 (166 F.4th 487). DOT's final rule of July 2, 2026 (91 FR 40368,
+  effective July 2, 2026, issued without notice and comment) removed the 2024 text and restored the 2011
+  standards in 14 CFR 399.84 and 399.85. The restored 399.85 baggage and optional-fee disclosures are in force.
+source: https://www.federalregister.gov/documents/2026/07/02/2026-13450/increasing-flexibility-on-disclosure-of-airline-ancillary-fees
+last_verified: 2026-10-12

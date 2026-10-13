@@ -1,0 +1,101 @@
+id: dot-disability-acaa
+title: Air Carrier Access Act rules - complaints and wheelchair handling
+citation: 14 CFR part 382 (Wheelchair Rule, 89 FR 102398, December 17, 2024)
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  sectors: [airline]
+  issues: [accessibility, damaged_baggage, delayed_baggage, lost_baggage]
+summary: >-
+  Airlines must make a Complaints Resolution Official (CRO) available at every airport they serve, and must
+  answer written disability complaints within 30 days. Under the 2024 Wheelchair Rule, airlines must deliver
+  delayed wheelchairs quickly, repair or replace damaged ones, provide loaners, and pay based on the original
+  purchase price on domestic trips. DOT is not enforcing four of the 2024 provisions until April 30, 2027.
+points:
+  - kind: contact
+    claim: >-
+      Carriers that operate aircraft with 19 or more passenger seats must designate Complaints Resolution
+      Officials and make a CRO available at each airport they serve during all times they operate there, in
+      person or by telephone at no cost to the passenger.
+    issues: [accessibility]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-D/part-382/subpart-K
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      When a CRO handles a complaint about something that already happened, the CRO must give the passenger a
+      written statement that summarizes the facts and either the steps the carrier proposes (if it agrees there
+      was a violation) or its reasons (if it finds none), and that states the right to pursue DOT enforcement.
+      The statement should be given at the airport if possible; otherwise it must be sent within 30 calendar
+      days of the complaint.
+    issues: [accessibility]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-D/part-382/subpart-K
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      A carrier must send a dispositive written response within 30 days of receiving a written disability
+      complaint, admitting or denying a violation and informing the passenger of the right to pursue DOT
+      enforcement. A carrier need not respond to a complaint postmarked or transmitted more than 45 days after
+      the incident, except complaints referred by DOT.
+    issues: [accessibility]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-D/part-382/subpart-K
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      A delayed checked wheelchair or assistive device must be delivered within 24 hours of the passenger's
+      arrival for domestic flights, and within 30 hours of arrival for long international flights (more than
+      12 hours).
+    issues: [accessibility, delayed_baggage]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-D/part-382/subpart-I/section-382.130
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      When a wheelchair or assistive device is lost, damaged or pilfered, the passenger may have the carrier repair
+      or replace it with a device of equivalent or greater function at the carrier's cost, or use a preferred
+      repair vendor with the carrier paying. The carrier must notify the passenger in writing of these rights,
+      including the right to a loaner and to contact a CRO.
+    issues: [accessibility, damaged_baggage, lost_baggage]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-D/part-382/subpart-I/section-382.130
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The carrier must use best efforts to provide and pay for an adequate loaner device. If the loaner is not
+      adequate, the passenger may obtain one, and the carrier must reimburse the cost within 30 days of the
+      request.
+    issues: [accessibility]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-D/part-382/subpart-I/section-382.130
+    last_verified: 2026-10-12
+  - kind: limit
+    claim: >-
+      For transportation covered by 14 CFR part 254 (domestic), the baggage liability limit does not apply to
+      wheelchairs or other assistive devices, and compensation for a lost, damaged or destroyed device is based
+      on its original purchase price. On international flights, Montreal Convention liability limits apply.
+    issues: [accessibility, damaged_baggage, lost_baggage]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-D/part-382/subpart-I/section-382.131
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Not enforced until April 30, 2027: the rebuttable presumption that a device not returned in the condition
+      received was mishandled in violation of the ACAA (382.130(a)); refresher training frequency
+      (382.141(a)(6)); the notification in 382.125(e); and fare difference reimbursement when a wheelchair does
+      not fit the aircraft (382.132). DOT says it may modify these in a new rulemaking. Do not cite these four
+      as currently enforced.
+    issues: [accessibility]
+    source: https://www.federalregister.gov/documents/2026/08/04/2026-15835/accessible-lavatories-on-single-aisle-aircraft-and-ensuring-safe-accommodations-for-air-travelers
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      DOT stated that its enforcement pause does not affect enforcement of the Wheelchair Rule's other
+      requirements.
+    issues: [accessibility]
+    source: https://www.federalregister.gov/documents/2025/09/30/2025-18980/ensuring-safe-accommodations-for-air-travelers-with-disabilities-using-wheelchairs
+    last_verified: 2026-10-12
+status_note: >-
+  Part 382 is in force. The Wheelchair Rule (89 FR 102398, December 17, 2024) took effect January 16, 2025.
+  DOT delayed enforcement of its new requirements to March 20, 2025 (FR Doc. 2025-02817, February 20, 2025)
+  and then to August 1, 2025 (90 FR 24319). On September 30, 2025 (2025-18980) DOT paused enforcement of four
+  provisions (382.130(a), 382.141(a)(6), 382.125(e), 382.132) until December 31, 2026, citing a lawsuit and a
+  planned "Wheelchair Rule II" rulemaking. On August 4, 2026 (91 FR 49272) DOT extended that pause to
+  April 30, 2027 and added the 12-month flight attendant training requirement in 382.63(h)(1). All other
+  provisions, including CRO and complaint-response rules, are enforced.
+source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-D/part-382
+last_verified: 2026-10-12

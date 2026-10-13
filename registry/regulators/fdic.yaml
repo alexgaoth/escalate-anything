@@ -1,0 +1,69 @@
+id: fdic
+name: Federal Deposit Insurance Corporation, Consumer Response Unit
+short_name: FDIC
+level: federal
+covers_sectors: [bank]
+covers_issues: [fee_reversal, transaction_dispute, frozen_funds, billing_error]
+website: https://www.fdic.gov
+when_to_use: >-
+  Use for a complaint about a state-chartered bank that is not a member of the Federal Reserve System,
+  after the bank did not fix it. Complaints against banks must be in writing; the phone line is for
+  general questions.
+
+channels:
+  - id: support-center
+    type: web_form
+    label: FDIC Information and Support Center (submit a complaint or request help)
+    value: https://ask.fdic.gov/fdicinformationandsupportcenter/s/?language=en_US
+    purposes: [fee_reversal, transaction_dispute, frozen_funds, billing_error]
+    notes: Opens a case for inquiries or complaints about financial institutions, bank failures and deposit insurance.
+    source: https://www.fdic.gov/contact
+    last_verified: 2026-10-12
+  - id: contact-center
+    type: phone
+    label: FDIC Contact Center (1-877-ASK-FDIC)
+    value: +1-877-275-3342
+    hours: Monday to Friday 8:00 a.m. to 6:00 p.m. ET; Saturday 8:00 a.m. to 1:00 p.m. ET; closed Sunday and federal holidays
+    notes: General inquiries only. A complaint against a bank must be submitted in writing.
+    source: https://www.fdic.gov/contact
+    last_verified: 2026-10-12
+  - id: mail
+    type: mail
+    label: Consumer complaint mailing address
+    value: 1100 Walnut Street, Box #11, Kansas City, MO 64106
+    notes: Address shown on the FDIC consumer complaint process page. The page does not give an addressee line.
+    source: https://www.fdic.gov/consumer-resource-center/consumer-complaint-process
+    last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: >-
+      The FDIC enforces federal consumer protection laws at state-chartered banks that are not members
+      of the Federal Reserve System. Other regulators handle other banks.
+    source: https://www.fdic.gov/consumer-resource-center/consumer-complaint-process
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      The Consumer Response Unit investigates complaints about FDIC-supervised banks and may send the
+      complaint to the bank for review and response. Matters outside FDIC jurisdiction get a direct
+      response or a referral.
+    source: https://www.fdic.gov/consumer-resource-center/consumer-complaint-process
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      The Consumer Response Unit acknowledges a complaint within 14 days when a full response will take
+      longer, and generally responds within 60 days when it contacts the bank.
+    source: https://www.fdic.gov/consumer-resource-center/consumer-complaint-process
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      Include your name, email and mailing address, the bank's full name and address (check it in
+      BankFind), and a written description of the issues in the order they occurred, with names, phone
+      numbers, dates and transaction amounts.
+    source: https://www.fdic.gov/consumer-resource-center/consumer-complaint-process
+    last_verified: 2026-10-12
+
+notes: >-
+  Find which agency supervises a bank with BankFind at https://banks.data.fdic.gov/bankfind-suite/bankfind.
+  The FDIC consumer complaint process page was last updated 2025-08-14. The support center page is a
+  script-driven app and may not load for automated agents.

@@ -1,0 +1,105 @@
+id: fcba-billing-error
+title: Fair Credit Billing Act billing-error and purchase-dispute rights (Regulation Z)
+citation: 12 CFR 1026.13; 12 CFR 1026.12(c) (Regulation Z)
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  sectors: [bank, credit_union]
+  issues: [billing_error, unauthorized_charge, transaction_dispute, refund_request]
+summary: >-
+  For credit card and other open-end credit accounts, a written billing-error notice that the creditor
+  receives within 60 days after it sent the first statement with the error starts a dispute process. The
+  creditor must acknowledge it within 30 days and resolve it within 2 complete billing cycles (no later
+  than 90 days). Until then, the consumer need not pay the disputed amount and the creditor may not
+  collect it or report it as delinquent. A separate rule lets a cardholder assert claims and defenses
+  about a card purchase against the card issuer.
+points:
+  - kind: policy
+    claim: >-
+      A billing error includes a charge for credit not made to the consumer or an authorized user; a charge
+      for property or services not accepted by the consumer or not delivered as agreed; a failure to credit
+      a payment or other credit properly; a computational error by the creditor; a charge for which the
+      consumer asks for clarification, including documentary evidence; and failure to send a statement to
+      the last address the creditor received in writing at least 20 days before the end of the billing cycle.
+    issues: [billing_error, unauthorized_charge, refund_request]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1026/13/
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      The billing error notice must be written and must be received by the creditor at the address it
+      discloses for billing errors "no later than 60 days after the creditor transmitted the first periodic
+      statement that reflects the alleged billing error". The rule defines the notice as a written notice,
+      so a phone call alone does not start these rights.
+    issues: [billing_error]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1026/13/
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      The notice must let the creditor identify the consumer's name and account number and, to the extent
+      possible, state the consumer's belief and reasons that a billing error exists, and the type, date and
+      amount of the error.
+    issues: [billing_error]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1026/13/
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      The creditor must send written acknowledgment within 30 days of receiving the notice (unless it
+      resolves the dispute within those 30 days), and must resolve the dispute "within 2 complete billing
+      cycles (but in no event later than 90 days)" after receiving the notice.
+    issues: [billing_error]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1026/13/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Until the dispute is resolved, the consumer need not pay, and the creditor may not try to collect,
+      the disputed amount and related finance or other charges. The creditor may not report the disputed
+      amount as delinquent or threaten an adverse credit report because it is unpaid.
+    issues: [billing_error]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1026/13/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      If the consumer pays the card by automatic deduction from a deposit account at the card issuer, the
+      issuer may not deduct the disputed amount if the billing error notice arrives up to 3 business days
+      before the scheduled payment date.
+    issues: [billing_error]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1026/13/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      A creditor may not accelerate the debt or restrict or close the account solely because the consumer
+      exercised billing-error rights in good faith.
+    issues: [billing_error]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1026/13/
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      If there was an error, the creditor must correct it, credit the disputed amount and related charges,
+      and send a correction notice. If it finds no error, it must send a written explanation and, on
+      request, copies of documentary evidence of the debt.
+    issues: [billing_error]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1026/13/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Claims and defenses (12 CFR 1026.12(c)): when a merchant does not resolve a dispute about property or
+      services bought with a credit card, the cardholder may assert against the card issuer all claims
+      (other than tort claims) and defenses from the transaction, and may withhold payment up to the amount
+      of credit outstanding for that purchase plus related charges. The issuer may not report that withheld
+      amount as delinquent until the dispute is settled or judgment is rendered.
+    issues: [transaction_dispute, refund_request]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1026/12/
+    last_verified: 2026-10-12
+  - kind: limit
+    claim: >-
+      Claims-and-defenses limits: the cardholder must first make a good faith attempt to resolve the dispute
+      with the merchant, the purchase must exceed $50, and it must have occurred in the same state as the
+      cardholder's current designated address or within 100 miles of it. The $50 and location limits do not
+      apply when the merchant is the card issuer, is controlled by or controls the issuer, is a franchised
+      dealer in the issuer's products, or got the order through a mail solicitation the issuer made or
+      took part in.
+    issues: [transaction_dispute, refund_request]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1026/12/
+    last_verified: 2026-10-12
+source: https://www.consumerfinance.gov/rules-policy/regulations/1026/13/
+last_verified: 2026-10-12

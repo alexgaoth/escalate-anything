@@ -1,0 +1,97 @@
+id: dot-denied-boarding
+title: DOT oversales and denied boarding compensation
+citation: 14 CFR part 250 (limits revised by 89 FR 84815, October 24, 2024, effective January 22, 2025)
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  sectors: [airline]
+  issues: [denied_boarding]
+summary: >-
+  When an airline involuntarily bumps a passenger with a confirmed reservation from an oversold flight that
+  departs from a U.S. airport, it must pay compensation in cash or check on the spot: 200% of the one-way
+  fare up to $1,075, or 400% up to $2,150, depending on how late the passenger arrives on the alternate
+  transportation. It must also give a written statement of these rights.
+points:
+  - kind: policy
+    claim: >-
+      Part 250 applies to scheduled flight segments using an aircraft with a designed capacity of 30 or more
+      passenger seats, in interstate transportation and on nonstop foreign segments that originate at a point
+      within the United States.
+    issues: [denied_boarding]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-250/section-250.2
+    last_verified: 2026-10-12
+  - kind: compensation
+    claim: >-
+      Domestic: no compensation is required if alternate transportation is planned to arrive within one hour of
+      the original arrival time. If it arrives more than one hour but less than two hours late, compensation is
+      at least 200 percent of the fare to the destination or first stopover, or $1,075, whichever is lower. If
+      the carrier does not offer alternate transportation planned to arrive less than two hours late,
+      compensation is at least 400 percent of that fare, or $2,150, whichever is lower.
+    issues: [denied_boarding]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-250/section-250.5
+    last_verified: 2026-10-12
+  - kind: compensation
+    claim: >-
+      International flights from a U.S. airport: no compensation if the alternate transportation arrives within
+      one hour; 200 percent of the fare or $1,075, whichever is lower, if it arrives more than one hour but less
+      than four hours late; 400 percent of the fare or $2,150, whichever is lower, if the carrier does not
+      offer alternate transportation planned to arrive less than four hours late.
+    issues: [denied_boarding]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-250/section-250.5
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      The carrier must pay in cash or an immediately negotiable check on the day and at the place the denied
+      boarding occurs. If the alternate transportation leaves before payment can be prepared, the carrier must
+      send payment within 24 hours after the denied boarding.
+    issues: [denied_boarding]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-250/section-250.8
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The carrier may offer free or reduced-rate travel instead of cash only if its value is at least the cash
+      amount owed, and it must tell the passenger the cash amount, that the passenger may decline the travel
+      offer and take cash, and all material restrictions before the passenger accepts.
+    issues: [denied_boarding]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-250/section-250.5
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The carrier must refund unused fees for optional services (for example a seat or bag fee) paid by a
+      passenger who is voluntarily or involuntarily denied boarding, unless the service is provided on the
+      alternate transportation.
+    issues: [denied_boarding, ancillary_fee_refund]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-250/section-250.5
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      No compensation is owed if the passenger did not comply with the carrier's ticketing, check-in and
+      reconfirmation rules; if a smaller aircraft was substituted for operational or safety reasons (or, on
+      aircraft with 60 or fewer seats, weight or balance limits applied); if the passenger was seated in a
+      different section at no extra charge; or if the carrier arranged transportation planned to arrive no
+      later than one hour after the original planned arrival.
+    issues: [denied_boarding]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-250/section-250.6
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      Immediately after an involuntary denied boarding, the carrier must give the passenger a written statement
+      that explains the boarding priority rules, the compensation amounts, and the passenger's right to decline
+      compensation and pursue damages another way.
+    issues: [denied_boarding]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-250/section-250.9
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      DOT raised the limits from $775 and $1,550 to $1,075 and $2,150 by a rule effective January 22, 2025, and
+      did not enforce the new limits until March 20, 2025.
+    issues: [denied_boarding]
+    source: https://www.federalregister.gov/documents/2024/10/24/2024-23588/periodic-revisions-to-denied-boarding-compensation-and-domestic-baggage-liability-limits
+    last_verified: 2026-10-12
+status_note: >-
+  In force. The current limits ($1,075 and $2,150) were set by the final rule of October 24, 2024 (89 FR 84815),
+  effective January 22, 2025; DOT's notice of February 20, 2025 (90 FR 9952) delayed enforcement until
+  March 20, 2025. Section 250.5(e) requires DOT to review the limits every two years using the July CPI-U.
+  No 2026 revision had been published in the Federal Register as of 2026-10-12, so the 2025 amounts apply.
+source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-250
+last_verified: 2026-10-12

@@ -1,0 +1,90 @@
+id: cms-no-surprises
+name: CMS No Surprises Help Desk
+short_name: No Surprises Help Desk
+level: federal
+covers_sectors: [insurance_health]
+covers_issues: [surprise_medical_bill]
+website: https://www.cms.gov/medical-bill-rights
+when_to_use: >-
+  Use for an out-of-network surprise bill for emergency care, for care at an in-network hospital or
+  surgery center, or for air ambulance. Uninsured or self-pay patients use the dispute process when a
+  bill is at least $400 over the good faith estimate.
+
+channels:
+  - id: complaint-form
+    type: web_form
+    label: Submit a No Surprises complaint
+    value: https://www.cms.gov/medical-bill-rights/help/submit-a-complaint/get-started
+    purposes: [surprise_medical_bill]
+    notes: The form resets after 15 minutes of inactivity and the answers are deleted. Save the confirmation number.
+    source: https://www.cms.gov/medical-bill-rights/help/submit-a-complaint
+    last_verified: 2026-10-12
+  - id: complaint-update
+    type: web_form
+    label: Add documents to an existing complaint
+    value: https://www.cms.gov/medical-bill-rights/help/submit-a-complaint/update
+    source: https://www.cms.gov/medical-bill-rights/help/submit-a-complaint
+    last_verified: 2026-10-12
+  - id: help-desk
+    type: phone
+    label: No Surprises Help Desk
+    value: +1-800-985-3059
+    hours: Phone support 7 days a week (hours not stated)
+    notes: Help in English, Spanish and more than 350 other languages. Call with the confirmation number to check status.
+    source: https://www.cms.gov/medical-bill-rights
+    last_verified: 2026-10-12
+  - id: bill-dispute
+    type: web_form
+    label: Patient-provider bill dispute (uninsured or self-pay)
+    value: https://nsa-idr.cms.gov/billdisputes/s/
+    purposes: [surprise_medical_bill]
+    notes: >-
+      A $25 non-refundable fee applies. A mail or fax initiation form is at
+      https://www.cms.gov/files/document/billing-dispute-initiation-form.pdf
+    source: https://www.cms.gov/medical-bill-rights/help/dispute-a-bill
+    last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: >-
+      The Help Desk reviews the complaint and documents, and may investigate compliance with federal
+      law or refer the complaint to another federal or state authority. If it needs more information it
+      contacts you within 60 days.
+    issues: [surprise_medical_bill]
+    source: https://www.cms.gov/medical-bill-rights/help/submit-a-complaint
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      Attach the medical bill, a photo of the insurance card, and any explanation of benefits. If you
+      have them, add the good faith estimate, a signed notice and consent form, provider letters, appeal
+      decisions and evidence of coverage.
+    issues: [surprise_medical_bill]
+    source: https://www.cms.gov/medical-bill-rights/help/submit-a-complaint
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      A patient-provider dispute needs an initial bill dated within the last 120 calendar days, from a
+      provider or facility that charged at least $400 more than its good faith estimate, for care on or
+      after January 1, 2022 that you did not use insurance to pay for.
+    issues: [surprise_medical_bill]
+    source: https://www.cms.gov/medical-bill-rights/help/dispute-a-bill
+    last_verified: 2026-10-12
+  - kind: fee
+    claim: >-
+      The patient-provider dispute has a $25 non-refundable administrative fee and does not start until
+      it is paid. If you win, the $25 is deducted from what you owe the provider.
+    issues: [surprise_medical_bill]
+    source: https://www.cms.gov/medical-bill-rights/help/dispute-a-bill
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The No Surprises Act protects you from unexpected out-of-network bills for emergency room visits,
+      for non-emergency care at an in-network hospital, hospital outpatient department or ambulatory
+      surgical center, and for air ambulance services.
+    issues: [surprise_medical_bill]
+    source: https://www.cms.gov/medical-bill-rights
+    last_verified: 2026-10-12
+
+notes: >-
+  The independent dispute resolution (IDR) process on cms.gov/nosurprises is a separate payment
+  dispute process between providers and plans; it is not the patient complaint path. CMS lists no TTY or mailing address for the Help Desk.

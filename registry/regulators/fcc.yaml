@@ -1,0 +1,78 @@
+id: fcc
+name: Federal Communications Commission, Consumer Complaint Center
+short_name: FCC
+level: federal
+covers_sectors: [wireless, internet_tv]
+covers_issues:
+  - billing_error
+  - bill_increase
+  - cancel_service
+  - service_outage
+  - equipment_return
+  - poor_service
+website: https://www.fcc.gov
+when_to_use: >-
+  Use for a phone, wireless, internet, cable or satellite TV problem that the provider did not fix.
+  Contact the provider first and file with the FCC only if its answer does not solve the problem.
+
+channels:
+  - id: complaint-center
+    type: web_form
+    label: FCC Consumer Complaint Center
+    value: https://consumercomplaints.fcc.gov/hc/en-us
+    purposes: [billing_error, bill_increase, cancel_service, service_outage, equipment_return, poor_service]
+    notes: Choose the category (phone, internet, TV, radio, accessibility, emergency communications) that fits the problem.
+    source: https://www.usa.gov/agencies/federal-communications-commission
+    last_verified: 2026-10-12
+  - id: consumer-phone
+    type: phone
+    label: FCC consumer line (1-888-CALL-FCC)
+    value: +1-888-225-5322
+    source: https://www.usa.gov/agencies/federal-communications-commission
+    last_verified: 2026-10-12
+  - id: asl-videophone
+    type: phone
+    label: ASL Consumer Support Line (videophone)
+    value: +1-844-432-2275
+    notes: For videophone users who use American Sign Language.
+    source: https://www.fcc.gov/consumers/guides/filing-informal-complaint
+    last_verified: 2026-10-12
+  - id: headquarters-mail
+    type: mail
+    label: FCC headquarters mailing address
+    value: Federal Communications Commission, 45 L Street NE, Washington, DC 20554
+    notes: USA.gov lists this as the FCC main address. The online form is the documented complaint path.
+    source: https://www.usa.gov/agencies/federal-communications-commission
+    last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: >-
+      The FCC forwards informal complaints to the carrier for investigation and may set a due date for
+      the carrier's written response to the FCC, with a copy to the complainant.
+    source: https://www.law.cornell.edu/cfr/text/47/1.717
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      The provider must respond in writing, to you and to the FCC, within 30 days of receiving the
+      complaint.
+    source: https://www.fcc.gov/consumers/guides/filing-informal-complaint
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      An informal complaint should be in writing and contain your name, address and phone number, the
+      name of the carrier, a complete statement of the facts, and the relief you want.
+    source: https://www.law.cornell.edu/cfr/text/47/1.716
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      USA.gov advises contacting the phone company directly first and going to the FCC only if the
+      company's response does not solve the problem.
+    source: https://www.usa.gov/phone-company-complaints
+    last_verified: 2026-10-12
+
+notes: >-
+  The FCC does not resolve every individual complaint; for some issues it has no authority and points
+  you to another agency. fcc.gov and consumercomplaints.fcc.gov blocked automated page reads on
+  2026-10-12, so the 30-day rule and the ASL number were checked from search-index copies of the FCC
+  guide.

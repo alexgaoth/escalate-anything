@@ -1,0 +1,69 @@
+id: ca-automatic-renewal-law
+title: California Automatic Renewal Law
+citation: Cal. Bus. & Prof. Code § 17602
+jurisdiction: ca
+status: in_effect
+applies_to:
+  issues: [cancel_service, bill_increase]
+summary: >-
+  Businesses that sell automatic renewal or continuous service offers to California consumers must let a
+  consumer who signed up online cancel exclusively online, at will, and must offer cancellation in the same
+  medium used to sign up. Save offers are allowed only if cancellation stays available ("click to cancel"
+  online; saying "cancel" on the phone). Annual reminders and advance notice of price changes are required.
+points:
+  - kind: process
+    claim: >-
+      A business that allows a consumer to accept an automatic renewal or continuous service online must
+      allow the consumer to terminate it "exclusively online, at will", through a prominently located direct
+      link or button (for example in the account profile or device settings) or an immediately accessible
+      termination email.
+    issues: [cancel_service]
+    source: https://california.public.law/codes/business_and_professions_code_section_17602
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      If the business shows a discount or other save offer when a consumer tries to cancel online, it must
+      at the same time display "a prominently located and continuously and proximately displayed direct link
+      or button entitled 'click to cancel'" (or similar) and promptly process the cancellation if the consumer
+      uses it.
+    issues: [cancel_service]
+    source: https://california.public.law/codes/business_and_professions_code_section_17602
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      On a cancellation phone call, before making a retention offer the business must tell the consumer they
+      may complete cancellation at any time by stating that they want to "cancel", and must promptly process
+      the cancellation when they do.
+    issues: [cancel_service]
+    source: https://california.public.law/codes/business_and_professions_code_section_17602
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Cancellation must be available in the same medium the consumer used to sign up, or in the medium the
+      consumer usually uses with the business.
+    issues: [cancel_service]
+    source: https://california.public.law/codes/business_and_professions_code_section_17602
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      Notice of a fee change must be sent "no less than 7 days and no more than 30 days before the fee change
+      takes effect", with clear information on the change and how to cancel.
+    issues: [bill_increase, cancel_service]
+    source: https://california.public.law/codes/business_and_professions_code_section_17602
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      If a free trial lasts more than 31 days, the business must send notice "at least 3 days before and at
+      most 21 days before the expiration" of the trial. A business must send "an annual reminder to a consumer under
+      an annual automatic renewal agreement" that states the product, the frequency and amount of charges,
+      and how to cancel.
+    issues: [cancel_service, bill_increase]
+    source: https://california.public.law/codes/business_and_professions_code_section_17602
+    last_verified: 2026-10-12
+source: https://california.public.law/codes/business_and_professions_code_section_17602
+last_verified: 2026-10-12
+status_note: >-
+  In force. Subdivision (j) applies the most recent amendments to contracts "entered into, amended, or
+  extended under this article on or after July 1, 2025". Older contracts may be governed by the prior text. The official site leginfo.legislature.ca.gov blocked automated access,
+  so the text was read on california.public.law (marked up to date as of 2026-10-12). The name of the
+  amending bill was not confirmed from a primary source.

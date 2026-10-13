@@ -1,0 +1,74 @@
+id: fdcpa-reg-f-validation
+title: Debt validation notice and dispute period (FDCPA, Regulation F)
+citation: 12 CFR 1006.34; 12 CFR 1006.38 (Regulation F)
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  issues: [debt_collection]
+summary: >-
+  A third-party debt collector must give the consumer validation information, including an itemization of
+  the debt and the date the validation period ends. If the consumer disputes the debt in writing within the
+  validation period (30 days after the consumer receives or is assumed to receive the information), the
+  collector must stop collecting until it sends verification of the debt.
+points:
+  - kind: policy
+    claim: >-
+      Regulation F covers a debt collector: a person whose principal business purpose is collecting debts,
+      or who regularly collects debts owed or asserted to be owed to another. It generally does not cover a
+      creditor's own employees collecting in the creditor's name, or a person who got a debt before it was
+      in default. A debt is a consumer obligation primarily for personal, family or household purposes.
+    issues: [debt_collection]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1006/2/
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      The collector must give the validation information in the initial communication, or within five days
+      after it, or orally in the initial communication.
+    issues: [debt_collection]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1006/34/
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      The validation period ends "30 days after the consumer receives or is assumed to receive the
+      validation information". The collector may assume receipt on any date "at least five days (excluding
+      legal public holidays identified in 5 U.S.C. 6103(a), Saturdays, and Sundays)" after it provides the
+      information. The notice must state the date the collector will treat as the end of the validation
+      period.
+    issues: [debt_collection]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1006/34/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The validation information includes the itemization date, the amount of the debt on that date, an
+      itemization of interest, fees, payments and credits since then, the current amount, and a consumer
+      response section with dispute prompts.
+    issues: [debt_collection]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1006/34/
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      "Upon receipt of a dispute submitted by the consumer in writing within the validation period, a debt
+      collector must cease collection of the debt, or any disputed portion of the debt," until it sends the
+      consumer a copy of verification of the debt or of a judgment, in writing or electronically. A dispute
+      sent through an electronic medium the collector accepts, such as its email address or website portal,
+      counts as written.
+    issues: [debt_collection]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1006/38/
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      If the consumer asks in writing within the validation period for the name and address of the original
+      creditor, the collector must stop collection until it provides that information.
+    issues: [debt_collection]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1006/38/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      During the validation period the collector may not use collection activities or communications that
+      overshadow or are inconsistent with the consumer's dispute rights. Failure to dispute does not count
+      as a legal admission that the consumer owes the debt.
+    issues: [debt_collection]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1006/38/
+    last_verified: 2026-10-12
+source: https://www.consumerfinance.gov/rules-policy/regulations/1006/34/
+last_verified: 2026-10-12

@@ -1,0 +1,116 @@
+id: tsa
+name: Transportation Security Administration
+short_name: TSA
+level: federal
+covers_sectors: [airline]
+covers_issues: [damaged_baggage, accessibility]
+website: https://www.tsa.gov
+when_to_use: >-
+  Use for property lost or damaged, or an injury, during TSA security screening, and for complaints
+  about screening or TSA staff. A bag the airline lost or delayed is the airline's claim, not TSA's.
+
+channels:
+  - id: claim-package
+    type: web_form
+    label: TSA claim package (SF-95 tort claim forms)
+    value: https://www.tsa.gov/sites/default/files/omb-approved-sf95cover_package.pdf
+    purposes: [damaged_baggage]
+    notes: >-
+      Printable PDF package. Sign the forms and send them by mail or fax as the package instructs.
+      A signature is required, so the claimant must complete it.
+    source: https://www.tsa.gov/travel/passenger-support/claims
+    last_verified: 2026-10-12
+  - id: claims-email
+    type: email
+    label: TSA Claims Office email
+    value: TSAClaimsOffice@tsa.dhs.gov
+    source: https://www.tsa.gov/travel/passenger-support/claims
+    last_verified: 2026-10-12
+  - id: claim-status
+    type: web_form
+    label: Check claim status
+    value: https://apps.tsa.dhs.gov/cmsstatus/
+    notes: Needs the control number from TSA's acknowledgment letter.
+    source: https://www.tsa.gov/travel/passenger-support/claims
+    last_verified: 2026-10-12
+  - id: complaint-form
+    type: web_form
+    label: TSA complaint form (screening, customer service, missing or damaged items, civil rights, TSA Cares, PreCheck)
+    value: https://www.tsa.gov/contact-center/form/complaints
+    purposes: [damaged_baggage, accessibility]
+    notes: The filer declares under penalty of perjury that the complaint is true, so the traveler must confirm it.
+    source: https://www.usa.gov/travel-complaints
+    last_verified: 2026-10-12
+  - id: contact-center
+    type: phone
+    label: TSA Contact Center
+    value: +1-866-289-9673
+    hours: Representatives 8 a.m. to 11 p.m. ET weekdays; 9 a.m. to 8 p.m. ET weekends and holidays. Automated information anytime.
+    source: https://www.tsa.gov/contact/customer-service
+    last_verified: 2026-10-12
+  - id: asktsa-text
+    type: sms
+    label: AskTSA by text (text "Travel" to 275-872)
+    value: "275872"
+    hours: Live assistance 8 a.m. to 6 p.m. ET
+    source: https://www.tsa.gov/contact/customer-service
+    last_verified: 2026-10-12
+  - id: tsa-cares
+    type: web_form
+    label: TSA Cares (request screening assistance)
+    value: https://www.tsa.gov/contact-center/form/cares
+    purposes: [accessibility]
+    notes: TSA Cares phone requests go to the TSA Contact Center number.
+    source: https://www.tsa.gov/travel/tsa-cares
+    last_verified: 2026-10-12
+
+facts:
+  - kind: deadline
+    claim: >-
+      Send the claim to TSA in writing, stating the circumstances and the exact amount you claim, within
+      two (2) years of the incident.
+    issues: [damaged_baggage]
+    source: https://www.tsa.gov/sites/default/files/omb-approved-sf95cover_package.pdf
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      The claim must include proof of the loss or damage and evidence of TSA negligence. If the airline
+      caused it, file with the airline instead.
+    issues: [damaged_baggage]
+    source: https://www.tsa.gov/sites/default/files/omb-approved-sf95cover_package.pdf
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      TSA sends an acknowledgment letter with a control number four to six weeks after submission. Allow
+      up to six months for the investigation; claims that need a law enforcement investigation can take
+      longer.
+    issues: [damaged_baggage]
+    source: https://www.tsa.gov/travel/passenger-support/claims
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      If TSA denies the claim or does not resolve it within six months of the date it was properly
+      presented, you may sue in U.S. District Court. The Federal Tort Claims Act governs the claim.
+    issues: [damaged_baggage]
+    source: https://www.tsa.gov/travel/passenger-support/claims
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      At some airports, private companies do the screening. Check TSA's External Claims list on the
+      claims page before filing.
+    source: https://www.tsa.gov/travel/passenger-support/claims
+    last_verified: 2026-10-12
+  - kind: process
+    claim: Claims are often denied when TSA officers did not open the bag for physical inspection.
+    issues: [damaged_baggage]
+    source: https://www.tsa.gov/travel/passenger-support/claims
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: A civil rights complaint must be filed within 180 days of the alleged discrimination.
+    source: https://www.tsa.gov/contact-center/form/complaints
+    last_verified: 2026-10-12
+
+notes: >-
+  Lost or missing checked baggage goes to the airline. Items left at a checkpoint: https://www.tsa.gov/contact/lost-and-found.
+  The claim package PDF was last modified 2025-05-16. TSA's claim mailing address and fax number are in
+  the PDF form images and were not extracted.

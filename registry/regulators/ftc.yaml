@@ -1,0 +1,82 @@
+id: ftc
+name: Federal Trade Commission
+short_name: FTC
+level: federal
+covers_sectors:
+  - subscription
+  - retail
+  - lodging
+  - travel_agency
+  - car_rental
+  - gig_delivery
+  - shipping
+  - fitness
+  - payments
+  - credit_bureau
+covers_issues: [fraud, unauthorized_charge, cancel_service]
+website: https://www.ftc.gov
+when_to_use: >-
+  Report fraud, scams, identity theft and unfair or deceptive business practices, such as a company
+  that blocks cancellation. The FTC does not resolve individual cases, so pursue your refund with the
+  company, your card issuer or a state agency at the same time.
+
+channels:
+  - id: reportfraud
+    type: web_form
+    label: ReportFraud.ftc.gov
+    value: https://reportfraud.ftc.gov/
+    purposes: [fraud, unauthorized_charge, cancel_service]
+    notes: For fraud, scams and bad business practices.
+    source: https://www.ftc.gov/contact
+    last_verified: 2026-10-12
+  - id: identitytheft
+    type: web_form
+    label: IdentityTheft.gov (identity theft report and recovery plan)
+    value: https://www.identitytheft.gov/
+    purposes: [fraud]
+    source: https://www.ftc.gov/contact
+    last_verified: 2026-10-12
+  - id: donotcall
+    type: web_form
+    label: National Do Not Call Registry (unwanted calls)
+    value: https://www.donotcall.gov/
+    source: https://www.ftc.gov/contact
+    last_verified: 2026-10-12
+  - id: consumer-response-center
+    type: phone
+    label: Consumer Response Center (1-877-FTC-HELP)
+    value: +1-877-382-4357
+    source: https://www.ftc.gov/contact
+    last_verified: 2026-10-12
+  - id: headquarters-mail
+    type: mail
+    label: FTC headquarters mailing address
+    value: Federal Trade Commission, 600 Pennsylvania Avenue, NW, Washington, DC 20580
+    notes: The contact page lists this headquarters address. Online reporting is the documented path for consumer reports.
+    source: https://www.ftc.gov/contact
+    last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: >-
+      The FTC and other agencies use reports to investigate and bring cases, but cannot resolve cases
+      for individuals.
+    source: https://consumer.ftc.gov/consumer-alerts/2023/04/reporting-fraud-101-protect-your-community-reporting-scams
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      Reports go into a secure national database that law enforcement can use. FTC investigators,
+      lawyers and analysts review reports to spot patterns and build cases.
+    source: https://consumer.ftc.gov/consumer-alerts/2026/08/did-you-spot-scam-heres-what-do-next
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      After you submit a report, the FTC gives you steps to protect yourself or try to get your money
+      back.
+    source: https://consumer.ftc.gov/consumer-alerts/2023/04/reporting-fraud-101-protect-your-community-reporting-scams
+    last_verified: 2026-10-12
+
+notes: >-
+  The FTC collects reports; it does not mediate. A report number is still useful evidence for a card
+  dispute or a state attorney general complaint. ReportFraud.ftc.gov was still the reporting path in an
+  FTC consumer alert dated 2026-08-28.

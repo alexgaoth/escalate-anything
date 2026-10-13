@@ -1,0 +1,46 @@
+id: dot-delay-compensation-proposal
+title: DOT proposal to require cash compensation for controllable delays and cancellations (withdrawn)
+citation: 89 FR 99760 (December 11, 2024), ANPRM "Airline Passenger Rights", docket DOT-OST-2024-0062, RIN 2105-AF20; withdrawn 90 FR 51230 (November 17, 2025)
+jurisdiction: us-federal
+status: withdrawn
+applies_to:
+  sectors: [airline]
+  issues: [flight_cancellation, flight_delay]
+summary: >-
+  In December 2024 DOT published an advance notice of proposed rulemaking (not a proposed rule) asking whether
+  to require airlines to pay cash compensation and provide meals, hotels and free rebooking for controllable
+  delays and cancellations. DOT withdrew it on November 17, 2025. No federal rule requires airlines to pay cash
+  compensation for delays or cancellations. Do not cite the dollar amounts from the 2024 notice as a right.
+points:
+  - kind: policy
+    claim: >-
+      DOT withdrew the December 11, 2024 advance notice of proposed rulemaking on Airline Passenger Rights,
+      effective November 17, 2025. DOT said section 512 of the FAA Reauthorization Act of 2024 does not
+      authorize it to require compensation, and that airlines' voluntary commitments make a rule unnecessary.
+    issues: [flight_cancellation, flight_delay]
+    source: https://www.federalregister.gov/documents/2025/11/17/2025-20042/airline-passenger-rights-withdrawal
+    last_verified: 2026-10-12
+  - kind: compensation
+    claim: >-
+      For history only (never adopted): the 2024 notice asked for comment on two options for controllable
+      disruptions measured by arrival delay at the final stop. Option 1: $300 (domestic, 3 to under 6 hours),
+      $525 (6 to under 9 hours) and $750 (9 hours or more). Option 2: $200, $375 and $775 for the same bands.
+    issues: [flight_cancellation, flight_delay]
+    source: https://www.federalregister.gov/documents/2024/12/11/2024-28930/airline-passenger-rights
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The 2024 notice also asked whether to require free rebooking, meals, overnight lodging and transportation
+      to lodging, and free rebooking for passengers with disabilities when a needed accessibility feature is
+      unavailable. None of these became a requirement through this proceeding.
+    issues: [flight_cancellation, flight_delay, accessibility]
+    source: https://www.federalregister.gov/documents/2024/12/11/2024-28930/airline-passenger-rights
+    last_verified: 2026-10-12
+status_note: >-
+  Withdrawn on November 17, 2025 (90 FR 51230, FR Doc. 2025-20042). The 2024 document was an ANPRM with
+  comments due February 10, 2025; it never reached a proposed or final rule. What remains: airlines' voluntary
+  customer service plan commitments (rules/dot-airline-commitments), refund rights when a flight is cancelled
+  or significantly changed (rules/dot-refunds-rule), and the Montreal Convention delay liability for
+  international trips (rules/montreal-convention-baggage).
+source: https://www.federalregister.gov/documents/2025/11/17/2025-20042/airline-passenger-rights-withdrawal
+last_verified: 2026-10-12

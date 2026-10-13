@@ -1,0 +1,85 @@
+id: no-surprises-act
+title: No Surprises Act (surprise billing protections and good faith estimates)
+citation: 45 CFR part 149 (including 149.420 and 149.610)
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  sectors: [insurance_health]
+  issues: [surprise_medical_bill, billing_error]
+summary: >-
+  Protects patients from out-of-network surprise bills for emergency care, for non-emergency care by
+  out-of-network providers at in-network hospitals and surgery centers, and for air ambulance services.
+  People who are uninsured or not using insurance get a good faith estimate and can dispute a bill that is
+  at least $400 over the estimate.
+points:
+  - kind: limit
+    claim: >-
+      For emergency services, "you can't be charged any more for emergency medical services than the
+      in-network 'cost-sharing' rate". This covers the hospital, the providers who treat you there, and air
+      ambulance providers.
+    issues: [surprise_medical_bill]
+    source: https://www.cms.gov/initiatives/your-patient-rights/medical-bill-rights/know-your-rights/insurance
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The protections cover non-emergency care related to a visit to an in-network hospital, hospital
+      outpatient department or ambulatory surgical center, and air ambulance services. Ground ambulance
+      services generally are not covered by the No Surprises Act billing protections.
+    issues: [surprise_medical_bill]
+    source: https://www.cms.gov/medical-bill-rights/know-your-rights
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      A patient gives up the protections for non-emergency care only by signing a notice-and-consent form.
+      Providers of ancillary services cannot use that form: emergency medicine, anesthesiology, pathology,
+      radiology and neonatology; assistant surgeons, hospitalists and intensivists; diagnostic services
+      including radiology and laboratory; and any out-of-network provider when no in-network provider is
+      available at the facility.
+    issues: [surprise_medical_bill]
+    source: https://www.law.cornell.edu/cfr/text/45/149.420
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      A notice-and-consent form for services scheduled at least 72 hours in advance must be given not later
+      than 72 hours before the services. For services scheduled within 72 hours, it must be given on the day
+      of scheduling, and no later than 3 hours before the services if given on the same day.
+    issues: [surprise_medical_bill]
+    source: https://www.law.cornell.edu/cfr/text/45/149.420
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      Uninsured or self-pay patients must get a written good faith estimate: not later than 1 business day
+      after scheduling when care is scheduled at least 3 business days ahead; not later than 3 business days
+      after scheduling when scheduled at least 10 business days ahead; and not later than 3 business days
+      after a request.
+    issues: [surprise_medical_bill, billing_error]
+    source: https://www.law.cornell.edu/cfr/text/45/149.610
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      Patient-provider dispute resolution is available when the provider charged "$400 or more" than its
+      good faith estimate, for care on or after January 1, 2022, with an initial bill dated within the last
+      120 calendar days. The patient pays a "$25 non-refundable administrative fee".
+    issues: [surprise_medical_bill, billing_error]
+    source: https://www.cms.gov/medical-bill-rights/help/dispute-a-bill
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      While a patient-provider dispute is in progress, the provider or facility may not move the bill to
+      collections or threaten to, and must stop pursuing payment of a bill already in collections until the
+      dispute is resolved.
+    issues: [surprise_medical_bill, billing_error]
+    source: https://www.cms.gov/medical-bill-rights/help/dispute-a-bill
+    last_verified: 2026-10-12
+  - kind: contact
+    claim: >-
+      No Surprises Help Desk: 1-800-985-3059, weekdays 8:00 am to 8:00 pm ET and weekends 10:00 am to 6:00 pm
+      ET. Complaints can also be filed online through CMS.
+    issues: [surprise_medical_bill]
+    source: https://www.cms.gov/medical-bill-rights/help
+    last_verified: 2026-10-12
+source: https://www.cms.gov/initiatives/your-patient-rights/medical-bill-rights
+last_verified: 2026-10-12
+status_note: >-
+  In force for patients. This entry covers patient protections only. It does not cover the separate
+  independent dispute resolution process between providers and health plans.

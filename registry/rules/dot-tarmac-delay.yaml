@@ -1,0 +1,75 @@
+id: dot-tarmac-delay
+title: DOT tarmac delay limits
+citation: 14 CFR 259.4 (86 FR 23270, May 3, 2021)
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  sectors: [airline]
+  issues: [flight_delay]
+summary: >-
+  At a U.S. airport, passengers stuck on a plane on the ground must be given the chance to get off before the
+  tarmac delay exceeds three hours (domestic flights) or four hours (international flights), unless a safety,
+  security or air traffic control exception applies. Food and water are due within two hours, and working
+  lavatories and medical attention must be available.
+points:
+  - kind: limit
+    claim: >-
+      For domestic flights, each covered U.S. carrier must give passengers on a flight in a tarmac delay at a
+      U.S. airport the opportunity to deplane before the tarmac delay exceeds three hours.
+    issues: [flight_delay]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-259/section-259.4
+    last_verified: 2026-10-12
+  - kind: limit
+    claim: >-
+      For international flights, each covered carrier (U.S. or foreign) must give passengers on a flight in a
+      tarmac delay at a U.S. airport the opportunity to deplane before the tarmac delay exceeds four hours.
+    issues: [flight_delay]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-259/section-259.4
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The limits do not apply if a departing flight begins returning to a suitable disembarkation point within
+      the time limit, if the pilot-in-command determines that deplaning would jeopardize passenger safety or
+      security, or if air traffic control advises that returning to deplane would significantly disrupt airport
+      operations.
+    issues: [flight_delay]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-259/section-259.4
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      During a tarmac delay, the carrier must provide adequate food and potable water no later than two hours
+      after the start of the tarmac delay, unless the pilot-in-command determines that safety or security
+      considerations preclude it. It must also ensure operable lavatories and adequate medical attention if
+      needed.
+    issues: [flight_delay]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-259/section-259.4
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      The carrier must tell passengers the status of the delay when the tarmac delay exceeds 30 minutes, and
+      must tell them in time whenever there is an opportunity to deplane.
+    issues: [flight_delay]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-259/section-259.4
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      A tarmac delay is the period when an aircraft is on the ground with passengers and the passengers have no
+      opportunity to deplane.
+    issues: [flight_delay]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-259/section-259.3
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      The operating carrier must file a report with DOT's Office of Aviation Consumer Protection within 30 days
+      of any tarmac delay that exceeds three hours (domestic) or four hours (international). Failure to follow
+      the contingency plan is an unfair and deceptive practice subject to DOT enforcement.
+    issues: [flight_delay]
+    source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-259/section-259.4
+    last_verified: 2026-10-12
+status_note: >-
+  In force. Current text of 14 CFR 259.4 is from the final rule at 86 FR 23270 (May 3, 2021). It applies to
+  covered carriers that operate scheduled passenger or public charter service with aircraft designed for 30 or
+  more seats (14 CFR 259.2, 259.3), at U.S. large, medium, small and non-hub airports. The eCFR source line for
+  259.4 shows no amendment after May 3, 2021.
+source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-259/section-259.4
+last_verified: 2026-10-12

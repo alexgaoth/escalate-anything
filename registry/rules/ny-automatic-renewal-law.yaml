@@ -1,0 +1,67 @@
+id: ny-automatic-renewal-law
+title: New York Automatic Renewal Law
+citation: N.Y. Gen. Bus. Law § 527-a
+jurisdiction: ny
+status: in_effect
+applies_to:
+  issues: [cancel_service, bill_increase, unauthorized_charge]
+summary: >-
+  Businesses that make automatic renewal or continuous service offers to New York consumers must present
+  the material terms clearly, get affirmative consent before charging, send an acknowledgment that explains
+  how to cancel, and offer cancellation that is as easy as signing up and available through every medium
+  used to sign up. Notice is required before material changes, before trials convert and before long-term
+  renewals.
+points:
+  - kind: policy
+    claim: >-
+      A business may not charge for an automatic renewal or continuous service "without first obtaining the
+      consumer's affirmative consent to the agreement", and must present the material terms in a clear and
+      conspicuous manner before the subscription is fulfilled.
+    issues: [unauthorized_charge, cancel_service]
+    source: https://www.nysenate.gov/legislation/laws/GBS/527-A
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The business must offer a cancellation mechanism "as easy to use as the mechanism that the consumer used
+      to provide consent", through the same medium, and must allow cancellation through all mediums by which
+      it lets a consumer give consent. If consent was given in person, it must, where practical, also offer
+      cancellation online or by telephone.
+    issues: [cancel_service]
+    source: https://www.nysenate.gov/legislation/laws/GBS/527-A
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      The business may not impose unreasonable or unlawful conditions on cancellation, refuse to acknowledge
+      it, obstruct it or unreasonably delay it. It may present a discounted or retention offer, but may not
+      use it to block or delay the cancellation.
+    issues: [cancel_service]
+    source: https://www.nysenate.gov/legislation/laws/GBS/527-A
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      Notice of a material change, including a price increase, must be clear and conspicuous and given at
+      least five business days and no more than thirty days before the change.
+    issues: [bill_increase]
+    source: https://www.nysenate.gov/legislation/laws/GBS/527-A
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      For a free gift or trial lasting more than a month followed by a charge, the business must notify the
+      consumer at least three days and no more than twenty-one days before the cancellation deadline, with
+      cancellation instructions. For an initial paid term of one year or longer that renews for six months or
+      more, notice is due 15 to 45 days before the cancellation deadline.
+    issues: [cancel_service, bill_increase]
+    source: https://www.nysenate.gov/legislation/laws/GBS/527-A
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Goods sent under an automatic renewal or continuous service without the consumer's affirmative consent
+      "shall for all purposes be deemed an unconditional gift to the consumer".
+    issues: [unauthorized_charge]
+    source: https://www.nysenate.gov/legislation/laws/GBS/527-A
+    last_verified: 2026-10-12
+source: https://www.nysenate.gov/legislation/laws/GBS/527-A
+last_verified: 2026-10-12
+status_note: >-
+  In force. The official New York State Senate laws site shows the current text with revisions dated
+  2025-05-16 and 2025-11-07. The page does not give effective dates for those revisions.

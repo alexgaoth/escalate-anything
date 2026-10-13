@@ -1,0 +1,42 @@
+id: cfpb-late-fee-rule
+title: CFPB Credit Card Penalty Fees Rule ($8 late fee safe harbor, 2024)
+citation: 89 FR 19128 (March 15, 2024) (Regulation Z, 12 CFR 1026.52(b))
+jurisdiction: us-federal
+status: vacated
+applies_to:
+  sectors: [bank]
+  issues: [fee_reversal]
+summary: >-
+  The CFPB's 2024 rule would have set an $8 late fee safe harbor for card issuers that, with their
+  affiliates, have one million or more open credit card accounts. It never took effect: a court stayed it in
+  2024 and vacated it on April 15, 2025. Do not cite an $8 late fee cap.
+points:
+  - kind: fee
+    claim: >-
+      The 2024 rule (issued March 5, 2024; scheduled effective date May 14, 2024) would have set an $8 late
+      fee safe harbor for issuers with one million or more open credit card accounts. It is not in force.
+    issues: [fee_reversal]
+    source: https://www.consumerfinance.gov/rules-policy/final-rules/credit-card-penalty-fees-final-rule/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      On April 15, 2025 the U.S. District Court for the Northern District of Texas vacated the rule after
+      the CFPB settled the lawsuit by the U.S. Chamber of Commerce, the American Bankers Association and
+      others, and asked the court to vacate it.
+    issues: [fee_reversal]
+    source: https://bankingjournal.aba.com/2025/04/court-vacates-cfpb-credit-card-late-fee-rule/
+    last_verified: 2026-10-12
+  - kind: limit
+    claim: >-
+      The current Regulation Z penalty fee section (12 CFR 1026.52(b)) on the CFPB site has no $8 amount.
+      Late fees remain governed by the pre-2024 penalty fee rules in 1026.52(b).
+    issues: [fee_reversal]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1026/52/
+    last_verified: 2026-10-12
+source: https://www.consumerfinance.gov/rules-policy/final-rules/credit-card-penalty-fees-final-rule/
+last_verified: 2026-10-12
+status_note: >-
+  Stayed by the N.D. Texas court in May 2024 (Chamber of Commerce v. CFPB, No. 4:24-cv-00213) and vacated by
+  that court on April 15, 2025 at the CFPB's request after a settlement. The CFPB rule page (last modified
+  June 3, 2024) still says only "stayed"; the vacatur date comes from an April 15, 2025 American Bankers
+  Association report, a plaintiff in the case. The current Regulation Z text has no $8 safe harbor.

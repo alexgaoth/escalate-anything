@@ -1,0 +1,93 @@
+id: fcra-dispute
+title: Fair Credit Reporting Act dispute rights (credit bureaus and furnishers)
+citation: 15 U.S.C. 1681i; 15 U.S.C. 1681j(a)(3); 12 CFR 1022.43 (Regulation V)
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  sectors: [credit_bureau, bank, credit_union, student_loan]
+  issues: [credit_report_error, debt_collection]
+summary: >-
+  A consumer can dispute inaccurate or incomplete information with a credit bureau, which must reinvestigate
+  free of charge within 30 days (up to 15 more days in some cases), notify the furnisher within 5 business
+  days, and delete or correct information that is inaccurate, incomplete or cannot be verified. A consumer
+  can also dispute certain information directly with the company that furnished it.
+points:
+  - kind: deadline
+    claim: >-
+      The credit bureau must reinvestigate free of charge and finish "before the end of the 30-day period
+      beginning on the date on which the agency receives the notice" of the dispute.
+    issues: [credit_report_error]
+    source: https://www.govinfo.gov/content/pkg/USCODE-2023-title15/html/USCODE-2023-title15-chap41-subchapIII-sec1681i.htm
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      The 30-day period may be extended "for not more than 15 additional days" if the bureau receives
+      relevant information from the consumer during the 30 days. The extension does not apply if, during
+      the 30 days, the information is found inaccurate or incomplete or the bureau finds it cannot be
+      verified.
+    issues: [credit_report_error]
+    source: https://www.govinfo.gov/content/pkg/USCODE-2023-title15/html/USCODE-2023-title15-chap41-subchapIII-sec1681i.htm
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      A reinvestigation requested after the consumer receives a free annual report from a nationwide bureau
+      "shall be completed not later than 45 days after the date on which the request is received".
+    issues: [credit_report_error]
+    source: https://www.law.cornell.edu/uscode/text/15/1681j
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      The bureau must notify the furnisher of the dispute within 5 business days after receiving it, and
+      must give the consumer written notice of the results not later than 5 business days after completing
+      the reinvestigation. If it ends a dispute as frivolous or irrelevant, it must tell the consumer not
+      later than 5 business days after that determination.
+    issues: [credit_report_error]
+    source: https://www.law.cornell.edu/uscode/text/15/1681i
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      Information found inaccurate or incomplete, or that cannot be verified, must be promptly deleted or
+      modified. Deleted information cannot be put back unless the furnisher certifies it is complete and
+      accurate, and the consumer must be told in writing within 5 business days of reinsertion.
+    issues: [credit_report_error]
+    source: https://www.law.cornell.edu/uscode/text/15/1681i
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      If the reinvestigation does not resolve the dispute, the consumer may file a brief statement of the
+      dispute. The bureau may limit it to one hundred words if it helps the consumer write a clear summary.
+      On request, the bureau must send notice of a deletion or correction to recipients who got the report
+      for employment purposes within the past two years, or for any other purpose within the past six months.
+    issues: [credit_report_error]
+    source: https://www.law.cornell.edu/uscode/text/15/1681i
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      Direct disputes with a furnisher (Regulation V): a furnisher must reasonably investigate a direct
+      dispute about the consumer's liability on an account, the account terms, the consumer's conduct on the
+      account, or other information bearing on creditworthiness. The dispute must go to the furnisher's
+      direct-dispute address (an address on the credit report, an address the furnisher specified, or any
+      business address if none was specified), identify the account and the disputed information, explain
+      the basis, and include supporting documents.
+    issues: [credit_report_error]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1022/43/
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: >-
+      The furnisher must complete its investigation of a direct dispute and report the results to the
+      consumer within the same period a credit bureau has under FCRA section 611(a)(1). If it finds the
+      information inaccurate, it must promptly notify each bureau it reported to and correct it.
+    issues: [credit_report_error]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1022/43/
+    last_verified: 2026-10-12
+  - kind: limit
+    claim: >-
+      A furnisher need not investigate direct disputes about identifying information (name, date of birth,
+      Social Security number), employers, inquiries, public records, or fraud and active-duty alerts, or
+      disputes it reasonably believes come from a credit repair organization. If it finds a dispute
+      frivolous or irrelevant, it must tell the consumer within five business days, with its reasons.
+    issues: [credit_report_error]
+    source: https://www.consumerfinance.gov/rules-policy/regulations/1022/43/
+    last_verified: 2026-10-12
+source: https://www.law.cornell.edu/uscode/text/15/1681i
+last_verified: 2026-10-12
