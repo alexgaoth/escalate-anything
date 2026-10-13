@@ -1,0 +1,265 @@
+id: stubhub
+name: StubHub
+aliases: [stubhub inc, stubhub holdings, stubhub.com, fanprotect]
+sector: ticketing
+parent: StubHub Holdings, Inc.
+website: https://www.stubhub.com
+account_url: https://my.stubhub.com/profile
+regulators: [ftc]
+
+channels:
+  - id: contact-customer-service
+    type: chat
+    label: Contact customer service (help center page with chat, email and phone options)
+    value: https://support.stubhub.com/articles/61000309339-contact-customer-service
+    purposes: [event_cancelled, refund_request, billing_error, unauthorized_charge, account_access]
+    notes: >-
+      Seen only as a search result: the page loads only with JavaScript and did not render for this check. Its snippet
+      says customers can contact StubHub by chat, email or phone; no phone number was visible, so none is recorded here.
+      StubHub's newsroom (May 21, 2026) says live chat is in the StubHub app or website and phone support is through the
+      contact options in the account Help section; its August 31, 2026 post says Customer Care is available 24/7. Have the
+      order number ready.
+    source: https://support.stubhub.com/articles/61000309339-contact-customer-service
+    last_verified: 2026-10-13
+  - id: help-center
+    type: portal
+    label: StubHub Support help center
+    value: https://support.stubhub.com/
+    purposes: [event_cancelled, refund_request, billing_error]
+    access: open
+    notes: >-
+      JavaScript-only pages. The article "Postponed, rescheduled, or canceled events"
+      (https://support.stubhub.com/articles/61000276300-postponed-rescheduled-or-canceled-events) explains credits and
+      cash refunds for cancelled events; its text was seen only as a search-result snippet.
+    source: https://support.stubhub.com/
+    last_verified: 2026-10-13
+  - id: my-tickets
+    type: portal
+    label: My Tickets (order status, cancelled-event updates)
+    value: https://my.stubhub.com/profile
+    purposes: [event_cancelled, refund_request]
+    access: login
+    notes: StubHub's newsroom says to check My Tickets for an updated status on an affected event. StubHub Wallet (credits and the "Request cash refund" option) is also inside the signed-in account.
+    source: https://newsroom.stubhub.com/2026/05/21/what-to-do-if-your-event-gets-cancelled-a-buyers-guide/
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: contact-customer-service}
+  - {rung: written_complaint, channel: contact-customer-service, note: "Use the email option and quote the order number and the FanProtect Guarantee terms."}
+  - {rung: payment_dispute, note: "Card dispute for a cancelled event that was not refunded (rule fcba-billing-error)."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Several attorneys general have acted on StubHub refunds and fees (DC, California, Pennsylvania and a 2021 multistate group)."}
+
+playbooks:
+  - issue: event_cancelled
+    summary: >-
+      For an event cancelled and not rescheduled, FanProtect promises a refund. StubHub's terms let it choose a full refund
+      (including fees) or a credit, and a credit can be turned into a cash refund from StubHub Wallet. Postponed or
+      rescheduled events are not refunded; the tickets stay valid for the new date.
+    evidence: [order number, StubHub cancellation email, the organizer's cancellation notice, total paid including fees, any credit shown in StubHub Wallet]
+    steps:
+      - do: Confirm that the organizer cancelled the event with no new date. If the event is postponed or rescheduled, the tickets stay valid and StubHub does not refund them; resell them if you cannot go.
+      - do: Check the event status in My Tickets.
+        channel: my-tickets
+      - do: If StubHub gave you a credit and you want money, open StubHub Wallet and select "Request cash refund" on that credit.
+        channel: my-tickets
+      - do: If nothing arrives within 5–10 business days after the cancellation is confirmed (StubHub's typical processing time), contact customer service with the order number and ask for a refund of the full amount, including fees.
+        channel: contact-customer-service
+      - do: If StubHub refuses a refund for an event that was cancelled and not rescheduled, dispute the charge with the card issuer within the deadline in rule fcba-billing-error.
+      - do: Report the refusal to the FTC and to your state attorney general.
+        regulator: ftc
+    facts:
+      - kind: policy
+        claim: StubHub's FanProtect explainer (July 29, 2026) says that if an event is officially canceled and isn't rescheduled, you're entitled to a refund, and that if an event is postponed or rescheduled, your tickets stay valid for the new date.
+        issues: [event_cancelled]
+        source: https://newsroom.stubhub.com/2026/07/29/fanprotect-guarantee-explained/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          Seen only as a search-result snippet (the page needs JavaScript): the FanProtect Guarantee terms say that for a
+          cancelled event StubHub will provide a full refund of the full amount you paid on the site (including any fees
+          and shipping/handling charges) or credit for use on a future purchase, as determined in its sole discretion,
+          unless a refund is required by law.
+        issues: [event_cancelled]
+        source: https://my.stubhub.com/legal?section=fp
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          Seen only as a search-result snippet: the FanProtect Guarantee terms say that, except when replacement tickets
+          are required, StubHub does not provide refunds for postponed or rescheduled events, partial performances, or
+          venue, date, lineup or time changes.
+        issues: [event_cancelled]
+        source: https://my.stubhub.com/legal?section=fp
+        last_verified: 2026-10-13
+      - kind: process
+        claim: >-
+          Seen only as a search-result snippet: StubHub's help article on canceled events says that to receive a cash
+          refund you go to StubHub Wallet and select "Request cash refund" on the appropriate credit, and StubHub issues the
+          refund to the original payment method within 10 business days.
+        issues: [event_cancelled, refund_request]
+        source: https://support.stubhub.com/articles/61000276300-postponed-rescheduled-or-canceled-events
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: StubHub's buyer guide (May 21, 2026) says that for an officially cancelled event with no rescheduled date you receive a full refund, including all fees, to the original payment method or as StubHub credit, depending on your preference and the policy for your order, and that StubHub typically processes refunds within 5–10 business days once the cancellation is confirmed.
+        issues: [event_cancelled]
+        source: https://newsroom.stubhub.com/2026/05/21/what-to-do-if-your-event-gets-cancelled-a-buyers-guide/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          The California Attorney General (August 22, 2024) says StubHub changed its policy in late March 2020 so that buyers
+          of cancelled events received 120% credit for future StubHub purchases instead of a full refund, including buyers
+          who bought under the original guarantee. StubHub reversed course in May 2021. The settlement memorializes
+          $20 million in cash refunds to more than 45,000 California consumers, a $295,000 penalty, and bars StubHub from
+          failing to honor its existing refund policy unless it is modified with the consumer's informed consent.
+        issues: [event_cancelled, refund_request]
+        source: https://oag.ca.gov/news/press-releases/attorney-general-bonta-announces-settlement-stubhub-over-ticket-refunds-during
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          The DC Attorney General's multistate settlement (September 14, 2021, with Arizona, Arkansas, Colorado, Indiana,
+          Maryland, Minnesota, New Hampshire, Ohio, Virginia and Wisconsin) requires StubHub to disclose refund policy changes
+          clearly before consumers agree to them, honor its policies when events are cancelled, and promptly process refund
+          requests. It covered tickets bought before March 25, 2020.
+        issues: [event_cancelled]
+        source: https://oag.dc.gov/release/ag-racine-announces-settlement-stubhub-over
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: FanProtect promises valid tickets in time for the event, or comparable replacement tickets or your money back. Report a ticket problem the same day.
+    evidence: [order number, screenshots of the ticket error or transfer, written or photo proof of denied entry, timeline]
+    steps:
+      - do: Document the problem on the spot, for example a photo of the gate message or a screenshot of the ticket error.
+      - do: Contact StubHub as soon as possible, ideally the same day, and ask for comparable tickets or a refund under FanProtect.
+        channel: contact-customer-service
+      - do: If StubHub provides neither, dispute the charge with the card issuer (rule fcba-billing-error).
+      - do: Report the problem to the FTC.
+        regulator: ftc
+    facts:
+      - kind: policy
+        claim: StubHub's FanProtect explainer (July 29, 2026) says your tickets will arrive in time for the event and be authentic and valid for entry, and that if there's a problem you'll receive comparable tickets or your money back.
+        issues: [refund_request]
+        source: https://newsroom.stubhub.com/2026/07/29/fanprotect-guarantee-explained/
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: StubHub's guide to ticket guarantees (August 20, 2026) gives no formal claim deadline but says to document the problem on the spot and contact StubHub as soon as possible, ideally the same day. It lists a postponed or rescheduled event among situations guarantees generally aren't designed to cover.
+        issues: [refund_request, event_cancelled]
+        source: https://newsroom.stubhub.com/2026/08/20/understanding-ticket-guarantees-what-every-fan-should-know/
+        last_verified: 2026-10-13
+
+  - issue: billing_error
+    summary: >-
+      Since May 12, 2025 the FTC fee rule (rule ftc-junk-fees-rule) requires StubHub to show the total ticket price,
+      including mandatory fees, up front. The FTC settled with StubHub in April 2026 over fees left out of early price
+      displays; the DC Attorney General's 2024 drip-pricing lawsuit is still pending.
+    evidence: [screenshots of the listed price and the checkout total, order confirmation, card statement]
+    steps:
+      - do: Compare the total price shown when you chose the tickets with the amount charged. Save screenshots.
+      - do: Ask StubHub to refund any amount above the total price it showed.
+        channel: contact-customer-service
+      - do: If you bought live-event tickets in the U.S. between May 12 and 14, 2025, StubHub refunds certain fees automatically under the FTC settlement; look for StubHub's email and check any contact in it against stubhub.com before you use it.
+      - do: If StubHub does not correct a charge above the agreed total, send a billing-error dispute to the card issuer (rule fcba-billing-error).
+      - do: Report hidden or misrepresented fees to the FTC. District of Columbia and Pennsylvania residents can also complain to their attorney general, who has sued StubHub over its fees.
+        regulator: ftc
+    facts:
+      - kind: policy
+        claim: >-
+          On April 9, 2026 the FTC announced that StubHub will pay $10 million to settle charges that it violated the FTC Act
+          and the Rule on Unfair or Deceptive Fees by advertising ticket prices, including high-demand NFL tickets around
+          May 14, 2025, without the total price in its first pricing displays. The order bars StubHub from misrepresenting
+          the total price or any fee and requires it to show the total price clearly and conspicuously.
+        issues: [billing_error]
+        source: https://www.ftc.gov/news-events/news/press-releases/2026/04/stubhub-refunding-10-million-fees-consumers-after-deceptive-ticket-pricing
+        last_verified: 2026-10-13
+      - kind: compensation
+        claim: >-
+          The FTC says consumers who bought tickets for live events in the U.S. between May 12 and 14, 2025 do not need to
+          take action: StubHub will automatically refund certain fees to eligible consumers within 90 days, and eligible
+          customers will get an email from StubHub with a phone number and website.
+        issues: [billing_error]
+        source: https://consumer.ftc.gov/consumer-alerts/2026/04/did-you-buy-tickets-stubhub-between-may-12-14-last-year
+        last_verified: 2026-10-13
+      - kind: process
+        claim: The FTC case page lists FTC v. StubHub Holdings, Inc., No. 1:26-cv-02924 (S.D.N.Y.), status Under Order; the stipulated order was entered April 10, 2026.
+        issues: [billing_error]
+        source: https://www.ftc.gov/legal-library/browse/cases-proceedings/252-3117-stubhub-holdings-ftc-v
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          The DC Attorney General sued StubHub on July 31, 2024 for drip pricing: advertising a low price and adding
+          mandatory "fulfillment and service" fees late in checkout. The office estimates about $118 million in hidden fees
+          on nearly 5 million tickets sold to District consumers since 2015 and seeks restitution and penalties.
+        issues: [billing_error]
+        source: https://oag.dc.gov/release/attorney-general-schwalb-sues-stubhub-deceptive
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          StubHub's quarterly report for the period ended June 30, 2026 says the DC complaint was served on August 1, 2024,
+          the matter is ongoing, and StubHub accrued a liability of $8.0 million for it. It also says the Monroe County
+          (Pennsylvania) District Attorney's complaint about its all-in pricing feature survived a motion to dismiss on
+          January 20, 2026, the Pennsylvania Attorney General joined with its own complaint, and on May 5, 2026 that office
+          proposed a settlement with injunctive relief and restitution.
+        issues: [billing_error]
+        source: https://www.sec.gov/Archives/edgar/data/0001337634/000162828026056402/stub-20260630.htm
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: Secure the StubHub account, tell StubHub about the charge, and report it to the card issuer quickly.
+    evidence: [card statement with the charge, StubHub order number if any, the suspicious message if you clicked a link]
+    steps:
+      - do: If you clicked a link in a suspicious email or text, change the password on your real StubHub account at once. Sign in only by typing stubhub.com or using the StubHub app.
+      - do: Report the charge to StubHub customer service and ask for the order to be cancelled and refunded.
+        channel: contact-customer-service
+      - do: Report the charge to the card issuer at once (rules tila-unauthorized-card-liability and fcba-billing-error).
+      - do: If it is fraud, report it at ReportFraud.ftc.gov.
+        regulator: ftc
+    facts:
+      - kind: policy
+        claim: StubHub's safety guide (August 31, 2026) says U.S. credit card holders have recourse against fraudulent or unauthorized charges, that peer-to-peer payment apps generally aren't designed to reverse a transaction once it's sent, and that if you clicked a phishing link you should update the password on the real account immediately.
+        issues: [unauthorized_charge]
+        source: https://newsroom.stubhub.com/2026/08/31/7-ways-to-protect-yourself-when-buying-tickets-online/
+        last_verified: 2026-10-13
+
+facts:
+  - kind: policy
+    claim: StubHub's quarterly report for the period ended June 30, 2026 records $102.4 million of refund liabilities for canceled events. Its revenue policy describes cancellations that "require a refund to the buyer for the total amount of their ticket purchase, inclusive of transaction fees".
+    issues: [event_cancelled]
+    source: https://www.sec.gov/Archives/edgar/data/0001337634/000162828026056402/stub-20260630.htm
+    last_verified: 2026-10-13
+
+tips:
+  - kind: official
+    text: For a problem at the event, document it on the spot (a photo or screenshot) and contact StubHub as soon as possible, ideally the same day.
+    issues: [refund_request]
+    source: https://newsroom.stubhub.com/2026/08/20/understanding-ticket-guarantees-what-every-fan-should-know/
+    last_verified: 2026-10-13
+  - kind: official
+    text: A credit card gives more recourse than a peer-to-peer payment app if a ticket purchase goes wrong.
+    issues: [unauthorized_charge, refund_request]
+    source: https://newsroom.stubhub.com/2026/08/31/7-ways-to-protect-yourself-when-buying-tickets-online/
+    last_verified: 2026-10-13
+
+known_blockers:
+  - StubHub's help center (support.stubhub.com) and legal pages (stubhub.com/legal) render only with JavaScript; a plain HTTP fetch returns an empty page.
+  - My Tickets, StubHub Wallet (credit and "Request cash refund") and the phone contact option are inside the signed-in account.
+  - StubHub routes chat through the app or website; there is no published standalone complaint email or phone number on the pages that loaded.
+
+notes: >-
+  Checked 2026-10-13. StubHub's help center and FanProtect legal page did not render for automated fetching, so the
+  FanProtect terms and the help article on canceled events are recorded from search-result snippets and marked as such.
+  StubHub newsroom posts (May–August 2026) loaded and are used for current policy. The 2021 DC Attorney General release
+  lists a StubHub phone number, but no current StubHub page that loaded showed it, so it is not recorded. A search
+  snippet of StubHub's SMS terms says to text HELP to 788242 for help with StubHub texts (not confirmed on a loaded page).
+  StubHub became a public company (StubHub Holdings, Inc.) and files reports with the SEC.
+
+official_domains: [stubhub.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: StubHub says that on StubHub you'll never be asked to send money through a peer-to-peer app or wire cash directly.
+      source: https://newsroom.stubhub.com/2026/08/31/7-ways-to-protect-yourself-when-buying-tickets-online/
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: StubHub warns of phishing emails and texts that ask you to "verify your account" or "confirm a purchase", and of look-alike web addresses with a subtle typo or an extra word in the URL. Do not buy through links in unsolicited emails or texts.
+      source: https://newsroom.stubhub.com/2026/08/31/7-ways-to-protect-yourself-when-buying-tickets-online/
+      last_verified: 2026-10-13

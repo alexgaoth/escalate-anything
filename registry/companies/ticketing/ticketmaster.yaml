@@ -1,0 +1,307 @@
+id: ticketmaster
+name: Ticketmaster
+aliases: [ticketmaster llc, ticketmaster.com, live nation ticketmaster]
+sector: ticketing
+parent: Live Nation Entertainment
+website: https://www.ticketmaster.com
+account_url: https://my.ticketmaster.com/account
+regulators: [ftc]
+
+channels:
+  - id: fan-support-phone
+    type: phone
+    label: Ticketmaster Fan Support (customer service)
+    value: +1-800-653-8000
+    hours: Mon–Fri 9 a.m.–11:30 p.m., Sat 9 a.m.–10 p.m., Sun 9 a.m.–9 p.m. (the page says EST)
+    purposes: [event_cancelled, refund_request, billing_error, unauthorized_charge, account_access]
+    notes: Listed on the "How to get help or contact us" page as "Call Us At 1-800-653-8000".
+    source: https://help.ticketmaster.com/hc/en-us/articles/9605825450129-How-to-get-help-or-contact-us
+    last_verified: 2026-10-13
+  - id: chat-my-tickets
+    type: chat
+    label: Chat with Fan Support from the order in My Tickets
+    value: https://help.ticketmaster.com/hc/en-us/articles/9605825450129-How-to-get-help-or-contact-us
+    purposes: [event_cancelled, refund_request, billing_error]
+    access: login
+    notes: >-
+      The contact page says "Already have tickets? Sign in to chat." Find the order in My Tickets and select the Chat icon.
+      People who cannot sign in use the contact-forms channel.
+    source: https://help.ticketmaster.com/hc/en-us/articles/9605825450129-How-to-get-help-or-contact-us
+    last_verified: 2026-10-13
+  - id: contact-forms
+    type: web_form
+    label: Email Us and help forms (for people who cannot sign in or have no tickets)
+    value: https://help.ticketmaster.com/hc/en-us/articles/9605825450129-How-to-get-help-or-contact-us
+    purposes: [account_access, unauthorized_charge, refund_request]
+    access: open
+    notes: >-
+      The contact page offers "Email Us" for people who cannot sign in and need information, and says to submit a form if
+      you do not have tickets to an event yet, need to reset your password, or cannot get into your account. The page shows
+      no email address and no direct form URL; open the options from this page.
+    source: https://help.ticketmaster.com/hc/en-us/articles/9605825450129-How-to-get-help-or-contact-us
+    last_verified: 2026-10-13
+  - id: my-tickets-refund
+    type: portal
+    label: My Tickets (event status, Request Refund button when the organizer allows refunds)
+    value: https://my.ticketmaster.com/account
+    purposes: [event_cancelled, refund_request]
+    access: login
+    notes: >-
+      The Request Refund button appears on the order only if the Event Organizer offers refunds. A confirmation email follows
+      the request. The account URL is the "My Account" link in the help center footer.
+    source: https://help.ticketmaster.com/hc/en-us/articles/9672441081105-How-do-I-request-a-refund
+    last_verified: 2026-10-13
+  - id: event-status-help
+    type: portal
+    label: Event change guidance (cancelled, postponed, rescheduled or moved events)
+    value: https://help.ticketmaster.com/hc/en-us/categories/13919047702033-Event-Updates
+    purposes: [event_cancelled]
+    access: open
+    source: https://help.ticketmaster.com/hc/en-us/categories/13919047702033-Event-Updates
+    last_verified: 2026-10-13
+  - id: data-incident-page
+    type: portal
+    label: Ticketmaster Data Security Incident (help article)
+    value: https://help.ticketmaster.com/hc/en-us/articles/26110487861137-Ticketmaster-Data-Security-Incident
+    purposes: [unauthorized_charge, privacy_request]
+    access: open
+    notes: Directs affected customers to Fan Support through the Contact Us page. No enrollment URL, code or deadline is shown.
+    source: https://help.ticketmaster.com/hc/en-us/articles/26110487861137-Ticketmaster-Data-Security-Incident
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: fan-support-phone}
+  - {rung: written_complaint, channel: chat-my-tickets, note: "Use chat from the order, or the Email Us option (contact-forms) if you cannot sign in. Keep the transcript."}
+  - {rung: payment_dispute, note: "Card dispute for a cancelled event that was not refunded (rule fcba-billing-error)."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: event_cancelled
+    summary: >-
+      A cancelled event is refunded automatically to the original payment method, usually 14–21 days after Ticketmaster
+      receives the funds from the Event Organizer. For a postponed, rescheduled or moved event the tickets stay valid, and a
+      refund is available only if the Event Organizer offers one.
+    evidence: [order number, Ticketmaster event-change email, the organizer's notice, total paid including fees and add-ons]
+    steps:
+      - do: Check the event status and the notification email. Ticketmaster emails the options when the Event Organizer changes the status of an event.
+        channel: event-status-help
+      - do: For a cancelled event, take no action; the refund goes to the original payment method. The cancelled-event article lists MLB games, the Masters and the US Open Tennis Championships as exceptions; check that event's own help page.
+      - do: For a postponed, rescheduled or moved event, look for a Request Refund button on the order. If there is none, the organizer is not offering refunds and the tickets stay valid for the new date.
+        channel: my-tickets-refund
+      - do: If you received the tickets through Ticket Transfer, transfer them back to the original purchaser; only the original buyer gets refund options.
+      - do: If you bought at a venue box office, choose the refund option at the box office in person.
+      - do: If a cancelled-event refund has not arrived after 21 days, contact Fan Support with the order number.
+        channel: fan-support-phone
+      - do: If Ticketmaster still does not refund a cancelled event, dispute the charge with the card issuer (rule fcba-billing-error), then report to the FTC and your state attorney general.
+        regulator: ftc
+    facts:
+      - kind: deadline
+        claim: >-
+          For a cancelled event "no action is required to obtain a refund". The refund goes to the original payment method
+          once Ticketmaster receives the funds from the Event Organizer and should appear within 14-21 days. MLB games, the
+          Masters and the US Open Tennis Championships are excepted, and different rules apply to transferred and resold tickets.
+        issues: [event_cancelled]
+        source: https://help.ticketmaster.com/hc/en-us/articles/9784845658641-What-happens-if-my-event-is-canceled
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          Box office purchases for a cancelled event: you can choose your refund options in person, 30 days after the Event
+          Organizer approves funds.
+        issues: [event_cancelled]
+        source: https://help.ticketmaster.com/hc/en-us/articles/9784845658641-What-happens-if-my-event-is-canceled
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          A postponed event means the Event Organizer is still deciding whether to reschedule or cancel. Tickets stay valid
+          and refunds are available only if the organizer's policy allows; "Refund policies are determined by the Event
+          Organizers on an event-by-event basis."
+        issues: [event_cancelled]
+        source: https://help.ticketmaster.com/hc/en-us/articles/9784866185745-What-happens-if-my-event-is-postponed
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          For a rescheduled or moved event, tickets "(including any upgrades or add-ons, such as parking) are still valid for
+          the new date". In some instances the Event Organizer may give the option to request a refund; it goes to the
+          original payment method and should appear within 5-7 business days. The page gives no deadline for the request.
+        issues: [event_cancelled, refund_request]
+        source: https://help.ticketmaster.com/hc/en-us/articles/9784889055889-What-happens-if-my-event-is-rescheduled-or-moved
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          Resale on Ticketmaster: if a resold event is cancelled, Ticketmaster charges the seller's card on file to refund the
+          buyer, and the buyer's refund should appear within 14-21 days after Ticketmaster receives funds from the Event
+          Organizer. For a postponed, rescheduled or moved event, the seller is charged only if the organizer authorized
+          refunds and the buyer requested one.
+        issues: [event_cancelled, refund_request]
+        source: https://help.ticketmaster.com/hc/en-us/articles/9715663040785-What-happens-if-I-ve-sold-my-tickets-and-the-event-is-canceled-postponed-or-rescheduled
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          Third-party resale tickets sold on Ticketmaster: "All third-party ticket sales are final unless the event is
+          canceled." For a cancelled event Ticketmaster says it will fully refund you for the tickets after they are returned;
+          classic hard-stock tickets must be mailed back.
+        issues: [event_cancelled, refund_request]
+        source: https://help.ticketmaster.com/hc/en-us/articles/9781090147985-Third-Party-Resale-Tickets-Everything-You-Need-to-Know
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: All sales are final unless the Event Organizer allows refunds; when it does, a Request Refund button appears on the order and the refund covers the whole order.
+    evidence: [order number, confirmation email, the organizer's refund notice]
+    steps:
+      - do: Sign in and open the order in My Tickets. Use the Request Refund button if it is shown; a confirmation email follows.
+        channel: my-tickets-refund
+      - do: Before you submit, check the request; refund requests are final and cannot be changed once started.
+      - do: If there is no button and you think a refund is owed, ask Fan Support by chat from the order or by phone.
+        channel: chat-my-tickets
+      - do: For tickets bought elsewhere and transferred to you, ask the original point of purchase.
+    facts:
+      - kind: policy
+        claim: >-
+          "The Event Organizers determine refund guidelines." If the organizer offers refunds, a Request Refund button appears
+          on the order in My Tickets; refunds go to the original payment method and should appear within 5-7 business days.
+        issues: [refund_request]
+        source: https://help.ticketmaster.com/hc/en-us/articles/9672063923345-How-do-I-know-if-my-order-is-eligible-for-refunds
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          When refunds are authorized they apply to the entire order; partial refunds are not offered. Add-ons such as VIP Club,
+          Lawn Chair, Parking and Fast Lane are refunded to the original payment method. Fan Club memberships and merchandise
+          that has been shipped or delivered are not refundable. Organizer-approved automatic refunds should appear within
+          14-21 days of Ticketmaster receiving the funds.
+        issues: [refund_request, event_cancelled]
+        source: https://help.ticketmaster.com/hc/en-us/articles/9672441081105-How-do-I-request-a-refund
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: '"All requests for refunds are final and cannot be changed once initiated."'
+        issues: [refund_request]
+        source: https://help.ticketmaster.com/hc/en-us/articles/9785043299601-What-happens-when-my-refund-is-approved
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          For tickets received through Ticket Transfer, Ticketmaster refunds the person who bought them directly from
+          Ticketmaster; the recipient must transfer them back to the original purchaser.
+        issues: [refund_request]
+        source: https://help.ticketmaster.com/hc/en-us/articles/9715611361425-Can-I-get-a-refund-if-I-receive-a-ticket-through-Ticket-Transfer
+        last_verified: 2026-10-13
+
+  - issue: billing_error
+    summary: >-
+      Since May 12, 2025 the FTC fee rule (rule ftc-junk-fees-rule) requires the total ticket price, with all mandatory fees,
+      to be shown up front. Compare the advertised all-in price with the checkout total and the card statement.
+    evidence: [screenshot of the advertised price, order confirmation with the fee breakdown, card statement]
+    steps:
+      - do: Compare the price shown when you chose the tickets with the total charged. Ticketmaster says the price shown covers face value and required fees; taxes are generally added separately.
+      - do: Ask Fan Support to correct a charge above the total you agreed to.
+        channel: fan-support-phone
+      - do: If it is not corrected, send a billing-error dispute to the card issuer (rule fcba-billing-error).
+      - do: Report undisclosed mandatory fees to the FTC (rule ftc-junk-fees-rule) and to your state attorney general.
+        regulator: ftc
+    facts:
+      - kind: fee
+        claim: >-
+          Ticketmaster's fee page says the face value is set by the Event Organizer, the upfront price "covers both the face
+          value and required fees", and taxes are generally added separately. Service fees are negotiated and shared between
+          parties to the event. A facility charge is set by the venue, and "Ticketmaster does not keep any portion of the
+          facility charge."
+        issues: [billing_error]
+        source: https://help.ticketmaster.com/hc/en-us/articles/9663528775313-How-are-ticket-prices-and-fees-determined-source-contact-faq
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          16 CFR 464.2 requires a business that offers, displays or advertises live-event tickets to disclose the total price,
+          including all mandatory fees, more prominently than other pricing information (rule ftc-junk-fees-rule, in effect
+          since May 12, 2025).
+        issues: [billing_error]
+        source: https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-464/section-464.2
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: Dispute an unknown Ticketmaster charge with the card issuer at once, and tell Fan Support; customers whose data was in Ticketmaster's data security incident were offered identity monitoring.
+    evidence: [card statement, order numbers, Ticketmaster emails or letters about the data incident]
+    steps:
+      - do: Check the orders in your Ticketmaster account. If you cannot sign in, use the account-access form on the contact page.
+        channel: contact-forms
+      - do: Report the charge to the card issuer at once (rules tila-unauthorized-card-liability and fcba-billing-error).
+      - do: Call Fan Support to report unauthorized orders.
+        channel: fan-support-phone
+      - do: If Ticketmaster told you that your data was in its data security incident, ask Fan Support about the free 12-month identity monitoring.
+        channel: data-incident-page
+      - do: Report identity theft to the FTC.
+        regulator: ftc
+    facts:
+      - kind: policy
+        claim: >-
+          Ticketmaster says it found unauthorized activity on an isolated cloud database hosted by a third-party data services
+          provider. The data may include email, phone number and encrypted credit card information of some customers who
+          bought tickets to North American events. Ticketmaster notifies affected customers by email or first-class mail and
+          offers them a free 12-month identity monitoring service. It says Ticketmaster accounts were not affected.
+        issues: [unauthorized_charge, privacy_request]
+        source: https://help.ticketmaster.com/hc/en-us/articles/26110487861137-Ticketmaster-Data-Security-Incident
+        last_verified: 2026-10-13
+
+facts:
+  - kind: policy
+    claim: >-
+      DOJ antitrust case (U.S. and Plaintiff States v. Live Nation Entertainment, Inc. and Ticketmaster L.L.C., S.D.N.Y.
+      1:24-cv-03973-AS). The complaint was filed May 23, 2024. DOJ filed a Notice of Settlement on March 9, 2026, then a
+      Proposed Final Judgment and Stipulation and Order on June 12, 2026 and a Competitive Impact Statement on June 29, 2026.
+      As of 2026-10-13 the DOJ case page lists no final judgment.
+    source: https://www.justice.gov/atr/case/us-and-plaintiff-states-v-live-nation-entertainment-inc-and-ticketmaster-llc
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: >-
+      The plaintiff states continued the trial without DOJ. On April 15, 2026 the jury returned a verdict that Live Nation
+      had violated the antitrust laws through its monopoly power in the primary ticketing services market.
+    source: https://www.naag.org/multistate-case/united-states-and-plaintiff-states-v-live-nation-entertainment-et-al-s-d-n-y-124-cv-03973-as/
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: >-
+      A law-firm summary of the verdict (April 28, 2026) says the verdict form found the conduct overcharged fans in 22
+      states by $1.72 per ticket, and that the case moves to a remedy phase in which the court decides relief, which could
+      include consumer damages and a possible breakup. Live Nation said it would renew its motion for judgment as a matter
+      of law.
+    source: https://www.thompsoncoburn.com/insights/live-nation-and-ticketmaster-found-liable-for-antitrust-violations-by-federal-jury/
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: >-
+      FTC case: on September 18, 2025 the FTC and seven states (Virginia, Utah, Florida, Tennessee, Nebraska, Illinois and
+      Colorado) sued Live Nation and Ticketmaster in the U.S. District Court for the Central District of California, alleging
+      advertised prices lower than the amount consumers had to pay, misleading ticket-limit claims, and resale of tickets
+      brokers obtained above artists' limits (FTC Act and BOTS Act). The FTC's case page (last updated September 30, 2026)
+      lists an Order Denying Motion to Dismiss and shows the case as pending.
+    issues: [billing_error]
+    source: https://www.ftc.gov/legal-library/browse/cases-proceedings/ticketmaster
+    last_verified: 2026-10-13
+
+known_blockers:
+  - Chat needs sign-in to the Ticketmaster account; people who cannot sign in must use the Email Us option or a form on the contact page.
+  - The Request Refund button is inside the signed-in account and appears only when the Event Organizer offers refunds.
+  - Refund requests are final and cannot be changed once submitted.
+  - Refunds for transferred tickets go only to the original purchaser; box office purchases are refunded at the box office.
+  - The Purchase Policy, Resale Purchase Policy and Terms of Use at legal.ticketmaster.com load their text through a script, and automated fetches see only the page frame.
+
+notes: >-
+  Checked on help.ticketmaster.com on 2026-10-13. The Purchase Policy and Resale Purchase Policy (both effective August 12,
+  2025) did not render for this check, so whether service, order processing or delivery fees are refunded for a cancelled
+  event is not recorded; the help articles on cancelled events do not say. No Ticketmaster page describing a buyer
+  guarantee for resale tickets was found. In the DOJ case, the DOJ settled in March 2026 (Tunney Act review of the
+  Proposed Final Judgment pending as of this check) while the states won a jury verdict on April 15, 2026; the remedies
+  phase was ongoing. The FTC's September 2025 case survived a motion to dismiss in late September 2026.
+
+official_domains: [ticketmaster.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: >-
+        BBB (May 9, 2023): lookalike websites with names similar to Ticketmaster appear in search results, take personal and
+        card details, overcharge (one buyer was charged three times the ticket price), and send tickets in someone else's name
+        or none. BBB says to buy through the venue or its official site, check the URL closely and pay by credit card.
+      source: https://www.bbb.org/article/scams/27410-bbb-scam-alert-how-to-avoid-ticketmaster-lookalike-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: >-
+        Ticketmaster's data security incident page tells customers to be cautious of unsolicited emails from unknown senders,
+        of links and attachments, and of requests for personal information over the phone.
+      source: https://help.ticketmaster.com/hc/en-us/articles/26110487861137-Ticketmaster-Data-Security-Incident
+      last_verified: 2026-10-13

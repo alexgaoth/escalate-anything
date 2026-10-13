@@ -1,0 +1,229 @@
+id: eventbrite
+name: Eventbrite
+aliases: [eventbrite inc, eventbrite.com]
+sector: ticketing
+website: https://www.eventbrite.com
+account_url: https://www.eventbrite.com/mytickets
+regulators: [ftc]
+
+channels:
+  - id: contact-organizer
+    type: web_form
+    label: Contact the organizer (from your order in Tickets)
+    value: https://www.eventbrite.com/mytickets
+    purposes: [refund_request, event_cancelled]
+    access: login
+    notes: >-
+      Log in, go to Tickets, select the order, select Contact the organizer, fill out the form and submit. Without a ticket,
+      open the event page and select Contact, then Contact the organizer. Organizers set and issue refunds; Eventbrite says
+      it cannot answer event questions on the organizer's behalf.
+    source: https://www.eventbrite.com/help/en-us/articles/647151/how-to-contact-the-event-organizer/
+    last_verified: 2026-10-13
+  - id: request-refund-in-tickets
+    type: portal
+    label: Request a refund from the order in Tickets
+    value: https://www.eventbrite.com/mytickets
+    purposes: [refund_request, event_cancelled]
+    access: login
+    notes: Go to Tickets, find the order, select the tickets and choose the request-refund option. The option appears only if the organizer allows refund requests for the event.
+    source: https://www.eventbrite.com/help/en-us/articles/721549/can-i-get-a-refund/
+    last_verified: 2026-10-13
+  - id: attendee-refund-request
+    type: web_form
+    label: Attendee Refund Request form (to Eventbrite, when the organizer declined or did not respond)
+    value: https://www.eventbrite.com/attendee-refund-request
+    purposes: [event_cancelled, refund_request]
+    access: open
+    notes: >-
+      Asks for the order email address, the Order ID and up to 255 characters of additional information. For eligible
+      orders only: the event was cancelled within the last 45 days, or postponed for more than 90 days without a new date;
+      the organizer declined or did not respond; and the order used Eventbrite Payment Processing (the card statement shows
+      "EB" and the event title). No sign-in or captcha was seen in the page text.
+    source: https://www.eventbrite.com/help/en-us/articles/721549/can-i-get-a-refund/
+    last_verified: 2026-10-13
+  - id: help-contact-us
+    type: portal
+    label: Eventbrite Help Center contact page
+    value: https://www.eventbrite.com/help/en-us/contact-us/
+    purposes: [refund_request, account_access, billing_error, unauthorized_charge]
+    access: open
+    notes: >-
+      Lists no phone number, chat or email address. For refunds it links to the Attendee Refund Request form; for people who
+      cannot log in it links to the Find tickets form (https://www.eventbrite.com/find-tickets/).
+    source: https://www.eventbrite.com/help/en-us/contact-us/
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: contact-organizer}
+  - {rung: written_complaint, channel: attendee-refund-request, note: "Only for eligible cancelled or long-postponed events after the organizer declined or did not respond."}
+  - {rung: payment_dispute, note: "Card dispute for a cancelled event that was not refunded (rule fcba-billing-error)."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: event_cancelled
+    summary: >-
+      Organizers must refund all orders when they cancel. Ask the organizer first; if the event was cancelled within the last
+      45 days (or postponed more than 90 days without a new date) and the organizer declines or does not answer within five
+      business days, submit the Attendee Refund Request form to Eventbrite.
+    evidence: [order ID, order email address, the cancellation or postponement notice, card statement line starting "EB"]
+    steps:
+      - do: Request a refund from the order in Tickets, or contact the organizer from the order.
+        channel: request-refund-in-tickets
+      - do: Wait up to five business days for the organizer's answer.
+        channel: contact-organizer
+      - do: If the organizer declines or does not answer, and the event was cancelled within the last 45 days or postponed more than 90 days without a new date, submit the Attendee Refund Request form with the order email and Order ID.
+        channel: attendee-refund-request
+      - do: If the order did not use Eventbrite Payment Processing, Eventbrite cannot refund it; dispute the charge with the payment provider or card issuer (rule fcba-billing-error).
+      - do: Report an organizer that keeps the money for a cancelled event to the FTC and your state attorney general.
+        regulator: ftc
+    facts:
+      - kind: deadline
+        claim: >-
+          Eventbrite's refund article says an order may qualify for an Eventbrite-required refund if "The event was cancelled
+          within the last 45 days" or "The event has been postponed for more than 90 days without a new date scheduled". The
+          organizer should respond within five business days. If the organizer denies or does not respond, contact Eventbrite
+          through the Attendee Refund Request form; "you have 45 days and until the event is rescheduled to contact
+          Eventbrite." Eventbrite can only refund payments processed using Eventbrite Payment Processing.
+        issues: [event_cancelled, refund_request]
+        source: https://www.eventbrite.com/help/en-us/articles/721549/can-i-get-a-refund/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          Eventbrite's Cancelled Event Policy (events cancelled on or after April 15, 2021) says "When organizers cancel their
+          event, they must refund all attendees". Cancelled means the event will not take place on the scheduled date and will
+          not be rescheduled within 90 days. Eventbrite holds the event payout so refunds can be processed and "reserves the
+          right to issue refunds on their behalf and at cost to the organizer."
+        issues: [event_cancelled]
+        source: https://www.eventbrite.com/help/en-us/articles/724340/eventbrites-cancelled-event-policy/
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: >-
+          Eventbrite's Postponed Event Policy (events postponed on or after April 1, 2023): organizers must give a new date
+          within 90 days of announcing the postponement and may decide refunds at their discretion during days 0-90. During
+          days 91-135 they must honor refund requests even if a new date has been set. From day 136 they must process refunds
+          on request until the event is rescheduled. Organizers must respond to refund requests within five business days.
+        issues: [event_cancelled, refund_request]
+        source: https://www.eventbrite.com/help/en-us/articles/169121/eventbrites-postponed-event-policy/
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: Each organizer sets its own refund policy, which must be posted on the event page; a "no refunds" policy is allowed but must still give refunds for cancelled or long-postponed events.
+    evidence: [order ID, screenshot of the refund policy on the event page, messages with the organizer]
+    steps:
+      - do: Read the refund policy on the event page, then use the request-refund option in Tickets if it is shown.
+        channel: request-refund-in-tickets
+      - do: If there is no option, contact the organizer from the order.
+        channel: contact-organizer
+      - do: If the organizer changed its refund policy after you bought, quote the rule that policies may not be changed retroactively unless buyers are left equal or better off.
+    facts:
+      - kind: policy
+        claim: >-
+          Organizer refund policies must be posted on the event page, must explain how to get a refund, and must set a time
+          frame for answering requests (first response within five business days). A "no refund" policy is allowed if labeled
+          as such, but refunds are still required when the event is cancelled or otherwise not fully performed, or postponed
+          and not rescheduled within 90 days. "Refund policies may not be changed retroactively" unless affected buyers are in
+          an equal or better position.
+        issues: [refund_request, event_cancelled]
+        source: https://www.eventbrite.com/help/en-us/articles/827759/eventbrites-organizer-refund-policy-requirements/
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: >-
+          The organizer refund policy requirements say Eventbrite has no obligation to refund "Event Proceeds or Eventbrite
+          Fees". The attendee refund and cancelled-event pages do not say whether Eventbrite's fees are returned to attendees.
+        issues: [refund_request, billing_error]
+        source: https://www.eventbrite.com/help/en-us/articles/827759/eventbrites-organizer-refund-policy-requirements/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          The Terms of Service (last updated August 20, 2025) say all transactions are between an Organizer and its Consumers
+          and ask consumers to contact the event's Organizer with any refund requests (Section 14.3).
+        issues: [refund_request]
+        source: https://www.eventbrite.com/help/en-us/articles/251210/eventbrite-terms-of-service/
+        last_verified: 2026-10-13
+
+  - issue: billing_error
+    summary: Match the charge to an Eventbrite receipt; ask the organizer about ticket fees, and dispute an uncorrected error with the card issuer.
+    evidence: [Eventbrite receipt email, card statement line, event page price]
+    steps:
+      - do: Find the Eventbrite receipt; Eventbrite emails a receipt for each charge to the account email.
+      - do: Ask the organizer to correct a ticket charge above the total shown at checkout.
+        channel: contact-organizer
+      - do: If it is not corrected, send a billing-error dispute to the card issuer (rule fcba-billing-error). Eventbrite says chargebacks can be filed even if an event has a "No Refund" policy.
+      - do: Report mandatory fees that were not in the advertised total price to the FTC (rule ftc-junk-fees-rule).
+        regulator: ftc
+    facts:
+      - kind: process
+        claim: >-
+          Ticket purchases appear on statements as "EVENTBRITE", "EVENTBRITE, SAN FRANCISCO CA" or "EB * [first 15 characters
+          of the event title] SAN FRANCISCO CA", whatever the event's location. American Express may show them as "Business
+          Services". Charges processed by PayPal are handled through PayPal.
+        issues: [billing_error, unauthorized_charge]
+        source: https://www.eventbrite.com/help/en-us/articles/396688/what-is-this-charge-from-eventbrite/
+        last_verified: 2026-10-13
+      - kind: process
+        claim: >-
+          Eventbrite, as Merchant of Record, manages chargebacks for organizers; the bank's review "can take up to 120 days".
+          "Chargebacks can be filed even if an event has a 'No Refund' policy."
+        issues: [billing_error, event_cancelled]
+        source: https://www.eventbrite.com/help/en-us/articles/545999/how-does-eventbrite-handle-chargebacks/
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: Check the statement descriptor and your Eventbrite receipts; report a charge you did not make to the card issuer at once.
+    evidence: [card statement line, list of Eventbrite receipts in your email]
+    steps:
+      - do: Compare the charge with the Eventbrite descriptors (EVENTBRITE or EB * plus the event title) and with the receipts in your email.
+      - do: If you did not make it, report it to the card issuer at once (rules tila-unauthorized-card-liability and fcba-billing-error).
+      - do: If your account was used, change the Eventbrite password and tell Eventbrite through the Help Center.
+        channel: help-contact-us
+    facts:
+      - kind: policy
+        claim: The Terms of Service say you must immediately notify Eventbrite of any unauthorized use of your password or account, or any other breach of security (Section 15.1).
+        issues: [unauthorized_charge, account_access]
+        source: https://www.eventbrite.com/help/en-us/articles/251210/eventbrite-terms-of-service/
+        last_verified: 2026-10-13
+
+facts:
+  - kind: policy
+    claim: >-
+      The Terms of Service require binding individual arbitration or small claims court and waive class actions (Section 9).
+      To opt out, email legal@eventbrite.com with the subject "ARBITRATION AND CLASS ACTION WAIVER OPT-OUT" within thirty (30)
+      days of your first use of the Services or your agreement to the Terms, whichever is later (Section 9.12).
+    source: https://www.eventbrite.com/help/en-us/articles/251210/eventbrite-terms-of-service/
+    last_verified: 2026-10-13
+
+tips:
+  - kind: community
+    text: >-
+      An email from Eventbrite's own system can still be phishing. Researchers reported in October 2024 that scammers created
+      fake events to send phishing invitations from noreply@events.eventbrite.com that impersonated banks, energy companies
+      and delivery services. Check the event and its links, not only the sender.
+    source: https://www.helpnetsecurity.com/2024/10/29/eventbrite-phishing/
+    last_verified: 2026-10-13
+
+known_blockers:
+  - Refund requests and Contact the organizer from an order need an Eventbrite login; people who cannot log in can use the Find tickets form.
+  - Organizers, not Eventbrite, set and issue refunds; Eventbrite steps in only for eligible cancelled or long-postponed events paid through Eventbrite Payment Processing.
+  - The Help Center lists no phone number, chat or email for attendees.
+
+notes: >-
+  Checked on eventbrite.com help pages on 2026-10-13. Eventbrite is a self-service platform: the organizer is the seller
+  and sets the refund policy, within Eventbrite's minimum requirements for cancelled and postponed events.
+
+official_domains: [eventbrite.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Eventbrite says it "will never ask for your login details via email or any site other than Eventbrite" (blog, June 28, 2025).
+      source: https://www.eventbrite.com/blog/phishing-email-avoid-scams/
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-an-event
+      type: portal
+      label: How to report an event on Eventbrite (help article)
+      value: https://www.eventbrite.com/help/en-us/articles/212250/how-to-report-an-event-on-eventbrite/
+      purposes: [fraud]
+      notes: Listed under "Report a violation" in Eventbrite's Terms and policies topic; the article text was not checked.
+      source: https://www.eventbrite.com/help/en-us/topics/terms-and-policies/
+      last_verified: 2026-10-13

@@ -1,0 +1,161 @@
+id: seatgeek
+name: SeatGeek
+aliases: [seatgeek inc, seatgeek.com, seat geek]
+sector: ticketing
+website: https://seatgeek.com
+regulators: [ftc]
+
+channels:
+  - id: contact-support
+    type: app
+    label: Contact Support from the order (Event Experts)
+    value: SeatGeek app or seatgeek.com > Tickets > select the order > Contact Support
+    hours: 9 AM to 1 AM EST
+    purposes: [event_cancelled, refund_request, unauthorized_charge, account_access]
+    access: login
+    notes: >-
+      Seen only as a search-result snippet; seatgeek.com and support.seatgeek.com blocked automated fetching (HTTP 403).
+      The snippet says to tap Contact Support when viewing the order in the Tickets section; in the app, Help and Support
+      is under the Me tab, and on the website the Support tab and help center offer chat. Phone support is available only
+      within 7 days of your event for urgent issues (no number was shown). SeatGeek says its only official support
+      channels are its app and website. For tickets bought from another seller, contact that original point of purchase.
+    source: https://support.seatgeek.com/hc/en-us/articles/360007287753-How-do-I-contact-SeatGeek-customer-service
+    last_verified: 2026-10-13
+  - id: help-center
+    type: portal
+    label: SeatGeek Help Center
+    value: https://seatgeek.com/help
+    purposes: [event_cancelled, refund_request, unauthorized_charge]
+    access: open
+    notes: Seen only in search results (the site returned HTTP 403 to automated fetching). Help articles also live at https://support.seatgeek.com/hc/en-us.
+    source: https://seatgeek.com/help
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: contact-support}
+  - {rung: written_complaint, channel: contact-support, note: "Put the request in writing in the support chat or ticket and keep the transcript."}
+  - {rung: payment_dispute, note: "Card dispute for a cancelled event that was not refunded (rule fcba-billing-error)."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: event_cancelled
+    summary: >-
+      For an event officially cancelled and not rescheduled, the Buyer Guarantee gives a full refund of the purchase price to
+      the original payment method or, where state law allows, a credit, at SeatGeek's choice. Postponed, TBD or rescheduled
+      events are not refunded unless state law requires it.
+    evidence: [order number, the organizer's cancellation notice, total paid including fees, SeatGeek's cancellation email]
+    steps:
+      - do: Confirm the event is officially cancelled and not rescheduled. For a postponed, TBD or rescheduled event the tickets usually stay valid; if you cannot go, resell them on the SeatGeek Marketplace.
+      - do: Wait for SeatGeek's notice about next steps, then check the order in your account.
+        channel: contact-support
+      - do: If you want money rather than a credit, ask in writing for a refund to the original payment method and mention any state law that requires a cash refund.
+        channel: contact-support
+      - do: If SeatGeek does not refund a cancelled event, dispute the charge with the card issuer (rule fcba-billing-error).
+      - do: Report the refusal to the FTC and your state attorney general.
+        regulator: ftc
+    facts:
+      - kind: policy
+        claim: >-
+          Seen only as a search-result snippet. SeatGeek's Buyer Guarantee says that if your event is officially canceled
+          and not rescheduled, SeatGeek, in its sole discretion, will provide a full refund of the purchase price to your
+          original payment method or, subject to applicable state laws, issue a credit for use on a future purchase. The
+          snippet does not say whether service fees are part of the refund.
+        issues: [event_cancelled]
+        source: https://seatgeek.com/buyer-guarantee
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          Seen only as a search-result snippet. SeatGeek's help article says that if your event is postponed, marked TBD
+          or rescheduled, your tickets will usually remain valid for the new date, and that SeatGeek and its sellers are
+          unable to offer refunds for postponed, TBD or rescheduled events unless state laws directly stipulate otherwise.
+        issues: [event_cancelled]
+        source: https://support.seatgeek.com/hc/en-us/articles/42099234367123-What-happens-if-my-event-is-postponed-or-rescheduled
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: If you can no longer attend, the optional Refundable Tickets add-on allows a refund, minus its service charge, when you cancel at least 48 hours before the event. Without it, resale on the SeatGeek Marketplace is the usual route.
+    evidence: [order number, proof that the Refundable Tickets add-on was bought, time of the cancellation request]
+    steps:
+      - do: Check the order for the Refundable Tickets add-on. If you have it, cancel for any reason up to 48 hours before the event start time.
+        channel: contact-support
+      - do: Without the add-on, list the tickets for resale on the SeatGeek Marketplace.
+      - do: For a ticket that does not arrive or does not work, contact support from the order and ask for replacement tickets or a refund under the Buyer Guarantee.
+        channel: contact-support
+    facts:
+      - kind: policy
+        claim: >-
+          Seen only as a search-result snippet. SeatGeek's Refundable Tickets add-on lets you cancel for any reason up to
+          48 hours before the event start time and get a refund of the order, excluding the service charge. The service
+          charge is not refundable unless the event is canceled and covered by the Buyer Guarantee, and it is not
+          refundable for postponed events.
+        issues: [refund_request, event_cancelled]
+        source: https://support.seatgeek.com/hc/en-us/articles/42793369572115-What-are-Refundable-Tickets-on-SeatGeek
+        last_verified: 2026-10-13
+
+  - issue: billing_error
+    summary: Since May 12, 2025 the FTC fee rule (rule ftc-junk-fees-rule) requires ticket resale platforms to show the total price, including mandatory fees, up front.
+    evidence: [screenshots of the listed price and the checkout total, order confirmation, card statement]
+    steps:
+      - do: Compare the total price shown when you chose the tickets with the amount charged. Save screenshots.
+      - do: Ask SeatGeek support to refund any amount above the total price it showed.
+        channel: contact-support
+      - do: If SeatGeek does not correct it, send a billing-error dispute to the card issuer (rule fcba-billing-error).
+      - do: Report hidden or misrepresented fees to the FTC.
+        regulator: ftc
+    facts:
+      - kind: policy
+        claim: The FTC's compliance FAQ says that effective May 12, 2025 the Rule on Unfair or Deceptive Fees covers any business that offers, displays or advertises live-event tickets, including third-party platforms and resellers in the secondary ticket market, and that they must tell people upfront the total price they will pay.
+        issues: [billing_error]
+        source: https://www.ftc.gov/business-guidance/resources/rule-unfair-or-deceptive-fees-frequently-asked-questions
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: If no one in your household bought tickets, report the charge to SeatGeek support and to the card issuer, and secure the account.
+    evidence: [card statement with the charge, SeatGeek order number if shown, account email]
+    steps:
+      - do: Check whether anyone in your household bought live-event tickets recently.
+      - do: Report the unfamiliar purchase to SeatGeek support so it can investigate the charge.
+        channel: contact-support
+      - do: Report the charge to the card issuer at once (rules tila-unauthorized-card-liability and fcba-billing-error).
+      - do: Change to a strong, unique password, turn on two-factor authentication, and sign in only through the SeatGeek app or seatgeek.com.
+      - do: If it is fraud, report it at ReportFraud.ftc.gov.
+        regulator: ftc
+    facts:
+      - kind: process
+        claim: Seen only as a search-result snippet. SeatGeek's help center says that if you see a charge you don't recognize and no one in your household has bought live event tickets recently, you should contact support so SeatGeek can investigate the charge.
+        issues: [unauthorized_charge]
+        source: https://support.seatgeek.com/hc/en-us/articles/360020332314-I-didn-t-place-this-order-How-can-I-report-an-unfamiliar-purchase
+        last_verified: 2026-10-13
+
+known_blockers:
+  - seatgeek.com and support.seatgeek.com return HTTP 403 to automated fetching, so an agent may not be able to read the help center or the Buyer Guarantee directly.
+  - Support is reached from the order inside the signed-in account (app or website); phone support is offered only within 7 days of the event for urgent issues.
+
+notes: >-
+  Checked 2026-10-13. Every SeatGeek value in this file (all but the FTC fee-rule fact) comes from search-result snippets of seatgeek.com and
+  support.seatgeek.com pages, because both sites blocked automated fetching (HTTP 403) and archive copies could not be
+  loaded. Confirm the wording on the live pages before quoting it in a dispute. A snippet from the SeatGeek help center
+  also says official SeatGeek emails always come from an address ending in @seatgeek.com. No SeatGeek phone number,
+  complaint email or mailing address was confirmed.
+
+official_domains: [seatgeek.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Seen only as a search-result snippet. SeatGeek says it will never ask for passwords, full payment details or verification codes through social media or unofficial communication channels.
+      source: https://support.seatgeek.com/hc/en-us/articles/28222417389843-How-to-spot-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Seen only as a search-result snippet. SeatGeek says it will never request payment through wire transfers or require gift cards or money orders to purchase, transfer or refund tickets.
+      source: https://support.seatgeek.com/hc/en-us/articles/28222417389843-How-to-spot-scams
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: >-
+        Seen only as a search-result snippet. SeatGeek warns that scammers create fake support phone numbers, email
+        addresses, websites and social media accounts that pretend to be SeatGeek Support, to steal account credentials,
+        get access to tickets, charge for fake support services or collect personal or financial information. Contact
+        details found on third-party websites may not be legitimate.
+      source: https://support.seatgeek.com/hc/en-us/articles/28222417389843-How-to-spot-scams
+      last_verified: 2026-10-13

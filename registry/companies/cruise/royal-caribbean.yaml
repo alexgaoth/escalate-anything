@@ -1,0 +1,343 @@
+id: royal-caribbean
+name: Royal Caribbean International
+aliases: [royal caribbean, royal caribbean cruises, royal caribbean cruise line, royalcaribbean.com]
+sector: cruise
+parent: Royal Caribbean Group
+website: https://www.royalcaribbean.com
+regulators: [fmc]
+
+channels:
+  - id: reservations-phone
+    type: phone
+    label: Individual Reservations
+    value: +1-866-562-7625
+    hours: Mon–Sun 7am–2am ET
+    purposes: [refund_request, travel_credit, reservation_problem]
+    notes: Group reservations (8 or more staterooms) use +1-800-465-3595, Mon–Fri 9am–7pm, Sat 9am–6pm ET.
+    source: https://www.royalcaribbean.com/resources/contact-us
+    last_verified: 2026-10-13
+  - id: post-cruise-phone
+    type: phone
+    label: Already Sailed? Post Cruise Assistance (also Day of Sailing help)
+    value: +1-800-256-6649
+    hours: "Calls: Mon–Thu 24 hours, Fri 12am–9pm, Sat 9am–6pm, Sun 9am–12am ET. Texts: 24 hours, 7 days a week."
+    purposes: [refund_request, travel_credit, poor_service, reservation_problem]
+    notes: >-
+      The contact page lists the same number for Day of Sailing help (24/7), and +1-305-539-4107 for Day of Sailing
+      help from outside the U.S. The page lists texting hours for Post Cruise Assistance but does not say which number
+      takes texts.
+    source: https://www.royalcaribbean.com/resources/contact-us
+    last_verified: 2026-10-13
+  - id: online-assistance-phone
+    type: phone
+    label: Online Assistance (website and online account help)
+    value: +1-800-398-9819
+    hours: Mon–Fri 8am–11pm ET, Sat–Sun 9am–6pm ET
+    purposes: [account_access]
+    source: https://www.royalcaribbean.com/resources/contact-us
+    last_verified: 2026-10-13
+  - id: contact-form
+    type: web_form
+    label: Send Us a Message form (contact us page)
+    value: https://www.royalcaribbean.com/resources/contact-us
+    purposes: [poor_service, refund_request, travel_credit, reservation_problem]
+    notes: >-
+      The form is on the contact us page and has no separate URL. Fields: first and last name, email, phone, sail
+      date, reservation number and a description of the issue. No sign-in was shown. The page lists no U.S. mailing
+      address for customer service and no chat.
+    source: https://www.royalcaribbean.com/resources/contact-us
+    last_verified: 2026-10-13
+  - id: special-needs-form
+    type: web_form
+    label: Guest Special Needs page (form for accessibility requests)
+    value: https://www.royalcaribbean.com/resources/guest-special-needs
+    purposes: [accessibility]
+    notes: >-
+      Submit at the time of booking and no later than 30 days before sailing (60 days for sign language interpreting).
+      An automated confirmation comes within 24 hours and a personal response within 48 hours. The fetched page text
+      did not show the form fields themselves; search results describe this page as the form.
+    source: https://www.royalcaribbean.com/resources/guest-special-needs
+    last_verified: 2026-10-13
+  - id: special-needs-email
+    type: email
+    label: Accessibility (special needs) team email
+    value: special_needs@rccl.com
+    purposes: [accessibility]
+    notes: The Guest Special Needs page says to email this address and/or call +1-866-592-7225 if you do not get the confirmation.
+    source: https://www.royalcaribbean.com/resources/guest-special-needs
+    last_verified: 2026-10-13
+  - id: special-needs-phone
+    type: phone
+    label: Accessibility (special needs) team phone
+    value: +1-866-592-7225
+    purposes: [accessibility]
+    source: https://www.royalcaribbean.com/resources/guest-special-needs
+    last_verified: 2026-10-13
+  - id: shorex-access-email
+    type: email
+    label: Accessible shore excursions team
+    value: shorexaccess@rccl.com
+    purposes: [accessibility]
+    source: https://www.royalcaribbean.com/resources/guest-special-needs
+    last_verified: 2026-10-13
+  - id: guest-claims-email
+    type: email
+    label: Written notice of injury, illness or death claims (Ticket Contract section 10)
+    value: guestclaims@rccl.com
+    purposes: [safety_incident]
+    notes: >-
+      For U.S. cruises, written notice with full particulars must be delivered within six months of the injury,
+      illness or death, by email to this address or by mail to C/O Royal Caribbean Cruises Ltd., 1050 Caribbean Way,
+      Miami, FL 33132. Cruises outside the U.S. use claims.intl@rccl.com or RCL Cruises Ltd. in Weybridge, England.
+    source: https://www.royalcaribbean.com/guest-terms/us/united-states-english/
+    last_verified: 2026-10-13
+  - id: legal-notice-mail
+    type: mail
+    label: Notice of Dispute before arbitration (Ticket Contract section 10.c)
+    value: Legal Department, Royal Caribbean Cruises Ltd., 1050 Caribbean Way, Miami, Florida 33132
+    purposes: [refund_request, travel_credit, reservation_problem, poor_service]
+    access: human_only
+    notes: >-
+      Required before any arbitration for claims other than injury, illness or death. Send by U.S. mail or
+      professional courier. Include name, contact details, loyalty number (if any), reservation number, onboard folio
+      number (if any), a description of the claim and the specific relief sought, personally signed by the guest.
+      Arbitration cannot start until the 60-day Informal Resolution Period (or a completed Informal Settlement
+      Conference, if later) has ended.
+    source: https://www.royalcaribbean.com/guest-terms/us/united-states-english/
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: reservations-phone, note: "After the cruise, use Post Cruise Assistance (post-cruise-phone)."}
+  - {rung: written_complaint, channel: contact-form}
+  - {rung: regulator, regulator: fmc, note: "For a refund Royal Caribbean owes after it cancelled a cruise or delayed it more than 3 days (nonperformance)."}
+  - {rung: payment_dispute, note: "Card dispute for a refund Royal Caribbean owes but has not paid."}
+  - {rung: arbitration, channel: legal-notice-mail, note: "Claims other than injury, illness or death must go to AAA arbitration after a signed Notice of Dispute; arbitration must start within one year from the date the claim arose."}
+
+playbooks:
+  - issue: refund_request
+    summary: >-
+      If you cancel, the refund depends on cruise length and days before sailing. If Royal Caribbean cancels or delays
+      embarkation by 3 or more days, it issues a future cruise credit by default; ask for a refund instead within 6
+      months.
+    evidence: [reservation number, booking confirmation with its cancellation schedule, proof and amount of payment, cancellation or delay notice]
+    steps:
+      - do: Check the booking date. Bookings made before October 11, 2026 follow the cancellation schedule in the booking confirmation; later bookings follow the Ticket Contract table.
+      - do: To cancel or ask about a refund, call Reservations (or your travel advisor if one booked the cruise). The cancellation takes effect when Royal Caribbean receives it.
+        channel: reservations-phone
+      - do: If Royal Caribbean cancelled the cruise or delayed embarkation by 3 or more days and you did not sail, ask for a refund instead of the automatic future cruise credit, within 6 months of the cancellation date or the scheduled embarkation date, whichever is earlier.
+        channel: post-cruise-phone
+      - do: Allow about 7 to 10 days after the refund is processed for it to post, and up to 30 days. Then send a written request through the contact form with the reservation number.
+        channel: contact-form
+      - do: For a nonperformance refund still not paid 180 days after your written claim, or denied, file with the FMC against the line's financial instrument.
+        regulator: fmc
+      - do: Dispute the charge with your card issuer if the refund is owed and not paid.
+    facts:
+      - kind: fee
+        claim: >-
+          For bookings made on or after October 11, 2026, Ticket Contract section 8.b charges per guest: 1 to 4 night
+          cruises, no charge 75 or more days before sailing, 50% at 74 to 61 days, 75% at 60 to 31 days, 100% at 30
+          days or less; 5 to 9 nights, no charge at 90 or more days, 50% at 89 to 61 days, 75% at 60 to 31 days, 100%
+          at 30 days or less; 10 or more nights, no charge at 120 or more days, 50% at 119 to 61 days, 75% at 60 to 31
+          days, 100% at 30 days or less. Non-refundable deposits are kept even in the no-charge window.
+        issues: [refund_request]
+        source: https://www.royalcaribbean.com/guest-terms/us/united-states-english/
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: >-
+          The cancellation FAQ gives the schedule for bookings made before October 11, 2026: 5 to 14 nights, no charge
+          at 90 or more days, 25% at 89 to 75 days, 50% at 74 to 61 days, 75% at 60 to 31 days, 100% at 30 days or
+          less; 15 or more nights, no charge at 120 or more days, 25% at 119 to 75 days, then the same 50%, 75% and
+          100% steps. 1 to 4 night cruises use the same schedule as newer bookings.
+        issues: [refund_request]
+        source: https://www.royalcaribbean.com/faq/questions/booking-cancellation-refund-policy
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          Some fares need a non-refundable deposit that "shall not be refunded at any time after it has been paid." If
+          you cancel a non-refundable deposit fare before final payment, the full deposit is kept and other payments
+          are refunded.
+        issues: [refund_request]
+        source: https://www.royalcaribbean.com/faq/questions/booking-cancellation-refund-policy
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          Ticket Contract section 8.d: on cancellation, prepaid Taxes and Fees, Gratuities and Fuel Supplement are
+          refunded after any cancellation charges are deducted. Refunds go to the original credit card, or to the
+          travel agent if the agent paid. No refund for cancellation after the cruise begins, early disembarkation or
+          a no-show.
+        issues: [refund_request]
+        source: https://www.royalcaribbean.com/guest-terms/us/united-states-english/
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: >-
+          Royal Caribbean says refunds usually post to the original form of payment about 7 to 10 days after they are
+          fully processed, and some may take up to 30 days; the bank sets the posting time.
+        issues: [refund_request]
+        source: https://www.royalcaribbean.com/faq/questions/how-long-do-refunds-take-to-process
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: >-
+          If Royal Caribbean cancels a cruise, or delays embarkation by 3 or more days and you do not take the delayed
+          or substitute sailing, it issues a future cruise credit automatically. You can ask for a refund instead within
+          6 months of the cancellation date or the scheduled embarkation date, whichever is earlier. Chartered sailings
+          are handled by the reseller that sold them.
+        issues: [refund_request, travel_credit]
+        source: https://www.royalcaribbean.com/faq/questions/booking-cancellation-refund-policy
+        last_verified: 2026-10-13
+      - kind: process
+        claim: >-
+          46 CFR 540.9(f): for nonperformance, the passenger first makes a written refund request to the cruise line.
+          If the claim is not resolved within 180 days (or the line's shorter stated period) after nonperformance, or
+          is denied, the passenger may claim against the line's FMC financial instrument, with the boarding pass, proof
+          and amount of payment, the cancellation or delay notice and dated proof of the claim to the line.
+        issues: [refund_request]
+        source: https://www.law.cornell.edu/cfr/text/46/540.9
+        last_verified: 2026-10-13
+
+  - issue: travel_credit
+    summary: >-
+      When Royal Caribbean cancels, it issues a future cruise credit (FCC) by default. You can switch to a refund
+      within 6 months. For other non-injury claims the contract limits Royal Caribbean's liability to an FCC.
+    evidence: [FCC notice or certificate, reservation number, cancellation or delay notice, proof of payment]
+    steps:
+      - do: Decide whether you want the credit. If not, ask for a refund within 6 months of the cancellation date or scheduled embarkation date, whichever is earlier.
+        channel: post-cruise-phone
+      - do: Confirm the request in writing through the contact form and keep the reply.
+        channel: contact-form
+      - do: If a refund for a cancelled or 3-day-delayed cruise is refused or not paid within 180 days, file with the FMC.
+        regulator: fmc
+    facts:
+      - kind: policy
+        claim: >-
+          Ticket Contract section 7.a: Royal Caribbean may cancel all or part of the agreement without prior notice,
+          and the guest's sole and exclusive remedy is a refund or a future cruise credit.
+        issues: [travel_credit, refund_request]
+        source: https://www.royalcaribbean.com/guest-terms/us/united-states-english/
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: >-
+          Ticket Contract section 12.f: except for personal injury, illness or death, Royal Caribbean's aggregate
+          liability to a guest is limited to a future cruise credit not to exceed the cruise fare paid.
+        issues: [travel_credit, reservation_problem, poor_service]
+        source: https://www.royalcaribbean.com/guest-terms/us/united-states-english/
+        last_verified: 2026-10-13
+
+  - issue: reservation_problem
+    summary: >-
+      The Ticket Contract lets Royal Caribbean skip or change ports, change the itinerary or substitute the ship without
+      compensation. Mechanical failure is the exception: a full refund if the whole cruise is cancelled, a partial
+      refund if it ends early.
+    evidence: [reservation number, original itinerary, notices of the change, onboard folio, receipts for extra costs]
+    steps:
+      - do: Raise the problem before the cruise ends and keep written records of what you were told.
+      - do: After the cruise, call Post Cruise Assistance, then write through the contact form with the reservation number and the remedy you want.
+        channel: post-cruise-phone
+      - do: If the cruise was cancelled or embarkation delayed 3 or more days, use the refund_request steps.
+      - do: For a dispute that stays unresolved, send the signed Notice of Dispute by mail or courier. Arbitration can start only after the 60-day informal resolution period, and must start within one year of the date the claim arose.
+        channel: legal-notice-mail
+    facts:
+      - kind: policy
+        claim: >-
+          Ticket Contract section 7.b: Royal Caribbean may for any reason, at any time and without prior notice,
+          cancel, advance, postpone or deviate from any scheduled sailing, port of call or destination, and is not
+          liable for any claim, including loss, compensation or refund, except for mechanical failures (section 7.d) or
+          as applicable law requires. Section 7.e lets it substitute another vessel without liability.
+        issues: [reservation_problem]
+        source: https://www.royalcaribbean.com/guest-terms/us/united-states-english/
+        last_verified: 2026-10-13
+      - kind: compensation
+        claim: >-
+          Ticket Contract section 7.d: for mechanical failures, guests get a full refund of the Cruise Fare if the whole
+          cruise is cancelled, or a partial refund if it is terminated early, plus transportation and in some cases
+          lodging selected by Royal Caribbean.
+        issues: [reservation_problem, refund_request]
+        source: https://www.royalcaribbean.com/guest-terms/us/united-states-english/
+        last_verified: 2026-10-13
+
+  - issue: accessibility
+    summary: Submit the Guest Special Needs Form at booking and no later than 30 days before sailing (60 days for sign language interpreting).
+    evidence: [reservation number, sail date, description of the accommodation needed, confirmation email]
+    steps:
+      - do: Submit the Guest Special Needs Form at booking and no later than 30 days before sailing; sign language interpreting requests no later than 60 days before.
+        channel: special-needs-form
+      - do: If no automated confirmation arrives within 24 hours, email the accessibility team or call it to confirm.
+        channel: special-needs-email
+      - do: Call the accessibility team if there is no personal response within 48 hours.
+        channel: special-needs-phone
+      - do: Arrange accessible shore excursions separately with the shore excursions access team.
+        channel: shorex-access-email
+    facts:
+      - kind: deadline
+        claim: >-
+          The Guest Special Needs page asks for the form at the time of booking and no later than 30 days before
+          sailing; sign language interpreting requests must be submitted 60 days before sailing. It promises an
+          automated confirmation within 24 hours and a personal response within 48 hours.
+        issues: [accessibility]
+        source: https://www.royalcaribbean.com/resources/guest-special-needs
+        last_verified: 2026-10-13
+
+facts:
+  - kind: deadline
+    claim: >-
+      Ticket Contract section 10.b.iii (U.S. cruises): for injury, illness or death, written notice with full
+      particulars must be delivered within six months, suit must be filed within one year, and process served within
+      120 days after filing. All other claims must be started in arbitration within one year from the date the cause
+      arose or they are forever barred.
+    issues: [safety_incident, refund_request, reservation_problem]
+    source: https://www.royalcaribbean.com/guest-terms/us/united-states-english/
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: >-
+      Ticket Contract section 10.b.i: lawsuits must be filed in the U.S. District Court for the Southern District of
+      Florida in Miami-Dade County, or, if that court lacks subject matter jurisdiction, a court in Miami-Dade County.
+      U.S. general maritime law governs.
+    issues: [safety_incident]
+    source: https://www.royalcaribbean.com/guest-terms/us/united-states-english/
+    last_verified: 2026-10-13
+  - kind: process
+    claim: >-
+      Ticket Contract section 10.c: all claims except personal injury, illness or death go to individual arbitration
+      under the American Arbitration Association Consumer Arbitration Rules; class and representative proceedings are
+      not allowed. A signed Notice of Dispute and a 60-day informal resolution period come first. If the claims total
+      US$750 or less, Royal Caribbean pays all AAA fees when the guest met the notice requirements.
+    issues: [refund_request, travel_credit, reservation_problem, poor_service]
+    source: https://www.royalcaribbean.com/guest-terms/us/united-states-english/
+    last_verified: 2026-10-13
+  - kind: limit
+    claim: >-
+      Ticket Contract section 4.c: liability for guest property is limited to $300.00 per guest unless the guest
+      declares the true value in writing and pays 5% of the amount above $300.00; liability is then capped at the
+      declared value, not exceeding $5,000.
+    issues: [lost_item, damaged_item]
+    source: https://www.royalcaribbean.com/guest-terms/us/united-states-english/
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: >-
+      The U.S. Ticket Contract page is marked R(US)OCT2026 and applies to guests whose primary country of residence is
+      the United States. Section 1 says Royal Caribbean may change the contract terms and that notice may or may not be
+      given.
+    source: https://www.royalcaribbean.com/guest-terms/us/united-states-english/
+    last_verified: 2026-10-13
+
+known_blockers:
+  - The Send Us a Message form has no direct URL; it is embedded in the contact us page.
+  - The Notice of Dispute must be personally signed by the guest and sent by U.S. mail or courier.
+  - Refunds for bookings paid by a travel advisor go back to the advisor, and chartered sailings must be handled through the reseller.
+  - Some royalcaribbean.com pages (for example the accessible cruising page) returned HTTP 403 to automated fetches.
+
+notes: >-
+  Checked on 2026-10-13. Royal Caribbean changed its cancellation schedule for bookings made on or after October 11,
+  2026 (and certain 2028 Alaska, Hawaii, Transpacific, Panama Canal and Pacific Coastal sailings booked on or after
+  September 29, 2026); older bookings keep the schedule in their confirmation. The cancellation FAQ is the page the FMC
+  lists as Royal Caribbean's nonperformance refund policy.
+
+official_domains: [royalcaribbean.com, rccl.com, rcclapac.com, rccl.com.br, rccl.com.mx, royalcaribbean.com.hk]
+security:
+  known_scams:
+    - kind: policy
+      claim: >-
+        The FTC warns of illegal robocalls that promise free cruise tickets for taking a survey, then transfer you to
+        telemarketers; in its January 2020 case each person had to pay $59 in port taxes and fees. The alert names no
+        cruise line. The FTC says to hang up and report the call at donotcall.gov.
+      source: https://consumer.ftc.gov/consumer-alerts/2020/01/free-cruise-try-illegal-robocall-upsell
+      last_verified: 2026-10-13

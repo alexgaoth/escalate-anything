@@ -1,0 +1,252 @@
+id: disney-cruise-line
+name: Disney Cruise Line
+aliases: [dcl, disney cruise, disney cruises, magical cruise company]
+sector: cruise
+parent: The Walt Disney Company
+website: https://disneycruise.disney.go.com
+regulators: [fmc]
+
+channels:
+  - id: reservations-phone
+    type: phone
+    label: Disney Cruise Line reservations and cruise help (U.S. and Canada)
+    value: +1-800-951-3532
+    hours: Mon–Fri 8:00 AM–10:00 PM ET; Sat–Sun 9:00 AM–8:00 PM ET
+    purposes: [refund_request, travel_credit, reservation_problem, accessibility]
+    notes: >-
+      Listed in the Terms & Conditions (Rev. August 2026). Callers under 18 need a parent's or guardian's permission.
+      Search results for the Help Center phone page show the same number and hours; that page did not load for
+      automated fetches.
+    source: https://disneycruise.disney.go.com/contracts-terms-safety/terms-conditions/united-states/
+    last_verified: 2026-10-13
+  - id: case-request-email
+    type: email
+    label: Refund or cruise credit requests after a Disney cancellation or 3-day delay (nonperformance)
+    value: Caserequest@disneycruise.com
+    purposes: [refund_request, travel_credit]
+    notes: >-
+      Request within 90 days of the original scheduled sail date. Include the cruise confirmation, proof and amount of
+      payment, and the cancellation or delay notice; documents must show the vessel and sailing date.
+    source: https://disneycruise.disney.go.com/contracts-terms-safety/terms-conditions/united-states/
+    last_verified: 2026-10-13
+  - id: email-form
+    type: web_form
+    label: Email Disney Cruise Line (Help Center contact form)
+    value: https://disneycruise.disney.go.com/help/email/
+    purposes: [poor_service, reservation_problem, refund_request]
+    notes: >-
+      The Terms & Conditions point to this form. The page returned a redirect loop to automated fetches, so its
+      fields and any sign-in step were not checked.
+    source: https://disneycruise.disney.go.com/contracts-terms-safety/terms-conditions/united-states/
+    last_verified: 2026-10-13
+  - id: tty-phone
+    type: phone
+    label: TTY for guests with hearing or speech disabilities
+    value: +1-407-566-7455
+    purposes: [accessibility]
+    source: https://disneycruise.disney.go.com/contracts-terms-safety/terms-conditions/united-states/
+    last_verified: 2026-10-13
+  - id: special-services-phone
+    type: phone
+    label: Special Services (guests with disabilities or medical needs, U.S. and Canada)
+    value: +1-407-566-3602
+    purposes: [accessibility]
+    notes: >-
+      Printed on the Special Services Information Form (Rev. 08/26/2015). Search results for the current Guests with
+      Disabilities page show the same number, but that page did not load for automated fetches. Reservations can also
+      transfer callers to Special Services.
+    source: https://wdpromedia.disney.go.com/media/wdpro-assets/dcl/finder/guest-services/guests-with-disabilities/SpecialServicesInformationForm.pdf
+    last_verified: 2026-10-13
+  - id: special-services-form
+    type: mail
+    label: Special Services Information Form (return by fax or mail)
+    value: Disney Cruise Line Special Services, P.O. Box 10210, Lake Buena Vista, Florida 32830-0210
+    purposes: [accessibility]
+    notes: >-
+      The form (Rev. 08/26/2015) says to return it by fax (+1-407-566-3760) or mail at least 60 days before the travel
+      date. The form is old; confirm the current process with Special Services.
+    source: https://wdpromedia.disney.go.com/media/wdpro-assets/dcl/finder/guest-services/guests-with-disabilities/SpecialServicesInformationForm.pdf
+    last_verified: 2026-10-13
+  - id: claims-mail
+    type: mail
+    label: Written notice of claims (Cruise Contract clauses 10 and 11)
+    value: Disney Cruise Line, PO Box 10210, Lake Buena Vista, FL 32830
+    purposes: [safety_incident, lost_item, damaged_item]
+    notes: >-
+      Clauses 10 and 11 require notice to "the address set forth herein". The contract lists 210 Celebration Place,
+      Celebration, FL 34747 and the mailing address PO Box 10210, Lake Buena Vista, FL 32830. The carrier is Magical
+      Cruise Company, Limited, doing business as Disney Cruise Line.
+    source: https://disneycruise.disney.go.com/contracts-terms-safety/cruise-contract/united-states/
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: reservations-phone}
+  - {rung: written_complaint, channel: email-form}
+  - {rung: regulator, regulator: fmc, note: "For a refund Disney Cruise Line owes after it cancelled a cruise or delayed it more than 3 calendar days (nonperformance)."}
+  - {rung: payment_dispute, note: "Card dispute for a refund Disney Cruise Line owes but has not paid."}
+
+playbooks:
+  - issue: refund_request
+    summary: >-
+      If you cancel, the fee depends on cruise length, stateroom type and days before sailing; restricted fares are
+      nonrefundable. If Disney cancels or delays the cruise more than 3 days, email Caserequest@disneycruise.com within
+      90 days of the original sail date.
+    evidence: [cruise confirmation number, proof and amount of payment, cancellation or delay notice, travel documents]
+    steps:
+      - do: To cancel, call Disney Cruise Line (or your travel agent if one booked the cruise). Note the fee tier for the date of the call.
+        channel: reservations-phone
+      - do: If Disney cancelled or delayed the cruise more than three calendar days and you did not accept the alternative or the delayed cruise, email a refund or cruise credit request within 90 days of the original scheduled sail date, with the confirmation, proof of payment and the notice.
+        channel: case-request-email
+      - do: Return any travel documents, including airline tickets, so refund processing can begin.
+      - do: If the nonperformance claim is denied or not resolved within 180 days, file with the FMC against the line's financial instrument.
+        regulator: fmc
+      - do: Dispute the charge with your card issuer if the refund is owed and not paid.
+    facts:
+      - kind: fee
+        claim: >-
+          Terms & Conditions (Rev. August 2026), cruises of 1 to 5 nights, excluding suites and concierge: no fee 90 or
+          more days before sailing; the deposit per guest at 89 to 45 days; 50% of the vacation price at 44 to 30 days;
+          75% at 29 to 15 days; 100% at 14 days or fewer. Cruises of 6 or more nights: no fee at 120 or more days; the
+          deposit at 119 to 56 days; 50% at 55 to 30 days; 75% at 29 to 15 days; 100% at 14 days or fewer.
+        issues: [refund_request]
+        source: https://disneycruise.disney.go.com/contracts-terms-safety/terms-conditions/united-states/
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: >-
+          Suites and concierge staterooms: the deposit is charged at 45 or more days (1 to 5 nights) or 56 or more days
+          (6 or more nights) before sailing, then 50% at 44 or 55 to 30 days, 75% at 29 to 15 days, and 100% at 14 days
+          or fewer. Restricted Inside, Outside and Verandah categories are nonrefundable and nontransferable from the
+          time of payment.
+        issues: [refund_request]
+        source: https://disneycruise.disney.go.com/contracts-terms-safety/terms-conditions/united-states/
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: >-
+          If Disney Cruise Line cancels or delays a cruise more than three calendar days and you do not accept an
+          alternative or the delayed cruise, request a refund or cruise credit by email to Caserequest@disneycruise.com
+          within 90 days of the original scheduled sail date. For cancellations or delays before the cruise begins,
+          Disney refunds monies paid without offset for its cancellation fees.
+        issues: [refund_request, travel_credit]
+        source: https://disneycruise.disney.go.com/contracts-terms-safety/terms-conditions/united-states/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          Refunds of amounts paid, less cancellation fees and other amounts owed, are made promptly to the guest's
+          credit card or through the travel agent; the page gives no number of days. Travel documents, including
+          airline tickets, must be returned first. No refunds for interruption or cancellation after the vacation
+          starts. Missing the deposit or final payment schedule cancels a pending reservation automatically.
+        issues: [refund_request]
+        source: https://disneycruise.disney.go.com/contracts-terms-safety/terms-conditions/united-states/
+        last_verified: 2026-10-13
+      - kind: process
+        claim: >-
+          46 CFR 540.9(f): for nonperformance, the passenger first makes a written refund request to the cruise line.
+          If the claim is not resolved within 180 days (or the line's shorter stated period) after nonperformance, or
+          is denied, the passenger may claim against the line's FMC financial instrument.
+        issues: [refund_request]
+        source: https://www.law.cornell.edu/cfr/text/46/540.9
+        last_verified: 2026-10-13
+
+  - issue: travel_credit
+    summary: After a Disney cancellation or a delay of more than 3 days, you choose a refund or a cruise credit; request either within 90 days of the original sail date.
+    evidence: [cruise confirmation number, cancellation or delay notice, proof of payment]
+    steps:
+      - do: Email the request for a refund (or a cruise credit) within 90 days of the original scheduled sail date.
+        channel: case-request-email
+      - do: If refused or not resolved within 180 days, file with the FMC.
+        regulator: fmc
+    facts:
+      - kind: policy
+        claim: The Terms & Conditions let a guest whose cruise Disney cancelled or delayed more than three calendar days request either a refund or a cruise credit.
+        issues: [travel_credit]
+        source: https://disneycruise.disney.go.com/contracts-terms-safety/terms-conditions/united-states/
+        last_verified: 2026-10-13
+
+  - issue: reservation_problem
+    summary: The Cruise Contract lets Disney change the route or substitute the ship; if it cancels before you board, it owes a refund of money or fares paid.
+    evidence: [cruise confirmation number, original itinerary, change notices, receipts for extra costs]
+    steps:
+      - do: Raise the problem before the cruise ends and keep written records.
+      - do: After the cruise, write to Disney Cruise Line through the email form with the confirmation number and the remedy you want.
+        channel: email-form
+      - do: If the cruise was cancelled or delayed more than 3 days, use the refund_request steps.
+    facts:
+      - kind: policy
+        claim: >-
+          Cruise Contract clause 30 lets the carrier substitute a vessel and deviate from or change the advertised route
+          at any stage. Clause 32: if the voyage is prevented and the guest has not embarked, the carrier may cancel
+          "without liability except to refund money or fares paid"; it also says the Passenger Bill of Rights controls
+          where it conflicts with the contract.
+        issues: [reservation_problem, refund_request]
+        source: https://disneycruise.disney.go.com/contracts-terms-safety/cruise-contract/united-states/
+        last_verified: 2026-10-13
+
+  - issue: accessibility
+    summary: Tell Disney Cruise Line about disability or medical needs in advance through Special Services; the published form asks for at least 60 days' notice.
+    evidence: [cruise confirmation number, sail date, description of the accommodation needed]
+    steps:
+      - do: Call Special Services (or ask Reservations to transfer you) to discuss the accommodation.
+        channel: special-services-phone
+      - do: Return the Special Services Information Form at least 60 days before the travel date.
+        channel: special-services-form
+      - do: Guests with hearing or speech disabilities can use the TTY line.
+        channel: tty-phone
+    facts:
+      - kind: deadline
+        claim: The Special Services Information Form (Rev. 08/26/2015) asks guests to return it by fax or mail at least 60 days before the travel date.
+        issues: [accessibility]
+        source: https://wdpromedia.disney.go.com/media/wdpro-assets/dcl/finder/guest-services/guests-with-disabilities/SpecialServicesInformationForm.pdf
+        last_verified: 2026-10-13
+
+facts:
+  - kind: deadline
+    claim: >-
+      Cruise Contract clause 10: for injury, illness or death, written notice must be delivered within six (6) months
+      from the day of the event, suit filed within one (1) year, and process served within 120 days after filing.
+    issues: [safety_incident]
+    source: https://disneycruise.disney.go.com/contracts-terms-safety/cruise-contract/united-states/
+    last_verified: 2026-10-13
+  - kind: deadline
+    claim: >-
+      Cruise Contract clause 11: for loss of or damage to property, written notice must be delivered within thirty (30)
+      days after the end of the voyage, and suit filed within one year after the voyage ends, with service within 120
+      days after filing.
+    issues: [lost_item, damaged_item]
+    source: https://disneycruise.disney.go.com/contracts-terms-safety/cruise-contract/united-states/
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: >-
+      Cruise Contract clause 12: suits must be brought in a court of competent jurisdiction in Brevard County, Florida,
+      or the U.S. District Court, Middle District of Florida, Orlando Division. The contract has no arbitration clause,
+      but guests waive class actions and must sue individually.
+    issues: [safety_incident, refund_request, reservation_problem]
+    source: https://disneycruise.disney.go.com/contracts-terms-safety/cruise-contract/united-states/
+    last_verified: 2026-10-13
+  - kind: limit
+    claim: >-
+      Cruise Contract clause 16: liability for guest property is limited to $300 per guest per voyage, unless a higher
+      value is declared in writing before embarkation and 5% of the excess is paid; liability then does not exceed
+      $5,000.
+    issues: [lost_item, damaged_item]
+    source: https://disneycruise.disney.go.com/contracts-terms-safety/cruise-contract/united-states/
+    last_verified: 2026-10-13
+
+known_blockers:
+  - disneycruise.disney.go.com Help Center, contact and disability pages returned redirect loops to automated fetches; a person may need to open them in a browser.
+  - The Special Services form is returned by fax or mail, not online.
+
+notes: >-
+  Checked on 2026-10-13 against the U.S. Terms & Conditions (Rev. August 2026) and the U.S. Cruise Contract (Version
+  #16). The Terms & Conditions page is the one the FMC lists as Disney Cruise Line's nonperformance refund policy. If
+  the two conflict, the Cruise Contract controls. The Special Services form found is dated 2015.
+
+official_domains: [disney.go.com, disneycruise.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: >-
+        The FTC warns of illegal robocalls that promise free cruise tickets for taking a survey, then transfer you to
+        telemarketers; in its January 2020 case each person had to pay $59 in port taxes and fees. The alert names no
+        cruise line.
+      source: https://consumer.ftc.gov/consumer-alerts/2020/01/free-cruise-try-illegal-robocall-upsell
+      last_verified: 2026-10-13

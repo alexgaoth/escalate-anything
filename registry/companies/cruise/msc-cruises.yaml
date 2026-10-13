@@ -1,0 +1,159 @@
+id: msc-cruises
+name: MSC Cruises
+aliases: [msc, msc cruises usa, msc cruises (usa) llc, msc cruises s.a.]
+sector: cruise
+website: https://www.msccruisesusa.com
+regulators: [fmc]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: MSC Cruises USA customer service and reservations
+    value: +1-877-665-4655
+    purposes: [refund_request, cancel_service, reservation_problem, accessibility]
+    notes: >-
+      From search-result snippets of msccruisesusa.com (the contact page and the U.S. booking terms); msccruisesusa.com
+      returned HTTP 401 to our fetches, so the page itself was not loaded. Snippets give different hours (one: Mon–Fri
+      9 a.m.–7 p.m., Sat 9 a.m.–6 p.m., Sun 10 a.m.–4 p.m.), so hours are not recorded. A booking-terms snippet says
+      cancellations must be requested by telephone at this number by the passenger or the travel agent.
+    source: https://www.msccruisesusa.com/contact-us
+    last_verified: 2026-10-13
+  - id: contact-page
+    type: portal
+    label: Contact Us page (contact center, lost and found form, Special Needs form link)
+    value: https://www.msccruisesusa.com/contact-us
+    purposes: [poor_service, lost_item, accessibility]
+    notes: >-
+      Known only from search-result snippets; the page returned HTTP 401 to our fetches. Snippets say it links a lost and
+      found form and the Special Needs form.
+    source: https://www.msccruisesusa.com/contact-us
+    last_verified: 2026-10-13
+  - id: accessibility-form
+    type: web_form
+    label: Accessibility and Medical Requests form
+    value: https://www.msccruisesusa.com/accessibility-form-new
+    purposes: [accessibility]
+    notes: >-
+      Known only from search-result snippets; msccruisesusa.com returned HTTP 401 to our fetches. The accessibility page
+      snippet says to submit the form at the time of booking, or at the latest 30 days before departure.
+    source: https://www.msccruisesusa.com/accessibility-medical
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, note: "No U.S. written complaint form or address could be verified. Send written claims by a method with delivery confirmation and keep proof."}
+  - {rung: regulator, regulator: fmc, note: "For a refund MSC owes after it cancelled or delayed a cruise (nonperformance)."}
+  - {rung: payment_dispute, note: "Card dispute for a refund MSC owes but has not paid."}
+
+playbooks:
+  - issue: refund_request
+    summary: >-
+      If MSC cancels a cruise or delays it three or more days and you choose not to sail, you can claim a refund; MSC
+      recommends sending the claim with delivery confirmation and says valid claims are paid within 180 days. A
+      cancellation you make yourself is not nonperformance. All values here come from search-result snippets.
+    evidence: [booking number, cancellation or delay notice from MSC, proof of payment and amount, proof of delivery of your claim]
+    steps:
+      - do: To cancel a booking yourself, call MSC (or have your travel agent call); the booking terms say cancellation must be requested by telephone.
+        channel: customer-service-phone
+      - do: If MSC cancelled the cruise or delayed it three or more days and you chose not to sail, send a written refund claim by certified mail, registered mail or courier with delivery confirmation. Confirm the claim address with MSC first, because it could not be verified here.
+        channel: customer-service-phone
+      - do: If MSC denies a valid claim or does not pay within 180 days, file with the Federal Maritime Commission.
+        regulator: fmc
+      - do: If a refund MSC owes is still not paid, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: >-
+          MSC's Nonperformance Refund Claims page says that if a cruise is cancelled or delayed by three or more days and
+          you choose not to sail, you may claim a refund; a passenger's own cancellation is not nonperformance. MSC
+          recommends sending claims by certified mail, registered mail or courier with delivery confirmation, and valid
+          claims are paid within 180 days. From a search-result snippet; the page returned HTTP 401. The FMC links to this
+          page as MSC's official nonperformance policy.
+        issues: [refund_request]
+        source: https://www.msccruisesusa.com/nonperformance
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          A search-result snippet of MSC's U.S. booking terms says cancellation charges are assessed on total fares
+          (excluding government fees and taxes and airfare), and that airfare booked through MSC becomes non-refundable
+          twenty-four hours after booking. MSC's documents show different cancellation schedules by version, so the
+          percentages are not recorded here.
+        issues: [refund_request, cancel_service]
+        source: https://www.msccruisesusa.com/-/media/US/Documents/booking-terms-and-conditions
+        last_verified: 2026-10-13
+
+  - issue: accessibility
+    summary: >-
+      Submit the Accessibility and Medical Requests form at booking, and no later than 30 days before departure; MSC says
+      that after this it may be unable to provide the assistance. Values come from search-result snippets.
+    evidence: [booking number, the submitted form and confirmation, dates, what was not provided]
+    steps:
+      - do: At booking, submit the Accessibility and Medical Requests form; the latest is 30 days before departure.
+        channel: accessibility-form
+      - do: For accessible airport or port transfers, ask your travel agent or the MSC contact center.
+        channel: customer-service-phone
+      - do: On board, report problems at reception or Guest Services before you disembark.
+      - do: After the cruise, send written notice within 15 days of disembarkation and keep proof of delivery.
+    facts:
+      - kind: deadline
+        claim: >-
+          MSC's accessibility page (search-result snippet; the page returned HTTP 401) says guests should submit the
+          Accessibility and Medical Requests form at the time of booking, or at the latest 30 days before departure, and
+          that after this deadline MSC may be unable to provide the level of assistance required.
+        issues: [accessibility]
+        source: https://www.msccruisesusa.com/accessibility-medical
+        last_verified: 2026-10-13
+      - kind: contact
+        claim: >-
+          The Department of Justice takes ADA complaints online at https://civilrights.justice.gov/report and answers
+          questions on the ADA Information Line 800-514-0301 (TTY 1-833-610-1264).
+        issues: [accessibility]
+        source: https://www.ada.gov/file-a-complaint/
+        last_verified: 2026-10-13
+
+facts:
+  - kind: deadline
+    claim: >-
+      A search-result snippet of MSC's U.S. booking terms says notices of claim for death, illness, emotional stress or
+      personal injury, with full particulars in writing, must be received by MSC within six (6) months (185 calendar days)
+      after the event. The time limit for filing suit was not visible in the snippets.
+    issues: [safety_incident]
+    source: https://www.msccruisesusa.com/-/media/US/Documents/booking-terms-and-conditions
+    last_verified: 2026-10-13
+  - kind: deadline
+    claim: >-
+      A search-result snippet of MSC's U.S. Conditions of Carriage says notice of loss or damage to luggage must be given
+      in writing before or at disembarkation, or within fifteen (15) calendar days if the loss is not apparent then, and
+      that notice of any other claim (not injury, illness or luggage) must be received in writing within fifteen (15)
+      days from disembarkation. Which document version this text came from could not be confirmed.
+    issues: [poor_service, reservation_problem, refund_request, accessibility]
+    source: https://www.msccruisesusa.com/conditions-of-carriage
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: >-
+      A search-result snippet of MSC's U.S. booking terms says that for cruises that include, embark or disembark at a U.S. port,
+      disputes are resolved exclusively by the U.S. District Court for the Southern District of Florida, and that the
+      booking terms provide for individual legal action only, not class or representative actions.
+    issues: [refund_request, poor_service, safety_incident]
+    source: https://www.msccruisesusa.com/-/media/US/Documents/booking-terms-and-conditions
+    last_verified: 2026-10-13
+
+known_blockers:
+  - msccruisesusa.com returned HTTP 401 to automated fetches on 2026-10-13, including the contact page, booking terms, Conditions of Carriage and nonperformance page. An agent may need the person to open these pages in a browser.
+  - The booking terms say a cancellation must be requested by telephone, which needs the passenger or travel agent on the call.
+  - No U.S. written complaint form, email or mailing address for claims could be verified.
+
+notes: >-
+  Every value in this file comes from search-result snippets of msccruisesusa.com pages, because the site returned HTTP
+  401 to direct fetches on 2026-10-13. Verify on the live pages before relying on them. Gaps: the cancellation charge
+  percentages (MSC's documents show several versions), refund processing times, the suit deadline, the claims address,
+  and published hours. Snippets showed two U.S. office addresses (Miami and Fort Lauderdale), so neither is recorded.
+
+official_domains: [msccruisesusa.com, msccruises.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: >-
+        The FTC warned on January 10, 2020 about illegal robocalls that offered two free cruise tickets for a phone survey,
+        then passed people to telemarketers who sold upgrades and charged $59 in port taxes and fees per person. The alert does not name MSC.
+      source: https://consumer.ftc.gov/consumer-alerts/2020/01/free-cruise-try-illegal-robocall-upsell
+      last_verified: 2026-10-13

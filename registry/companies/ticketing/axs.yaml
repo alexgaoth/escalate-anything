@@ -1,0 +1,181 @@
+id: axs
+name: AXS
+aliases: [axs group, axs group llc, axs.com, axs tickets]
+sector: ticketing
+parent: AEG
+website: https://www.axs.com
+regulators: [ftc]
+
+channels:
+  - id: helpline-phone
+    type: phone
+    label: AXS helpline (charges made in error, purchase questions)
+    value: +1-888-929-7849
+    purposes: [billing_error, unauthorized_charge, refund_request, event_cancelled]
+    notes: >-
+      The Purchase Agreement says "If you feel that a charge has been made to your Payment Method in error, call our
+      helpline or email our customer service department" and lists 1-888-929-7849 (also written 888.929.7849). It gives no
+      hours. The email address is hidden behind an obfuscated link on the page and is not recorded here.
+    source: https://www.axs.com/about-purchase-agreement_US_v8.html
+    last_verified: 2026-10-13
+  - id: support-request-form
+    type: web_form
+    label: AXS Support request form (support.axs.com)
+    value: https://support.axs.com/hc/en-us/requests/new
+    purposes: [event_cancelled, refund_request, billing_error, unauthorized_charge, account_access]
+    notes: >-
+      Linked as "Feedback" in the footer of the AXS Purchase Agreement. support.axs.com refused automated access (HTTP 403)
+      on 2026-10-13, so the form fields and any sign-in or bot check were not seen.
+    source: https://www.axs.com/about-purchase-agreement_US_v5.html
+    last_verified: 2026-10-13
+  - id: support-contact
+    type: portal
+    label: AXS Support, Contact Us (select country)
+    value: https://support.axs.com/hc/p/select_country
+    purposes: [event_cancelled, refund_request, billing_error]
+    notes: >-
+      Linked as "Contact Us" and "Help" in the Purchase Agreement footer. A U.S. help article "How do I contact Fan Support"
+      (https://support.axs.com/hc/en-us/articles/360033079634-How-do-I-contact-Fan-Support) and the refund article "Can I
+      cancel or refund my tickets" (https://support.axs.com/hc/en-us/articles/200747305-Can-I-cancel-or-refund-my-tickets)
+      exist, but their text could not be loaded (HTTP 403); a search-result summary mentioned live chat on the help page.
+    source: https://www.axs.com/about-purchase-agreement_US_v5.html
+    last_verified: 2026-10-13
+  - id: purchase-agreement-mail
+    type: mail
+    label: AXS Group LLC, questions about the Purchase Agreement
+    value: AXS Group LLC, 425 West 11th Street, Suite 100, Los Angeles, CA 90015, Attn. Purchase Agreement - AXS
+    purposes: [refund_request, billing_error]
+    source: https://www.axs.com/about-purchase-agreement_US_v8.html
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: helpline-phone}
+  - {rung: written_complaint, channel: support-request-form}
+  - {rung: payment_dispute, note: "Card dispute for a cancelled event that was not refunded (rule fcba-billing-error)."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: event_cancelled
+    summary: >-
+      AXS says refunds will generally be issued if an event is cancelled and not rescheduled, but the Client (venue or
+      promoter) decides, and AXS or the Client may keep fees. Primary tickets for suspended, postponed or rescheduled events
+      are not refunded unless the Client offers it or the law requires it.
+    evidence: [order number, AXS or organizer cancellation notice, total paid including fees]
+    steps:
+      - do: Check the event status on axs.com, and contact the venue or event organizer about new dates and whether a refund applies, as the Purchase Agreement advises.
+      - do: For a cancelled event that is not rescheduled, expect the refund to the payment method used for the purchase. If it does not arrive, contact AXS Support in writing with the order number.
+        channel: support-request-form
+      - do: Call the helpline if the written request gets no answer.
+        channel: helpline-phone
+      - do: If neither AXS nor the organizer refunds a cancelled event, dispute the charge with the card issuer (rule fcba-billing-error) and report to the FTC and your state attorney general.
+        regulator: ftc
+    facts:
+      - kind: policy
+        claim: >-
+          "Refunds will generally be issued if an event is canceled and not rescheduled"; the Purchase Agreement adds that
+          this "is determined by our Clients, and not by AXS", and that AXS or the Client "reserves the right to retain
+          various fees and charges paid by buyers or sellers on our Service" even if an event is cancelled and not
+          rescheduled. Refunds go to the payment method used for the purchase. No processing time is stated.
+        issues: [event_cancelled]
+        source: https://www.axs.com/about-purchase-agreement_US_v8.html
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          "Refunds for Primary Ticket purchases are not available for suspended, postponed or rescheduled events" unless
+          offered by the Client or required by law. For a rescheduled event AXS will try to offer a ticket of the same value
+          or in the same location, "although that is not always possible."
+        issues: [event_cancelled]
+        source: https://www.axs.com/about-purchase-agreement_US_v8.html
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          A changed or cancelled opening act or guest artist does not make the event cancelled, and gives no right to a
+          refund or exchange. Online (virtual) events are not refunded unless the event is cancelled.
+        issues: [event_cancelled, refund_request]
+        source: https://www.axs.com/about-purchase-agreement_US_v8.html
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: >-
+          Resale on AXS: when a refund is due on a Resale Ticket, the reseller must refund the proceeds, and AXS may charge
+          the reseller's account balance or payment method. The buyer's refund is issued to the payment method on file. An
+          original purchaser's own refund may be withheld until they reimburse AXS for resale proceeds.
+        issues: [event_cancelled, refund_request]
+        source: https://www.axs.com/about-purchase-agreement_US_v8.html
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: AXS purchases are final; tickets are not exchanged or refunded (and fees are not refunded) unless the terms or the Client's refund policy say otherwise.
+    evidence: [order number, the Client's refund policy shown at purchase]
+    steps:
+      - do: Read the Client's refund policy for the event; buying the ticket means you agreed to it.
+      - do: Ask AXS Support in writing whether the Client offers a refund, quoting the order number.
+        channel: support-request-form
+    facts:
+      - kind: policy
+        claim: >-
+          "Unless otherwise stated in our terms, tickets cannot be exchanged or refunded even if lost, stolen, damaged or
+          destroyed, and fees cannot be refunded." By purchasing a ticket you agree to the refund policy of the associated
+          Client, and AXS follows the Clients' instructions on refunds.
+        issues: [refund_request]
+        source: https://www.axs.com/about-purchase-agreement_US_v8.html
+        last_verified: 2026-10-13
+
+  - issue: billing_error
+    summary: Call the AXS helpline about a charge made in error; if it is not corrected, dispute it with the card issuer.
+    evidence: [order confirmation with the fee breakdown, card statement]
+    steps:
+      - do: Call the helpline about the charge. The Purchase Agreement says all fees and charges are disclosed during the purchase process.
+        channel: helpline-phone
+      - do: Put the complaint in writing through AXS Support.
+        channel: support-request-form
+      - do: If the charge is not corrected, send a billing-error dispute to the card issuer (rule fcba-billing-error).
+      - do: Report mandatory fees that were not in the advertised total price to the FTC (rule ftc-junk-fees-rule).
+        regulator: ftc
+    facts:
+      - kind: process
+        claim: >-
+          "If you feel that a charge has been made to your Payment Method in error, call our helpline or email our customer
+          service department." The helpline is 1-888-929-7849. The Purchase Agreement also says all fees and charges relating
+          to your transaction will be disclosed during the purchase process.
+        issues: [billing_error, unauthorized_charge]
+        source: https://www.axs.com/about-purchase-agreement_US_v8.html
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: Report an AXS charge you did not make to the card issuer at once, and tell the AXS helpline.
+    evidence: [card statement, any AXS order emails]
+    steps:
+      - do: Report the charge to the card issuer at once (rules tila-unauthorized-card-liability and fcba-billing-error).
+      - do: Call the AXS helpline about the charge.
+        channel: helpline-phone
+      - do: If someone used your identity, report it to the FTC.
+        regulator: ftc
+
+facts:
+  - kind: policy
+    claim: >-
+      The Purchase Agreement refers to the AXS Terms of Use, "which include a mandatory arbitration provision" and a class
+      action waiver provision.
+    source: https://www.axs.com/about-purchase-agreement_US_v8.html
+    last_verified: 2026-10-13
+
+known_blockers:
+  - support.axs.com and the current Purchase Agreement page (axs.com/legal/purchase_agreement.html) refused automated access (HTTP 403) on 2026-10-13; a person may need to open them in a browser.
+  - Refunds depend on the Client (venue or promoter); AXS follows the Client's instructions.
+
+notes: >-
+  Values come from the AXS Purchase Agreement – North America version last updated June 6th, 2024
+  (about-purchase-agreement_US_v8.html). The current Purchase Agreement page and support.axs.com blocked automated access,
+  so a newer version may exist. No AXS page on phishing or a resale buyer guarantee was found.
+
+official_domains: [axs.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: >-
+        AXS says "Tickets obtained from unauthorized sources may be invalid, lost, stolen or counterfeit and if so, are void",
+        that it does not guarantee the authenticity of tickets from a non-authorized third-party reseller, and recommends
+        buying directly through AXS, its Client or authorized partners.
+      source: https://www.axs.com/about-purchase-agreement_US_v8.html
+      last_verified: 2026-10-13
