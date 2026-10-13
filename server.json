@@ -1,17 +1,17 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.alexgaoth/escalate-anything",
-  "description": "Verified contacts, playbooks and escalation paths for 270+ US companies.",
+  "description": "Get the upper hand on any big US company: contacts, playbooks and escalation paths.",
   "repository": {
     "url": "https://github.com/alexgaoth/escalate-anything",
     "source": "github"
   },
-  "version": "0.1.0",
+  "version": "0.2.1",
   "packages": [
     {
       "registryType": "pypi",
       "identifier": "escalate-anything",
-      "version": "0.1.0",
+      "version": "0.2.1",
       "transport": {
         "type": "stdio"
       }

@@ -1,7 +1,7 @@
 [project]
 name = "escalate-anything"
-version = "0.2.0"
-description = "Verified contacts, playbooks and escalation paths for 180+ US companies, as an MCP server for AI agents."
+version = "0.2.1"
+description = "Get the upper hand on any big US company when they wrong you. An MCP server that gives your AI agent the contacts, playbooks and escalation paths for 270+ companies."
 readme = "README.md"
 requires-python = ">=3.12"
 license = "MIT AND CC-BY-4.0"

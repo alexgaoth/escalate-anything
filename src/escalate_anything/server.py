@@ -89,7 +89,7 @@ class LiveRegistry:
 
 READ_ONLY_INSTRUCTIONS = """\
 Escalate Anything (read-only) gives verified contacts, playbooks, escalation ladders, regulators and
-consumer rules for 180+ large US companies.
+consumer rules for 270+ large US companies.
 
 Workflow: find_company, then get_playbook(company, issue, state), and get_context(company) for how
 the company handles complaints in practice. Use contacts from the playbook; run scam_check on
@@ -124,7 +124,7 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
     """read_only drops the case log, bill and feedback tools, for a shared or public deployment."""
     reg = registry or LiveRegistry()
     db = store if store is not None else (None if read_only else Store())
-    mcp = MCPServer(name="escalate-anything", instructions=READ_ONLY_INSTRUCTIONS if read_only else INSTRUCTIONS, version="0.2.0")
+    mcp = MCPServer(name="escalate-anything", instructions=READ_ONLY_INSTRUCTIONS if read_only else INSTRUCTIONS, version="0.2.1")
 
     def guard(fn):
         """Turn lookup and store errors into a readable result instead of a protocol error."""
