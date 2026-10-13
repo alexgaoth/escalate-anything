@@ -1,0 +1,297 @@
+id: delta-air-lines
+name: Delta Air Lines
+aliases: [delta airlines, delta air lines inc, delta.com]
+sector: airline
+website: https://www.delta.com
+regulators: [us-dot]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: General Sales & Services (reservations, U.S.)
+    value: +1-800-221-1212
+    purposes: [flight_cancellation, flight_delay, denied_boarding, travel_credit]
+    source: https://www.delta.com/us/en/need-help/overview
+    last_verified: 2026-10-12
+  - id: customer-care-form
+    type: web_form
+    label: Comment & Complaint form
+    value: https://www.delta.com/us/en/need-help/overview?commentComplaintsForm
+    purposes: [flight_cancellation, flight_delay, denied_boarding, poor_service, accessibility, ancillary_fee_refund]
+    notes: Delta's Customer Service Plan names this form as the way to file a written complaint.
+    source: https://www.delta.com/us/en/legal/customer-commitment
+    last_verified: 2026-10-12
+  - id: customer-care-mail
+    type: mail
+    label: Customer Care mailing address (U.S., Caribbean, most of Europe and Latin America)
+    value: Delta Air Lines, Inc., Customer Care, P.O. Box 20980, Department 980, Atlanta, GA 30320-2980
+    purposes: [poor_service, accessibility]
+    source: https://www.delta.com/us/en/need-help/overview
+    last_verified: 2026-10-12
+  - id: refund-form
+    type: web_form
+    label: Refund request for a cancelled or significantly changed flight (Travel Resolution Form)
+    value: https://www.delta.com/refund-form
+    purposes: [flight_cancellation, refund_request, ancillary_fee_refund, travel_credit]
+    notes: The same form handles eCredit appeals and some other refund reasons.
+    source: https://www.delta.com/us/en/change-cancel/cancel-flight
+    last_verified: 2026-10-12
+  - id: reimbursement-form
+    type: web_form
+    label: Reimbursement request for meals, hotel and transportation after a Delta-caused delay or cancellation
+    value: https://www.delta.com/reimbursement/
+    purposes: [flight_delay, flight_cancellation]
+    notes: The page says eligibility is limited to U.S. and Canada residents; other requests go through the Comment & Complaint form.
+    source: https://www.delta.com/us/en/change-cancel/cancel-flight
+    last_verified: 2026-10-12
+  - id: refund-status-phone
+    type: phone
+    label: Refund status (U.S. and Canada)
+    value: +1-800-847-0578
+    hours: 8am-7pm ET, Mon-Fri
+    purposes: [refund_request, flight_cancellation]
+    source: https://www.delta.com/us/en/need-help/overview
+    last_verified: 2026-10-12
+  - id: baggage-claim-form
+    type: web_form
+    label: Online baggage claim (delayed, damaged, lost, pilfered)
+    value: https://www.delta.com/bag-claim
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    notes: Needs the file reference number from the airport baggage report.
+    source: https://www.delta.com/us/en/baggage/delayed-lost-damaged-baggage
+    last_verified: 2026-10-12
+  - id: baggage-phone
+    type: phone
+    label: Baggage service (U.S., toll-free)
+    value: +1-800-325-8224
+    hours: 6:00 am-12:00 am ET, 7 days
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    notes: The baggage page gives +1-404-209-3034 as the alternate number when the toll-free line is unavailable.
+    source: https://www.delta.com/us/en/need-help/overview
+    last_verified: 2026-10-12
+  - id: disability-phone
+    type: phone
+    label: Accessible Travel Services
+    value: +1-404-209-3434
+    hours: 24/7
+    purposes: [accessibility]
+    notes: Dial 711 for Relay Services.
+    source: https://www.delta.com/us/en/accessible-travel-services/overview
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: customer-care-form}
+  - {rung: regulator, regulator: us-dot}
+  - {rung: payment_dispute, note: "Card dispute for a refund Delta owes but has not paid."}
+
+playbooks:
+  - issue: flight_cancellation
+    summary: Decline the automatic rebooking if you want money back, then request a refund to the original form of payment.
+    evidence: [confirmation number, ticket number, original and rebooked itinerary, cancellation or schedule-change notice]
+    steps:
+      - do: Check the automatic rebooking in My Trips. If it does not work for you, cancel it and ask for a refund instead of an eCredit.
+      - do: Submit the refund request for the unflown portion plus prepaid seat and checked bag fees.
+        channel: refund-form
+      - do: If the cause was within Delta's control and you paid for meals or a hotel, submit receipts for reimbursement.
+        channel: reimbursement-form
+      - do: Check refund status by phone if it has not arrived after the stated processing time.
+        channel: refund-status-phone
+      - do: If Delta does not refund, file a complaint with the U.S. DOT, then dispute the charge with the card issuer.
+        regulator: us-dot
+    facts:
+      - kind: policy
+        claim: Delta defines a significant schedule change as a departure or arrival 3 hours or more earlier or later for domestic itineraries, and 6 hours for international itineraries.
+        issues: [flight_cancellation, flight_delay]
+        source: https://www.delta.com/us/en/change-cancel/cancel-flight
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If you decline the rebooking after a cancellation or significant change, you can get a refund of the unflown portion plus prepaid seat upgrade, Preferred Seat and checked bag fees, or take an eCredit valid for 5 years. If Delta cannot rebook you and you take no action within 24 hours, Delta refunds automatically to the original payment method.
+        issues: [flight_cancellation, travel_credit, ancillary_fee_refund]
+        source: https://www.delta.com/us/en/change-cancel/cancel-flight
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Contract of Carriage Rule 22(D) says credit card refunds are "typically within seven business days" of Delta's initial receipt of the refund request, and other forms of payment "typically within 20 days".
+        issues: [flight_cancellation, refund_request]
+        source: https://www.delta.com/us/en/legal/contract-of-carriage-dgr
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: For a delay or cancellation within Delta's control, the Customer Service Plan promises a meal or meal vouchers when you wait 3 or more hours, a hotel at a Delta-contracted facility (based on availability) and ground transportation if you are stuck overnight away from home, and rebooking on another airline with a ticketing agreement if no Delta flight is available.
+        issues: [flight_cancellation, flight_delay]
+        source: https://www.delta.com/us/en/legal/customer-commitment
+        last_verified: 2026-10-12
+
+  - issue: flight_delay
+    summary: For a Delta-caused delay of 3 hours or more, ask for meal vouchers and a hotel; claim receipts afterwards.
+    evidence: [confirmation number, scheduled and actual times, cause given by Delta, receipts]
+    steps:
+      - do: At the airport, ask an agent for meal vouchers (3+ hour wait) and, if stuck overnight, a hotel and ground transportation.
+      - do: If you paid yourself, submit receipts for reimbursement.
+        channel: reimbursement-form
+      - do: If the delay is a significant change (3+ hours domestic, 6+ hours international) and you no longer want to travel, request a refund.
+        channel: refund-form
+      - do: If Delta refuses, send a written complaint, then file with the U.S. DOT.
+        channel: customer-care-form
+    facts:
+      - kind: compensation
+        claim: For delays within Delta's control, representatives may also offer "cash equivalents (e.g., gift cards), travel credits/vouchers, and/or miles for SkyMiles members".
+        issues: [flight_delay, flight_cancellation]
+        source: https://www.delta.com/us/en/legal/customer-commitment
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Contract of Carriage Rule 19(B) provides an overnight hotel voucher (if contracted rooms are available) for delays between 10:00 pm and 6:00 am, and says Delta has no liability if the delay was due to force majeure.
+        issues: [flight_delay]
+        source: https://www.delta.com/us/en/legal/contract-of-carriage-dgr
+        last_verified: 2026-10-12
+
+  - issue: delayed_baggage
+    summary: File a delayed-bag report at the Baggage Service Office, keep the file reference number, and claim essentials with receipts.
+    evidence: [bag tag, file reference number, boarding pass, receipts for essentials]
+    steps:
+      - do: Report the bag at the Delta Baggage Service Office before leaving the airport. Keep the file reference number.
+      - do: Track the bag or call baggage service. Delta delivers the bag when it is found.
+        channel: baggage-phone
+      - do: Submit a claim with receipts for basic interim needs (essential clothing and toiletries).
+        channel: baggage-claim-form
+      - do: If the bag is not found within 5 days, submit the "Potential Property Loss Claim" from day 6.
+        channel: baggage-claim-form
+    facts:
+      - kind: policy
+        claim: Delta refunds the checked bag fee for a domestic bag not delivered within 12 hours of arriving at the gate (15 hours for international flights of 12 hours or less, 30 hours for longer international flights).
+        issues: [delayed_baggage, ancillary_fee_refund]
+        source: https://www.delta.com/us/en/baggage/delayed-lost-damaged-baggage
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Reimbursement covers basic interim needs such as essential clothing and toiletries. "Receipts are required to review your claim."
+        issues: [delayed_baggage]
+        source: https://www.delta.com/us/en/baggage/delayed-lost-damaged-baggage
+        last_verified: 2026-10-12
+
+  - issue: lost_baggage
+    summary: Delta treats a bag as lost if it is not found within 21 days; keep the delayed-bag file and claim the contents.
+    evidence: [bag tag, file reference number, contents list with values, receipts or photos]
+    steps:
+      - do: Keep the delayed-bag file open. From day 6, submit the Potential Property Loss Claim with a contents list and proof of value.
+        channel: baggage-claim-form
+      - do: Ask for the checked bag fee back.
+      - do: If the settlement is too low or late, send a written complaint, then file with the U.S. DOT.
+        regulator: us-dot
+    facts:
+      - kind: policy
+        claim: A bag is considered lost if it is not found within 21 days of arrival.
+        issues: [lost_baggage]
+        source: https://www.delta.com/us/en/baggage/delayed-lost-damaged-baggage
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: Contract of Carriage Rule 17(B)(1)(a) limits Delta's liability for lost, damaged or delayed baggage on domestic travel to $4,700 per fare-paying passenger. Wheelchairs and other assistive devices are excluded from this cap.
+        issues: [lost_baggage, damaged_baggage, delayed_baggage]
+        source: https://www.delta.com/us/en/legal/contract-of-carriage-dgr
+        last_verified: 2026-10-12
+
+  - issue: damaged_baggage
+    summary: Report damage at the Baggage Service Office before leaving the airport; the domestic deadline is 6 hours.
+    evidence: [photos of the damage, bag tag, file reference number, repair estimate]
+    steps:
+      - do: Show the damaged bag at the Delta Baggage Service Office before you leave the airport and get a file reference number.
+      - do: Submit the damage claim online with photos and a repair estimate.
+        channel: baggage-claim-form
+    facts:
+      - kind: deadline
+        claim: For domestic tickets, report damage within 6 hours of arrival (24 hours for tickets issued before October 8, 2025). International damage claims are due within 7 days of arrival.
+        issues: [damaged_baggage]
+        source: https://www.delta.com/us/en/baggage/delayed-lost-damaged-baggage
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Missing or stolen items from a checked bag must be reported within 24 hours (domestic) or 7 days (international), then claimed with a Pilfered (Stolen) Item Claim.
+        issues: [damaged_baggage, lost_baggage]
+        source: https://www.delta.com/us/en/baggage/delayed-lost-damaged-baggage
+        last_verified: 2026-10-12
+
+  - issue: denied_boarding
+    summary: If bumped involuntarily, ask for the written notice and compensation by check, as set in Contract of Carriage Rule 20.
+    evidence: [boarding pass, written denied-boarding notice, arrival time of the new flight]
+    steps:
+      - do: Ask the gate agent for the written statement of denied boarding rights and compensation.
+      - do: If compensation is not paid or is wrong, submit a written complaint.
+        channel: customer-care-form
+      - do: File a complaint with the U.S. DOT if Delta does not pay.
+        regulator: us-dot
+    facts:
+      - kind: compensation
+        claim: Contract of Carriage Rule 20(F) sets involuntary denied boarding compensation at 200% of the fare up to $1,075.00 when Delta arranges qualifying alternative transportation, and 400% of the fare up to $2,150.00 when it cannot.
+        issues: [denied_boarding]
+        source: https://www.delta.com/us/en/legal/contract-of-carriage-dgr
+        last_verified: 2026-10-12
+
+  - issue: travel_credit
+    summary: An eCredit from a voluntary cancellation usually expires 1 year from purchase; one from declining a rebooked flight lasts 5 years.
+    evidence: [eCredit number, original ticket number, cancellation notice]
+    steps:
+      - do: If the eCredit came from a Delta cancellation or significant change, ask to convert it to a refund.
+        channel: refund-form
+      - do: For other eCredit problems, submit an eCredit appeal through the Travel Resolution Form.
+        channel: refund-form
+    facts:
+      - kind: deadline
+        claim: An eCredit from cancelling a non-refundable ticket "will expire 1 year from purchase date, unless your ticket terms state otherwise." An eCredit from declining a rebooked flight after a cancellation or significant change is valid for 5 years from issuance.
+        issues: [travel_credit]
+        source: https://www.delta.com/us/en/change-cancel/cancel-flight
+        last_verified: 2026-10-12
+
+  - issue: ancillary_fee_refund
+    summary: Prepaid seat and bag fees come back with a refund after a Delta cancellation or significant change; a late bag earns a bag fee refund.
+    evidence: [receipt for the seat or bag fee, confirmation number, bag tag and file reference for a late bag]
+    steps:
+      - do: After a cancellation or significant change, include the seat upgrade, Preferred Seat and checked bag fees in the refund request.
+        channel: refund-form
+      - do: For a seat downgrade fare difference, use the same Travel Resolution Form.
+        channel: refund-form
+      - do: For a bag delivered late, ask the Baggage Service Office or the baggage claim form for the bag fee refund.
+        channel: baggage-claim-form
+    facts:
+      - kind: policy
+        claim: If you decline the rebooking after a Delta cancellation or significant change, the refund includes the unflown portion plus any prepaid seat upgrade, Preferred Seat and checked bag fees.
+        issues: [ancillary_fee_refund, flight_cancellation]
+        source: https://www.delta.com/us/en/change-cancel/cancel-flight
+        last_verified: 2026-10-12
+
+  - issue: accessibility
+    summary: Ask for a Complaints Resolution Official at the airport, then complain in writing.
+    evidence: [assistance request confirmation, dates, names, photos of damage]
+    steps:
+      - do: At the airport, ask any Delta representative for a Complaints Resolution Official (CRO). CROs are available at all airport locations.
+      - do: Call Accessible Travel Services for help with services.
+        channel: disability-phone
+      - do: File a written complaint online or by mail.
+        channel: customer-care-form
+    facts:
+      - kind: deadline
+        claim: Delta's Customer Service Plan says Delta gives a dispositive response to disability-related complaints within 30 days.
+        issues: [accessibility]
+        source: https://www.delta.com/us/en/legal/customer-commitment
+        last_verified: 2026-10-12
+
+facts:
+  - kind: deadline
+    claim: Delta acknowledges written complaints within 30 days and sends a substantive response within 60 days.
+    issues: [poor_service]
+    source: https://www.delta.com/us/en/legal/customer-commitment
+    last_verified: 2026-10-12
+  - kind: limit
+    claim: Contract of Carriage Rule 17(B)(5) says any legal action must be commenced within one year after the alleged occurrence.
+    issues: [lost_baggage, damaged_baggage, delayed_baggage]
+    source: https://www.delta.com/us/en/legal/contract-of-carriage-dgr
+    last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: Delta's refund page says Basic Economy tickets cannot be changed or refunded after the Risk-Free Cancellation period. Non-refundable tickets are refundable only when Delta cancelled the flight or caused a significant delay or change.
+    issues: [flight_cancellation, refund_request]
+    source: https://www.delta.com/us/en/change-cancel/cancel-flight
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The baggage claim form needs the file reference number from the airport baggage report.
+  - The meal and hotel reimbursement form is limited to U.S. and Canada residents; others must use the Comment & Complaint form.
+
+notes: Contract of Carriage page shows "Last Modified August 18, 2026". The domestic damaged-bag reporting window changed from 24 hours to 6 hours for tickets issued on or after October 8, 2025.

@@ -1,0 +1,103 @@
+id: sun-country-airlines
+name: Sun Country Airlines
+aliases: [sun country, suncountry.com, sun country air]
+sector: airline
+parent: Allegiant Travel Company
+website: https://www.suncountry.com
+regulators: [us-dot]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer Service and reservations
+    value: +1-651-905-2737
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, travel_credit, delayed_baggage, lost_baggage, damaged_baggage]
+    notes: Hours are posted on suncountry.com/contact-us.
+    source: https://stories.suncountry.com/multimedia
+    last_verified: 2026-10-12
+  - id: customer-care-form
+    type: web_form
+    label: Contact us (customer service web contact)
+    value: https://www.suncountry.com/contact-us
+    purposes: [flight_cancellation, flight_delay, poor_service, refund_request, delayed_baggage, lost_baggage, damaged_baggage]
+    notes: The page is behind a bot check and did not load for this research.
+    access: captcha
+    source: https://stories.suncountry.com/multimedia
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: customer-care-form}
+  - {rung: regulator, regulator: us-dot}
+  - {rung: payment_dispute, note: "Card dispute for a refund Sun Country owes but has not paid."}
+
+playbooks:
+  - issue: delayed_baggage
+    summary: File a Mishandled Baggage Notice within four hours of arrival, then complete the claim within 45 days.
+    evidence: [bag tag, Mishandled Baggage Notice number, receipts]
+    steps:
+      - do: Report the missing bag at the airport within four hours of arrival.
+      - do: Complete the Mishandled Baggage Claim through the online claims portal within 45 days.
+      - do: Ask for the checked bag fee back if the bag was significantly delayed.
+        channel: customer-service-phone
+    facts:
+      - kind: deadline
+        claim: The Contract of Carriage (updated October 15, 2025) requires the Mishandled Baggage Notice to be received by Sun Country within four (4) hours of arrival, unless the passenger shows good cause, and the Mishandled Baggage Claim to be completed within forty-five (45) days after the events giving rise to the claim.
+        issues: [delayed_baggage, lost_baggage, damaged_baggage]
+        source: https://ir.suncountry.com/static-files/0e75bae8-3e47-4c35-8e63-9f78cf003b6b
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: After a Mishandled Baggage Notice is filed, Sun Country refunds the checked bag fee for a significantly delayed bag to the original form of payment.
+        issues: [delayed_baggage, ancillary_fee_refund]
+        source: https://ir.suncountry.com/static-files/0e75bae8-3e47-4c35-8e63-9f78cf003b6b
+        last_verified: 2026-10-12
+
+  - issue: lost_baggage
+    summary: Keep the notice open and complete the claim within 45 days; liability is capped at $4,700 domestic.
+    evidence: [bag tag, notice number, contents list with values, receipts]
+    steps:
+      - do: Complete the Mishandled Baggage Claim within 45 days with a contents list and proof of value.
+      - do: If the claim is refused, file a complaint with the U.S. DOT.
+        regulator: us-dot
+    facts:
+      - kind: limit
+        claim: The Contract of Carriage caps Sun Country's liability for loss, damage or delay of checked baggage on domestic flights at $4,700 per passenger.
+        issues: [lost_baggage, damaged_baggage, delayed_baggage]
+        source: https://ir.suncountry.com/static-files/0e75bae8-3e47-4c35-8e63-9f78cf003b6b
+        last_verified: 2026-10-12
+
+  - issue: damaged_baggage
+    summary: Report damage within four hours of arrival; pilferage claims can be made up to 7 calendar days after arrival.
+    evidence: [photos of the damage, bag tag, notice number, repair estimate]
+    steps:
+      - do: Report the damage at the airport within four hours of arrival.
+      - do: Complete the claim within 45 days with photos and a repair estimate.
+    facts:
+      - kind: deadline
+        claim: The Contract of Carriage allows claims for pilferage up to 7 calendar days after flight arrival. Fragile or unsuitably packed items have limited or no liability.
+        issues: [damaged_baggage, lost_baggage]
+        source: https://ir.suncountry.com/static-files/0e75bae8-3e47-4c35-8e63-9f78cf003b6b
+        last_verified: 2026-10-12
+
+  - issue: travel_credit
+    summary: Sun Country vouchers stay valid under their existing terms after the Allegiant acquisition.
+    evidence: [voucher number and terms]
+    steps:
+      - do: Redeem vouchers on suncountry.com or the Sun Country app; contact Sun Country Reservations with questions.
+        channel: customer-service-phone
+    facts:
+      - kind: policy
+        claim: Sun Country's acquisition FAQ says "All Sun Country vouchers remain valid and can be used in accordance with their existing terms and conditions." Sun Country and Allegiant rewards balances cannot currently be combined.
+        issues: [travel_credit]
+        source: https://stories.suncountry.com/merger-faqs
+        last_verified: 2026-10-12
+
+known_blockers:
+  - suncountry.com is behind an Imperva bot check; contact, refund and baggage pages did not load. The online baggage claims portal URL was not confirmed.
+  - No refund timing, controllable-delay commitments or disability phone line were confirmed.
+
+notes: >-
+  Allegiant completed its acquisition of Sun Country on May 13, 2026 (stories.suncountry.com/merger-faqs). Sun Country
+  keeps its own brand, website, app, reservations line and voucher terms until the airlines get a single operating
+  certificate. Contract of Carriage facts come from the October 15, 2025 version, seen through ir.suncountry.com search
+  results because the file returned 403 to direct fetches.

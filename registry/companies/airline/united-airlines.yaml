@@ -1,0 +1,180 @@
+id: united-airlines
+name: United Airlines
+aliases: [united airlines inc, united.com, ual]
+sector: airline
+parent: United Airlines Holdings
+website: https://www.united.com
+regulators: [us-dot]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service (1-800-UNITED-1)
+    value: +1-800-864-8331
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, ancillary_fee_refund]
+    notes: United's refund form page gives this number to call if the online form returns an error.
+    source: https://www.united.com/ual/en/IL/customer/refund
+    last_verified: 2026-10-12
+  - id: refund-form
+    type: web_form
+    label: Refund Form (tickets, bag fees and other fees)
+    value: https://www.united.com/ual/en/IL/customer/refund
+    purposes: [flight_cancellation, refund_request, ancillary_fee_refund]
+    notes: This is the locale version of the form found on united.com; the U.S. locale path was not confirmed. For an active reservation, United says to cancel it first in Manage Reservations / My trips.
+    source: https://www.united.com/ual/en/IL/customer/refund
+    last_verified: 2026-10-12
+  - id: customer-care-email
+    type: email
+    label: Customer Care email
+    value: customer.care@united.com
+    purposes: [poor_service, flight_cancellation, flight_delay]
+    notes: Listed in United's Korea customer complaint resolution plan, which says United acknowledges claims within 7 days and replies within 14-60 days.
+    source: https://www.united.com/ual/en/us/fly/travel/destination/international/customer-complaint-resolution-plan.html
+    last_verified: 2026-10-12
+  - id: disability-phone
+    type: phone
+    label: Assistive Device Desk (toll free within the U.S. and Canada)
+    value: +1-866-261-2395
+    purposes: [accessibility, damaged_baggage]
+    notes: Worldwide +1-281-553-2395; email AssistedDevice@united.com. The Contract of Carriage names this desk for damage to wheelchairs and assistive devices that could not be reported on arrival.
+    source: https://www.united.com/en/us/fly/contract-of-carriage.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: customer-care-email}
+  - {rung: regulator, regulator: us-dot}
+  - {rung: payment_dispute, note: "Card dispute for a refund United owes but has not paid."}
+
+playbooks:
+  - issue: flight_cancellation
+    summary: Decline the alternate flight and the travel credit if you want money back; request a refund to the original form of payment.
+    evidence: [confirmation number, ticket number, original and new itinerary, cancellation or schedule-change notice]
+    steps:
+      - do: Do not accept the rebooking or the travel credit if you want a refund.
+      - do: Cancel the reservation in My trips, or submit the refund form, including any bag and seat fees.
+        channel: refund-form
+      - do: If the form fails, call customer service.
+        channel: customer-service-phone
+      - do: If the refund is not paid, file a complaint with the U.S. DOT, then dispute the charge with the card issuer.
+        regulator: us-dot
+    facts:
+      - kind: policy
+        claim: Contract of Carriage Rule 24 says that after a schedule change United may rebook you on its closest available flight, reroute you on another carrier if all United service between the cities is cancelled, or offer a travel credit valid for one year; if none is offered or accepted, you can request a refund. For a significant change, declining the alternate transportation gives the refund right.
+        issues: [flight_cancellation, flight_delay, travel_credit]
+        source: https://www.united.com/en/us/fly/contract-of-carriage.html
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: The Contract of Carriage says credit card refunds are issued within seven business days after United determines a refund is due, and cash and other payments within 20 business days after a complete request is received.
+        issues: [flight_cancellation, refund_request]
+        source: https://www.united.com/en/us/fly/contract-of-carriage.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Baggage service charges are non-refundable, but a passenger who does not travel because of a flight cancellation, Schedule Change or Irregular Operations is eligible for a refund of them.
+        issues: [flight_cancellation, ancillary_fee_refund]
+        source: https://www.united.com/en/us/fly/contract-of-carriage.html
+        last_verified: 2026-10-12
+
+  - issue: flight_delay
+    summary: For an extensive delay United caused, ask for food and beverage vouchers; the Contract of Carriage does not set an hour threshold.
+    evidence: [confirmation number, scheduled and actual times, cause given by United, receipts]
+    steps:
+      - do: Ask the agent for food and beverage vouchers. If you decline offered vouchers, United will not reimburse food you buy yourself.
+      - do: If the delay becomes a significant change and you do not travel, request a refund.
+        channel: refund-form
+    facts:
+      - kind: compensation
+        claim: Contract of Carriage Rule 24 says United provides snacks or food and beverage vouchers when a delay it caused is extensive, and is not liable to reimburse food and beverage bought independently if vouchers were offered and not accepted.
+        issues: [flight_delay]
+        source: https://www.united.com/en/us/fly/contract-of-carriage.html
+        last_verified: 2026-10-12
+
+  - issue: delayed_baggage
+    summary: Give United preliminary notice within 24 hours of arrival, then return the written claim form within 45 days of the flight.
+    evidence: [bag tag, baggage incident report number, itinerary, receipts]
+    steps:
+      - do: Report the missing bag at the airport before leaving and get the baggage incident report number. This is the preliminary notice and must be within 24 hours of arrival.
+      - do: Get the written claim form from United and return it to the System Tracing Center within 45 days after the flight date, with receipts.
+      - do: If United does not respond, file a complaint with the U.S. DOT.
+        regulator: us-dot
+    facts:
+      - kind: deadline
+        claim: Contract of Carriage Rule 28 requires a preliminary notice of claim within twenty-four hours after arrival of the flight for lost, damaged or delayed baggage, and the completed written claim form must be received by United's System Tracing Center within 45 days after the flight date.
+        issues: [delayed_baggage, lost_baggage, damaged_baggage]
+        source: https://www.united.com/en/us/fly/contract-of-carriage.html
+        last_verified: 2026-10-12
+
+  - issue: lost_baggage
+    summary: Meet the 24-hour notice and 45-day claim deadlines, document the value of the contents, and ask for the bag fee back.
+    evidence: [bag tag, baggage incident report number, contents list with values, receipts]
+    steps:
+      - do: Make sure preliminary notice was given within 24 hours of arrival.
+      - do: Return the written claim form with proof of value within 45 days after the flight date.
+      - do: Ask for the checked bag fee back.
+        channel: refund-form
+    facts:
+      - kind: limit
+        claim: United's liability for checked baggage is limited to USD 4,700 per ticketed passenger unless a higher value was declared in advance and additional charges paid. The passenger must document and prove the actual value of the loss.
+        issues: [lost_baggage, damaged_baggage, delayed_baggage]
+        source: https://www.united.com/en/us/fly/contract-of-carriage.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Contract of Carriage says United will reimburse passengers for any fee charged to transport bags that are lost.
+        issues: [lost_baggage, ancillary_fee_refund]
+        source: https://www.united.com/en/us/fly/contract-of-carriage.html
+        last_verified: 2026-10-12
+
+  - issue: damaged_baggage
+    summary: Report damage before leaving the airport and within 24 hours; minor wear is not covered.
+    evidence: [photos of the damage, bag tag, baggage incident report number, repair estimate]
+    steps:
+      - do: Show the damage at the airport and get a report number within 24 hours of arrival.
+      - do: Return the written claim form with photos and a repair estimate within 45 days after the flight date.
+      - do: For a damaged wheelchair or assistive device that you could not report on arrival, contact the Assistive Device Desk.
+        channel: disability-phone
+    facts:
+      - kind: policy
+        claim: United is not liable for damage that does not impair the bag's ability to function, such as minor cuts, scratches, scuffs and dents.
+        issues: [damaged_baggage]
+        source: https://www.united.com/en/us/fly/contract-of-carriage.html
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: For damage to a wheelchair or assistive device not reported on arrival, contact the Assistive Device Desk within 24 hours of arrival for domestic carriage, or within seven calendar days for carriage to or from Canada.
+        issues: [damaged_baggage, accessibility]
+        source: https://www.united.com/en/us/fly/contract-of-carriage.html
+        last_verified: 2026-10-12
+
+  - issue: denied_boarding
+    summary: If bumped involuntarily on a domestic flight, Rule 25 pays 200% or 400% of the fare, capped at $1,075 or $2,150.
+    evidence: [boarding pass, written denied-boarding notice, arrival time of the new flight]
+    steps:
+      - do: Ask for the written statement of denied boarding compensation and payment by check.
+      - do: If not paid, complain in writing, then file with the U.S. DOT.
+        channel: customer-care-email
+    facts:
+      - kind: compensation
+        claim: Contract of Carriage Rule 25 pays involuntarily bumped domestic passengers 200% of the fare (maximum 1,075 USD) if the alternate arrives more than one but less than two hours late, and 400% (maximum 2,150 USD) if later. No compensation is owed if the alternate arrives within 60 minutes.
+        issues: [denied_boarding]
+        source: https://www.united.com/en/us/fly/contract-of-carriage.html
+        last_verified: 2026-10-12
+
+  - issue: ancillary_fee_refund
+    summary: Request refunds of unused fees (bags, seats, Premier Access) within 90 days of payment or the flight date.
+    evidence: [fee receipt, confirmation number, cancellation or schedule-change notice]
+    steps:
+      - do: Submit the refund form for the fee, selecting the purchase or entering the receipt details.
+        channel: refund-form
+    facts:
+      - kind: deadline
+        claim: Passengers eligible for a refund of service or other fees must request it within 90 days of the date the fee was originally paid or the flight date, whichever is later.
+        issues: [ancillary_fee_refund]
+        source: https://www.united.com/en/us/fly/contract-of-carriage.html
+        last_verified: 2026-10-12
+
+known_blockers:
+  - united.com timed out or refused direct fetches on 2026-10-12. Values here were confirmed from united.com pages through search results; the indexed Contract of Carriage copy was about five months old.
+  - No production URL was confirmed for the United Customer Care web form or the online baggage claim.
+
+notes: >-
+  All values were confirmed from united.com search results, not from a direct page load. Recheck the Contract of
+  Carriage dollar caps and deadlines against the live page.

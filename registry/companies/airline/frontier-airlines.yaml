@@ -1,0 +1,230 @@
+id: frontier-airlines
+name: Frontier Airlines
+aliases: [frontier airlines inc, flyfrontier, flyfrontier.com]
+sector: airline
+parent: Frontier Group Holdings
+website: https://www.flyfrontier.com
+account_url: https://travel.flyfrontier.com/
+regulators: [us-dot]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service phone
+    value: +1-602-333-5925
+    hours: 24/7
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request]
+    source: https://www.flyfrontier.com/customer-service/
+    last_verified: 2026-10-12
+  - id: chat
+    type: chat
+    label: Chat with us
+    value: https://www.flyfrontier.com/chat-with-us/
+    purposes: [flight_cancellation, flight_delay, refund_request, accessibility]
+    source: https://www.flyfrontier.com/customer-service/
+    last_verified: 2026-10-12
+  - id: whatsapp
+    type: chat
+    label: Text us on WhatsApp
+    value: https://api.whatsapp.com/send/?phone=17209023969&text&type=phone_number&app_absent=0
+    source: https://www.flyfrontier.com/customer-service/
+    last_verified: 2026-10-12
+  - id: rebooking-refund-portal
+    type: portal
+    label: Rebooking/Refund Options (self-service for cancelled or delayed flights)
+    value: https://travel.flyfrontier.com/login
+    purposes: [flight_cancellation, flight_delay]
+    access: login
+    notes: Frontier calls this the fastest way to rebook or get a refund after a cancellation or long delay.
+    source: https://www.flyfrontier.com/refund-options/
+    last_verified: 2026-10-12
+  - id: refund-form
+    type: web_form
+    label: Apply for a Refund form
+    value: https://frontiercswprod.powerappsportals.com/contact-us/request-refund/
+    purposes: [flight_cancellation, flight_delay, refund_request, ancillary_fee_refund]
+    notes: Frontier says to use this form if you cannot finish the request with the self-service tools.
+    source: https://www.flyfrontier.com/refund-options/
+    last_verified: 2026-10-12
+  - id: customer-care-form
+    type: web_form
+    label: Share Feedback (complaint form)
+    value: https://frontiercswprod.powerappsportals.com/contact-us/request-complaint-form/
+    purposes: [flight_cancellation, flight_delay, denied_boarding, poor_service, ancillary_fee_refund, travel_credit]
+    source: https://www.flyfrontier.com/legal/customer-service-plan/
+    last_verified: 2026-10-12
+  - id: customer-relations-mail
+    type: mail
+    label: Customer Relations mailing address
+    value: "Frontier Airlines, Inc., Attn: Customer Relations, 4545 Airport Way, Denver, CO 80239"
+    purposes: [poor_service, flight_cancellation]
+    source: https://www.flyfrontier.com/legal/customer-service-plan/
+    last_verified: 2026-10-12
+  - id: baggage-claim-form
+    type: portal
+    label: Delayed or damaged bag (NetTracer portal)
+    value: https://app.nettracer.aero/pax/frontier/bso/login
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    access: login
+    notes: The portal opens on a login page. Expect to need the baggage file reference from the airport report.
+    source: https://www.flyfrontier.com/customer-service/
+    last_verified: 2026-10-12
+  - id: accessibility-form
+    type: web_form
+    label: Accessibility Request form
+    value: https://frontiercswprod.powerappsportals.com/contact-us/accessibility-request-form/
+    purposes: [accessibility]
+    source: https://www.flyfrontier.com/customer-service/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: customer-care-form}
+  - {rung: regulator, regulator: us-dot}
+  - {rung: payment_dispute, note: "Card dispute for a refund Frontier owes but has not paid."}
+
+playbooks:
+  - issue: flight_cancellation
+    summary: Do not take the rebooked flight or a travel credit if you want money back; request a refund to the original form of payment.
+    evidence: [confirmation code, original and new itinerary, cancellation or delay notice]
+    steps:
+      - do: Use Rebooking/Refund Options to choose a refund instead of a rebooking or credit.
+        channel: rebooking-refund-portal
+      - do: If the self-service tool does not work, submit the Apply for a Refund form.
+        channel: refund-form
+      - do: If the refund does not arrive within 7 business days, chat or call, then file a written complaint.
+        channel: customer-care-form
+      - do: File a complaint with the U.S. DOT, then dispute the charge with the card issuer.
+        regulator: us-dot
+    facts:
+      - kind: policy
+        claim: Frontier's refund page sets the significant delay threshold at "greater than 3 hours for domestic flights, or greater than 6 hours for international flights", and says refunds "apply only if the customer did not take a rebooked flight."
+        issues: [flight_cancellation, flight_delay]
+        source: https://www.flyfrontier.com/refund-options/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Frontier's Customer Service Plan says "Refunds will be processed within seven (7) business days" to the original form of payment.
+        issues: [flight_cancellation, refund_request]
+        source: https://www.flyfrontier.com/legal/customer-service-plan/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Contract of Carriage section 17.C says Frontier rebooks only on its own flights and "will have no obligation to provide transportation on another carrier." If you decline the alternatives, Frontier refunds the unused portion including fees for ancillary services not provided.
+        issues: [flight_cancellation, ancillary_fee_refund]
+        source: https://www.flyfrontier.com/legal/contract-of-carriage/
+        last_verified: 2026-10-12
+
+  - issue: flight_delay
+    summary: Ask for a meal voucher at 3 hours; ask for a refund instead of travel if the delay is more than 3 hours domestic.
+    evidence: [confirmation code, scheduled and actual times, cause given by Frontier, receipts]
+    steps:
+      - do: At the airport, ask for a meal voucher once the delay reaches 3 hours.
+      - do: If you no longer want to travel, request a refund of the unused portion.
+        channel: rebooking-refund-portal
+      - do: If Frontier refuses, send a written complaint, then file with the U.S. DOT.
+        channel: customer-care-form
+    facts:
+      - kind: compensation
+        claim: Frontier's Customer Service Plan says "Frontier will provide meal vouchers for flight delays of 3 hours or more", including cancellations where the Frontier rebooking departs 3 or more hours after the original departure. The plan does not list hotel or ground transportation.
+        issues: [flight_delay, flight_cancellation]
+        source: https://www.flyfrontier.com/legal/customer-service-plan/
+        last_verified: 2026-10-12
+
+  - issue: delayed_baggage
+    summary: Report within 4 hours of arrival at the Baggage Service Office, then track and claim through the NetTracer portal.
+    evidence: [bag tag, baggage file reference, receipts for essentials]
+    steps:
+      - do: Report the delayed bag at the Baggage Service Office or ticket counter within 4 hours of arrival. Get the file reference.
+      - do: Follow the file and submit documentation online.
+        channel: baggage-claim-form
+    facts:
+      - kind: deadline
+        claim: Contract of Carriage section 16.B.1 says a claim for damage, delay or loss of baggage on domestic flights must be reported within 4 hours of the arrival of the flight. Supporting documentation must be submitted within 30 days from the date you receive the claim form packet from Frontier.
+        issues: [delayed_baggage, lost_baggage, damaged_baggage]
+        source: https://www.flyfrontier.com/legal/contract-of-carriage/
+        last_verified: 2026-10-12
+      - kind: process
+        claim: The Customer Service Plan says staff create a tracing file and cover "immediate, reasonable needs" while you wait for a delayed bag.
+        issues: [delayed_baggage]
+        source: https://www.flyfrontier.com/legal/customer-service-plan/
+        last_verified: 2026-10-12
+
+  - issue: lost_baggage
+    summary: Keep the delayed-bag file open and submit the claim documentation within 30 days of receiving Frontier's claim packet.
+    evidence: [bag tag, file reference, contents list with values, receipts]
+    steps:
+      - do: Make sure the bag was reported within 4 hours of arrival and you have a file reference.
+      - do: Submit the contents claim with documentation within 30 days of receiving the claim form packet.
+        channel: baggage-claim-form
+      - do: Ask for the checked bag fee back.
+        channel: refund-form
+    facts:
+      - kind: limit
+        claim: Contract of Carriage section 16.A.1 limits Frontier's liability for loss, damage or delay of checked baggage on domestic flights to $4,700 (or a greater amount set in 14 CFR Part 254) for all bags under one ticketed passenger's name.
+        issues: [lost_baggage, damaged_baggage, delayed_baggage]
+        source: https://www.flyfrontier.com/legal/contract-of-carriage/
+        last_verified: 2026-10-12
+
+  - issue: damaged_baggage
+    summary: Report damage within 4 hours of arrival (24 hours for pilferage) and submit documentation within 30 days.
+    evidence: [photos of the damage, bag tag, file reference, repair estimate]
+    steps:
+      - do: Show the damaged bag at the Baggage Service Office within 4 hours of arrival.
+      - do: Submit the claim and photos through the baggage portal.
+        channel: baggage-claim-form
+    facts:
+      - kind: deadline
+        claim: Contract of Carriage section 16.B.1 allows claims for pilferage up to 24 hours after flight arrival; other damage must be reported within 4 hours.
+        issues: [damaged_baggage]
+        source: https://www.flyfrontier.com/legal/contract-of-carriage/
+        last_verified: 2026-10-12
+
+  - issue: denied_boarding
+    summary: Volunteers get a Frontier travel voucher; if bumped involuntarily, ask for the written notice and compensation.
+    evidence: [boarding pass, written denied-boarding notice]
+    steps:
+      - do: Ask the gate agent for the written statement of denied boarding compensation.
+      - do: If compensation is not paid, send a written complaint, then file with the U.S. DOT.
+        channel: customer-care-form
+    facts:
+      - kind: compensation
+        claim: Contract of Carriage section 18.A says volunteers get compensation in the form of an Electronic Travel Voucher for future transportation to be booked within 365 days on Frontier.
+        issues: [denied_boarding, travel_credit]
+        source: https://www.flyfrontier.com/legal/contract-of-carriage/
+        last_verified: 2026-10-12
+
+  - issue: ancillary_fee_refund
+    summary: Ask for a refund of a bag, seat or other extra Frontier could not provide on a cancelled or significantly delayed flight.
+    evidence: [receipt for the fee, confirmation code, cancellation or delay notice]
+    steps:
+      - do: Request the refund of the unused extra through the refund form.
+        channel: refund-form
+      - do: If refused, complain in writing, then file with the U.S. DOT.
+        channel: customer-care-form
+    facts:
+      - kind: policy
+        claim: Frontier's refund page covers optional services when "Frontier was unable to provide an optional ancillary service you purchased" on a cancelled or significantly delayed flight.
+        issues: [ancillary_fee_refund]
+        source: https://www.flyfrontier.com/refund-options/
+        last_verified: 2026-10-12
+
+  - issue: accessibility
+    summary: Use chat, airport staff or the Accessibility Request form; no dedicated disability phone line was found.
+    evidence: [assistance request confirmation, dates, names, photos of damage]
+    steps:
+      - do: Submit the Accessibility Request form, or ask at the ticket counter or gate.
+        channel: accessibility-form
+      - do: Complain in writing, then file with the U.S. DOT.
+        channel: customer-care-form
+
+facts:
+  - kind: deadline
+    claim: Frontier acknowledges written complaints within 30 days and gives "a substantive response within 60 days of receiving the correspondence."
+    issues: [poor_service]
+    source: https://www.flyfrontier.com/legal/customer-service-plan/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The baggage portal and the Rebooking/Refund Options tool open on login pages.
+  - No dedicated disability phone line was found; Frontier points to chat, airport staff and the Accessibility Request form.
+
+notes: Contract of Carriage PDF (https://f9prodcdn.azureedge.net/media/11152/cs_coc.pdf, linked from the contract page) is marked "R2 (09/14/26)". Frontier publishes a 24/7 phone number again (602-333-5925) next to chat and WhatsApp.
