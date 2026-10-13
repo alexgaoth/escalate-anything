@@ -1,0 +1,101 @@
+id: best-western
+name: Best Western Hotels & Resorts
+aliases: [best western, best western international, best western rewards, best western plus, best western premier]
+sector: lodging
+website: https://www.bestwestern.com
+account_url: https://www.bestwestern.com/en_US/customer-service.html
+regulators: [ftc]
+notes: >-
+  Best Western International (BWI) says Best Western branded hotels are independently owned and operated and are not owned,
+  managed or controlled by BWI. Billing is managed by each hotel, and corporate customer service forwards feedback to the
+  property. Values here come from bestwestern.com pages as shown in official-domain search results; the site returns 403
+  to direct fetches.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Best Western customer service (North America)
+    value: +1-800-780-7234
+    hours: 24 hours a day, 7 days a week
+    purposes: [billing_error, refund_request, reservation_problem, poor_service, deposit_refund]
+    source: https://www.bestwestern.com/en_US/customer-service.html
+    last_verified: 2026-10-12
+  - id: rewards-phone
+    type: phone
+    label: Best Western Rewards customer service (North America)
+    value: +1-800-237-8483
+    hours: Monday - Sunday 5 a.m. to 10 p.m. MST
+    purposes: [account_access]
+    source: https://www.bestwestern.com/en_US/customer-service/bwr-customer-service.html
+    last_verified: 2026-10-12
+  - id: reservations-phone
+    type: phone
+    label: Best Western reservations (North America)
+    value: +1-800-564-2515
+    purposes: [reservation_problem, refund_request]
+    source: https://www.bestwestern.com/en_US/customer-service.html
+    last_verified: 2026-10-12
+  - id: feedback-form
+    type: web_form
+    label: Customer service feedback form (forwarded to the hotel, which replies)
+    value: https://www.bestwestern.com/en_US/customer-service.html
+    purposes: [poor_service, billing_error, refund_request, reservation_problem, deposit_refund]
+    notes: Best Western says it documents the feedback and forwards it to the property, which replies by email, telephone or mail.
+    source: https://www.bestwestern.com/en_US/customer-service.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone, note: "Contact the hotel first; Best Western says billing is managed by the hotel."}
+  - {rung: written_complaint, channel: feedback-form}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: refund_request
+    summary: Each hotel sets its cancellation policy; missing the window usually costs one night.
+    evidence: [confirmation number, the hotel's cancellation policy shown at booking, cancellation confirmation]
+    steps:
+      - do: For a bestwestern.com booking still inside the hotel's window, cancel with Check reservations (first and last name and confirmation number). Bookings made at the hotel cannot be changed on bestwestern.com.
+      - do: If you are charged after cancelling on time, ask the hotel, then call customer service.
+        channel: customer-service-phone
+      - do: Put it in writing through the feedback form, then dispute the charge with your card issuer if not refunded.
+        channel: feedback-form
+    facts:
+      - kind: fee
+        claim: If you do not cancel within the hotel's cancellation timeframe, you are charged one night's stay, unless the reservation requires full prepayment or has a minimum length of stay; full-prepayment reservations are charged in full unless cancelled under the hotel's policy.
+        issues: [refund_request]
+        source: https://www.bestwestern.com/en_US/customer-service/frequently-asked-questions.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Points-and-cash reservations cancelled under the hotel's policy have the points re-deposited and the card is not charged.
+        issues: [refund_request]
+        source: https://www.bestwestern.com/en_US/customer-service/frequently-asked-questions.html
+        last_verified: 2026-10-12
+  - issue: billing_error
+    summary: Billing is handled by the hotel; contact it first, then Best Western customer service.
+    evidence: [folio, confirmation number, card statement]
+    steps:
+      - do: Contact the hotel directly; Best Western says this is the fastest way to resolve billing.
+      - do: If the hotel does not fix it, call customer service and send the feedback form, which is forwarded to the property.
+        channel: feedback-form
+      - do: Dispute the charge with your card issuer if it is not corrected.
+    facts:
+      - kind: policy
+        claim: Best Western says all billing is managed directly by the hotel and recommends contacting the hotel for the fastest resolution.
+        issues: [billing_error, deposit_refund]
+        source: https://www.bestwestern.com/en_US/customer-service/frequently-asked-questions.html
+        last_verified: 2026-10-12
+
+facts:
+  - kind: fee
+    claim: Best Western's Taxes and Fees page says the hotel may also charge resort fees, parking fees and incidental charges such as the mini-bar.
+    source: https://www.bestwestern.com/en_US/legal/taxes-fees.html
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Best Western Rewards terms require individual arbitration; claims of $10,000 or less proceed on written submissions, larger claims are heard in Phoenix, Arizona.
+    source: https://www.bestwestern.com/en_US/legal/bwr-terms-conditions.html
+    last_verified: 2026-10-12
+
+known_blockers:
+  - bestwestern.com returns HTTP 403 to automated fetches.
+  - Bookings made directly with the hotel cannot be changed or cancelled on bestwestern.com.

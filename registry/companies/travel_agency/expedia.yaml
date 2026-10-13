@@ -1,0 +1,111 @@
+id: expedia
+name: Expedia
+aliases: [expedia.com, expedia inc]
+sector: travel_agency
+parent: Expedia Group
+website: https://www.expedia.com
+account_url: https://www.expedia.com/lp/b/getintouch
+regulators: [us-dot, ftc]
+notes: >-
+  Expedia Group also runs Hotels.com (operated by Hotels.com, LP), Orbitz, Travelocity and Vrbo. Those brands have their
+  own sites, help centers and terms; this entry covers Expedia.com only. Expedia does not publish one general phone number:
+  the contact page asks questions first and then shows the right number. Expedia warns that fake Expedia phone numbers
+  circulate in search ads. Values come from expedia.com pages as shown in official-domain search results; expedia.com
+  returned HTTP 429 to direct fetches.
+
+channels:
+  - id: contact-page
+    type: portal
+    label: Expedia customer service (Virtual Agent chat, then phone number for your issue)
+    value: https://www.expedia.com/lp/b/getintouch
+    hours: 24 hours, 365 days a year
+    purposes: [flight_cancellation, refund_request, reservation_problem, travel_credit]
+    notes: The Virtual Agent can hand over to a human agent. The phone number is shown after answering a few questions.
+    source: https://www.expedia.com/lp/b/getintouch
+    last_verified: 2026-10-12
+  - id: traveler-support-mail
+    type: mail
+    label: Expedia Traveler Support (written questions and complaints)
+    value: Attn Traveler Support, Expedia, Inc., 1111 Expedia Group Way W., Seattle, WA 98119
+    purposes: [refund_request, reservation_problem, flight_cancellation, poor_service]
+    source: https://www.expedia.com/lp/b/terms-of-service
+    last_verified: 2026-10-12
+  - id: notice-of-dispute-mail
+    type: mail
+    label: Notice of Dispute (Legal Department; required before arbitration, by certified mail)
+    value: Legal Department, Expedia, Inc., 1111 Expedia Group Way West, Seattle, WA 98119
+    purposes: [refund_request, flight_cancellation]
+    notes: Signed notice with your name, address, the email used for the reservation, the complaint and the resolution you want. Expedia has 60 days to resolve it before arbitration.
+    source: https://www.expedia.com/lp/b/terms-of-service
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: contact-page}
+  - {rung: written_complaint, channel: traveler-support-mail}
+  - {rung: regulator, regulator: us-dot, note: "For air tickets bought through Expedia."}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: notice-of-dispute-mail, note: "Notice of Dispute, 60 days, then individual AAA arbitration; small claims court is allowed."}
+
+playbooks:
+  - issue: flight_cancellation
+    summary: The airline's rules decide the refund; ask Expedia to process it, and the airline directly if Expedia cannot see the refund.
+    evidence: [Expedia itinerary number, airline record locator, ticket number, airline cancellation or schedule change notice]
+    steps:
+      - do: If you booked in the last 24 hours, check whether the airline allows a full-refund cancellation within the first day.
+      - do: Start a contact request with the Virtual Agent and ask for a refund to the original payment method, not a credit.
+        channel: contact-page
+      - do: If the airline cancelled the flight, also ask the airline directly; Expedia says it has no visibility of a travel provider's refund process.
+      - do: If the refund is not paid, file a complaint with the U.S. DOT and dispute the charge with your card issuer.
+        regulator: us-dot
+    facts:
+      - kind: policy
+        claim: Expedia says some airlines let you cancel a flight for a full refund within the first day after booking; Basic Economy and other restrictive fares may not allow changes.
+        issues: [flight_cancellation, refund_request]
+        source: https://www.expedia.com/helpcenter/?product=Flights&productId=flight&articleId=16506
+        last_verified: 2026-10-12
+      - kind: process
+        claim: For no-shows or cancellations you may be entitled to a refund of airport taxes and fees, which you can request through the Help Center; Expedia submits the request to the airline.
+        issues: [flight_cancellation, refund_request]
+        source: https://www.expedia.com/lp/b/terms-of-service
+        last_verified: 2026-10-12
+  - issue: refund_request
+    summary: Provider rules decide most refunds; Expedia's own fees are non-refundable unless the booking said otherwise.
+    evidence: [itinerary number, confirmation email with the cancellation policy, cancellation confirmation]
+    steps:
+      - do: Check the cancellation rules in the itinerary or confirmation email.
+      - do: Cancel and track the refund with Expedia's self-service tools, or start a contact request.
+        channel: contact-page
+      - do: If unresolved, write to Traveler Support, then dispute the charge with your card issuer.
+        channel: traveler-support-mail
+    facts:
+      - kind: fee
+        claim: Expedia's terms say its fees are not refundable unless stated otherwise during the booking process.
+        issues: [refund_request]
+        source: https://www.expedia.com/lp/b/terms-of-service
+        last_verified: 2026-10-12
+  - issue: reservation_problem
+    summary: Contact Expedia while the problem is happening; then put the refund request in writing.
+    evidence: [itinerary number, photos, receipts for replacement travel or lodging]
+    steps:
+      - do: Ask the hotel or provider on the spot for an equal alternative.
+      - do: Contact Expedia through the contact page (24/7) for help with relocation or a refund.
+        channel: contact-page
+      - do: Afterwards send a written request for a refund and extra costs to Traveler Support.
+        channel: traveler-support-mail
+
+facts:
+  - kind: policy
+    claim: Expedia's Terms of Service require a signed Notice of Dispute by certified mail and a 60-day resolution period before individual AAA arbitration; either side may use small claims court, and proceedings must be individual, not class.
+    source: https://www.expedia.com/lp/b/terms-of-service
+    last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: Expedia warns that fake Expedia phone numbers appear in search ads; start from expedia.com or the app to get the real number, and never pay by gift card or wire transfer after an unsolicited call.
+    source: https://www.expedia.com/magazine/tips-for-outsmarting-scammers-when-booking-travel
+    last_verified: 2026-10-12
+
+known_blockers:
+  - No general phone number is published; the contact flow asks questions first, and agents may need the person to sign in.
+  - expedia.com returns HTTP 429 to automated fetches.

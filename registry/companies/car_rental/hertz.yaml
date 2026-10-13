@@ -1,0 +1,130 @@
+id: hertz
+name: Hertz
+aliases: [the hertz corporation, hertz car rental, hertz rent a car, hertz gold plus rewards]
+sector: car_rental
+website: https://www.hertz.com
+account_url: https://www.hertz.com/rentacar/reservation/receipt/search.do
+regulators: [ftc]
+notes: >-
+  Dollar and Thrifty channels were not checked and are not included. Hertz's US contact pages render with JavaScript and many values here come from hertz.com pages as
+  shown in official-domain search results. Rental terms differ by country; only US terms are used here.
+
+channels:
+  - id: billing-phone
+    type: phone
+    label: Hertz past rental billing questions or comments/feedback (US)
+    value: +1-800-654-4173
+    purposes: [billing_error, damage_claim, deposit_refund, poor_service]
+    notes: Hertz pages give different hours for this line (6am-9pm CST M-F and 7am-7pm).
+    source: https://www5.hertz.com/rentacar/misc/index.jsp?targetPage=USContactUs.jsp
+    last_verified: 2026-10-12
+  - id: reservations-phone
+    type: phone
+    label: Hertz future reservations (US)
+    value: +1-800-654-3131
+    purposes: [reservation_problem]
+    source: https://www.hertz.com/rentacar/customersupport/templates/hTRUCountrySelectPopupView.jsp?targetPage=contactUsView.jsp
+    last_verified: 2026-10-12
+  - id: customer-support-form
+    type: web_form
+    label: Hertz customer support form (past rental, pre-existing damage, vehicle not cleaned, fuel not full, receipts)
+    value: https://www.hertz.com/rentacar/misc/index.jsp?targetPage=CustomerSupportForm.jsp
+    purposes: [billing_error, damage_claim, poor_service, lost_item]
+    access: open
+    notes: Hertz says a team member responds within 3-5 business days. Optional fields for rental record, invoice and reservation numbers. Do not put card details in the comments.
+    source: https://www.hertz.com/rentacar/misc/index.jsp?targetPage=CustomerSupportForm.jsp
+    last_verified: 2026-10-12
+  - id: receipt-request
+    type: portal
+    label: Hertz request a receipt
+    value: https://www.hertz.com/rentacar/reservation/receipt/search.do
+    purposes: [billing_error]
+    notes: Receipts may take up to 7 days after return and stay online for 6 months.
+    source: https://www.hertz.com/rentacar/reservation/receipt/search.do
+    last_verified: 2026-10-12
+  - id: first-notice-of-loss-phone
+    type: phone
+    label: Hertz Claim Management, First Notice of Loss (initial inquiries about a damage claim)
+    value: +1-877-584-7159
+    purposes: [damage_claim]
+    notes: From Hertz's US Vehicle Incident Report form (April 2021 version). Put the rental agreement number on every page you send.
+    source: https://images.hertz.com/pdfs/vir_online_April_2021.pdf
+    last_verified: 2026-10-12
+  - id: first-notice-of-loss-email
+    type: email
+    label: Hertz First Notice of Loss (damage to the rental car only)
+    value: HCMFirstNoticeofLoss@Hertz.com
+    purposes: [damage_claim]
+    notes: Reports with injury, death or damage to other vehicles or property go to HCMFirstNoticeofLoss_bipd@Hertz.com.
+    source: https://images.hertz.com/pdfs/vir_online_April_2021.pdf
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: billing-phone}
+  - {rung: written_complaint, channel: customer-support-form, note: "For damage claims, ask for photos, repair invoices and the fleet utilization log."}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: damage_claim
+    summary: Report damage on a Vehicle Incident Report at return; for a damage bill, ask Hertz Claim Management for the evidence and check the state limits on what you owe.
+    evidence: [rental agreement, Vehicle Incident Report, your photos at pickup and return, damage bill, LDW election, insurance and card benefit details]
+    steps:
+      - do: Note pre-existing damage at pickup and report it through the support form ("Pre-existing body damage when rented") if it was missed.
+        channel: customer-support-form
+      - do: For a damage claim, contact First Notice of Loss with the rental agreement number on every page.
+        channel: first-notice-of-loss-email
+      - do: Ask in writing for photos, the repair estimate or invoice, and how the administrative fee and loss of use were calculated.
+        channel: first-notice-of-loss-email
+      - do: If you bought LDW, cite it; if not, send the claim to your auto insurer or card benefit administrator.
+      - do: If Hertz bills an unsupported amount, dispute it with your card issuer or in small claims court.
+    facts:
+      - kind: limit
+        claim: Hertz US terms say that in most states your responsibility for loss or damage extends to the full value of the car at rental less salvage value, plus towing, storage impound fees, an administrative fee and a reasonable charge for loss of use.
+        issues: [damage_claim]
+        source: https://www.hertz.com/rentacar/reservation/reviewmodifycancel/templates/rentalTerms.jsp?KEYWORD=COVERAGES&EOAG=LAX+
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: In California your responsibility will in no event exceed the fair market value plus actual towing, storage, impound and administrative charges; in Illinois it is limited to $15,500.00 for causes other than theft and $2,000.00 for theft unless the theft results from your fault.
+        issues: [damage_claim]
+        source: https://www.hertz.com/rentacar/reservation/reviewmodifycancel/templates/rentalTerms.jsp?KEYWORD=COVERAGES&EOAG=LAX+
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The optional Loss Damage Waiver relieves you of all financial responsibility for loss or damage to the rental car if the car is used according to the Rental Agreement; you are not required to buy it.
+        issues: [damage_claim]
+        source: https://www.hertz.com/rentacar/reservation/reviewmodifycancel/templates/rentalTerms.jsp?KEYWORD=COVERAGES&EOAG=LAX+
+        last_verified: 2026-10-12
+  - issue: billing_error
+    summary: Get the receipt, then call the billing line or use the support form for fuel, cleaning or toll charges.
+    evidence: [receipt, rental agreement, fuel gauge and odometer photos at return, toll records]
+    steps:
+      - do: Request the receipt online.
+        channel: receipt-request
+      - do: Call the past-rental billing line with the receipt and the correct amount.
+        channel: billing-phone
+      - do: Put it in writing through the support form ("Past Rental", "Vehicle did not have full tank when rented" or "Vehicle was not cleaned").
+        channel: customer-support-form
+      - do: If not corrected, dispute the charge with your card issuer.
+  - issue: deposit_refund
+    summary: Hertz places an authorization hold on top of the estimated charges; ask the billing line and your bank if it is not released.
+    evidence: [rental agreement, return receipt, card statement showing the hold]
+    steps:
+      - do: Compare the hold with the amounts in the US rental terms for your vehicle class and card type.
+      - do: If the hold is not released after return, call the billing line, then your card issuer.
+        channel: billing-phone
+    facts:
+      - kind: limit
+        claim: For US credit card rentals Hertz places an authorization of up to USD 200.00 on top of estimated charges (USD 300.00-900.00 for some SUV and premium classes); debit card rentals need funds for estimated charges plus up to USD 500.00. These funds are not available for your use.
+        issues: [deposit_refund]
+        source: https://www.hertz.com/rentacar/reservation/reviewmodifycancel/templates/rentalTerms.jsp?KEYWORD=PAYMENT&EOAG=LAX+
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Hertz takes additional authorization holds if the vehicle is not returned at the date and time on the agreement or the rental terms change and add charges.
+        issues: [deposit_refund]
+        source: https://www.hertz.com/rentacar/reservation/reviewmodifycancel/templates/rentalTerms.jsp?KEYWORD=PAYMENT&EOAG=LAX+
+        last_verified: 2026-10-12
+
+known_blockers:
+  - hertz.com contact pages render with JavaScript and may not load for automated fetches.
+  - The First Notice of Loss contacts come from an April 2021 form; confirm them on current claim correspondence.

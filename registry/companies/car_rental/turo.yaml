@@ -1,0 +1,161 @@
+id: turo
+name: Turo
+aliases: [turo inc, turo car sharing]
+sector: car_rental
+website: https://turo.com
+account_url: https://turo.com/us/en/help
+regulators: [ftc]
+notes: >-
+  Turo is a peer-to-peer car sharing marketplace; each trip is with an independent host. Damage claims, reimbursement
+  invoices (fuel, tolls, cleaning, smoking) and their disputes run inside Turo. Turo's cancellation policy page was last
+  revised in April 2026. Values come from turo.com and help.turo.com pages as shown in official-domain search results;
+  turo.com returned HTTP 403 and help.turo.com article bodies did not render for direct fetches.
+
+channels:
+  - id: help-center
+    type: portal
+    label: Turo Help Center - Contact Turo
+    value: https://turo.com/us/en/help
+    purposes: [billing_error, damage_claim, deposit_refund, refund_request, reservation_problem, safety_incident]
+    access: login
+    source: https://turo.com/us/en/help
+    last_verified: 2026-10-12
+  - id: claims-email
+    type: email
+    label: Turo Claims (US guests)
+    value: claims@turo.com
+    purposes: [damage_claim]
+    notes: If a claims associate already emailed you, reply to that thread instead. Allow two business days; claims staff cannot address other issues.
+    source: https://help.turo.com/en_us/how-guests-can-contact-claims-SJw1BNxE5
+    last_verified: 2026-10-12
+  - id: claims-phone
+    type: phone
+    label: Turo Claims, urgent claims-related issues only (US guests)
+    value: +1-415-275-6141
+    hours: Monday-Saturday 5 am to 5 pm PT, excluding holidays
+    purposes: [damage_claim]
+    notes: A Turo host help page lists +1-415-965-4525 for US claims; confirm in the Turo app.
+    source: https://help.turo.com/en_us/how-guests-can-contact-claims-SJw1BNxE5
+    last_verified: 2026-10-12
+  - id: notice-of-dispute-email
+    type: email
+    label: Turo notice of dispute (required before arbitration)
+    value: noticeofdispute@turo.com
+    purposes: [billing_error, damage_claim]
+    source: https://turo.com/us/en/policies/terms
+    last_verified: 2026-10-12
+  - id: arbitration-opt-out-email
+    type: email
+    label: Turo arbitration opt-out notice
+    value: ARBITRATIONOPTOUT@TURO.COM
+    notes: Must arrive within 30 days after first accepting the terms or before your first trip, whichever is earlier; include full name, full street address and the account email.
+    source: https://turo.com/us/en/policies/terms
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: help-center}
+  - {rung: written_complaint, channel: claims-email, note: "For damage claims, ask for photos, repair invoices and the vehicle's trip history."}
+  - {rung: payment_dispute, note: "Turo's chargeback policy restricts accounts that dispute Turo charges with the bank; use Turo's dispute process first."}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: notice-of-dispute-email, note: "Notice of dispute and informal negotiation first; Phoenix, Arizona forum clause."}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: damage_claim
+    summary: Try to settle with the host first; escalate to Turo within 20 days of trip end, and answer the claims associate with photos.
+    evidence: [trip photos at check-in and check-out, the host's damage invoice and photos, messages with the host, your insurance or protection plan details]
+    steps:
+      - do: Take photos at the start and end of every trip in the Turo app.
+      - do: If the host sends a damage invoice, dispute it from the invoice ("Dispute") and explain why.
+        channel: help-center
+      - do: If you cannot agree with the host, escalate to Turo within 20 days of the trip's end so Turo takes over the claim.
+      - do: If the host files a claim with Turo, reply to the claims associate's email with your photos and evidence.
+        channel: claims-email
+      - do: Do not pay the host outside Turo; Turo treats that as a gray market transaction.
+    facts:
+      - kind: deadline
+        claim: For a damage invoice you cannot settle with the host, you have 20 days from the trip's end to escalate to Turo and have Turo take over the claim.
+        issues: [damage_claim]
+        source: https://support.turo.com/hc/en-us/articles/360036783613-Paying-or-disputing-reimbursement-requests
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Hosts must report damage no more than 24 hours after the trip ends to start the resolution process; if a host files a claim, a claims associate emails the guest within one business day.
+        issues: [damage_claim]
+        source: https://help.turo.com/en_us/reporting-and-resolving-damage-or-us-hosts-SymY8VlN5
+        last_verified: 2026-10-12
+  - issue: billing_error
+    summary: Dispute a host's reimbursement invoice within 48 hours from the invoice; Turo decides on photo evidence if the host escalates.
+    evidence: [the invoice, your fuel gauge and odometer photos, toll records, cleaning photos at drop-off]
+    steps:
+      - do: Open the invoice from the email, notification or trip Details page within 48 hours and tap "Dispute", naming the charge and the reason.
+        channel: help-center
+      - do: The host then has 72 hours to cancel, revise or escalate to Turo support. Send clear photos if it is escalated.
+      - do: Check that the host met the submission deadline for the charge type (72 hours for fuel and cleaning, 90 days for tolls).
+      - do: If Turo rules against you and you still disagree, send a notice of dispute.
+        channel: notice-of-dispute-email
+    facts:
+      - kind: deadline
+        claim: Guests have up to 48 hours to pay or dispute a host's reimbursement invoice; the host then has 72 hours to cancel it, send a revised invoice, or escalate to Turo support.
+        issues: [billing_error]
+        source: https://support.turo.com/hc/en-us/articles/360036783613-Paying-or-disputing-reimbursement-requests
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Hosts must invoice fuel or charging and cleaning or smoking issues no more than 72 hours after the trip ends, and tolls and tickets no more than 90 days after; late toll notices must go to support within 30 days of notification and 180 days of trip end.
+        issues: [billing_error]
+        source: https://help.turo.com/en_us/reimbursement-invoice-guidelines-hosts-SyCDS4eVc
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: Turo's US smoking violation fee is $150, and its cleaning policy violation fee is $150 plus a 3% Turo admin fee.
+        issues: [billing_error]
+        source: https://help.turo.com/en_us/reimbursement-invoice-guidelines-hosts-SyCDS4eVc
+        last_verified: 2026-10-12
+  - issue: deposit_refund
+    summary: Turo refunds the security deposit 80 hours after the trip if there is no damage report or unpaid invoice; the bank then takes several days.
+    evidence: [trip end time, checkout page showing the deposit, card statement]
+    steps:
+      - do: Wait 80 hours after the trip ends plus the bank's processing time.
+      - do: If the deposit is still held, check for a damage report or unpaid invoice in the trip, then contact Turo through the Help Center.
+        channel: help-center
+    facts:
+      - kind: deadline
+        claim: Turo automatically refunds the security deposit 80 hours after the trip ends if no damage was reported, there are no unpaid eligible invoices, and the guest is not responsible for roadside service costs; banks typically take three to five business days for credit cards and 10 business days for debit cards.
+        issues: [deposit_refund]
+        source: https://help.turo.com/en_us/security-deposits-us-HkbE44lE9
+        last_verified: 2026-10-12
+  - issue: refund_request
+    summary: Free cancellation until 24 hours before the trip; a host cancellation gives a full refund.
+    evidence: [trip ID, booking and cancellation times, host cancellation notice]
+    steps:
+      - do: Cancel at least 24 hours before the trip start for a full refund (or within one hour of booking if you booked less than 24 hours ahead).
+      - do: If the host cancels, rebook within 24 hours with the trip funds or wait for the automatic full refund.
+      - do: Ask Turo for an exception for flight or train delays, lost baggage, a dirty or unsafe car, or other extenuating circumstances.
+        channel: help-center
+    facts:
+      - kind: deadline
+        claim: Guests may cancel free of charge up to 24 hours before the trip start; guests who book within 24 hours of the start have one hour after booking to cancel free. Non-refundable trips can be cancelled for a full refund within 24 hours after booking.
+        issues: [refund_request]
+        source: https://turo.com/us/en/policies/cancellation
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: When a host cancels, the guest receives a full refund; the funds stay available for 24 hours to rebook, then Turo refunds them automatically.
+        issues: [refund_request, reservation_problem]
+        source: https://turo.com/us/en/policies/cancellation
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Turo's terms require parties to give notice of a dispute and try informal negotiation before arbitration; users who opt out of arbitration remain bound by the forum selection clause for Phoenix, Arizona.
+    source: https://turo.com/us/en/policies/terms
+    last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: Turo says never to dispute a Turo charge with your bank; it violates Turo's chargeback policy, restricts the account and delays resolution. Use the invoice dispute process first.
+    issues: [billing_error, damage_claim]
+    source: https://support.turo.com/hc/en-us/articles/360036783613-Paying-or-disputing-reimbursement-requests
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Disputes, invoices and the Help Center contact flow require sign-in to the Turo account.
+  - turo.com returns HTTP 403 to automated fetches.
+  - A bank chargeback against Turo leads to account restrictions under Turo's chargeback policy.

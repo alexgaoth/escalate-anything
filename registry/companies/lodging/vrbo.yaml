@@ -1,0 +1,132 @@
+id: vrbo
+name: Vrbo
+aliases: [vrbo.com, vrbocare, homeaway]
+sector: lodging
+parent: Expedia Group
+website: https://www.vrbo.com
+account_url: https://www.vrbo.com/lp/b/getintouch
+regulators: [ftc]
+notes: >-
+  Vrbo is Expedia Group's vacation rental platform; each stay is with an independent host. The Book with Confidence
+  Guarantee is now called VrboCare in Vrbo's terms. Vrbo warns that fake Vrbo phone numbers circulate in search ads.
+  Values come from vrbo.com pages as shown in official-domain search results; vrbo.com returned HTTP 429 to direct fetches.
+
+channels:
+  - id: customer-support-phone
+    type: phone
+    label: Vrbo traveler customer support (US, English and Spanish)
+    value: +1-877-202-4291
+    hours: 24/7
+    purposes: [reservation_problem, refund_request, damage_claim, deposit_refund]
+    notes: From outside the US the help center lists +1-512-782-0805.
+    source: https://www.vrbo.com/lp/b/getintouch
+    last_verified: 2026-10-12
+  - id: contact-page
+    type: portal
+    label: Vrbo customer service (chat; routes you to the right agent and number)
+    value: https://www.vrbo.com/lp/b/getintouch
+    hours: 24/7
+    purposes: [reservation_problem, refund_request, damage_claim, deposit_refund]
+    source: https://www.vrbo.com/lp/b/getintouch
+    last_verified: 2026-10-12
+  - id: customer-support-mail
+    type: mail
+    label: Vrbo Customer Support mailing address (guest Terms of Service)
+    value: Vrbo Customer Support, 11920 Alterra Pkwy, Austin, TX 78758
+    purposes: [refund_request, damage_claim, deposit_refund]
+    source: https://www.vrbo.com/lp/b/terms-of-service
+    last_verified: 2026-10-12
+  - id: notice-of-dispute-mail
+    type: mail
+    label: Notice of Dispute (certified mail, before arbitration)
+    value: Legal Department/Dispute Resolution Provision, Expedia, Inc., 1111 Expedia Group Way West, Seattle, WA, 98119
+    notes: Shown in a version of the guest Terms of Service and in the host terms; check the current terms before sending.
+    source: https://www.vrbo.com/lp/b/terms-of-service
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-support-phone, note: "Message the host first; Vrbo expects you to ask the host for a refund before asking Vrbo."}
+  - {rung: written_complaint, channel: contact-page}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: notice-of-dispute-mail, note: "Notice of Dispute, 60 days, then individual AAA arbitration."}
+
+playbooks:
+  - issue: reservation_problem
+    summary: Ask the host, then Vrbo support; notify Vrbo within 30 business days for a VrboCare reimbursement.
+    evidence: [reservation ID, photos, messages with the host, receipts for replacement lodging]
+    steps:
+      - do: Contact the host by phone and Vrbo messaging. If the host does not answer within 48 hours, or check-in is less than 24 hours away, contact Vrbo support.
+        channel: customer-support-phone
+      - do: Ask the host for a refund first, in writing through Vrbo messaging.
+      - do: Notify Vrbo of the problem by chat, phone, email or mail within thirty (30) business days and ask for VrboCare reimbursement. Keep all documents.
+        channel: contact-page
+      - do: If Vrbo asks for the reimbursement form, submit it with documents within the deadline it gives.
+    facts:
+      - kind: deadline
+        claim: VrboCare terms say the traveler must notify Vrbo within thirty (30) business days of the first event giving rise to a request for reimbursement, by email or chat to customer support, by mail, or by phone.
+        issues: [reservation_problem, refund_request]
+        source: https://www.vrbo.com/lp/b/bwc-guarantee
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If the owner unexpectedly cancels within 30 days of the stay, Vrbo says it will help you find a comparable property.
+        issues: [reservation_problem]
+        source: https://help.vrbo.com/articles/what-is-the-book-with-confidence-guarantee
+        last_verified: 2026-10-12
+  - issue: refund_request
+    summary: Each listing has a cancellation policy; cancel before 11:59 p.m. property time on the last day of the refund window.
+    evidence: [reservation ID, the listing's cancellation policy, cancellation confirmation]
+    steps:
+      - do: Check the listing's cancellation policy on the property page or the reservation.
+      - do: Cancel before 11:59 p.m. in the property's time zone on the last day of the window.
+      - do: If the refund owed is not paid, contact Vrbo support, then dispute the charge with your card issuer.
+        channel: customer-support-phone
+    facts:
+      - kind: policy
+        claim: "Vrbo cancellation policies: Relaxed - 100% refund 14 days before check-in, 50% at 7-14 days; Moderate - 100% at 30 days, 50% at 14-30 days; Firm - 100% at 60 days, 50% at 30-60 days; Strict - 100% at 60 days, no refund after; or No refund."
+        issues: [refund_request]
+        source: https://help.vrbo.com/articles/what-are-the-cancellation-policy-options
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Vrbo's Extenuating Circumstances Policy can let guests cancel and get a refund regardless of the listing's policy when a qualifying large-scale disruption applies.
+        issues: [refund_request]
+        source: https://www.vrbo.com/tlp/trust-and-safety/extenuating-circumstances-policy
+        last_verified: 2026-10-12
+  - issue: deposit_refund
+    summary: A refundable damage deposit returns automatically within 7 or 14 days of checkout unless the host files a claim; contact support after 14 days.
+    evidence: [reservation ID, deposit amount, checkout photos, host messages]
+    steps:
+      - do: Wait the release window plus bank processing time (five to seven working days).
+      - do: If 14 days have passed and the host has not filed a claim, contact Vrbo support.
+        channel: customer-support-phone
+      - do: If the host claims damage, ask for the itemized amount and photos in writing through Vrbo messaging.
+    facts:
+      - kind: deadline
+        claim: Depending on the host's account settings, it can take up to 14 days after checkout for the refundable damage deposit to be released to the original form of payment; the bank may take another five to seven working days.
+        issues: [deposit_refund]
+        source: https://help.vrbo.com/articles/When-will-I-receive-back-my-refundable-damage-deposit
+        last_verified: 2026-10-12
+  - issue: damage_claim
+    summary: Hosts have 14 days after checkout to file a damage deposit claim, limited to the deposit amount and one claim.
+    evidence: [checkout photos or video, host's claim and photos, messages]
+    steps:
+      - do: Ask the host for the itemized claim and photos in writing.
+      - do: If the host keeps the deposit with no damage claim, contact Vrbo support and cite VrboCare. A disagreement about the extent and cost of damage is not covered as a wrongful refusal.
+        channel: contact-page
+      - do: If unresolved, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: After checkout the host has 14 days to file a damage deposit claim; the claim cannot exceed the deposit, and the host cannot withhold more money after the first claim.
+        issues: [damage_claim, deposit_refund]
+        source: https://help.vrbo.com/articles/How-do-I-file-a-damage-deposit-claim
+        last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: Vrbo warns of fake Vrbo phone numbers in search ads; confirm the number on vrbo.com's Contact Us page or in your account before sharing booking or payment details.
+    source: https://www.vrbo.com/lp/b/getintouch
+    last_verified: 2026-10-12
+
+known_blockers:
+  - vrbo.com returns HTTP 429 to automated fetches.
+  - Vrbo expects guests to ask the host for a refund before asking Vrbo.
