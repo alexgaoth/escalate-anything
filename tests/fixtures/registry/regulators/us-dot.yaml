@@ -1,0 +1,14 @@
+id: us-dot
+name: U.S. Department of Transportation, Office of Aviation Consumer Protection
+short_name: DOT
+level: federal
+covers_sectors: [airline, travel_agency]
+website: https://www.transportation.gov/airconsumer
+when_to_use: After the airline or ticket agent has had a chance to fix the problem and did not.
+channels:
+  - id: complaint-form
+    type: web_form
+    label: Air travel service complaint
+    value: https://www.example.gov/complaint
+    source: https://www.example.gov/
+    last_verified: 2026-10-01

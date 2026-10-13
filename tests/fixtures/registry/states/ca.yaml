@@ -1,0 +1,24 @@
+id: ca
+name: California
+agencies:
+  - id: ca-ag
+    kind: attorney_general
+    name: California Attorney General
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint
+        value: https://www.example.gov/ca-ag
+        source: https://www.example.gov/
+        last_verified: 2026-10-01
+  - id: ca-puc
+    kind: utility_commission
+    name: California Public Utilities Commission
+    covers_sectors: [utility, internet_tv, wireless]
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint
+        value: https://www.example.gov/ca-puc
+        source: https://www.example.gov/
+        last_verified: 2026-10-01

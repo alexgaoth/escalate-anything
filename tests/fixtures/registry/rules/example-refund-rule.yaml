@@ -1,0 +1,13 @@
+id: example-refund-rule
+title: Example refund rule
+jurisdiction: us-federal
+status: in_effect
+applies_to: {sectors: [airline], issues: [flight_cancellation, delayed_baggage]}
+summary: Airlines must refund cancelled flights when the passenger does not accept the alternative.
+points:
+  - kind: policy
+    claim: A refund is due when the airline cancels and the passenger does not accept rebooking.
+    source: https://www.example.gov/rule
+    last_verified: 2026-01-01
+source: https://www.example.gov/rule
+last_verified: 2026-01-01

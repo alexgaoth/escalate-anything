@@ -1,0 +1,245 @@
+# Sector and regulator vocabulary.
+#
+# A company file names one `sector`. When a company file has no `regulators`
+# or `escalation`, the server uses the sector defaults below.
+# `regulators` lists every federal or nonprofit regulator id that files may use.
+# Each id here gets a detail file at registry/regulators/<id>.yaml.
+
+regulators:
+  - {id: us-dot, name: "U.S. Department of Transportation, Office of Aviation Consumer Protection"}
+  - {id: fcc, name: "Federal Communications Commission, Consumer Complaint Center"}
+  - {id: cfpb, name: "Consumer Financial Protection Bureau"}
+  - {id: ftc, name: "Federal Trade Commission"}
+  - {id: occ, name: "Office of the Comptroller of the Currency (HelpWithMyBank)"}
+  - {id: fdic, name: "Federal Deposit Insurance Corporation"}
+  - {id: federal-reserve, name: "Federal Reserve Consumer Help"}
+  - {id: ncua, name: "National Credit Union Administration"}
+  - {id: ed-fsa, name: "U.S. Department of Education, Federal Student Aid"}
+  - {id: cms-no-surprises, name: "CMS No Surprises Help Desk"}
+  - {id: dol-ebsa, name: "U.S. Department of Labor, Employee Benefits Security Administration"}
+  - {id: hhs-ocr, name: "HHS Office for Civil Rights"}
+  - {id: fmcsa, name: "Federal Motor Carrier Safety Administration"}
+  - {id: tsa, name: "Transportation Security Administration"}
+  - {id: usps-oig, name: "USPS Office of Inspector General"}
+  - {id: sec, name: "U.S. Securities and Exchange Commission"}
+  - {id: finra, name: "Financial Industry Regulatory Authority"}
+  - {id: bbb, name: "Better Business Bureau"}
+
+sectors:
+  - id: airline
+    name: Airlines
+    federal_regulators: [us-dot]
+    state_agency_kinds: [attorney_general]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: written_complaint}
+      - {rung: regulator, regulator: us-dot}
+      - {rung: payment_dispute, note: "Card dispute for a refund the airline owes but has not paid."}
+      - {rung: small_claims}
+
+  - id: wireless
+    name: Wireless carriers
+    federal_regulators: [fcc]
+    state_agency_kinds: [utility_commission, attorney_general]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: retention, note: "Retention or loyalty team for price and cancellation issues."}
+      - {rung: written_complaint}
+      - {rung: executive}
+      - {rung: regulator, regulator: fcc}
+      - {rung: state_agency, agency_kind: attorney_general}
+      - {rung: arbitration}
+
+  - id: internet_tv
+    name: Internet, cable, satellite and home phone
+    federal_regulators: [fcc]
+    state_agency_kinds: [utility_commission, attorney_general]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: retention}
+      - {rung: written_complaint}
+      - {rung: executive}
+      - {rung: regulator, regulator: fcc}
+      - {rung: state_agency, agency_kind: utility_commission}
+      - {rung: state_agency, agency_kind: attorney_general}
+      - {rung: arbitration}
+
+  - id: utility
+    name: Electric, gas and water utilities
+    federal_regulators: []
+    state_agency_kinds: [utility_commission, attorney_general]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: supervisor}
+      - {rung: written_complaint}
+      - {rung: state_agency, agency_kind: utility_commission, note: "Most state utility commissions require a complaint to the utility first."}
+      - {rung: state_agency, agency_kind: attorney_general}
+
+  - id: bank
+    name: Banks and credit card issuers
+    federal_regulators: [cfpb, occ, fdic, federal-reserve]
+    state_agency_kinds: [financial_regulator, attorney_general]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: written_complaint, note: "Billing-error and transfer-error rights usually need a written dispute within a deadline."}
+      - {rung: executive}
+      - {rung: regulator, regulator: cfpb}
+      - {rung: state_agency, agency_kind: financial_regulator}
+      - {rung: arbitration}
+
+  - id: credit_union
+    name: Credit unions
+    federal_regulators: [ncua, cfpb]
+    state_agency_kinds: [financial_regulator]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: written_complaint}
+      - {rung: regulator, regulator: ncua}
+
+  - id: payments
+    name: Payment apps and money transfer
+    federal_regulators: [cfpb, ftc]
+    state_agency_kinds: [financial_regulator, attorney_general]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: written_complaint}
+      - {rung: regulator, regulator: cfpb}
+      - {rung: state_agency, agency_kind: financial_regulator}
+      - {rung: arbitration}
+
+  - id: credit_bureau
+    name: Credit reporting agencies
+    federal_regulators: [cfpb, ftc]
+    state_agency_kinds: [attorney_general]
+    default_escalation:
+      - {rung: written_complaint, note: "File a dispute with the bureau, and with the company that supplied the data."}
+      - {rung: regulator, regulator: cfpb}
+      - {rung: state_agency, agency_kind: attorney_general}
+      - {rung: small_claims}
+
+  - id: student_loan
+    name: Federal student loan servicers
+    federal_regulators: [ed-fsa, cfpb]
+    state_agency_kinds: [financial_regulator, attorney_general]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: written_complaint}
+      - {rung: regulator, regulator: ed-fsa}
+      - {rung: regulator, regulator: cfpb}
+      - {rung: state_agency, agency_kind: attorney_general}
+
+  - id: insurance_property
+    name: Auto, home and renters insurance
+    federal_regulators: []
+    state_agency_kinds: [insurance_department, attorney_general]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: supervisor}
+      - {rung: written_complaint, note: "Ask for the denial and the policy language it relies on, in writing."}
+      - {rung: state_agency, agency_kind: insurance_department}
+      - {rung: arbitration, note: "Many policies have an appraisal clause for disputes about the amount of a loss."}
+      - {rung: small_claims}
+
+  - id: insurance_health
+    name: Health insurance
+    federal_regulators: [dol-ebsa, cms-no-surprises]
+    state_agency_kinds: [insurance_department]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: written_complaint, note: "Internal appeal."}
+      - {rung: state_agency, agency_kind: insurance_department, note: "External review for fully insured plans."}
+      - {rung: regulator, regulator: dol-ebsa, note: "Employer self-funded (ERISA) plans."}
+
+  - id: subscription
+    name: Streaming, software and other subscriptions
+    federal_regulators: [ftc]
+    state_agency_kinds: [attorney_general]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: written_complaint}
+      - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+      - {rung: regulator, regulator: ftc}
+      - {rung: state_agency, agency_kind: attorney_general}
+
+  - id: retail
+    name: Retail and e-commerce
+    federal_regulators: [ftc]
+    state_agency_kinds: [attorney_general]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: supervisor}
+      - {rung: written_complaint}
+      - {rung: payment_dispute}
+      - {rung: state_agency, agency_kind: attorney_general}
+      - {rung: public, regulator: bbb}
+
+  - id: lodging
+    name: Hotels and short-term rentals
+    federal_regulators: [ftc]
+    state_agency_kinds: [attorney_general]
+    default_escalation:
+      - {rung: frontline, note: "Front desk or host first, while you are still there."}
+      - {rung: written_complaint}
+      - {rung: payment_dispute}
+      - {rung: state_agency, agency_kind: attorney_general}
+
+  - id: travel_agency
+    name: Online travel agencies
+    federal_regulators: [us-dot, ftc]
+    state_agency_kinds: [attorney_general]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: written_complaint}
+      - {rung: regulator, regulator: us-dot, note: "For air tickets bought through the agency."}
+      - {rung: payment_dispute}
+      - {rung: state_agency, agency_kind: attorney_general}
+
+  - id: car_rental
+    name: Car rental
+    federal_regulators: [ftc]
+    state_agency_kinds: [attorney_general]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: written_complaint, note: "For damage claims, ask for photos, repair invoices and the fleet utilization log."}
+      - {rung: payment_dispute}
+      - {rung: state_agency, agency_kind: attorney_general}
+      - {rung: small_claims}
+
+  - id: gig_delivery
+    name: Rideshare and delivery apps
+    federal_regulators: [ftc]
+    state_agency_kinds: [attorney_general]
+    default_escalation:
+      - {rung: frontline, note: "In-app help."}
+      - {rung: written_complaint}
+      - {rung: payment_dispute}
+      - {rung: state_agency, agency_kind: attorney_general}
+
+  - id: shipping
+    name: Parcel and mail carriers
+    federal_regulators: [ftc]
+    state_agency_kinds: [attorney_general]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: written_complaint, note: "Claim with the carrier. The shipper often must file it."}
+      - {rung: payment_dispute, note: "Dispute with the seller who shipped the item."}
+
+  - id: ground_transport
+    name: Rail and intercity bus
+    federal_regulators: [fmcsa]
+    state_agency_kinds: [attorney_general]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: written_complaint}
+      - {rung: payment_dispute}
+      - {rung: state_agency, agency_kind: attorney_general}
+
+  - id: fitness
+    name: Gyms and fitness memberships
+    federal_regulators: [ftc]
+    state_agency_kinds: [attorney_general]
+    default_escalation:
+      - {rung: frontline}
+      - {rung: written_complaint, note: "Cancel in writing, by certified mail when the contract requires it."}
+      - {rung: payment_dispute}
+      - {rung: state_agency, agency_kind: attorney_general}
