@@ -63,3 +63,26 @@ async def test_unlisted_company_case(server):
         assert case["company"] == "Joe's Plumbing"
         brief = await call(c, "draft_brief", case_id=case["id"])
         assert brief["target"] is None
+
+
+def test_live_registry_reloads_changed_files(tmp_path):
+    import shutil
+    import time
+
+    from redress.server import LiveRegistry
+
+    from .conftest import FIXTURES
+
+    root = tmp_path / "registry"
+    shutil.copytree(FIXTURES, root)
+    live = LiveRegistry(root)
+    live.CHECK_EVERY = 0
+    assert live.find_company("example air")[0]["name"] == "Example Air"
+    path = root / "companies" / "airline" / "example-air.yaml"
+    time.sleep(0.01)
+    path.write_text(path.read_text().replace("name: Example Air", "name: Example Airways"))
+    assert live.companies["example-air"]["name"] == "Example Airways"
+    # A broken edit keeps the last good data.
+    time.sleep(0.01)
+    path.write_text(path.read_text().replace("sector: airline", "sector: spaceline"))
+    assert live.companies["example-air"]["sector"] == "airline"

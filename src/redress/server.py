@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import datetime as dt
 import functools
+import time
+from pathlib import Path
 from typing import Any
 
 from mcp.server.mcpserver import MCPServer
@@ -35,12 +37,45 @@ Rules for agents:
 - If a URL or phone number from redress is wrong, call report_registry_problem.
 """
 
+class LiveRegistry:
+    """Delegates to a Registry and reloads it when YAML files under its root change.
+
+    A `git pull` in the registry checkout then takes effect without restarting the server.
+    """
+
+    CHECK_EVERY = 2.0  # seconds between file-system checks
+
+    def __init__(self, root: Path | None = None):
+        self._reg = Registry.load(root)
+        self._stamp = self._compute_stamp()
+        self._checked = time.monotonic()
+
+    def _compute_stamp(self) -> tuple[int, float]:
+        files = list(self._reg.root.rglob("*.yaml"))
+        return len(files), max((f.stat().st_mtime for f in files), default=0.0)
+
+    def _current(self) -> Registry:
+        now = time.monotonic()
+        if now - self._checked >= self.CHECK_EVERY:
+            self._checked = now
+            stamp = self._compute_stamp()
+            if stamp != self._stamp:
+                fresh = Registry.load(self._reg.root)
+                if not fresh.validate():  # keep serving the last good data if the new files are broken
+                    self._reg = fresh
+                self._stamp = stamp
+        return self._reg
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._current(), name)
+
+
 READ = ToolAnnotations(read_only_hint=True, open_world_hint=False)
 WRITE = ToolAnnotations(read_only_hint=False, destructive_hint=False, open_world_hint=False)
 
 
 def build_server(registry: Registry | None = None, store: Store | None = None) -> MCPServer:
-    reg = registry or Registry.load()
+    reg = registry or LiveRegistry()
     db = store or Store()
     mcp = MCPServer(name="redress", instructions=INSTRUCTIONS, version="0.1.0")
 
