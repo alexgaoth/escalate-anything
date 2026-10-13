@@ -75,3 +75,14 @@ def test_attorney_general_falls_back_to_consumer_affairs(fixture_registry):
         {"id": "hi-dcca", "kind": "consumer_affairs", "name": "Hawaii DCCA", "channels": []}]}
     assert [a["id"] for a in advisor.state_agencies(fixture_registry, "HI", "airline", "attorney_general")] == ["hi-dcca"]
     assert advisor.state_agencies(fixture_registry, "hi", "utility", "utility_commission") == []
+
+
+def test_playbook_keeps_only_rule_points_for_the_issue(fixture_registry):
+    rule = fixture_registry.rules["example-refund-rule"]
+    rule["points"].append({"claim": "A point about another issue entirely.", "issues": ["denied_boarding"],
+                           "source": "https://www.example.gov/rule", "last_verified": "2026-01-01"})
+    pb = advisor.get_playbook(fixture_registry, "example-air", "flight_cancellation")
+    view = pb["rules"]["in_force"][0]
+    assert len(view["points"]) == 1 and view["points_omitted"] == 1
+    full = advisor.rules_for(fixture_registry, "airline", "flight_cancellation")
+    assert len(full["in_force"][0]["points"]) == 2

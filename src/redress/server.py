@@ -95,7 +95,7 @@ def build_server(registry: Registry | None = None, store: Store | None = None) -
     def get_playbook(company: str, issue: str, state: str | None = None) -> dict[str, Any]:
         """Steps, channels (deep links, phones), evidence, deadlines, verified facts, applicable rules
         and the escalation ladder for one company and issue. Pass the person's two-letter state code
-        to resolve state agencies."""
+        to resolve state agencies. Rule points are limited to this issue; get_rules gives full text."""
         return advisor.get_playbook(reg, company, issue, state)
 
     @mcp.tool(annotations=READ)

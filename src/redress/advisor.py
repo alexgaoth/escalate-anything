@@ -148,7 +148,8 @@ def find_regulators(reg: Registry, sector: str, state: str | None = None, today:
 # ---- rules -------------------------------------------------------------------
 
 
-def rules_for(reg: Registry, sector: str | None, issue: str | None, state: str | None = None) -> dict:
+def rules_for(reg: Registry, sector: str | None, issue: str | None, state: str | None = None,
+              only_issue_points: bool = False) -> dict:
     in_force, not_in_force = [], []
     for r in reg.rules.values():
         juris = r["jurisdiction"]
@@ -170,7 +171,12 @@ def rules_for(reg: Registry, sector: str | None, issue: str | None, state: str |
             "last_verified": r["last_verified"],
         }
         if r["status"] in IN_FORCE:
-            view["points"] = r["points"]
+            points = r["points"]
+            if only_issue_points and issue:
+                points = [p for p in points if not p.get("issues") or issue in p["issues"]]
+                if len(points) < len(r["points"]):
+                    view["points_omitted"] = len(r["points"]) - len(points)
+            view["points"] = points
             in_force.append(view)
         else:
             view["status_note"] = r.get("status_note")
@@ -276,7 +282,7 @@ def get_playbook(reg: Registry, company: str, issue: str, state: str | None = No
         "steps": steps,
         "channels": relevant_channels,
         "facts": facts,
-        "rules": rules_for(reg, c["sector"], issue, state),
+        "rules": rules_for(reg, c["sector"], issue, state, only_issue_points=True),
         "tips": tips,
         "escalation": escalation_ladder(reg, c, state, today, warnings),
         "known_blockers": c.get("known_blockers", []),
