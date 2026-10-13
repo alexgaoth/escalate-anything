@@ -19,7 +19,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -e .
-      - run: redress site -o site-dist
+      - run: escalate site -o site-dist
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site-dist

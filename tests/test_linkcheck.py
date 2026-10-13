@@ -1,8 +1,8 @@
 import httpx
 import pytest
 
-from redress import linkcheck
-from redress.linkcheck import collect_urls
+from escalate_anything import linkcheck
+from escalate_anything.linkcheck import collect_urls
 
 
 @pytest.fixture

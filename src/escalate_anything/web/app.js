@@ -572,7 +572,7 @@ GET ${esc(D.base)}registry.json</code></pre>
   async function showCompany(id, issue, token) {
     const c = COMPANY[id];
     if (!c) return showNotFound(`No company with the id “${id}”.`);
-    document.title = `${c.name}: contacts, playbooks and escalation | redress`;
+    document.title = `${c.name}: contacts, playbooks and escalation | Escalate Anything`;
     if (shownCompany === id && document.getElementById("pb-h") !== null) { openPlaybook(issue, true); return; }
     shownCompany = null;
     main.innerHTML = companyHead(c, null) + skeleton(4);
@@ -605,7 +605,7 @@ GET ${esc(D.base)}registry.json</code></pre>
 
   // ---- views: issues -------------------------------------------------------
   function showIssues(focus) {
-    document.title = "Issues: what to do for each kind of problem | redress";
+    document.title = "Issues: what to do for each kind of problem | Escalate Anything";
     const counts = {};
     D.issues.forEach((i) => i.sectors.forEach((s) => (counts[s] = (counts[s] || 0) + 1)));
     const any = D.issues.filter((i) => i.sectors.includes("all")).length;
@@ -648,7 +648,7 @@ GET ${esc(D.base)}registry.json</code></pre>
 
   // ---- views: states -------------------------------------------------------
   function showStates() {
-    document.title = "State agencies | redress";
+    document.title = "State agencies | Escalate Anything";
     main.innerHTML = `<div class="page-head">
         <h1 id="h1" tabindex="-1">State agencies</h1>
         <p class="lede">Attorneys general, utility commissions, insurance departments and financial regulators for all 50 states and DC. Open a state for complaint forms and phone numbers.</p>
@@ -681,7 +681,7 @@ GET ${esc(D.base)}registry.json</code></pre>
   async function showState(code, token) {
     const s = STATE[code];
     if (!s) return showNotFound(`No state with the code “${code}”.`);
-    document.title = `${s.name} state agencies | redress`;
+    document.title = `${s.name} state agencies | Escalate Anything`;
     const head = `<div class="page-head">
         <nav class="crumbs" aria-label="Breadcrumb"><a href="#/states">States</a></nav>
         <h1 id="h1" tabindex="-1">${esc(s.name)}</h1>
@@ -722,7 +722,7 @@ GET ${esc(D.base)}registry.json</code></pre>
   }
 
   function showGuides() {
-    document.title = "Guides | redress";
+    document.title = "Guides | Escalate Anything";
     const list = D.guides || [];
     main.innerHTML = `<div class="page-head">
         <h1 id="h1" tabindex="-1">Guides</h1>
@@ -734,7 +734,7 @@ GET ${esc(D.base)}registry.json</code></pre>
   }
 
   function showScamsSoon() {
-    document.title = "Scams | redress";
+    document.title = "Scams | Escalate Anything";
     main.innerHTML = `<div class="page-head">
         <nav class="crumbs" aria-label="Breadcrumb"><a href="#/guides">Guides</a></nav>
         <h1 id="h1" tabindex="-1">Scams</h1>
@@ -746,7 +746,7 @@ GET ${esc(D.base)}registry.json</code></pre>
   async function showGuide(key, token) {
     const g = guideFor(key);
     if (!g) return key === "scams" ? showScamsSoon() : showNotFound(`No guide called “${key}”.`);
-    document.title = `${g.title || humanize(key)} | redress`;
+    document.title = `${g.title || humanize(key)} | Escalate Anything`;
     const head = `<div class="page-head">
         <nav class="crumbs" aria-label="Breadcrumb"><a href="#/guides">Guides</a></nav>
         <h1 id="h1" tabindex="-1">${esc(g.title || humanize(key))}</h1>
@@ -778,7 +778,7 @@ GET ${esc(D.base)}registry.json</code></pre>
 
   // ---- views: agents, not found --------------------------------------------
   function showAgents() {
-    document.title = "For agents and developers | redress";
+    document.title = "For agents and developers | Escalate Anything";
     const b = esc(D.base);
     main.innerHTML = `<div class="page-head prose">
         <h1 id="h1" tabindex="-1">For agents and developers</h1>
@@ -806,13 +806,13 @@ GET ${esc(D.base)}registry.json</code></pre>
           <li>If a phone number or URL is wrong, <a href="${esc(D.repo)}/issues">report it</a>.</li>
         </ul>
         <h2>Case log and drafting</h2>
-        <p>The <a href="${esc(D.repo)}">redress MCP server</a> adds a local case log with reference numbers and follow-up dates, draft briefs with citable facts and tone rules, and bill tracking. Run it with <code>redress serve</code>.</p>
+        <p>The <a href="${esc(D.repo)}">Escalate Anything MCP server</a> adds a local case log with reference numbers and follow-up dates, draft briefs with citable facts and tone rules, and bill tracking. Run it with <code>escalate serve</code>.</p>
       </div>`;
     focusHeading();
   }
 
   function showNotFound(msg) {
-    document.title = "Not found | redress";
+    document.title = "Not found | Escalate Anything";
     main.innerHTML = `<div class="page-head"><h1 id="h1" tabindex="-1">Not found</h1></div>
       <div class="empty"><p>${esc(msg)}</p><p><a href="#/">Search all companies</a></p></div>`;
     focusHeading();
@@ -876,7 +876,7 @@ GET ${esc(D.base)}registry.json</code></pre>
     } else {
       setNav("home");
       ui.sector = a === "sector" && b && SECTOR[b] ? b : "";
-      document.title = `redress: how to get it fixed with ${D.stats.companies} US companies`;
+      document.title = `Escalate Anything: how to get it fixed with ${D.stats.companies} US companies`;
       if (prev !== "home") {
         view = "home";
         renderHome();

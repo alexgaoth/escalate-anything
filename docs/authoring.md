@@ -15,7 +15,7 @@ The registry is only useful if an agent can trust it. Every rule below exists to
 
 The file name must equal the `id`. Ids are lowercase kebab-case (`united-airlines`). Issue and sector ids are snake_case (`delayed_baggage`).
 
-Run `uv run redress validate <files>` after every edit. Commit only when it prints `OK`.
+Run `uv run escalate validate <files>` after every edit. Commit only when it prints `OK`.
 
 ## Sourcing rules
 

@@ -1,5 +1,5 @@
 name: Data correction
-description: A phone number, link, deadline or fact in redress is wrong or out of date.
+description: A phone number, link, deadline or fact in Escalate Anything is wrong or out of date.
 title: "[data] <company>: <what is wrong>"
 labels: [data]
 body:

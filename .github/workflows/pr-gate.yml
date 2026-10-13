@@ -12,10 +12,10 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -e . pytest
-      - run: redress validate
+      - run: escalate validate
       - run: pytest -q
       - name: Wheel works outside the checkout
         run: |
           pip install build && python -m build
           python -m venv /tmp/wheel && /tmp/wheel/bin/pip install dist/*.whl
-          cd /tmp && /tmp/wheel/bin/redress stats > /dev/null && /tmp/wheel/bin/redress-mcp --help > /dev/null
+          cd /tmp && /tmp/wheel/bin/escalate stats > /dev/null && /tmp/wheel/bin/escalate-anything --help > /dev/null

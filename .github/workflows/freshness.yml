@@ -17,8 +17,8 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -e .
-      - run: redress check-links --json links.json --output linkcheck.md
-      - run: redress freshness --links links.json > report.md
+      - run: escalate check-links --json links.json --output linkcheck.md
+      - run: escalate freshness --links links.json > report.md
       - name: Create or update the Freshness report issue
         env:
           GH_TOKEN: ${{ github.token }}

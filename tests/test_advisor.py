@@ -2,8 +2,8 @@ import datetime as dt
 
 import pytest
 
-from redress import advisor
-from redress.advisor import NotFound
+from escalate_anything import advisor
+from escalate_anything.advisor import NotFound
 
 
 def test_company_playbook_resolves_channels_and_regulator(fixture_registry):

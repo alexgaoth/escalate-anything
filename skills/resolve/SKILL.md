@@ -1,6 +1,6 @@
 ---
 name: resolve
-description: Resolve a problem with a US company for the person, such as a wrong bill, a refund, a cancellation, a lost or delayed bag, a cancelled flight, a denied insurance claim or a bank dispute. Finds the right channel, collects evidence, drafts the message, logs the case and escalates step by step. Use when the person wants to complain, dispute a charge, get money back or escalate. Uses the redress MCP tools.
+description: Resolve a problem with a US company for the person, such as a wrong bill, a refund, a cancellation, a lost or delayed bag, a cancelled flight, a denied insurance claim or a bank dispute. Finds the right channel, collects evidence, drafts the message, logs the case and escalates step by step. Use when the person wants to complain, dispute a charge, get money back or escalate. Uses the Escalate Anything MCP tools.
 ---
 
 # Resolve a problem with a company
@@ -58,7 +58,7 @@ When it is resolved, call `case_close` with the outcome, the amount recovered an
 ## Rules
 
 - Cite only facts and in-force rules from the tools, with their sources. Never cite anything listed under `not_in_force` or `do_not_cite`.
-- Do not invent laws, deadlines, amounts or contacts. If redress has no answer, say so, and check the company's own site.
+- Do not invent laws, deadlines, amounts or contacts. If Escalate Anything has no answer, say so, and check the company's own site.
 - Keep messages short, factual and polite. Legal-brief tone and threats make companies ignore complaints.
-- If a URL or phone number from redress is wrong, call `report_registry_problem`.
+- If a URL or phone number from Escalate Anything is wrong, call `report_registry_problem`.
 - Run `followups_due` at the start of a session when the person asks about their cases.

@@ -2,7 +2,7 @@
 
 Playbooks say *what to do*. Dossiers and guides say *how it actually goes*: how a company handles complaints, which channel gets results, and what traps to avoid. A smaller section covers the scams that use each company's name.
 
-Validate everything with `uv run redress validate <files>`.
+Validate everything with `uv run escalate validate <files>`.
 
 ## 1. Company security data (in `registry/companies/<sector>/<id>.yaml`)
 

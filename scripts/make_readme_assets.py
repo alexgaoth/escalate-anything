@@ -10,7 +10,7 @@ import sys
 from html import escape
 from pathlib import Path
 
-from redress.registry import Registry
+from escalate_anything.registry import Registry
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "docs" / "assets"
@@ -19,7 +19,7 @@ MONO = "ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monosp
 
 
 def run(*args: str) -> str:
-    return subprocess.run([sys.executable, "-m", "redress.cli", *args], capture_output=True, text=True, cwd=ROOT).stdout
+    return subprocess.run([sys.executable, "-m", "escalate_anything.cli", *args], capture_output=True, text=True, cwd=ROOT).stdout
 
 
 def banner(stats: dict, dark: bool) -> str:
@@ -39,10 +39,10 @@ def banner(stats: dict, dark: bool) -> str:
         parts.append(f'<rect x="{x}" y="214" rx="15" width="{w:.0f}" height="30" fill="{chip_bg}" stroke="{sub}" stroke-opacity="0.35"/>'
                      f'<text x="{x + w / 2:.0f}" y="234" text-anchor="middle" font-family="{SANS}" font-size="14" fill="{chip_fg}">{escape(c)}</text>')
         x += w + 10
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-label="redress: get it fixed, don't get scammed">
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-label="Escalate Anything: get it fixed, don't get scammed">
 <rect width="1200" height="280" fill="{bg}"/>
 <rect x="64" y="58" width="8" height="64" rx="2" fill="{accent}"/>
-<text x="88" y="112" font-family="{SANS}" font-size="64" font-weight="700" letter-spacing="-1.5" fill="{fg}">redress</text>
+<text x="88" y="112" font-family="{SANS}" font-size="64" font-weight="700" letter-spacing="-1.5" fill="{fg}">Escalate Anything</text>
 <text x="66" y="160" font-family="{SANS}" font-size="26" font-weight="600" fill="{fg}">Get it fixed. Don&#8217;t get scammed.</text>
 <text x="66" y="190" font-family="{SANS}" font-size="19" fill="{sub}">Verified contacts, playbooks and escalation paths for US companies, for you and your AI agent.</text>
 {"".join(parts)}
@@ -91,7 +91,7 @@ def main() -> None:
     (OUT / "banner-light.svg").write_text(banner(stats, dark=False))
     (OUT / "banner-dark.svg").write_text(banner(stats, dark=True))
     (OUT / "demo-playbook.svg").write_text(terminal(
-        "redress playbook united-airlines delayed_baggage --state IL",
+        "escalate playbook united-airlines delayed_baggage --state IL",
         run("playbook", "united-airlines", "delayed_baggage", "--state", "IL"), max_lines=26))
     print("wrote", ", ".join(p.name for p in sorted(OUT.glob("*.svg"))))
 

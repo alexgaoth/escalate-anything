@@ -1,6 +1,6 @@
 ---
 name: scam-check
-description: Check a suspicious message, email, text or call that claims to be from a company, bank, utility, carrier or government agency for common scam red flags, and say what to do next. Use when the person received something suspicious, is asked to pay or share a code, or lost money and wants to know what to do next. Uses the redress MCP tools.
+description: Check a suspicious message, email, text or call that claims to be from a company, bank, utility, carrier or government agency for common scam red flags, and say what to do next. Use when the person received something suspicious, is asked to pay or share a code, or lost money and wants to know what to do next. Uses the Escalate Anything MCP tools.
 ---
 
 # Check for a scam

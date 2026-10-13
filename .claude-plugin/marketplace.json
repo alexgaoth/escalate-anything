@@ -1,12 +1,12 @@
 {
-  "name": "redress",
-  "description": "redress: verified contacts, playbooks and escalation paths to get US companies to fix problems.",
+  "name": "escalate-anything",
+  "description": "Escalate Anything: verified contacts, playbooks and escalation paths to get US companies to fix problems.",
   "owner": {
     "name": "Alex Gao"
   },
   "plugins": [
     {
-      "name": "redress",
+      "name": "escalate-anything",
       "source": ".",
       "description": "Resolve problems with large US companies."
     }

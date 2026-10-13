@@ -1,11 +1,11 @@
 """Keep an installed copy's data current: download the latest registry from GitHub.
 
 The registry changes weekly (fixes from contributors and the refresh routine). Installed copies
-(`uvx redress-mcp`) fetch the latest `registry/` folder from the repository, validate it with
+(`uvx escalate-anything`) fetch the latest `registry/` folder from the repository, validate it with
 the installed code, and only then swap it in. A source checkout uses `git pull` instead.
 
 Privacy: this downloads a public archive from GitHub. It sends nothing about you or your cases.
-Set REDRESS_OFFLINE=1 to turn it off.
+Set ESCALATE_OFFLINE=1 to turn it off.
 """
 
 from __future__ import annotations
@@ -22,12 +22,12 @@ from pathlib import Path
 
 import httpx
 
-ARCHIVE_URL = "https://codeload.github.com/alexgaoth/redress/tar.gz/refs/heads/main"
+ARCHIVE_URL = "https://codeload.github.com/alexgaoth/escalate-anything/tar.gz/refs/heads/main"
 MAX_AGE_DAYS = 7
 
 
 def home() -> Path:
-    return Path(os.environ.get("REDRESS_HOME", Path.home() / ".redress"))
+    return Path(os.environ.get("ESCALATE_HOME", Path.home() / ".escalate-anything"))
 
 
 def downloaded_registry() -> Path:
@@ -39,7 +39,7 @@ def _stamp_path() -> Path:
 
 
 def offline() -> bool:
-    return os.environ.get("REDRESS_OFFLINE", "").lower() in ("1", "true", "yes")
+    return os.environ.get("ESCALATE_OFFLINE", "").lower() in ("1", "true", "yes")
 
 
 def status() -> dict:
@@ -90,8 +90,8 @@ def update(url: str = ARCHIVE_URL, timeout: float = 60.0) -> dict:
         problems = Registry.load(new).validate()
         if problems:
             raise RuntimeError(
-                f"the latest registry has {len(problems)} problem(s) with this version of redress "
-                f"(first: {problems[0]}). Upgrade with: uvx redress-mcp@latest")
+                f"the latest registry has {len(problems)} problem(s) with this version of Escalate Anything "
+                f"(first: {problems[0]}). Upgrade with: uvx escalate-anything@latest")
         target = downloaded_registry()
         old = home() / "registry.old"
         if old.exists():
@@ -119,4 +119,4 @@ def update_in_background_if_due() -> None:
         except Exception:  # offline, rate-limited, or incompatible: keep the current data
             pass
 
-    threading.Thread(target=run, name="redress-update", daemon=True).start()
+    threading.Thread(target=run, name="escalate-update", daemon=True).start()

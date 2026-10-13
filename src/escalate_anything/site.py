@@ -26,8 +26,8 @@ from .credibility import company_credibility
 from .advisor import company_summary, get_escalation, get_playbook
 from .registry import Registry
 
-BASE_URL = "https://intro.alexgaoth.com/redress/"
-REPO_URL = "https://github.com/alexgaoth/redress"
+BASE_URL = "https://intro.alexgaoth.com/escalate-anything/"
+REPO_URL = "https://github.com/alexgaoth/escalate-anything"
 WEB_DIR = Path(__file__).with_name("web")
 
 
@@ -197,7 +197,7 @@ def llms_txt(reg: Registry, base_url: str = BASE_URL) -> str:
     stats = reg.stats()
     sector_names = {sid: s["name"] for sid, s in reg.sectors.items()}
     lines = [
-        "# redress",
+        "# Escalate Anything",
         "",
         "> An open index of how to get problems resolved with large US companies: contact channels with deep links, "
         "playbooks per issue, escalation ladders, sourced facts, federal regulators, state agencies and consumer-protection "
@@ -228,7 +228,7 @@ def llms_txt(reg: Registry, base_url: str = BASE_URL) -> str:
         f"- [Company index]({base_url}companies.json): id, name, aliases, sector and playbook issues for every company",
         f"- [Issues]({base_url}issues.json): issue vocabulary, generic steps, evidence, and the companies with a playbook",
         f"- [Whole registry]({base_url}registry.json): sectors, issues, regulators, states, rules and companies in one file",
-        f"- [MCP server and skills]({REPO_URL}): `redress serve` adds a case log, draft briefs and bill tracking",
+        f"- [MCP server and skills]({REPO_URL}): `escalate serve` adds a case log, draft briefs and bill tracking",
         "",
     ]
     if reg.guides:

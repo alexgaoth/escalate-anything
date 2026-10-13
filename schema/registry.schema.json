@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/alexgaoth/redress/schema/redress.schema.json",
-  "title": "redress registry",
+  "$id": "https://github.com/alexgaoth/escalate-anything/schema/registry.schema.json",
+  "title": "Escalate Anything registry",
   "description": "Shapes of the YAML files under registry/. The validator picks the definition from the file location.",
   "$defs": {
     "id": {

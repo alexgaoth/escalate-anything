@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from redress.registry import Registry
+from escalate_anything.registry import Registry
 
 FIXTURES = Path(__file__).parent / "fixtures" / "registry"
 

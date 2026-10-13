@@ -1,7 +1,7 @@
-# One-click deploy of the read-only MCP endpoint: https://render.com/deploy?repo=https://github.com/alexgaoth/redress
+# One-click deploy of the read-only MCP endpoint: https://render.com/deploy?repo=https://github.com/alexgaoth/escalate-anything
 services:
   - type: web
-    name: redress-mcp
+    name: escalate-anything
     runtime: docker
     plan: free
     healthCheckPath: /mcp

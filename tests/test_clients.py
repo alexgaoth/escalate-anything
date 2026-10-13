@@ -2,8 +2,8 @@ import json
 
 import pytest
 
-from redress import clients
-from redress.clients import CLIENTS, install, snippet
+from escalate_anything import clients
+from escalate_anything.clients import CLIENTS, install, snippet
 
 
 @pytest.fixture
@@ -15,7 +15,7 @@ def home(tmp_path, monkeypatch):
     return tmp_path
 
 
-CMD, ARGS = "uvx", ["redress-mcp"]
+CMD, ARGS = "uvx", ["escalate-anything"]
 
 
 def test_json_merge_keeps_other_settings_and_backs_up(home):
@@ -26,11 +26,11 @@ def test_json_merge_keeps_other_settings_and_backs_up(home):
     assert r.status == "installed"
     data = json.loads(path.read_text())
     assert data["theme"] == "dark" and "other" in data["mcpServers"]
-    assert data["mcpServers"]["redress"] == {"type": "stdio", "command": "uvx", "args": ["redress-mcp"]}
-    assert list(path.parent.glob("mcp.json.bak-redress-*"))
+    assert data["mcpServers"]["escalate-anything"] == {"type": "stdio", "command": "uvx", "args": ["escalate-anything"]}
+    assert list(path.parent.glob("mcp.json.bak-escalate-*"))
     assert install("cursor", CMD, ARGS, home=home).status == "unchanged"
     assert install("cursor", CMD, ARGS, home=home, remove=True).status == "removed"
-    assert "redress" not in json.loads(path.read_text())["mcpServers"]
+    assert "escalate-anything" not in json.loads(path.read_text())["mcpServers"]
 
 
 def test_vscode_uses_servers_key(home):
@@ -45,7 +45,7 @@ def test_claude_desktop_keeps_preferences(home):
     path.write_text(json.dumps({"preferences": {"x": 1}}))
     install("claude-desktop", CMD, ARGS, home=home)
     data = json.loads(path.read_text())
-    assert data["preferences"] == {"x": 1} and data["mcpServers"]["redress"]["command"] == "uvx"
+    assert data["preferences"] == {"x": 1} and data["mcpServers"]["escalate-anything"]["command"] == "uvx"
 
 
 def test_jsonc_with_comments_is_not_rewritten(home):
@@ -67,10 +67,10 @@ def test_codex_toml_append_and_remove(home):
     path.write_text('model = "gpt-5"\n\n[mcp_servers.other]\ncommand = "x"\n')
     assert install("codex", CMD, ARGS, home=home).status == "installed"
     text = path.read_text()
-    assert '[mcp_servers.redress]\ncommand = "uvx"\nargs = ["redress-mcp"]' in text and 'model = "gpt-5"' in text
+    assert '[mcp_servers.escalate-anything]\ncommand = "uvx"\nargs = ["escalate-anything"]' in text and 'model = "gpt-5"' in text
     assert install("codex", CMD, ARGS, home=home).status == "unchanged"
     assert install("codex", CMD, ARGS, home=home, remove=True).status == "removed"
-    assert "redress" not in path.read_text() and "[mcp_servers.other]" in path.read_text()
+    assert "escalate-anything" not in path.read_text() and "[mcp_servers.other]" in path.read_text()
 
 
 def test_yaml_clients_get_a_snippet(home):
@@ -87,14 +87,14 @@ def test_invalid_json_is_left_alone(home):
 
 
 def test_claude_code_dry_run_and_snippets():
-    assert install("claude-code", CMD, ARGS, dry_run=True).message == "Would run: claude mcp add --scope user redress -- uvx redress-mcp"
+    assert install("claude-code", CMD, ARGS, dry_run=True).message == "Would run: claude mcp add --scope user escalate-anything -- uvx escalate-anything"
     for cid, client in CLIENTS.items():
         assert snippet(client, CMD, ARGS), cid
 
 
 def test_server_command_sources():
     cmd, args = clients.server_command("pypi")
-    assert args == ["redress-mcp"]
+    assert args == ["escalate-anything"]
     cmd, args = clients.server_command("git", read_only=True)
     assert args[:2] == ["--from", clients.GIT_SOURCE] and args[-1] == "--read-only"
     cmd, args = clients.server_command("auto")  # tests run from the checkout
@@ -117,17 +117,17 @@ def test_setup_non_interactive_plans_then_applies(home, monkeypatch, capsys):
     assert CLIENTS["cursor"].config_path(home).exists() and "Restart" in out
 
 
-def test_redress_mcp_dispatches_cli_commands(monkeypatch):
-    from redress import cli
+def test_escalate_anything_dispatches_cli_commands(monkeypatch):
+    from escalate_anything import cli
 
     called = {}
     monkeypatch.setattr(cli, "main", lambda argv: called.setdefault("argv", argv) and 0)
-    monkeypatch.setattr(cli.sys, "argv", ["redress-mcp", "setup", "--yes"])
+    monkeypatch.setattr(cli.sys, "argv", ["escalate-anything", "setup", "--yes"])
     with pytest.raises(SystemExit):
         cli.serve_main()
     assert called["argv"] == ["setup", "--yes"]
     called.clear()
-    monkeypatch.setattr(cli.sys, "argv", ["redress-mcp", "--read-only"])
+    monkeypatch.setattr(cli.sys, "argv", ["escalate-anything", "--read-only"])
     with pytest.raises(SystemExit):
         cli.serve_main()
     assert called["argv"] == ["serve", "--read-only"]

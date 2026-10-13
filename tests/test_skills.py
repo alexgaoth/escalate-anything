@@ -4,8 +4,8 @@ from pathlib import Path
 import pytest
 from mcp import Client
 
-from redress.server import build_server
-from redress.store import Store
+from escalate_anything.server import build_server
+from escalate_anything.store import Store
 
 SKILLS = sorted((Path(__file__).parents[1] / "skills").glob("*/SKILL.md"))
 

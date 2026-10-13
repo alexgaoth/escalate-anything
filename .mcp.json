@@ -1,8 +1,8 @@
 {
   "mcpServers": {
-    "redress": {
+    "escalate-anything": {
       "command": "uv",
-      "args": ["run", "--quiet", "--directory", "${CLAUDE_PLUGIN_ROOT}", "redress", "serve"]
+      "args": ["run", "--quiet", "--directory", "${CLAUDE_PLUGIN_ROOT}", "escalate", "serve"]
     }
   }
 }

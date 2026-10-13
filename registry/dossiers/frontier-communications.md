@@ -38,4 +38,4 @@ Frontier is now a Verizon company, and its customer service and technical suppor
 
 ## Scams that target customers
 
-- redress found no current Frontier page on scams. The FCC warned on September 10, 2025 that scammers offer "50% off" internet and cable bills and then demand prepayment with gift cards, and says to contact your provider only at the number or email on your bill. [FCC alert](https://docs.fcc.gov/public/attachments/DOC-414472A1.pdf)
+- No current Frontier page on scams was found. The FCC warned on September 10, 2025 that scammers offer "50% off" internet and cable bills and then demand prepayment with gift cards, and says to contact your provider only at the number or email on your bill. [FCC alert](https://docs.fcc.gov/public/attachments/DOC-414472A1.pdf)

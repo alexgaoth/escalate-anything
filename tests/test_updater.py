@@ -6,7 +6,7 @@ from pathlib import Path
 import httpx
 import pytest
 
-from redress import updater
+from escalate_anything import updater
 
 from .conftest import FIXTURES
 
@@ -14,7 +14,7 @@ from .conftest import FIXTURES
 def _archive(registry_dir: Path, extra: dict[str, bytes] | None = None) -> bytes:
     buf = io.BytesIO()
     with tarfile.open(fileobj=buf, mode="w:gz") as tar:
-        tar.add(registry_dir, arcname="redress-main/registry")
+        tar.add(registry_dir, arcname="escalate-anything-main/registry")
         for name, data in (extra or {}).items():
             info = tarfile.TarInfo(name)
             info.size = len(data)
@@ -24,7 +24,7 @@ def _archive(registry_dir: Path, extra: dict[str, bytes] | None = None) -> bytes
 
 @pytest.fixture
 def home(tmp_path, monkeypatch):
-    monkeypatch.setenv("REDRESS_HOME", str(tmp_path / "home"))
+    monkeypatch.setenv("ESCALATE_HOME", str(tmp_path / "home"))
     return tmp_path / "home"
 
 
@@ -39,7 +39,7 @@ def _serve(monkeypatch, payload: bytes):
 
 
 def test_update_extracts_only_registry_and_validates(home, monkeypatch):
-    payload = _archive(FIXTURES, {"redress-main/src/evil.py": b"print(1)", "redress-main/registry/../../escape.txt": b"x"})
+    payload = _archive(FIXTURES, {"escalate-anything-main/src/evil.py": b"print(1)", "escalate-anything-main/registry/../../escape.txt": b"x"})
     _serve(monkeypatch, payload)
     meta = updater.update(url="https://example.invalid/archive.tgz")
     assert (home / "registry" / "sectors.yaml").exists()
@@ -61,14 +61,14 @@ def test_update_refuses_invalid_data(home, monkeypatch, tmp_path):
 
 
 def test_offline_flag(monkeypatch):
-    monkeypatch.setenv("REDRESS_OFFLINE", "1")
+    monkeypatch.setenv("ESCALATE_OFFLINE", "1")
     assert updater.offline() is True
 
 
 def test_freshness_report_and_worklist(fixture_registry):
     import datetime as dt
 
-    from redress import freshness
+    from escalate_anything import freshness
 
     links = [{"url": "https://www.example.com/gone", "status": "dead", "code": 404, "used_by": ["example-air.channels[0].value"]}]
     rep = freshness.build(fixture_registry, links, days=30, today=dt.date(2027, 1, 1))

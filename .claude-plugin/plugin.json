@@ -1,6 +1,6 @@
 {
-  "name": "redress",
-  "version": "0.1.0",
+  "name": "escalate-anything",
+  "version": "0.2.0",
   "description": "Get US companies to fix problems: playbooks, verified contacts, escalation ladders, a local case log and bill watching.",
   "author": {
     "name": "Alex Gao"
@@ -14,7 +14,7 @@
     "escalation",
     "mcp"
   ],
-  "homepage": "https://github.com/alexgaoth/redress",
-  "repository": "https://github.com/alexgaoth/redress",
+  "homepage": "https://github.com/alexgaoth/escalate-anything",
+  "repository": "https://github.com/alexgaoth/escalate-anything",
   "license": "MIT"
 }
