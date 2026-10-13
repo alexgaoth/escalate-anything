@@ -1,0 +1,125 @@
+id: fifth-third
+name: Fifth Third Bank
+aliases: [fifth third, 53 bank, 5/3 bank, fifth third bancorp, fifth third bank na]
+sector: bank
+parent: Fifth Third Bancorp
+website: https://www.53.com
+official_domains: [53.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Fifth Third says its employees and representatives will never ask you by phone, text or email for your password or PIN, and that your bank will never call you to ask for a one-time password or your login credentials. (Seen in a search snippet of 53.com; the page blocks automated fetches.)
+      source: https://www.53.com/content/fifth-third/en/customer-service/bank-fraud-scams-faqs.html
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: A caller claims to see suspicious activity on your account, asks you to verify your identity and asks for your password out loud, then uses it to get into your account. (Seen in a search snippet of 53.com.)
+      source: https://www.53.com/content/fifth-third/en/financial-insights/personal/fraud-protection/recognize-common-bank-fraud-tactics.html
+      last_verified: 2026-10-13
+regulators: [cfpb, occ]
+notes: >-
+  Fifth Third Bank, National Association is a national bank supervised by the OCC (FDIC BankFind cert 6672).
+  53.com blocks automated page fetches and returns an error page that says to contact Customer Service at
+  1-800-972-3030. Every other value below comes from search-engine snippets of 53.com pages and could not be
+  read on the page itself. Snippets give different overdraft fee amounts ($35 and $37 per item) and different
+  lost-card numbers, so those are not recorded except where noted.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer Service; lost or stolen cards and suspicious account activity
+    value: +1-800-972-3030
+    purposes: [fraud, unauthorized_charge, transaction_dispute, fee_reversal, frozen_funds, account_access, poor_service]
+    access: human_only
+    notes: Shown on the 53.com page itself. Search snippets say the lost or stolen card line is staffed 24/7 but give other hours for fraud calls, so hours are not recorded.
+    source: https://www.53.com/content/fifth-third/en/customer-service.html
+    last_verified: 2026-10-13
+  - id: disputes-phone
+    type: phone
+    label: Disputes Resolution Department (dispute a transaction or report fraud)
+    value: +1-877-833-6197
+    purposes: [transaction_dispute, unauthorized_charge, fraud]
+    access: human_only
+    notes: From a search snippet of a 53.com customer-service FAQ page; not read on the page itself.
+    source: https://www.53.com/content/fifth-third/en/customer-service/debit-card-faqs.html
+    last_verified: 2026-10-13
+  - id: lost-stolen-card-phone
+    type: phone
+    label: Report a lost or stolen card
+    value: +1-800-782-0279
+    hours: 24/7
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    notes: From search snippets of the 53.com debit card page and the Fifth Third debit card agreement; not read on the page itself.
+    source: https://www.53.com/content/fifth-third/en/personal-banking/bank/debit-cards.html
+    last_verified: 2026-10-13
+  - id: fraud-alert-text
+    type: sms
+    label: Fifth Third fraud alert texts come from short code 33748
+    value: "33748"
+    purposes: [fraud]
+    notes: From a search snippet of 53.com. Snippets give 1-866-442-0251 for questions about a fraud alert text; not confirmed on the page.
+    source: https://www.53.com/content/fifth-third/en/customer-service/debit-card-faqs.html
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, note: "Fifth Third publishes no complaint address that could be confirmed. For credit card billing errors, use the billing rights address in your card agreement within 60 days."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: regulator, regulator: occ}
+  - {rung: state_agency, agency_kind: financial_regulator}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: Call the Disputes Resolution Department or customer service; confirm the number on the back of your card first.
+    evidence: [statement showing the charge, receipt or order, record of contact with the merchant]
+    steps:
+      - do: Try the merchant first and keep proof.
+      - do: Call the Disputes Resolution Department to dispute the transaction.
+        channel: disputes-phone
+      - do: If you cannot get through, call customer service.
+        channel: customer-service-phone
+      - do: If Fifth Third does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: unauthorized_charge
+    summary: Report the card lost or stolen at once by phone, in the app or in online banking (Card Management), then dispute the charges.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: Call to report the card lost or stolen, or use Card Management in the Fifth Third app or online banking.
+        channel: lost-stolen-card-phone
+      - do: Dispute the unauthorized charges.
+        channel: disputes-phone
+      - do: If Fifth Third does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: fraud
+    summary: Hang up on callers who ask for passwords or codes and call the number on your card or 1-800-972-3030.
+    evidence: [transaction details, messages from the scammer, FTC or police report number]
+    steps:
+      - do: Call customer service on a number you trust (the back of your card or 1-800-972-3030), not one a caller gives you.
+        channel: customer-service-phone
+      - do: Report fraudulent transactions to the Disputes Resolution Department.
+        channel: disputes-phone
+      - do: Report to the FTC, then complain to the CFPB if the bank does not act.
+        regulator: cfpb
+
+  - issue: fee_reversal
+    summary: Use Extra Time - bring the available balance to at least $0 before midnight ET the next business day - then ask for any remaining overdraft fees to be reversed.
+    evidence: [statement showing the fee, available balance by date, deposit times]
+    steps:
+      - do: Check whether you made a deposit in time for Extra Time and whether it covered all items, including pending ones.
+      - do: Call customer service and ask for the fee to be reversed.
+        channel: customer-service-phone
+      - do: If the fee breaks the stated rules and Fifth Third refuses, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: Extra Time gives you until midnight ET on the business day after your account is overdrawn to make a deposit that brings the available balance to at least $0 and covers all items that caused the overdraft. It does not apply to items returned unpaid. (Seen in a search snippet of 53.com; the page blocks automated fetches.)
+        issues: [fee_reversal]
+        source: https://www.53.com/content/fifth-third/en/personal-banking/bank/extra-time.html
+        last_verified: 2026-10-13
+
+known_blockers:
+  - 53.com blocks automated access, so an agent cannot read Fifth Third's help pages or use its forms. Hand the browser to the person.
+  - Phone lines verify the account holder.

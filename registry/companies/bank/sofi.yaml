@@ -1,0 +1,146 @@
+id: sofi
+name: SoFi
+aliases: [sofi bank, sofi bank na, social finance, sofi technologies, sofi checking and savings, sofi money, sofi credit card]
+sector: bank
+parent: SoFi Technologies, Inc.
+website: https://www.sofi.com
+official_domains: [sofi.com, sofi.org]
+security:
+  never_asks:
+    - kind: policy
+      claim: SoFi says it will never ask you for your password, one-time password (OTP) or Social Security number.
+      source: https://www.sofi.com/blog/beware-of-scammers/
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: SoFi says it will never reach out to you unless you reach out to it first, and that legitimate SoFi representatives use email addresses ending in @sofi.com or @sofi.org.
+      source: https://www.sofi.com/blog/beware-of-scammers/
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Scammers pose as fake SoFi offices such as "SoFi India" or "SoFi China", run fake social media accounts with extra numbers or words like bonus, giveaway, sweepstakes or agent, and use fake websites or apps priced in rupees or yuan.
+      source: https://www.sofi.com/blog/beware-of-scammers/
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Messages impersonate SoFi CEO Anthony Noto; SoFi says he never texts or privately messages people on social media.
+      source: https://www.sofi.com/blog/beware-of-scammers/
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: customer-support-phone
+      type: phone
+      label: Report impersonation to SoFi Customer Support (do not give personal information to the impersonator)
+      value: +1-855-456-7634
+      purposes: [fraud]
+      access: human_only
+      source: https://www.sofi.com/blog/beware-of-scammers/
+      last_verified: 2026-10-13
+regulators: [cfpb, occ]
+notes: >-
+  SoFi Bank, National Association is a national bank supervised by the OCC (FDIC BankFind cert 26881).
+  SoFi's contact and fraud pages render with JavaScript and show no phone numbers to automated fetches;
+  numbers below come from SoFi help-center articles and its scam-warning page.
+
+channels:
+  - id: customer-support-phone
+    type: phone
+    label: SoFi customer support (855-456-SOFI), including SoFi Checking and Savings
+    value: +1-855-456-7634
+    hours: Mon-Thu 8 AM-10 PM ET, Fri-Sun 8 AM-8 PM ET
+    purposes: [unauthorized_charge, transaction_dispute, fraud, frozen_funds, account_access, poor_service]
+    access: human_only
+    source: https://support.sofi.com/hc/en-us/articles/37103586752781-Complaints-Feedback
+    last_verified: 2026-10-13
+  - id: credit-card-phone
+    type: phone
+    label: SoFi Credit Card - report the card lost or stolen, dispute or investigate a charge (844-945-SOFI)
+    value: +1-844-945-7634
+    purposes: [unauthorized_charge, transaction_dispute, fraud, billing_error]
+    access: human_only
+    source: https://support.sofi.com/hc/en-us/articles/360051711331-How-do-I-dispute-a-charge-on-my-SoFi-Credit-Card
+    last_verified: 2026-10-13
+  - id: chat
+    type: chat
+    label: Chat with SoFi (virtual assistant 24/7, live team members during business hours)
+    value: https://www.sofi.com/chat/v3/view/web/?product=ALL
+    purposes: [unauthorized_charge, transaction_dispute, fraud, frozen_funds, account_access, poor_service]
+    access: login
+    notes: The chat link is on the SoFi contact page; the hours come from the SoFi Complaints & Feedback help article.
+    source: https://www.sofi.com/contact-us/
+    last_verified: 2026-10-13
+  - id: online-debit-dispute
+    type: app
+    label: Dispute a SoFi debit card charge online
+    value: sofi.com or SoFi app > SoFi Checking and Savings > Transactions > select the transaction > Report an issue
+    purposes: [unauthorized_charge, transaction_dispute]
+    access: login
+    notes: Online disputes cover up to five posted transactions you did not make, from the last 92 calendar days. Otherwise use chat.
+    source: https://support.sofi.com/hc/en-us/articles/33260234436237-How-do-I-dispute-a-charge-for-my-SoFi-Debit-Card-Can-I-submit-a-dispute-online
+    last_verified: 2026-10-13
+  - id: complaints-email
+    type: email
+    label: Written customer complaints (SoFi forwards them to its complaints departments)
+    value: legalnotices@sofi.org
+    purposes: [poor_service, frozen_funds, transaction_dispute]
+    notes: SoFi's legal-requests page says customer complaints sent to this address are forwarded to the appropriate complaints department(s). The address is shown in protected form on the page and was decoded from it.
+    source: https://www.sofi.com/subpoena-legal-requests/
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: chat}
+  - {rung: frontline, channel: customer-support-phone}
+  - {rung: written_complaint, channel: complaints-email}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: regulator, regulator: occ}
+  - {rung: state_agency, agency_kind: financial_regulator}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Report the debit card charge online with Report an issue (posted, up to 5 transactions, last 92 days) or by chat; SoFi deactivates the card and sends a new one.
+    evidence: [transaction date and amount, whether you still have the card, who has access to the card or PIN]
+    steps:
+      - do: File the dispute online under Report an issue.
+        channel: online-debit-dispute
+      - do: If the option does not appear, or the charge is older or pending, chat with SoFi.
+        channel: chat
+      - do: For a SoFi Credit Card, call the credit card line.
+        channel: credit-card-phone
+      - do: If SoFi does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: limit
+        claim: The online debit card dispute form covers transactions you did not make that have posted, five or fewer at a time, from within the last 92 calendar days.
+        issues: [unauthorized_charge, transaction_dispute]
+        source: https://support.sofi.com/hc/en-us/articles/33260234436237-How-do-I-dispute-a-charge-for-my-SoFi-Debit-Card-Can-I-submit-a-dispute-online
+        last_verified: 2026-10-13
+      - kind: process
+        claim: If you report a debit card transaction as fraudulent, SoFi deactivates the Checking and Savings debit card and number and orders a new card.
+        issues: [unauthorized_charge, fraud]
+        source: https://support.sofi.com/hc/en-us/articles/33260234436237-How-do-I-dispute-a-charge-for-my-SoFi-Debit-Card-Can-I-submit-a-dispute-online
+        last_verified: 2026-10-13
+
+  - issue: transaction_dispute
+    summary: Debit card disputes go online or through chat; SoFi Credit Card disputes go by phone to 844-945-7634.
+    evidence: [statement showing the charge, receipt, record of contact with the merchant]
+    steps:
+      - do: For goods or services problems, contact the merchant first and keep proof.
+      - do: For a debit card charge, use Report an issue or chat.
+        channel: online-debit-dispute
+      - do: For a SoFi Credit Card charge, call and speak with a representative.
+        channel: credit-card-phone
+      - do: If SoFi does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: fraud
+    summary: Contact SoFi through chat or 855-456-7634 only after you start the contact; SoFi says it never reaches out first.
+    evidence: [transaction details, messages from the scammer, FTC report number]
+    steps:
+      - do: Do not give personal information to anyone who contacts you claiming to be SoFi.
+      - do: Call SoFi customer support or use chat.
+        channel: customer-support-phone
+      - do: For a SoFi Credit Card, call the credit card line to report it lost or stolen.
+        channel: credit-card-phone
+      - do: Report to the FTC, then complain to the CFPB if SoFi does not act.
+        regulator: cfpb
+
+known_blockers:
+  - SoFi chat and online disputes need the member's sign-in.
+  - SoFi's website pages render with JavaScript; agents may not see contact details without a browser.

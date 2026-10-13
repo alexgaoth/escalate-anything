@@ -1,0 +1,156 @@
+id: keybank
+name: KeyBank
+aliases: [key bank, keybank na, keycorp, key.com, 1-800-key2you]
+sector: bank
+parent: KeyCorp
+website: https://www.key.com
+official_domains: [key.com, keybank.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: KeyBank says it will never ask for your username or password, or for one-time passcodes or answers to security questions, over the phone, and will not call, email or text you to ask for your full Social Security number. (Seen in a search snippet of key.com; the site blocks automated fetches.)
+      source: https://www.key.com/about/security/phishing-faq.html
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: If you get an unexpected call or text that claims to be KeyBank, KeyBank says to contact it directly through a known resource such as the number on the back of your card, not a number the caller gives you. (Seen in a search snippet of key.com.)
+      source: https://www.key.com/about/security/fraud.html
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails without changing the subject line
+      value: reportphish@keybank.com
+      purposes: [fraud]
+      notes: From a search snippet of the KeyBank phishing FAQ; not read on the page itself.
+      source: https://www.key.com/about/security/phishing-faq.html
+      last_verified: 2026-10-13
+    - id: online-banking-support-phone
+      type: phone
+      label: Online Banking Support - if you clicked a link or opened an attachment in a suspicious email
+      value: +1-800-539-1539
+      purposes: [fraud, account_access]
+      access: human_only
+      notes: From a search snippet of the KeyBank phishing FAQ; not read on the page itself.
+      source: https://www.key.com/about/security/phishing-faq.html
+      last_verified: 2026-10-13
+regulators: [cfpb, occ]
+notes: >-
+  KeyBank National Association is a national bank supervised by the OCC (FDIC BankFind cert 17534).
+  key.com returns HTTP 403 to automated fetches, so phone numbers and security statements below come from
+  search-engine snippets of key.com pages. The overdraft facts come from a KeyCorp investor press release.
+  Dial 711 for TTY/TRS.
+
+channels:
+  - id: client-service-phone
+    type: phone
+    label: Client Service (1-800-KEY2YOU); suspected fraud, lost or stolen debit and credit cards
+    value: +1-800-539-2968
+    purposes: [fraud, unauthorized_charge, transaction_dispute, fee_reversal, frozen_funds, account_access, poor_service]
+    access: human_only
+    notes: From a search snippet of the KeyBank fraud page; not read on the page itself.
+    source: https://www.key.com/about/security/fraud.html
+    last_verified: 2026-10-13
+  - id: lost-stolen-card-phone
+    type: phone
+    label: Lost or stolen credit, ATM or debit card
+    value: +1-800-539-9056
+    hours: 24 hours
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    notes: From a search snippet of the KeyBank phone directory; not read on the page itself.
+    source: https://www.key.com/about/customer-service/contactus.html
+    last_verified: 2026-10-13
+  - id: fraud-client-service-phone
+    type: phone
+    label: KeyBank Fraud Client Service Center (confirmed fraud and identity theft)
+    value: +1-800-433-0124
+    hours: 24 hours
+    purposes: [fraud, identity_theft]
+    access: human_only
+    notes: From a search snippet of the KeyBank phone directory; not read on the page itself.
+    source: https://www.key.com/about/customer-service/contactus.html
+    last_verified: 2026-10-13
+  - id: online-banking-support-phone
+    type: phone
+    label: Online Banking Support
+    value: +1-800-539-1539
+    purposes: [account_access, fraud]
+    access: human_only
+    notes: From a search snippet of the KeyBank phishing FAQ; not read on the page itself.
+    source: https://www.key.com/about/security/phishing-faq.html
+    last_verified: 2026-10-13
+  - id: phishing-email
+    type: email
+    label: Forward suspicious emails without changing the subject line
+    value: reportphish@keybank.com
+    purposes: [fraud]
+    notes: From a search snippet of the KeyBank phishing FAQ; not read on the page itself.
+    source: https://www.key.com/about/security/phishing-faq.html
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: client-service-phone}
+  - {rung: written_complaint, note: "No KeyBank complaint address could be confirmed. For credit card billing errors, use the billing rights address in your card agreement within 60 days."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: regulator, regulator: occ}
+  - {rung: state_agency, agency_kind: financial_regulator}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: Call Client Service to dispute the charge; try the merchant first for problems with goods.
+    evidence: [statement showing the charge, receipt or order, record of contact with the merchant]
+    steps:
+      - do: Try the merchant first and keep proof.
+      - do: Call Client Service to dispute the transaction.
+        channel: client-service-phone
+      - do: If KeyBank does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: unauthorized_charge
+    summary: Lock the card in online or mobile banking (Manage Card), call the 24-hour lost or stolen card line, then dispute the charges.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: Lock the card in online or mobile banking under Manage Card.
+      - do: Call the lost or stolen card line.
+        channel: lost-stolen-card-phone
+      - do: If KeyBank does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: fraud
+    summary: Call the 24-hour Fraud Client Service Center for confirmed fraud or identity theft; forward phishing emails to reportphish@keybank.com.
+    evidence: [transaction details, messages from the scammer, FTC or police report number]
+    steps:
+      - do: Call the Fraud Client Service Center.
+        channel: fraud-client-service-phone
+      - do: If you clicked a link or opened an attachment, call Online Banking Support.
+        channel: online-banking-support-phone
+      - do: Forward the phishing email.
+        channel: phishing-email
+      - do: Report to the FTC, then complain to the CFPB if the bank does not act.
+        regulator: cfpb
+
+  - issue: fee_reversal
+    summary: KeyBank charges no overdraft fee if the account is overdrawn by $20 or less at end of day (Key Coverage Zone); check this, then ask for a reversal.
+    evidence: [statement showing the fee, end-of-day balances]
+    steps:
+      - do: Check whether the end-of-day overdrawn balance was $20 or less, and how many items were charged that day.
+      - do: Call Client Service and ask for the fee to be reversed.
+        channel: client-service-phone
+      - do: If the fee breaks the stated rules and KeyBank refuses, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: Key Coverage Zone - client accounts overdrawn by $20 or less at the end of day are not charged KeyBank overdraft fees (consumer and small business checking and savings, from September 16, 2022).
+        issues: [fee_reversal]
+        source: https://investor.key.com/press-releases/news-details/2022/KeyBank-Introduces-New-Key-Coverage-ZoneSM-for-Clients-to-Avoid-Overdraft-Fees/default.aspx
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: Overdraft charges outside the Key Coverage Zone and Recurring Overdraft fees are $20; KeyBank eliminated charges for non-sufficient funds (returned items) and charges overdraft fees on at most three transactions per day. (September 2022 press release; check your account's current fee schedule.)
+        issues: [fee_reversal]
+        source: https://investor.key.com/press-releases/news-details/2022/KeyBank-Introduces-New-Key-Coverage-ZoneSM-for-Clients-to-Avoid-Overdraft-Fees/default.aspx
+        last_verified: 2026-10-13
+
+known_blockers:
+  - key.com blocks automated access (HTTP 403), so an agent cannot read KeyBank help pages or use its forms. Hand the browser to the person.
+  - Phone lines verify the account holder.

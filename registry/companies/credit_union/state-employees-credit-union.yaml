@@ -1,0 +1,175 @@
+id: state-employees-credit-union
+name: State Employees' Credit Union (SECU, North Carolina)
+aliases: [secu, nc secu, ncsecu, state employees credit union, north carolina state employees credit union]
+sector: credit_union
+website: https://www.ncsecu.org
+official_domains: [ncsecu.org]
+security:
+  never_asks:
+    - kind: policy
+      claim: SECU will not ask for online credentials, account numbers or card numbers through email, voice or text messaging. When SECU contacts you it may ask security questions to verify your identity, but not for complete account numbers, card numbers or online credentials.
+      source: https://www.ncsecu.org/services/online-security.html
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: SECU says its outbound contact generally happens between 8 a.m. and 9 p.m. ET, except for urgent account matters.
+      source: https://www.ncsecu.org/services/online-security.html
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Imposters pose as the IRS, Social Security Administration, FBI or local police, claim you owe taxes or missed jury duty, threaten arrest, and demand payment by prepaid debit card or gift card. SECU says real government agencies never ask for payment by prepaid debit card, gift card or wire transfer.
+      source: https://www.ncsecu.org/resources/learn/imposter-scams
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Report phishing, vishing, pharming and smishing attempts that use SECU's name
+      value: notifyus@ncsecu.org
+      purposes: [fraud]
+      source: https://www.ncsecu.org/services/online-security.html
+      last_verified: 2026-10-13
+regulators: [ncua, cfpb]
+notes: >-
+  State Employees' Credit Union is a North Carolina credit union, federally insured by the NCUA. SECU's contact page
+  says members who are not satisfied can complain to the North Carolina Credit Union Division (cud.nc.gov) or the CFPB.
+  The account rules cited are the version marked 01/2026.
+
+channels:
+  - id: member-services-phone
+    type: phone
+    label: Member Services Support - 24/7 member helpline; fraudulent account activity, lost or stolen card, electronic transfer errors
+    value: +1-888-732-8562
+    hours: 24/7
+    purposes: [fraud, unauthorized_charge, transaction_dispute, fee_reversal, frozen_funds, account_access, poor_service]
+    access: human_only
+    source: https://www.ncsecu.org/contact-us
+    last_verified: 2026-10-13
+  - id: ask-secu-phone
+    type: phone
+    label: ASK SECU automated phone service ((800) ASK-SECU)
+    value: +1-800-275-7328
+    hours: 24/7
+    purposes: [account_access]
+    source: https://www.ncsecu.org/contact-us
+    last_verified: 2026-10-13
+  - id: lending-phone
+    type: phone
+    label: Lending Contact Center
+    value: +1-844-296-4831
+    hours: 8 a.m.-9 p.m. ET
+    purposes: [payment_assistance]
+    access: human_only
+    source: https://www.ncsecu.org/contact-us
+    last_verified: 2026-10-13
+  - id: secure-message
+    type: portal
+    label: Secure message in Member Access (members' complaints and feedback, dispute requests)
+    value: https://memberaccess.ncsecu.org/messages
+    purposes: [poor_service, transaction_dispute, unauthorized_charge, fee_reversal, frozen_funds]
+    access: login
+    source: https://www.ncsecu.org/contact-us
+    last_verified: 2026-10-13
+  - id: feedback-email
+    type: email
+    label: Complaints and feedback from non-members (members should use a secure message)
+    value: info@ncsecu.org
+    purposes: [poor_service]
+    source: https://www.ncsecu.org/contact-us
+    last_verified: 2026-10-13
+  - id: error-resolution-mail
+    type: mail
+    label: Electronic transfer errors and lost or stolen card notices (written)
+    value: "State Employees' Credit Union, PO Box 28540, Raleigh, NC 27611"
+    purposes: [transaction_dispute, unauthorized_charge]
+    source: https://www.ncsecu.org/pdfs/account-disclosures/AccountRulesAndRegulations.pdf
+    last_verified: 2026-10-13
+  - id: phishing-email
+    type: email
+    label: Report phishing, vishing, pharming and smishing attempts
+    value: notifyus@ncsecu.org
+    purposes: [fraud]
+    source: https://www.ncsecu.org/services/online-security.html
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: member-services-phone}
+  - {rung: written_complaint, channel: secure-message}
+  - {rung: regulator, regulator: ncua}
+  - {rung: state_agency, agency_kind: financial_regulator, note: "SECU names the North Carolina Credit Union Division (cud.nc.gov)."}
+  - {rung: regulator, regulator: cfpb}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Call Member Services Support (24/7) at once; report transfers you did not make within 60 days of the statement.
+    evidence: [statement with the transfer, date you learned of the loss or theft, card status]
+    steps:
+      - do: Lock the card in Member Access while you check, then call Member Services Support.
+        channel: member-services-phone
+      - do: If asked, confirm in writing within 10 business days.
+        channel: error-resolution-mail
+      - do: If SECU does not resolve it, complain to the NCUA, the North Carolina Credit Union Division or the CFPB.
+        regulator: ncua
+    facts:
+      - kind: limit
+        claim: If you tell SECU within two business days after you learn of the loss or theft of your card, card credentials or account credentials, you can lose no more than $50; otherwise you could lose as much as $500 if SECU can prove it could have stopped the use.
+        issues: [unauthorized_charge]
+        source: https://www.ncsecu.org/pdfs/account-disclosures/AccountRulesAndRegulations.pdf
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: If your statement shows transfers you did not make and you do not tell SECU within 60 days after the statement was sent or made available, you may not get back money lost after the 60 days if SECU can prove it could have stopped it. SECU extends the time for a good reason such as a long trip or hospital stay.
+        issues: [unauthorized_charge]
+        source: https://www.ncsecu.org/pdfs/account-disclosures/AccountRulesAndRegulations.pdf
+        last_verified: 2026-10-13
+
+  - issue: transaction_dispute
+    summary: Phone (888) 732-8562 or write to PO Box 28540 within 60 days of the statement; SECU decides in 10 business days or provisionally credits you and takes up to 45 days.
+    evidence: [statement showing the transfer, receipt, record of contact with the merchant]
+    steps:
+      - do: Call Member Services Support, or send a dispute request through Member Access.
+        channel: member-services-phone
+      - do: Or write to SECU with your name, account number, the transfer and the amount.
+        channel: error-resolution-mail
+      - do: If SECU does not resolve it, complain to the NCUA or the CFPB.
+        regulator: ncua
+    facts:
+      - kind: deadline
+        claim: For electronic fund transfer errors, SECU must hear from you no later than 60 days after the statement on which the problem first appeared was sent or made available. If you tell SECU orally, it may require the complaint in writing within 10 business days.
+        issues: [transaction_dispute, unauthorized_charge]
+        source: https://www.ncsecu.org/pdfs/account-disclosures/AccountRulesAndRegulations.pdf
+        last_verified: 2026-10-13
+      - kind: process
+        claim: SECU determines whether an error occurred within 10 business days, or may take up to 45 days if it provisionally credits your account within 10 business days; up to 90 days for new accounts, point-of-sale and foreign-initiated transactions. If it finds no error it sends a written explanation and reverses the provisional credit.
+        issues: [transaction_dispute, unauthorized_charge]
+        source: https://www.ncsecu.org/pdfs/account-disclosures/AccountRulesAndRegulations.pdf
+        last_verified: 2026-10-13
+
+  - issue: fraud
+    summary: Call Member Services Support for fraud; email phishing attempts to notifyus@ncsecu.org.
+    evidence: [transaction details, messages from the scammer, FTC or police report number]
+    steps:
+      - do: Call Member Services Support about fraudulent account activity.
+        channel: member-services-phone
+      - do: Report the phishing, vishing or smishing attempt.
+        channel: phishing-email
+      - do: Report to the FTC; complain to the NCUA if SECU does not act.
+        regulator: ncua
+
+  - issue: frozen_funds
+    summary: SECU may hold funds without notice when it suspects fraud or a dispute over the account; ask through a secure message what it needs to release them.
+    evidence: [notices from SECU, balance when held, documents that explain the funds]
+    steps:
+      - do: Call Member Services Support and ask why the funds are held and what SECU needs.
+        channel: member-services-phone
+      - do: Send the documents and your request in writing by secure message.
+        channel: secure-message
+      - do: If the funds are not released, complain to the NCUA or the North Carolina Credit Union Division.
+        regulator: ncua
+    facts:
+      - kind: policy
+        claim: SECU reserves the right to hold funds or block deposits for a reasonable period, at its sole discretion and without prior notice, when it has a right of setoff or lien, complies with legal process, believes there is a legitimate dispute over the account, believes or suspects the account is involved in fraud, or believes it has a claim against you or the funds.
+        issues: [frozen_funds]
+        source: https://www.ncsecu.org/pdfs/account-disclosures/AccountRulesAndRegulations.pdf
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Secure messages and online dispute requests need a Member Access sign-in.
+  - Phone lines verify the member.

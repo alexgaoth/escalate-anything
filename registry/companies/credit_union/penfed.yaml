@@ -1,0 +1,89 @@
+id: penfed
+name: PenFed Credit Union
+aliases: [penfed, pentagon federal credit union, pentagon federal, pen fed]
+sector: credit_union
+website: https://www.penfed.org
+official_domains: [penfed.org]
+regulators: [ncua, cfpb]
+notes: >-
+  Pentagon Federal Credit Union is a federally insured credit union regulated by the NCUA. penfed.org timed out
+  on every automated fetch, so the values below come from search-engine snippets of penfed.org pages and forms.
+  Snippets also show 1-855-892-0282 (fraud prevention page) and 1-800-556-5678 (an older form, lost or stolen
+  debit card only); these conflict with the lines below and are not recorded. Check the number on the back of
+  the card or in PenFed Online.
+
+channels:
+  - id: card-security-phone
+    type: phone
+    label: Card Security - lost or stolen card, unauthorized or suspicious transactions
+    value: +1-866-820-8875
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    notes: From search snippets of the PenFed lost or stolen card page and the PenFed card dispute form (Form 316), which give the same number; not read on the page itself.
+    source: https://www.penfed.org/report-unauthorized-charge
+    last_verified: 2026-10-13
+  - id: member-services-phone
+    type: phone
+    label: PenFed member services; suspicious transactions and account changes you did not make
+    value: +1-800-247-5626
+    purposes: [fraud, unauthorized_charge, transaction_dispute, fee_reversal, frozen_funds, account_access, poor_service]
+    access: human_only
+    notes: From search snippets of penfed.org pages (the exact page was not confirmed); not read on a page itself.
+    source: https://www.penfed.org/contact-us
+    last_verified: 2026-10-13
+  - id: online-dispute
+    type: app
+    label: Submit a card transaction dispute in PenFed Online
+    value: PenFed Online > More Account Info and Actions > dispute a transaction
+    purposes: [transaction_dispute, billing_error]
+    access: login
+    notes: From a search snippet of PenFed's card transaction dispute form (Form 316). The form is for billing problems with a merchant, not for unauthorized or fraudulent transactions.
+    source: https://www.penfed.org/content/dam/penfed/general/pdf/creditcardpdfs/credit-card-forms/316.pdf
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: member-services-phone}
+  - {rung: written_complaint, channel: online-dispute, note: "For card billing disputes, submit within 60 days of the statement closing date."}
+  - {rung: regulator, regulator: ncua}
+  - {rung: regulator, regulator: cfpb}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: Try the merchant first, then submit the dispute in PenFed Online within 60 days of the statement closing date; unauthorized charges go to Card Security instead.
+    evidence: [statement showing the charge, receipt or order, record of contact with the merchant]
+    steps:
+      - do: Try to resolve the problem with the merchant first and keep proof.
+      - do: Submit the dispute in PenFed Online.
+        channel: online-dispute
+      - do: If PenFed does not resolve it, complain to the NCUA or the CFPB.
+        regulator: ncua
+    facts:
+      - kind: deadline
+        claim: PenFed's card dispute form says disputes must be submitted within 60 days from the closing date of the statement on which the transaction first appeared, after first trying to resolve the problem with the merchant. (Seen in a search snippet of Form 316; penfed.org did not load.)
+        issues: [transaction_dispute, billing_error]
+        source: https://www.penfed.org/content/dam/penfed/general/pdf/creditcardpdfs/credit-card-forms/316.pdf
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: Call Card Security at once; the dispute form cannot be used for unauthorized or fraudulent transactions.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: Call Card Security to review the transactions and get a new card if needed.
+        channel: card-security-phone
+      - do: If PenFed does not resolve it, complain to the NCUA or the CFPB.
+        regulator: ncua
+
+  - issue: fraud
+    summary: Call Card Security for card fraud and member services for account changes you did not make.
+    evidence: [transaction details, messages from the scammer, FTC report number]
+    steps:
+      - do: For card fraud, call Card Security.
+        channel: card-security-phone
+      - do: For changes to your account you did not make, call member services.
+        channel: member-services-phone
+      - do: Report to the FTC, then complain to the CFPB if PenFed does not act.
+        regulator: cfpb
+
+known_blockers:
+  - penfed.org did not respond to automated fetches; hand the browser to the person to check numbers and forms.
+  - Online disputes need a PenFed Online sign-in.

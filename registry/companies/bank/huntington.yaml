@@ -1,0 +1,127 @@
+id: huntington
+name: Huntington Bank
+aliases: [huntington, the huntington national bank, huntington national bank, huntington bancshares, 1-800-480-bank]
+sector: bank
+parent: Huntington Bancshares Incorporated
+website: https://www.huntington.com
+official_domains: [huntington.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Huntington says it will never ask you for usernames, passwords or two-factor authentication numbers by phone, email or text. (Seen in a search snippet of huntington.com; the site blocks automated fetches.)
+      source: https://www.huntington.com/Privacy-Security/be-aware-of-phone-phishing
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Huntington says not to use contact details given in a suspicious message, and to call a trusted number from your statement, the back of your card or the official website instead. (Seen in a search snippet of huntington.com.)
+      source: https://www.huntington.com/Privacy-Security/be-aware-of-phone-phishing
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails that claim to be from Huntington
+      value: ReportFraud@huntington.com
+      purposes: [fraud]
+      notes: From a search snippet of the Huntington online banking security page; not read on the page itself. Huntington's privacy policy (also a snippet) gives idtheft@huntington.com for reporting suspicious requests.
+      source: https://www.huntington.com/Privacy-Security/prevent/online-banking-security
+      last_verified: 2026-10-13
+regulators: [cfpb, occ]
+notes: >-
+  The Huntington National Bank is a national bank supervised by the OCC (FDIC BankFind cert 6560).
+  huntington.com returns HTTP 403 to automated fetches, so phone numbers below come from search-engine
+  snippets of huntington.com pages. The overdraft facts come from a Huntington investor press release.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service (1-800-480-BANK); lost, stolen or unauthorized debit or ATM card, disputes, suspicious emails
+    value: +1-800-480-2265
+    purposes: [fraud, unauthorized_charge, transaction_dispute, fee_reversal, frozen_funds, account_access, poor_service]
+    access: human_only
+    notes: From search snippets of several huntington.com pages; not read on a page itself. A privacy-policy snippet gives hours of 6:00 a.m. to midnight ET daily and another snippet gives 7:00 a.m. to 8:00 p.m. ET, so hours are not recorded.
+    source: https://www.huntington.com/Personal/checking/lost-stolen-debit-card
+    last_verified: 2026-10-13
+  - id: credit-card-phone
+    type: phone
+    label: Consumer and small business credit card customer service
+    value: +1-800-340-4165
+    purposes: [transaction_dispute, unauthorized_charge, fraud, billing_error]
+    access: human_only
+    notes: From a search snippet of huntington.com (most likely the How to Dispute a Charge page; the exact page was not confirmed). Not read on the page itself.
+    source: https://www.huntington.com/Privacy-Security/online-dispute-forms
+    last_verified: 2026-10-13
+  - id: phishing-email
+    type: email
+    label: Forward suspicious emails that claim to be from Huntington
+    value: ReportFraud@huntington.com
+    purposes: [fraud]
+    notes: From a search snippet of the Huntington online banking security page; not read on the page itself.
+    source: https://www.huntington.com/Privacy-Security/prevent/online-banking-security
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, note: "No Huntington complaint address could be confirmed. For credit card billing errors, use the billing rights address in your card agreement within 60 days."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: regulator, regulator: occ}
+  - {rung: state_agency, agency_kind: financial_regulator}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: Call the line for your card type with the transaction date and amount; Huntington will ask you to verify your identity.
+    evidence: [statement showing the charge, transaction date and amount, receipt, record of contact with the merchant]
+    steps:
+      - do: Try the merchant first and keep proof.
+      - do: For a debit or ATM card, call customer service.
+        channel: customer-service-phone
+      - do: For a consumer or small business credit card, call credit card customer service.
+        channel: credit-card-phone
+      - do: If Huntington does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: unauthorized_charge
+    summary: Call at once; Huntington closes the compromised debit card and issues a new one.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: For a debit or ATM card, call customer service to close the card and get a new one.
+        channel: customer-service-phone
+      - do: For a credit card, call credit card customer service.
+        channel: credit-card-phone
+      - do: If Huntington does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: fraud
+    summary: Hang up and call 1-800-480-2265 yourself; forward phishing emails to Huntington.
+    evidence: [transaction details, messages from the scammer, FTC or police report number]
+    steps:
+      - do: Call customer service on a number you trust.
+        channel: customer-service-phone
+      - do: Forward the suspicious email.
+        channel: phishing-email
+      - do: Report to the FTC, then complain to the CFPB if the bank does not act.
+        regulator: cfpb
+
+  - issue: fee_reversal
+    summary: Overdrafts of $50 or less have no fee, and 24-Hour Grace waives the fee if you cover the overdraft during the next business day; check both, then ask for a reversal.
+    evidence: [statement showing the fee, available balance by date, deposit times]
+    steps:
+      - do: Check whether the overdraft was $50 or less, or whether you covered it during the next business day.
+      - do: Call customer service and ask for the fee to be reversed.
+        channel: customer-service-phone
+      - do: If the fee breaks the stated rules and Huntington refuses, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: Huntington's $50 Safety Zone means overdrafts of $50 or less on consumer accounts are not charged an overdraft fee. An account that stays negative for 60 days is closed automatically.
+        issues: [fee_reversal]
+        source: https://ir.huntington.com/news-presentations/press-releases/detail/112/huntington-introduces-24-hour-grace-for-business-and-a-no-overdraft-fee-50-safety-zone-for-consumers-and-businesses
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: With 24-Hour Grace, Huntington automatically waives the overdraft fee if the customer deposits money during the next business day to cover the overdraft. It is free on consumer checking, savings and money market accounts.
+        issues: [fee_reversal]
+        source: https://ir.huntington.com/news-presentations/press-releases/detail/112/huntington-introduces-24-hour-grace-for-business-and-a-no-overdraft-fee-50-safety-zone-for-consumers-and-businesses
+        last_verified: 2026-10-13
+
+known_blockers:
+  - huntington.com blocks automated access (HTTP 403), so an agent cannot read Huntington help pages or use its dispute forms. Hand the browser to the person.
+  - Phone lines verify the account holder; Huntington may ask for your address, account number or Social Security number.

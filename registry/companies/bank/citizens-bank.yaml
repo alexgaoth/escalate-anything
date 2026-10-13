@@ -1,0 +1,126 @@
+id: citizens-bank
+name: Citizens Bank
+aliases: [citizens, citizens financial group, citizens bank na, citizens one, citizens access]
+sector: bank
+parent: Citizens Financial Group, Inc.
+website: https://www.citizensbank.com
+official_domains: [citizensbank.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Citizens says it will never ask for personal or financial information by, in response to, or through a link in an email or text, and will never call, text or email to ask for your password, account number or one-time passcode. (Seen in a search snippet of citizensbank.com; the site blocks automated fetches.)
+      source: https://www.citizensbank.com/account-safeguards/account-information-security.aspx
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: If you get a suspicious message that claims to be from Citizens, do not reply or click links; call the number on the back of your card or on your monthly statement. (Seen in a search snippet of citizensbank.com.)
+      source: https://www.citizensbank.com/account-safeguards/online-fraud-protection.aspx
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: card-phishing-email
+      type: email
+      label: Credit card customers - attach suspicious emails to a new email and send them to Citizens
+      value: FraudStopperProgram@CitizensBank.com
+      purposes: [fraud]
+      notes: From a search snippet of the Citizens credit card fraud reporting page; not read on the page itself.
+      source: https://www.citizensbank.com/credit-cards/cardholder/fraud-reporting.aspx
+      last_verified: 2026-10-13
+regulators: [cfpb, occ]
+notes: >-
+  Citizens Bank, N.A. is a national bank supervised by the OCC (FDIC BankFind cert 57957).
+  citizensbank.com returns HTTP 403 to automated fetches, so the phone numbers and policies below come from
+  search-engine snippets of citizensbank.com pages, except the overdraft facts, which come from a Citizens
+  investor press release. Snippets show more than one fraud number, so check the number on the card or statement.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service; lost or stolen cards, suspicious activity, debit card fraud claims and merchant disputes
+    value: +1-800-922-9999
+    purposes: [fraud, unauthorized_charge, transaction_dispute, fee_reversal, frozen_funds, account_access, poor_service]
+    access: human_only
+    notes: From search snippets of the Citizens contact page and lost-card FAQ; not read on the page itself.
+    source: https://www.citizensbank.com/ask-a-citizen/Q167437624/How-do-I-report-a-lost-or-stolen-debit-card.aspx
+    last_verified: 2026-10-13
+  - id: fraud-center-phone
+    type: phone
+    label: Fraud Customer Service Center
+    value: +1-800-974-2260
+    purposes: [fraud, identity_theft, unauthorized_charge]
+    access: human_only
+    notes: From a search snippet of the Citizens Report Fraud page; not read on the page itself.
+    source: https://www.citizensbank.com/account-safeguards/how-to-report-fraud.aspx
+    last_verified: 2026-10-13
+  - id: app-debit-dispute
+    type: app
+    label: File a debit card fraud claim in the Citizens Mobile App
+    value: Citizens Mobile App > transactions > select the transaction > begin the dispute (track it under Dispute Status)
+    purposes: [unauthorized_charge, transaction_dispute]
+    access: login
+    notes: From a search snippet of citizensbank.com (the mobile and online banking FAQ or the debit card page; the exact page was not confirmed). Not read on the page itself.
+    source: https://www.citizensbank.com/customer-service/faqs/mobile-and-online-banking.aspx
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, note: "No Citizens complaint address could be confirmed. For credit card billing errors, use the billing rights address in your card agreement within 60 days."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: regulator, regulator: occ}
+  - {rung: state_agency, agency_kind: financial_regulator}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: File a debit card claim in the app or call customer service; try the merchant first for problems with goods.
+    evidence: [statement showing the charge, receipt or order, record of contact with the merchant]
+    steps:
+      - do: Try the merchant first and keep proof.
+      - do: For a debit card transaction, file the dispute in the Citizens Mobile App.
+        channel: app-debit-dispute
+      - do: Or call customer service to file a fraud claim or merchant dispute.
+        channel: customer-service-phone
+      - do: If Citizens does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: unauthorized_charge
+    summary: Freeze the card in the app, call at once, and dispute the charges.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: Freeze the debit or ATM card in the Citizens Mobile App.
+      - do: Call customer service at once to report the card and the charges.
+        channel: customer-service-phone
+      - do: If Citizens does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: fraud
+    summary: Call the Fraud Customer Service Center on a number you trust, never one from a message.
+    evidence: [transaction details, messages from the scammer, FTC or police report number]
+    steps:
+      - do: Call the Fraud Customer Service Center, or the number on the back of your card.
+        channel: fraud-center-phone
+      - do: Report the scam to the FTC, then complain to the CFPB if the bank does not act.
+        regulator: cfpb
+
+  - issue: fee_reversal
+    summary: Use Citizens Peace of Mind - cover the overdraft by 10 pm ET the next business day - and the $5 Overdraft Pass, then ask for a reversal.
+    evidence: [statement showing the fee, transaction amounts, deposit or transfer times]
+    steps:
+      - do: Check whether the overdraft item was $5 or less, or whether you covered the overdraft by 10 pm ET the next business day.
+      - do: Call customer service and ask for the fee to be reversed.
+        channel: customer-service-phone
+      - do: If the fee breaks the stated rules and Citizens refuses, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: Citizens Peace of Mind - if you overdraw your account, you have until 10 pm ET the following business day to deposit or transfer enough funds to have the overdraft fees reversed. Citizens added it to all Citizens Checking accounts on October 1, 2021.
+        issues: [fee_reversal]
+        source: https://investor.citizensbank.com/about-us/newsroom/latest-news/2021/2021-10-07-133039847.aspx
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: With the $5 Overdraft Pass on checking and money market accounts, Citizens does not charge an overdraft fee when a customer overdraws with a transaction of $5 or less.
+        issues: [fee_reversal]
+        source: https://investor.citizensbank.com/about-us/newsroom/latest-news/2021/2021-10-07-133039847.aspx
+        last_verified: 2026-10-13
+
+known_blockers:
+  - citizensbank.com blocks automated access (HTTP 403), so an agent cannot read Citizens help pages or use its forms. Hand the browser to the person.
+  - Phone lines verify the account holder.

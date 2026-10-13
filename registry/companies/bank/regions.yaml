@@ -1,0 +1,197 @@
+id: regions
+name: Regions Bank
+aliases: [regions, regions financial, regions financial corporation, regions bank checking, 1-800-regions]
+sector: bank
+parent: Regions Financial Corporation
+website: https://www.regions.com
+official_domains: [regions.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Regions says it will never call you to ask for one-time codes, usernames, passwords or PINs.
+      source: https://www.regions.com/help/what-is-phishing-and-how-should-i-report-it
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Phishing emails are made to look like Regions communications and try to get your personal or financial information. Smishing is the same scam by text message, and spoof websites are fake sites made to collect your information.
+      source: https://www.regions.com/help/report-fraud
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails that claim to be from Regions, then delete them
+      value: phishing@regions.com
+      purposes: [fraud]
+      source: https://www.regions.com/help/what-is-phishing-and-how-should-i-report-it
+      last_verified: 2026-10-13
+    - id: phishing-responded-phone
+      type: phone
+      label: If you responded to a suspicious message and think your information is at risk (1-800-REGIONS)
+      value: +1-800-734-4667
+      purposes: [fraud]
+      access: human_only
+      source: https://www.regions.com/help/what-is-phishing-and-how-should-i-report-it
+      last_verified: 2026-10-13
+regulators: [cfpb, federal-reserve]
+notes: >-
+  Regions Bank is an Alabama state-chartered bank that is a member of the Federal Reserve System
+  (FDIC BankFind cert 12368, regulator FED), so its federal bank regulator is the Federal Reserve.
+  The Regions contact page lists no hours and no complaint mailing address.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Regions Green Line Customer Service Center (1-800-REGIONS); lost or stolen cards, identity theft, debit and ATM disputes, unauthorized checks
+    value: +1-800-734-4667
+    purposes: [fraud, unauthorized_charge, transaction_dispute, fee_reversal, frozen_funds, identity_theft, poor_service]
+    access: human_only
+    source: https://www.regions.com/help/contact-us-by-phone
+    last_verified: 2026-10-13
+  - id: debit-card-phone
+    type: phone
+    label: Visa Debit Card Customer Service; lost or stolen Regions debit card
+    value: +1-800-295-8472
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    source: https://www.regions.com/help/contact-us-by-phone
+    last_verified: 2026-10-13
+  - id: credit-card-phone
+    type: phone
+    label: Regions Credit Card Customer Service; lost or stolen credit card and credit card disputes
+    value: +1-800-253-2265
+    purposes: [transaction_dispute, unauthorized_charge, fraud, billing_error]
+    access: human_only
+    source: https://www.regions.com/help/products-services/credit-cards/account-services/how-do-i-report-my-lost-or-stolen-credit-card
+    last_verified: 2026-10-13
+  - id: online-banking-support-phone
+    type: phone
+    label: Online Banking Support
+    value: +1-800-472-2265
+    purposes: [account_access]
+    access: human_only
+    source: https://www.regions.com/help/contact-us-by-phone
+    last_verified: 2026-10-13
+  - id: online-debit-dispute
+    type: app
+    label: Dispute a debit, ATM or prepaid Now Card transaction online
+    value: Regions Online Banking > Customer Service tab > Dispute a Card Transaction (or in the mobile app ask Reggie "Dispute a transaction")
+    purposes: [transaction_dispute, unauthorized_charge]
+    access: login
+    notes: Regions says ATM card and credit card claims cannot be filed through Online Banking. Only posted transactions can be disputed.
+    source: https://www.regions.com/help/dispute-a-transaction
+    last_verified: 2026-10-13
+  - id: phishing-email
+    type: email
+    label: Forward suspicious emails that claim to be from Regions, then delete them
+    value: phishing@regions.com
+    purposes: [fraud]
+    source: https://www.regions.com/help/what-is-phishing-and-how-should-i-report-it
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, note: "For credit card billing errors, write to the billing error address on the back of your Regions statement. Regions publishes no general complaint address."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: regulator, regulator: federal-reserve}
+  - {rung: state_agency, agency_kind: financial_regulator}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: Try the merchant first, then dispute a posted debit transaction online or by phone; credit card disputes go by phone or to the billing error address on your statement.
+    evidence: [statement showing the posted charge, receipts or invoices, record of contact with the merchant]
+    steps:
+      - do: For a problem with goods or services, contact the merchant first and keep proof.
+      - do: For a debit, ATM or Now Card transaction, file the dispute in Online Banking or the app, or call customer service.
+        channel: online-debit-dispute
+      - do: Or call the Green Line or visit a branch.
+        channel: customer-service-phone
+      - do: For a credit card, call credit card customer service, or write to the billing error address on the back of your statement.
+        channel: credit-card-phone
+      - do: If Regions does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: Regions accepts disputes only for posted transactions; pending charges generally must post before you can dispute them.
+        issues: [transaction_dispute]
+        source: https://www.regions.com/help/dispute-a-transaction
+        last_verified: 2026-10-13
+      - kind: process
+        claim: Regions says ATM card and credit card transaction claims cannot be filed through Regions Online Banking. Credit card disputes can be made by phone at 1-800-253-2265, at a branch, or by mail to the billing error address on the back of the statement.
+        issues: [transaction_dispute, billing_error]
+        source: https://www.regions.com/help/dispute-a-transaction
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: Report the card lost or stolen at once by phone, branch, Online Banking or the app, then dispute the posted charges.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: For a debit card, call the lost or stolen debit card line.
+        channel: debit-card-phone
+      - do: For a credit card, call credit card customer service.
+        channel: credit-card-phone
+      - do: Dispute posted debit card charges online or by phone.
+        channel: online-debit-dispute
+      - do: If Regions does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: Regions says to report a lost or stolen card immediately by calling 1-800-REGIONS, or through a branch, Online Banking or the mobile app.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.regions.com/help/report-fraud
+        last_verified: 2026-10-13
+
+  - issue: fraud
+    summary: Call 1-800-REGIONS for identity theft or if you gave out codes or passwords; forward phishing emails to phishing@regions.com.
+    evidence: [transaction details, messages from the scammer, FTC or police report number]
+    steps:
+      - do: If an account was opened in your name or compromised, call a Regions banker.
+        channel: customer-service-phone
+      - do: Forward phishing emails to Regions and delete them.
+        channel: phishing-email
+      - do: Report identity theft to the FTC, then complain to the CFPB if the bank does not act.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: If you gave out one-time codes, usernames, passwords or PINs in reply to a suspicious message, Regions says to call 1-800-REGIONS (1-800-734-4667) right away.
+        issues: [fraud]
+        source: https://www.regions.com/help/what-is-phishing-and-how-should-i-report-it
+        last_verified: 2026-10-13
+
+  - issue: fee_reversal
+    summary: Check the $5 rule and the Overdraft Grace deadline (8 p.m. Central the next business day), then ask for a reversal.
+    evidence: [statement showing the fee, available balance by date, deposit times]
+    steps:
+      - do: Check whether the overdraft was $5 or less after end-of-day processing, or whether you restored the balance by the Overdraft Grace deadline.
+      - do: Call customer service and ask for the fee to be reversed.
+        channel: customer-service-phone
+      - do: If the fee breaks the stated rules and Regions refuses, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: fee
+        claim: The Paid Overdraft Item fee is $36 per item, with no more than three Paid Overdraft Item fees per day for personal and small business accounts.
+        issues: [fee_reversal]
+        source: https://www.regions.com/help/products-services/checking-accounts/overdraft-services/what-are-the-fees-for-overdrafts
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Regions does not charge a Paid Overdraft Item fee for items that post on a day when the available balance is overdrawn by $5 or less after end-of-day processing, and charges nothing when an item is returned for insufficient funds.
+        issues: [fee_reversal]
+        source: https://www.regions.com/help/products-services/checking-accounts/overdraft-services/what-are-the-fees-for-overdrafts
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: Overdraft Grace - if your account is overdrawn by more than $5, you have until 8 p.m. Central Time the next business day to add funds; if the balance is then positive or overdrawn by no more than $5 after nightly processing, no overdraft fee is charged. Money Market, Now Checking and SafeGuard Checking accounts are not eligible.
+        issues: [fee_reversal]
+        source: https://www.regions.com/personal-banking/overdraft-grace
+        last_verified: 2026-10-13
+
+  - issue: account_access
+    summary: Call Online Banking Support for sign-in problems.
+    steps:
+      - do: Call Online Banking Support.
+        channel: online-banking-support-phone
+      - do: If you think someone else got into your account, call 1-800-REGIONS at once.
+        channel: customer-service-phone
+
+known_blockers:
+  - Phone lines verify the account holder.
+  - Regions says issues not resolved by phone may require a branch visit.
+  - Online dispute filing needs an Online Banking sign-in and does not cover ATM or credit card claims.

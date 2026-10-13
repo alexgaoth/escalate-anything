@@ -1,0 +1,192 @@
+id: afterpay
+name: Afterpay
+aliases: [afterpay us, afterpay pay in 4, afterpay pay monthly, afterpay us services]
+sector: payments
+parent: Block, Inc.
+website: https://www.afterpay.com/en-US
+official_domains: [afterpay.com]
+security:
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Report a suspected phishing email to the Afterpay security team (attach the email as an .eml file)
+      value: reportphishing@afterpay.com
+      purposes: [fraud]
+      notes: The address is shown in protected form on the page and was decoded from it.
+      source: https://www.afterpay.com/en-US/help/4416420907929-I-think-I-have-been-sent-a-phishing-email-what-do-I-do
+      last_verified: 2026-10-13
+regulators: [cfpb, ftc]
+notes: >-
+  Afterpay is owned by Block, Inc. (which also runs Cash App). Pay in 4 loans are made by Afterpay US Services, LLC
+  (NMLS ID 1870854; California Finance Lenders Law license 60DBO-99995). Loans with a finance fee are underwritten
+  and issued by First Electronic Bank, a Utah state-chartered bank (FDIC BankFind cert 35533). The installment
+  agreement checked was last updated September 2026; the Terms of Service, February 2026. Afterpay's U.S. security
+  page lists no scam warnings or never-ask statement.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Afterpay Customer Service
+    value: +1-833-844-8095
+    hours: Daily 8 AM-9:30 PM ET
+    purposes: [transaction_dispute, refund_request, unauthorized_charge, fraud, billing_error, payment_assistance, account_access, poor_service]
+    access: human_only
+    source: https://www.afterpay.com/en-US/help/35682295057305-Billing-Error
+    last_verified: 2026-10-13
+  - id: in-app-chat
+    type: app
+    label: Chat with Afterpay in the mobile app (24/7)
+    value: Afterpay mobile app > Start a chat
+    hours: 24/7
+    purposes: [transaction_dispute, refund_request, unauthorized_charge, fraud, billing_error, payment_assistance]
+    access: login
+    source: https://www.afterpay.com/en-US/help/900003088646-I-think-my-account-has-been-hacked
+    last_verified: 2026-10-13
+  - id: contact-form
+    type: web_form
+    label: Afterpay contact form (Get in Touch)
+    value: https://www.afterpay.com/en-US/submit-form
+    purposes: [unauthorized_charge, fraud, poor_service]
+    source: https://www.afterpay.com/en-US/help/900003088646-I-think-my-account-has-been-hacked
+    last_verified: 2026-10-13
+  - id: app-dispute
+    type: app
+    label: Raise a dispute on an order (for example Goods not received)
+    value: Afterpay app or website > select the order > raise a dispute
+    purposes: [transaction_dispute, refund_request, billing_error]
+    access: login
+    notes: One dispute per order, within 120 days of the purchase date. Contact the retailer first.
+    source: https://www.afterpay.com/en-US/help/5212463164569-I-haven-t-received-my-goods-How-do-I-raise-a-dispute
+    last_verified: 2026-10-13
+  - id: legal-notice-mail
+    type: mail
+    label: Written notices and disputes (installment agreement notice address)
+    value: "Afterpay US Services, LLC, 1955 Broadway, Suite 204, Oakland, CA 94612, Attention: Legal"
+    purposes: [billing_error, transaction_dispute, poor_service]
+    source: https://www.afterpay.com/en-US/installment-agreement
+    last_verified: 2026-10-13
+  - id: phishing-email
+    type: email
+    label: Report a suspected phishing email (attach it as an .eml file)
+    value: reportphishing@afterpay.com
+    purposes: [fraud]
+    source: https://www.afterpay.com/en-US/help/4416420907929-I-think-I-have-been-sent-a-phishing-email-what-do-I-do
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: in-app-chat}
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: legal-notice-mail}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+  - {rung: arbitration, note: "The installment agreement requires individual arbitration (AAA, San Francisco County) after 30 days of informal negotiation; small claims court is allowed. Opt out by written notice within 30 days of signing the agreement."}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: Contact the retailer and wait up to 7 calendar days, then raise one dispute per order in the app within 120 days of purchase; keep paying while it is reviewed.
+    evidence: [order confirmation, messages with the retailer, tracking or delivery record]
+    steps:
+      - do: Contact the retailer first, ask for tracking, and allow up to 7 calendar days for a reply.
+      - do: Raise a dispute on the order in the app or on the website.
+        channel: app-dispute
+      - do: Keep making scheduled payments while the dispute is reviewed, so you are not charged late fees.
+      - do: If Afterpay does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: You have 120 days from the purchase date to open a dispute, and you can raise only one dispute per order.
+        issues: [transaction_dispute]
+        source: https://www.afterpay.com/en-US/help/5212463164569-I-haven-t-received-my-goods-How-do-I-raise-a-dispute
+        last_verified: 2026-10-13
+      - kind: process
+        claim: Scheduled payments may continue while a dispute is under review, and reviews typically take 10-14 business days.
+        issues: [transaction_dispute]
+        source: https://www.afterpay.com/en-US/help/5212463164569-I-haven-t-received-my-goods-How-do-I-raise-a-dispute
+        last_verified: 2026-10-13
+
+  - issue: billing_error
+    summary: Contact the merchant first, then raise a dispute in the app within 120 days; Afterpay cannot collect the disputed amount or report it delinquent while it investigates.
+    evidence: [date and amount of the charge, why it is wrong, receipts or messages]
+    steps:
+      - do: If the error involves an order, contact the merchant first.
+      - do: Raise a dispute in the app, giving the amount, date and why you think it is an error.
+        channel: app-dispute
+      - do: Or contact Afterpay by chat or phone.
+        channel: customer-service-phone
+      - do: If Afterpay does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: The installment agreement says you must contact Afterpay within 120 days after the error appeared on your statement.
+        issues: [billing_error, transaction_dispute]
+        source: https://www.afterpay.com/en-US/installment-agreement
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: While Afterpay investigates a billing error, it cannot try to collect the disputed amount or report you as delinquent on it.
+        issues: [billing_error, transaction_dispute]
+        source: https://www.afterpay.com/en-US/installment-agreement
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: The retailer decides returns; refunds reduce your balance (partial refunds come off the last payment first), and you must keep paying what is still due.
+    evidence: [return receipt or tracking, retailer refund confirmation, order number]
+    steps:
+      - do: Return the item under the retailer's policy and get confirmation of the refund.
+      - do: Keep paying any installments still due until the refund posts.
+      - do: If the refund does not arrive, raise a dispute in the app.
+        channel: app-dispute
+    facts:
+      - kind: policy
+        claim: Return and refund decisions are at the merchant's discretion and you stay obligated to make payments when due; refunds Afterpay receives reduce your balance, and partial refunds are applied against your last payment first.
+        issues: [refund_request]
+        source: https://www.afterpay.com/en-US/installment-agreement
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: Change your password at once (it signs out all devices), then contact Afterpay straight away about orders you do not recognize.
+    evidence: [order details, delivery address, date you noticed it]
+    steps:
+      - do: Update your Afterpay password immediately.
+      - do: Check whether the items went to your address or were bought by family.
+      - do: Contact Afterpay straight away by chat, phone or the contact form.
+        channel: customer-service-phone
+      - do: If Afterpay does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: fraud
+    summary: Report phishing emails to reportphishing@afterpay.com and contact Afterpay if you entered your details on a fake site.
+    evidence: [the suspicious email as an .eml file, screenshots, FTC report number]
+    steps:
+      - do: Forward the suspicious email as an attachment.
+        channel: phishing-email
+      - do: If you entered details or see orders you do not recognize, change your password and contact Afterpay.
+        channel: in-app-chat
+      - do: Report the scam to the FTC.
+        regulator: ftc
+
+  - issue: payment_assistance
+    summary: A missed payment pauses the account and can bring a late fee of up to $8 after 10 days; reschedule the second or third payment in the app, or call about the first or last.
+    steps:
+      - do: To move the second or third payment, change its due date in the app.
+      - do: For the first or last payment, contact Customer Service to discuss options.
+        channel: customer-service-phone
+    facts:
+      - kind: fee
+        claim: If an installment stays unpaid for ten days after the due date, a late fee of up to $8.00 applies (not more than state law allows); total late fees on an order will not exceed 25% of the order value at purchase. No late fees apply to Rhode Island residents.
+        issues: [payment_assistance, fee_reversal]
+        source: https://www.afterpay.com/en-US/installment-agreement
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Afterpay suspends the account until all late payments are paid, and late payments, even during the grace period, can lower future spending limits.
+        issues: [payment_assistance]
+        source: https://www.afterpay.com/en-US/help/900001507483-What-happens-if-I-can-t-make-a-payment-on-time
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: The installment agreement's California notice says a negative credit report reflecting on your credit record may be submitted to a credit reporting agency if you miss payments.
+        issues: [payment_assistance, credit_report_error]
+        source: https://www.afterpay.com/en-US/installment-agreement
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Disputes and chat need the account holder's Afterpay sign-in.
+  - Afterpay's U.S. help center at help.afterpay.com blocks automated access; the same articles load under afterpay.com/en-US/help.
