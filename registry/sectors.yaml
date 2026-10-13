@@ -19,6 +19,7 @@ regulators:
   - {id: dol-ebsa, name: "U.S. Department of Labor, Employee Benefits Security Administration"}
   - {id: hhs-ocr, name: "HHS Office for Civil Rights"}
   - {id: fmcsa, name: "Federal Motor Carrier Safety Administration"}
+  - {id: fra, name: "Federal Railroad Administration, Office for Civil Rights"}
   - {id: tsa, name: "Transportation Security Administration"}
   - {id: usps-oig, name: "USPS Office of Inspector General"}
   - {id: sec, name: "U.S. Securities and Exchange Commission"}
@@ -226,7 +227,7 @@ sectors:
 
   - id: ground_transport
     name: Rail and intercity bus
-    federal_regulators: [fmcsa]
+    federal_regulators: [fmcsa, fra]
     state_agency_kinds: [attorney_general]
     default_escalation:
       - {rung: frontline}

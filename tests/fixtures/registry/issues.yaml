@@ -205,7 +205,7 @@ issues:
 
   - id: lost_baggage
     name: Lost bag
-    sectors: [airline]
+    sectors: [airline, ground_transport]
     description: The airline declared the bag lost, or it did not arrive after the search period.
     evidence: [bag tag, file reference number, list of contents with values, receipts or photos]
     steps:
@@ -280,6 +280,34 @@ issues:
     steps:
       - Check whether the service had a money-back guarantee and whether it is suspended.
       - Ask for the refund of the shipping charge or delivery fee.
+
+  - id: price_adjustment
+    name: Price dropped after purchase
+    sectors: [retail, lodging, travel_agency]
+    description: The price went down soon after you bought, and the seller has a price adjustment or price match policy.
+    evidence: [receipt or order confirmation, the lower price (screenshot with date), the seller's price policy]
+    steps:
+      - Check the seller's price adjustment window and exclusions.
+      - Ask for the difference through the seller's price adjustment channel within the window.
+
+  - id: lost_item
+    name: Item left behind
+    sectors: [gig_delivery, ground_transport, airline, lodging]
+    description: You left something in a ride, vehicle, train, plane or room.
+    evidence: [trip or booking details, date and time, description of the item]
+    steps:
+      - Report it at once through the company's lost item channel. For rides, the app usually lets you contact the driver.
+      - Follow up with the reference number. Ask how the return is shipped and what it costs.
+
+  - id: safety_incident
+    name: Safety incident
+    sectors: [gig_delivery, ground_transport, car_rental, lodging]
+    description: Something unsafe happened during a ride, delivery, rental or stay.
+    evidence: [trip or booking details, what happened, photos, police report number if any]
+    steps:
+      - If anyone is in danger, call 911 first.
+      - Report it through the company's safety channel. Ask for a reference number.
+      - Keep a written record. Ask the company in writing what action it took.
 
   - id: warranty_claim
     name: Warranty claim
