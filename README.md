@@ -7,15 +7,15 @@
 
 **Bill went up? Bag lost? Refund denied? Your agent knows who to contact, what to say, when to escalate, and which "support number" is a scam.**
 
-[![companies](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Falexgaoth.github.io%2Fredress%2Fbadges%2Fcompanies.json)](https://alexgaoth.github.io/redress/)
-[![data verified](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Falexgaoth.github.io%2Fredress%2Fbadges%2Fverified.json)](docs/maintenance.md)
-[![dossiers](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Falexgaoth.github.io%2Fredress%2Fbadges%2Fdossiers.json)](https://alexgaoth.github.io/redress/#/guides)
+[![companies](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fintro.alexgaoth.com%2Fredress%2Fbadges%2Fcompanies.json)](https://intro.alexgaoth.com/redress/)
+[![data verified](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fintro.alexgaoth.com%2Fredress%2Fbadges%2Fverified.json)](docs/maintenance.md)
+[![dossiers](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fintro.alexgaoth.com%2Fredress%2Fbadges%2Fdossiers.json)](https://intro.alexgaoth.com/redress/#/guides)
 [![PyPI](https://img.shields.io/pypi/v/redress-mcp?style=flat-square&color=3775A9)](https://pypi.org/project/redress-mcp/)
 [![tests](https://img.shields.io/github/actions/workflow/status/alexgaoth/redress/pr-gate.yml?branch=main&style=flat-square&label=tests)](https://github.com/alexgaoth/redress/actions/workflows/pr-gate.yml)
 [![MCP](https://img.shields.io/badge/MCP-server-5c4ee5?style=flat-square)](docs/clients.md)
 [![license](https://img.shields.io/badge/code_MIT·data_CC_BY_4.0-f4c430?style=flat-square)](LICENSE)
 
-**[Website](https://alexgaoth.github.io/redress/) · [Check a number before you call](https://alexgaoth.github.io/redress/#/check) · [Scam guide](https://alexgaoth.github.io/redress/#/guides/scams)**
+**[Website](https://intro.alexgaoth.com/redress/) · [Check a number before you call](https://intro.alexgaoth.com/redress/#/check) · [Scam guide](https://intro.alexgaoth.com/redress/#/guides/scams)**
 
 [Quick start](#quick-start) · [How it works](#how-redress-works) · [What you can fix](#what-you-can-fix) · [Walkthroughs](#walkthroughs) · [Fresh and credible](#fresh-and-credible) · [FAQ](#faq)
 
@@ -67,7 +67,7 @@ uvx redress-mcp verify "+1-888-555-0199" --company united-airlines
 uvx redress-mcp scam-check "Chase: your account is locked, send your money to yourself with Zelle"
 ```
 
-No install at all? Use the website: **[alexgaoth.github.io/redress](https://alexgaoth.github.io/redress/)**. The number checker runs in your browser and sends nothing.
+No install at all? Use the website: **[intro.alexgaoth.com/redress](https://intro.alexgaoth.com/redress/)**. The number checker runs in your browser and sends nothing.
 
 ## How redress works
 
@@ -101,7 +101,7 @@ redress never sends, submits or pays anything. Your agent drafts; you approve. C
 | 🛡️ Scams | Is this call, text, email or link real? What will this company never ask for? | Every company, plus look-alike domain detection |
 | 🏛️ Regulators | The right federal agency and **your state's** attorney general, utility commission and insurance department | All 50 states and DC |
 
-[Browse all companies →](https://alexgaoth.github.io/redress/)
+[Browse all companies →](https://intro.alexgaoth.com/redress/)
 
 ## Walkthroughs
 
@@ -141,7 +141,7 @@ How it works: [docs/maintenance.md](docs/maintenance.md).
 <details>
 <summary><strong>Which agents can use redress?</strong></summary>
 
-Any app that supports MCP: `uvx redress-mcp setup` configures the [supported apps](docs/clients.md). ChatGPT and claude.ai need a remote URL; run the read-only server with the included Dockerfile. Agents without MCP can read the website's JSON and [`llms.txt`](https://alexgaoth.github.io/redress/llms.txt).
+Any app that supports MCP: `uvx redress-mcp setup` configures the [supported apps](docs/clients.md). ChatGPT and claude.ai need a remote URL; run the read-only server with the included Dockerfile. Agents without MCP can read the website's JSON and [`llms.txt`](https://intro.alexgaoth.com/redress/llms.txt).
 </details>
 
 <details>

@@ -31,7 +31,7 @@ from .credibility import company_credibility
 from .advisor import company_summary, get_escalation, get_playbook
 from .registry import Registry
 
-BASE_URL = "https://alexgaoth.github.io/redress/"
+BASE_URL = "https://intro.alexgaoth.com/redress/"
 REPO_URL = "https://github.com/alexgaoth/redress"
 WEB_DIR = Path(__file__).with_name("web")
 

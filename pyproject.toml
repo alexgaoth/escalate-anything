@@ -25,7 +25,7 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/alexgaoth/redress"
-Directory = "https://alexgaoth.github.io/redress/"
+Directory = "https://intro.alexgaoth.com/redress/"
 Issues = "https://github.com/alexgaoth/redress/issues"
 
 [project.scripts]

@@ -58,9 +58,9 @@ The read-only server has every lookup, `get_context`, `verify_contact` and `scam
 ## No MCP at all
 
 Agents that can fetch URLs, such as browser agents, can read the static site:
-- `https://alexgaoth.github.io/redress/registry.json`: everything
-- `https://alexgaoth.github.io/redress/companies/<id>.json`: one company with its playbooks
-- `https://alexgaoth.github.io/redress/llms.txt`: an index for language models
+- `https://intro.alexgaoth.com/redress/registry.json`: everything
+- `https://intro.alexgaoth.com/redress/companies/<id>.json`: one company with its playbooks
+- `https://intro.alexgaoth.com/redress/llms.txt`: an index for language models
 
 People can use the CLI:
 
