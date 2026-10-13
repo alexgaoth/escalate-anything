@@ -358,3 +358,24 @@ known_blockers:
   - Calls to customer care require the account PIN/passcode; online access requires the T-Mobile ID password.
   - Cancellation is by phone; the cancel support page has no online cancel button.
   - T-Mobile support pages hide key details in collapsed sections that do not show in plain page text.
+
+official_domains: [t-mobile.com]
+security:
+  never_asks:
+  - kind: policy
+    claim: T-Mobile says it will never send you a request for sensitive personal data or account information, and tells customers never to confirm such information in response to an unsolicited email, text or inbound call.
+    source: https://www.t-mobile.com/privacy-center/education/online-safety-cybersecurity
+    last_verified: 2026-10-12
+  known_scams:
+  - kind: policy
+    claim: A call or text claims there is suspicious activity on your account and asks you to 'verify' your identity by sharing your login, account number, PIN or one-time code.
+    source: https://www.t-mobile.com/support/plans-features/help-with-scams-spam-and-fraud
+    last_verified: 2026-10-12
+  report_phishing:
+  - id: report-spam-text
+    type: sms
+    label: Forward suspicious texts to 7726 (SPAM)
+    value: '7726'
+    notes: Do not edit the message or add comments. Reporting is free and does not count against your plan.
+    source: https://www.t-mobile.com/support/plans-features/help-with-scams-spam-and-fraud
+    last_verified: 2026-10-12

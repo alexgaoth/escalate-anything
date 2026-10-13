@@ -208,3 +208,51 @@ known_blockers:
   - Number Transfer PIN can be requested only by users with primary online access, or by dialing *PORT with the account passcode.
   - Billing center tools ("See what changed") need sign-in.
   - A Customer Privacy Waiver (Account Authorization form) is required before AT&T discusses a dispute with anyone other than the account holder, including an agent or attorney.
+
+official_domains: [att.com, att.net, att-mail.com]
+security:
+  never_asks:
+  - kind: policy
+    claim: AT&T says it won't contact you and ask for a PIN or code, ask you to ship your phone to an unknown address, or ask for a prepaid or gift card for payment.
+    source: https://www.att.com/support/article/my-account/KM1159567/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: AT&T says it won't ask you to read back a passcode or PIN used to sign in as you.
+    source: https://www.att.com/support/article/my-account/KM1159567/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: AT&T says all AT&T emails are sent from att-mail.com; an email that does not come from that address was not sent by AT&T.
+    source: https://www.att.com/support/article/my-account/KM1010136/
+    last_verified: 2026-10-12
+  known_scams:
+  - kind: policy
+    claim: A scammer pretends to be from AT&T's fraud or support department, calls or texts you, and asks for your account PIN or a one-time code so they can sign in as you.
+    source: https://www.att.com/support/article/my-account/KM1159567/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: 'SIM swap or eSIM takeover: someone gets a new SIM or eSIM and tries to move your phone number to their device.'
+    source: https://www.att.com/support/article/my-account/KM1159567/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: A caller pretending to be AT&T offers a discount or threatens to shut off service unless you pay with gift cards, prepaid cards, crypto or a money transfer.
+    source: https://www.att.com/support/article/my-account/KM1159567/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: 'Delivery-order scam: a caller pretending to be AT&T says you must return your device because of a defect, recall or security alert, then asks you to click a link, share information or ship the phone.'
+    source: https://www.att.com/support/article/my-account/KM1159567/
+    last_verified: 2026-10-12
+  report_phishing:
+  - id: report-spam-text
+    type: sms
+    label: Forward suspicious texts to 7726 (SPAM)
+    value: '7726'
+    notes: Text messages forwarded to 7726 are free for AT&T customers.
+    source: https://www.att.com/support/article/my-account/KM1212535/
+    last_verified: 2026-10-12
+  - id: report-phishing-email
+    type: email
+    label: AT&T Internet Security (report emails that claim to be from AT&T)
+    value: abuse@att.net
+    notes: 'Also used for a scam text when you cannot see the sender''s number: email the entire message.'
+    source: https://www.att.com/support/article/my-account/KM1212535/
+    last_verified: 2026-10-12

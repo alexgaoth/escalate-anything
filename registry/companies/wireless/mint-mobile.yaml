@@ -188,3 +188,5 @@ tips:
 known_blockers:
   - Mint is online-only with no stores; refunds go through the web form and returns need a Return Authorization Number emailed after approval.
   - Mint's own help pages do not publish how to get a Number Transfer PIN; the person must ask support.
+
+official_domains: [mintmobile.com]

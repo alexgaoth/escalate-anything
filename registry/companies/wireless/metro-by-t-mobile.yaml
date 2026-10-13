@@ -168,3 +168,5 @@ facts:
 known_blockers:
   - Port-out PIN generation, SIM changes and account protection changes require a one-time PIN sent to the customer's device.
   - The Metro "Transfer number" support page returned Access Denied to the browser on 2026-10-12.
+
+official_domains: [metrobyt-mobile.com]

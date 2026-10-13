@@ -171,3 +171,5 @@ known_blockers:
   - The Notice of Dispute must be sent by certified mail with the customer's own signature; an agent cannot send it alone.
   - Unlock requests are honored only from the customer who originally bought the device.
   - The Wireless Customer Agreement and help pages render only after JavaScript loads.
+
+official_domains: [consumercellular.com]

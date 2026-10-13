@@ -124,3 +124,5 @@ facts:
 known_blockers:
   - Lines need Autopay with a valid card on file to renew; removing the card can cancel the account.
   - The Terms do not publish port-out PIN steps; ask support.
+
+official_domains: [usmobile.com]
