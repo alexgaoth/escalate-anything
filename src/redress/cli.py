@@ -151,6 +151,12 @@ def cmd_scam_check(args: argparse.Namespace) -> int:
     return 0 if r["risk"] == "low" else 2
 
 
+def cmd_install(args: argparse.Namespace) -> int:
+    from .clients import main as install_main
+
+    return install_main(args)
+
+
 def cmd_issues(args: argparse.Namespace) -> int:
     from .advisor import sector_issues
 
@@ -241,6 +247,17 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("text", nargs="?")
     p.add_argument("--company")
     p.set_defaults(func=cmd_scam_check)
+
+    for name, remove in (("install", False), ("uninstall", True)):
+        p = sub.add_parser(name, help=f"{'remove the server from' if remove else 'add the MCP server to'} AI apps (Claude Desktop, Cursor, VS Code, ...)")
+        p.add_argument("clients", nargs="*", help="client ids; run without arguments to list them")
+        p.add_argument("--all", action="store_true", help="every client found on this machine")
+        p.add_argument("--list", action="store_true")
+        p.add_argument("--dry-run", action="store_true", help="show what would change")
+        p.add_argument("--source", choices=["auto", "local", "pypi", "git"], default="auto",
+                       help="auto: this checkout when run from source, else the PyPI package")
+        p.add_argument("--read-only", action="store_true", help="register the server without the case log")
+        p.set_defaults(func=cmd_install, remove=remove)
 
     p = sub.add_parser("issues", help="list issue ids")
     p.add_argument("--sector")
