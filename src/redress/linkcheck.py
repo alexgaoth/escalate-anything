@@ -99,6 +99,10 @@ async def check_all(reg: Registry, concurrency: int = 16, timeout: float = 20.0,
         return await asyncio.gather(*(_check(client, sem, u, w) for u, w in sorted(urls.items())))
 
 
+def to_json(results: list[Result]) -> list[dict]:
+    return [{"url": r.url, "status": r.status, "code": r.code, "detail": r.detail, "used_by": r.used_by} for r in results]
+
+
 def report(results: list[Result]) -> str:
     counts: dict[str, int] = defaultdict(int)
     for r in results:

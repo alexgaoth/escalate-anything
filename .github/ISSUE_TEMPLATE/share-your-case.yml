@@ -1,0 +1,34 @@
+name: Share what worked
+description: Tell others how you got a company to fix a problem. Good cases become tactics in the company's dossier.
+title: "[case] <company>: <problem> → <outcome>"
+labels: [case]
+body:
+  - type: input
+    id: company
+    attributes:
+      label: Company
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What was the problem?
+    validations:
+      required: true
+  - type: textarea
+    id: worked
+    attributes:
+      label: What worked?
+      description: The channel, the department, what you said or cited, and how long it took. Please leave out account numbers and personal details.
+    validations:
+      required: true
+  - type: input
+    id: outcome
+    attributes:
+      label: Outcome
+      placeholder: "$180 refunded after 12 days"
+  - type: input
+    id: when
+    attributes:
+      label: When did this happen?
+      placeholder: 2026-09
