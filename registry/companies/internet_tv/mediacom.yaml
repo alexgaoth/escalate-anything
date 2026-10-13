@@ -1,0 +1,191 @@
+id: mediacom
+name: Mediacom
+aliases: [mediacom cable, mediacom communications]
+sector: internet_tv
+parent: Mediacom Communications Corporation
+website: https://mediacomcable.com
+account_url: https://support.mediacomcable.com/Account/Dashboard
+regulators: [fcc]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Mediacom customer service (also the cancellation and dispute line)
+    value: +1-855-633-4226
+    hours: 24 hours a day, seven days a week
+    purposes: [billing_error, bill_increase, price_negotiation, cancel_service, service_outage, equipment_return]
+    source: https://mediacomcable.com/legal/internet-broadband-disclosures
+    last_verified: 2026-10-12
+  - id: totalcare-email
+    type: email
+    label: Mediacom customer service email (named in the customer agreement)
+    value: totalcare@mediacomcc.com
+    purposes: [billing_error, poor_service, service_outage]
+    source: https://mediacomcable.com/legal/residential-customer-and-user-agreement
+    last_verified: 2026-10-12
+  - id: customer-service-mail
+    type: mail
+    label: Written complaints - Mediacom Customer Service (SVP, Customer Service)
+    value: Mediacom Communications, 1 Mediacom Way, Mediacom Park, NY 10918, Attention - SVP, Customer Service
+    purposes: [billing_error, poor_service]
+    notes: The broadband disclosures say written complaints can be mailed to the Customer Service Department at this address; the agreement names the SVP, Customer Service.
+    source: https://mediacomcable.com/legal/residential-customer-and-user-agreement
+    last_verified: 2026-10-12
+  - id: dispute-notice-email
+    type: email
+    label: Notice of a Dispute (arbitration pre-step) and arbitration opt-out by email
+    value: mcc.legal@mediacomcc.com
+    notes: The agreement lets customers inform Mediacom of a Dispute by calling 1-855-633-4226 or emailing this address. Opt-out emails should be sent with delivery confirmation.
+    source: https://mediacomcable.com/legal/residential-customer-and-user-agreement
+    last_verified: 2026-10-12
+  - id: locations
+    type: in_person
+    label: Mediacom customer service locations
+    value: https://support.mediacomcable.com/About/Contact/#locations
+    purposes: [cancel_service, equipment_return]
+    source: https://mediacomcable.com/
+    last_verified: 2026-10-12
+  - id: outage-map
+    type: portal
+    label: Mediacom outage map
+    value: https://support.mediacomcable.com/OutageMap
+    purposes: [service_outage]
+    source: https://mediacomcable.com/
+    last_verified: 2026-10-12
+  - id: customer-agreement
+    type: portal
+    label: Mediacom Residential Customer and User Agreement (effective June 1, 2026)
+    value: https://mediacomcable.com/legal/residential-customer-and-user-agreement
+    access: open
+    source: https://mediacomcable.com/legal
+    last_verified: 2026-10-12
+  - id: rate-cards
+    type: portal
+    label: Mediacom standard rates
+    value: https://support.mediacomcable.com/ratecards
+    source: https://mediacomcable.com/
+    last_verified: 2026-10-12
+  - id: broadband-label
+    type: portal
+    label: Mediacom broadband consumer disclosure labels
+    value: https://shop.mediacomcable.com/broadbandlabels
+    access: open
+    source: https://mediacomcable.com/legal/internet-broadband-disclosures
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: retention, note: "Mediacom publishes no separate retention number."}
+  - {rung: written_complaint, channel: totalcare-email}
+  - {rung: executive, channel: customer-service-mail, note: "The agreement names the SVP, Customer Service at Mediacom Park."}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: utility_commission}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: dispute-notice-email, note: "Tell Mediacom about the Dispute by phone or email first; arbitration applies if it cannot be resolved informally. Small claims court where service was received is allowed."}
+
+playbooks:
+  - issue: billing_error
+    summary: Contact Mediacom within 60 days of the bill; after that the charge cannot be disputed.
+    evidence: [the bill, account number, rate card or offer]
+    steps:
+      - do: Within 60 days, call or email customer service with the charge, the correct amount and your evidence.
+        channel: customer-service-phone
+      - do: Put it in writing by email so you have a dated record.
+        channel: totalcare-email
+      - do: If not fixed, write to the SVP, Customer Service and file an FCC complaint.
+        channel: customer-service-mail
+    facts:
+      - kind: deadline
+        claim: A customer who thinks there is a mistake on the bill must contact Mediacom within 60 days; after that the charge cannot be disputed.
+        issues: [billing_error]
+        source: https://mediacomcable.com/legal/residential-customer-and-user-agreement
+        last_verified: 2026-10-12
+
+  - issue: bill_increase
+    summary: Mediacom must give at least 15 days notice of material changes; losing part of a bundle can end the discount.
+    evidence: [bills before and after, the change notice, promotion terms]
+    steps:
+      - do: Check for the 15-day advance notice of the change. If none, dispute the increase.
+        channel: customer-service-phone
+      - do: Compare with the standard rate card and ask for a current offer.
+        channel: rate-cards
+    facts:
+      - kind: policy
+        claim: Mediacom sends notice at least 15 days in advance of material changes.
+        issues: [bill_increase]
+        source: https://mediacomcable.com/legal/residential-customer-and-user-agreement
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Cancelling part of a promotion may lose the discount, and the standard rate then applies to the services kept.
+        issues: [bill_increase, cancel_service]
+        source: https://mediacomcable.com/legal/residential-customer-and-user-agreement
+        last_verified: 2026-10-12
+
+  - issue: cancel_service
+    summary: Give at least 7 days notice by phone or at a store; return equipment within 7 days.
+    evidence: [cancellation confirmation, disconnect date, equipment return receipt]
+    steps:
+      - do: Call 855-633-4226 or visit a customer service location to cancel. Give at least seven days notice. Some services can be cancelled in the online account or the Xtream1 app.
+        channel: customer-service-phone
+      - do: Return all Mediacom equipment within seven days after service ends.
+        channel: locations
+      - do: Check the final bill; billing continues until the service is disconnected. Any deposit is refunded less unpaid amounts.
+    facts:
+      - kind: process
+        claim: Customers can cancel any service with at least seven (7) days advance notice by calling 855-633-4226 or visiting a customer service location; some services can be cancelled in the online account or Xtream1 app. Billing continues until the service is disconnected.
+        issues: [cancel_service]
+        source: https://mediacomcable.com/legal/residential-customer-and-user-agreement
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Mediacom refunds a deposit after deducting any unpaid amounts.
+        issues: [cancel_service, deposit_refund]
+        source: https://mediacomcable.com/legal/residential-customer-and-user-agreement
+        last_verified: 2026-10-12
+
+  - issue: equipment_return
+    summary: Return all equipment within seven days after service ends.
+    evidence: [return receipt, equipment serial numbers]
+    steps:
+      - do: Call or check the website for return instructions, and return the equipment within seven days.
+        channel: customer-service-phone
+      - do: If charged an unreturned equipment fee after returning it, send the receipt by email.
+        channel: totalcare-email
+    facts:
+      - kind: deadline
+        claim: All Mediacom equipment must be returned within seven days after service ends, or the customer must pay an unreturned equipment fee.
+        issues: [equipment_return, cancel_service]
+        source: https://mediacomcable.com/legal/residential-customer-and-user-agreement
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Ask for a prorated credit when service is out for more than 24 hours.
+    evidence: [outage start and end, ticket number]
+    steps:
+      - do: Check the outage map and report the outage.
+        channel: outage-map
+      - do: If the outage lasted more than 24 hours, ask for a credit for the time lost.
+        channel: customer-service-phone
+    facts:
+      - kind: compensation
+        claim: If service is interrupted for more than 24 hours, the customer can ask for a credit for the time lost, limited to the portion of the monthly fee allocated to the outage (for example, 1/30th of the fee for one day of a 30-day cycle). Interruptions from weather, power outages or others' actions are excluded.
+        issues: [service_outage]
+        source: https://mediacomcable.com/legal/residential-customer-and-user-agreement
+        last_verified: 2026-10-12
+
+facts:
+  - kind: deadline
+    claim: Customers may opt out of arbitration within thirty (30) days after accepting the agreement, by mail to Arbitration Opt-Out, Mediacom Communications Corporation, 1 Mediacom Way, Mediacom Park, NY 10036, or by email with delivery confirmation to mcc.legal@mediacomcc.com.
+    source: https://mediacomcable.com/legal/residential-customer-and-user-agreement
+    last_verified: 2026-10-12
+  - kind: contact
+    claim: Broadband consumer disclosure labels are at shop.mediacomcable.com/broadbandlabels.
+    source: https://mediacomcable.com/legal/internet-broadband-disclosures
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The support portal contact page renders only by JavaScript.
+  - The agreement gives two ZIP codes for Mediacom Park (10918 for customer service, 10036 for arbitration opt-out).
+
+notes: >-
+  Mediacom Communications Corporation operates Mediacom cable service (Xtream1 app) and Mediacom Mobile. The residential
+  agreement was last updated October 07, 2026 (effective June 1, 2026). No 2025-2026 ownership change was confirmed.

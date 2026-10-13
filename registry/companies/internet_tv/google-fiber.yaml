@@ -1,0 +1,158 @@
+id: google-fiber
+name: gFiber
+aliases: [google fiber, g fiber]
+sector: internet_tv
+parent: Google Fiber Inc. (named as the internet provider in the residential terms)
+website: https://gfiber.com
+regulators: [fcc]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: gFiber customer service team
+    value: +1-866-777-7550
+    purposes: [billing_error, bill_increase, cancel_service, service_outage, equipment_return]
+    source: https://gfiber.com/legal/terms/residential/
+    last_verified: 2026-10-12
+  - id: support-chat
+    type: chat
+    label: gFiber "Chat with us"
+    value: https://gfiber.com/support/?cardName=Chat%20with%20us
+    purposes: [billing_error, cancel_service, service_outage, equipment_return]
+    source: https://gfiber.com/support/en/
+    last_verified: 2026-10-12
+  - id: contact-form
+    type: web_form
+    label: Google Fiber support contact form (named in the residential terms)
+    value: https://support.google.com/fiber/contact/fiber_general_open
+    purposes: [billing_error, poor_service]
+    source: https://gfiber.com/legal/terms/residential/
+    last_verified: 2026-10-12
+  - id: help-center
+    type: portal
+    label: gFiber Help Center
+    value: https://gfiber.com/support/en/
+    access: open
+    source: https://gfiber.com/
+    last_verified: 2026-10-12
+  - id: arbitration-notice
+    type: mail
+    label: Notice of Dispute (arbitration)
+    value: Google Fiber Inc. c/o Corporation Service Company, 2710 Gateway Oaks Drive, Suite 150N, Sacramento, CA 95833
+    notes: Either side may start arbitration only if the dispute is not resolved within 60 days after the notice is received.
+    source: https://gfiber.com/legal/terms/residential/
+    last_verified: 2026-10-12
+  - id: customer-agreement
+    type: portal
+    label: gFiber Residential Terms of Service (last modified 2026-05-05)
+    value: https://gfiber.com/legal/terms/residential/
+    access: open
+    source: https://gfiber.com/legal/terms/
+    last_verified: 2026-10-12
+  - id: uptime-guarantee
+    type: portal
+    label: Uptime Guarantee Agreement (automatic outage credit)
+    value: https://gfiber.com/legal/terms/residential/uga/
+    purposes: [service_outage]
+    access: open
+    source: https://gfiber.com/
+    last_verified: 2026-10-12
+  - id: fee-schedule
+    type: portal
+    label: Equipment replacement fee schedule
+    value: https://gfiber.com/legal/schedule/
+    purposes: [equipment_return]
+    access: open
+    source: https://gfiber.com/
+    last_verified: 2026-10-12
+  - id: broadband-label
+    type: portal
+    label: gFiber broadband labels
+    value: https://gfiber.com/broadband-labels/
+    access: open
+    source: https://gfiber.com/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: retention, note: "gFiber publishes no retention number."}
+  - {rung: written_complaint, channel: contact-form}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: utility_commission}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: arbitration-notice, note: "Mail the Notice of Dispute first; arbitration can start only if the dispute is not resolved within 60 days after receipt. Small claims court is allowed."}
+
+playbooks:
+  - issue: service_outage
+    summary: The Uptime Guarantee applies a 25% credit automatically when monthly uptime falls below 99.9%.
+    evidence: [outage dates and duration, monthly uptime report]
+    steps:
+      - do: Report the outage by chat or phone and get a ticket number.
+        channel: support-chat
+      - do: Check the bill for the second billing cycle after the outage month for the automatic Uptime Guarantee credit.
+        channel: uptime-guarantee
+      - do: If the credit is missing, ask customer service to apply it.
+        channel: customer-service-phone
+    facts:
+      - kind: compensation
+        claim: If monthly uptime falls below 99.9%, gFiber credits 25% of the Monthly Recurring Charge. The credit is applied automatically, at gFiber's sole discretion as to eligibility, on the bill for the second billing cycle after the month the guarantee was missed.
+        issues: [service_outage]
+        source: https://gfiber.com/legal/terms/residential/uga/
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: Uptime credits cannot exceed 25% of the Monthly Recurring Charge in a billing month. Scheduled maintenance, customer-caused problems, customer or third-party equipment, and events beyond gFiber's control such as commercial power outages are excluded. The guarantee is the sole remedy for missing it.
+        issues: [service_outage]
+        source: https://gfiber.com/legal/terms/residential/uga/
+        last_verified: 2026-10-12
+
+  - issue: cancel_service
+    summary: Pick a cancellation date; the unused part of the cycle is credited and any credit balance is refunded.
+    evidence: [cancellation confirmation, cancellation date, equipment return proof]
+    steps:
+      - do: Contact customer service and choose a cancellation date. Service stays on until that date.
+        channel: customer-service-phone
+      - do: Return gFiber equipment within 60 days after cancellation to avoid replacement fees.
+        channel: fee-schedule
+      - do: Check that any credit balance is refunded to the last payment method on the account.
+    facts:
+      - kind: policy
+        claim: On cancellation, service stays available until the cancellation date the customer selects; the remaining part of the current billing cycle is credited toward any balance, and any credit balance is refunded to the last used payment method.
+        issues: [cancel_service, refund_request]
+        source: https://gfiber.com/legal/terms/residential/
+        last_verified: 2026-10-12
+
+  - issue: equipment_return
+    summary: Return equipment within 60 days after service ends or pay the replacement fee.
+    evidence: [return receipt or tracking number, device serial numbers]
+    steps:
+      - do: Ask customer service how to return the equipment and get proof of return.
+        channel: customer-service-phone
+      - do: If charged a replacement fee for returned equipment, send the proof and ask for removal.
+        channel: contact-form
+    facts:
+      - kind: fee
+        claim: Replacement fees plus taxes apply for equipment lost, damaged or not returned within 60 days after service ends, for example Wi-Fi 6E router $200, Multi-Gig router (GFRG300) $280, Nest Wifi Pro $120 per device, Phone Box $100; the Fiber Jack $100 fee applies only if lost or damaged.
+        issues: [equipment_return]
+        source: https://gfiber.com/legal/schedule/
+        last_verified: 2026-10-12
+
+facts:
+  - kind: deadline
+    claim: Customers can opt out of arbitration within 30 days of accepting the terms (or longer if law requires) using the online opt-out form at /account/forms/optoutarbitration.
+    source: https://gfiber.com/legal/terms/residential/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Changes to the terms become effective no sooner than fourteen days after they are posted. Service may be suspended or terminated if payment is more than thirty (30) days past due.
+    issues: [bill_increase, disconnection]
+    source: https://gfiber.com/legal/terms/residential/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The Help Center "Call us" button has no phone number; the number appears only in the terms.
+  - The arbitration opt-out form is in the signed-in account area.
+
+notes: >-
+  Google Fiber has rebranded as gFiber ("Google Fiber is now gFiber" on gfiber.com); fiber.google.com redirects to
+  gfiber.com. The residential terms (last modified 2026-05-05) name Google Fiber Inc. for internet and Google Fiber
+  North America Inc. for phone. Footer address - 3601 South Congress Ave, Building J, Austin, TX 78704. Any ownership
+  change involving Alphabet, Astound or Stonepeak was not confirmed on a fetched official page.

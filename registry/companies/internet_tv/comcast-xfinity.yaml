@@ -1,0 +1,307 @@
+id: comcast-xfinity
+name: Xfinity
+aliases: [xfinity, comcast, comcast cable, xfinity internet, xfinity mobile, now internet]
+sector: internet_tv
+also_sectors: [wireless]
+parent: Comcast Corporation
+website: https://www.xfinity.com
+account_url: https://customer.xfinity.com
+regulators: [fcc]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Xfinity customer service (1-800-XFINITY)
+    value: +1-800-934-6489
+    purposes: [billing_error, bill_increase, price_negotiation, cancel_service, service_outage, equipment_return]
+    source: https://www.xfinity.com/support/articles/rights
+    last_verified: 2026-10-12
+  - id: xfinity-mobile-phone
+    type: phone
+    label: Xfinity Mobile customer support
+    value: +1-888-936-4968
+    purposes: [billing_error, cancel_service]
+    source: https://www.xfinity.com/support/articles/rights
+    last_verified: 2026-10-12
+  - id: xfinity-assistant-chat
+    type: chat
+    label: Xfinity Assistant chat (hands off to a live agent if the bot cannot fix the issue)
+    value: https://www.xfinity.com/xfinityassistant/
+    purposes: [billing_error, bill_increase, service_outage, equipment_return]
+    notes: Signing in gives account-specific help. You can also text questions to 266278.
+    source: https://www.xfinity.com/support/articles/get-help-from-xfinity-assistant
+    last_verified: 2026-10-12
+  - id: xfinity-assistant-sms
+    type: sms
+    label: Xfinity Assistant by text message
+    value: "266278"
+    source: https://www.xfinity.com/support/articles/get-help-from-xfinity-assistant
+    last_verified: 2026-10-12
+  - id: cancel-page
+    type: portal
+    label: How to cancel, pause or move Xfinity services
+    value: https://www.xfinity.com/cancel
+    purposes: [cancel_service]
+    access: open
+    notes: The page lists three ways to cancel - call 1-800-934-6489, schedule a call, or visit an Xfinity Store. It does not offer online self-service cancellation.
+    source: https://www.xfinity.com/cancel
+    last_verified: 2026-10-12
+  - id: equipment-return
+    type: portal
+    label: Digital Return Center (print a prepaid UPS label)
+    value: https://www.xfinity.com/returns
+    purposes: [equipment_return, cancel_service]
+    access: login
+    notes: Works after disconnection. Alternatives are drop-off at an Xfinity Retail Store (get a receipt) or any UPS location with the prepaid label; schedule a free UPS pickup at 1-800-PICK-UPS.
+    source: https://www.xfinity.com/support/articles/returning-your-equipment
+    last_verified: 2026-10-12
+  - id: payment-refund-issue-form
+    type: web_form
+    label: Report a missing, misapplied, duplicate payment, overpayment or refund issue
+    value: https://www.xfinity.com/support/issue-reporting/payment-refund
+    purposes: [billing_error, refund_request]
+    access: login
+    notes: Gives a confirmation page and email. Requests are worked in the order received.
+    source: https://www.xfinity.com/support/articles/report-an-issue
+    last_verified: 2026-10-12
+  - id: outage-credit-check
+    type: portal
+    label: Outage map and credit - Check credit eligibility
+    value: https://www.xfinity.com/support/articles/check-service-outage
+    purposes: [service_outage]
+    access: login
+    notes: On the Support page, go to "Outage map and credit" and click "Check credit eligibility". If eligible, a credit is added automatically.
+    source: https://www.xfinity.com/support/articles/check-service-outage
+    last_verified: 2026-10-12
+  - id: forum-direct-message
+    type: social
+    label: Xfinity Community Forum - direct message to "Xfinity Support"
+    value: https://forums.xfinity.com
+    purposes: [billing_error, poor_service, service_outage]
+    access: login
+    notes: Xfinity employees on the forum ask customers to send a direct message to "Xfinity Support" with full name and service address. This is the route forum staff give when customers ask for executive or corporate escalation.
+    source: https://forums.xfinity.com/conversations/customer-service/how-to-reach-executive-relations-team/6943710299d8a96371adfe0b
+    last_verified: 2026-10-12
+  - id: corporate-mail
+    type: mail
+    label: Comcast Cable residential customer mailing address
+    value: Comcast Cable, One Comcast Center, 1701 John F. Kennedy Blvd, Philadelphia, PA 19103
+    purposes: [billing_error, poor_service]
+    source: https://www.xfinity.com/support/articles/rights
+    last_verified: 2026-10-12
+  - id: arbitration-notice
+    type: mail
+    label: Notice of Dispute (arbitration) - mail
+    value: Comcast, 1701 John F. Kennedy Boulevard, Philadelphia, PA 19103-2838, ATTN - LEGAL DEPARTMENT/ARBITRATION
+    notes: The Notice of Dispute can also be sent online at xfinity.com/nod.
+    source: https://www.xfinity.com/corporate/customers/policies/subscriberagreement
+    last_verified: 2026-10-12
+  - id: arbitration-notice-online
+    type: web_form
+    label: Notice of Dispute (arbitration) - online
+    value: https://www.xfinity.com/nod
+    source: https://www.xfinity.com/corporate/customers/policies/subscriberagreement
+    last_verified: 2026-10-12
+  - id: arbitration-opt-out
+    type: web_form
+    label: Arbitration opt-out (within 30 days of first service activation)
+    value: https://www.xfinity.com/arbitrationoptout
+    source: https://www.xfinity.com/corporate/customers/policies/subscriberagreement
+    last_verified: 2026-10-12
+  - id: customer-agreement
+    type: portal
+    label: Xfinity Residential Services Agreement
+    value: https://www.xfinity.com/corporate/customers/policies/subscriberagreement
+    access: open
+    source: https://www.xfinity.com/corporate/customers/policies/subscriberagreement
+    last_verified: 2026-10-12
+  - id: broadband-label
+    type: portal
+    label: Xfinity Broadband Facts label lookup
+    value: https://www.xfinity.com/label
+    access: open
+    notes: Current customers can also see their most recent label in their account or the Xfinity app.
+    source: https://www.xfinity.com/support/articles/broadband-mobile-facts-labels
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: retention, note: "Comcast publishes no separate retention number. Cancellation goes through 1-800-934-6489, a scheduled call or a store (see cancel-page)."}
+  - {rung: written_complaint, channel: payment-refund-issue-form, note: "For payment and refund problems. For other problems, use the forum direct message or the corporate mailing address."}
+  - {rung: executive, channel: forum-direct-message, note: "Comcast publishes no executive office contact. Forum staff route escalations through a direct message to Xfinity Support."}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: utility_commission}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: arbitration-notice, note: "Send a complete Notice of Dispute first. Arbitration can start only if the dispute is not resolved within 60 days after receipt."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the charge within 120 days of the bill date, in writing if possible.
+    evidence: [the bill with the charge, account number, order confirmation or chat transcript with the expected price, payment confirmation]
+    steps:
+      - do: Find the bill date. Contact Xfinity within 120 days of that date, or the agreement says you waive the dispute.
+      - do: Ask Xfinity Assistant to connect you to an agent, or call. Ask for a correction and a reference number.
+        channel: xfinity-assistant-chat
+      - do: For a missing, duplicate or misapplied payment, overpayment or refund, file the online report. Save the confirmation email.
+        channel: payment-refund-issue-form
+      - do: If not fixed, send a direct message to Xfinity Support on the community forum with your full name, service address and the timeline.
+        channel: forum-direct-message
+      - do: File an FCC complaint with the timeline and bill copies.
+        regulator: fcc
+    facts:
+      - kind: deadline
+        claim: The customer must contact Comcast within 120 days of the date on the bill, or waives any disputes or credits.
+        issues: [billing_error]
+        source: https://www.xfinity.com/corporate/customers/policies/subscriberagreement
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Payment and refund issue reports need sign-in with the Xfinity ID. Xfinity sends a confirmation page and email and works requests in the order received.
+        issues: [billing_error, refund_request]
+        source: https://www.xfinity.com/support/articles/report-an-issue
+        last_verified: 2026-10-12
+
+  - issue: bill_increase
+    summary: Check whether a promotion ended or a price guarantee applies, then dispute or negotiate.
+    evidence: [last bill before the increase, first bill after, order confirmation with promotion or 5-year guarantee terms, autopay and paperless status]
+    steps:
+      - do: Compare the two bills. Check whether a promotion ended; the agreement says standard pricing applies at the end of a promotional period.
+      - do: If you signed up for the 5-Year Price Guarantee and the internet rate went up, dispute it as a billing error and cite the order confirmation.
+        channel: xfinity-assistant-chat
+      - do: If the increase is allowed, ask for current offers and whether the 5-Year Price Guarantee or another plan gives the same service for less.
+        channel: customer-service-phone
+      - do: If a material change hurts you, you can cancel. Act within 30 days, because continued use for more than 30 days after a change counts as acceptance.
+        channel: cancel-page
+    facts:
+      - kind: policy
+        claim: At the end of a promotional period, Comcast's then-current standard pricing applies.
+        issues: [bill_increase]
+        source: https://www.xfinity.com/corporate/customers/policies/subscriberagreement
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Comcast can change rates and charges with or without notice where the law permits. If a material change negatively affects the services, the customer may cancel; continued use for more than 30 days after the change is acceptance.
+        issues: [bill_increase]
+        source: https://www.xfinity.com/corporate/customers/policies/subscriberagreement
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Comcast launched a five-year price guarantee on April 15, 2025 for new Xfinity Internet customers who choose it at sign-up, with no annual contract required.
+        issues: [bill_increase, price_negotiation]
+        source: https://corporate.comcast.com/press/releases/comcast-launches-five-year-guarantee-for-xfinity-internet-customers
+        last_verified: 2026-10-12
+
+  - issue: cancel_service
+    summary: Cancel by phone, scheduled call or at a store, then return all equipment and keep receipts.
+    evidence: [account number, cancellation confirmation, equipment return receipts with serial numbers]
+    steps:
+      - do: Call 1-800-934-6489, schedule a call, or visit an Xfinity Store. The cancel page lists no online self-service option.
+        channel: cancel-page
+      - do: Return all equipment. Charges continue until service is disconnected and equipment is returned.
+        channel: equipment-return
+      - do: Watch for the final bill. Xfinity reviews refunds after equipment is returned or 30 days after disconnection, and refunds usually arrive in 4 to 6 weeks.
+    facts:
+      - kind: process
+        claim: The cancel page tells customers to call 1-800-934-6489, schedule a call or visit an Xfinity Store to cancel.
+        issues: [cancel_service]
+        source: https://www.xfinity.com/cancel
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Comcast may refund prepaid monthly service fees charged after the effective termination date, less any amounts owed. Certain fees are non-refundable. Charges continue until services are disconnected and equipment is returned.
+        issues: [cancel_service, refund_request]
+        source: https://www.xfinity.com/corporate/customers/policies/subscriberagreement
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Xfinity reviews the account for a refund once rented equipment is returned or 30 days after disconnection. Refunds go to the last payment method on file and typically arrive within 4 to 6 weeks; unreturned equipment charges may reduce or eliminate the refund.
+        issues: [cancel_service, refund_request]
+        source: https://www.xfinity.com/support/articles/refunds-from-xfinity
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: Ending services under a minimum term agreement before the term ends may incur an early termination fee; the amount is in the minimum term agreement, not the residential agreement.
+        issues: [cancel_service]
+        source: https://www.xfinity.com/corporate/customers/policies/subscriberagreement
+        last_verified: 2026-10-12
+
+  - issue: equipment_return
+    summary: Return by store or prepaid UPS label, keep the receipt, and ask for removal of any unreturned equipment fee.
+    evidence: [store receipt or the top portion of the UPS label with tracking number, equipment serial numbers]
+    steps:
+      - do: Print a prepaid UPS label from the Digital Return Center, or drop the equipment at an Xfinity Retail Store and get a receipt.
+        channel: equipment-return
+      - do: Return only the device, remote and power cord. Keep the top portion of the UPS label with the tracking number as your receipt.
+      - do: Allow up to two weeks for the return to show on the account. If an unreturned equipment fee appears, send the receipt and ask for a refund of the fee.
+        channel: xfinity-assistant-chat
+    facts:
+      - kind: deadline
+        claim: The residential agreement requires return of all Xfinity equipment to a local service center or designated agent within ten (10) days after termination.
+        issues: [equipment_return, cancel_service]
+        source: https://www.xfinity.com/corporate/customers/policies/subscriberagreement
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: When equipment is replaced, Xfinity asks customers to return the old equipment within 30 days to avoid unreturned equipment charges.
+        issues: [equipment_return]
+        source: https://www.xfinity.com/support/articles/replace-your-xfinity-equipment
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: Unreturned equipment incurs an Unreturned Equipment Fee. If the customer pays it and later returns the equipment undamaged (normal wear excepted), the fee is refunded in full.
+        issues: [equipment_return]
+        source: https://www.xfinity.com/corporate/customers/policies/subscriberagreement
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Use the outage credit checker for a quick credit; request a pro rata credit within 120 days for outages over 24 hours.
+    evidence: [outage start and end dates and times, ticket or outage notice, the bill]
+    steps:
+      - do: Check the outage map and use "Check credit eligibility". If eligible, the credit is applied automatically.
+        channel: outage-credit-check
+      - do: For an interruption of more than 24 consecutive hours, request a pro rata credit within 120 days.
+        channel: xfinity-assistant-chat
+      - do: Check the next bill to confirm the credit.
+    facts:
+      - kind: compensation
+        claim: Customers may request a pro rata credit for any service interruption exceeding twenty-four (24) consecutive hours. The request must be made within 120 days of the interruption, and the credit will not exceed the fixed monthly charges for that month unless the law requires more.
+        issues: [service_outage]
+        source: https://www.xfinity.com/corporate/customers/policies/subscriberagreement
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: The agreement makes a credit the sole and exclusive remedy for a service interruption. Maine, New Jersey, New York and Ohio have their own outage-credit rules listed in the same section.
+        issues: [service_outage]
+        source: https://www.xfinity.com/corporate/customers/policies/subscriberagreement
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Xfinity applies outage credit automatically to eligible accounts that have not reached the maximum credit limit.
+        issues: [service_outage]
+        source: https://www.xfinity.com/support/articles/check-service-outage
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: To start arbitration, either side must first send a complete Notice of Dispute. Arbitration may start only if the dispute is not resolved within 60 days of receipt. Either side may instead use small claims court.
+    issues: [billing_error, poor_service]
+    source: https://www.xfinity.com/corporate/customers/policies/subscriberagreement
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: Customers can opt out of arbitration within 30 days of first service activation at xfinity.com/arbitrationoptout or by mail; written notice must include name, service address and Comcast account number.
+    source: https://www.xfinity.com/corporate/customers/policies/subscriberagreement
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: The agreement requires any proceeding or action to start within one (1) year of the event.
+    source: https://www.xfinity.com/corporate/customers/policies/subscriberagreement
+    last_verified: 2026-10-12
+  - kind: contact
+    claim: Broadband Facts labels are at xfinity.com/label. If a label cannot be found, Xfinity responds to a request made by chat or 1-800-XFINITY within 30 days.
+    source: https://www.xfinity.com/support/articles/broadband-mobile-facts-labels
+    last_verified: 2026-10-12
+
+tips:
+  - kind: community
+    text: Xfinity staff on the Xfinity Community Forum say there is no direct phone number for the retention department; follow the prompts on 1-800-COMCAST, or send a direct message to "Xfinity Support", whose staff have found customers a new promotion to lower the bill.
+    issues: [price_negotiation, bill_increase, cancel_service]
+    source: https://forums.xfinity.com/conversations/billing/retention-department-contact-information-needed/681a62e8ce99874d94d53b2b
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The cancel page lists no online cancellation; the account holder must call, schedule a call or visit a store.
+  - The Digital Return Center, payment/refund issue form and outage credit checker need an Xfinity ID sign-in.
+  - The contact-us page and Digital Return Center are JavaScript apps that do not render for automated fetches.
+
+notes: >-
+  Comcast's residential brand is Xfinity; Xfinity Mobile (wireless) and NOW Internet/NOW Mobile (prepaid) share the
+  same support site. The residential agreement is the "Xfinity Residential Services Agreement".

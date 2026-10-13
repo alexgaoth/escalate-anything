@@ -1,0 +1,185 @@
+id: dish-network
+name: DISH
+aliases: [dish network, dish tv, dish network llc]
+sector: internet_tv
+parent: EchoStar Corporation
+website: https://www.dish.com
+account_url: https://my.dish.com
+regulators: [fcc]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: DISH customer service (800-333-DISH)
+    value: +1-800-333-3474
+    hours: 24 hours a day, any day of the year
+    purposes: [billing_error, bill_increase, price_negotiation, cancel_service, service_outage, equipment_return]
+    source: https://www.dish.com/content/dam/dish/pdfs/service-agreements/2026/sep-10/6c%20-%20RCA%20-%20English%209.10.26.pdf
+    last_verified: 2026-10-12
+  - id: spanish-phone
+    type: phone
+    label: DISH Spanish-language line (888-599-DISH)
+    value: +1-888-599-3474
+    source: https://www.dish.com/content/dam/dish/pdfs/service-agreements/2026/sep-10/6c%20-%20RCA%20-%20English%209.10.26.pdf
+    last_verified: 2026-10-12
+  - id: executive-customer-service-email
+    type: email
+    label: DISH customer service email (executive customer service)
+    value: executivecustomerservice@dish.com
+    purposes: [billing_error, poor_service, cancel_service, equipment_return]
+    source: https://www.dish.com/content/dam/dish/pdfs/service-agreements/2026/sep-10/6c%20-%20RCA%20-%20English%209.10.26.pdf
+    last_verified: 2026-10-12
+  - id: cancel-email
+    type: email
+    label: DISH cancellation by email
+    value: onlinecancellation@dish.com
+    purposes: [cancel_service]
+    notes: The agreement accepts cancellation notice by phone, this email, or the general customer service mailing address. Cancellation is effective no sooner than the date DISH receives the notice.
+    source: https://www.dish.com/content/dam/dish/pdfs/service-agreements/2026/sep-10/6c%20-%20RCA%20-%20English%209.10.26.pdf
+    last_verified: 2026-10-12
+  - id: customer-service-mail
+    type: mail
+    label: DISH general customer service mailing address
+    value: DISH NETWORK L.L.C., CUSTOMER SERVICE CENTER, P.O. BOX 9033, LITTLETON, CO 80160-9033
+    purposes: [billing_error, cancel_service, poor_service]
+    notes: Do not write to the payment address; it is a third-party payment processing center.
+    source: https://www.dish.com/content/dam/dish/pdfs/service-agreements/2026/sep-10/6c%20-%20RCA%20-%20English%209.10.26.pdf
+    last_verified: 2026-10-12
+  - id: mydish
+    type: portal
+    label: MyDISH account (pay bill, manage service)
+    value: https://my.dish.com
+    access: login
+    source: https://www.dish.com/contact
+    last_verified: 2026-10-12
+  - id: support-site
+    type: portal
+    label: DISH help center
+    value: https://support.dish.com/
+    source: https://www.dish.com/contact
+    last_verified: 2026-10-12
+  - id: arbitration-notice
+    type: mail
+    label: Dispute Resolution Notice (Section 12 of the Residential Customer Agreement)
+    value: DISH Network L.L.C., Attn - Office of the General Counsel, 9601 South Meridian Boulevard, Englewood, Colorado 80112
+    notes: Section 12 names this "Legal Dispute Notice Address". Section 1 of the same agreement and the DISH Dispute Resolution Notice form instead give DISH Network L.L.C., Attn - Dispute Resolution, P.O. Box 9033, Littleton, CO 80160-9033. Send to both and keep proof of delivery.
+    source: https://www.dish.com/content/dam/dish/pdfs/service-agreements/2026/sep-10/6c%20-%20RCA%20-%20English%209.10.26.pdf
+    last_verified: 2026-10-12
+  - id: arbitration-notice-form
+    type: portal
+    label: DISH Dispute Resolution Notice form (PDF)
+    value: https://www.dish.com/content/dam/dish/pdfs/service-agreements/tv-plan-agreements/dispute-resolution-notice--English.pdf
+    source: https://www.dish.com/legal
+    last_verified: 2026-10-12
+  - id: arbitration-opt-out-form
+    type: portal
+    label: DISH arbitration opt-out form (within 30 days of account setup or service start)
+    value: https://www.dish.com/content/dam/dish/pdfs/service-agreements/tv-plan-agreements/arbitration-opt-out--English.pdf
+    source: https://www.dish.com/legal
+    last_verified: 2026-10-12
+  - id: customer-agreement
+    type: portal
+    label: DISH Residential Customer Agreement (9.10.26)
+    value: https://www.dish.com/content/dam/dish/pdfs/service-agreements/2026/sep-10/6c%20-%20RCA%20-%20English%209.10.26.pdf
+    access: open
+    source: https://www.dish.com/legal
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: retention, note: "DISH publishes no separate retention number."}
+  - {rung: written_complaint, channel: customer-service-mail}
+  - {rung: executive, channel: executive-customer-service-email}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: utility_commission}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: arbitration-notice, note: "Send a signed Dispute Resolution Notice first. The agreement bars arbitration or small claims for at least 60 days after notice (the notice form says 30 days). The claimant must also personally take part in an individual settlement conference."}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel by phone, email or mail; get written proof because cancellation counts only from receipt.
+    evidence: [account number, date DISH received the cancellation, promotion agreement with the term commitment, return labels and tracking]
+    steps:
+      - do: Send cancellation by email to onlinecancellation@dish.com so you have a dated record, or call 800-333-3474.
+        channel: cancel-email
+      - do: Check the promotion agreement for an Early Termination Fee if you are inside a term commitment.
+        channel: customer-agreement
+      - do: Return all leased equipment within 30 days using the labels or boxes DISH sends, and keep tracking.
+    facts:
+      - kind: process
+        claim: Customers may cancel at any time, including during a term commitment, by notice via 800-333-DISH, onlinecancellation@dish.com or the general customer service mailing address. Cancellation is effective no sooner than the date DISH actually receives the notice.
+        issues: [cancel_service]
+        source: https://www.dish.com/content/dam/dish/pdfs/service-agreements/2026/sep-10/6c%20-%20RCA%20-%20English%209.10.26.pdf
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: An Early Termination Fee may apply when service is cancelled before a term commitment ends; details are in the promotion agreement. DISH does not charge it if service is disconnected within 24 hours after accepting the agreement.
+        issues: [cancel_service]
+        source: https://www.dish.com/content/dam/dish/pdfs/service-agreements/2026/sep-10/6c%20-%20RCA%20-%20English%209.10.26.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: DISH gives no credits, refunds or price reductions on cancellation or disconnection, including for unused portions of promotional discounts.
+        issues: [cancel_service, refund_request]
+        source: https://www.dish.com/content/dam/dish/pdfs/service-agreements/2026/sep-10/6c%20-%20RCA%20-%20English%209.10.26.pdf
+        last_verified: 2026-10-12
+
+  - issue: equipment_return
+    summary: Return leased equipment within 30 days; equipment counts as returned only when DISH receives it.
+    evidence: [return label or box tracking numbers, receiver serial numbers]
+    steps:
+      - do: Within 30 days after cancellation, ship leased equipment with the return labels or boxes DISH sends. If it came from a retailer and you cancel within the first 30 days, return it to that retailer.
+      - do: Keep tracking until DISH confirms receipt. You bear the risk of loss in shipment.
+      - do: If billed for returned equipment, email the tracking numbers and ask for removal.
+        channel: executive-customer-service-email
+    facts:
+      - kind: deadline
+        claim: All leased equipment must be returned in good operating condition within thirty (30) days after cancellation or disconnection. Equipment is not deemed returned until DISH receives it, and the customer bears the risk of loss in shipment.
+        issues: [equipment_return, cancel_service]
+        source: https://www.dish.com/content/dam/dish/pdfs/service-agreements/2026/sep-10/6c%20-%20RCA%20-%20English%209.10.26.pdf
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: DISH charges an Equipment Return TV Fee of up to $20.00 for each return label or empty box it sends. Charges for unreturned or damaged equipment are set in the promotion agreement.
+        issues: [equipment_return]
+        source: https://www.dish.com/content/dam/dish/pdfs/service-agreements/2026/sep-10/6c%20-%20RCA%20-%20English%209.10.26.pdf
+        last_verified: 2026-10-12
+
+  - issue: billing_error
+    summary: Call or email customer service, then send a Dispute Resolution Notice if not fixed.
+    evidence: [the bill, account number, promotion agreement]
+    steps:
+      - do: Call 800-333-3474 or email customer service with the charge, the correct amount and evidence.
+        channel: executive-customer-service-email
+      - do: If not fixed, send a signed Dispute Resolution Notice with every disputed transaction and an itemized damages calculation.
+        channel: arbitration-notice
+      - do: File an FCC complaint.
+        regulator: fcc
+    facts:
+      - kind: fee
+        claim: The Late Payment Fee is $12.00 ($10.00 for residents of Virginia, Maine or Arizona).
+        issues: [billing_error]
+        source: https://www.dish.com/content/dam/dish/pdfs/service-agreements/2026/sep-10/6c%20-%20RCA%20-%20English%209.10.26.pdf
+        last_verified: 2026-10-12
+
+facts:
+  - kind: deadline
+    claim: Customers may opt out of the arbitration provision within 30 days after setting up an account or starting service, whichever is first, by written notice to DISH Network L.L.C., Attn Office of the General Counsel, 9601 South Meridian Boulevard, Englewood, Colorado 80112; a notice postmarked later is invalid.
+    source: https://www.dish.com/content/dam/dish/pdfs/service-agreements/2026/sep-10/6c%20-%20RCA%20-%20English%209.10.26.pdf
+    last_verified: 2026-10-12
+  - kind: process
+    claim: A Dispute Resolution Notice must be a declaration signed under penalty of perjury with name, account number, contact information, a factual description of each disputed transaction, an itemized calculation of damages, and the requested resolution.
+    source: https://www.dish.com/content/dam/dish/pdfs/service-agreements/2026/sep-10/6c%20-%20RCA%20-%20English%209.10.26.pdf
+    last_verified: 2026-10-12
+  - kind: limit
+    claim: The agreement says DISH is not liable for any interruption in service; it contains no outage credit provision.
+    issues: [service_outage]
+    source: https://www.dish.com/content/dam/dish/pdfs/service-agreements/2026/sep-10/6c%20-%20RCA%20-%20English%209.10.26.pdf
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The agreement gives two different Dispute Resolution Notice addresses (Section 1 and the notice form - P.O. Box 9033 Littleton; Section 12 - 9601 South Meridian Boulevard, Englewood).
+  - The DISH support site and contact pages redirect several times and list no chat option.
+
+notes: >-
+  DISH Network L.L.C. (formerly EchoStar Satellite L.L.C.) provides DISH satellite TV. Parent EchoStar Corporation also
+  owns Sling TV, Boost Mobile and Hughes; EchoStar said on June 22, 2026 that it will change its Nasdaq ticker from
+  SATS to ECHO. Sling TV has its own support and is not covered by this file. Corporate headquarters - 9601 S. Meridian
+  Blvd., Englewood, CO 80112.

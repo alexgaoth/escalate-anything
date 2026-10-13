@@ -1,0 +1,227 @@
+id: lumen-centurylink
+name: CenturyLink
+aliases: [centurylink, lumen, lumen technologies, quantum fiber]
+sector: internet_tv
+parent: Lumen Technologies, Inc. (CenturyLink); AT&T (Quantum Fiber since its 2026 subscriber agreement)
+website: https://www.centurylink.com
+account_url: https://dh.centurylink.com/
+regulators: [fcc]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: CenturyLink account and tech support ("CTL Only" region on the contact page)
+    value: +1-800-201-4099
+    hours: Repair 24x7; internet 8 am - 6 pm local time
+    purposes: [billing_error, bill_increase, cancel_service, service_outage, equipment_return]
+    notes: For Spanish, choose option 9.
+    source: https://www.centurylink.com/home/help/contact.html
+    last_verified: 2026-10-12
+  - id: customer-service-phone-qwest-region
+    type: phone
+    label: CenturyLink account and tech support ("Q Only" and "OOR Only" regions on the contact page)
+    value: +1-800-244-1111
+    hours: Monday - Friday 8 am - 6 pm local time
+    purposes: [billing_error, bill_increase, cancel_service, service_outage, equipment_return]
+    source: https://www.centurylink.com/home/help/contact.html
+    last_verified: 2026-10-12
+  - id: support-chat
+    type: chat
+    label: CenturyLink chat (7 days a week)
+    value: https://www.centurylink.com/home/help/contact.html
+    purposes: [billing_error, cancel_service, service_outage, equipment_return]
+    notes: Start chat with the "Chat" or "Let's Chat" control on the contact page.
+    source: https://www.centurylink.com/home/help/contact.html
+    last_verified: 2026-10-12
+  - id: cancel-help
+    type: portal
+    label: How to cancel your CenturyLink service (call or chat)
+    value: https://www.centurylink.com/home/help/account/how-to-cancel-your-centurylink-service.html
+    purposes: [cancel_service]
+    access: open
+    source: https://www.centurylink.com/home/help/account/how-to-cancel-your-centurylink-service.html
+    last_verified: 2026-10-12
+  - id: equipment-return
+    type: portal
+    label: How to pack and return the CenturyLink modem (UPS label or QR code)
+    value: https://www.centurylink.com/home/help/internet/modems-and-routers/how-to-pack-and-return-the-modem.html
+    purposes: [equipment_return]
+    access: open
+    source: https://www.centurylink.com/home/help/internet/modems-and-routers/how-to-pack-and-return-the-modem.html
+    last_verified: 2026-10-12
+  - id: claim-notice-email
+    type: email
+    label: CenturyLink written Notice of Claim (required before a lawsuit)
+    value: legalaffairs@lumen.com
+    purposes: [billing_error, poor_service]
+    notes: The notice must be individual and include account number, facts, an estimate of money damages and how it was calculated, any non-monetary relief sought, and supporting documents.
+    source: https://www.centurylink.com/aboutus/legal/internet-subscriber-agreement.html
+    last_verified: 2026-10-12
+  - id: claim-notice-mail
+    type: mail
+    label: CenturyLink written Notice of Claim by mail
+    value: Lumen Technologies, Attn - Litigation Department, 931 14th Street, Suite 900, Denver, CO 80202
+    purposes: [billing_error, poor_service]
+    source: https://www.centurylink.com/aboutus/legal/internet-subscriber-agreement.html
+    last_verified: 2026-10-12
+  - id: customer-agreement
+    type: portal
+    label: CenturyLink Internet Subscriber Agreement (effective November 1, 2025)
+    value: https://www.centurylink.com/aboutus/legal/internet-subscriber-agreement.html
+    access: open
+    source: https://www.centurylink.com/aboutus/legal/internet-subscriber-agreement.html
+    last_verified: 2026-10-12
+  - id: quantum-fiber-phone
+    type: phone
+    label: Quantum Fiber (from AT&T) customer support
+    value: +1-833-250-6306
+    hours: 7 days a week, 7 a.m. to 11 p.m. CST
+    purposes: [billing_error, cancel_service, service_outage, equipment_return]
+    source: https://www.quantumfiber.com/support/contact.html
+    last_verified: 2026-10-12
+  - id: quantum-fiber-email
+    type: email
+    label: Quantum Fiber customer service email (billing disputes, cancellation, equipment)
+    value: fibersuccess@quantumfiber.com
+    purposes: [billing_error, cancel_service, equipment_return]
+    source: https://quantumfiber.com/on/demandware.static/Sites-QFCC-Site/Sites-QFCC-Library/-/legal/internet-subscriber-agreement.pdf
+    last_verified: 2026-10-12
+  - id: quantum-fiber-arbitration-notice
+    type: mail
+    label: Quantum Fiber Notice of Dispute (AT&T legal department)
+    value: Legal Department - Notice of Dispute, AT&T, 208 S. Akard, Office #2900.13, Dallas, Texas 75202
+    notes: Can also be submitted online following the instructions at att.com/noticeofdispute. The form is at att.com/arbitration-forms and must be personally signed.
+    source: https://quantumfiber.com/on/demandware.static/Sites-QFCC-Site/Sites-QFCC-Library/-/legal/internet-subscriber-agreement.pdf
+    last_verified: 2026-10-12
+  - id: quantum-fiber-agreement
+    type: portal
+    label: Quantum Fiber from AT&T Internet Subscriber Agreement (V.02.02.2026)
+    value: https://quantumfiber.com/on/demandware.static/Sites-QFCC-Site/Sites-QFCC-Library/-/legal/internet-subscriber-agreement.pdf
+    access: open
+    source: https://www.quantumfiber.com/legal.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: retention, note: "CenturyLink publishes no retention number."}
+  - {rung: written_complaint, channel: claim-notice-email, note: "CenturyLink requires a written Notice of Claim before any lawsuit."}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: utility_commission}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: small_claims, note: "The CenturyLink agreement sends disputes to court (bench trial, jury waived), not arbitration, after a 60-day resolution window. CenturyLink reimburses small claims filing fees when the terms are followed."}
+  - {rung: arbitration, channel: quantum-fiber-arbitration-notice, note: "Quantum Fiber (AT&T) customers only. Send the Notice of Dispute first and allow 60 days after a complete notice."}
+
+playbooks:
+  - issue: billing_error
+    summary: Call or chat before the due date; if not fixed, send a written Notice of Claim.
+    evidence: [the bill, account number, order confirmation]
+    steps:
+      - do: Contact CenturyLink customer service before the bill due date. Charges continue unless you tell CenturyLink promptly.
+        channel: customer-service-phone
+      - do: If not resolved, email a written Notice of Claim with account number, facts, amount and supporting documents.
+        channel: claim-notice-email
+      - do: File an FCC complaint with the bill and the notice.
+        regulator: fcc
+      - do: Quantum Fiber customers have 180 days from the bill date to notify customer service or send a Notice of Dispute.
+        channel: quantum-fiber-email
+    facts:
+      - kind: deadline
+        claim: The CenturyLink agreement asks customers to contact customer service before the due date about a disputed charge; charges continue unless CenturyLink is informed promptly.
+        issues: [billing_error]
+        source: https://www.centurylink.com/aboutus/legal/internet-subscriber-agreement.html
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Quantum Fiber customers have 180 days from the bill date to notify customer service or submit a Notice of Dispute, or they waive the right to dispute the bill (except in states that prohibit this provision).
+        issues: [billing_error]
+        source: https://quantumfiber.com/on/demandware.static/Sites-QFCC-Site/Sites-QFCC-Library/-/legal/internet-subscriber-agreement.pdf
+        last_verified: 2026-10-12
+
+  - issue: bill_increase
+    summary: CenturyLink must give 30 days written notice of a monthly charge increase.
+    evidence: [bills before and after, the notice of change]
+    steps:
+      - do: Check the bill or email for the 30-day written notice. If there was none, dispute the increase as a billing error.
+        channel: customer-service-phone
+      - do: Ask for a lower plan or current offer. Write down every offer with the name and date.
+    facts:
+      - kind: policy
+        claim: Increases to monthly recurring and non-recurring charges are effective upon 30 days written notice, including email and messages on or with the invoice.
+        issues: [bill_increase]
+        source: https://www.centurylink.com/aboutus/legal/internet-subscriber-agreement.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: For Quantum Fiber, a customer who does not accept a materially adverse change during a commitment must cancel within 14 days of the notice to avoid an early termination fee.
+        issues: [bill_increase, cancel_service]
+        source: https://quantumfiber.com/on/demandware.static/Sites-QFCC-Site/Sites-QFCC-Library/-/legal/internet-subscriber-agreement.pdf
+        last_verified: 2026-10-12
+
+  - issue: cancel_service
+    summary: Cancel by phone or chat (not email), then return leased equipment within 30 days.
+    evidence: [cancellation date and confirmation, UPS return receipt]
+    steps:
+      - do: Call or chat to cancel. The agreement says you cannot cancel by email.
+        channel: cancel-help
+      - do: Return any leased modem, router or Connected Voice equipment within 30 days.
+        channel: equipment-return
+      - do: Check the final bill. Any deposit and interest are applied to the final balance.
+    facts:
+      - kind: process
+        claim: The agreement states customers cannot terminate service by email; they must call the number on the bill or use the listed websites.
+        issues: [cancel_service]
+        source: https://www.centurylink.com/aboutus/legal/internet-subscriber-agreement.html
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: The early termination charge for a term commitment is 100% of the monthly recurring charge times the months remaining in the first 12 months, plus 40% of the monthly charge for remaining months after that. It is waived if the customer notifies CenturyLink within 30 days of ordering.
+        issues: [cancel_service]
+        source: https://www.centurylink.com/aboutus/legal/internet-subscriber-agreement.html
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Satellite TV bought through CenturyLink (DIRECTV or DISH) must be cancelled directly with that provider.
+        issues: [cancel_service]
+        source: https://www.centurylink.com/home/help/account/how-to-cancel-your-centurylink-service.html
+        last_verified: 2026-10-12
+
+  - issue: equipment_return
+    summary: Return leased equipment by UPS within 30 days; CenturyLink stores do not accept returns.
+    evidence: [UPS receipt with tracking number, equipment serial number]
+    steps:
+      - do: Get a return label by email or a QR code for The UPS Store from the return page, and drop the box at an authorized UPS Shipping Center.
+        channel: equipment-return
+      - do: Keep the UPS receipt. If you are charged for returned equipment, send the tracking number by chat.
+        channel: support-chat
+    facts:
+      - kind: deadline
+        claim: Leased equipment must be returned within 30 days after termination; otherwise CenturyLink may charge up to the Equipment Charge.
+        issues: [equipment_return]
+        source: https://www.centurylink.com/aboutus/legal/internet-subscriber-agreement.html
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: Returning equipment within 30 days of cancelling avoids an equipment charge of up to $200.
+        issues: [equipment_return]
+        source: https://www.centurylink.com/home/help/account/how-to-cancel-your-centurylink-service.html
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: CenturyLink disputes go to court, not arbitration. The customer must first present the claim in writing; a lawsuit may be filed only if the claim is not resolved within 60 days after CenturyLink receives the notice. Both sides waive a jury trial.
+    source: https://www.centurylink.com/aboutus/legal/internet-subscriber-agreement.html
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: CenturyLink reimburses filing fees for a small claims lawsuit filed in line with the agreement's dispute terms, whether or not the customer wins.
+    source: https://www.centurylink.com/aboutus/legal/internet-subscriber-agreement.html
+    last_verified: 2026-10-12
+  - kind: process
+    claim: Quantum Fiber disputes need a Notice of Dispute to AT&T and 60 days after a complete notice before arbitration; legal action must start within two years of the event.
+    source: https://quantumfiber.com/on/demandware.static/Sites-QFCC-Site/Sites-QFCC-Library/-/legal/internet-subscriber-agreement.pdf
+    last_verified: 2026-10-12
+
+known_blockers:
+  - CenturyLink chat opens from a page control and has no direct URL.
+  - CenturyLink stores do not accept equipment returns; returns go through UPS only.
+
+notes: >-
+  "CenturyLink" is a trade name of affiliates of Lumen Technologies, Inc. (per the Internet Subscriber Agreement
+  effective November 1, 2025). Quantum Fiber is now "Quantum Fiber from AT&T": its subscriber agreement
+  (V.02.02.2026) is between AT&T and the customer and incorporates the AT&T Consumer Services Agreement, and
+  quantumfiber.com carries AT&T branding. CenturyLink copper/DSL service remains with Lumen; its site does not
+  mention AT&T. Quantum Fiber channels are kept here for lookup; for AT&T Fiber accounts use the AT&T file.

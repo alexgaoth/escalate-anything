@@ -1,0 +1,235 @@
+id: frontier-communications
+name: Frontier
+aliases: [frontier, frontier fiber, frontier internet]
+sector: internet_tv
+parent: Verizon Communications Inc.
+website: https://frontier.com
+regulators: [fcc]
+
+channels:
+  - id: support-chat
+    type: chat
+    label: Frontier chat (Giga automated chat 24 hours; live agents during business hours)
+    value: https://frontier.com/contact-us
+    purposes: [billing_error, bill_increase, cancel_service, service_outage, equipment_return]
+    notes: Frontier lists no phone number for customer service or technical support; both go through chat. The "Chat now" control on the contact page opens the chat.
+    source: https://frontier.com/contact-us
+    last_verified: 2026-10-12
+  - id: spanish-phone
+    type: phone
+    label: Frontier Spanish-language line
+    value: +1-800-921-8103
+    hours: Mon-Fri 8 a.m.-5 p.m. local time
+    source: https://frontier.com/contact-us
+    last_verified: 2026-10-12
+  - id: sales-phone
+    type: phone
+    label: Frontier product sales
+    value: +1-800-921-8101
+    hours: Mon-Fri 8 a.m.-10 p.m. ET; Sat 8 a.m.-9 p.m. ET; Sun closed
+    source: https://frontier.com/contact-us
+    last_verified: 2026-10-12
+  - id: disconnect-help
+    type: portal
+    label: Disconnecting your service (final bill, equipment return, refunds)
+    value: https://frontier.com/helpcenter/account/disconnecting-your-service
+    purposes: [cancel_service, equipment_return, refund_request]
+    access: open
+    source: https://frontier.com/helpcenter/account/disconnecting-your-service
+    last_verified: 2026-10-12
+  - id: equipment-return
+    type: portal
+    label: How to return Frontier equipment (The UPS Store QR code or prepaid mailer)
+    value: https://frontier.com/helpcenter/account/how-to-return-frontier-equipment
+    purposes: [equipment_return]
+    access: open
+    source: https://frontier.com/helpcenter/account/how-to-return-frontier-equipment
+    last_verified: 2026-10-12
+  - id: outage-check
+    type: portal
+    label: Check for service outages
+    value: https://frontier.com/helpcenter/internet/troubleshooting/check-for-service-outages
+    purposes: [service_outage]
+    source: https://frontier.com/helpcenter
+    last_verified: 2026-10-12
+  - id: consumer-relations-notice
+    type: mail
+    label: Written notices to Frontier (Consumer Relations), with a copy to Verizon Legal
+    value: ATTENTION - CONSUMER RELATIONS, Frontier Communications, P.O. Box 5156, Tampa, FL 33675; with a copy to Verizon Communications, Legal Department, One Verizon Way, Basking Ridge, NJ 07920, Attn - Legal Intake
+    purposes: [billing_error, poor_service, cancel_service]
+    notes: The general terms say notices required from the customer must go to this address and are deemed given on receipt.
+    source: https://frontier.com/documents/corporate/terms/general-terms-residential-may-2025.pdf
+    last_verified: 2026-10-12
+  - id: arbitration-notice
+    type: mail
+    label: Notice of Dispute (certified mail)
+    value: Verizon Communications, Legal Department, One Verizon Way, Basking Ridge, NJ 07920, Attn - Legal Intake
+    notes: Must be sent by certified mail and include name, mailing address, phone, email, Frontier account number, description of the claim, relief sought and signature. Frontier announced this legal notice address effective May 29, 2026, replacing Norwalk CT, Rochester NY and Dallas TX addresses.
+    source: https://frontier.com/documents/corporate/terms/general-terms-residential-may-2025.pdf
+    last_verified: 2026-10-12
+  - id: payment-mail
+    type: mail
+    label: Payments by mail
+    value: Frontier, PO Box 740407, Cincinnati, OH 45274-0407
+    source: https://frontier.com/contact-us
+    last_verified: 2026-10-12
+  - id: customer-agreement
+    type: portal
+    label: Frontier terms and conditions index (residential terms, arbitration provision, Fios Customer Agreement)
+    value: https://frontier.com/corporate/terms
+    access: open
+    source: https://frontier.com/corporate/terms
+    last_verified: 2026-10-12
+  - id: broadband-label
+    type: portal
+    label: Frontier broadband consumer labels
+    value: https://frontier.com/consumerlabels
+    access: open
+    source: https://frontier.com/helpcenter
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: support-chat}
+  - {rung: retention, note: "Frontier publishes no retention number."}
+  - {rung: written_complaint, channel: consumer-relations-notice}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: utility_commission}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: arbitration-notice, note: "Send a complete Notice of Dispute by certified mail first. Either side may ask for an informal settlement conference within 60 days; arbitration can start only after the informal resolution period ends."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the charge within 30 days of receiving the bill; the bill cannot be challenged after 90 days.
+    evidence: [the bill, account number, order confirmation with the quoted price]
+    steps:
+      - do: Within 30 days of receiving the bill, dispute the charge. In the MyFrontier app use My Billing, then "Get help with your bill", or use chat.
+        channel: support-chat
+      - do: If the charge is not fixed, send written notice to Consumer Relations with the copy to Verizon Legal.
+        channel: consumer-relations-notice
+      - do: File an FCC complaint with the bill and your written notice.
+        regulator: fcc
+    facts:
+      - kind: deadline
+        claim: The general terms tell customers to contact Frontier within thirty (30) days after receiving a bill about any charges they dispute, and say a bill is not subject to further challenge if Frontier receives no notice of a payment dispute within ninety (90) days after receipt.
+        issues: [billing_error]
+        source: https://frontier.com/documents/corporate/terms/general-terms-residential-may-2025.pdf
+        last_verified: 2026-10-12
+      - kind: process
+        claim: To dispute a charge, use the MyFrontier app - My Billing, then "Get help with your bill".
+        issues: [billing_error]
+        source: https://frontier.com/helpcenter/account/disconnecting-your-service
+        last_verified: 2026-10-12
+
+  - issue: bill_increase
+    summary: Frontier may change rates unless a Price Protection Plan applies; continued use is acceptance.
+    evidence: [bills before and after, order confirmation, any Price Protection Plan terms]
+    steps:
+      - do: Check whether the account has a Price Protection Plan or a term arrangement that fixes the price. If so, dispute the increase as a billing error.
+        channel: support-chat
+      - do: If you do not accept the change, the terms require you to stop using the service and notify Frontier.
+        channel: consumer-relations-notice
+    facts:
+      - kind: policy
+        claim: Unless prohibited by law or guaranteed by a Price Protection Plan, Frontier may change monthly rates, fees and surcharges at any time with notice on its website, by email or mail, or by bill message. Continuing to use the service after notice is acceptance.
+        issues: [bill_increase]
+        source: https://frontier.com/documents/corporate/terms/general-terms-residential-may-2025.pdf
+        last_verified: 2026-10-12
+
+  - issue: cancel_service
+    summary: Cancel through chat, then return all equipment within 30 days of the disconnect date.
+    evidence: [disconnect date, confirmation, UPS tracking receipt]
+    steps:
+      - do: Ask chat to schedule the disconnect. Service stays active until 12:01 AM on the disconnect date.
+        channel: support-chat
+      - do: Return all equipment, including power cords, within 30 days of the disconnect date.
+        channel: equipment-return
+      - do: Expect up to three final bills. Online account access lasts up to 120 days after disconnection.
+        channel: disconnect-help
+    facts:
+      - kind: policy
+        claim: Residential internet is billed in full through the end of the billing cycle; customers may receive up to three final bills.
+        issues: [cancel_service]
+        source: https://frontier.com/helpcenter/account/disconnecting-your-service
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: An early termination fee applies if you cancel before a contract or promotional period ends.
+        issues: [cancel_service]
+        source: https://frontier.com/helpcenter/account/disconnecting-your-service
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Credit balances are refunded if there are no outstanding fees - by paper check for amounts under $5 or over $500, otherwise on a prepaid MasterCard. Refunds take up to three billing cycles, then 15-20 business days after processing.
+        issues: [cancel_service, refund_request]
+        source: https://frontier.com/helpcenter/account/disconnecting-your-service
+        last_verified: 2026-10-12
+
+  - issue: equipment_return
+    summary: Return within 30 days at The UPS Store with the QR code, or by prepaid mailer at a UPS location; keep the receipt.
+    evidence: [UPS tracking receipt, equipment serial numbers]
+    steps:
+      - do: Take the equipment and power cord to a The UPS Store and have the QR code scanned, or pack the prepaid mailer kit and drop it at a UPS location. Affiliated or contracted UPS locations do not accept the QR code.
+        channel: equipment-return
+      - do: Get a receipt with tracking. If an unreturned equipment fee appears, send the receipt by chat and ask for removal.
+        channel: support-chat
+    facts:
+      - kind: deadline
+        claim: Equipment, including power cords, must be returned within 30 days of the disconnect date.
+        issues: [equipment_return, cancel_service]
+        source: https://frontier.com/helpcenter/account/how-to-return-frontier-equipment
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: A fee of up to $500 for each unreturned device applies if equipment is not returned within 30 days.
+        issues: [equipment_return]
+        source: https://frontier.com/helpcenter/account/how-to-return-frontier-equipment
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: Returning Frontier equipment after disconnection may incur a restocking fee, currently $50.
+        issues: [equipment_return]
+        source: https://frontier.com/documents/corporate/terms/general-terms-residential-may-2025.pdf
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Report the outage; Frontier's internet terms reserve the right to refuse outage credits.
+    evidence: [outage dates, ticket number]
+    steps:
+      - do: Check the outage page and report the outage by chat. Get a ticket number.
+        channel: outage-check
+      - do: Ask for a credit for the days without service. If refused, file an FCC complaint.
+        regulator: fcc
+    facts:
+      - kind: limit
+        claim: The residential internet terms say Frontier reserves the right to refuse refunds, offsets and credit allowances for interruptions of service, and cap liability at a pro rata credit of monthly fees paid in the 90 days before the claim arose.
+        issues: [service_outage]
+        source: https://frontier.com/documents/corporate/terms/residential-internet-service-may-2025.pdf
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: The arbitration clause allows either side to bring an individual small claims action instead of arbitration, and lets customers bring issues to the FCC and other agencies.
+    source: https://frontier.com/documents/corporate/terms/general-terms-residential-may-2025.pdf
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: If Frontier does not remedy a breach within thirty (30) days after receiving the customer's notice, the customer may terminate by written notice to the Notice address or by contacting customer service; the remedy is termination and/or a credit not exceeding ninety (90) days of charges.
+    issues: [poor_service, cancel_service]
+    source: https://frontier.com/documents/corporate/terms/general-terms-residential-may-2025.pdf
+    last_verified: 2026-10-12
+  - kind: fee
+    claim: Late payments may incur a late fee of 1.5% per month or the highest rate allowed by law; returned checks carry a handling charge of up to $35.00 depending on the state.
+    issues: [billing_error]
+    source: https://frontier.com/documents/corporate/terms/general-terms-residential-may-2025.pdf
+    last_verified: 2026-10-12
+  - kind: contact
+    claim: Frontier changed its legal notice mailing address to One Verizon Way, Legal Department, Basking Ridge, NJ 07920, effective May 29, 2026.
+    source: https://frontier.com/corporate/terms
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Frontier lists no customer service phone number; support and cancellation go through chat, which a bot answers first.
+  - The chat control on the contact page has no direct URL; it opens in page.
+  - The terms are PDFs that need text extraction.
+
+notes: >-
+  Frontier is now a Verizon company (frontier.com/verizon says "Frontier is now a Verizon company"; site footer
+  reads "© 2026 Verizon"). The terms index lists a "Fios Customer Agreement (November 2026)" that supersedes the
+  Frontier residential general, internet, TV and voice terms; check which agreement applies to the account. The
+  Frontier general terms PDF is labelled "Last update May 2025" with a July 2026 notice footer. Do not route Frontier
+  disputes to the Verizon wireless file unless the account has moved to Verizon billing.

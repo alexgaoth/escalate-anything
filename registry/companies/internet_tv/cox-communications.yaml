@@ -1,0 +1,56 @@
+id: cox-communications
+name: Cox Communications
+aliases: [cox, cox internet, cox cable]
+sector: internet_tv
+parent: Charter Communications, Inc. (Spectrum); Cox Enterprises holds about 26% of the combined company
+website: https://www.cox.com
+regulators: [fcc]
+
+channels:
+  - id: customer-agreement
+    type: portal
+    label: Spectrum Residential General Terms and Conditions of Service (Cox's customer service agreement now redirects here)
+    value: https://www.spectrum.com/policies/residential-general-terms-and-conditions-of-service
+    access: open
+    notes: cox.com/aboutus/policies.html redirects to Cox's customer-service-agreement URL, which redirects to this Spectrum page. The Spectrum page timed out for automated fetch, so its contents were not confirmed.
+    source: https://www.cox.com/aboutus/policies.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, note: "cox.com pages now show only 'Cox is now Spectrum'. No Cox-specific number was confirmed; use the Spectrum channels in charter-spectrum."}
+  - {rung: retention}
+  - {rung: written_complaint}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: utility_commission}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: customer-agreement}
+
+playbooks:
+  - issue: service_outage
+    summary: Former Cox customers are getting Spectrum's Customer Service Commitments, including credits for outages over two hours, within a year of the merger.
+    evidence: [outage start and end times, ticket number]
+    steps:
+      - do: Report the outage and get a ticket number.
+      - do: Ask whether Spectrum's outage credit commitment (outages longer than two hours) applies to your account yet, and ask for the credit.
+      - do: If refused, file an FCC complaint.
+        regulator: fcc
+    facts:
+      - kind: compensation
+        claim: Within a year of the August 2026 transaction, Cox customers will get Spectrum's Customer Service Commitments, including credits for outages that last longer than two hours and 24/7 U.S.-based customer service.
+        issues: [service_outage]
+        source: https://www.sec.gov/Archives/edgar/data/1091667/000114036126033909/ef20080687_ex99-1.htm
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Charter and Cox Communications completed their transaction (press release dated August 20, 2026). Spectrum is the consumer brand in former Cox markets, and Cox internet customers without Cox Mobile were offered a free Spectrum Mobile line for one year.
+    source: https://www.sec.gov/Archives/edgar/data/1091667/000114036126033909/ef20080687_ex99-1.htm
+    last_verified: 2026-10-12
+
+known_blockers:
+  - cox.com pages render only the title "Cox is now Spectrum"; Cox support and policy URLs redirect to spectrum.com, which times out for automated fetch.
+
+notes: >-
+  Cox Communications combined with Charter in August 2026 and now operates as Spectrum ("Cox is now Spectrum" on
+  cox.com; newsroom.cox.com redirects to corporate.charter.com/newsroom). The combined parent will take the name Cox
+  Communications within a year but keep the Spectrum brand. Use charter-spectrum for current channels once confirmed.

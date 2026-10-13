@@ -1,0 +1,90 @@
+id: wow-internet
+name: WOW!
+aliases: [wow, wideopenwest, wow internet, wowway]
+sector: internet_tv
+parent: WideOpenWest (WOW!), privately held by DigitalBridge Group, Inc. and Crestview Partners since December 31, 2025
+website: https://www.wowway.com
+account_url: https://login.wowway.com/
+regulators: [fcc]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: WOW! account inquiries and troubleshooting
+    value: +1-866-496-9669
+    hours: Billing and general 8:00am to 8:30pm ET, 7 days a week; technical support 24 hours a day, 7 days a week
+    purposes: [billing_error, bill_increase, price_negotiation, cancel_service, service_outage, equipment_return]
+    source: https://www.wowway.com/contact-us
+    last_verified: 2026-10-12
+  - id: support-chat
+    type: chat
+    label: WOW! live chat (billing, connection issues, technical support)
+    value: https://www.wowway.com/support/contact-us
+    hours: 7:00am to 11:45pm ET, 7 days a week
+    purposes: [billing_error, service_outage, equipment_return, cancel_service]
+    source: https://www.wowway.com/contact-us
+    last_verified: 2026-10-12
+  - id: equipment-return
+    type: portal
+    label: WOW! equipment return help (prepaid label or local drop box)
+    value: https://www.wowway.com/help-center/equipment-return
+    purposes: [equipment_return, cancel_service]
+    access: open
+    notes: The return due date is in the return instruction email. Returns can also be started in My Account.
+    source: https://www.wowway.com/help-center/equipment-return
+    last_verified: 2026-10-12
+  - id: outages
+    type: portal
+    label: WOW! maintenance and outages
+    value: https://outages.wowway.com
+    purposes: [service_outage]
+    source: https://www.wowway.com/contact-us
+    last_verified: 2026-10-12
+  - id: terms-and-conditions
+    type: portal
+    label: WOW! terms and conditions (internet, cable and phone terms of service, pricing policy)
+    value: https://www.wowway.com/experience/terms-and-conditions
+    access: open
+    notes: The terms load as PDFs by JavaScript; the text could not be read by automated fetch.
+    source: https://www.wowway.com/sitemap.xml
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: retention, note: "WOW! publishes no retention number."}
+  - {rung: written_complaint, channel: support-chat, note: "WOW! lists no email or mailing address for complaints; a chat transcript is the written record."}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: utility_commission}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "Arbitration notice details were not confirmed; read the internet terms of service PDF."}
+
+playbooks:
+  - issue: equipment_return
+    summary: Return by the due date in the return email, by prepaid label or drop box, and get a tracking receipt.
+    evidence: [shipping receipt with tracking number, equipment serial numbers, return instruction email]
+    steps:
+      - do: Use the prepaid label or a local equipment drop box. Return by the due date in the return instruction email.
+        channel: equipment-return
+      - do: When shipping, get a receipt with tracking details from the associate. Allow 5-7 business days for the return to show on the account.
+      - do: If an unreturned equipment fee appears after that, give the tracking number and ask for removal.
+        channel: support-chat
+    facts:
+      - kind: deadline
+        claim: Equipment must be returned by the due date listed in the return instruction email to avoid unreturned equipment fees; after receipt it can take 5-7 business days to show as processed.
+        issues: [equipment_return]
+        source: https://www.wowway.com/help-center/equipment-return
+        last_verified: 2026-10-12
+
+facts:
+  - kind: contact
+    claim: Once a customer has an internet plan, its broadband label can be viewed in the Online Account Manager.
+    source: https://www.wowway.com/help-center/internet/how-can-i-view-a-broadband-label
+    last_verified: 2026-10-12
+
+known_blockers:
+  - WOW! lists no email, mailing address or executive channel on its contact page.
+  - The terms and conditions PDFs load by JavaScript, so arbitration, billing dispute and outage credit terms were not confirmed.
+
+notes: >-
+  DigitalBridge Group, Inc. and Crestview Partners completed their take-private acquisition of WOW! on December 31,
+  2025 (wowway.com/investorrelations). WOW! also offers mobile service through a partner site (wow.reachmobile.com).
