@@ -1,0 +1,14 @@
+{
+  "name": "redress-local",
+  "description": "Local marketplace for the redress plugin.",
+  "owner": {
+    "name": "Alex Gao"
+  },
+  "plugins": [
+    {
+      "name": "redress",
+      "source": ".",
+      "description": "Resolve problems with large US companies."
+    }
+  ]
+}
