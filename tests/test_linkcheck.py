@@ -37,3 +37,11 @@ async def test_tls_errors_are_not_dead():
         import asyncio
         r = await linkcheck._check(client, asyncio.Semaphore(1), "https://x.example/", ["a"])
     assert r.status == "error"
+
+
+@pytest.mark.anyio
+async def test_known_bot_404_hosts_are_blocked_not_dead():
+    async with httpx.AsyncClient(transport=httpx.MockTransport(lambda r: httpx.Response(404))) as client:
+        import asyncio
+        r = await linkcheck._check(client, asyncio.Semaphore(1), "https://www.ftc.gov/contact", ["a"])
+    assert r.status == "blocked"
