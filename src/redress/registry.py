@@ -201,7 +201,7 @@ class Registry:
                     bad(where, f"duplicate channel id '{cid}'")
                 ids.add(cid)
                 value, ctype = str(ch.get("value", "")), ch.get("type")
-                if ctype == "phone" and not PHONE_RE.match(value):
+                if ctype in ("phone", "fax") and not PHONE_RE.match(value):
                     bad(where, f"phone '{value}' must look like +1-800-555-0100 or a short code like 611")
                 if ctype == "email" and not EMAIL_RE.match(value):
                     bad(where, f"email '{value}' is not an email address")
