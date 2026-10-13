@@ -24,6 +24,14 @@ channels:
     notes: Netflix says to contact it here at once if you never signed up or someone uses your payment information. The page loads its call and chat options dynamically; no phone number was visible to a fetch.
     source: https://help.netflix.com/node/1019
     last_verified: 2026-10-12
+  - id: app-call-chat
+    type: app
+    label: Netflix app Help, Call or Chat button
+    value: Netflix app (iPhone, iPad, Android), My Netflix, profile menu, Help, Call or Chat
+    purposes: [billing_error, unauthorized_charge, cancel_service, account_access]
+    notes: Non-members tap Help in the upper right without signing in. Calls from the app over Wi-Fi or cellular data are free, with no long-distance costs. If the call does not connect, use chat.
+    source: https://help.netflix.com/en/node/33335
+    last_verified: 2026-10-12
   - id: payment-history
     type: portal
     label: Payment history (billing activity)
@@ -35,7 +43,7 @@ channels:
     last_verified: 2026-10-12
 
 escalation:
-  - {rung: frontline, channel: help-contact}
+  - {rung: frontline, channel: app-call-chat}
   - {rung: written_complaint}
   - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
   - {rung: regulator, regulator: ftc}
