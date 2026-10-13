@@ -4,6 +4,47 @@ aliases: [amex, american express national bank, americanexpress, amex card]
 sector: bank
 parent: American Express Company
 website: https://www.americanexpress.com
+official_domains: [americanexpress.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: American Express will never call you and ask for verification codes, logins or passwords.
+      source: https://www.americanexpress.com/en-us/security/phishing-scam-awareness/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: American Express will never call you and ask for your full ID details, your Card details or your PIN.
+      source: https://www.americanexpress.com/en-us/security/phishing-scam-awareness/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: American Express says institutions will not call you to ask for money by gift card, wire transfer, crypto or payment app.
+      source: https://www.americanexpress.com/en-us/security/phishing-scam-awareness/
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Someone calls claiming to be from American Express, your bank or a government agency and asks for an unusual payment, such as a gift card, wire transfer, crypto or a payment app.
+      source: https://www.americanexpress.com/en-us/security/phishing-scam-awareness/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Someone calls claiming to be from American Express, a tech support service or a retailer and asks for remote access to your device or account through a one-time password, verification code or American Express SafeKey code.
+      source: https://www.americanexpress.com/en-us/security/phishing-scam-awareness/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers fake caller ID to show a trusted number. If you did not make the call, do not share account numbers, logins, your Social Security number or one-time passcodes. Hang up and call the number on the back of your Card.
+      source: https://www.americanexpress.com/en-us/security/phishing-scam-awareness/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Emails with false offers, such as paying off your account balance, ask you to share personal details like your Card number and security code.
+      source: https://www.americanexpress.com/en-us/security/phishing-scam-awareness/
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: spoof-email
+      type: email
+      label: Report phishing emails or texts, or fake AMEX websites
+      value: spoof@americanexpress.com
+      purposes: [fraud]
+      notes: The Security Center text shows this address, but its mailto link has a typo (americanexpress.oom). Type the address by hand.
+      source: https://www.americanexpress.com/en-us/security/
+      last_verified: 2026-10-12
 regulators: [cfpb, occ]
 notes: >-
   American Express National Bank is a national bank (OCC) and the issuer of U.S. consumer Amex cards.

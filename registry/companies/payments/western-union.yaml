@@ -5,6 +5,39 @@ sector: payments
 parent: The Western Union Company
 website: https://www.westernunion.com
 account_url: https://www.westernunion.com/us/en/send-money/app/login
+official_domains: [westernunion.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Western Union will never send you an email that asks for your personal information, email address or password.
+      source: https://www.westernunion.com/us/en/frequently-asked-questions/faq-consumer-protection.html
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: In romance scams, a new contact from social media, an online forum or a dating site asks you to pay for travel or emergency expenses. Western Union says never to send money to someone you have not met in person.
+      source: https://www.westernunion.com/global/en/fraud-awareness/fraud-home.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: In employment scams, a boss sends you a check for work expenses and then asks you to send money back. The check bounces and you are responsible for the full amount.
+      source: https://www.westernunion.com/global/en/fraud-awareness/fraud-home.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: In internet purchase scams, scammers post fake items for sale on classified sites or marketplaces and ask buyers to send money.
+      source: https://www.westernunion.com/global/en/fraud-awareness/fraud-home.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: In emergency and impostor scams, someone poses as a relative, friend or other trusted person with a sudden emergency and asks you to send money now. Western Union says to verify the emergency with another family member first.
+      source: https://www.westernunion.com/global/en/fraud-awareness/fraud-home.html
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: spoof-email
+      type: email
+      label: Forward suspicious emails that claim to be from Western Union
+      value: spoof@westernunion.com
+      purposes: [fraud]
+      notes: Forward the email, then delete it. Western Union's fraud resources page says this does not file a fraud claim; to report a scam, call the fraud hotline or file a fraud claim online.
+      source: https://www.westernunion.com/us/en/frequently-asked-questions/faq-consumer-protection.html
+      last_verified: 2026-10-12
 regulators: [cfpb, ftc]
 notes: >-
   The US complaint page names Western Union Financial Services, Inc. and Western Union International Services, LLC

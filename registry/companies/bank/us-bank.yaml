@@ -4,6 +4,36 @@ aliases: [us bank, usbank, u s bank, us bancorp, u.s. bancorp, us bank national 
 sector: bank
 parent: U.S. Bancorp
 website: https://www.usbank.com
+official_domains: [usbank.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: U.S. Bank will never send you an email or text that asks you to click a link to verify yourself or asks for personal or account information.
+      source: https://www.usbank.com/customer-service/knowledge-base/kb0069833.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: U.S. Bank will never ask you to disclose your personal ID, password or PIN, including on the phone or in person. It may ask for your full Social Security number or account number to verify your identity, for example when you call it.
+      source: https://www.usbank.com/about-us-bank/privacy/security.html
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Scammers impersonate trusted people such as a bank representative in fake emails, texts and calls to get account information, online credentials or one-time passcodes.
+      source: https://www.usbank.com/financial-education/secure/digital-payments-scam.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: A scammer may ask you to send money to yourself to "reverse" a fraudulent transaction. The real goal is to get into your Zelle account and make unauthorized payments to the scammer.
+      source: https://www.usbank.com/financial-education/secure/digital-payments-scam.html
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: phishing-phone
+      type: phone
+      label: Fraud Department, if you got an email or text and are not sure it is from U.S. Bank, or you clicked a link or gave information in reply to one
+      value: +1-877-595-6256
+      purposes: [fraud]
+      access: human_only
+      notes: U.S. Bank accepts relay calls.
+      source: https://www.usbank.com/customer-service/knowledge-base/kb0069833.html
+      last_verified: 2026-10-12
 regulators: [cfpb, occ]
 notes: U.S. Bank National Association is a national bank (OCC). Credit cards are serviced by Cardmember Service.
 

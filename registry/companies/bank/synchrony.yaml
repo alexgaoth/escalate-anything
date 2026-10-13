@@ -4,6 +4,27 @@ aliases: [synchrony bank, synchrony financial, carecredit, care credit, mysynchr
 sector: bank
 parent: Synchrony Financial
 website: https://www.synchrony.com
+official_domains: [synchrony.com, synchronybank.com, mysynchrony.com, syf.com, carecredit.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Synchrony will never email you with a request for information. If an email asks you to provide private information, do not provide it.
+      source: https://www.synchrony.com/legal/fraud-protection
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Phishing emails that appear to come from Synchrony warn of unauthorized access or suspicious charges, threaten to suspend or deactivate the account, offer rewards for completing a survey, or announce changes to online services.
+      source: https://www.synchrony.com/legal/fraud-protection
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: phishing-phone
+      type: phone
+      label: Report a phishing scam that uses Synchrony Bank's name
+      value: +1-866-226-5638
+      purposes: [fraud]
+      notes: The same article says that Synchrony Bank emails with links that do not come from customer.service@mail.synchronybank.com or consumerbanking@e.synchronybank.com may be phishing.
+      source: https://www.synchrony.com/blog/banking/how-to-avoid-phishing
+      last_verified: 2026-10-12
 regulators: [cfpb, occ]
 notes: >-
   Synchrony Bank is a federal savings association (OCC). It issues store and co-brand credit cards for

@@ -4,6 +4,30 @@ aliases: [cri federal student loan servicing, central research inc, cri.studenta
 sector: student_loan
 website: https://cri.studentaid.gov/
 account_url: https://cri.studentaid.gov/
+official_domains: [cri.studentaid.gov]
+security:
+  never_asks:
+    - kind: policy
+      claim: Federal Student Aid says the U.S. Department of Education and its partners, including loan servicers, will never ask for your StudentAid.gov account username or password (your FSA ID login).
+      source: https://studentaid.gov/articles/avoid-student-loan-forgiveness-scams/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Federal Student Aid says you do not need to pay anyone to help you repay your federal student loans or reach loan forgiveness. Loan servicers help you switch to a new repayment plan at no cost, and its loan forgiveness programs are always free.
+      source: https://studentaid.gov/articles/avoid-student-loan-forgiveness-scams/
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Federal Student Aid warns that scammers often ask for an up-front or monthly fee while promising immediate and total student loan cancellation. Most federal forgiveness programs require years of qualifying payments or employment in certain fields.
+      source: https://studentaid.gov/articles/avoid-student-loan-forgiveness-scams/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Federal Student Aid says aggressive forgiveness messages, such as ones that tell you to act immediately before a program is discontinued or that your loan is flagged for forgiveness and you must call now, do not come from the Department of Education or its partners.
+      source: https://studentaid.gov/articles/avoid-student-loan-forgiveness-scams/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Federal Student Aid warns that scammers may ask for your StudentAid.gov username and password and may use official-looking names, seals and logos. If you shared your login, change your password, check your account contact details and file a complaint with Federal Student Aid.
+      source: https://studentaid.gov/articles/avoid-student-loan-forgiveness-scams/
+      last_verified: 2026-10-12
 regulators: [ed-fsa, cfpb]
 notes: >-
   CRI is a federal student loan servicer for the U.S. Department of Education at cri.studentaid.gov (NMLS ID 1215163 on

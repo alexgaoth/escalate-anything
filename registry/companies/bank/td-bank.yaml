@@ -4,6 +4,35 @@ aliases: [td bank na, td bank us, td bank n a]
 sector: bank
 website: https://www.td.com/us/en/personal-banking
 account_url: https://onlinebanking.tdbank.com/
+official_domains: [td.com, tdbank.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: TD Bank will never ask you to confirm your account number, PIN, password or any other personal information by email, text or voice call.
+      source: https://www.td.com/us/en/personal-banking/security-center
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Phishing emails often use the name and logo of a legitimate company to get you to click a link and give account details. Scam texts (SMShing) and calls (vishing) urge you to confirm sensitive account information or to call a number and give it.
+      source: https://www.td.com/us/en/personal-banking/security-center/scam-phishing
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails
+      value: phishing@td.com
+      purposes: [fraud]
+      source: https://www.td.com/us/en/personal-banking/security-center/scam-phishing
+      last_verified: 2026-10-12
+    - id: phishing-phone
+      type: phone
+      label: Report a fraudulent email, text or call, or confidential information you disclosed
+      value: +1-800-893-8554
+      purposes: [fraud]
+      hours: 24/7
+      access: human_only
+      source: https://www.td.com/us/en/personal-banking/security-center
+      last_verified: 2026-10-12
 regulators: [cfpb, occ]
 notes: TD Bank, N.A. is a national bank (OCC).
 

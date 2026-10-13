@@ -5,6 +5,37 @@ sector: payments
 parent: Google LLC (Google Payment Corp. is a subsidiary of Google LLC)
 website: https://pay.google.com
 account_url: https://wallet.google.com
+official_domains: [google.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Google never asks you to send personal info such as passwords, credit card numbers or tax info through an email, text message or phone call. If a message says Google must verify your info, go directly to payments.google.com.
+      source: https://support.google.com/wallet/answer/7643925?hl=en
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Google won't ask you to download an app to receive support or solve a problem.
+      source: https://support.google.com/wallet/answer/7643925?hl=en
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Google won't ask you for any information until you have signed in to your Google Account. Real messages from Google may ask you to click a link to verify your email address.
+      source: https://support.google.com/googlepay/answer/6285511?hl=en
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Scammers use online forums such as Craigslist to take Google Pay payments for goods (such as phones, shoes and concert tickets) or services. Google recommends paying a seller you don't know in person, and only after you receive the item or service.
+      source: https://support.google.com/googlepay/answer/6285511?hl=en
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-google-email
+      type: web_form
+      label: Report a suspicious email that claims to be from Google
+      value: https://support.google.com/mail/contact/abuse
+      purposes: [fraud]
+      notes: >-
+        Google Pay's fraud and phishing page links to this form. Google says that if it cannot verify your Google Pay
+        information, a real email may come from googlepay-noreply@google.com and ask you to sign in and send documents.
+      source: https://support.google.com/googlepay/answer/6285511?hl=en
+      last_verified: 2026-10-12
 regulators: [cfpb, ftc]
 notes: >-
   Google Payment Corp. (GPC) provides the Google Pay Balance and Balance in Google Wallet services under the

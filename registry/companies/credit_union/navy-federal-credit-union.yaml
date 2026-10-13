@@ -3,6 +3,51 @@ name: Navy Federal Credit Union
 aliases: [navy federal, nfcu, navy fed]
 sector: credit_union
 website: https://www.navyfederal.org
+official_domains: [navyfederal.org]
+security:
+  never_asks:
+    - kind: policy
+      claim: Navy Federal will never solicit your personal information over the phone or by email.
+      source: https://www.navyfederal.org/services/security/report-fraud.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Navy Federal will never ask for your mobile or online banking sign-in information, and will not ask for your challenge question and answer in an unexpected call, email or text.
+      source: https://www.navyfederal.org/makingcents/privacy-security/beware-of-rising-imposter-scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Navy Federal will never text you from a 10-digit phone number. It texts from 5- or 6-digit short codes.
+      source: https://www.navyfederal.org/makingcents/privacy-security/beware-of-rising-imposter-scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Navy Federal will not email you a link to reset your password unless you asked for it.
+      source: https://www.navyfederal.org/makingcents/privacy-security/beware-of-rising-imposter-scams.html
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Callers pretend to be employees of your bank or credit union and say your account is frozen, a payment has a problem, they are verifying information or they noticed suspicious activity, to get your sign-in or account information.
+      source: https://www.navyfederal.org/makingcents/privacy-security/beware-of-rising-imposter-scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Imposters spoof the email address or phone number of the organization they pretend to be, and create logos and fake websites that look almost like the real ones.
+      source: https://www.navyfederal.org/makingcents/privacy-security/beware-of-rising-imposter-scams.html
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward phishing emails that appear to be from Navy Federal
+      value: phishalert@navyfederal.org
+      purposes: [fraud]
+      notes: Keep the original subject line and put the name of your Internet Service Provider in the body. Do not include personal account information.
+      source: https://www.navyfederal.org/services/security/report-fraud.html
+      last_verified: 2026-10-12
+    - id: report-abuse-email
+      type: email
+      label: Report suspicious calls, texts or social media messages that claim to be Navy Federal
+      value: reportabuse@navyfederal.org
+      purposes: [fraud]
+      notes: For a call or text, give the date and time, the number it came from and what was requested. For social media, give the message content and the account it came from. Do not include personal account information.
+      source: https://www.navyfederal.org/services/security/report-fraud.html
+      last_verified: 2026-10-12
 regulators: [ncua, cfpb]
 notes: Navy Federal Credit Union is regulated by the NCUA. Most service lines go through the 24/7 member services number with voice prompts.
 

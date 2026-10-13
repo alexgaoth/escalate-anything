@@ -5,6 +5,21 @@ sector: credit_bureau
 parent: Experian plc
 website: https://www.experian.com/
 account_url: https://usa.experian.com/login/index
+official_domains: [experian.com, experianplc.com, annualcreditreport.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: Experian says scammers may try to trick you into entering your personal information on look-alike versions of AnnualCreditReport.com, or send spoofed emails that look like they come from the site and link to a scammer's site.
+      source: https://www.experian.com/blogs/ask-experian/is-annualcreditreport-com-safe/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: The FTC says an email, pop-up ad or phone call from someone claiming to be from AnnualCreditReport.com or any of the credit bureaus is probably a scam. AnnualCreditReport.com and the credit bureaus will not email you asking for your Social Security number or account information.
+      source: https://consumer.ftc.gov/articles/free-credit-reports
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: The FTC says companies that promise to repair your credit cannot remove true information, and it is illegal for credit repair companies to charge you before they help you. Scammers insist you pay first, tell you not to contact the credit bureaus directly, or tell you to lie on credit applications or file a false identity theft report.
+      source: https://consumer.ftc.gov/articles/fixing-your-credit-faqs
+      last_verified: 2026-10-12
 regulators: [cfpb, ftc]
 notes: >-
   Experian plc is listed on the London Stock Exchange (EXPN) with its corporate headquarters in Dublin, Ireland.

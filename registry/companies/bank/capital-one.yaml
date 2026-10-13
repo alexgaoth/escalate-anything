@@ -4,6 +4,42 @@ aliases: [capital one bank, capitalone, capital one 360, capital one na]
 sector: bank
 parent: Capital One Financial Corporation
 website: https://www.capitalone.com
+official_domains: [capitalone.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Capital One will never ask you over the phone for your online banking password, whether you call Capital One or Capital One calls you.
+      source: https://www.capitalone.com/digital/identity-protection/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Capital One will never ask you to confirm or verify your personal information in an unsolicited text message.
+      source: https://www.capitalone.com/digital/identity-protection/
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Fraudsters spoof the calling number so that a call appears to come from Capital One. When in doubt, hang up and call the number on the back of your debit or credit card.
+      source: https://www.capitalone.com/digital/scam-education/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers send text messages to get sensitive information. Capital One says to check that texts and emails come from its usual email domain and text short code.
+      source: https://www.capitalone.com/digital/scam-education/
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: suspicious-communications-form
+      type: web_form
+      label: Capital One Suspicious Communications Form (report calls, texts, emails or letters that impersonate Capital One)
+      value: https://www.capitalone.com/help-center/cyber-abuse-form/
+      purposes: [fraud]
+      source: https://www.capitalone.com/digital/identity-protection/
+      last_verified: 2026-10-12
+    - id: scam-phone
+      type: phone
+      label: Call Capital One if you spotted a scam or think your account is compromised
+      value: +1-800-227-4825
+      purposes: [fraud]
+      notes: From outside the U.S., call collect at +1-804-934-2001.
+      source: https://www.capitalone.com/digital/scam-education/
+      last_verified: 2026-10-12
 regulators: [cfpb, occ]
 notes: >-
   Capital One, N.A. is a national bank (OCC). Capital One completed its acquisition of Discover in May 2025;

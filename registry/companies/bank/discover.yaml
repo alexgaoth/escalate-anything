@@ -5,6 +5,28 @@ sector: bank
 parent: Capital One Financial Corporation
 website: https://www.discover.com
 account_url: https://www.discover.com/login/
+official_domains: [discover.com, capitalone.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: Discover warns that scammers impersonate financial institutions, government agencies or family members to gain your trust, and that a phone number or email address that looks legitimate may not be.
+      source: https://www.discover.com/credit-cards/member-benefits/security/scam-protection/
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails to Discover
+      value: emailwatch@discover.com
+      purposes: [fraud]
+      source: https://www.discover.com/credit-cards/member-benefits/security/scam-protection/
+      last_verified: 2026-10-12
+    - id: phishing-compromise-phone
+      type: phone
+      label: Call Discover if a phishing email may have compromised your account security
+      value: +1-800-347-2683
+      purposes: [fraud]
+      source: https://www.discover.com/credit-cards/member-benefits/security/scam-protection/
+      last_verified: 2026-10-12
 regulators: [cfpb, occ]
 notes: >-
   Capital One completed its acquisition of Discover Financial Services in May 2025, and Discover Bank merged

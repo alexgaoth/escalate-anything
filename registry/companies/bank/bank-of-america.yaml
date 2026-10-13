@@ -5,6 +5,34 @@ sector: bank
 parent: Bank of America Corporation
 website: https://www.bankofamerica.com
 account_url: https://secure.bankofamerica.com/login/sign-in/signOnV2Screen.go
+official_domains: [bankofamerica.com, bofa.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Bank of America may contact you to confirm account activity, but it will never ask for your password or a verification code in that request.
+      source: https://web.bankofamerica.com/en/security/library/review-scam-alert
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Bank of America will never ask you to send money to it or to anyone else when it contacts you to confirm account activity.
+      source: https://web.bankofamerica.com/en/security/library/review-scam-alert
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Criminals pose as your bank and as government agencies, falsely say that an employee who worked on your account is under investigation, and tell you to move your money to a "new" or "safe" account.
+      source: https://web.bankofamerica.com/en/security/library/review-scam-alert
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Imposters pose as bankers or advisors with fake phone numbers, websites, emails and social media accounts, and may tell you not to trust Bank of America employees.
+      source: https://web.bankofamerica.com/en/security/scam-prevention
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails or texts that use the Bank of America name
+      value: abuse@bofa.com
+      purposes: [fraud]
+      source: https://web.bankofamerica.com/en/security/report-suspicious-activity
+      last_verified: 2026-10-12
 regulators: [cfpb, occ]
 notes: >-
   Bank of America, National Association is a national bank (OCC). Bank of America does not publish a
