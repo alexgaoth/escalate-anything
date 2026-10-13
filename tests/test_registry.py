@@ -5,7 +5,7 @@ from pathlib import Path
 
 import yaml
 
-from redress.registry import Registry, normalize
+from escalate_anything.registry import Registry, normalize
 
 from .conftest import FIXTURES
 
@@ -111,7 +111,7 @@ def test_export_contains_everything(fixture_registry):
 def test_schema_shapes():
     import json
 
-    from redress.registry import SCHEMA_PATH
+    from escalate_anything.registry import SCHEMA_PATH
 
     defs = json.loads(SCHEMA_PATH.read_text())["$defs"]
     assert set(defs["rung"]["properties"]) == {"rung", "channel", "regulator", "agency_kind", "note"}

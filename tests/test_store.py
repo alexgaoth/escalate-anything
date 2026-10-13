@@ -2,7 +2,7 @@ import datetime as dt
 
 import pytest
 
-from redress.store import Store, StoreError
+from escalate_anything.store import Store, StoreError
 
 
 @pytest.fixture

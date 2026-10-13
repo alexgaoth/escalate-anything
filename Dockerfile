@@ -1,4 +1,4 @@
-# Read-only redress MCP server over streamable HTTP, for remote clients
+# Read-only Escalate Anything MCP server over streamable HTTP, for remote clients
 # (ChatGPT connectors, claude.ai custom connectors, or a shared team endpoint).
 # The case log stays local-only; this image exposes registry lookups only.
 FROM python:3.12-slim
@@ -8,9 +8,9 @@ COPY src ./src
 COPY registry ./registry
 COPY schema ./schema
 COPY skills ./skills
-RUN pip install --no-cache-dir . && useradd --create-home redress
-USER redress
-WORKDIR /home/redress
+RUN pip install --no-cache-dir . && useradd --create-home escalate
+USER escalate
+WORKDIR /home/escalate
 ENV PORT=8765
 EXPOSE 8765
-CMD ["sh", "-c", "redress serve --transport http --host 0.0.0.0 --port ${PORT} --read-only"]
+CMD ["sh", "-c", "escalate serve --transport http --host 0.0.0.0 --port ${PORT} --read-only"]

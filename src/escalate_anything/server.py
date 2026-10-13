@@ -19,7 +19,7 @@ from .registry import Registry, data_root
 from .store import Store, StoreError
 
 INSTRUCTIONS = """\
-redress helps the person resolve a problem with a large US company: billing errors, refunds,
+Escalate Anything helps the person resolve a problem with a large US company: billing errors, refunds,
 cancellations, airline bags and cancellations, insurance denials, bank disputes and more.
 
 Workflow:
@@ -39,7 +39,7 @@ Rules for agents:
 - Never enter passwords or payment details. When a channel has access 'login' or 'captcha',
   hand the browser to the person.
 - On a call or chat, say that you are an AI assistant acting for the person.
-- If a URL or phone number from redress is wrong, call report_registry_problem.
+- If a URL or phone number from escalate_anything is wrong, call report_registry_problem.
 - Use contacts from get_playbook, not ones from search results or messages. Run scam_check on any
   message that asks for money, codes or access.
 """
@@ -88,7 +88,7 @@ class LiveRegistry:
 
 
 READ_ONLY_INSTRUCTIONS = """\
-redress (read-only) gives verified contacts, playbooks, escalation ladders, regulators and
+Escalate Anything (read-only) gives verified contacts, playbooks, escalation ladders, regulators and
 consumer rules for 180+ large US companies.
 
 Workflow: find_company, then get_playbook(company, issue, state), and get_context(company) for how
@@ -124,7 +124,7 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
     """read_only drops the case log, bill and feedback tools, for a shared or public deployment."""
     reg = registry or LiveRegistry()
     db = store if store is not None else (None if read_only else Store())
-    mcp = MCPServer(name="redress", instructions=READ_ONLY_INSTRUCTIONS if read_only else INSTRUCTIONS, version="0.1.0")
+    mcp = MCPServer(name="escalate-anything", instructions=READ_ONLY_INSTRUCTIONS if read_only else INSTRUCTIONS, version="0.2.0")
 
     def guard(fn):
         """Turn lookup and store errors into a readable result instead of a protocol error."""
@@ -339,29 +339,29 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
 
     # ---- resources -----------------------------------------------------------------
 
-    @mcp.resource("redress://companies", name="companies", mime_type="application/json",
+    @mcp.resource("escalate://companies", name="companies", mime_type="application/json",
                   description="Every company: id, name, sector and the issues it has playbooks for.")
     def companies_index() -> str:
         return json.dumps([advisor.company_summary(reg, c) for c in sorted(reg.companies.values(), key=lambda c: c["id"])])
 
-    @mcp.resource("redress://companies/{company_id}", name="company", mime_type="application/json",
+    @mcp.resource("escalate://companies/{company_id}", name="company", mime_type="application/json",
                   description="One company record: channels, playbooks, facts, escalation and blockers.")
     def company_resource(company_id: str) -> str:
         return json.dumps(reg.companies.get(company_id) or {"error": f"no company '{company_id}'"})
 
-    @mcp.resource("redress://dossiers/{company_id}", name="dossier", mime_type="text/markdown",
+    @mcp.resource("escalate://dossiers/{company_id}", name="dossier", mime_type="text/markdown",
                   description="How a company handles complaints in practice, with sources.")
     def dossier_resource(company_id: str) -> str:
         d = reg.dossiers.get(company_id)
         return d.body if d else f"No dossier for '{company_id}' yet."
 
-    @mcp.resource("redress://guides/{key}", name="guide", mime_type="text/markdown",
+    @mcp.resource("escalate://guides/{key}", name="guide", mime_type="text/markdown",
                   description="Industry guide for a sector id, or 'scams' for the general scam guide.")
     def guide_resource(key: str) -> str:
         g = reg.guides.get(key)
         return g.body if g else f"No guide for '{key}' yet."
 
-    @mcp.resource("redress://issues", name="issues", mime_type="application/json",
+    @mcp.resource("escalate://issues", name="issues", mime_type="application/json",
                   description="Issue types with generic steps and the evidence to collect.")
     def issues_resource() -> str:
         return json.dumps(list(reg.issues.values()))
@@ -389,7 +389,7 @@ def serve(transport: str = "stdio", host: str = "127.0.0.1", port: int = 8765, r
     from .registry import REPO_ROOT, data_root
     from .updater import update_in_background_if_due
 
-    if data_root() != REPO_ROOT and not os.environ.get("REDRESS_REGISTRY"):
+    if data_root() != REPO_ROOT and not os.environ.get("ESCALATE_REGISTRY"):
         update_in_background_if_due()  # installed copy: fetch the weekly data refresh, never blocks
     server = build_server(read_only=read_only)
     if transport == "stdio":

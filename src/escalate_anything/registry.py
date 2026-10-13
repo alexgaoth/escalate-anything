@@ -25,7 +25,7 @@ def data_root() -> Path:
     return PACKAGE_DATA
 
 
-SCHEMA_PATH = data_root() / "schema" / "redress.schema.json"
+SCHEMA_PATH = data_root() / "schema" / "registry.schema.json"
 
 PHONE_RE = re.compile(r"^(\+1-\d{3}-\d{3}-\d{4}( ext\. \d+)?|\*?#?\d{3,6})$")
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[a-z]{2,}$", re.IGNORECASE)
@@ -33,9 +33,9 @@ URL_TYPES = {"web_form", "chat", "portal", "social"}
 
 
 def registry_dir() -> Path:
-    """REDRESS_REGISTRY, else a source checkout, else the latest downloaded data, else the bundled data."""
-    if os.environ.get("REDRESS_REGISTRY"):
-        return Path(os.environ["REDRESS_REGISTRY"])
+    """ESCALATE_REGISTRY, else a source checkout, else the latest downloaded data, else the bundled data."""
+    if os.environ.get("ESCALATE_REGISTRY"):
+        return Path(os.environ["ESCALATE_REGISTRY"])
     root = data_root()
     if root != REPO_ROOT:
         from .updater import downloaded_registry
@@ -358,7 +358,7 @@ class Registry:
             "dossiers": len(self.dossiers),
             "guides": len(self.guides),
             "companies_with_security": sum(1 for c in self.companies.values() if c.get("security") or c.get("official_domains")),
-            "credibility": __import__("redress.credibility", fromlist=["registry_credibility"]).registry_credibility(self),
+            "credibility": __import__("escalate_anything.credibility", fromlist=["registry_credibility"]).registry_credibility(self),
             "issues": len(self.issues),
             "sectors": len(self.sectors),
         }

@@ -1,6 +1,6 @@
 # How the index stays fresh
 
-Company contacts, forms and policies change all the time. redress keeps up in four ways.
+Company contacts, forms and policies change all the time. Escalate Anything keeps up in four ways.
 
 ## 1. Every value carries a date and a source
 
@@ -14,7 +14,7 @@ From these, every company gets a **credibility grade**:
 | **B** | 75% or more official sources and at most 15% from snippets or archives. Check the flagged values before relying on them. |
 | **C** | Thin, or more third-party sources. Check each value's source. |
 
-The grade, the newest and oldest verification dates and a plain explanation appear in every MCP answer (`get_playbook`, `get_company`, `get_context`), on the website and in `redress credibility`.
+The grade, the newest and oldest verification dates and a plain explanation appear in every MCP answer (`get_playbook`, `get_company`, `get_context`), on the website and in `escalate credibility`.
 
 ## 2. A weekly freshness report
 
@@ -23,8 +23,8 @@ The grade, the newest and oldest verification dates and a plain explanation appe
 Run it locally:
 
 ```bash
-uv run redress check-links --json links.json
-uv run redress freshness --links links.json
+uv run escalate check-links --json links.json
+uv run escalate freshness --links links.json
 ```
 
 ## 3. Claude routines that propose fixes
@@ -40,4 +40,4 @@ Pull requests opened with the default `GITHUB_TOKEN` do not trigger other workfl
 
 ## 4. Installed copies update themselves
 
-`uvx redress-mcp` ships a snapshot of the registry. Once a week, when the server starts, it downloads the latest `registry/` from GitHub in the background, validates it with the installed code, and switches to it only if it passes. Run it by hand with `redress update`. Turn it off with `REDRESS_OFFLINE=1`. It downloads a public archive and sends nothing about you. Source checkouts use `git pull` instead.
+`uvx escalate-anything` ships a snapshot of the registry. Once a week, when the server starts, it downloads the latest `registry/` from GitHub in the background, validates it with the installed code, and switches to it only if it passes. Run it by hand with `escalate update`. Turn it off with `ESCALATE_OFFLINE=1`. It downloads a public archive and sends nothing about you. Source checkouts use `git pull` instead.

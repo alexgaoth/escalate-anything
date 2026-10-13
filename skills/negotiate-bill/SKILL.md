@@ -1,6 +1,6 @@
 ---
 name: negotiate-bill
-description: Lower a recurring bill (internet, cable, wireless, satellite, insurance premium, subscription) or fight a price increase after a promotion ends. Collects current offers, prepares a retention script and logs the result. Use when the person says a bill went up, is too high, or a promo is ending. Uses the redress MCP tools.
+description: Lower a recurring bill (internet, cable, wireless, satellite, insurance premium, subscription) or fight a price increase after a promotion ends. Collects current offers, prepares a retention script and logs the result. Use when the person says a bill went up, is too high, or a promo is ending. Uses the Escalate Anything MCP tools.
 ---
 
 # Negotiate a recurring bill

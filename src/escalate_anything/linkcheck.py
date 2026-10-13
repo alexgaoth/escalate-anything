@@ -14,7 +14,7 @@ import httpx
 
 from .registry import Registry
 
-USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36 redress-linkcheck"
+USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36 escalate-anything-linkcheck"
 BLOCKED = {401, 403, 405, 406, 429, 451, 999}
 DEAD = {404, 410}
 # Sites whose bot protection answers 404 even for their home page (checked 2026-10-12).

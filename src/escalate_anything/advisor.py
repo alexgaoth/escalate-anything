@@ -16,7 +16,7 @@ GENERIC_PAYMENT_RULES = ["fcba-billing-error", "efta-reg-e"]
 
 TONE_RULES = [
     "State facts, dates, amounts and reference numbers. Leave out adjectives and accusations.",
-    "Cite only facts and rules that redress returned, with their source URL. Never cite a rule whose status is not in force.",
+    "Cite only facts and rules that Escalate Anything returned, with their source URL. Never cite a rule whose status is not in force.",
     "Do not say 'fraud', 'illegal' or 'lawsuit' unless the person decided to, and a returned rule supports it.",
     "Make one clear request: the remedy, the amount, and a reasonable date for a reply (for example 14 days).",
     "Name the next step factually (for example, a complaint to the regulator) only if the person will take it.",

@@ -5,5 +5,5 @@ __pycache__/
 dist/
 site-dist/
 *.egg-info/
-.redress/
+.escalate-anything/
 .DS_Store

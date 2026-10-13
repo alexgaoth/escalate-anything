@@ -1,6 +1,6 @@
 ---
 name: bill-watch
-description: Watch the person's recurring bills for increases and ending promotions by reading bill emails, recording amounts and flagging anomalies. Use when the person asks to check their bills, set up bill monitoring, or find bills that went up. Uses the redress MCP tools and an email connector (for example Gmail).
+description: Watch the person's recurring bills for increases and ending promotions by reading bill emails, recording amounts and flagging anomalies. Use when the person asks to check their bills, set up bill monitoring, or find bills that went up. Uses the Escalate Anything MCP tools and an email connector (for example Gmail).
 ---
 
 # Watch bills
@@ -20,7 +20,7 @@ If the email has only a link to the bill portal and no amount, list it for the p
 
 ## 2. Record
 
-Call `bill_record(company, period_end, amount, plan, promo_end)` for each bill. Use the company name as it appears. redress maps it to its registry id. Recording the same bill twice updates it.
+Call `bill_record(company, period_end, amount, plan, promo_end)` for each bill. Use the company name as it appears. Escalate Anything maps it to its registry id. Recording the same bill twice updates it.
 
 ## 3. Check
 

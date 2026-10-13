@@ -5,9 +5,9 @@ import subprocess
 
 import pytest
 
-from redress.cli import main
-from redress.registry import Registry
-from redress.site import WEB_DIR, build_site, index_html
+from escalate_anything.cli import main
+from escalate_anything.registry import Registry
+from escalate_anything.site import WEB_DIR, build_site, index_html
 
 from .conftest import FIXTURES
 
@@ -107,13 +107,13 @@ def test_json_files_parse(tmp_path, fixture_registry):
 def test_llms_txt_lists_the_company(tmp_path, fixture_registry):
     build_site(tmp_path, fixture_registry)
     text = (tmp_path / "llms.txt").read_text()
-    assert text.startswith("# redress\n\n> ")
-    assert "- [Example Air](https://intro.alexgaoth.com/redress/companies/example-air.json)" in text
+    assert text.startswith("# Escalate Anything\n\n> ")
+    assert "- [Example Air](https://intro.alexgaoth.com/escalate-anything/companies/example-air.json)" in text
     assert "approves every message" in text
-    assert "[California](https://intro.alexgaoth.com/redress/states/ca.json)" in text
+    assert "[California](https://intro.alexgaoth.com/escalate-anything/states/ca.json)" in text
     assert "`security` field" in text
-    assert "- [Common scams](https://intro.alexgaoth.com/redress/guides/scams.md)" in text
-    assert "[dossier](https://intro.alexgaoth.com/redress/dossiers/example-air.md)" in text
+    assert "- [Common scams](https://intro.alexgaoth.com/escalate-anything/guides/scams.md)" in text
+    assert "[dossier](https://intro.alexgaoth.com/escalate-anything/dossiers/example-air.md)" in text
 
 
 def test_index_html_is_self_contained(tmp_path, fixture_registry):
@@ -213,7 +213,7 @@ def test_front_matter_is_stripped_like_python(fixture_registry):
 def test_badges_are_written(fixture_registry, tmp_path):
     import json
 
-    from redress.site import build_site
+    from escalate_anything.site import build_site
 
     build_site(tmp_path / "out", fixture_registry)
     b = json.loads((tmp_path / "out" / "badges" / "companies.json").read_text())

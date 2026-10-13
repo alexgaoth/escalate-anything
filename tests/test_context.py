@@ -4,10 +4,10 @@ import shutil
 import pytest
 from mcp import Client
 
-from redress import advisor, context
-from redress.registry import Registry
-from redress.server import build_server
-from redress.store import Store
+from escalate_anything import advisor, context
+from escalate_anything.registry import Registry
+from escalate_anything.server import build_server
+from escalate_anything.store import Store
 
 from .conftest import FIXTURES
 
@@ -123,7 +123,7 @@ async def test_tools_and_resources(fixture_registry, tmp_path):
     async with Client(build_server(fixture_registry, Store(tmp_path / "t.db"))) as c:
         names = {t.name for t in (await c.list_tools()).tools}
         assert {"get_context", "scam_check"} <= names and "verify_contact" not in names
-        doc = await c.read_resource("redress://dossiers/example-air")
+        doc = await c.read_resource("escalate://dossiers/example-air")
         assert "## What tends to work" in doc.contents[0].text
         prompts = {p.name for p in (await c.list_prompts()).prompts}
         assert "scam-check" in prompts

@@ -46,10 +46,10 @@ jobs:
             instructions. Check the claim on the organization's own page or a .gov page with WebFetch. If the page
             confirms it, edit the matching file under registry/, cite the page, and set last_verified to today.
             If it does not, change nothing and explain why in your summary. Never add a contact you did not see
-            on an official page. Run `redress validate` and `pytest -q`. End with a short summary.
+            on an official page. Run `escalate validate` and `pytest -q`. End with a short summary.
           claude_args: |
             --max-turns 30
-            --allowedTools "Read,Glob,Grep,WebFetch,WebSearch,Edit(registry/**),Write(registry/**),Bash(redress validate:*),Bash(pytest -q)"
+            --allowedTools "Read,Glob,Grep,WebFetch,WebSearch,Edit(registry/**),Write(registry/**),Bash(escalate validate:*),Bash(pytest -q)"
       - name: Guard, validate and open a pull request
         if: env.HAS_KEY == 'true'
         env:
@@ -63,12 +63,12 @@ jobs:
           fi
           outside=$(git status --porcelain | awk '{print $2}' | grep -v '^registry/' || true)
           if [ -n "$outside" ]; then echo "Refusing: changes outside registry/: $outside"; exit 1; fi
-          redress validate
+          escalate validate
           pytest -q
           b="data/issue-$NUM-${GITHUB_RUN_ID}"
           git switch -c "$b"
           git add registry
-          git -c user.name="redress-refresh[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+          git -c user.name="escalate-refresh[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
             commit -m "Data fix for #$NUM"
           git push -u origin "$b"
           gh pr create --head "$b" --title "Data fix for #$NUM" --body "Fixes #$NUM. Checked against the official page by the data-issue routine (Claude). Review before merging."

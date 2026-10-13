@@ -3,9 +3,9 @@ import json
 import pytest
 from mcp import Client
 
-from redress import cli
-from redress.server import WRITE_TOOLS, build_server, load_skills
-from redress.store import Store
+from escalate_anything import cli
+from escalate_anything.server import WRITE_TOOLS, build_server, load_skills
+from escalate_anything.store import Store
 
 
 @pytest.fixture
@@ -26,9 +26,9 @@ async def test_prompts_and_resources(fixture_registry, tmp_path):
         got = await c.get_prompt("resolve", {"situation": "United lost my bag"})
         text = got.messages[0].content.text
         assert "get_playbook" in text and "United lost my bag" in text
-        index = await c.read_resource("redress://companies")
+        index = await c.read_resource("escalate://companies")
         assert json.loads(index.contents[0].text)[0]["id"] == "example-air"
-        one = await c.read_resource("redress://companies/example-air")
+        one = await c.read_resource("escalate://companies/example-air")
         assert json.loads(one.contents[0].text)["name"] == "Example Air"
 
 
@@ -45,7 +45,7 @@ async def test_read_only_server_has_no_write_tools(fixture_registry):
 def test_cli_playbook_and_lookup(capsys, monkeypatch):
     from .conftest import FIXTURES
 
-    monkeypatch.setenv("REDRESS_REGISTRY", str(FIXTURES))
+    monkeypatch.setenv("ESCALATE_REGISTRY", str(FIXTURES))
     assert cli.main(["playbook", "exampleair", "delayed_baggage", "--state", "CA"]) == 0
     out = capsys.readouterr().out
     assert out.startswith("# Example Air: Delayed bag") and "## Steps" in out and "baggage/claim" in out

@@ -1,6 +1,6 @@
 ---
 name: regulator-complaint
-description: File a complaint with a government regulator or state agency after a company failed to fix a problem: DOT for airlines, FCC for telecom, CFPB for banks, cards, credit reports and loans, state utility commissions, state insurance departments and state attorneys general. Use when the person wants to escalate beyond the company. Uses the redress MCP tools.
+description: File a complaint with a government regulator or state agency after a company failed to fix a problem: DOT for airlines, FCC for telecom, CFPB for banks, cards, credit reports and loans, state utility commissions, state insurance departments and state attorneys general. Use when the person wants to escalate beyond the company. Uses the Escalate Anything MCP tools.
 ---
 
 # File a regulator complaint

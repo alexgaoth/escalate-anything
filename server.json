@@ -1,16 +1,16 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.alexgaoth/redress",
+  "name": "io.github.alexgaoth/escalate-anything",
   "description": "Verified contacts, playbooks and escalation paths for 270+ US companies.",
   "repository": {
-    "url": "https://github.com/alexgaoth/redress",
+    "url": "https://github.com/alexgaoth/escalate-anything",
     "source": "github"
   },
   "version": "0.1.0",
   "packages": [
     {
       "registryType": "pypi",
-      "identifier": "redress-mcp",
+      "identifier": "escalate-anything",
       "version": "0.1.0",
       "transport": {
         "type": "stdio"

@@ -1,6 +1,6 @@
 """Local case log, bill history and registry feedback, in SQLite.
 
-The database stays on this machine (default ~/.redress/redress.db).
+The database stays on this machine (default ~/.escalate-anything/escalate.db).
 It refuses text that looks like a full card number or SSN.
 """
 
@@ -80,8 +80,12 @@ class StoreError(ValueError):
 
 
 def default_path() -> Path:
-    home = Path(os.environ.get("REDRESS_HOME", Path.home() / ".redress"))
-    return home / "redress.db"
+    from .updater import home
+
+    old = Path.home() / ".redress" / "redress.db"  # data from before the rename
+    if not os.environ.get("ESCALATE_HOME") and old.exists() and not (home() / "escalate.db").exists():
+        return old
+    return home() / "escalate.db"
 
 
 def _now() -> str:

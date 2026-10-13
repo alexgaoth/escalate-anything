@@ -1,5 +1,5 @@
 name: Add a company
-description: Ask for a company, agency or issue type that redress does not cover yet.
+description: Ask for a company, agency or issue type that Escalate Anything does not cover yet.
 title: "[add] <company>"
 labels: [coverage]
 body:

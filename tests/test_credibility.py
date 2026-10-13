@@ -1,7 +1,7 @@
 import datetime as dt
 
-from redress import advisor
-from redress.credibility import classify, company_credibility, registry_credibility, verification_signal
+from escalate_anything import advisor
+from escalate_anything.credibility import classify, company_credibility, registry_credibility, verification_signal
 
 
 def test_classify_tiers():

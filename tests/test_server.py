@@ -1,8 +1,8 @@
 import pytest
 from mcp import Client
 
-from redress.server import build_server
-from redress.store import Store
+from escalate_anything.server import build_server
+from escalate_anything.store import Store
 
 
 @pytest.fixture
@@ -69,7 +69,7 @@ def test_live_registry_reloads_changed_files(tmp_path):
     import shutil
     import time
 
-    from redress.server import LiveRegistry
+    from escalate_anything.server import LiveRegistry
 
     from .conftest import FIXTURES
 

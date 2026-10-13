@@ -38,7 +38,7 @@ def cmd_export(args: argparse.Namespace) -> int:
     reg = Registry.load()
     problems = reg.validate()
     if problems:
-        print(f"refusing to export: {len(problems)} validation problem(s); run 'redress validate'", file=sys.stderr)
+        print(f"refusing to export: {len(problems)} validation problem(s); run 'escalate validate'", file=sys.stderr)
         return 1
     out = Path(args.output)
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -53,7 +53,7 @@ def cmd_site(args: argparse.Namespace) -> int:
     reg = Registry.load()
     problems = reg.validate()
     if problems:
-        print(f"refusing to build the site: {len(problems)} validation problem(s); run 'redress validate'", file=sys.stderr)
+        print(f"refusing to build the site: {len(problems)} validation problem(s); run 'escalate validate'", file=sys.stderr)
         return 1
     out = Path(args.output)
     counts = build_site(out, reg, base_url=args.base_url)
@@ -87,7 +87,7 @@ def cmd_lookup(args: argparse.Namespace) -> int:
         issues = ", ".join(pb["issue"] for pb in c.get("playbooks", [])) or "generic playbooks only"
         print(f"{c['id']:<28} {c['name']}  [{c['sector']}]\n{'':<28} playbooks: {issues}")
     if not hits:
-        print("No match. Try `redress lookup` with no query to list every company.", file=sys.stderr)
+        print("No match. Try `escalate lookup` with no query to list every company.", file=sys.stderr)
     return 0 if hits else 1
 
 
@@ -269,7 +269,7 @@ def cmd_feedback(args: argparse.Namespace) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="redress", description=__doc__)
+    parser = argparse.ArgumentParser(prog="escalate", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
 
     p = sub.add_parser("validate", help="check registry files against the schema and cross references")
@@ -289,7 +289,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("site", help="build the static website (index.html, JSON files, llms.txt)")
     p.add_argument("-o", "--output", default="site-dist")
-    p.add_argument("--base-url", default="https://intro.alexgaoth.com/redress/", help="public URL of the site, used in llms.txt")
+    p.add_argument("--base-url", default="https://intro.alexgaoth.com/escalate-anything/", help="public URL of the site, used in llms.txt")
     p.set_defaults(func=cmd_site)
 
     p = sub.add_parser("serve", help="run the MCP server")
@@ -316,7 +316,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--company")
     p.set_defaults(func=cmd_scam_check)
 
-    p = sub.add_parser("setup", help="connect redress to your AI apps: find them, review the changes, apply with backups")
+    p = sub.add_parser("setup", help="connect Escalate Anything to your AI apps: find them, review the changes, apply with backups")
     p.add_argument("clients", nargs="*", help="only these app ids (default: every app found)")
     p.add_argument("--yes", action="store_true", help="apply without asking")
     p.add_argument("--source", choices=["auto", "local", "pypi", "git"], default="auto")
@@ -340,7 +340,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.set_defaults(func=cmd_credibility)
 
     p = sub.add_parser("freshness", help="weekly freshness report (Markdown) or the refresh work list (JSON)")
-    p.add_argument("--links", help="JSON from `redress check-links --json`")
+    p.add_argument("--links", help="JSON from `escalate check-links --json`")
     p.add_argument("--days", type=int, default=180)
     p.add_argument("--worklist", type=int, metavar="N", help="print the N items the refresh routine should re-verify")
     p.set_defaults(func=cmd_freshness)
@@ -376,8 +376,8 @@ CLI_COMMANDS = {"setup", "install", "uninstall", "update", "playbook", "lookup",
 
 
 def serve_main() -> None:
-    """Entry point `redress-mcp`. With no command it runs the MCP server; `redress-mcp setup` (and other
-    CLI commands) work too, so `uvx redress-mcp setup` is the one command people need."""
+    """Entry point `escalate-anything`. With no command it runs the MCP server; `escalate-anything setup` (and other
+    CLI commands) work too, so `uvx escalate-anything setup` is the one command people need."""
     argv = sys.argv[1:]
     if argv and argv[0] in CLI_COMMANDS:
         sys.exit(main(argv))

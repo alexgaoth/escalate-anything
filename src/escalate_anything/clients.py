@@ -1,4 +1,4 @@
-"""Add the redress MCP server to the person's AI apps: `redress install <client>`.
+"""Add the Escalate Anything MCP server to the person's AI apps: `escalate install <client>`.
 
 Config locations and shapes were checked against each client's docs on 2026-10-12 (see docs/clients.md).
 JSON files are merged, never replaced, and backed up first. Files that may hold comments (JSONC) or
@@ -21,8 +21,8 @@ from typing import Callable
 
 from .registry import REPO_ROOT, data_root
 
-NAME = "redress"
-GIT_SOURCE = "git+https://github.com/alexgaoth/redress"
+NAME = "escalate-anything"
+GIT_SOURCE = "git+https://github.com/alexgaoth/escalate-anything"
 
 
 def server_command(source: str = "auto", read_only: bool = False) -> tuple[str, list[str]]:
@@ -35,11 +35,11 @@ def server_command(source: str = "auto", read_only: bool = False) -> tuple[str, 
         source = "local" if data_root() == REPO_ROOT else "pypi"
     if source == "local":
         uv = shutil.which("uv") or "uv"
-        return uv, ["run", "--quiet", "--directory", str(REPO_ROOT), "redress-mcp", *extra]
+        return uv, ["run", "--quiet", "--directory", str(REPO_ROOT), "escalate-anything", *extra]
     uvx = shutil.which("uvx") or "uvx"
     if source == "git":
-        return uvx, ["--from", GIT_SOURCE, "redress-mcp", *extra]
-    return uvx, ["redress-mcp", *extra]
+        return uvx, ["--from", GIT_SOURCE, "escalate-anything", *extra]
+    return uvx, ["escalate-anything", *extra]
 
 
 def _os() -> str:
@@ -115,10 +115,10 @@ def snippet(client: Client, cmd: str, args: list[str]) -> str:
     if client.fmt == "toml":
         return f'[mcp_servers.{NAME}]\ncommand = {json.dumps(cmd)}\nargs = {json.dumps(args)}\n'
     if client.id == "goose":
-        return ("extensions:\n  redress:\n    name: redress\n    type: stdio\n"
+        return ("extensions:\n  escalate-anything:\n    name: escalate-anything\n    type: stdio\n"
                 f"    cmd: {cmd}\n    args: {json.dumps(args)}\n    enabled: true\n    envs: {{}}\n    timeout: 300\n")
     if client.id == "continue":
-        return f"mcpServers:\n  - name: redress\n    type: stdio\n    command: {cmd}\n    args: {json.dumps(args)}\n"
+        return f"mcpServers:\n  - name: escalate-anything\n    type: stdio\n    command: {cmd}\n    args: {json.dumps(args)}\n"
     if client.id == "claude-code":
         return " ".join(["claude", "mcp", "add", "--scope", "user", NAME, "--", cmd, *args])
     return ""
@@ -126,7 +126,7 @@ def snippet(client: Client, cmd: str, args: list[str]) -> str:
 
 def _backup(path: Path) -> Path:
     stamp = dt.datetime.now().strftime("%Y%m%d-%H%M%S")
-    dest = path.with_name(f"{path.name}.bak-redress-{stamp}")
+    dest = path.with_name(f"{path.name}.bak-escalate-{stamp}")
     shutil.copy2(path, dest)
     return dest
 
@@ -180,7 +180,7 @@ def install(client_id: str, cmd: str, args: list[str], home: Path | None = None,
             new = re.sub(rf"^\[mcp_servers\.{NAME}\]\s*\n(?:(?!\[).*\n?)*", "", text, flags=re.M)
         else:
             if has:
-                return Result(client_id, "unchanged", str(path), "Already configured. Edit the [mcp_servers.redress] section to change it.")
+                return Result(client_id, "unchanged", str(path), "Already configured. Edit the [mcp_servers.escalate-anything] section to change it.")
             new = text + ("" if not text or text.endswith("\n") else "\n") + ("\n" if text else "") + snippet(client, cmd, args)
         if dry_run:
             return Result(client_id, "manual", str(path), f"Would write {path}:\n{snippet(client, cmd, args)}")
@@ -242,7 +242,7 @@ def main(args) -> int:
         for c in CLIENTS.values():
             mark = "found" if c.id in found else "     "
             print(f"  [{mark}] {c.id:<15} {c.label}")
-        print("\nInstall: redress install <client> [...]   or   redress install --all   (add --dry-run to preview)")
+        print("\nInstall: escalate install <client> [...]   or   escalate install --all   (add --dry-run to preview)")
         return 0
     targets = detected_clients() if args.all else args.clients
     unknown = [t for t in targets if t not in CLIENTS]
@@ -263,11 +263,11 @@ def setup(args) -> int:
     """Guided setup: find AI apps, show the planned changes, ask, apply with backups."""
     cmd, cargs = server_command(args.source, args.read_only)
     found = detected_clients()
-    print("redress setup: connect redress to your AI apps\n")
+    print("escalate setup: connect Escalate Anything to your AI apps\n")
     print(f"Server command: {cmd} {' '.join(cargs)}")
     if not found:
         print("\nNo supported AI apps were found. Manual setup for every app: "
-              "https://github.com/alexgaoth/redress/blob/main/docs/clients.md")
+              "https://github.com/alexgaoth/escalate-anything/blob/main/docs/clients.md")
         return 0
     targets = args.clients or found
     unknown = [t for t in targets if t not in CLIENTS]
@@ -279,7 +279,7 @@ def setup(args) -> int:
         print("\nFound:")
         for i, t in enumerate(found, 1):
             print(f"  {i}. {CLIENTS[t].label}")
-        answer = input("\nAdd redress to which apps? [Enter = all, numbers like 1,3, or n to cancel] ").strip().lower()
+        answer = input("\nAdd Escalate Anything to which apps? [Enter = all, numbers like 1,3, or n to cancel] ").strip().lower()
         if answer in ("n", "no"):
             print("Cancelled. Nothing changed.")
             return 0
@@ -312,6 +312,6 @@ def setup(args) -> int:
         code = max(code, 1 if r.status == "error" else 0)
     if restart:
         print(f"\nRestart {', '.join(restart)}. Then ask your agent, for example:")
-        print('  "My internet bill went up $25. Use redress to get it back down."')
+        print('  "My internet bill went up $25. Use Escalate Anything to get it back down."')
         print('  "Is this text from USPS real? <paste the text>"')
     return code
