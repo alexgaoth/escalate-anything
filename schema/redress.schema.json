@@ -33,6 +33,7 @@
           "enum": ["open", "login", "captcha", "human_only"]
         },
         "notes": {"type": "string"},
+        "verified_via": {"description": "How the value was seen: the live page, a browser, a document (PDF), a search-result snippet, or an archive copy.", "enum": ["page", "browser", "document", "search_snippet", "archive"]},
         "source": {"$ref": "#/$defs/url"},
         "last_verified": {"$ref": "#/$defs/date"}
       }
@@ -51,6 +52,7 @@
         "kind": {"enum": ["deadline", "policy", "compensation", "process", "limit", "contact", "fee"]},
         "claim": {"type": "string", "minLength": 10},
         "issues": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true},
+        "verified_via": {"description": "How the value was seen: the live page, a browser, a document (PDF), a search-result snippet, or an archive copy.", "enum": ["page", "browser", "document", "search_snippet", "archive"]},
         "source": {"$ref": "#/$defs/url"},
         "last_verified": {"$ref": "#/$defs/date"}
       }
@@ -99,6 +101,7 @@
         "text": {"type": "string", "minLength": 10},
         "kind": {"enum": ["official", "community"]},
         "issues": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true},
+        "verified_via": {"description": "How the value was seen: the live page, a browser, a document (PDF), a search-result snippet, or an archive copy.", "enum": ["page", "browser", "document", "search_snippet", "archive"]},
         "source": {"$ref": "#/$defs/url"},
         "last_verified": {"$ref": "#/$defs/date"}
       }

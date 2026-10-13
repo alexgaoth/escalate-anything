@@ -442,3 +442,16 @@ main, main.wrap { min-height: 70vh; padding-bottom: 64px; outline: none; }
   .topbar, .footer, .chips, .actions, .copy, .jump { display: none !important; }
   .pb > .pb-body { display: block; }
 }
+
+/* credibility */
+.grade { display: inline-grid; place-items: center; min-width: 1.6em; height: 1.6em; padding: 0 .35em; border-radius: 6px; font-weight: 700; font-size: .8rem; line-height: 1; }
+.grade-A { background: color-mix(in srgb, #1a7f37 18%, transparent); color: #1a7f37; }
+.grade-B { background: color-mix(in srgb, #9a6700 18%, transparent); color: #9a6700; }
+.grade-C { background: color-mix(in srgb, #cf222e 16%, transparent); color: #cf222e; }
+@media (prefers-color-scheme: dark) { .grade-A { color: #3fb950; } .grade-B { color: #d29922; } .grade-C { color: #f85149; } }
+.card-meta .grade { margin-left: auto; }
+.cred-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 6px 0 12px; font-size: .9rem; color: var(--muted); }
+.cred-line b { color: var(--text); font-weight: 600; }
+.cred-more { flex-basis: 100%; }
+.cred-more summary { cursor: pointer; font-size: .85rem; }
+.cred-more p { margin: 6px 0 0; }

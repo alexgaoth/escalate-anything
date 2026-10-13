@@ -27,6 +27,7 @@ from pathlib import Path
 from typing import Any
 
 from . import context
+from .credibility import company_credibility
 from .advisor import company_summary, get_escalation, get_playbook
 from .registry import Registry
 
@@ -83,10 +84,16 @@ def company_document(reg: Registry, c: dict, base_url: str = BASE_URL, today: dt
         "playbooks": {pb["issue"]: get_playbook(reg, c["id"], pb["issue"], None, today) for pb in c.get("playbooks", [])},
         "escalation": get_escalation(reg, c["id"], None, today)["ladder"],
         "security": context.security_view(c),
+        "credibility": company_credibility(reg, c, today),
         "dossier": {**_doc_meta(dossier), "file": f"dossiers/{c['id']}.md", "markdown": dossier.body} if dossier else None,
         "guide": {"key": c["sector"], **_doc_meta(guide), "file": f"guides/{c['sector']}.md",
                   "page": f"{base_url}#/guides/{c['sector']}"} if guide else None,
     }
+
+
+def _card_credibility(reg: Registry, c: dict, today: dt.date) -> dict[str, str]:
+    cc = company_credibility(reg, c, today)
+    return {"grade": cc["grade"], "verified": cc["last_verified"] or ""}
 
 
 def _doc_meta(doc: context.Doc | None) -> dict[str, str]:
@@ -223,6 +230,7 @@ def index_data(reg: Registry, base_url: str, today: dt.date) -> dict[str, Any]:
                 "also": c.get("also_sectors", []),
                 "channels": len(c.get("channels", [])),
                 "issues": [pb["issue"] for pb in c.get("playbooks", [])],
+                **_card_credibility(reg, c, today),
             }
             for c in sorted(reg.companies.values(), key=lambda c: c["name"].lower())
         ],
