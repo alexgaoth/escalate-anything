@@ -3,9 +3,9 @@
 
 # Redress: Get It Fixed
 
-### One MCP to get any big company to fix it, without getting scammed.
+### One MCP to get any big company to fix it.
 
-**Bill went up? Bag lost? Refund denied? Your agent knows who to contact, what to say, when to escalate, and which "support number" is a scam.**
+**Bill went up? Bag lost? Refund denied? Your agent knows who to contact, what to say, and when to escalate.**
 
 [![companies](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fintro.alexgaoth.com%2Fredress%2Fbadges%2Fcompanies.json)](https://intro.alexgaoth.com/redress/)
 [![data verified](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fintro.alexgaoth.com%2Fredress%2Fbadges%2Fverified.json)](docs/maintenance.md)
@@ -15,7 +15,7 @@
 [![MCP](https://img.shields.io/badge/MCP-server-5c4ee5?style=flat-square)](docs/clients.md)
 [![license](https://img.shields.io/badge/code_MIT·data_CC_BY_4.0-f4c430?style=flat-square)](LICENSE)
 
-**[Website](https://intro.alexgaoth.com/redress/) · [Check a number before you call](https://intro.alexgaoth.com/redress/#/check) · [Scam guide](https://intro.alexgaoth.com/redress/#/guides/scams)**
+**[Website](https://intro.alexgaoth.com/redress/) · [Guides](https://intro.alexgaoth.com/redress/#/guides)**
 
 [Quick start](#quick-start) · [How it works](#how-redress-works) · [What you can fix](#what-you-can-fix) · [Walkthroughs](#walkthroughs) · [Fresh and credible](#fresh-and-credible) · [FAQ](#faq)
 
@@ -47,7 +47,7 @@ uvx redress-mcp setup
 
 It finds your AI apps (Claude Desktop, Claude Code, Cursor, VS Code, Windsurf, Zed, Gemini CLI, Codex, LM Studio and [more](docs/clients.md)), shows the changes, and asks before writing. Each config is backed up first. Restart your app afterward.
 
-Or install with one click: [Cursor](https://cursor.com/install-mcp?name=redress&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyJyZWRyZXNzLW1jcCJdfQ%3D%3D) · [VS Code](https://insiders.vscode.dev/redirect/mcp/install?name=redress&config=%7B%22type%22%3A%22stdio%22%2C%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22redress-mcp%22%5D%7D) · [LM Studio](https://lmstudio.ai/install-mcp?name=redress&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyJyZWRyZXNzLW1jcCJdfQ%3D%3D) · [Goose](https://block.github.io/goose/extension?cmd=uvx&arg=redress-mcp&id=redress&name=redress&description=Verified+contacts%2C+playbooks+and+scam+checks+for+US+companies). Claude Code users can add the plugin, which also includes the skills: `claude plugin marketplace add alexgaoth/redress && claude plugin install redress@redress`.
+Or install with one click: [Cursor](https://cursor.com/install-mcp?name=redress&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyJyZWRyZXNzLW1jcCJdfQ%3D%3D) · [VS Code](https://insiders.vscode.dev/redirect/mcp/install?name=redress&config=%7B%22type%22%3A%22stdio%22%2C%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22redress-mcp%22%5D%7D) · [LM Studio](https://lmstudio.ai/install-mcp?name=redress&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyJyZWRyZXNzLW1jcCJdfQ%3D%3D) · [Goose](https://block.github.io/goose/extension?cmd=uvx&arg=redress-mcp&id=redress&name=redress&description=Contacts%2C+playbooks+and+escalation+paths+to+get+US+companies+to+fix+problems). Claude Code users can add the plugin, which also includes the skills: `claude plugin marketplace add alexgaoth/redress && claude plugin install redress@redress`.
 
 ### Ask your agent
 
@@ -56,18 +56,18 @@ United lost my bag on Friday's ORD→SFO flight. Use redress to get me reimburse
 ```
 
 ```text
-Is this text from USPS real? "Your package is held, pay a $1.99 redelivery fee at usps-redelivery-fee.com"
+My internet bill went from $80 to $105. Get it back down.
 ```
 
 ### Use the terminal
 
 ```bash
 uvx redress-mcp playbook comcast-xfinity bill_increase --state CA
-uvx redress-mcp verify "+1-888-555-0199" --company united-airlines
-uvx redress-mcp scam-check "Chase: your account is locked, send your money to yourself with Zelle"
+uvx redress-mcp playbook united-airlines delayed_baggage --state IL
+uvx redress-mcp lookup "spectrum"
 ```
 
-No install at all? Use the website: **[intro.alexgaoth.com/redress](https://intro.alexgaoth.com/redress/)**. The number checker runs in your browser and sends nothing.
+No install at all? Browse every company's playbooks on the website: **[intro.alexgaoth.com/redress](https://intro.alexgaoth.com/redress/)**.
 
 ## How redress works
 
@@ -77,7 +77,7 @@ flowchart LR
   B -->|MCP| C(redress)
   C --> D["Playbook: forms, phones,<br/>deadlines, evidence"]
   C --> E["Escalation: company → DOT,<br/>FCC, CFPB → your state"]
-  C --> F["Scam shield: is this<br/>number or link real?"]
+  C --> F["Context: how this company<br/>really handles complaints"]
   D & E & F --> G["Agent drafts the message<br/>or fills the form"]
   G -->|you approve| H[Company or regulator]
 ```
@@ -98,7 +98,6 @@ redress never sends, submits or pays anything. Your agent drafts; you approve. C
 | 🏠 Home services | Long contracts, early termination fees, cancelling in writing, door-to-door sales | ADT, Vivint, SimpliSafe, Brinks Home, Terminix, Orkin |
 | 🩺 Insurance | Claim denials, appeals, external review, surprise medical bills | UnitedHealthcare, Aetna, Cigna, Kaiser, State Farm, GEICO, Progressive |
 | 🛒 Shopping & subscriptions | Returns, missing packages, price adjustments, cancellations, free-trial charges, auto-renewals | Amazon, Walmart, Apple, Netflix, SiriusXM, Adobe, Norton, Peloton, Planet Fitness |
-| 🛡️ Scams | Is this call, text, email or link real? What will this company never ask for? | Every company, plus look-alike domain detection |
 | 🏛️ Regulators | The right federal agency and **your state's** attorney general, utility commission and insurance department | All 50 states and DC |
 
 [Browse all companies →](https://intro.alexgaoth.com/redress/)
@@ -109,15 +108,11 @@ redress never sends, submits or pays anything. Your agent drafts; you approve. C
 
 The playbook in the image above, from United's own pages: report within **24 hours** (21 days if international), claim expenses within **45 days**, use the exact claim form and the Baggage Recovery Center number, and check the **automatic bag-fee refund** owed after a 12-hour domestic delay under the DOT refund rule. If United doesn't answer, the next rung is a DOT complaint.
 
-### A fake "USPS" text
-
-<img src="docs/assets/demo-scam.svg" alt="redress flags a fake Chase text and shows that a phone number belongs to a different company" width="900" />
-
-`scam_check` flags the package-fee pattern and the look-alike domain (`usps-redelivery-fee.com` imitates USPS, whose only official domain is usps.com). `verify_contact` shows that a "United" number actually belongs to Xfinity.
-
 ### An internet bill that jumped $25
 
 The Xfinity playbook checks whether a promotion ended or the 5-Year Price Guarantee was broken, then gives the retention line, the dispute window from the subscriber agreement, and the FCC complaint as the next rung.
+
+Also included, as a side feature: each company's scam warnings (what it says it will never ask for, scams that use its name, where to report them), a [scam guide](https://intro.alexgaoth.com/redress/#/guides/scams), and `scam_check` for a quick red-flag read of a suspicious message.
 
 Got a result with redress? **[Share what worked](https://github.com/alexgaoth/redress/issues/new?template=share-your-case.yml)**: good cases become tactics for the next person.
 

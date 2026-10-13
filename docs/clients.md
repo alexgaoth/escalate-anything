@@ -21,7 +21,7 @@ Every app below runs the same command: `uvx redress-mcp`. Until the first PyPI r
 | Cursor | [![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=redress&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyJyZWRyZXNzLW1jcCJdfQ%3D%3D) |
 | VS Code | [![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=redress&config=%7B%22type%22%3A%22stdio%22%2C%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22redress-mcp%22%5D%7D) [![Install in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-Install_Server-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=redress&quality=insiders&config=%7B%22type%22%3A%22stdio%22%2C%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22redress-mcp%22%5D%7D) |
 | LM Studio | [![Add to LM Studio](https://files.lmstudio.ai/deeplink/mcp-install-dark.svg)](https://lmstudio.ai/install-mcp?name=redress&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyJyZWRyZXNzLW1jcCJdfQ%3D%3D) |
-| Goose | [![Install in Goose](https://block.github.io/goose/img/extension-install-dark.svg)](https://block.github.io/goose/extension?cmd=uvx&arg=redress-mcp&id=redress&name=redress&description=Verified+contacts%2C+playbooks+and+scam+checks+for+US+companies) |
+| Goose | [![Install in Goose](https://block.github.io/goose/img/extension-install-dark.svg)](https://block.github.io/goose/extension?cmd=uvx&arg=redress-mcp&id=redress&name=redress&description=Contacts%2C+playbooks+and+escalation+paths+to+get+US+companies+to+fix+problems) |
 
 ## By app
 
@@ -53,7 +53,7 @@ Then put HTTPS in front of it (a host such as Render with the included `render.y
 - **claude.ai:** Customize → Connectors → Add custom connector.
 - **ChatGPT:** Settings → Connectors (developer mode) → add a custom MCP server. Full MCP support depends on the plan.
 
-The read-only server has every lookup, `get_context`, `verify_contact` and `scam_check`. It has no case log, because a shared server must not hold anyone's case history.
+The read-only server has every lookup, `get_context` and `scam_check`. It has no case log, because a shared server must not hold anyone's case history.
 
 ## No MCP at all
 

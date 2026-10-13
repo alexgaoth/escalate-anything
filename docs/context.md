@@ -1,6 +1,6 @@
 # Writing dossiers, guides and security data
 
-Playbooks say *what to do*. Dossiers and guides say *how it actually goes*: how a company handles complaints, which channel gets results, what traps to avoid, and which scams use its name. Security data lets agents check whether a contact is real before anyone calls, clicks or pays.
+Playbooks say *what to do*. Dossiers and guides say *how it actually goes*: how a company handles complaints, which channel gets results, and what traps to avoid. A smaller section covers the scams that use each company's name.
 
 Validate everything with `uv run redress validate <files>`.
 

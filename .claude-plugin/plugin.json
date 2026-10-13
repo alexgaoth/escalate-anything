@@ -1,7 +1,7 @@
 {
   "name": "redress",
   "version": "0.1.0",
-  "description": "Resolve problems with US companies and avoid scams: playbooks, verified contacts, escalation ladders, scam checks, a local case log and bill watching.",
+  "description": "Get US companies to fix problems: playbooks, verified contacts, escalation ladders, a local case log and bill watching.",
   "author": {
     "name": "Alex Gao"
   },

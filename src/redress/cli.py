@@ -143,16 +143,6 @@ def cmd_playbook(args: argparse.Namespace) -> int:
     return 0
 
 
-def cmd_verify(args: argparse.Namespace) -> int:
-    from .context import verify_contact
-
-    r = verify_contact(Registry.load(), args.value, args.company)
-    print(f"{r['verdict'].upper()}: {r['advice']}")
-    for m in r["matches"]:
-        print(f"  on file for {m['name']}: {m['label']} (source: {m['source']}, verified {m['last_verified']})")
-    return 0 if r["verdict"] in ("on_file", "official_domain") else 2
-
-
 def cmd_scam_check(args: argparse.Namespace) -> int:
     from .context import scam_check
 
@@ -161,8 +151,6 @@ def cmd_scam_check(args: argparse.Namespace) -> int:
     print(f"Risk: {r['risk'].upper()}")
     for f in r["red_flags"]:
         print(f"  ! {f['why']}")
-    for c in r["contacts"]:
-        print(f"  {c['value']}: {c['verdict']}")
     print("\n".join(f"- {s}" for s in r["next_steps"]))
     print(r["note"])
     return 0 if r["risk"] == "low" else 2
@@ -323,11 +311,6 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_playbook)
 
-    p = sub.add_parser("verify", help="check whether a phone number, email or URL belongs to a company")
-    p.add_argument("value")
-    p.add_argument("--company")
-    p.set_defaults(func=cmd_verify)
-
     p = sub.add_parser("scam-check", help="check a message for scam red flags (text argument or stdin)")
     p.add_argument("text", nargs="?")
     p.add_argument("--company")
@@ -388,7 +371,7 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-CLI_COMMANDS = {"setup", "install", "uninstall", "update", "playbook", "lookup", "verify", "scam-check",
+CLI_COMMANDS = {"setup", "install", "uninstall", "update", "playbook", "lookup", "scam-check",
                 "credibility", "issues", "freshness", "validate", "stats", "cases", "feedback", "export", "site"}
 
 

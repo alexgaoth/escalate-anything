@@ -44,7 +44,7 @@ def banner(stats: dict, dark: bool) -> str:
 <rect x="64" y="58" width="8" height="64" rx="2" fill="{accent}"/>
 <text x="88" y="112" font-family="{SANS}" font-size="64" font-weight="700" letter-spacing="-1.5" fill="{fg}">redress</text>
 <text x="66" y="160" font-family="{SANS}" font-size="26" font-weight="600" fill="{fg}">Get it fixed. Don&#8217;t get scammed.</text>
-<text x="66" y="190" font-family="{SANS}" font-size="19" fill="{sub}">Verified contacts, playbooks, escalation paths and scam checks for US companies, for you and your AI agent.</text>
+<text x="66" y="190" font-family="{SANS}" font-size="19" fill="{sub}">Verified contacts, playbooks and escalation paths for US companies, for you and your AI agent.</text>
 {"".join(parts)}
 </svg>
 '''
@@ -93,11 +93,6 @@ def main() -> None:
     (OUT / "demo-playbook.svg").write_text(terminal(
         "redress playbook united-airlines delayed_baggage --state IL",
         run("playbook", "united-airlines", "delayed_baggage", "--state", "IL"), max_lines=26))
-    scam = ("Chase Fraud Dept: your account is locked. To protect your money, send it to yourself with Zelle now. "
-            "Verify at https://chase-secure-verify.com or call 1-888-555-0199")
-    out = run("scam-check", "--company", "chase", scam) + "\n" + "$ redress verify +1-800-934-6489 --company united\n" + \
-        run("verify", "+1-800-934-6489", "--company", "united")
-    (OUT / "demo-scam.svg").write_text(terminal('redress scam-check --company chase "Chase Fraud Dept: … send it to yourself with Zelle …"', out, max_lines=22))
     print("wrote", ", ".join(p.name for p in sorted(OUT.glob("*.svg"))))
 
 

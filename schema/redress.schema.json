@@ -140,7 +140,7 @@
         "tips": {"type": "array", "items": {"$ref": "#/$defs/tip"}},
         "known_blockers": {"type": "array", "items": {"type": "string"}},
         "official_domains": {
-          "description": "Domains the company uses for customer contact (web, email). Used to tell real contacts from impersonators.",
+          "description": "Domains the company owns and uses for customer contact (web, email). Sources on these domains count as official in the credibility grade.",
           "type": "array", "uniqueItems": true,
           "items": {"type": "string", "pattern": "^[a-z0-9-]+(\\.[a-z0-9-]+)*\\.[a-z]{2,}$"}
         },

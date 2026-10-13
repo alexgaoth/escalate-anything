@@ -1,6 +1,6 @@
 {
   "name": "redress",
-  "description": "redress: verified contacts, playbooks, escalation paths and scam checks for US companies.",
+  "description": "redress: verified contacts, playbooks and escalation paths to get US companies to fix problems.",
   "owner": {
     "name": "Alex Gao"
   },
