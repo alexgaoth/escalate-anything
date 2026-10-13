@@ -70,3 +70,19 @@ tips:
 
 known_blockers:
   - The baggage claim form needs sign-in with the loyalty account or the file reference number.
+
+official_domains: [example.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Example Air never asks for payment by gift card.
+      source: https://www.example.com/security
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Report phishing
+      value: phishing@example.com
+      source: https://www.example.com/security
+      last_verified: 2026-10-12
