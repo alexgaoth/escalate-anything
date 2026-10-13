@@ -1,0 +1,108 @@
+id: cri
+name: CRI
+aliases: [cri federal student loan servicing, central research inc, cri.studentaid.gov]
+sector: student_loan
+website: https://cri.studentaid.gov/
+account_url: https://cri.studentaid.gov/
+regulators: [ed-fsa, cfpb]
+notes: >-
+  CRI is a federal student loan servicer for the U.S. Department of Education at cri.studentaid.gov (NMLS ID 1215163 on
+  its contact page). The expansion "Central Research, Inc." and any parent company were not confirmed on a source. No
+  2025-2026 change to CRI's federal servicing role was confirmed. CRI's site loads its content with scripts, so the values
+  here come from official-domain search snippets.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service
+    value: +1-833-355-4311
+    purposes: [student_loan_servicing, account_access, debt_collection]
+    notes: >-
+      Shown on CRI's contact page and Alternative Formats page. A StudentAid.gov servicer list was reported to show
+      1-888-355-4311 instead; that page could not be read to check. Hours were not confirmed.
+    source: https://cri.studentaid.gov/profile/contact-info
+    last_verified: 2026-10-12
+  - id: customer-service-email
+    type: email
+    label: Customer service email (also for alternative-format requests such as Braille or large print)
+    value: CSServices@CRI.studentaid.gov
+    purposes: [student_loan_servicing]
+    source: https://cri.studentaid.gov/content/alternativeformat
+    last_verified: 2026-10-12
+  - id: borrower-site
+    type: portal
+    label: CRI federal student loan site (borrower account)
+    value: https://cri.studentaid.gov/
+    purposes: [student_loan_servicing, account_access]
+    access: login
+    notes: The exact login page URL was not confirmed.
+    source: https://cri.studentaid.gov/profile/contact-info
+    last_verified: 2026-10-12
+  - id: fsa-feedback-center
+    type: web_form
+    label: Federal Student Aid Feedback Center (complaints about any federal loan servicer)
+    value: https://studentaid.gov/feedback-center/
+    purposes: [student_loan_servicing, debt_collection]
+    notes: Run by Federal Student Aid (U.S. Department of Education), not by CRI. Other federal servicers' sites link to it as "Submit a Complaint".
+    source: https://mohela.studentaid.gov/DL/common/publicInfo/StudentLoanAdvocates.aspx
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: customer-service-email, note: "CRI's correspondence address was not confirmed."}
+  - {rung: regulator, regulator: ed-fsa, channel: fsa-feedback-center}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: student_loan_servicing
+    summary: Ask CRI to correct the error in writing, then complain to Federal Student Aid, then to the CFPB.
+    evidence: [loan account number, payment history, billing statements and letters from CRI, dates and names from calls, copies of forms you sent]
+    steps:
+      - do: Call CRI and describe the error. Write down the date, the representative's name and any reference number.
+        channel: customer-service-phone
+      - do: Send a written request to correct the error, with your proof. Keep a copy.
+        channel: customer-service-email
+      - do: If CRI does not fix it, submit a complaint to the Federal Student Aid Feedback Center. Attach your timeline and CRI's replies.
+        channel: fsa-feedback-center
+        regulator: ed-fsa
+        note: >-
+          Edfinancial's and MOHELA's Student Loan Advocates pages list the FSA Ombudsman Group at P.O. Box 1854, Monticello,
+          KY 42633, and link state student loan ombudsman offices at https://studentaid.gov/feedback-ombudsman/disputes/state-ombudsman.
+      - do: If the problem continues, file a complaint with the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: >-
+          After a March 10, 2026 court order on SAVE, federal loan servicers began sending notices on July 1, 2026. Borrowers
+          have 90 days from their servicer's notice to leave SAVE; those who miss it are automatically enrolled in the Standard
+          or the new Tiered Standard plan.
+        issues: [student_loan_servicing]
+        source: https://ticas.org/affordability-2/reconciliation-2025-borrower-faqs/
+        last_verified: 2026-10-12
+  - issue: debt_collection
+    summary: Credit reporting of a CRI loan, or a loan that went into default.
+    evidence: [credit report page with the entry, proof of payment or of a deferment or forbearance at that time, letters from CRI]
+    steps:
+      - do: Ask CRI in writing to correct a wrong late-payment entry. Attach proof. You can also dispute directly with Equifax, Experian and TransUnion.
+        channel: customer-service-email
+      - do: If the loan is in default, it may no longer be with CRI. Contact the Department of Education's Default Resolution Group (see facts) and ask which office now collects it.
+      - do: If the reporting is still wrong, complain to the Federal Student Aid Feedback Center, then to the CFPB.
+        channel: fsa-feedback-center
+        regulator: ed-fsa
+    facts:
+      - kind: contact
+        claim: Edfinancial's list of federal student loan servicers gives the Default Resolution Group at 1-800-621-3115 (myeddebt.ed.gov).
+        issues: [debt_collection]
+        source: https://edfinancial.studentaid.gov/finding-your-student-loans
+        last_verified: 2026-10-12
+      - kind: process
+        claim: On March 19, 2026, the Departments of Education and the Treasury announced that Treasury will assume operational responsibility for collecting defaulted federal student loans, and in later phases will work to support non-defaulted loans.
+        issues: [debt_collection]
+        source: https://home.treasury.gov/news/press-releases/sb0419
+        last_verified: 2026-10-12
+
+known_blockers:
+  - CRI's site (cri.studentaid.gov) loads its content with scripts; plain HTTP fetches return empty pages, so hours and mailing addresses were not confirmed.
+  - The phone number differs between CRI's own pages (833-355-4311) and a reported StudentAid.gov listing (888-355-4311).
+  - The borrower account needs the borrower's login.

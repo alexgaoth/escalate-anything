@@ -1,0 +1,167 @@
+id: google-pay
+name: Google Pay and Google Wallet
+aliases: [gpay, google wallet, google payment corp, google pay balance]
+sector: payments
+parent: Google LLC (Google Payment Corp. is a subsidiary of Google LLC)
+website: https://pay.google.com
+account_url: https://wallet.google.com
+regulators: [cfpb, ftc]
+notes: >-
+  Google Payment Corp. (GPC) provides the Google Pay Balance and Balance in Google Wallet services under the
+  Google Payments Terms of Service (last modified July 22, 2026). Cards stored in Google Wallet stay with their
+  issuing bank: Google cannot issue refunds for third-party merchants, so those disputes go to the merchant and then
+  the card issuer. On June 22, 2026 the virtual Google Pay Balance Card was removed as a payment method; the Google
+  Pay balance itself remains accessible at wallet.google.com.
+
+channels:
+  - id: unauthorized-transaction-form
+    type: web_form
+    label: Google unauthorized transaction dispute form (charges from Google, descriptor GOOGLE*)
+    value: https://pay.google.com/payments/u/0/unauthorizedtransactions
+    purposes: [unauthorized_charge]
+    access: login
+    notes: >-
+      Only for finalized charges; pending temporary holds cannot be disputed. Check status at
+      https://pay.google.com/payments/u/0/unauthorizedtransactions?uts=status
+    source: https://support.google.com/googlepay/answer/10002386?hl=en
+    last_verified: 2026-10-12
+  - id: help-contact
+    type: web_form
+    label: Google Pay Help contact us
+    value: https://support.google.com/googlepay/gethelp
+    purposes: [unauthorized_charge, frozen_funds, account_access]
+    access: login
+    notes: Redirects to Google sign-in. Google Pay Help lists no general phone number or email.
+    source: https://support.google.com/googlepay/answer/9039712?hl=en
+    last_verified: 2026-10-12
+  - id: gpc-error-phone
+    type: phone
+    label: Google Payment Corp. customer service for Google Pay Balance and Balance in Google Wallet errors and complaints
+    value: +1-888-986-7944
+    purposes: [unauthorized_charge, billing_error, frozen_funds]
+    access: human_only
+    notes: For Google Pay Balance and Balance in Google Wallet only, not for cards stored in Google Wallet. For a Balance in Google Wallet, only the Family Manager can file a report.
+    source: https://wallet.google.com/files/error-resolution.html
+    last_verified: 2026-10-12
+  - id: gpc-complaints-mail
+    type: mail
+    label: Google Payment Corp. Complaints Handling (balance errors and complaints)
+    value: Google Payment Corp. – Complaints Handling, P.O. Box 727, Mountain View, CA 94042
+    purposes: [unauthorized_charge, billing_error]
+    notes: >-
+      ZIP 94042 is from the Google Payments Terms of Service; the Customer Service and Error Resolution Policy
+      (wallet.google.com/files/error-resolution.html) prints the same P.O. box with ZIP 94043.
+    source: https://payments.google.com/payments/apis-secure/u/0/get_legal_document?ldo=0&ldt=buyertos&ldr=US
+    last_verified: 2026-10-12
+  - id: wallet-web
+    type: portal
+    label: Google Wallet on the web (balance, transfers, Report an issue)
+    value: https://wallet.google.com
+    purposes: [frozen_funds, unauthorized_charge]
+    access: login
+    source: https://support.google.com/googlepay/answer/10197214?hl=en
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: help-contact}
+  - {rung: written_complaint, channel: gpc-complaints-mail, note: "For Google Pay Balance and Balance in Google Wallet."}
+  - {rung: payment_dispute, note: "For a card stored in Google Wallet, dispute the charge with the card issuer."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator, note: "Google lists its state licenses and regulator contacts at support.google.com/googlepay/answer/7160765."}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Charges from Google go through Google's unauthorized transaction form; charges on a card in Google Wallet go to the card issuer; balance errors go to Google Payment Corp. within 60 days.
+    evidence: [charge date, amount and descriptor, statement, proof you or your family did not make it]
+    steps:
+      - do: Confirm the charge is finalized and that no family member made it.
+      - do: For a charge from Google (descriptor GOOGLE*), submit the unauthorized transaction dispute form.
+        channel: unauthorized-transaction-form
+      - do: For a charge from another merchant on a card stored in Google Wallet, contact the merchant, then your bank or card issuer.
+      - do: For an error on a Google Pay Balance or Balance in Google Wallet, call or write to Google Payment Corp. within 60 days.
+        channel: gpc-error-phone
+      - do: If the error is not fixed, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: Pending temporary holds cannot be disputed. After you submit the unauthorized transaction form, Google sends an email update within a few days.
+        issues: [unauthorized_charge]
+        source: https://support.google.com/googlepay/answer/10002386?hl=en
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: For Google Pay Balance errors, notify Google Payment Corp. no later than 60 days after the earlier of the date you electronically access your account or the date of the first statement showing the error.
+        issues: [unauthorized_charge, billing_error]
+        source: https://wallet.google.com/files/error-resolution.html
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Google Payment Corp. determines whether an error occurred within 10 business days, may take up to 45 days (up to 90 days for new accounts, new cards or foreign-initiated transactions), and tells you the result within 3 business days after the investigation.
+        issues: [unauthorized_charge, billing_error]
+        source: https://wallet.google.com/files/error-resolution.html
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: If you report a lost or stolen login or card within 2 business days, you can lose no more than $50; otherwise you could lose as much as $500.
+        issues: [unauthorized_charge]
+        source: https://wallet.google.com/files/error-resolution.html
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: Google cannot refund third-party merchant purchases; ask the merchant, then dispute with the card issuer. Google product refunds go to that product's support team.
+    evidence: [order confirmation, merchant correspondence, refund ARN or trace number if the merchant says it refunded]
+    steps:
+      - do: Ask the merchant's customer support for the refund.
+      - do: If the merchant says it refunded but the money has not arrived, ask for the ARN or trace number and give it to your bank.
+      - do: If the merchant does not resolve it, dispute the charge with your bank or card issuer at once.
+      - do: For a Google product (Play, YouTube, Google One, Google Store), send the refund request to that product's support team.
+    facts:
+      - kind: policy
+        claim: Google says it cannot directly issue refunds or cancel external subscriptions for third-party merchants.
+        issues: [refund_request, transaction_dispute]
+        source: https://support.google.com/googlepay/answer/10002386?hl=en
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Merchant refunds can take 2 to 4 weeks to post and go back to the original payment method, not to Google Wallet history.
+        issues: [refund_request]
+        source: https://support.google.com/googlepay/answer/10002386?hl=en
+        last_verified: 2026-10-12
+
+  - issue: transaction_dispute
+    summary: Talk to the store first, then dispute with the card issuer; for a child's Balance in Google Wallet the Family Manager disputes in wallet.google.com.
+    evidence: [transaction details, messages with the store]
+    steps:
+      - do: Contact the store and try to fix the problem.
+      - do: If that fails, dispute the payment with your bank or card issuer.
+      - do: For a child's Balance in Google Wallet, the Family Manager opens wallet.google.com > Family > child > transaction > Report an issue > Dispute.
+        channel: wallet-web
+    facts:
+      - kind: process
+        claim: For a Balance in Google Wallet dispute, a temporary credit is added if review takes more than 10 business days, and the full investigation may take up to 45 business days.
+        issues: [transaction_dispute]
+        source: https://support.google.com/googlepay/answer/10002386?hl=en
+        last_verified: 2026-10-12
+
+  - issue: frozen_funds
+    summary: Use Google Pay Help (signed in) for a suspended account; ask Google Payment Corp. in writing for held balance funds.
+    evidence: [suspension notice, balance amount]
+    steps:
+      - do: If you see "Account suspended" or "Account not supported", contact Google Pay Help while signed in.
+        channel: help-contact
+      - do: Ask in writing for release of the held balance.
+        channel: gpc-complaints-mail
+      - do: If the funds are not released, complain to the CFPB and your state financial regulator.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: Google may restrict access to a Google Pay account or Google Pay Balance temporarily or permanently. If it suspends the account, it will provide any held funds to you to the extent permitted by law.
+        issues: [frozen_funds]
+        source: https://payments.google.com/payments/apis-secure/u/0/get_legal_document?ldo=0&ldt=buyertos&ldr=US
+        last_verified: 2026-10-12
+      - kind: process
+        claim: A transfer out of the Google Pay balance to a linked bank account should be available within 1 to 5 business days.
+        issues: [frozen_funds]
+        source: https://support.google.com/googlepay/answer/10197214?hl=en
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Google Pay Help contact and the unauthorized transaction form need Google sign-in.
+  - For a Balance in Google Wallet, only the Family Manager can file a dispute or error report.
+  - Google has no published general phone line for Google Wallet card issues; those go to the card issuer.

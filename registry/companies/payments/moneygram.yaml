@@ -1,0 +1,47 @@
+id: moneygram
+name: MoneyGram
+aliases: [moneygram international, money gram, moneygram payment systems]
+sector: payments
+parent: Madison Dearborn Partners (private equity)
+website: https://www.moneygram.com
+regulators: [cfpb, ftc]
+notes: >-
+  MoneyGram International, Inc. was taken private by funds of Madison Dearborn Partners. The acquisition was
+  completed in 2023. moneygram.com refused automated page fetches (HTTP 403) on 2026-10-12, so the only
+  channel here is the MoneyGram number published by the FTC. The US terms, the error-resolution disclosure, a fraud
+  form URL and a complaint address are not yet verified.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: MoneyGram (report a fraudulent transfer)
+    value: +1-800-926-9400
+    purposes: [fraud]
+    access: human_only
+    notes: >-
+      Listed by the FTC as the MoneyGram number to call right away about a transfer sent to a scammer. Tell them
+      it was a fraudulent transfer and ask them to reverse it. Have the transfer reference number ready.
+    source: https://consumer.ftc.gov/articles/what-know-you-wire-money
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, note: "No MoneyGram US complaint address was verified. Ask customer service where to send a written complaint."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+
+playbooks:
+  - issue: fraud
+    summary: Call MoneyGram Customer Service at once to report the scam and ask it to stop the transfer.
+    evidence: [transfer reference number, amount and date, receiver name and location, messages from the scammer]
+    steps:
+      - do: Call MoneyGram Customer Service as soon as possible. Report the fraud and ask whether the transfer can still be stopped.
+        channel: customer-service-phone
+      - do: Report the scam to the FTC at ReportFraud.ftc.gov and to local police.
+        regulator: ftc
+      - do: If MoneyGram does not resolve it, complain to the CFPB with the reference number and timeline.
+        regulator: cfpb
+
+known_blockers:
+  - moneygram.com returned HTTP 403 to automated page fetches on 2026-10-12. An agent may not be able to read MoneyGram help pages or use its web forms.
+  - The phone line needs the customer.

@@ -1,0 +1,107 @@
+id: nelnet
+name: Nelnet
+aliases: [nelnet federal student loans, nelnet federal student loan services, nelnet.studentaid.gov]
+sector: student_loan
+parent: Nelnet, Inc. (NYSE NNI)
+website: https://nelnet.studentaid.gov/
+account_url: https://nelnet.studentaid.gov/
+regulators: [ed-fsa, cfpb]
+notes: >-
+  Nelnet, Inc. (nelnet.com) says it provides federal loan services for the Department of Education and directs federal
+  student loan borrowers serviced by Nelnet to Nelnet.StudentAid.gov. Borrowers with FFEL loans held by other lenders are
+  sent to a different site. No 2025-2026 change to Nelnet's federal servicing role was confirmed on a source. Nelnet's
+  borrower site loads its content with scripts, so its hours and addresses could not be read.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Federal student loan customer service
+    value: +1-888-486-4722
+    purposes: [student_loan_servicing, account_access, debt_collection]
+    notes: >-
+      Number taken from Edfinancial's list of federal student loan servicers. Nelnet's own site could not be read, and
+      its hours were not confirmed.
+    source: https://edfinancial.studentaid.gov/finding-your-student-loans
+    last_verified: 2026-10-12
+  - id: borrower-site
+    type: portal
+    label: Nelnet federal student loan site (borrower account)
+    value: https://nelnet.studentaid.gov/
+    purposes: [student_loan_servicing, account_access]
+    access: login
+    notes: The exact login page URL was not confirmed. Account actions need the borrower's login.
+    source: https://nelnet.com/capabilities/federal-student-loan-services/federal-loan-services/
+    last_verified: 2026-10-12
+  - id: fsa-feedback-center
+    type: web_form
+    label: Federal Student Aid Feedback Center (complaints about any federal loan servicer)
+    value: https://studentaid.gov/feedback-center/
+    purposes: [student_loan_servicing, debt_collection]
+    notes: Run by Federal Student Aid (U.S. Department of Education), not by Nelnet. Other federal servicers' sites link to it as "Submit a Complaint".
+    source: https://mohela.studentaid.gov/DL/common/publicInfo/StudentLoanAdvocates.aspx
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: borrower-site, note: "Nelnet's correspondence address was not confirmed. Put the request in writing through the borrower account, or use the address on the billing statement, and keep a copy."}
+  - {rung: regulator, regulator: ed-fsa, channel: fsa-feedback-center}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: student_loan_servicing
+    summary: Ask Nelnet to correct the error in writing, then complain to Federal Student Aid, then to the CFPB.
+    evidence: [loan account number, payment history, billing statements and letters from Nelnet, dates and names from calls, copies of forms you sent]
+    steps:
+      - do: Call Nelnet and describe the error. Write down the date, the representative's name and any reference number.
+        channel: customer-service-phone
+      - do: Send a written request to correct the error, with copies of your proof, through the borrower account. Keep a copy.
+        channel: borrower-site
+      - do: If Nelnet does not fix it, submit a complaint to the Federal Student Aid Feedback Center. Attach your timeline and Nelnet's replies.
+        channel: fsa-feedback-center
+        regulator: ed-fsa
+        note: >-
+          Edfinancial's and MOHELA's Student Loan Advocates pages list the FSA Ombudsman Group at P.O. Box 1854, Monticello,
+          KY 42633, and link state student loan ombudsman offices at https://studentaid.gov/feedback-ombudsman/disputes/state-ombudsman.
+      - do: If the problem continues, file a complaint with the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: >-
+          After a March 10, 2026 court order on SAVE, federal loan servicers began sending notices on July 1, 2026. Borrowers
+          have 90 days from their servicer's notice to leave SAVE; those who miss it are automatically enrolled in the Standard
+          or the new Tiered Standard plan. Nelnet said it was notifying nearly three million borrowers in waves.
+        issues: [student_loan_servicing]
+        source: https://ticas.org/affordability-2/reconciliation-2025-borrower-faqs/
+        last_verified: 2026-10-12
+  - issue: debt_collection
+    summary: Credit reporting of a Nelnet loan, or a loan that went into default.
+    evidence: [credit report page with the entry, proof of payment or of a deferment or forbearance at that time, letters from Nelnet]
+    steps:
+      - do: Ask Nelnet in writing to correct a wrong late-payment entry. Attach proof. You can also dispute directly with Equifax, Experian and TransUnion.
+        channel: borrower-site
+      - do: If the loan is in default, it may no longer be with Nelnet. Contact the Department of Education's Default Resolution Group (see facts) and ask which office now collects it.
+      - do: If the reporting is still wrong, complain to the Federal Student Aid Feedback Center, then to the CFPB.
+        channel: fsa-feedback-center
+        regulator: ed-fsa
+    facts:
+      - kind: contact
+        claim: Edfinancial's list of federal student loan servicers gives the Default Resolution Group at 1-800-621-3115 (myeddebt.ed.gov).
+        issues: [debt_collection]
+        source: https://edfinancial.studentaid.gov/finding-your-student-loans
+        last_verified: 2026-10-12
+      - kind: process
+        claim: On March 19, 2026, the Departments of Education and the Treasury announced that Treasury will assume operational responsibility for collecting defaulted federal student loans, and in later phases will work to support non-defaulted loans.
+        issues: [debt_collection]
+        source: https://home.treasury.gov/news/press-releases/sb0419
+        last_verified: 2026-10-12
+
+facts:
+  - kind: contact
+    claim: Nelnet's corporate site directs federal student loan borrowers serviced by Nelnet to Nelnet.StudentAid.gov.
+    source: https://nelnet.com/businesses/nelnet-federal-student-loan-services/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Nelnet's borrower site (nelnet.studentaid.gov) loads its content with scripts; plain HTTP fetches return empty pages, so hours, mailing and payment addresses were not confirmed.
+  - The borrower account needs the borrower's login.

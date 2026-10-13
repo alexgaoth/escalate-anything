@@ -1,0 +1,98 @@
+id: zelle
+name: Zelle
+aliases: [zellepay, zelle network]
+sector: payments
+parent: Early Warning Services, LLC
+website: https://www.zelle.com
+regulators: [cfpb, ftc]
+notes: >-
+  Zelle is now used only through participating banks' and credit unions' apps and online banking. On
+  2024-10-31 Zelle announced it was phasing out enrolling and sending money in its standalone app, and told
+  standalone users to re-enroll through a bank or credit union by March 2025; the app was to become a scam-education
+  app. Disputes, fraud claims and unauthorized-payment claims go to the user's own bank or credit union
+  (the number on the back of the debit card). Zelle itself runs a fraud and scam question line.
+
+channels:
+  - id: fraud-scam-phone
+    type: phone
+    label: Zelle line for questions about fraud or scams
+    value: +1-844-428-8542
+    hours: 8 AM to 10 PM ET, 7 days a week, except Independence Day, Thanksgiving, Christmas and New Year's Day
+    purposes: [fraud, unauthorized_charge]
+    notes: >-
+      For questions only. If you enrolled through your bank or credit union, report the transaction directly to
+      that bank or credit union.
+    source: https://www.zelle.com/support/report-scam
+    last_verified: 2026-10-12
+  - id: report-scam-page
+    type: portal
+    label: Zelle report a fraud or scam guidance
+    value: https://www.zelle.com/support/report-scam
+    purposes: [fraud, unauthorized_charge]
+    access: open
+    notes: Information page, not a form. It points to the user's bank, the FTC, IdentityTheft.gov and the FBI's IC3.
+    source: https://www.zelle.com/support/report-scam
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, note: "The user's bank or credit union that offers Zelle (number on the back of the debit card)."}
+  - {rung: written_complaint, note: "Written error notice to the bank or credit union under its account agreement."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+
+playbooks:
+  - issue: fraud
+    summary: Report the payment to your own bank or credit union at once, then report the scam to the FTC; Zelle payments cannot be reversed, but qualifying impostor scams may be reimbursed.
+    evidence: [payment date, amount and recipient token (email or U.S. mobile number), scammer's messages, FTC or police report number]
+    steps:
+      - do: Call your bank or credit union at the number on the back of your debit card and report the Zelle payment as a scam. Ask whether it qualifies for impostor-scam reimbursement.
+      - do: Ask the bank to confirm the claim in writing and give you a claim number.
+      - do: Report the scam to the FTC at reportfraud.ftc.gov (Zelle links reportfraud.ftc.gov/#/?orgcode=ZELLE), and identity theft at IdentityTheft.gov.
+        regulator: ftc
+      - do: For general questions about fraud or scams on Zelle, call the Zelle fraud and scam line.
+        channel: fraud-scam-phone
+      - do: If the bank denies the claim without a clear reason, complain about the bank to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: Zelle payments cannot be reversed. You can only cancel a payment if the recipient has not yet enrolled with Zelle.
+        issues: [fraud, transaction_dispute]
+        source: https://www.zelle.com/faq
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Zelle says qualifying impostor scams may be eligible for reimbursement.
+        issues: [fraud]
+        source: https://www.zelle.com/faq
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: A Zelle payment someone made from your account without permission is reported to your bank or credit union, which handles the claim.
+    evidence: [bank statement with the Zelle payment, date, amount, recipient]
+    steps:
+      - do: Call your bank or credit union at the number on the back of your debit card. Say the Zelle payment was unauthorized (someone else accessed your account).
+      - do: Change your online banking password and confirm the claim and its number in writing.
+      - do: If the bank does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: Zelle says unauthorized payments, where someone accessed your account without permission, typically qualify for reimbursement.
+        issues: [unauthorized_charge]
+        source: https://www.zelle.com/support/report-scam
+        last_verified: 2026-10-12
+      - kind: contact
+        claim: Zelle directs users with issues in their bank's app or online banking to contact the number on the back of their debit card.
+        issues: [unauthorized_charge, fraud, transaction_dispute]
+        source: https://www.zelle.com/support/contact-support
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: >-
+      On October 31, 2024 Zelle announced it was phasing out the ability to enroll and transact in its standalone app,
+      and told standalone users they had until March 2025 to re-enroll at a bank or credit union.
+    source: https://www.zelle.com/blog/were-evolving-how-consumers-send-money-zelle
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Zelle does not take disputes; the claim must be filed by the account holder with their own bank or credit union, usually by phone.
+  - Zelle payments cannot be reversed once the recipient is enrolled, so a refund depends on the bank's claim decision.

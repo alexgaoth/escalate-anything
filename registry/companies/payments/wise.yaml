@@ -1,0 +1,270 @@
+id: wise
+name: Wise
+aliases: [transferwise, wise us inc, wise.com]
+sector: payments
+website: https://wise.com/us/
+account_url: https://wise.com/login/
+regulators: [cfpb, ftc]
+notes: >-
+  US customers contract with Wise US Inc. (US Customer Agreement version 1.5, last updated 2026-09-25),
+  NMLS ID 1351219, licensed as a money transmitter in most states. In other states Wise offers services
+  with partner financial institutions (program sponsored by Community Federal Savings Bank) under separate terms.
+  Wise moved its primary stock listing from London to Nasdaq in May 2026.
+  The agreement gives two support numbers, +1-888-908-3833 and +1-844-926-4389.
+
+channels:
+  - id: support-phone
+    type: phone
+    label: Wise US customer support
+    value: +1-888-908-3833
+    purposes: [transaction_dispute, unauthorized_charge, fraud, refund_request, frozen_funds, poor_service]
+    access: human_only
+    notes: The number in the error-resolution section of the US Customer Agreement and in the state licensing disclosures.
+    source: https://wise.com/gateway/v1/us/disclosures/long-form
+    last_verified: 2026-10-12
+  - id: contact-phone
+    type: phone
+    label: Wise US contact and complaints line
+    value: +1-844-926-4389
+    purposes: [poor_service, refund_request, frozen_funds]
+    access: human_only
+    source: https://wise.com/us/legal/terms-of-use
+    last_verified: 2026-10-12
+  - id: support-email
+    type: email
+    label: Wise Support (error and unauthorized transaction notices)
+    value: Support@wise.com
+    purposes: [transaction_dispute, unauthorized_charge]
+    notes: Send from the email address linked to the Wise account.
+    source: https://wise.com/us/legal/terms-of-use
+    last_verified: 2026-10-12
+  - id: complaints-email
+    type: email
+    label: Wise complaints team
+    value: complaints-team@wise.com
+    purposes: [poor_service, frozen_funds, refund_request, transaction_dispute]
+    source: https://wise.com/us/legal/state-licenses
+    last_verified: 2026-10-12
+  - id: compliance-mail
+    type: mail
+    label: Written errors and complaints, Wise Compliance
+    value: Wise US Inc., ATTN Wise Compliance, 30 W 26th Street, Floor 6, New York, NY 10010
+    purposes: [transaction_dispute, unauthorized_charge, poor_service]
+    notes: Mail only. Wise says this office is not open to customers.
+    source: https://wise.com/us/legal/terms-of-use
+    last_verified: 2026-10-12
+  - id: help-center-contact
+    type: portal
+    label: Help Center contact (chat, email, call-back options)
+    value: https://wise.com/login/?redirectUrl=/help/contact
+    purposes: [poor_service, refund_request, transaction_dispute, frozen_funds]
+    access: login
+    source: https://wise.com/us/help/
+    last_verified: 2026-10-12
+  - id: logged-out-contact
+    type: web_form
+    label: Contact Wise when you cannot log in
+    value: https://wise.com/help/contact/flows/logged-out
+    purposes: [account_access, unauthorized_charge, fraud]
+    access: open
+    source: https://wise.com/us/help/
+    last_verified: 2026-10-12
+  - id: scam-report-form
+    type: portal
+    label: Report fraud or a scam (guided victim report)
+    value: https://wise.com/help/victim-report/create
+    purposes: [fraud]
+    access: login
+    notes: In the app, open the transfer, tap "?" and choose "How do I report a fraudulent payment?".
+    source: https://wise.com/us/help/articles/2978048/how-do-i-report-fraud-or-a-scam
+    last_verified: 2026-10-12
+  - id: card-dispute
+    type: portal
+    label: Dispute a Wise card payment
+    value: https://wise.com/login?redirectUrl=%2Fdispute
+    purposes: [unauthorized_charge, transaction_dispute]
+    access: login
+    source: https://wise.com/us/help/articles/xfWMm6axrxXwk3CdoCgGG/someone-may-have-access-to-my-wise-account
+    last_verified: 2026-10-12
+  - id: appeals
+    type: portal
+    label: Appeal an account decision or request a refund after closure
+    value: https://wise.com/appeals
+    purposes: [frozen_funds]
+    access: login
+    notes: The account owner needs access to the registered email. If the page does not work, reply to the deactivation email.
+    source: https://wise.com/us/help/articles/4iI8qrjPXnkWFgg0tNhPvY/how-do-i-appeal-my-account-decision
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: support-phone}
+  - {rung: written_complaint, channel: complaints-email, note: "Wise aims to give a final response within 15 calendar days, extended to 35 calendar days if it tells you why."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator, note: "Wise lists each state regulator on its state licenses page."}
+  - {rung: arbitration, note: "JAMS arbitration under section 28 of the US Customer Agreement. You can reject it within 21 days after the account opens."}
+
+playbooks:
+  - issue: fraud
+    summary: Report a scam through the logged-in victim report. Wise can try to recall the money but does not guarantee a refund.
+    evidence: [transfer ID, amount and date, recipient details, messages from the scammer, police report number]
+    steps:
+      - do: Sign in and file the guided scam report, or start it from the transfer in the app.
+        channel: scam-report-form
+      - do: If the form does not work or you cannot log in, contact Wise through the logged-out contact flow.
+        channel: logged-out-contact
+      - do: File a report with the police and with the FTC at ReportFraud.ftc.gov.
+        regulator: ftc
+      - do: If Wise does not answer, send a written complaint.
+        channel: complaints-email
+      - do: Complain to the CFPB with the report reference and timeline.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: "Wise's scam help page says \"We can't guarantee a refund.\" Wise may try to recall the funds. If you have not heard of a successful recall after 40 days, it was likely unsuccessful."
+        issues: [fraud]
+        source: https://wise.com/us/help/articles/2978048/how-do-i-report-fraud-or-a-scam
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: Freeze the card or account at once, report the transaction, and use the 120-day protection window.
+    evidence: [transaction details, account statement showing the transfer, date you noticed it]
+    steps:
+      - do: Freeze the Wise card in the app. If someone may have access to the account, call or chat with Wise at once; Wise suspends the account and cards.
+        channel: support-phone
+      - do: For a card payment, open the transaction, choose "Get help with this transaction" and "I think this payment was fraudulent", or use the card dispute page.
+        channel: card-dispute
+      - do: If you cannot log in, email Wise from the account email address, or use the logged-out contact flow.
+        channel: logged-out-contact
+      - do: Send a written error notice by email or mail within the reporting window.
+        channel: support-email
+      - do: If Wise denies the claim without a reason, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: "\"If you tell us within 120 calendar days after we provide you your Wise Account statement showing transfers you did not make, you will be eligible for 100% protection for Unauthorized Transactions.\""
+        issues: [unauthorized_charge, fraud]
+        source: https://wise.com/us/legal/terms-of-use
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Wise aims to give an outcome within 10 working days for most card fraud cases. Cases that need a merchant response can take longer.
+        issues: [unauthorized_charge]
+        source: https://wise.com/us/help/articles/2935783/how-do-i-report-a-fraudulent-wise-card-payment
+        last_verified: 2026-10-12
+
+  - issue: transaction_dispute
+    summary: Report a transfer error in writing. International transfers over $15 have 180 days; other transactions have 120 days.
+    evidence: [transfer ID, amount, date Wise said the money would arrive, recipient details, description of the error]
+    steps:
+      - do: Notify Wise Support by email, phone or mail as soon as possible. Say what the error is and why.
+        channel: support-email
+      - do: Keep the written record. Wise decides remittance errors within 90 days, and other errors within 10 business days (up to 45 days with a provisional credit).
+        channel: compliance-mail
+      - do: If the error is not corrected, complain to the complaints team.
+        channel: complaints-email
+      - do: Complain to the CFPB or your state regulator.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: "For Send Money transactions greater than $15 where money is sent internationally, \"notify us as soon as possible, but no later than 180 days of the date we told you the money would be available to the recipient.\""
+        issues: [transaction_dispute]
+        source: https://wise.com/us/legal/terms-of-use
+        last_verified: 2026-10-12
+      - kind: process
+        claim: "\"After we receive your information, we'll investigate and decide within 90 days whether an error occurred.\" (remittance transfers)"
+        issues: [transaction_dispute]
+        source: https://wise.com/us/legal/terms-of-use
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: "\"For all other transactions, you have up to 120 days to report an error.\" The 120 days start from the earlier of the day you could see the error in your online history or the day Wise sent the first written statement showing it."
+        issues: [transaction_dispute, unauthorized_charge]
+        source: https://wise.com/us/legal/terms-of-use
+        last_verified: 2026-10-12
+      - kind: process
+        claim: For other transactions Wise decides within 10 business days after it gets all the information. If it needs more time it may take up to 45 days, and it adds a provisional credit within 10 business days.
+        issues: [transaction_dispute, unauthorized_charge]
+        source: https://wise.com/us/legal/terms-of-use
+        last_verified: 2026-10-12
+
+  - issue: frozen_funds
+    summary: Wise can hold balances and close accounts without giving the reason. Appeal or request a refund through the appeals page.
+    evidence: [deactivation email, photo ID, photo of you holding the ID, reason for using Wise and purpose of transfers, proof of address or source of funds if asked]
+    steps:
+      - do: Sign in and appeal the decision, or request a refund of the remaining balance to a bank account outside Wise.
+        channel: appeals
+      - do: If the appeals page does not work, reply to the account deactivation email.
+      - do: Ask in writing when the money will be returned.
+        channel: complaints-email
+      - do: Complain to the CFPB if the funds are not returned.
+        regulator: cfpb
+      - do: Complain to your state money transmission regulator.
+    facts:
+      - kind: policy
+        claim: The US Customer Agreement lets Wise suspend or restrict an account and hold the balance if reasonably needed to protect against the risk of liability.
+        issues: [frozen_funds]
+        source: https://wise.com/us/legal/terms-of-use
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: "Wise says \"We can't tell you specific reasons why we closed your account.\" Customer Support cannot see the reason either."
+        issues: [frozen_funds]
+        source: https://wise.com/us/help/articles/2961844/my-account-was-closed-by-wise
+        last_verified: 2026-10-12
+      - kind: process
+        claim: "After Wise closes an account, refunds of pending transfers take 3-10 working days by card, 2-3 working days by bank or wire transfer, and up to 90 working days by bank debit or ACH while Wise does due diligence checks."
+        issues: [frozen_funds, refund_request]
+        source: https://wise.com/us/help/articles/2961844/my-account-was-closed-by-wise
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: Cancel an unpaid transfer yourself. US remittance transfers can be cancelled within 30 minutes of payment for a full refund.
+    evidence: [transfer ID, payment time, payment method]
+    steps:
+      - do: If the transfer is not yet processing, open it and select Cancel transfer.
+      - do: For a remittance transfer, cancel by phone or in writing within 30 minutes of paying.
+        channel: support-phone
+      - do: If the transfer is processing, contact Wise. Cancellation is not guaranteed, and a completed transfer cannot be cancelled.
+        channel: help-center-contact
+      - do: If the refund is late, send a written complaint, then complain to the CFPB.
+        channel: complaints-email
+    facts:
+      - kind: deadline
+        claim: "\"You may cancel your Remittance Money Transfer orally or in writing within thirty (30) minutes after making payment\", if the recipient has not picked up or received the funds."
+        issues: [refund_request]
+        source: https://wise.com/us/legal/terms-of-use
+        last_verified: 2026-10-12
+      - kind: process
+        claim: "\"We will refund your money within three (3) business days of your request to cancel a transfer\" (remittance transfers)."
+        issues: [refund_request]
+        source: https://wise.com/us/legal/terms-of-use
+        last_verified: 2026-10-12
+      - kind: process
+        claim: "Refund timing by payment method: credit or debit card up to 10 working days; bank transfer 0-3 working days; Wise Account balance instant if the money has not been sent out."
+        issues: [refund_request]
+        source: https://wise.com/us/help/articles/2971476/how-long-do-refunds-take
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: For US complaints Wise aims to give a final response within 15 calendar days. If it cannot, it extends the deadline to 35 calendar days from the complaint and emails you the reason.
+    source: https://wise.com/help/articles/2235393/how-do-i-make-a-complaint
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: The US Customer Agreement requires arbitration administered by JAMS and waives class actions. Small claims court cases are excluded.
+    source: https://wise.com/us/legal/terms-of-use
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: To reject arbitration, send a signed notice to Wise US Inc., Attn Legal Department, 30 W 26th Street, Floor 6, New York, NY 10010. It must be received within 21 days after the account is opened.
+    source: https://wise.com/us/legal/terms-of-use
+    last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: If you cannot call or chat about account takeover, email Wise from the account email address. If you cannot use that email, include your full name, date of birth, linked email and phone, and a photo of you holding your ID next to a paper with "Wise" and today's date.
+    issues: [unauthorized_charge, account_access]
+    source: https://wise.com/us/help/articles/xfWMm6axrxXwk3CdoCgGG/someone-may-have-access-to-my-wise-account
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The Help Center contact options, scam report form, card dispute page and appeals page need sign-in to the Wise account.
+  - Appeals need a photo ID and a live photo of the account owner holding it. Only the person can supply them.
+  - Wise does not give the reason for an account closure, and Customer Support cannot see it.
+  - The phone lines need the account holder.

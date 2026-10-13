@@ -1,0 +1,235 @@
+id: paypal
+name: PayPal
+aliases: [paypal inc, paypal holdings, paypal purchase protection, paypal resolution center]
+sector: payments
+parent: PayPal Holdings, Inc.
+website: https://www.paypal.com/us/home
+regulators: [cfpb, ftc]
+notes: >-
+  PayPal, Inc. also runs Venmo (see venmo). Most PayPal help is in-account: the Resolution Center
+  (https://www.paypal.com/disputes/) handles purchase disputes, unauthorized-activity reports and
+  account limitations. The PayPal legal hub pages (User Agreement, Balance Terms) render with
+  JavaScript; values cited to them come from paypal.com search snippets.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: PayPal Customer Service
+    value: +1-888-221-1161
+    purposes: [unauthorized_charge, fraud, transaction_dispute, frozen_funds, account_access]
+    access: human_only
+    notes: >-
+      PayPal says to contact it only through the Help Center Contact page or this number. PayPal does not
+      call from this number to ask for personal or account information.
+    source: https://www.paypal.com/us/security/learn-about-fake-messages
+    last_verified: 2026-10-12
+  - id: help-chat
+    type: chat
+    label: PayPal Assistant chat and Contact Us page
+    value: https://www.paypal.com/us/cshelp/contact-us
+    purposes: [unauthorized_charge, transaction_dispute, frozen_funds, account_access, refund_request]
+    notes: >-
+      PayPal calls the PayPal Assistant chat the quickest way to reach it. The assistant can connect you
+      to a live agent by chat or phone. Account-specific help needs sign-in.
+    source: https://www.paypal.com/us/cshelp/article/how-do-i-contact-paypal-customer-service--help378
+    last_verified: 2026-10-12
+  - id: message-center
+    type: web_form
+    label: Message Center (secure messages to PayPal)
+    value: https://www.paypal.com/smc/async/home
+    purposes: [frozen_funds, transaction_dispute, unauthorized_charge]
+    access: login
+    source: https://www.paypal.com/us/cshelp/article/how-do-i-contact-paypal-customer-service--help378
+    last_verified: 2026-10-12
+  - id: resolution-center
+    type: portal
+    label: Resolution Center (disputes, claims, unauthorized activity, account limitations)
+    value: https://www.paypal.com/disputes/
+    purposes: [transaction_dispute, unauthorized_charge, fraud, frozen_funds, refund_request]
+    access: login
+    notes: >-
+      Click Report a Problem, choose the payment, then pick the reason (for example "I want to report
+      unauthorized activity"). Limitation steps show under the account limitation in the same place.
+    source: https://www.paypal.com/us/cshelp/article/how-do-i-report-an-unauthorized-transaction-or-account-activity-help136
+    last_verified: 2026-10-12
+  - id: error-resolution-mail
+    type: mail
+    label: Written notice of errors or unauthorized transactions
+    value: "PayPal, Attn: Error Resolution Department, P.O. Box 45950, Omaha, NE 68145-0950"
+    purposes: [unauthorized_charge, billing_error, fraud]
+    notes: Address listed in the PayPal Balance Terms and Conditions for electronic transfer errors and unauthorized transactions.
+    source: https://www.paypal.com/us/legalhub/paypal/pp-balance-tnc
+    last_verified: 2026-10-12
+  - id: phishing-email
+    type: email
+    label: Forward suspicious PayPal emails (phishing)
+    value: phishing@paypal.com
+    purposes: [fraud]
+    notes: For an email that says the account is limited when the Resolution Center shows no limitation. Forward it, then delete it.
+    source: https://www.paypal.com/us/cshelp/article/how-do-i-remove-a-limitation-from-my-account-help535
+    last_verified: 2026-10-12
+  - id: paypal-credit-phone
+    type: phone
+    label: PayPal Credit (report fraud or unauthorized activity)
+    value: +1-844-373-4961
+    purposes: [fraud, unauthorized_charge]
+    access: human_only
+    source: https://www.paypal.com/us/security/report-fraud
+    last_verified: 2026-10-12
+  - id: cashback-mastercard-phone
+    type: phone
+    label: PayPal Cashback Mastercard (report fraud or unauthorized activity)
+    value: +1-855-520-0991
+    purposes: [fraud, unauthorized_charge]
+    access: human_only
+    notes: Or call the number on the back of the card.
+    source: https://www.paypal.com/us/security/report-fraud
+    last_verified: 2026-10-12
+  - id: business-debit-card-phone
+    type: phone
+    label: PayPal Business Debit Mastercard (report fraud or unauthorized activity)
+    value: +1-866-888-6080
+    purposes: [fraud, unauthorized_charge]
+    access: human_only
+    source: https://www.paypal.com/us/security/report-fraud
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: help-chat}
+  - {rung: written_complaint, channel: resolution-center, note: "Open the dispute, then escalate it to a claim within 20 days."}
+  - {rung: written_complaint, channel: error-resolution-mail, note: "Written notice for unauthorized transactions and electronic transfer errors."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+  - {rung: arbitration, note: "The PayPal User Agreement has an arbitration agreement with a 30-day mail-in opt-out."}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: Open a dispute in the Resolution Center, then escalate it to a Purchase Protection claim within 20 days.
+    evidence: [transaction ID and date, order confirmation or listing, messages with the seller, tracking or proof of non-delivery, photos for an item not as described]
+    steps:
+      - do: Contact the seller first and keep the messages.
+      - do: In the Resolution Center click Report a Problem, choose the payment and the reason. File within 180 days of payment (item not received) or within 30 days of delivery for an item not as described.
+        channel: resolution-center
+      - do: If you and the seller do not agree, escalate the dispute to a claim before day 20. Open the dispute, click Need Help?, then Review my case.
+        channel: resolution-center
+        note: PayPal often requires that at least 7 days have passed since the payment date before you can escalate.
+      - do: Wait for PayPal's decision. Answer requests for information quickly.
+      - do: If PayPal does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: An Item Not Received dispute must be opened within 180 days of the date you sent the payment to the seller.
+        issues: [transaction_dispute]
+        source: https://www.paypal.com/us/cshelp/article/dispute-filing-timeframes-help1173
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: A Significantly Not as Described dispute must be opened within 30 days of the date of delivery or fulfillment, or within 180 days of the date you sent the payment, whichever is sooner.
+        issues: [transaction_dispute]
+        source: https://www.paypal.com/us/cshelp/article/dispute-filing-timeframes-help1173
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: A dispute automatically closes after 20 days unless it has been escalated to a claim. Closed disputes cannot be reopened or escalated.
+        issues: [transaction_dispute]
+        source: https://www.paypal.com/us/cshelp/article/how-do-i-escalate-a-paypal-dispute-to-a-claim-help367
+        last_verified: 2026-10-12
+      - kind: process
+        claim: To escalate, PayPal often requires that at least 7 days have passed since the payment date.
+        issues: [transaction_dispute]
+        source: https://www.paypal.com/us/cshelp/article/how-do-i-escalate-a-paypal-dispute-to-a-claim-help367
+        last_verified: 2026-10-12
+      - kind: process
+        claim: PayPal usually reaches a decision on a claim within 14 days, but some cases can take 30 days or longer.
+        issues: [transaction_dispute]
+        source: https://www.paypal.com/us/cshelp/article/how-do-i-escalate-a-paypal-dispute-to-a-claim-help367
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: Report the payment as unauthorized activity in the Resolution Center at once; send written notice for other errors within 60 days of the statement.
+    evidence: [transaction ID, date and amount, account statement showing the payment, proof you did not make it]
+    steps:
+      - do: Check that a family member or an automatic payment (subscription) did not make the payment.
+      - do: In the Resolution Center click Report a problem, choose the payment, select "I want to report unauthorized activity" and follow the steps.
+        channel: resolution-center
+      - do: Change the PayPal password. If a PayPal card was used, report it on the card's own line.
+        channel: paypal-credit-phone
+        note: PayPal Credit, Cashback Mastercard and Business Debit Mastercard each have their own fraud line.
+      - do: For an error you want on the record in writing, mail a notice to the Error Resolution Department.
+        channel: error-resolution-mail
+      - do: If PayPal does not fix it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: If the PayPal account statement shows transfers you did not make, PayPal says to tell it at once.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.paypal.com/us/cshelp/article/dispute-filing-timeframes-help1173
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: For other errors, PayPal must hear from you no later than 60 days after it sent the FIRST statement on which the problem or error appeared.
+        issues: [unauthorized_charge, billing_error]
+        source: https://www.paypal.com/us/cshelp/article/dispute-filing-timeframes-help1173
+        last_verified: 2026-10-12
+      - kind: process
+        claim: After you report unauthorized activity, PayPal looks into it and sends you an email within 10 days.
+        issues: [unauthorized_charge]
+        source: https://www.paypal.com/us/cshelp/article/how-do-i-report-an-unauthorized-transaction-or-account-activity-help136
+        last_verified: 2026-10-12
+
+  - issue: fraud
+    summary: Report the payment in the Resolution Center, forward phishing to PayPal, and report the scam to the FTC.
+    evidence: [transaction ID, scammer's messages or emails, FTC or police report number]
+    steps:
+      - do: Report the payment through the Resolution Center (unauthorized activity, or a dispute for a purchase that never arrived).
+        channel: resolution-center
+      - do: Forward fake PayPal emails to PayPal, then delete them. Do not click links in them.
+        channel: phishing-email
+      - do: Report the scam to the FTC at reportfraud.ftc.gov. PayPal's fraud page also lists IdentityTheft.gov and the FBI's IC3.
+        regulator: ftc
+    facts:
+      - kind: contact
+        claim: PayPal says to contact it only through the Contact page in the Help Center or by calling PayPal Customer Service at 1-888-221-1161.
+        issues: [fraud]
+        source: https://www.paypal.com/us/security/learn-about-fake-messages
+        last_verified: 2026-10-12
+
+  - issue: frozen_funds
+    summary: Find the limitation steps in the Resolution Center, upload only what PayPal asks for, then wait for the review.
+    evidence: [limitation email or notice, requested ID or proof of address, tracking numbers for held sales]
+    steps:
+      - do: Open the Resolution Center (or the bell icon on the Dashboard) to see the steps to remove the limitation. If an email says the account is limited but the Resolution Center shows nothing, the email may be fake.
+        channel: resolution-center
+      - do: Complete every step and upload the documents PayPal asks for.
+      - do: For a payment on hold, add tracking or mark a service order Completed so PayPal can release it.
+      - do: If the review takes longer than PayPal says, send a message through the Message Center and keep a copy.
+        channel: message-center
+      - do: If the funds are still not released, complain to the CFPB and your state financial regulator.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: After the required steps are completed, the review of a limited account usually takes 3 business days.
+        issues: [frozen_funds]
+        source: https://www.paypal.com/us/cshelp/article/how-long-will-it-take-to-lift-my-paypal-account-limitation-help531
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: In rare cases, for example an unusual change in selling patterns, PayPal may hold a payment for up to 21 days.
+        issues: [frozen_funds]
+        source: https://www.paypal.com/us/cshelp/article/how-can-i-release-my-payments-on-hold-help129
+        last_verified: 2026-10-12
+      - kind: process
+        claim: A held sale is released about 24 hours after the approved carrier confirms delivery, or 7 days after you mark a service or intangible order as Completed.
+        issues: [frozen_funds]
+        source: https://www.paypal.com/us/cshelp/article/how-can-i-release-my-payments-on-hold-help129
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: >-
+      The PayPal User Agreement has an arbitration agreement. To opt out, mail a signed written notice postmarked no
+      later than 30 days after you first accept the agreement to PayPal, Inc., Attn: Litigation Department,
+      Re: PayPal Opt-Out Notice, 2211 North First Street, San Jose, CA 95131.
+    source: https://www.paypal.com/us/legalhub/paypal/useragreement-full
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The Resolution Center, Message Center and live chat agents need the account holder to sign in.
+  - Phone support needs the account holder; PayPal's help pages say an account limitation is lifted through the Resolution Center steps, not by phone.
+  - Limitations often need identity documents (ID, proof of address) uploaded by the account holder.

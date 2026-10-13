@@ -1,0 +1,165 @@
+id: cash-app
+name: Cash App
+aliases: [cashapp, square cash, cash app card, cash app pay]
+sector: payments
+parent: Block, Inc.
+website: https://cash.app
+regulators: [cfpb, ftc]
+notes: >-
+  Cash App is operated by Block, Inc. The Cash App Terms of Service were last updated
+  September 11, 2026. Support is mainly in-app chat; Cash App says 1-800-969-1940 is the only phone number for
+  Cash App support. Cash App help-center pages render with JavaScript and could not be read directly.
+
+channels:
+  - id: support-phone
+    type: phone
+    label: Cash App Support
+    value: +1-800-969-1940
+    hours: Daily 8 AM to 9:30 PM ET
+    purposes: [unauthorized_charge, fraud, transaction_dispute, frozen_funds, account_access]
+    access: human_only
+    notes: The Terms of Service say this is the only phone number available for Cash App support.
+    source: https://cash.app/security
+    last_verified: 2026-10-12
+  - id: in-app-chat
+    type: app
+    label: In-app chat with Cash App Support
+    value: Cash App > Support (in-app chat)
+    hours: 24/7
+    purposes: [unauthorized_charge, fraud, transaction_dispute, frozen_funds, account_access]
+    access: login
+    source: https://cash.app/security
+    last_verified: 2026-10-12
+  - id: in-app-report
+    type: app
+    label: Report a transaction in the activity feed
+    value: Cash App > Activity > select the transaction > Report
+    purposes: [fraud, unauthorized_charge]
+    access: login
+    notes: The Terms say Cash App Card and P2P payments use the in-app dispute process; other products use in-app chat.
+    source: https://cash.app/security
+    last_verified: 2026-10-12
+  - id: disputes-mail
+    type: mail
+    label: Written disputes and error notices
+    value: "Block, Inc., Attn: Cash Disputes, 1955 Broadway, Suite 600, MSC 211, Oakland, CA 94612"
+    purposes: [unauthorized_charge, billing_error, transaction_dispute]
+    source: https://cash.app/us/en/legal/tos
+    last_verified: 2026-10-12
+  - id: general-mail
+    type: mail
+    label: Cash App general mailing address
+    value: Cash App, 1955 Broadway, Suite 600, Oakland, CA 94612
+    source: https://cash.app/us/en/legal/tos
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: in-app-chat}
+  - {rung: frontline, channel: support-phone}
+  - {rung: written_complaint, channel: disputes-mail}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+  - {rung: arbitration, note: "The Terms of Service include an arbitration agreement; mail-in opt-out within 30 days of creating the account."}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Report it in the app or by phone at once, then confirm in writing within 10 business days if asked; errors are due within 60 days of the first statement.
+    evidence: [transaction date and amount, Cash App statement, proof you did not make the payment]
+    steps:
+      - do: Report the transaction in the app (activity feed > transaction > Report) or through in-app chat.
+        channel: in-app-report
+      - do: If you cannot use the app, call Cash App Support. It is the only Cash App phone number; ignore other numbers found online.
+        channel: support-phone
+      - do: If Cash App asks, send the complaint in writing within 10 Business Days to the disputes address.
+        channel: disputes-mail
+      - do: If Cash App does not fix it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: Report errors within 60 days after the date Cash App sent you the FIRST statement on which you believe the error occurred.
+        issues: [unauthorized_charge, billing_error]
+        source: https://cash.app/us/en/legal/tos
+        last_verified: 2026-10-12
+      - kind: process
+        claim: If you report verbally, Cash App may ask you to submit the complaint in writing within 10 Business Days.
+        issues: [unauthorized_charge, billing_error]
+        source: https://cash.app/us/en/legal/tos
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Cash App decides within 10 Business Days, or may take up to 45 days (up to 90 days for new accounts and point-of-sale transactions), and tells you the result within three Business Days after the investigation ends.
+        issues: [unauthorized_charge, billing_error]
+        source: https://cash.app/us/en/legal/tos
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: If you report an unauthorized transaction within 2 Business Days, your loss is capped at $50; later reports can mean losses up to $500. Cash App Business Accounts may be liable for all unauthorized transactions.
+        issues: [unauthorized_charge]
+        source: https://cash.app/us/en/legal/tos
+        last_verified: 2026-10-12
+
+  - issue: fraud
+    summary: Report the payment in the app at once and report the scam to the FTC; Cash App warns P2P scams may give no recourse.
+    evidence: [transaction details, scammer's $Cashtag and messages, FTC or police report number]
+    steps:
+      - do: Report the payment and the scammer in the app, then contact Support through in-app chat.
+        channel: in-app-report
+      - do: Do not give anyone your sign-in code or PIN. Cash App says it will never ask for them.
+      - do: Report the scam to the FTC at reportfraud.ftc.gov.
+        regulator: ftc
+      - do: If Cash App treats an unauthorized transfer as a scam you authorized, send a written dispute and then complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: A payment instruction error, such as sending to the wrong recipient, is not considered an Unauthorized Transaction under the Cash App Terms.
+        issues: [fraud, unauthorized_charge]
+        source: https://cash.app/us/en/legal/tos
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Terms warn that scams involving P2P payments may result in the loss of your funds with no recourse.
+        issues: [fraud]
+        source: https://cash.app/us/en/legal/tos
+        last_verified: 2026-10-12
+
+  - issue: frozen_funds
+    summary: Ask Support in writing why the account is restricted and when funds will be released; escalate to the CFPB.
+    evidence: [restriction or closure notice, balance at the time, in-app chat transcripts]
+    steps:
+      - do: Ask Support through in-app chat for the reason for the hold or restriction and the release date.
+        channel: in-app-chat
+      - do: Send the same request by mail so there is a written record.
+        channel: general-mail
+      - do: If the money is not released, complain to the CFPB and your state financial regulator.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: Cash App may hold your funds if there is an investigation at the time your account is closed, and reserves the right to hold funds at its discretion to protect the company.
+        issues: [frozen_funds]
+        source: https://cash.app/us/en/legal/tos
+        last_verified: 2026-10-12
+
+facts:
+  - kind: deadline
+    claim: For remittance transfers, contact Cash App about an error within 180 days of the date the funds were disclosed as available to the recipient.
+    issues: [transaction_dispute]
+    source: https://cash.app/us/en/legal/tos
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: >-
+      To opt out of the arbitration agreement, mail a notice within thirty (30) days after you first create a Cash App
+      account to Block, Inc., Attn: Arbitration Agreement, 1955 Broadway, Suite 600, Oakland, CA 94612. Mail is the only way to opt out.
+    source: https://cash.app/us/en/legal/tos
+    last_verified: 2026-10-12
+  - kind: contact
+    claim: For prepaid account complaints the Terms point to the CFPB at 1-855-411-2372 or cfpb.gov/complaint.
+    source: https://cash.app/us/en/legal/tos
+    last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: Cash App will never ask for your sign-in code or PIN. If someone claiming to be Cash App asks, do not respond and report them in the app.
+    issues: [fraud]
+    source: https://cash.app/security
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Chat, in-app reports and disputes need the account holder signed in to Cash App.
+  - Cash App help-center pages need JavaScript; agents may not be able to read them.

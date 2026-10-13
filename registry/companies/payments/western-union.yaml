@@ -1,0 +1,280 @@
+id: western-union
+name: Western Union
+aliases: [westernunion, western union money transfer, western union financial services]
+sector: payments
+parent: The Western Union Company
+website: https://www.westernunion.com
+account_url: https://www.westernunion.com/us/en/send-money/app/login
+regulators: [cfpb, ftc]
+notes: >-
+  The US complaint page names Western Union Financial Services, Inc. and Western Union International Services, LLC
+  as the US money transmitters. Western Union agreed on 2025-08-10 to acquire International Money Express (Intermex).
+  A Western Union SEC prospectus supplement dated 2026-04-30 still described the acquisition as pending, and
+  completion was not confirmed on 2026-10-12, so Intermex is not listed as part of Western Union here.
+  Western Union's own pages give two customer care numbers: +1-800-325-6000 (FAQ, terms, error-resolution
+  disclosure) and +1-720-945-9350 (contact page, complaint page).
+
+channels:
+  - id: customer-care-phone
+    type: phone
+    label: Customer care (money transfers, cancellations, error resolution)
+    value: +1-800-325-6000
+    purposes: [refund_request, transaction_dispute, fraud, frozen_funds, poor_service]
+    access: human_only
+    notes: >-
+      Also the number in the Error Resolution and Cancellation Disclosures and the number for opting out of
+      arbitration. Have the 10-digit tracking number (MTCN) ready.
+    source: https://www.westernunion.com/us/en/frequently-asked-questions/faq-tracking-a-transfer.html
+    last_verified: 2026-10-12
+  - id: customer-care-us-phone
+    type: phone
+    label: Customer Care (US), as listed on the contact page and the complaint page
+    value: +1-720-945-9350
+    purposes: [refund_request, transaction_dispute, poor_service]
+    access: human_only
+    source: https://www.westernunion.com/us/en/contact-us.html
+    last_verified: 2026-10-12
+  - id: tty-phone
+    type: phone
+    label: TTY users
+    value: +1-800-877-8973
+    access: human_only
+    source: https://www.westernunion.com/us/en/contact-us.html
+    last_verified: 2026-10-12
+  - id: fraud-hotline
+    type: phone
+    label: Western Union Fraud Hotline
+    value: +1-800-448-1492
+    purposes: [fraud]
+    access: human_only
+    notes: Call at once if the transfer has not been picked up or deposited, so Western Union can try to stop it.
+    source: https://www.westernunion.com/us/en/frequently-asked-questions/faq-consumer-protection.html
+    last_verified: 2026-10-12
+  - id: fraud-claim-form
+    type: web_form
+    label: Report a fraud claim online
+    value: https://www.westernunion.com/global-service/report-fraud
+    purposes: [fraud]
+    access: open
+    notes: The page loads with JavaScript. Automated fetches on 2026-10-12 returned only a loading screen.
+    source: https://www.westernunion.com/us/en/fraudawareness/fraud-report-fraud.html
+    last_verified: 2026-10-12
+  - id: spoof-email
+    type: email
+    label: Forward suspicious (phishing) emails
+    value: spoof@westernunion.com
+    purposes: [fraud]
+    notes: Forward the email as is. Western Union says this does not file a fraud claim.
+    source: https://www.westernunion.com/us/en/fraudawareness/fraud-report-fraud.html
+    last_verified: 2026-10-12
+  - id: error-resolution-email
+    type: email
+    label: Error resolution and cancellation (remittance transfers)
+    value: DFErrorResolution@westernunion.com
+    purposes: [transaction_dispute, refund_request]
+    notes: Include your name and address or phone, the error and why, the receiver's name, the dollar amount and the confirmation number (MTCN).
+    source: https://wucare.westernunion.com/care/POS_Longform_English
+    last_verified: 2026-10-12
+  - id: error-resolution-mail
+    type: mail
+    label: Error resolution (remittance transfers)
+    value: Western Union, PO Box 6036, Englewood, CO 80155
+    purposes: [transaction_dispute]
+    source: https://wucare.westernunion.com/care/POS_Longform_English
+    last_verified: 2026-10-12
+  - id: executive-resolutions-mail
+    type: mail
+    label: Corporate complaint contact, Executive Resolutions Department
+    value: Western Union, Attn Executive Resolutions Department, P.O. Box 6036, Englewood, Colorado 80155
+    purposes: [transaction_dispute, refund_request, fraud, poor_service]
+    source: https://www.westernunion.com/us/en/legal/file-complaint.html
+    last_verified: 2026-10-12
+  - id: contact-page
+    type: web_form
+    label: Customer care contact page (phone list and chat)
+    value: https://www.westernunion.com/us/en/contact-us.html
+    purposes: [poor_service, refund_request]
+    access: open
+    notes: The "Chat with us" control is a JavaScript button with no direct chat URL.
+    source: https://www.westernunion.com/us/en/contact-us.html
+    last_verified: 2026-10-12
+  - id: online-profile-care-phone
+    type: phone
+    label: Customer care for a locked online profile
+    value: +1-877-989-3268
+    purposes: [account_access]
+    access: human_only
+    notes: For a profile locked after repeated wrong log in attempts or wrong security answers.
+    source: https://www.westernunion.com/us/en/frequently-asked-questions/faq-profile-registration-and-management.html
+    last_verified: 2026-10-12
+  - id: website-care-phone
+    type: phone
+    label: Website Care
+    value: +1-720-945-9354
+    purposes: [account_access]
+    access: human_only
+    source: https://www.westernunion.com/us/en/contact-us.html
+    last_verified: 2026-10-12
+  - id: money-order-forgery-phone
+    type: phone
+    label: Customer Support Line for money order forgery claims
+    value: +1-800-999-9660
+    purposes: [fraud]
+    access: human_only
+    notes: Only the purchaser of the money order can start a forgery claim. The claim forms must be notarized and mailed as originals.
+    source: https://www.westernunion.com/us/en/frequently-asked-questions/faq-consumer-protection.html
+    last_verified: 2026-10-12
+  - id: money-order-refund-form
+    type: web_form
+    label: Money order refund request
+    value: https://www.westernunion.com/global/en/rmo-form.html
+    purposes: [refund_request]
+    access: open
+    source: https://www.westernunion.com/us/en/frequently-asked-questions/faq-consumer-protection.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-care-phone}
+  - {rung: written_complaint, channel: executive-resolutions-mail, note: "Western Union asks you to contact its customer service before you complain to a state regulator."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator, note: "The complaint page lists the money transmission regulator for each state."}
+  - {rung: arbitration, note: "JAMS arbitration under the US terms. You can opt out within 30 days after a transaction by calling +1-800-325-6000."}
+
+playbooks:
+  - issue: fraud
+    summary: Call the fraud hotline at once. Western Union can refund a transfer that is not yet picked up or deposited.
+    evidence: [tracking number (MTCN), receipt, amount and date, receiver name and location, messages from the scammer]
+    steps:
+      - do: Call the Western Union Fraud Hotline as soon as possible and ask Western Union to stop the transfer.
+        channel: fraud-hotline
+      - do: File a fraud claim online if you cannot call, or to add details. Keep the claim reference.
+        channel: fraud-claim-form
+      - do: Forward any phishing email that pretended to be Western Union.
+        channel: spoof-email
+      - do: Report the scam to local law enforcement and to the FTC at ReportFraud.ftc.gov.
+        regulator: ftc
+      - do: If Western Union does not answer or refuses without a reason, send a written complaint to Executive Resolutions, then complain to the CFPB.
+        channel: executive-resolutions-mail
+      - do: Complain to the CFPB with the claim reference and the timeline.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: "Western Union's fraud page says: \"If your transfer is not picked up, sent or deposited you'll get a full refund on the transfer.\""
+        issues: [fraud]
+        source: https://www.westernunion.com/us/en/fraudawareness/fraud-report-fraud.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: "Western Union's fraud page says: \"After a transfer is sent or deposited, Western Union may not be able to give you a refund.\""
+        issues: [fraud]
+        source: https://www.westernunion.com/us/en/fraudawareness/fraud-report-fraud.html
+        last_verified: 2026-10-12
+
+  - issue: transaction_dispute
+    summary: Report an error with a remittance transfer within 180 days of the promised availability date.
+    evidence: [your name and address or phone, description of the error, receiver name and phone or address, dollar amount, confirmation number (MTCN)]
+    steps:
+      - do: Contact Western Union by phone, email or mail within 180 days of the date the funds were promised to the receiver. Give all five items from the evidence list.
+        channel: customer-care-phone
+      - do: Send the same details in writing so you have a dated record.
+        channel: error-resolution-email
+      - do: Western Union must decide within 90 days and tell you the result within three business days after the investigation. If it finds no error, ask for copies of the documents it used.
+      - do: If the error is not corrected, send a written complaint to Executive Resolutions.
+        channel: executive-resolutions-mail
+      - do: Complain to the CFPB, and to your state money transmission regulator listed on the complaint page.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: "\"You must contact us within 180 days of the date we promised to you that funds would be made available to the recipient.\""
+        issues: [transaction_dispute]
+        source: https://wucare.westernunion.com/care/POS_Longform_English
+        last_verified: 2026-10-12
+      - kind: process
+        claim: "\"We will determine whether an error occurred within 90 days after you contact us and we will correct any error promptly. We will tell you the results within three business days after completing our investigation.\""
+        issues: [transaction_dispute]
+        source: https://wucare.westernunion.com/care/POS_Longform_English
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: Cancel within 30 minutes of payment for a full refund including fees. Later, cancel for a refund only while the money is not picked up or deposited.
+    evidence: [tracking number (MTCN), amount, where the funds were sent, receipt]
+    steps:
+      - do: Within 30 minutes of paying, call or email Western Union to cancel. Give the amount and the location where the funds were sent.
+        channel: customer-care-phone
+      - do: After 30 minutes, ask to cancel by phone, in your online profile, or at the agent location where you sent the transfer. This works only if the money is not picked up or deposited.
+        channel: customer-care-phone
+      - do: If the receiver did not pick up a cash transfer, ask customer care to renew or refund it. Unpaid transfers are not returned automatically.
+        channel: customer-care-phone
+      - do: If the refund does not arrive, send a written complaint to Executive Resolutions, then complain to the CFPB.
+        channel: executive-resolutions-mail
+    facts:
+      - kind: deadline
+        claim: "\"In order to cancel, you must contact us at the phone number or e-mail address above within 30 minutes of payment for the transfer.\""
+        issues: [refund_request]
+        source: https://wucare.westernunion.com/care/POS_Longform_English
+        last_verified: 2026-10-12
+      - kind: process
+        claim: "\"We will refund your money within three business days of your request to cancel a transfer as long as the funds have not already been picked up or deposited into a recipient's account.\""
+        issues: [refund_request]
+        source: https://wucare.westernunion.com/care/POS_Longform_English
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Under the US online terms, refund requests received within 30 days of the transaction date get the transfer amount and fees back. Requests after 30 days get the transfer amount only.
+        issues: [refund_request]
+        source: https://www.westernunion.com/us/en/legal/terms-conditions.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: A cash pickup transfer usually stays available for 90 days. After it expires, the money is not returned automatically; the sender or receiver must contact customer care.
+        issues: [refund_request]
+        source: https://www.westernunion.com/blog/en/us/how-long-does-western-union-hold-funds/
+        last_verified: 2026-10-12
+
+  - issue: frozen_funds
+    summary: A transfer on hold usually waits for identity or detail checks. Call with the tracking number.
+    evidence: [tracking number (MTCN), ID documents requested by Western Union]
+    steps:
+      - do: Check the transfer status with the tracking number (MTCN).
+      - do: Call customer care with the MTCN and ask what information Western Union needs to release the transfer.
+        channel: customer-care-phone
+      - do: If the transfer stays on hold, ask to cancel it for a refund, then send a written complaint.
+        channel: executive-resolutions-mail
+      - do: Complain to the CFPB if the money is neither released nor refunded.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: Western Union says a transfer can be put on hold while it verifies your identity, confirms other details, waits for your bank's review, or waits for more information from you.
+        issues: [frozen_funds]
+        source: https://www.westernunion.com/us/en/frequently-asked-questions/faq-tracking-a-transfer.html
+        last_verified: 2026-10-12
+
+facts:
+  - kind: fee
+    claim: Transactions not picked up or cancelled within 1 year of the send date are charged a non-refundable administration charge of up to $0.50 per month from the send date, not more than $42.00, deducted from the amount sent.
+    issues: [refund_request]
+    source: https://www.westernunion.com/us/en/legal/terms-conditions.html
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: The US online terms require individual binding arbitration administered by JAMS. You may opt out for a transaction within 30 days after initiating it by calling 1-800-325-6000.
+    source: https://www.westernunion.com/us/en/legal/terms-conditions.html
+    last_verified: 2026-10-12
+  - kind: process
+    claim: Before arbitration, the party raising a dispute must send a written notice. The parties then have 60 days from receipt of a completed notice to try to resolve it.
+    source: https://www.westernunion.com/us/en/legal/terms-conditions.html
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: The mobile app terms say international transfers may be cancelled for a full refund of the principal and fees within 30 minutes of payment.
+    issues: [refund_request]
+    source: https://www.westernunion.com/us/en/legal/tnc-mobile.html
+    last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: Western Union asks customers to contact its customer service before they file a complaint with a state regulator. Its complaint page lists the regulator and phone number for each state.
+    source: https://www.westernunion.com/us/en/legal/file-complaint.html
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Most westernunion.com help and fraud pages render with JavaScript. The fraud hotline number and the fraud claim link appear as template placeholders to automated fetches.
+  - The contact page chat has no direct URL. The agent must use phone, email or mail.
+  - Online cancellation needs sign-in to the Western Union profile. Phone lines need the account holder.
+  - Transfers can be held for identity verification. Only the customer can supply the ID documents.
+  - Western Union pages list two different customer care numbers (+1-800-325-6000 and +1-720-945-9350).

@@ -1,0 +1,130 @@
+id: apple-cash
+name: Apple Cash
+aliases: [apple pay cash, apple cash card]
+sector: payments
+parent: Apple Inc. (Apple Cash services provided by Green Dot Bank, Member FDIC)
+website: https://www.apple.com/apple-cash/
+regulators: [cfpb, ftc]
+notes: >-
+  Apple Cash accounts are held at Green Dot Bank, which handles Apple Cash customer service, error resolution and
+  disputes under the Apple Cash Terms and Conditions. Apple Card is a separate product (see chase for the issuer
+  transition) and is not covered here.
+
+channels:
+  - id: apple-cash-specialist-phone
+    type: phone
+    label: Apple Cash Specialist at Green Dot Bank
+    value: +1-877-233-8552
+    purposes: [unauthorized_charge, fraud, transaction_dispute, frozen_funds, account_access]
+    access: human_only
+    notes: The Apple Cash Terms list the same number for reporting errors and unauthorized transactions.
+    source: https://www.apple.com/apple-cash/
+    last_verified: 2026-10-12
+  - id: wallet-app-support
+    type: app
+    label: Call Apple Cash support from the Wallet app
+    value: Wallet app > Apple Cash card > More > Card Details > phone icon
+    purposes: [unauthorized_charge, fraud, transaction_dispute]
+    access: login
+    source: https://www.apple.com/apple-cash/
+    last_verified: 2026-10-12
+  - id: disputes-mail
+    type: mail
+    label: Written notice of errors or unauthorized transactions (disputes)
+    value: Apple Cash Customer Service, P.O. Box 9, West Chester, OH 45071
+    purposes: [unauthorized_charge, billing_error, transaction_dispute]
+    source: https://applecash.greendot.com/termsconditions/
+    last_verified: 2026-10-12
+  - id: general-mail
+    type: mail
+    label: Apple Cash general customer service by mail
+    value: Apple Cash Customer Service, P.O. Box 1070, West Chester, OH 45071
+    source: https://applecash.greendot.com/termsconditions/
+    last_verified: 2026-10-12
+  - id: apple-phone
+    type: phone
+    label: Apple (1-800-MY-APPLE)
+    value: +1-800-692-7753
+    access: human_only
+    notes: General Apple support; Apple Cash account questions go to the Green Dot Bank line.
+    source: https://www.apple.com/apple-cash/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: apple-cash-specialist-phone}
+  - {rung: written_complaint, channel: disputes-mail}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: regulator, regulator: fdic, note: "Green Dot Bank is FDIC-insured; the Terms list the FDIC consumer line."}
+  - {rung: arbitration, note: "The Terms require arbitration; opt-out by signed letter within 30 days."}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Call Green Dot Bank's Apple Cash line at once, then put the error in writing; the deadline is 60 days.
+    evidence: [transaction date and amount, Apple Cash transaction history, proof you did not make it]
+    steps:
+      - do: Call the Apple Cash Specialist at Green Dot Bank, or call from the Wallet app (Apple Cash card > More > Card Details > phone icon).
+        channel: apple-cash-specialist-phone
+      - do: Send a written notice of the error to Apple Cash Customer Service and keep a copy.
+        channel: disputes-mail
+      - do: If a debit or prepaid card funded the transfer, also contact that card's issuer.
+      - do: If Green Dot Bank does not fix it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: You can report an error until 60 days after the earlier of the date you electronically access your Apple Cash balance information or the date of the first written transaction history showing the error.
+        issues: [unauthorized_charge, billing_error]
+        source: https://applecash.greendot.com/termsconditions/
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: If you report within two business days, you can lose no more than $50 when someone used your registered Apple Cash Balance without permission; otherwise you could lose as much as $500.
+        issues: [unauthorized_charge]
+        source: https://applecash.greendot.com/termsconditions/
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Green Dot Bank determines whether an error occurred within 10 business days, may take up to 45 days with a provisional credit within 10 business days, and up to 90 days for new accounts or point-of-sale transactions.
+        issues: [unauthorized_charge, billing_error]
+        source: https://applecash.greendot.com/termsconditions/
+        last_verified: 2026-10-12
+
+  - issue: fraud
+    summary: Apple Cash P2P transfers are non-refundable; report a scam to Green Dot Bank and the FTC at once.
+    evidence: [transfer details, scammer's messages, FTC or police report number]
+    steps:
+      - do: Call the Apple Cash Specialist line and report the transfer.
+        channel: apple-cash-specialist-phone
+      - do: Report the scam to the FTC at reportfraud.ftc.gov.
+        regulator: ftc
+      - do: If a debit or prepaid card funded the transfer, contact that card's issuer.
+    facts:
+      - kind: policy
+        claim: Under the Apple Cash Terms, transactions in the Funds Transfer Service, including P2P Transfers, are non-refundable except as the Terms provide or law requires.
+        issues: [fraud, transaction_dispute]
+        source: https://applecash.greendot.com/termsconditions/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: For loads and P2P transfers funded with a supported payment card, the Terms say payments you are induced to make by an imposter or other fraud are not "unauthorized".
+        issues: [fraud]
+        source: https://applecash.greendot.com/termsconditions/
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: >-
+      To reject arbitration, mail a signed written notice with your full name and address, stating that you reject the
+      arbitration provision, by U.S. Mail to Green Dot Bank, Attention: Arbitration Opt Out, P.O. Box 1070, West Chester, OH 45071,
+      within 30 days of the later of creating the Apple Cash account or the date the bank sent notice of the provision.
+    source: https://applecash.greendot.com/termsconditions/
+    last_verified: 2026-10-12
+  - kind: process
+    claim: Before arbitration or small claims, the Terms require a written Notice of Claim to the bank's registered agent, Corporation Service Company, 251 Little Falls Drive, Wilmington, DE 19808, and 60 days of good-faith effort to resolve it.
+    source: https://applecash.greendot.com/termsconditions/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Green Dot Bank may limit, suspend or terminate use of the Apple Cash services immediately and without prior notice for any reason.
+    issues: [frozen_funds]
+    source: https://applecash.greendot.com/termsconditions/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Apple Cash support by phone needs the account holder; agents cannot act for the user.
+  - The Wallet app route needs the user's iPhone with Apple Cash set up.
