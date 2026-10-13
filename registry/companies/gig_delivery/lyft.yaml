@@ -4,6 +4,17 @@ aliases: [lyft, lyft pink, lyft inc]
 sector: gig_delivery
 website: https://www.lyft.com
 account_url: https://account.lyft.com/
+official_domains: [lyft.com, lyftmail.com, lyft-new.zendesk.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: 'Lyft says no Lyft employee will contact you by phone, text or email asking for personal information (such as your phone verification code, driver''s license, credit card number or bank information) unless you reached out first.'
+      source: https://help.lyft.com/hc/en-us/all/articles/115012923107
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Lyft says its emails come only from @lyft.com, @lyft-new.zendesk.com and @lyftmail.com, and that a website must use https and include .lyft.com before you log in.
+      source: https://help.lyft.com/hc/en-us/all/articles/115012923107
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   U.S. rideshare. Support is through the Lyft app and the Help Center (help.lyft.com); no rider phone line

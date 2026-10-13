@@ -3,6 +3,27 @@ name: UPS (United Parcel Service)
 aliases: [ups, united parcel service, the ups store, ups my choice]
 sector: shipping
 website: https://www.ups.com
+official_domains: [ups.com, theupsstore.com, upscapital.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: 'UPS''s fraud page says UPS does not request payments, personal or financial information, account numbers, IDs, passwords or copies of invoices in an unsolicited manner by email, mail, phone, fax or text. (Seen in search-result text of the page; the page blocked automated reading on 2026-10-12.)'
+      source: https://www.ups.com/us/en/support/shipping-support/legal-terms-conditions/fight-fraud
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Messages that claim a UPS package is waiting and ask for personal information or a payment before delivery. UPS says to track the package on ups.com yourself to see if any fee is due. (Seen in search-result text of the page; the page blocked automated reading on 2026-10-12.)
+      source: https://www.ups.com/us/en/support/shipping-support/legal-terms-conditions/fight-fraud
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-fraud-email
+      type: email
+      label: Forward suspicious emails (with full headers) and report suspicious texts or calls that claim to be from UPS
+      value: fraud@ups.com
+      purposes: [fraud]
+      notes: Read from search-result text of this page on 2026-10-12; the page blocked automated fetches.
+      source: https://www.ups.com/us/en/support/shipping-support/legal-terms-conditions/fight-fraud
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   UPS parcel carrier. Lost, damaged and missing C.O.D. claims are filed online on ups.com; recipients

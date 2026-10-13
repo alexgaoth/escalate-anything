@@ -4,6 +4,7 @@ aliases: [kroger.com, the kroger co, kroger delivery, kroger boost]
 sector: retail
 parent: The Kroger Co.
 website: https://www.kroger.com
+official_domains: [kroger.com]
 regulators: [ftc]
 notes: >-
   Kroger delivery orders are fulfilled either by Kroger or by Instacart; missing items go to

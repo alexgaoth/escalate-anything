@@ -6,6 +6,37 @@ also_sectors: [subscription]
 parent: Walmart Inc.
 website: https://www.walmart.com
 account_url: https://www.walmart.com/help
+official_domains: [walmart.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Walmart says it will never mail you a check and ask you to deposit it to buy an item or service, does not notify contest winners by text, does not send texts about product recalls, and does not accept or send crypto in stores.
+      source: https://corporate.walmart.com/privacy-security/fraud-alerts
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: 'Phishing emails that use Walmart''s logo, fake prize and gift card texts, fake product recall texts, and requests to pay utility bills, bail money or other bills with Walmart Gift Cards.'
+      source: https://corporate.walmart.com/privacy-security/fraud-alerts
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: 'BBB Scam Tracker''s 2025 Risk Report lists Walmart as the No. 8 most impersonated organization or brand in 2025, with 310 reports.'
+      source: https://bbbmarketplacetrust.org/wp-content/uploads/2026/08/Risk-Report-2025-US.pdf
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-phishing-email
+      type: email
+      label: Send a fraudulent email that claims to be from Walmart (as an attachment)
+      value: OnlineAbuse@walmart.com
+      purposes: [fraud]
+      source: https://corporate.walmart.com/privacy-security/fraud-alerts
+      last_verified: 2026-10-12
+    - id: gift-card-scam-phone
+      type: phone
+      label: Report a Walmart Gift Card scam
+      value: +1-888-537-5503
+      purposes: [fraud]
+      source: https://corporate.walmart.com/privacy-security/fraud-alerts
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   Walmart.com sells Walmart stock and Marketplace (third-party seller) stock. Marketplace items

@@ -4,6 +4,17 @@ aliases: [lowe's, lowes.com, lowe's home improvement]
 sector: retail
 parent: Lowe's Companies, Inc.
 website: https://www.lowes.com
+official_domains: [lowes.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: 'Callers who claim to be the IRS or another agency, or a loved one in trouble, and ask you to buy gift cards and read the numbers over the phone. Lowe''s says government agencies do not accept Lowe''s Gift Cards, and Lowe''s Gift Cards can only be used at Lowe''s stores and on Lowes.com.'
+      source: https://www.lowes.com/pdf/GC_Fraud_Content.pdf
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: 'Fake "mystery shopper" offers that send a check, ask you to deposit it and buy gift cards or merchandise; the check later bounces.'
+      source: https://www.lowes.com/pdf/GC_Fraud_Content.pdf
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   Home improvement retailer. Return windows run from 48 hours to 365 days depending on the product

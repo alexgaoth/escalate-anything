@@ -5,6 +5,7 @@ sector: fitness
 parent: Fitness International, LLC
 website: https://www.lafitness.com
 account_url: https://www.lafitness.com/Pages/memberServices.aspx?task=CustomerManagement
+official_domains: [lafitness.com, fitnessintl.com]
 regulators: [ftc]
 notes: Online cancellation exists through the member's online account. LA Fitness also accepts written notice by mail (it recommends registered or certified mail) and cancellation in person at a club.
 

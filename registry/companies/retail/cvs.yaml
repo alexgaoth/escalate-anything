@@ -4,6 +4,26 @@ aliases: [cvs, cvs.com, cvs/pharmacy, cvs extracare]
 sector: retail
 parent: CVS Health Corporation
 website: https://www.cvs.com
+official_domains: [cvs.com, cvshealth.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: CVS says CVS Pharmacy will never call and ask customers for ordering or purchasing information, and that CVS Health does not ask for personal or financial information by email or text.
+      source: https://www.cvs.com/retail/help/security
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: CVS says CVS Health texts customers from short codes, not 10-digit phone numbers.
+      source: https://www.cvs.com/retail/help/security
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: 'Calls that spoof a CVS pharmacy''s number and ask about refills or orders, or for your driver''s license number, Social Security number or insurance information. CVS says to call the pharmacy at the number on CVS.com or on your ExtraCare card.'
+      source: https://www.cvs.com/retail/help/security
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: 'Texts and emails that imitate CVS offers, "surprise" rewards, gift cards or survey rewards.'
+      source: https://www.cvs.com/retail/help/security
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   This entry covers CVS Pharmacy stores and CVS.com retail orders only. Aetna insurance and

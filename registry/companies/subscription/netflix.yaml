@@ -4,6 +4,26 @@ aliases: [netflix inc, netflix streaming]
 sector: subscription
 website: https://www.netflix.com
 account_url: https://www.netflix.com/account
+official_domains: [netflix.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Netflix says it will never ask for personal information in a text or email, including credit or debit card numbers, bank account details or Netflix passwords, and will never ask for payment through a third-party vendor or website.
+      source: https://help.netflix.com/en/node/65674
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Emails and texts that ask for your account email, phone, password or payment method, and fake websites, apps or phone numbers that pose as Netflix or Netflix Customer Service.
+      source: https://help.netflix.com/en/node/65674
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-phishing-email
+      type: email
+      label: Forward suspicious emails or texts, or send fake links, apps or phone numbers that claim to be Netflix
+      value: phishing@netflix.com
+      purposes: [fraud]
+      source: https://help.netflix.com/en/node/65674
+      last_verified: 2026-10-12
 regulators: [ftc]
 
 channels:

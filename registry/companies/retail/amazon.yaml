@@ -5,6 +5,49 @@ sector: retail
 also_sectors: [subscription]
 parent: Amazon.com, Inc.
 website: https://www.amazon.com
+official_domains: [amazon.com, aboutamazon.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Amazon says it will never ask you to share your password or account sign-in one-time password (OTP), and will never ask you to verify account information or log in through a link sent by email.
+      source: https://trustworthyshopping.aboutamazon.com/amazon-scam-trends
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Amazon says it will never ask you to buy a gift card, does not take payment over the phone or by email, and will not ask for payment for customer service support.
+      source: https://www.aboutamazon.com/news/retail/how-to-avoid-amazon-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Amazon says it will not ask you to download or install software to reach customer service, or to give remote access to your device.
+      source: https://www.aboutamazon.com/news/retail/how-to-avoid-amazon-scams
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: 'Fake order confirmations, shipping notices, refund offers, membership renewal notices and subscription charges, and calls that ask for card details for a "recent order". Check orders and messages in the Amazon app or website, not through the link or number in the message.'
+      source: https://trustworthyshopping.aboutamazon.com/amazon-scam-trends
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Fake Amazon customer service accounts on social media. Amazon says its customer service will never ask you to click external links, move to private messages or give personal information through social media.
+      source: https://trustworthyshopping.aboutamazon.com/amazon-scam-trends
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: 'BBB Scam Tracker''s 2025 Risk Report lists Amazon as the No. 2 most impersonated organization or brand in 2025, with 1,361 reports.'
+      source: https://bbbmarketplacetrust.org/wp-content/uploads/2026/08/Risk-Report-2025-US.pdf
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-scam-tool
+      type: portal
+      label: Report suspicious correspondence that claims to be from Amazon (self-service tool for customers)
+      value: https://www.amazon.com/gp/help/customer/display.html?nodeId=GRGRY7AQ3LMPXVCV
+      purposes: [fraud]
+      source: https://trustworthyshopping.aboutamazon.com/amazon-scam-trends
+      last_verified: 2026-10-12
+    - id: report-scam-email
+      type: email
+      label: Report a suspected Amazon impersonation scam (for people who are not Amazon customers)
+      value: reportascam@amazon.com
+      purposes: [fraud]
+      source: https://www.aboutamazon.com/news/retail/how-to-avoid-amazon-scams
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   Amazon sells its own stock and third-party sellers' stock on the same site. Returns and

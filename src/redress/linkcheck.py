@@ -55,6 +55,12 @@ def collect_urls(reg: Registry) -> dict[str, list[str]]:
         kind, eid = key.split(":", 1)
         data = {"company": reg.companies, "regulator": reg.regulators, "state": reg.states, "rule": reg.rules}[kind][eid]
         walk(data, eid)
+    from .context import LINK_RE
+
+    for kind, docs in (("dossier", reg.dossiers), ("guide", reg.guides)):
+        for key, doc in docs.items():
+            for url in LINK_RE.findall(doc.body):
+                add(url, f"{kind}:{key}")
     return urls
 
 

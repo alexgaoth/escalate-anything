@@ -6,6 +6,45 @@ also_sectors: [subscription]
 parent: Apple Inc.
 website: https://www.apple.com
 account_url: https://account.apple.com
+official_domains: [apple.com, icloud.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Apple says it will never ask you to log in to any website or to tap Accept in the two-factor authentication dialog, and will not ask for your Apple Account password, device passcode or two-factor verification code.
+      source: https://support.apple.com/en-us/102568
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Apple says it will never ask you to disable any security feature on your device or on your account.
+      source: https://support.apple.com/en-us/102568
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: 'Spoofed calls that show Apple''s caller ID and claim suspicious activity, fake claims that your iCloud account was broken into or Apple Pay was misused with an offer to "reverse" charges, and fake security pop-ups that show a phone number. Close the pop-up; do not call the number.'
+      source: https://support.apple.com/en-us/102568
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Requests to pay someone with Apple Gift Cards. Apple says never to use Apple Gift Cards to pay other people.
+      source: https://support.apple.com/en-us/102568
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: 'BBB Scam Tracker''s 2025 Risk Report lists Apple as the No. 5 most impersonated organization or brand in 2025, with 599 reports.'
+      source: https://bbbmarketplacetrust.org/wp-content/uploads/2026/08/Risk-Report-2025-US.pdf
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-phishing-email
+      type: email
+      label: Forward suspicious emails (or email a screenshot of a suspicious text) that claim to be from Apple
+      value: reportphishing@apple.com
+      purposes: [fraud]
+      source: https://support.apple.com/en-us/102568
+      last_verified: 2026-10-12
+    - id: report-facetime-fraud
+      type: email
+      label: 'Report a suspicious FaceTime call or link (email a screenshot with the caller''s number or email)'
+      value: reportfacetimefraud@apple.com
+      purposes: [fraud]
+      source: https://support.apple.com/en-us/102568
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   Two separate refund paths. Hardware bought from Apple (Apple Store or apple.com) follows the

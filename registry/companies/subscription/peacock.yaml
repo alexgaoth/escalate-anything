@@ -5,6 +5,7 @@ sector: subscription
 parent: NBCUniversal
 website: https://www.peacocktv.com
 account_url: https://www.peacocktv.com/account
+official_domains: [peacocktv.com]
 regulators: [ftc]
 notes: >-
   The service is "provided to you by Peacock TV LLC and its affiliated companies" (Terms). The Terms
