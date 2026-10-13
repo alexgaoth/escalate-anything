@@ -15,7 +15,7 @@ def anyio_backend():
 
 def test_skills_load_as_prompts_source():
     names = {s["name"] for s in load_skills()}
-    assert names == {"resolve", "negotiate-bill", "regulator-complaint", "bill-watch"}
+    assert names == {"resolve", "negotiate-bill", "regulator-complaint", "bill-watch", "scam-check"}
 
 
 @pytest.mark.anyio

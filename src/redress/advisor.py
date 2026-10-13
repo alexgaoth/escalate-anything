@@ -286,9 +286,46 @@ def get_playbook(reg: Registry, company: str, issue: str, state: str | None = No
         "tips": tips,
         "escalation": escalation_ladder(reg, c, state, today, warnings),
         "known_blockers": c.get("known_blockers", []),
+        "security": _security(c),
+        "context": {
+            "dossier": c["id"] in reg.dossiers,
+            "sector_guide": c["sector"] in reg.guides,
+            "hint": "Call get_context for how this company handles complaints in practice and which scams use its name.",
+        },
         "notes": c.get("notes"),
         "warnings": warnings,
     }
+
+
+def _security(c: dict) -> dict:
+    from .context import security_view
+
+    return security_view(c)
+
+
+def get_context(reg: Registry, company: str | None = None, sector: str | None = None) -> dict:
+    """Dossier for a company, the guide for its sector, and the general scam guide."""
+    out: dict[str, Any] = {}
+    if company:
+        c = resolve_company(reg, company)
+        sector = sector or c["sector"]
+        d = reg.dossiers.get(c["id"])
+        out["company"] = {"id": c["id"], "name": c["name"]}
+        out["dossier"] = d.body if d else None
+        out["dossier_last_verified"] = d.meta.get("last_verified") if d else None
+        out["security"] = _security(c)
+    if sector:
+        if sector not in reg.sectors:
+            raise NotFound(f"Unknown sector '{sector}'. Known: {', '.join(reg.sectors)}")
+        g = reg.guides.get(sector)
+        out["sector_guide"] = g.body if g else None
+    scams = reg.guides.get("scams")
+    out["scam_guide"] = scams.body if scams else None
+    if not company and not sector:
+        out["available"] = {"dossiers": sorted(reg.dossiers), "guides": sorted(reg.guides)}
+    out["how_to_read"] = ("Every bullet cites its source. 'Reported by customers' marks anecdotes from forums: "
+                          "useful as tactics to try, not as facts to quote to the company.")
+    return out
 
 
 def get_escalation(reg: Registry, company: str, state: str | None = None, today: dt.date | None = None) -> dict:

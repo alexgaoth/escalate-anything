@@ -72,6 +72,8 @@ class Registry:
     states: dict[str, dict] = field(default_factory=dict)
     rules: dict[str, dict] = field(default_factory=dict)
     files: dict[str, Path] = field(default_factory=dict)  # "company:<id>" -> path
+    dossiers: dict[str, Any] = field(default_factory=dict)  # company id -> context.Doc
+    guides: dict[str, Any] = field(default_factory=dict)  # sector id or topic -> context.Doc
     problems: list[Problem] = field(default_factory=list)
     _alias_index: dict[str, str] = field(default_factory=dict)
 
@@ -85,6 +87,10 @@ class Registry:
             for path in sorted((reg.root / sub).rglob("*.yaml")):
                 reg._load_entry(kind, path)
         reg._build_alias_index()
+        from .context import load_docs
+
+        reg.dossiers, reg.guides, errors = load_docs(reg.root)
+        reg.problems.extend(Problem(reg._rel(path), "", msg) for path, msg in errors)
         return reg
 
     def _rel(self, path: Path) -> str:
@@ -171,6 +177,12 @@ class Registry:
             for err in sorted(Draft202012Validator(sub).iter_errors(data), key=lambda e: list(e.path)):
                 problems.append(Problem(rel, _path(err.path), err.message))
             problems.extend(self._cross_check(kind, data, rel, today))
+        from .context import validate_doc
+
+        for doc in [*self.dossiers.values(), *self.guides.values()]:
+            if only is not None and doc.path.resolve() not in only:
+                continue
+            problems.extend(Problem(self._rel(doc.path), "", msg) for msg in validate_doc(doc, self, today))
         if only is not None:
             problems = [p for p in problems if any(p.file == self._rel(o) for o in only)]
         return problems
@@ -234,7 +246,15 @@ class Registry:
                     check_sector("sector", s)
             for r in data.get("regulators", []):
                 check_regulator("regulators", r)
+            if data.get("official_domains") and data.get("website"):
+                host = re.sub(r"^www\.", "", re.sub(r"^https?://", "", data["website"]).split("/")[0].lower())
+                if not any(host == d or host.endswith("." + d) for d in data["official_domains"]):
+                    bad("official_domains", f"website host '{host}' is not under any official domain")
             channel_ids = check_channels("", data.get("channels", []))
+            sec = data.get("security", {})
+            check_facts("security.never_asks", sec.get("never_asks", []))
+            check_facts("security.known_scams", sec.get("known_scams", []))
+            check_channels("security.", sec.get("report_phishing", []))
             for i, rung in enumerate(data.get("escalation", [])):
                 if rung.get("channel") and rung["channel"] not in channel_ids:
                     bad(f"escalation[{i}]", f"unknown channel '{rung['channel']}'")
@@ -325,6 +345,9 @@ class Registry:
             "regulators": len(self.regulators),
             "states": len(self.states),
             "rules": len(self.rules),
+            "dossiers": len(self.dossiers),
+            "guides": len(self.guides),
+            "companies_with_security": sum(1 for c in self.companies.values() if c.get("security") or c.get("official_domains")),
             "issues": len(self.issues),
             "sectors": len(self.sectors),
         }
@@ -339,6 +362,8 @@ class Registry:
             "states": list(self.states.values()),
             "rules": list(self.rules.values()),
             "companies": list(self.companies.values()),
+            "dossiers": {k: {"meta": d.meta, "markdown": d.body} for k, d in self.dossiers.items()},
+            "guides": {k: {"meta": d.meta, "markdown": d.body} for k, d in self.guides.items()},
         }
 
 
