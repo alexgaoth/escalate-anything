@@ -1,0 +1,117 @@
+id: discover
+name: Discover
+aliases: [discover card, discover bank, discover it, discover by capital one, discover financial services]
+sector: bank
+parent: Capital One Financial Corporation
+website: https://www.discover.com
+account_url: https://www.discover.com/login/
+regulators: [cfpb, occ]
+notes: >-
+  Capital One completed its acquisition of Discover Financial Services in May 2025, and Discover Bank merged
+  into Capital One, N.A. (a national bank, OCC). Discover's site footer reads "Discover, a division of
+  Capital One, N.A." Discover says card accounts will move to Capital One throughout 2026 and early 2027;
+  until then, keep using the Discover number on the back of the card.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Discover customer service (1-800-DISCOVER)
+    value: +1-800-347-2683
+    hours: 24/7 (some specialized agents may not be available around the clock)
+    purposes: [transaction_dispute, unauthorized_charge, fraud, billing_error, fee_reversal, poor_service]
+    access: human_only
+    source: https://www.discover.com/contact-us/
+    last_verified: 2026-10-12
+  - id: outside-us-phone
+    type: phone
+    label: Discover customer service from outside the U.S.
+    value: +1-224-888-7777
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    source: https://www.discover.com/contact-us/
+    last_verified: 2026-10-12
+  - id: online-account
+    type: portal
+    label: Discover account login (report a lost or stolen card, disputes)
+    value: https://www.discover.com/login/
+    purposes: [unauthorized_charge, fraud, transaction_dispute]
+    access: login
+    source: https://www.discover.com/contact-us/
+    last_verified: 2026-10-12
+  - id: general-inquiries-mail
+    type: mail
+    label: Customer service, general inquiries
+    value: "Capital One, PO Box 71083, Charlotte, NC 28272-1083"
+    purposes: [poor_service, billing_error]
+    notes: Discover lists this address for general inquiries. Payment addresses depend on your address; use the one on your statement.
+    source: https://www.discover.com/contact-us/
+    last_verified: 2026-10-12
+  - id: capital-one-feedback-phone
+    type: phone
+    label: Capital One feedback and complaints line (includes "Discover, by Capital One" card accounts)
+    value: +1-844-348-8660
+    purposes: [poor_service, billing_error]
+    access: human_only
+    source: https://www.capitalone.com/help-center/contact-us/feedback/
+    last_verified: 2026-10-12
+  - id: arbitration-claim-notice-mail
+    type: mail
+    label: Claim Notice before arbitration (Discover by Capital One agreement)
+    value: "Capital One, P.O. Box 30035, Salt Lake City, UT 84130-0035"
+    notes: The agreement requires a personally signed written Claim Notice at least 30 days before starting arbitration.
+    source: https://ecm.capitalone.com/WCM/card/credit-card-agreements-q2-2026/credit-card-agreement-for-discover-by-capital-one-n.a.pdf
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: general-inquiries-mail, note: "For billing errors use the address in the Billing Rights Summary on your statement."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+  - {rung: arbitration, channel: arbitration-claim-notice-mail, note: "Either side may elect AAA arbitration under the Discover by Capital One agreement; small claims court is allowed."}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Report the card lost or stolen online or call 1-800-DISCOVER at once.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: Sign in and report the card lost or stolen.
+        channel: online-account
+      - do: Or call Discover customer service (24/7).
+        channel: customer-service-phone
+      - do: If Discover does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: transaction_dispute
+    summary: Contact the merchant, then dispute with Discover by phone or online, and keep the billing rights deadline on your statement.
+    evidence: [statement showing the charge, receipt or order, record of contact with the merchant]
+    steps:
+      - do: Contact the merchant first and keep proof.
+      - do: Call Discover customer service or sign in to start the dispute.
+        channel: customer-service-phone
+      - do: For a billing error, send a written notice to the address in the Billing Rights Summary on your statement.
+      - do: If Discover does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: The Discover by Capital One card agreement refers to the Billing Rights Summary on your statement for dispute rights.
+        issues: [transaction_dispute, billing_error]
+        source: https://ecm.capitalone.com/WCM/card/credit-card-agreements-q2-2026/credit-card-agreement-for-discover-by-capital-one-n.a.pdf
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Discover says card accounts will move to Capital One throughout 2026 and early 2027, and cardmembers keep their Discover card and rewards.
+    source: https://www.discover.com/contact-us/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: The Discover by Capital One card agreement lets either party elect binding AAA arbitration; either side may instead use small claims court. It does not apply to covered members under the Military Lending Act.
+    source: https://ecm.capitalone.com/WCM/card/credit-card-agreements-q2-2026/credit-card-agreement-for-discover-by-capital-one-n.a.pdf
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: Before arbitration, a personally signed Claim Notice with name, address and account number must be sent at least 30 days before starting the proceeding.
+    source: https://ecm.capitalone.com/WCM/card/credit-card-agreements-q2-2026/credit-card-agreement-for-discover-by-capital-one-n.a.pdf
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Discover's public dispute help pages redirect to login; disputes need sign-in or a phone call.
+  - Accounts that have moved to Capital One are governed by "Discover by Capital One" agreements; older Discover accounts may have different terms.

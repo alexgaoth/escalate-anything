@@ -1,0 +1,98 @@
+id: american-express
+name: American Express
+aliases: [amex, american express national bank, americanexpress, amex card]
+sector: bank
+parent: American Express Company
+website: https://www.americanexpress.com
+regulators: [cfpb, occ]
+notes: >-
+  American Express National Bank is a national bank (OCC) and the issuer of U.S. consumer Amex cards.
+  americanexpress.com blocks automated page fetches, so the channels here come from the cardmember
+  agreements Amex files with the CFPB. For customer service, fraud and disputes, call the number on the
+  back of the card or use the online account; those numbers were not confirmed on an Amex page.
+
+channels:
+  - id: arbitration-rejection-mail
+    type: mail
+    label: Reject the arbitration provision (within 45 days after your first card purchase)
+    value: "American Express, P.O. Box 981556, El Paso, TX 79998"
+    notes: The notice must state that you reject the Arbitration provision and include name, address, account number and personal signature. Rejection also covers other open Amex consumer accounts.
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/AMERICAN_EXPRESS_NATIONAL_BANK/Blue_Cash_Everyday_Card_Cardmember_Agreement-255458.pdf
+    last_verified: 2026-10-12
+  - id: claim-notice-mail
+    type: mail
+    label: Claim notice before a lawsuit, mediation or arbitration
+    value: "American Express ADR, c/o CT Corporation System, 28 Liberty Street, New York, New York 10005"
+    purposes: [poor_service, billing_error]
+    notes: The claim notice must describe the claim, state the specific relief demanded and include your name, address and account number.
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/AMERICAN_EXPRESS_NATIONAL_BANK/Blue_Cash_Everyday_Card_Cardmember_Agreement-255458.pdf
+    last_verified: 2026-10-12
+  - id: credit-bureau-unit-mail
+    type: mail
+    label: Dispute information Amex reported to a credit reporting agency
+    value: "American Express Credit Bureau Unit, P.O. Box 981537, El Paso, TX 79998-1537"
+    purposes: [credit_report_error]
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/AMERICAN_EXPRESS_NATIONAL_BANK/Blue_Cash_Everyday_Card_Cardmember_Agreement-255458.pdf
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, note: "Call the number on the back of the card."}
+  - {rung: written_complaint, channel: claim-notice-mail, note: "The agreement requires a written claim notice before mediation, arbitration or a lawsuit."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+  - {rung: arbitration, note: "Either party may elect individual arbitration with JAMS or AAA. Amex will not elect arbitration for an individual claim pending only in small claims court."}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Contact Amex right away through the number on the back of the card.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: Call the number on the back of the card and report the card lost, stolen or used without permission.
+      - do: For a billing error, write to the billing-rights address printed on your statement within 60 days.
+      - do: If Amex does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: The Amex cardmember agreement says to contact Amex right away if your card is lost or stolen or your account is being used without your permission.
+        issues: [unauthorized_charge, fraud]
+        source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/AMERICAN_EXPRESS_NATIONAL_BANK/Blue_Cash_Everyday_Card_Cardmember_Agreement-255458.pdf
+        last_verified: 2026-10-12
+
+  - issue: transaction_dispute
+    summary: Dispute the charge with Amex; if Amex credits you, it takes over your claim against the merchant.
+    evidence: [statement showing the charge, receipt, record of contact with the merchant]
+    steps:
+      - do: Try the merchant first and keep proof.
+      - do: Start the dispute in the online account or by calling the number on the back of the card.
+      - do: If the dispute is denied and you still disagree, send a written claim notice before any mediation or arbitration.
+        channel: claim-notice-mail
+      - do: Complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: If you dispute a charge with a merchant, Amex may credit all or part of it; if it does, you assign your claims against the merchant to Amex for the credited amount.
+        issues: [transaction_dispute]
+        source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/AMERICAN_EXPRESS_NATIONAL_BANK/Blue_Cash_Everyday_Card_Cardmember_Agreement-255458.pdf
+        last_verified: 2026-10-12
+
+facts:
+  - kind: deadline
+    claim: You may reject the Amex arbitration provision by a written notice mailed within 45 days after your first card purchase.
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/AMERICAN_EXPRESS_NATIONAL_BANK/Blue_Cash_Everyday_Card_Cardmember_Agreement-255458.pdf
+    last_verified: 2026-10-12
+  - kind: process
+    claim: Within 30 days after sending or receiving a claim notice, either party may submit the claim to JAMS or the AAA for mediation; Amex pays the mediation fees.
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/AMERICAN_EXPRESS_NATIONAL_BANK/Blue_Cash_Everyday_Card_Cardmember_Agreement-255458.pdf
+    last_verified: 2026-10-12
+  - kind: compensation
+    claim: If the arbitrator rules for you for more than Amex's last offer, the award includes at least $5,000 plus reasonable attorneys' fees and costs.
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/AMERICAN_EXPRESS_NATIONAL_BANK/Blue_Cash_Everyday_Card_Cardmember_Agreement-255458.pdf
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: If you are a covered borrower under the Military Lending Act, the arbitration provision does not apply to you.
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/AMERICAN_EXPRESS_NATIONAL_BANK/Blue_Cash_Everyday_Card_Cardmember_Agreement-255458.pdf
+    last_verified: 2026-10-12
+
+known_blockers:
+  - americanexpress.com rejects automated fetches, so Amex customer service, fraud and dispute phone numbers and pages are not recorded here. Use the number on the back of the card.
+  - Disputes and secure messages need sign-in to the Amex account.

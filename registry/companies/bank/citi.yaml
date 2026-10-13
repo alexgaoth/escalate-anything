@@ -1,0 +1,168 @@
+id: citi
+name: Citi
+aliases: [citibank, citibank na, citicards, citi cards, citigroup, citi retail services]
+sector: bank
+parent: Citigroup Inc.
+website: https://www.citi.com
+regulators: [cfpb, occ]
+notes: >-
+  Citibank, N.A. is a national bank (OCC). It issues Citi-branded cards, co-brand cards (Costco, AAdvantage)
+  and store cards (Home Depot, Macy's, Best Buy and others). Citi's help and contact pages need JavaScript,
+  so most phone numbers here come from the "Contact Phone" column of Citi's card agreements page.
+
+channels:
+  - id: double-cash-phone
+    type: phone
+    label: Citi Double Cash Card contact phone
+    value: +1-855-473-4583
+    purposes: [transaction_dispute, unauthorized_charge, billing_error, fee_reversal]
+    access: human_only
+    notes: Listed in the "Contact Phone" column of Citi's card agreements page. For any card, the number on the back of the card is the primary line.
+    source: https://www.citi.com/credit-cards/compare-credit-cards/CMA-PIT
+    last_verified: 2026-10-12
+  - id: costco-card-phone
+    type: phone
+    label: Costco Anywhere Visa Card by Citi contact phone
+    value: +1-855-378-6467
+    purposes: [transaction_dispute, unauthorized_charge, billing_error, fee_reversal]
+    access: human_only
+    source: https://www.citi.com/credit-cards/compare-credit-cards/CMA-PIT
+    last_verified: 2026-10-12
+  - id: strata-phone
+    type: phone
+    label: Citi Strata, Strata Student and Strata Premier contact phone
+    value: +1-800-842-6596
+    purposes: [transaction_dispute, unauthorized_charge, billing_error, fee_reversal]
+    access: human_only
+    source: https://www.citi.com/credit-cards/compare-credit-cards/CMA-PIT
+    last_verified: 2026-10-12
+  - id: simplicity-diamond-phone
+    type: phone
+    label: Citi Simplicity and Citi Diamond Preferred contact phone
+    value: +1-800-823-4086
+    purposes: [transaction_dispute, unauthorized_charge, billing_error, fee_reversal]
+    access: human_only
+    source: https://www.citi.com/credit-cards/compare-credit-cards/CMA-PIT
+    last_verified: 2026-10-12
+  - id: aadvantage-phone
+    type: phone
+    label: Citi / AAdvantage cards contact phone (1-888-766-CITI)
+    value: +1-888-766-2484
+    purposes: [transaction_dispute, unauthorized_charge, billing_error, fee_reversal]
+    access: human_only
+    source: https://www.citi.com/credit-cards/compare-credit-cards/CMA-PIT
+    last_verified: 2026-10-12
+  - id: home-depot-card-phone
+    type: phone
+    label: The Home Depot Consumer Credit Card contact phone
+    value: +1-800-677-0232
+    purposes: [transaction_dispute, unauthorized_charge, billing_error, fee_reversal]
+    access: human_only
+    source: https://www.citi.com/credit-cards/compare-credit-cards/CMA-PIT
+    last_verified: 2026-10-12
+  - id: macys-card-phone
+    type: phone
+    label: Macy's Credit Card contact phone
+    value: +1-866-593-2543
+    purposes: [transaction_dispute, unauthorized_charge, billing_error, fee_reversal]
+    access: human_only
+    source: https://www.citi.com/credit-cards/compare-credit-cards/CMA-PIT
+    last_verified: 2026-10-12
+  - id: best-buy-card-phone
+    type: phone
+    label: My Best Buy Credit Card and My Best Buy Visa contact phone
+    value: +1-888-574-1301
+    purposes: [transaction_dispute, unauthorized_charge, billing_error, fee_reversal]
+    access: human_only
+    source: https://www.citi.com/credit-cards/compare-credit-cards/CMA-PIT
+    last_verified: 2026-10-12
+  - id: online-account
+    type: portal
+    label: Citi online account (secure messages, disputes, request a copy of your card agreement)
+    value: https://online.citi.com/US/ag/contactus
+    purposes: [transaction_dispute, billing_error]
+    access: login
+    source: https://www.citi.com/credit-cards/sitemap
+    last_verified: 2026-10-12
+  - id: arbitration-rejection-mail
+    type: mail
+    label: Reject the card arbitration provision (within 45 days of account opening)
+    value: "PO Box 6195, Sioux Falls, SD 57117-6195"
+    notes: The rejection notice must state that you reject the arbitration provision and include name, address, account number and personal signature.
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/CITIBANK_N.A./Citi_Double_Cash_Cardmember_Agreement-256158.pdf
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: double-cash-phone, note: "Use the number on the back of the card; the listed numbers are per card product."}
+  - {rung: written_complaint, note: "Write to the billing inquiries and correspondence address shown on the front of your statement."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+  - {rung: arbitration, note: "Citi card agreements let either party choose AAA arbitration; individual claims in small claims court are not subject to arbitration."}
+
+playbooks:
+  - issue: billing_error
+    summary: Write to the billing inquiries address on the front of your statement within 60 days. A phone call alone does not protect your rights.
+    evidence: [statement with the error, account number, dollar amount, why it is wrong]
+    steps:
+      - do: Find the address for billing inquiries and correspondence on the front of your statement.
+      - do: Send a letter with your name, account number, the dollar amount and why you believe it is a mistake, within 60 days after the error appeared.
+      - do: To stop an automatic payment of the disputed amount, write at least 3 business days before the payment date.
+      - do: If Citi does not answer or correct it within the legal timelines, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: Citi's billing rights notice says you must notify Citi in writing within 60 days after the error appeared on your statement; if you only call, Citi is not required to investigate.
+        issues: [billing_error, transaction_dispute]
+        source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/CITIBANK_N.A./Citi_Double_Cash_Cardmember_Agreement-256158.pdf
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Citi must acknowledge your letter within 30 days and, within 90 days, either correct the error or explain why the bill is correct.
+        issues: [billing_error]
+        source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/CITIBANK_N.A./Citi_Double_Cash_Cardmember_Agreement-256158.pdf
+        last_verified: 2026-10-12
+
+  - issue: transaction_dispute
+    summary: Try the merchant, then dispute with Citi in writing at the statement's billing inquiries address.
+    evidence: [statement showing the charge, receipt, record of contact with the merchant]
+    steps:
+      - do: Try to resolve the problem with the merchant first and keep proof.
+      - do: Write to the billing inquiries address on your statement, or start a dispute after signing in.
+        channel: online-account
+      - do: If Citi does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: To withhold payment for a bad purchase, you must have tried in good faith to fix it with the merchant, the purchase must be over $50 and in your home state or within 100 miles of your mailing address (unless Citi mailed the ad), and you must not have fully paid for it; then write to Citi.
+        issues: [transaction_dispute]
+        source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/CITIBANK_N.A./Citi_Double_Cash_Cardmember_Agreement-256158.pdf
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: Call the number on the back of the card at once.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: Call the number on the back of the card to report a lost or stolen card or unauthorized use.
+        channel: double-cash-phone
+      - do: If Citi does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: The Citi card agreement says you must call Citi if a card is lost or stolen, or if you think someone has used or may use it without permission.
+        issues: [unauthorized_charge, fraud]
+        source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/CITIBANK_N.A./Citi_Double_Cash_Cardmember_Agreement-256158.pdf
+        last_verified: 2026-10-12
+
+facts:
+  - kind: deadline
+    claim: You may reject the Citi card arbitration provision by mailing a written rejection notice within 45 days of account opening.
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/CITIBANK_N.A./Citi_Double_Cash_Cardmember_Agreement-256158.pdf
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Citi pays your share of the arbitration fee for claims of $75,000 or less that are unrelated to debt collection.
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/CITIBANK_N.A./Citi_Double_Cash_Cardmember_Agreement-256158.pdf
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Citi's contact, dispute and security pages render only with JavaScript; phone numbers for fraud, banking and complaints were not confirmed.
+  - The billing-error mailing address is printed on each statement, not in the public agreement.
+  - Online disputes and secure messages need sign-in.

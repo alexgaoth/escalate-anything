@@ -1,0 +1,229 @@
+id: wells-fargo
+name: Wells Fargo
+aliases: [wells fargo bank, wellsfargo, wells fargo bank na, wf bank]
+sector: bank
+parent: Wells Fargo & Company
+website: https://www.wellsfargo.com
+regulators: [cfpb, occ]
+notes: Wells Fargo Bank, N.A. is a national bank (OCC). It issues Wells Fargo credit cards and retail-branded cards.
+
+channels:
+  - id: banking-phone
+    type: phone
+    label: General banking, lost or stolen debit card, personal account fraud and identity theft
+    value: +1-800-869-3557
+    hours: 24/7
+    purposes: [fraud, unauthorized_charge, fee_reversal, frozen_funds, transaction_dispute]
+    access: human_only
+    source: https://www.wellsfargo.com/help/contact-us/
+    last_verified: 2026-10-12
+  - id: card-services-phone
+    type: phone
+    label: Credit card account management, lost or stolen card
+    value: +1-800-642-4720
+    purposes: [transaction_dispute, unauthorized_charge, fraud, billing_error, fee_reversal]
+    access: human_only
+    source: https://www.wellsfargo.com/help/contact-us/
+    last_verified: 2026-10-12
+  - id: card-international-collect
+    type: phone
+    label: Credit card international collect calls
+    value: +1-925-825-7600
+    hours: 24/7
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    source: https://www.wellsfargo.com/help/contact-us/
+    last_verified: 2026-10-12
+  - id: online-fraud-phone
+    type: phone
+    label: Fraud on Wells Fargo Online, bill pay, Zelle or wires, or if you responded to a phishing message
+    value: +1-866-867-5568
+    purposes: [fraud, account_access]
+    access: human_only
+    source: https://www.wellsfargo.com/privacy-security/fraud/report/
+    last_verified: 2026-10-12
+  - id: debit-claim-status-phone
+    type: phone
+    label: Debit card claim status
+    value: +1-800-548-9554
+    hours: Mon-Fri 7:00 a.m.-12:00 a.m. Eastern
+    purposes: [transaction_dispute, unauthorized_charge, fraud]
+    access: human_only
+    source: https://www.wellsfargo.com/privacy-security/fraud/report/
+    last_verified: 2026-10-12
+  - id: credit-claim-status-phone
+    type: phone
+    label: Credit card claim status
+    value: +1-800-423-7618
+    hours: Mon-Fri 7:00 a.m.-12:00 a.m. Eastern
+    purposes: [transaction_dispute, unauthorized_charge, fraud]
+    access: human_only
+    source: https://www.wellsfargo.com/privacy-security/fraud/report/
+    last_verified: 2026-10-12
+  - id: phishing-email
+    type: email
+    label: Forward suspicious emails or texts (only if you did not respond)
+    value: reportphish@wellsfargo.com
+    purposes: [fraud]
+    source: https://www.wellsfargo.com/privacy-security/fraud/report/
+    last_verified: 2026-10-12
+  - id: feedback-phone
+    type: phone
+    label: Feedback and complaints (1-844-WF1-CARE)
+    value: +1-844-931-2273
+    hours: Mon-Sat 7 am-9 pm Central
+    purposes: [poor_service, fee_reversal, frozen_funds]
+    access: human_only
+    source: https://www.wellsfargo.com/help/feedback/
+    last_verified: 2026-10-12
+  - id: billing-rights-mail
+    type: mail
+    label: Credit card billing errors (Your Billing Rights address)
+    value: "Wells Fargo Bank, N.A., P.O. Box 522, Des Moines, IA 50306-0522"
+    purposes: [billing_error, transaction_dispute]
+    notes: From the Your Billing Rights section of the Wells Fargo consumer credit card agreements. Not for payments.
+    source: https://www.wellsfargo.com/credit-cards/documents/active-cash-agreement
+    last_verified: 2026-10-12
+  - id: card-services-mail
+    type: mail
+    label: Credit card payments and customer service
+    value: "Wells Fargo Card Services, P.O. Box 51193, Los Angeles, CA 90051-5493"
+    purposes: [poor_service]
+    source: https://www.wellsfargo.com/help/addresses/
+    last_verified: 2026-10-12
+  - id: banking-mail
+    type: mail
+    label: General banking correspondence (checking and savings)
+    value: "Wells Fargo Bank, P. O. Box 6995, Portland, OR 97228-6995"
+    purposes: [poor_service, fee_reversal, frozen_funds]
+    source: https://www.wellsfargo.com/help/addresses/
+    last_verified: 2026-10-12
+  - id: corporate-office-mail
+    type: mail
+    label: Corporate office
+    value: "Wells Fargo, 333 Market Street, San Francisco, CA 94105"
+    purposes: [poor_service]
+    notes: Payments and deposits cannot be processed at this address.
+    source: https://www.wellsfargo.com/help/addresses/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: banking-phone}
+  - {rung: written_complaint, channel: banking-mail, note: "For credit card billing errors, write to the billing rights address within 60 days instead. The feedback line also takes complaints."}
+  - {rung: executive, channel: corporate-office-mail}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+  - {rung: arbitration, note: "Wells Fargo credit card agreements contain an AAA arbitration agreement; either side may use small claims court."}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: Call the card line or dispute in online banking, and send a written notice to the billing rights address within 60 days.
+    evidence: [statement showing the charge, receipt or order, record of contact with the merchant]
+    steps:
+      - do: Try the merchant first and keep proof.
+      - do: Call credit card customer service to open the dispute.
+        channel: card-services-phone
+      - do: To keep your legal rights for a credit card, write to the billing rights address within 60 days after the error appeared on your statement.
+        channel: billing-rights-mail
+      - do: Check the status of a credit card claim.
+        channel: credit-claim-status-phone
+      - do: If Wells Fargo does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: The Wells Fargo credit card agreement's billing rights notice says to write within 60 days after the error appeared on your statement.
+        issues: [transaction_dispute, billing_error]
+        source: https://www.wellsfargo.com/credit-cards/documents/active-cash-agreement
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: Call the number on the back of the card at once.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: For a credit card, call credit card customer service and report the card lost, stolen or misused.
+        channel: card-services-phone
+      - do: For a debit card or personal account, call general banking (24/7).
+        channel: banking-phone
+      - do: Check claim status on the claim status lines.
+        channel: debit-claim-status-phone
+      - do: If Wells Fargo does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: Wells Fargo says to contact it immediately by calling the number on the back of your credit or debit card if you see unauthorized transactions.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.wellsfargo.com/privacy-security/fraud/report/
+        last_verified: 2026-10-12
+
+  - issue: fraud
+    summary: Call the line for the type of fraud, then report to the FTC.
+    evidence: [transaction details, messages from the scammer, police or FTC report number]
+    steps:
+      - do: For checking, savings, debit or ATM fraud and identity theft, call general banking.
+        channel: banking-phone
+      - do: For online banking, bill pay, Zelle or wire fraud, or if you answered a phishing message, call the online fraud line.
+        channel: online-fraud-phone
+      - do: Forward phishing emails or texts you did not respond to.
+        channel: phishing-email
+      - do: Report to the FTC at ReportFraud.ftc.gov, then complain to the CFPB if the bank does not act.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: Wells Fargo states that neither Wells Fargo nor Zelle offers purchase protection for payments made with Zelle.
+        issues: [fraud]
+        source: https://www.wellsfargo.com/privacy-security/fraud/report/
+        last_verified: 2026-10-12
+
+  - issue: fee_reversal
+    summary: Check the overdraft rules (Extra Day Grace Period, $10 limits), then ask for a reversal.
+    evidence: [statement showing the fee, available balance by date, deposit times]
+    steps:
+      - do: Check whether the fee should have been waived under the Extra Day Grace Period or the $10 rules.
+      - do: Call general banking and ask for a reversal.
+        channel: banking-phone
+      - do: If refused, complain on the feedback line or in writing.
+        channel: feedback-phone
+      - do: Complain to the CFPB if the fee breaks the stated rules.
+        regulator: cfpb
+    facts:
+      - kind: fee
+        claim: The overdraft fee for consumer checking accounts is $35 per item, with no more than three overdraft fees per business day for personal accounts.
+        issues: [fee_reversal]
+        source: https://www.wellsfargo.com/checking/overdraft-services/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Wells Fargo does not charge an overdraft fee on items of $10 or less, or when both the ending daily balance and available balance are overdrawn by $10 or less.
+        issues: [fee_reversal]
+        source: https://www.wellsfargo.com/checking/overdraft-services/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Extra Day Grace Period - if your available balance is positive as of 11:59 pm Eastern Time on the extra day, pending overdraft fees for the prior business day are waived.
+        issues: [fee_reversal]
+        source: https://www.wellsfargo.com/checking/overdraft-services/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Wells Fargo does not charge a returned item (NSF) fee for items returned unpaid, and Clear Access Banking accounts have no overdraft fees.
+        issues: [fee_reversal]
+        source: https://www.wellsfargo.com/checking/overdraft-services/
+        last_verified: 2026-10-12
+
+  - issue: billing_error
+    summary: Write to the billing rights address within 60 days of the statement.
+    evidence: [statement with the error, account number, amount, why it is wrong]
+    steps:
+      - do: Call credit card customer service to report the error.
+        channel: card-services-phone
+      - do: Send a written notice with your name, account number, the amount and why it is wrong.
+        channel: billing-rights-mail
+      - do: If the error is not fixed, complain to the CFPB.
+        regulator: cfpb
+
+facts:
+  - kind: policy
+    claim: Wells Fargo consumer credit card agreements include an arbitration agreement administered by the American Arbitration Association; you and the bank keep the right to use small claims court.
+    source: https://www.wellsfargo.com/credit-cards/documents/autograph-visa-agreement/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Wells Fargo does not list a fraud number for credit cards on its fraud page; it says to call the number on the back of the card.
+  - Phone lines verify the account holder.

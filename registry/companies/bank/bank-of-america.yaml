@@ -1,0 +1,233 @@
+id: bank-of-america
+name: Bank of America
+aliases: [bofa, boa, bank of america na, bankofamerica]
+sector: bank
+parent: Bank of America Corporation
+website: https://www.bankofamerica.com
+account_url: https://secure.bankofamerica.com/login/sign-in/signOnV2Screen.go
+regulators: [cfpb, occ]
+notes: >-
+  Bank of America, National Association is a national bank (OCC). Bank of America does not publish a
+  dedicated complaint or executive office channel on its contact pages; use the written channels below.
+
+channels:
+  - id: card-services-phone
+    type: phone
+    label: Credit card customer service (including lost or stolen card)
+    value: +1-800-732-9194
+    hours: 24/7
+    purposes: [transaction_dispute, unauthorized_charge, fraud, billing_error, fee_reversal]
+    access: human_only
+    source: https://www.bankofamerica.com/customer-service/contact-us/credit-card/
+    last_verified: 2026-10-12
+  - id: card-international-phone
+    type: phone
+    label: Credit card customer service from outside the U.S.
+    value: +1-302-738-5719
+    hours: 24/7
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    notes: International cell phone roaming charges may apply.
+    source: https://www.bankofamerica.com/customer-service/contact-us/credit-card/
+    last_verified: 2026-10-12
+  - id: card-billing-inquiries-phone
+    type: phone
+    label: Credit card billing inquiries
+    value: +1-866-266-0212
+    purposes: [billing_error, transaction_dispute]
+    access: human_only
+    source: https://www.bankofamerica.com/customer-service/contact-us/credit-card/
+    last_verified: 2026-10-12
+  - id: card-billing-inquiries-mail
+    type: mail
+    label: Credit card billing inquiries (written billing disputes)
+    value: "Bank of America, PO Box 672050, Dallas, TX 75267-2050"
+    purposes: [billing_error, transaction_dispute]
+    notes: Do not send payments here. The BankAmericard agreement's billing rights notice gives the same address (P.O. Box 672050, Dallas, TX 75267-2050).
+    source: https://www.bankofamerica.com/customer-service/contact-us/credit-card/
+    last_verified: 2026-10-12
+  - id: banking-phone
+    type: phone
+    label: Checking and savings, general account information, lost or stolen ATM or debit card
+    value: +1-800-432-1000
+    hours: Mon-Fri 8 a.m.-11 p.m. ET, Sat-Sun 8 a.m.-8 p.m. ET
+    purposes: [fraud, unauthorized_charge, fee_reversal, frozen_funds, transaction_dispute]
+    access: human_only
+    notes: Your card or account number is required. Relay calls by dialing 711.
+    source: https://www.bankofamerica.com/customer-service/contact-us/checking-savings/
+    last_verified: 2026-10-12
+  - id: banking-international-collect
+    type: phone
+    label: Checking and savings, international collect
+    value: +1-315-724-4022
+    purposes: [fraud, unauthorized_charge]
+    access: human_only
+    source: https://www.bankofamerica.com/customer-service/contact-us/checking-savings/
+    last_verified: 2026-10-12
+  - id: debit-fraud-phone
+    type: phone
+    label: Report fraudulent ATM or debit card charges
+    value: +1-877-366-1121
+    purposes: [fraud, unauthorized_charge]
+    access: human_only
+    source: https://www.bankofamerica.com/customer-service/contact-us/privacy-security/
+    last_verified: 2026-10-12
+  - id: dispute-credit-online
+    type: portal
+    label: Dispute a credit card transaction online
+    value: https://secure.bankofamerica.com/login/sign-in/signOnV2Screen.go?reason=hsdisputcard
+    purposes: [transaction_dispute, unauthorized_charge, billing_error]
+    access: login
+    source: https://www.bankofamerica.com/customer-service/contact-us/
+    last_verified: 2026-10-12
+  - id: dispute-debit-online
+    type: portal
+    label: Dispute an ATM or debit card transaction online
+    value: https://secure.bankofamerica.com/login/sign-in/signOnV2Screen.go?requestFrom=search&reason=disputeatmcheckcard
+    purposes: [transaction_dispute, unauthorized_charge, fraud]
+    access: login
+    source: https://www.bankofamerica.com/customer-service/contact-us/
+    last_verified: 2026-10-12
+  - id: banking-mail
+    type: mail
+    label: Write to us (checking and savings)
+    value: "Bank of America, PO Box 25118, Tampa, FL 33622-5118"
+    purposes: [poor_service, fee_reversal, frozen_funds]
+    source: https://www.bankofamerica.com/customer-service/contact-us/checking-savings/
+    last_verified: 2026-10-12
+  - id: social-x
+    type: social
+    label: Direct message @BofA_Help on X
+    value: https://x.com/@BofA_Help
+    purposes: [poor_service]
+    hours: Mon-Fri 8 a.m.-9 p.m. ET, Sat 9 a.m.-6 p.m. ET, Sun 8 a.m.-5 p.m. ET
+    notes: Never post account numbers publicly.
+    source: https://www.bankofamerica.com/customer-service/contact-us/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: card-services-phone}
+  - {rung: written_complaint, channel: card-billing-inquiries-mail, note: "Card billing errors in writing within 60 days of the statement. For deposit accounts, write to the checking and savings address."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+  - {rung: arbitration, note: "Bank of America credit card agreements require AAA arbitration if either party chooses it; either side may use small claims court instead."}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: Contact the merchant first, then dispute the posted charge online, by phone or by mail within 60 days of the statement.
+    evidence: [statement showing the charge, receipt or order, record of contact with the merchant]
+    steps:
+      - do: Contact the merchant first. Bank of America says merchants can often resolve the issue faster.
+      - do: Wait until the charge posts. Only posted transactions can be disputed.
+      - do: Start the dispute in Online or Mobile Banking.
+        channel: dispute-credit-online
+      - do: Or call credit card billing inquiries, or write to the billing inquiries address.
+        channel: card-billing-inquiries-mail
+      - do: If Bank of America does not resolve it, file a complaint with the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: Most credit card transactions must be disputed within 60 days of the date of the statement on which the error appeared.
+        issues: [transaction_dispute, billing_error]
+        source: https://www.bankofamerica.com/customer-service/contact-us/credit-card/
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Only posted transactions can be disputed; pending charges are temporary and may change.
+        issues: [transaction_dispute]
+        source: https://www.bankofamerica.com/customer-service/contact-us/credit-card/
+        last_verified: 2026-10-12
+      - kind: process
+        claim: You can dispute a credit card charge through Mobile or Online Banking, by phone, or by mail.
+        issues: [transaction_dispute, billing_error]
+        source: https://info.bankofamerica.com/en/digital-banking/manage-your-credit-card-account
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: Report the card lost or stolen by phone at once; locking the card in the app is not enough.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: For a credit card, call the 24/7 credit card line and report the card lost or stolen.
+        channel: card-services-phone
+      - do: For an ATM or debit card, call the debit fraud line, or dispute online.
+        channel: debit-fraud-phone
+      - do: If Bank of America does not resolve it, file a complaint with the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: For a lost or stolen credit card, Bank of America states "You won't be liable for any fraudulent charges."
+        issues: [unauthorized_charge, fraud]
+        source: https://www.bankofamerica.com/customer-service/contact-us/privacy-security/
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Locking your account is not a replacement for reporting your card lost or stolen.
+        issues: [unauthorized_charge, fraud]
+        source: https://info.bankofamerica.com/en/digital-banking/manage-your-credit-card-account
+        last_verified: 2026-10-12
+
+  - issue: fraud
+    summary: Call the line for the account type at once, then report to the FTC.
+    evidence: [transaction details, messages from the scammer, police or FTC report number]
+    steps:
+      - do: For credit card fraud, sign in to Online Banking and follow the instructions, or call the credit card line.
+        channel: card-services-phone
+      - do: For ATM or debit fraud, call the debit fraud line.
+        channel: debit-fraud-phone
+      - do: For other accounts, call the general line.
+        channel: banking-phone
+      - do: Report the fraud to the FTC at ReportFraud.ftc.gov, then complain to the CFPB if the bank does not act.
+        regulator: cfpb
+
+  - issue: fee_reversal
+    summary: Ask for a courtesy reversal by phone, then in writing.
+    evidence: [statement showing the fee, account history]
+    steps:
+      - do: Call and ask for a courtesy reversal of the fee.
+        channel: banking-phone
+      - do: If refused, write to the checking and savings address.
+        channel: banking-mail
+      - do: Complain to the CFPB if the fee breaks the account terms.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: Bank of America says it won't charge a fee when it declines or returns an item unpaid due to insufficient funds.
+        issues: [fee_reversal]
+        source: https://www.bankofamerica.com/deposits/overdraft-services-faqs/
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: There is no cost to set up Balance Connect for overdraft protection and no transfer fees when you use it.
+        issues: [fee_reversal]
+        source: https://www.bankofamerica.com/deposits/overdraft-services-faqs/
+        last_verified: 2026-10-12
+
+  - issue: billing_error
+    summary: Dispute in writing to the billing inquiries address within 60 days of the statement.
+    evidence: [statement with the error, account number, amount, why it is wrong]
+    steps:
+      - do: Start the dispute online or call credit card billing inquiries.
+        channel: card-billing-inquiries-phone
+      - do: Send a written notice with your name, account number, the amount and why it is wrong.
+        channel: card-billing-inquiries-mail
+      - do: If the error is not fixed, complain to the CFPB.
+        regulator: cfpb
+
+facts:
+  - kind: deadline
+    claim: The BankAmericard agreement's billing rights notice says to write to Bank of America, P.O. Box 672050, Dallas, TX 75267-2050 within 60 days after the error appeared on your statement, and at least 3 business days before an automated payment to stop it.
+    issues: [billing_error, transaction_dispute]
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/BANK_OF_AMERICA_NATIONAL_ASSOCIATION/BankAmericard_English-615678.pdf
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Bank of America credit card agreements require binding arbitration administered by the American Arbitration Association whenever either party chooses it; the only exception is an individual claim in small claims court.
+    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/BANK_OF_AMERICA_NATIONAL_ASSOCIATION/BankAmericard_English-615678.pdf
+    last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: Contact the merchant before disputing a credit card charge; the merchant may resolve it faster.
+    issues: [transaction_dispute]
+    source: https://www.bankofamerica.com/customer-service/contact-us/credit-card/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Online disputes need sign-in to Online or Mobile Banking.
+  - Phone lines need the card or account number and verify the account holder.

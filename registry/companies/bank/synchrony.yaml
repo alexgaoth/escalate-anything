@@ -1,0 +1,153 @@
+id: synchrony
+name: Synchrony
+aliases: [synchrony bank, synchrony financial, carecredit, care credit, mysynchrony]
+sector: bank
+parent: Synchrony Financial
+website: https://www.synchrony.com
+regulators: [cfpb, occ]
+notes: >-
+  Synchrony Bank is a federal savings association (OCC). It issues store and co-brand credit cards for
+  many retailers, CareCredit health cards and Pay Later products, and offers Synchrony Bank savings. Each
+  store card has its own service number on the back of the card.
+
+channels:
+  - id: general-phone
+    type: phone
+    label: General line (not sure which department)
+    value: +1-866-419-4096
+    purposes: [poor_service, transaction_dispute, billing_error]
+    access: human_only
+    source: https://www.synchrony.com/help/contact-us
+    last_verified: 2026-10-12
+  - id: fraud-report-phone
+    type: phone
+    label: Report suspected fraud or identity theft
+    value: +1-866-834-3205
+    purposes: [fraud, unauthorized_charge]
+    access: human_only
+    source: https://www.synchrony.com/legal/fraud-protection
+    last_verified: 2026-10-12
+  - id: fraud-case-phone
+    type: phone
+    label: Existing fraud case
+    value: +1-866-412-7866
+    purposes: [fraud, unauthorized_charge]
+    access: human_only
+    source: https://www.synchrony.com/legal/fraud-protection
+    last_verified: 2026-10-12
+  - id: carecredit-phone
+    type: phone
+    label: CareCredit, manage your account
+    value: +1-866-893-7864
+    purposes: [transaction_dispute, billing_error, unauthorized_charge, fee_reversal]
+    access: human_only
+    source: https://www.synchrony.com/help/contact-us
+    last_verified: 2026-10-12
+  - id: savings-phone
+    type: phone
+    label: Synchrony Bank savings, CDs and IRAs
+    value: +1-866-226-5638
+    hours: "Bankers Mon-Fri 8:00 a.m. to 10:00 p.m. ET, Sat-Sun 8:00 a.m. to 5:00 p.m. ET; automated service 24/7"
+    purposes: [fraud, frozen_funds, fee_reversal]
+    access: human_only
+    source: https://www.synchrony.com/contact-us
+    last_verified: 2026-10-12
+  - id: savings-international-phone
+    type: phone
+    label: Synchrony Bank, international customers
+    value: +1-937-534-3624
+    purposes: [fraud, frozen_funds]
+    access: human_only
+    source: https://www.synchrony.com/contact-us
+    last_verified: 2026-10-12
+  - id: savings-mail
+    type: mail
+    label: Synchrony Bank (savings) regular mail, including returned forms
+    value: "Synchrony Bank, P.O. Box 669802, Dallas, TX 75266-0955"
+    purposes: [frozen_funds, poor_service]
+    source: https://www.synchrony.com/contact-us
+    last_verified: 2026-10-12
+  - id: pay-in-4-phone
+    type: phone
+    label: Synchrony Pay Later, Pay in 4
+    value: +1-855-945-3576
+    purposes: [transaction_dispute, billing_error]
+    access: human_only
+    source: https://www.synchrony.com/help/contact-us
+    last_verified: 2026-10-12
+  - id: pay-monthly-phone
+    type: phone
+    label: Synchrony Pay Later, Pay in Monthly
+    value: +1-844-373-4960
+    purposes: [transaction_dispute, billing_error]
+    access: human_only
+    source: https://www.synchrony.com/help/contact-us
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: general-phone, note: "Or the number on the back of the store card."}
+  - {rung: written_complaint, note: "Card customers can send a secure message after signing in. For billing errors, write to the address in the billing rights section of your statement."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+
+playbooks:
+  - issue: fraud
+    summary: Call the fraud line, then return the Fraud Investigation Form Synchrony mails you.
+    evidence: [list of transactions you did and did not make (merchant, date, amount), police report, FTC identity theft report]
+    steps:
+      - do: Call Synchrony to report the fraud. A team member helps gather information to open a claim.
+        channel: fraud-report-phone
+      - do: List which transactions you made and which you did not, with merchant name, date and amount.
+      - do: Watch for the Fraud Investigation Form (about two weeks). Mark each transaction, sign it and return it as its instructions say.
+      - do: For questions on an open claim, call the existing fraud case line.
+        channel: fraud-case-phone
+      - do: Place a fraud alert with the credit bureaus, file a police report, and report identity theft to the FTC. Complain to the CFPB if Synchrony does not act.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: Synchrony mails a Fraud Investigation Form, usually within about two weeks; failure to return it may affect your claim.
+        issues: [fraud, unauthorized_charge]
+        source: https://www.synchrony.com/legal/fraud-protection
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Fraud claims typically take about 60 days, and up to 90 days in some cases. A temporary credit is applied to the account pending the outcome.
+        issues: [fraud, unauthorized_charge]
+        source: https://www.synchrony.com/legal/fraud-protection
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: You are still responsible for payment on any non-fraudulent transactions you made.
+        issues: [fraud, unauthorized_charge]
+        source: https://www.synchrony.com/legal/fraud-protection
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: Report it as fraud by phone and follow the Fraud Investigation Form process.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: Call the fraud line.
+        channel: fraud-report-phone
+      - do: Return the signed Fraud Investigation Form when it arrives.
+      - do: If Synchrony does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: transaction_dispute
+    summary: Contact the merchant, then dispute through the card's service number or a secure message in the online account.
+    evidence: [statement showing the charge, receipt, record of contact with the merchant]
+    steps:
+      - do: Try the merchant first and keep proof.
+      - do: Call the number on the back of the card, or sign in and send a secure message.
+        channel: general-phone
+      - do: For a billing error, also write to the billing rights address on your statement within 60 days.
+      - do: If Synchrony does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+tips:
+  - kind: official
+    text: Synchrony says it will never email you with a request for information.
+    issues: [fraud]
+    source: https://www.synchrony.com/legal/fraud-protection
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Most store cards have their own service number; use the one on the back of the card.
+  - Synchrony's contact pages list no dispute page, complaint form or complaint mailing address; disputes go by phone or secure message after sign-in.

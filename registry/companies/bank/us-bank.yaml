@@ -1,0 +1,153 @@
+id: us-bank
+name: U.S. Bank
+aliases: [us bank, usbank, u s bank, us bancorp, u.s. bancorp, us bank national association]
+sector: bank
+parent: U.S. Bancorp
+website: https://www.usbank.com
+regulators: [cfpb, occ]
+notes: U.S. Bank National Association is a national bank (OCC). Credit cards are serviced by Cardmember Service.
+
+channels:
+  - id: banking-phone
+    type: phone
+    label: U.S. Bank customer service (800-USBANKS)
+    value: +1-800-872-2657
+    purposes: [fee_reversal, frozen_funds, transaction_dispute, poor_service]
+    access: human_only
+    source: https://www.usbank.com/customer-service.html
+    last_verified: 2026-10-12
+  - id: card-services-phone
+    type: phone
+    label: Cardmember Service (Altitude Go, Altitude Connect, Shopper Cash Rewards, Cash+, Cash Rewards, Perks+, Platinum, College and Secured Visa)
+    value: +1-800-285-8585
+    purposes: [transaction_dispute, billing_error, unauthorized_charge, fee_reversal]
+    access: human_only
+    notes: The automated system can start a dispute case; if the charge cannot be disputed digitally you are connected to a banker. Other card products have their own numbers on the back of the card.
+    source: https://www.usbank.com/customer-service/personal-banking/credit-cards.html
+    last_verified: 2026-10-12
+  - id: card-fraud-phone
+    type: phone
+    label: Credit card purchases you did not make
+    value: +1-866-821-8411
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    source: https://www.usbank.com/customer-service/personal-banking/credit-cards.html
+    last_verified: 2026-10-12
+  - id: fraud-department-phone
+    type: phone
+    label: U.S. Bank fraud department
+    value: +1-877-595-6256
+    purposes: [fraud, unauthorized_charge, account_access]
+    access: human_only
+    source: https://www.usbank.com/customer-service/online-security.html
+    last_verified: 2026-10-12
+  - id: dispute-online
+    type: portal
+    label: Dispute a card transaction in online banking or the app
+    value: https://www.usbank.com/customer-service/personal-banking/credit-cards.html
+    purposes: [transaction_dispute, unauthorized_charge, billing_error]
+    access: login
+    notes: Choose the account, select the transaction, select "Dispute this transaction" and answer the questions.
+    source: https://www.usbank.com/customer-service/personal-banking/credit-cards.html
+    last_verified: 2026-10-12
+  - id: dispute-documents-upload
+    type: portal
+    label: Upload documents for a dispute
+    value: https://www.usbank.com/customer-service/knowledge-base/KB0249776.html
+    purposes: [transaction_dispute]
+    access: login
+    source: https://www.usbank.com/customer-service/personal-banking/credit-cards.html
+    last_verified: 2026-10-12
+  - id: dispute-mail
+    type: mail
+    label: Credit card disputes by mail
+    value: "Cardmember Service, PO Box 6352, Fargo, ND 58125-6352"
+    purposes: [transaction_dispute, billing_error]
+    notes: Include name, card number, address, phone number, transaction amount, posting date and the reason for the dispute.
+    source: https://www.usbank.com/customer-service/personal-banking/credit-cards.html
+    last_verified: 2026-10-12
+  - id: headquarters-mail
+    type: mail
+    label: U.S. Bank headquarters
+    value: "U.S. Bank, 200 S. Sixth St., Minneapolis, MN 55402"
+    purposes: [poor_service]
+    source: https://www.usbank.com/customer-service.html
+    last_verified: 2026-10-12
+  - id: branch
+    type: in_person
+    label: U.S. Bank branch or appointment
+    value: https://www.usbank.com/locations/search/
+    purposes: [frozen_funds, fee_reversal, poor_service]
+    access: human_only
+    source: https://www.usbank.com/customer-service.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: banking-phone}
+  - {rung: written_complaint, channel: dispute-mail, note: "Card billing errors in writing (or by phone) within 60 days. U.S. Bank does not publish a complaint form; other written complaints can go to headquarters."}
+  - {rung: executive, channel: headquarters-mail}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+  - {rung: arbitration, note: "U.S. Bank card agreements let either party elect AAA arbitration in writing; either party may take a claim to small claims court instead."}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: Dispute the transaction in the app or online banking, by the automated phone line, or by mail.
+    evidence: [statement showing the charge, receipt, record of contact with the merchant]
+    steps:
+      - do: Try the merchant first and keep proof.
+      - do: In online banking or the app, choose the account, select the transaction, select "Dispute this transaction" and answer the questions.
+        channel: dispute-online
+      - do: Or call Cardmember Service and tell the automated system to start a dispute case.
+        channel: card-services-phone
+      - do: Or mail a letter with name, card number, address, phone, amount, posting date and reason.
+        channel: dispute-mail
+      - do: Upload supporting documents for the case.
+        channel: dispute-documents-upload
+      - do: If U.S. Bank does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: The U.S. Bank card agreement's billing rights notice says to call or write within 60 days after the error appeared on your statement, and at least 3 business days before a scheduled automatic payment to stop payment on the disputed amount.
+        issues: [transaction_dispute, billing_error]
+        source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/U.S._BANK_NATIONAL_ASSOCIATION/FR006213482_03_USB_2Q2026-255572.pdf
+        last_verified: 2026-10-12
+
+  - issue: unauthorized_charge
+    summary: Call the card fraud line, lock the card, and report it lost or stolen online.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: Call about purchases you did not make.
+        channel: card-fraud-phone
+      - do: Report the card lost or stolen in online banking or the U.S. Bank Mobile App.
+      - do: If U.S. Bank does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: U.S. Bank provides zero fraud liability and reimburses 100% of unauthorized transactions, provided you notify U.S. Bank promptly; certain conditions and limitations may apply.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.usbank.com/customer-service/online-security.html
+        last_verified: 2026-10-12
+
+  - issue: fraud
+    summary: Call the fraud department, lock cards, and contact the bank only through known numbers.
+    evidence: [transaction details, messages from the scammer, police or FTC report number]
+    steps:
+      - do: Call the U.S. Bank fraud department.
+        channel: fraud-department-phone
+      - do: Do not click links in suspicious messages; contact the bank through a known phone number or website.
+      - do: Report to the FTC at ReportFraud.ftc.gov, then complain to the CFPB if the bank does not act.
+        regulator: cfpb
+
+  - issue: billing_error
+    summary: Call or write within 60 days of the statement.
+    evidence: [statement with the error, account number, dollar amount, why it is wrong]
+    steps:
+      - do: Call Cardmember Service or write with your name, account number, the dollar amount and why it is wrong.
+        channel: dispute-mail
+      - do: If the error is not fixed, complain to the CFPB.
+        regulator: cfpb
+
+known_blockers:
+  - Online disputes and document uploads need sign-in.
+  - Lost or stolen card reports are made through online banking or the mobile app; phone lines verify the cardholder.

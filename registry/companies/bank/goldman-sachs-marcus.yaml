@@ -1,0 +1,79 @@
+id: goldman-sachs-marcus
+name: Goldman Sachs Bank USA (Apple Card, Marcus)
+aliases: [apple card, apple savings, marcus, marcus by goldman sachs, goldman sachs bank usa, goldman sachs bank]
+sector: bank
+parent: The Goldman Sachs Group, Inc.
+website: https://www.marcus.com
+regulators: [cfpb, federal-reserve]
+notes: >-
+  Goldman Sachs Bank USA is a state-chartered Federal Reserve member bank. It still issues and services
+  Apple Card ("issued by Goldman Sachs Bank USA, Salt Lake City Branch"). On 2026-01-07 Chase announced it
+  will become the Apple Card issuer, with a transition expected in about 24 months; nothing changes for
+  cardholders during the transition. marcus.com and goldmansachs.com block automated fetches, so Marcus
+  savings and CD channels are not recorded here.
+
+channels:
+  - id: apple-card-support-wallet
+    type: app
+    label: Apple Card support from the Wallet app (Apple Card Specialist at Goldman Sachs)
+    value: Wallet app on iPhone, then Apple Card
+    purposes: [transaction_dispute, unauthorized_charge, fraud, billing_error, poor_service]
+    access: login
+    source: https://learn.applecard.apple/transition
+    last_verified: 2026-10-12
+  - id: apple-card-support-web
+    type: portal
+    label: Apple Card Support website
+    value: https://support.apple.com/apple-card
+    purposes: [transaction_dispute, unauthorized_charge, billing_error]
+    access: open
+    source: https://learn.applecard.apple/transition
+    last_verified: 2026-10-12
+  - id: goldman-apple-card-phone
+    type: phone
+    label: Goldman Sachs, Apple Card (lost or stolen card when the iPhone is also lost; U.S. territories)
+    value: +1-877-255-5923
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    source: https://support.apple.com/en-us/102517
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: apple-card-support-wallet}
+  - {rung: written_complaint, note: "No complaint mailing address was confirmed; use the billing rights address on your Apple Card statement for billing errors."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Lock the card in Wallet, contact an Apple Card Specialist, and request a replacement.
+    evidence: [transaction details from Wallet, date you noticed it, card status]
+    steps:
+      - do: Lock the card before you request a replacement. Lost or stolen cards are suspended at once.
+      - do: Contact an Apple Card Specialist at Goldman Sachs through the Wallet app.
+        channel: apple-card-support-wallet
+      - do: To replace the titanium card on iPhone, open Wallet, tap Apple Card, tap More, tap Account Details, then Request Replacement Card.
+      - do: If both your iPhone and the titanium card are lost or stolen, call Goldman Sachs.
+        channel: goldman-apple-card-phone
+      - do: If the issue is not resolved, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: Apple says to lock a lost or stolen Apple Card before requesting a replacement; lost or stolen cards are immediately suspended.
+        issues: [unauthorized_charge, fraud]
+        source: https://support.apple.com/en-us/102517
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Apple Card is issued by Goldman Sachs Bank USA, Salt Lake City Branch; Chase will become the issuer after a transition expected to take about 24 months, and users can keep using the card as normal during the transition.
+    source: https://learn.applecard.apple/transition
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Chase announced on January 07, 2026 that it will become the new issuer of Apple Card; Mastercard remains the payment network.
+    source: https://www.jpmorganchase.com/newsroom/press-releases/2026/chase-to-become-new-issuer-of-apple-card
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Apple Card support is mainly through the Wallet app on the cardholder's iPhone; an agent cannot use it.
+  - marcus.com and goldmansachs.com returned 403 to automated fetches; Marcus phone numbers, dispute and complaint channels are not recorded.
