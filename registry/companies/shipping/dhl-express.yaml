@@ -1,0 +1,151 @@
+id: dhl-express
+name: DHL Express (U.S.)
+aliases: [dhl, dhl express, mydhl]
+sector: shipping
+parent: DHL Group
+website: https://mydhl.express.dhl/us/en/home.html
+regulators: [ftc]
+notes: >-
+  DHL Express is an international express carrier. In the U.S., only the bill-to party (the DHL account
+  holder) or, in some cases, the shipper can file a claim. A receiver needs an Assignment of Rights from
+  that party. Terms and Conditions of Carriage shown on the U.S. site are valid from December 28, 2024.
+  The www.dhl.com U.S. pages timed out and could not be read.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: DHL Express customer service (1-800-CALL-DHL)
+    value: +1-800-225-5345
+    hours: Mon-Fri 5 AM to 7 PM Arizona time
+    purposes: [lost_package, damaged_item, late_delivery, poor_service]
+    notes: DHL says to call this number to start a trace for a lost shipment or missing contents.
+    source: https://mydhl.express.dhl/us/en/help-and-support.html
+    last_verified: 2026-10-12
+  - id: billing-phone
+    type: phone
+    label: DHL Express billing assistance
+    value: +1-800-722-0081
+    purposes: [billing_error]
+    source: https://mydhl.express.dhl/us/en/help-and-support.html
+    last_verified: 2026-10-12
+  - id: attempted-delivery-phone
+    type: phone
+    label: Attempted delivery notices
+    value: +1-888-273-8876
+    purposes: [late_delivery]
+    source: https://mydhl.express.dhl/us/en/help-and-support.html
+    last_verified: 2026-10-12
+  - id: digital-assistant-chat
+    type: chat
+    label: DHL Express Digital Assistant chat (24/7)
+    value: https://mydhl.express.dhl/us/en/help-and-support.html#/contact_us
+    hours: 24/7
+    source: https://mydhl.express.dhl/us/en/help-and-support.html
+    last_verified: 2026-10-12
+  - id: claims-page
+    type: web_form
+    label: File a claim with DHL Express (account holders and shippers)
+    value: https://spark.dhl.com/smartcare
+    purposes: [lost_package, damaged_item, late_delivery]
+    notes: Only the party that owns the claim rights (usually the shipper or bill-to account holder) can submit. Combine all documents into one PDF or ZIP file.
+    source: https://mydhl.express.dhl/us/en/help-and-support/contact-us/claims/holders-and-shippers.html
+    last_verified: 2026-10-12
+  - id: receiver-assignment-of-rights
+    type: web_form
+    label: Claims information for shipment receivers (Assignment of Rights)
+    value: https://mydhl.express.dhl/us/en/help-and-support/contact-us/claims/shipment-receivers.html
+    purposes: [lost_package, damaged_item]
+    notes: A receiver cannot file directly. The bill-to party or shipper must sign an Assignment of Rights form first.
+    source: https://mydhl.express.dhl/us/en/help-and-support/contact-us/claims/shipment-receivers.html
+    last_verified: 2026-10-12
+  - id: dispute-charge-form
+    type: web_form
+    label: Dispute charges for returned or cancelled shipments
+    value: https://mydhl.express.dhl/us/en/forms/dispute-charge.html
+    purposes: [billing_error]
+    source: https://mydhl.express.dhl/us/en/help-and-support/contact-us/claims/claims-faqs.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: claims-page, note: "Claim by the bill-to party or shipper; receivers need an Assignment of Rights."}
+  - {rung: payment_dispute, note: "Dispute with the seller who shipped the item."}
+
+playbooks:
+  - issue: lost_package
+    summary: Start a trace by phone, then the shipper or bill-to party files a written claim within 30 days of the date DHL accepted the shipment.
+    evidence: [10-digit waybill number, vendor or retail invoice, proof of the online transaction, serial numbers]
+    steps:
+      - do: Call DHL Express customer service to start a trace.
+        channel: customer-service-phone
+      - do: If you are the receiver, ask the shipper or seller to file the claim, or ask for an Assignment of Rights so you can file.
+        channel: receiver-assignment-of-rights
+      - do: The shipper or account holder files the claim online with all documents in one file.
+        channel: claims-page
+      - do: If you bought the item and the seller does not refund or resend, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: All claims must be submitted in writing to DHL within thirty (30) days from the date that DHL accepted the shipment. Only one claim is allowed per shipment.
+        issues: [lost_package, damaged_item]
+        source: https://mydhl.express.dhl/us/en/legal/terms-and-conditions.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Only the bill-to party (DHL account holder) or, in certain cases, the shipper can submit a claim. Anyone else needs an Assignment of Rights from that party.
+        issues: [lost_package, damaged_item]
+        source: https://mydhl.express.dhl/us/en/help-and-support/contact-us/claims/shipment-receivers.html
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Most claims resolve within ten business days, and the whole claims process can take up to thirty calendar days.
+        issues: [lost_package, damaged_item]
+        source: https://mydhl.express.dhl/us/en/help-and-support/contact-us/claims/claims-faqs.html
+        last_verified: 2026-10-12
+
+  - issue: damaged_item
+    summary: Keep everything for inspection; the claim owner files within 30 days of the date DHL accepted the shipment.
+    evidence: [photos of the damaged items and the inner and outer packaging, repair estimate or technician's statement of non-repair, waybill, invoices]
+    steps:
+      - do: Keep all damaged items and the inner and outer packaging at the delivery location until the claim is closed. DHL may inspect or salvage them.
+      - do: Photograph the items and packaging, and get a repair estimate or a statement that the item cannot be repaired.
+      - do: Have the shipper or account holder file the claim, or get an Assignment of Rights.
+        channel: claims-page
+    facts:
+      - kind: policy
+        claim: Not keeping the original shipment and packaging at the delivery location, or not making it available for inspection, may invalidate the claim.
+        issues: [damaged_item]
+        source: https://mydhl.express.dhl/us/en/help-and-support/contact-us/claims/holders-and-shippers.html
+        last_verified: 2026-10-12
+
+  - issue: late_delivery
+    summary: The Money-Back Guarantee covers only the time-definite DHL EXPRESS 9:00, 10:30 and 12:00 services; notify DHL within 14 calendar days of the shipment date.
+    evidence: [account number, waybill number, shipment date, complete receiver information]
+    steps:
+      - do: Check that the shipment used DHL EXPRESS 9:00, 10:30 or 12:00 (or the import versions).
+      - do: Notify DHL in writing or by phone within 14 calendar days of the shipment date. Only the billed party can file a late-delivery service claim.
+        channel: customer-service-phone
+    facts:
+      - kind: deadline
+        claim: For the Money-Back Guarantee, the customer must notify DHL within 14 calendar days of the shipment date, in writing or by telephone, with the account number, waybill number, shipment date and complete receiver information.
+        issues: [late_delivery]
+        source: https://mydhl.express.dhl/us/en/legal/mbg.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Money-Back Guarantee applies to DHL EXPRESS 9:00, 10:30 and 12:00 and their IMPORT versions. DHL may modify or cancel it at any time.
+        issues: [late_delivery]
+        source: https://mydhl.express.dhl/us/en/legal/mbg.html
+        last_verified: 2026-10-12
+
+facts:
+  - kind: limit
+    claim: For air shipments, DHL liability is limited to the lower of the current market or declared value, or 26 Special Drawing Rights per kilogram (about US$35.00/kg). Cross-border road shipments are limited to 8.33 SDR per kilogram (about US$11.00/kg).
+    issues: [lost_package, damaged_item]
+    source: https://mydhl.express.dhl/us/en/legal/terms-and-conditions.html
+    last_verified: 2026-10-12
+  - kind: process
+    claim: Claim documents include a copy of the waybill, a vendor or supplier invoice and a retail invoice, proof of the online transaction if the item was bought or sold online, and serial numbers.
+    issues: [lost_package, damaged_item]
+    source: https://mydhl.express.dhl/us/en/help-and-support/contact-us/claims/holders-and-shippers.html
+    last_verified: 2026-10-12
+
+known_blockers:
+  - A receiver cannot file a claim without a signed Assignment of Rights from the bill-to party or shipper.
+  - The 30-day claim window counts from the date DHL accepted the shipment, not the delivery date.

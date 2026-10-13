@@ -1,0 +1,108 @@
+id: kroger
+name: Kroger
+aliases: [kroger.com, the kroger co, kroger delivery, kroger boost]
+sector: retail
+parent: The Kroger Co.
+website: https://www.kroger.com
+regulators: [ftc]
+notes: >-
+  Kroger delivery orders are fulfilled either by Kroger or by Instacart; missing items go to
+  whichever company fulfilled the order. Kroger family banner stores may have their own
+  websites. The Boost membership cancellation path and the general return policy were not
+  confirmed (kroger.com pages timed out).
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Kroger customer service (1-800-KRO-GERS)
+    value: +1-800-576-4377
+    hours: Mon-Fri 7 a.m.-midnight ET; Sat-Sun 7 a.m.-9:30 p.m. ET
+    purposes: [refund_request, lost_package, damaged_item, unauthorized_charge, billing_error]
+    source: https://www.thekrogerco.com/contact-us/
+    last_verified: 2026-10-12
+  - id: contact-us
+    type: portal
+    label: Kroger customer support contact page (chat, email or phone)
+    value: https://www.kroger.com/hc/help/contact-us
+    purposes: [refund_request, lost_package, damaged_item, poor_service]
+    source: https://www.thekrogerco.com/contact-us/
+    last_verified: 2026-10-12
+  - id: customer-service-email
+    type: email
+    label: Kroger customer service email
+    value: customerservice@kroger.com
+    purposes: [refund_request, poor_service]
+    source: https://www.kroger.com/hc/help/faqs
+    last_verified: 2026-10-12
+  - id: no-store-region-phone
+    type: phone
+    label: Kroger delivery in regions without a Kroger store (1-833-KRO-FRSH)
+    value: +1-833-576-3774
+    purposes: [lost_package, damaged_item, refund_request]
+    source: https://www.kroger.com/hc/help/faqs/ways-to-shop/delivery
+    last_verified: 2026-10-12
+  - id: instacart-phone
+    type: phone
+    label: Instacart Customer Happiness Center (Instacart-fulfilled Kroger orders)
+    value: +1-888-246-7822
+    purposes: [lost_package, damaged_item, refund_request]
+    notes: "Email help@instacart.com."
+    source: https://www.kroger.com/hc/help/faqs/ways-to-shop/delivery
+    last_verified: 2026-10-12
+  - id: corporate-mail
+    type: mail
+    label: Kroger corporate headquarters
+    value: "The Kroger Co., 1014 Vine Street, Cincinnati, Ohio 45202-1100"
+    purposes: [poor_service]
+    source: https://www.thekrogerco.com/contact-us/
+    last_verified: 2026-10-12
+  - id: corporate-phone
+    type: phone
+    label: Kroger corporate switchboard
+    value: +1-513-762-4000
+    source: https://www.thekrogerco.com/contact-us/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: contact-us}
+  - {rung: supervisor, channel: customer-service-phone}
+  - {rung: written_complaint, channel: customer-service-email}
+  - {rung: executive, channel: corporate-mail}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: lost_package
+    summary: Report missing delivery items to the company that fulfilled the order (Kroger or Instacart).
+    evidence: [order number, receipt email, list of missing items]
+    steps:
+      - do: Check the order confirmation to see whether Kroger or Instacart fulfilled it.
+      - do: For a Kroger-fulfilled order, call Kroger customer service.
+        channel: customer-service-phone
+      - do: For an Instacart-fulfilled order, contact Instacart.
+        channel: instacart-phone
+      - do: If you are not refunded, dispute the charge with your card issuer.
+    facts:
+      - kind: process
+        claim: If the final delivery total is lower than the placed total for reasons other than out-of-stocks or substitutions, a refund for the difference may be applied to the payment card within 24-48 hours of delivery.
+        issues: [refund_request, billing_error]
+        source: https://www.kroger.com/hc/help/faqs/ways-to-shop/delivery
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: Instacart refunds the $5 Express Delivery surcharge for express orders delivered more than 15 minutes late.
+        issues: [refund_request]
+        source: https://www.kroger.com/hc/help/faqs/ways-to-shop/delivery
+        last_verified: 2026-10-12
+  - issue: damaged_item
+    summary: Report a damaged or wrong item from a delivery or pickup order to Kroger customer service.
+    evidence: [photos of the item, order number or receipt]
+    steps:
+      - do: Photograph the item and keep the receipt.
+      - do: Contact Kroger customer service through the contact page or by phone and ask for a refund.
+        channel: contact-us
+      - do: For an Instacart-fulfilled order, contact Instacart.
+        channel: instacart-phone
+
+known_blockers:
+  - kroger.com pages often time out for automated fetches.

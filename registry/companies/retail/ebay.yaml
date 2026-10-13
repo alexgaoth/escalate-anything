@@ -1,0 +1,174 @@
+id: ebay
+name: eBay
+aliases: [ebay.com, ebay money back guarantee, ebay inc]
+sector: retail
+parent: eBay Inc.
+website: https://www.ebay.com
+account_url: https://www.ebay.com/mye/myebay/purchase
+regulators: [ftc]
+notes: >-
+  eBay is a marketplace. The buyer opens a request with the seller first; eBay steps in under
+  the eBay Money Back Guarantee if the seller does not resolve it. No general customer service
+  phone number appears on the eBay pages checked; contact runs through Help & Contact (chat or
+  callback after you pick a topic). Filing a card chargeback for the same transaction ends Money Back
+  Guarantee coverage.
+
+channels:
+  - id: help-contact
+    type: portal
+    label: eBay Help & Contact (pick a topic, then chat or request a call)
+    value: https://www.ebay.com/help/home
+    purposes: [refund_request, lost_package, damaged_item, unauthorized_charge, account_access]
+    access: login
+    source: https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210
+    last_verified: 2026-10-12
+  - id: chat
+    type: chat
+    label: Chat with eBay customer service
+    value: https://www.ebay.com/help/start_chat
+    purposes: [refund_request, lost_package, damaged_item]
+    access: login
+    notes: eBay asks you to pick a topic first so it can route you.
+    source: https://www.ebay.com/help/start_chat
+    last_verified: 2026-10-12
+  - id: item-not-received
+    type: web_form
+    label: Report an item that hasn't arrived
+    value: https://www.ebay.com/help/action?topicid=4042
+    purposes: [lost_package]
+    access: login
+    source: https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210
+    last_verified: 2026-10-12
+  - id: return-request
+    type: web_form
+    label: Start a return request (item not as described, damaged or wrong item)
+    value: https://www.ebay.com/help/action?topicid=4041
+    purposes: [damaged_item, refund_request]
+    access: login
+    source: https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210
+    last_verified: 2026-10-12
+  - id: money-back-guarantee
+    type: portal
+    label: eBay Money Back Guarantee policy (timelines and step-in rules)
+    value: https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210
+    purposes: [lost_package, damaged_item, refund_request]
+    source: https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210
+    last_verified: 2026-10-12
+  - id: notice-of-dispute
+    type: web_form
+    label: Notice of Dispute webform (required before arbitration or small claims)
+    value: https://www.ebay.com/legalhelpcenter
+    purposes: [refund_request, poor_service]
+    notes: The notice must include your claims, the relief you want, and your username, email and phone number. Informal resolution lasts 45 days.
+    source: https://www.ebay.com/help/policies/member-behaviour-policies/user-agreement?id=4259
+    last_verified: 2026-10-12
+  - id: arbitration-opt-out
+    type: mail
+    label: Arbitration opt-out notice (new users, within 30 days of first accepting)
+    value: "eBay Inc., Attn: Litigation Department, Re: Opt-Out Notice, 339 W. 13490 S., Ste. 500, Draper, UT 84020"
+    notes: "Opt-out form: https://pages.ebay.com/policies/arbitrate-optout.html. You must sign and send it yourself."
+    source: https://www.ebay.com/help/policies/member-behaviour-policies/user-agreement?id=4259
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: help-contact, note: "Open the request with the seller first."}
+  - {rung: supervisor, channel: money-back-guarantee, note: "Ask eBay to step in from the request in Purchases once the seller's 3 business days have passed."}
+  - {rung: written_complaint, channel: notice-of-dispute}
+  - {rung: payment_dispute, note: "A chargeback ends Money Back Guarantee coverage for that transaction; use it only after eBay's process fails."}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: lost_package
+    summary: Report the item as not received after the delivery date, give the seller 3 business days, then ask eBay to step in.
+    evidence: [order number, tracking number and history, messages with the seller]
+    steps:
+      - do: After the estimated or actual delivery date passes, report the item as not received.
+        channel: item-not-received
+      - do: Wait 3 business days for the seller to send tracking, a delivery update or a refund.
+      - do: If the seller does not resolve it, ask eBay to step in from the request in Purchases. Do this before 21 business days after you reported it.
+        channel: money-back-guarantee
+      - do: If eBay decides against you, appeal within 30 calendar days of the decision.
+        channel: help-contact
+    facts:
+      - kind: deadline
+        claim: You must report an item not received no later than 30 calendar days after the estimated or actual delivery date.
+        issues: [lost_package]
+        source: https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: For an item not received, you can ask eBay to step in from 3 business days after your report until 21 business days after it.
+        issues: [lost_package]
+        source: https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: If eBay finds that delivery was not proven, you receive a full refund of the item and original shipping.
+        issues: [lost_package]
+        source: https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210
+        last_verified: 2026-10-12
+  - issue: damaged_item
+    summary: Start a return request as item not as described; the guarantee applies even if the seller does not accept returns.
+    evidence: [photos of the item and packaging, listing description, order number]
+    steps:
+      - do: Photograph the item and packaging. Start a return request and choose the damaged, faulty or wrong-item reason.
+        channel: return-request
+      - do: Give the seller 3 business days to offer a solution. The seller generally pays return shipping for a not-as-described return.
+      - do: If the seller does not respond or refuses, ask eBay to step in from the return in Purchases.
+        channel: money-back-guarantee
+      - do: Ship the return with tracking. The seller must refund within 2 business days of receiving it unless the return details give more time.
+    facts:
+      - kind: deadline
+        claim: An item-not-as-described request must be opened no later than 30 calendar days after the estimated or actual delivery date, or within the seller's return window if that is longer.
+        issues: [damaged_item, refund_request]
+        source: https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: For item not as described, you can ask eBay to step in once the seller accepts the return or 3 business days after your request; the latest point is 21 business days after the request if the seller never responded.
+        issues: [damaged_item]
+        source: https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: Trading cards, coins, bullion and paper money have a shorter not-as-described window of 3 calendar days if the seller does not offer returns.
+        issues: [damaged_item]
+        source: https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210
+        last_verified: 2026-10-12
+  - issue: refund_request
+    summary: Use the seller's return policy or the Money Back Guarantee; eBay can step in if the seller does not refund.
+    evidence: [order number, return tracking number, seller's return policy from the listing]
+    steps:
+      - do: Start a return request within the seller's return window (change of mind) or the guarantee window (not as described).
+        channel: return-request
+      - do: If the seller does not refund within 2 business days of receiving the return, ask eBay to step in. For a late refund, the limit is 10 business days after the refund deadline.
+        channel: money-back-guarantee
+      - do: If eBay still does not pay, send a Notice of Dispute through the legal help center.
+        channel: notice-of-dispute
+    facts:
+      - kind: policy
+        claim: Payments made partly outside eBay checkout (bank transfer, cash, money orders, escrow) are not covered by the eBay Money Back Guarantee.
+        issues: [refund_request, lost_package, damaged_item]
+        source: https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Filing a chargeback or another buyer protection claim for the same transaction can end your Money Back Guarantee coverage.
+        issues: [refund_request, lost_package, damaged_item, unauthorized_charge]
+        source: https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: You may appeal an eBay Money Back Guarantee decision within 30 calendar days of the decision.
+        issues: [refund_request, lost_package, damaged_item]
+        source: https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: Before arbitration or small claims, the user agreement requires a Notice of Dispute through eBay's webform and a 45-day informal resolution process; filing deadlines pause during it.
+    source: https://www.ebay.com/help/policies/member-behaviour-policies/user-agreement?id=4259
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: A new user can opt out of arbitration by a signed written notice postmarked no later than 30 days after first accepting the user agreement.
+    source: https://www.ebay.com/help/policies/member-behaviour-policies/user-agreement?id=4259
+    last_verified: 2026-10-12
+
+known_blockers:
+  - eBay shows a bot verification page on most help URLs; requests, step-in and appeals need the buyer's sign-in.
+  - No general eBay phone number was found; callback and chat options appear only after you choose a topic in Help & Contact.

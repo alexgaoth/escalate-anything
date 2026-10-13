@@ -1,0 +1,150 @@
+id: home-depot
+name: The Home Depot
+aliases: [home depot, homedepot.com, thd]
+sector: retail
+parent: The Home Depot, Inc.
+website: https://www.homedepot.com
+regulators: [ftc]
+notes: >-
+  Home improvement retailer. Online-order help, price matches and price adjustments go through
+  Customer Solutions (phone or live chat on homedepot.com). Major appliances have a separate
+  Customer Solutions line and a 48-hour return window. The "In-Store Return Exceptions",
+  "Online Return Exceptions" and "Return Policy Exceptions" sections named on the return policy
+  page did not render in the browser on 2026-10-12, so those exceptions are not recorded here.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Home Depot customer service (1-800-HOME-DEPOT)
+    value: +1-800-466-3337
+    purposes: [refund_request, lost_package, damaged_item, unauthorized_charge, billing_error, warranty_claim]
+    source: https://corporate.homedepot.com/contact-us
+    last_verified: 2026-10-12
+  - id: customer-solutions-phone
+    type: phone
+    label: Customer Solutions (online orders, price matches and price adjustments; also live chat on homedepot.com)
+    value: +1-800-430-3376
+    purposes: [refund_request, billing_error, lost_package, damaged_item]
+    source: https://www.homedepot.com/c/price-match-and-price-check
+    last_verified: 2026-10-12
+  - id: appliance-solutions-phone
+    type: phone
+    label: Customer Solutions for major appliances (damage, defects and returns within 48 hours of delivery)
+    value: +1-800-455-3869
+    purposes: [damaged_item, refund_request]
+    source: https://www.homedepot.com/c/Return_Policy
+    last_verified: 2026-10-12
+  - id: customer-service-page
+    type: portal
+    label: Home Depot Customer Service Center (orders, returns, receipts)
+    value: https://www.homedepot.com/c/customer_service
+    purposes: [refund_request, lost_package, damaged_item]
+    source: https://corporate.homedepot.com/contact-us
+    last_verified: 2026-10-12
+  - id: order-status
+    type: portal
+    label: Check order status (guest order tracking)
+    value: https://www.homedepot.com/myaccount/guest-order-tracking
+    purposes: [lost_package, late_delivery]
+    source: https://www.homedepot.com/c/customer_service
+    last_verified: 2026-10-12
+  - id: return-policy
+    type: portal
+    label: Home Depot Return Policy
+    value: https://www.homedepot.com/c/Return_Policy
+    purposes: [refund_request, damaged_item]
+    source: https://www.homedepot.com/c/Return_Policy
+    last_verified: 2026-10-12
+  - id: price-match-page
+    type: portal
+    label: Price Match Guarantee and price adjustment rules
+    value: https://www.homedepot.com/c/price-match-and-price-check
+    purposes: [refund_request, billing_error]
+    source: https://www.homedepot.com/c/price-match-and-price-check
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-solutions-phone}
+  - {rung: supervisor, channel: customer-service-phone}
+  - {rung: written_complaint}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: refund_request
+    summary: Return within the window for the product category with proof of purchase; store returns are refunded fastest.
+    evidence: [receipt or order number, payment card used, product category, purchase or delivery date]
+    steps:
+      - do: Find the product's return window - 90 days for most items, 30 or 7 days for some categories, 48 hours for major appliances, and 365 days if paid with a Home Depot credit card or commercial account.
+        channel: return-policy
+      - do: Return it to a store for the quickest refund, with proof of purchase. For a major appliance, call Customer Solutions for appliances within 48 hours of delivery.
+        channel: appliance-solutions-phone
+      - do: For an online order you cannot take to a store, contact Customer Solutions by phone or live chat.
+        channel: customer-solutions-phone
+      - do: If the refund does not arrive, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: Most merchandise can be returned within 90 days with proof of purchase unless noted. Home Depot may decline returns of products damaged by the customer without a manufacturing defect, or to prevent fraud or abuse.
+        issues: [refund_request]
+        source: https://www.homedepot.com/c/Return_Policy
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Furniture, tractors, framing and roofing compressors, consumer electronics (TVs and computers), paint sprayers and listed gas-powered outdoor equipment must be returned within 30 days, unused and in original factory-sealed packaging. From July 7, 2026, Halloween and holiday decor must be returned within 30 days, unused with proof of purchase.
+        issues: [refund_request]
+        source: https://www.homedepot.com/c/Return_Policy
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Dehumidifiers, gas pressure washers, window and portable air conditioners and gas generators (other than whole-house and stationary) must be returned within 7 days, unused and factory-sealed. From July 7, 2026, pumps, portable evaporation units and portable heaters also have a 7-day window.
+        issues: [refund_request]
+        source: https://www.homedepot.com/c/Return_Policy
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: For major appliances (refrigerators, washers, dryers, ranges, dishwashers, over-the-range or built-in microwaves), contact Customer Solutions at 1-800-455-3869 within 48 hours of delivery (excluding weekends) for damage or defects; all returns in these categories, including unopened items, must be made within 48 hours.
+        issues: [refund_request, damaged_item]
+        source: https://www.homedepot.com/c/Return_Policy
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Purchases made with The Home Depot Consumer Credit Card, Pro Xtra Credit Card or Commercial Account can be returned for a full refund within 365 days, except the listed exceptions and the 48-hour, 7-day and 30-day categories. Perennials, trees, roses and shrubs have a 1-year guarantee for store credit.
+        issues: [refund_request]
+        source: https://www.homedepot.com/c/Return_Policy
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Returns sent by mail or carrier are processed after Home Depot receives and verifies them, typically in about 7 business days; the bank may then take up to 10 business days to post the funds.
+        issues: [refund_request]
+        source: https://www.homedepot.com/c/refund-policy
+        last_verified: 2026-10-12
+
+  - issue: billing_error
+    summary: For a price drop within 30 days of purchase, ask Customer Solutions for a price adjustment with proof.
+    evidence: [order number or receipt, screenshot or link showing the lower price, competitor name and item number]
+    steps:
+      - do: Confirm the lower price is on homedepot.com or on a competitor Home Depot matches, for the identical item in stock.
+        channel: price-match-page
+      - do: Within 30 days of purchase, contact Customer Solutions by phone or live chat, or visit a store, with the order number and the proof of the lower price.
+        channel: customer-solutions-phone
+    facts:
+      - kind: deadline
+        claim: If the price drops after you order, you can request a price adjustment within 30 days of purchase; eligible differences are refunded under the refund policy, usually but not always to the original payment method.
+        issues: [billing_error, refund_request]
+        source: https://www.homedepot.com/c/price-match-and-price-check
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Home Depot matches identical in-stock items at local stores and at online retailers including Lowe's, Menards, Amazon, Walmart, Best Buy and Target (sold and fulfilled by the retailer, not a marketplace seller). It does not match auction, marketplace or membership sites such as eBay, Wayfair, Costco or Sam's Club.
+        issues: [billing_error]
+        source: https://www.homedepot.com/c/price-match-and-price-check
+        last_verified: 2026-10-12
+
+  - issue: damaged_item
+    summary: Report a damaged or defective delivery with photos; for major appliances, call within 48 hours of delivery.
+    evidence: [photos of the item and packaging, order number, delivery date]
+    steps:
+      - do: Photograph the item and packaging before you discard anything.
+      - do: For a major appliance, call Customer Solutions for appliances within 48 hours of delivery (excluding weekends).
+        channel: appliance-solutions-phone
+      - do: For other items, contact Customer Solutions with the order number and ask for a replacement or refund, or return the item to a store.
+        channel: customer-solutions-phone
+      - do: If Home Depot does not resolve it, dispute the charge with your card issuer.
+
+known_blockers:
+  - homedepot.com loads its help content with JavaScript; plain HTTP fetches return 403, and the return-policy exception sections did not render even in a browser.

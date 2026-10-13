@@ -1,0 +1,141 @@
+id: walmart
+name: Walmart
+aliases: [walmart.com, walmart+, walmart plus, walmart supercenter, walmart neighborhood market, walmart marketplace]
+sector: retail
+also_sectors: [subscription]
+parent: Walmart Inc.
+website: https://www.walmart.com
+account_url: https://www.walmart.com/help
+regulators: [ftc]
+notes: >-
+  Walmart.com sells Walmart stock and Marketplace (third-party seller) stock. Marketplace items
+  can have their own return windows and restocking fees. Sam's Club is a separate business with
+  its own help center. Walmart.com blocks automated fetches; values come from
+  corporate.walmart.com.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Walmart customer service (1-800-WALMART)
+    value: +1-800-925-6278
+    purposes: [refund_request, lost_package, damaged_item, cancel_service, unauthorized_charge, billing_error]
+    notes: American Sign Language support is available by video.
+    source: https://corporate.walmart.com/about/contact
+    last_verified: 2026-10-12
+  - id: help-center
+    type: chat
+    label: Walmart.com Help Center (answers and online chat)
+    value: https://www.walmart.com/help
+    purposes: [refund_request, lost_package, damaged_item, cancel_service, unauthorized_charge]
+    access: login
+    source: https://corporate.walmart.com/about/contact
+    last_verified: 2026-10-12
+  - id: returns
+    type: portal
+    label: Start a return (Walmart app or walmart.com/returns)
+    value: https://www.walmart.com/returns
+    purposes: [refund_request, damaged_item]
+    access: login
+    notes: Major appliances must be returned through the app or walmart.com/returns, not in a store.
+    source: https://corporate.walmart.com/policies
+    last_verified: 2026-10-12
+  - id: returns-no-account
+    type: web_form
+    label: Start a return without a Walmart.com account
+    value: https://www.walmart.com/cp/returns/1231920
+    purposes: [refund_request]
+    source: https://corporate.walmart.com/policies
+    last_verified: 2026-10-12
+  - id: receipt-lookup
+    type: portal
+    label: Store receipt lookup
+    value: https://www.walmart.com/receipt-lookup
+    purposes: [refund_request, billing_error]
+    source: https://corporate.walmart.com/policies
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: help-center}
+  - {rung: supervisor, channel: customer-service-phone}
+  - {rung: written_complaint, channel: help-center}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: refund_request
+    summary: Most items have a 90-day return window; electronics, phones, appliances and Marketplace items are shorter.
+    evidence: [store receipt or Walmart.com order number, card used for payment, item and packaging]
+    steps:
+      - do: Check the item's window in the exceptions list. Start the return in the app, at walmart.com/returns, or in a store.
+        channel: returns
+      - do: Bring the receipt or order number. Without a receipt, a store can look up card purchases, and online orders by phone number or email.
+        channel: receipt-lookup
+      - do: For a Marketplace item, follow the seller's return policy shown on the order.
+      - do: If the refund does not post, contact customer service, then dispute the charge with your card issuer.
+        channel: customer-service-phone
+    facts:
+      - kind: deadline
+        claim: Walmart allows 90 days after purchase or receipt to return or exchange an item, unless the item is in the exceptions list.
+        issues: [refund_request]
+        source: https://corporate.walmart.com/policies
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: "Shorter windows: major appliances 2 days of accepted delivery; most wireless phones 14 days; consumer electronics, PCs, vacuums, most Marketplace items and Walmart Protection Plans 30 days."
+        issues: [refund_request, damaged_item]
+        source: https://corporate.walmart.com/policies
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Most items bought from October 1 through December 31 can be returned until January 31; wireless phones, protection plans, major appliances, Dyson products and some seasonal and luxury goods are excluded.
+        issues: [refund_request]
+        source: https://corporate.walmart.com/policies
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Receipted cash refunds are immediate, credit card refunds may take up to 7 days, and Walmart Gift Card or Walmart Balance refunds take up to 3 hours.
+        issues: [refund_request]
+        source: https://corporate.walmart.com/policies
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: Marketplace sellers may charge restocking fees of up to 20% on Marketplace returns.
+        issues: [refund_request]
+        source: https://corporate.walmart.com/policies
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Walmart refunds go to the original form of payment; non-receipted returns need a government photo ID and are refunded on a Walmart gift card.
+        issues: [refund_request]
+        source: https://corporate.walmart.com/policies
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: In U.S. stores Walmart matches the price of an identical in-stock item on Walmart.com if you tell the associate at checkout; it does not match competitors or Marketplace sellers, and it offers no price matching for Walmart.com purchases.
+        issues: [refund_request]
+        source: https://corporate.walmart.com/policies
+        last_verified: 2026-10-12
+  - issue: damaged_item
+    summary: Return or exchange through Walmart's return channels; refuse or report a damaged major appliance within 2 days.
+    evidence: [photos of the item and packaging, order number, delivery date]
+    steps:
+      - do: Photograph the item and packaging.
+      - do: Start a return or replacement in the app or at walmart.com/returns. For a major appliance, do this within 2 days of accepted delivery.
+        channel: returns
+      - do: For fresh produce, meat, bakery, deli, dairy or frozen items, ask for a refund under the Fresh Guarantee with the receipt.
+        channel: help-center
+      - do: If the item is past the return window, use the manufacturer warranty.
+  - issue: cancel_service
+    summary: Cancel Walmart+ through Walmart customer service or your account; an unused membership can be refunded within 90 days.
+    evidence: [Walmart+ billing date, cancellation confirmation, card statement]
+    steps:
+      - do: Cancel Walmart+ through the Walmart Help Center or customer service and save the confirmation.
+        channel: help-center
+      - do: If you cancel within 90 days and have not used or activated the membership, ask for a refund.
+        channel: customer-service-phone
+      - do: Dispute any Walmart+ charge after the cancellation with your card issuer.
+    facts:
+      - kind: policy
+        claim: Walmart+ memberships may be refunded within 90 days unless the membership was used or activated.
+        issues: [cancel_service, refund_request]
+        source: https://corporate.walmart.com/policies
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Walmart.com and help.walmart.com show a "Robot or human?" check to automated browsers.
+  - Online returns and chat need the account holder's sign-in, except the no-account return form.

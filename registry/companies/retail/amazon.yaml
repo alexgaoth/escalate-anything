@@ -1,0 +1,227 @@
+id: amazon
+name: Amazon
+aliases: [amazon.com, amazon prime, prime, amazon marketplace, amzn]
+sector: retail
+also_sectors: [subscription]
+parent: Amazon.com, Inc.
+website: https://www.amazon.com
+regulators: [ftc]
+notes: >-
+  Amazon sells its own stock and third-party sellers' stock on the same site. Returns and
+  missing-item claims for third-party orders go to the seller first, then to the A-to-z
+  Guarantee. In September 2025 Amazon settled the FTC's Prime enrollment and cancellation case
+  ($2.5 billion); refunds under that settlement are automatic through April 2027.
+  Amazon blocks automated fetches of its help pages; values below come from Amazon search
+  results and aboutamazon.com.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Amazon customer service
+    value: +1-888-280-4331
+    purposes: [refund_request, lost_package, damaged_item, cancel_service, unauthorized_charge, billing_error]
+    notes: >-
+      The number is in the page description of Amazon's Help & Contact Us page ("call customer service phone
+      number at 1-888-280-4331"); the same description mentions online chat. The number was not in the visible page text on 2026-10-12.
+    source: https://www.amazon.com/hz/contact-us/foresight/hubgateway/
+    last_verified: 2026-10-12
+  - id: help-contact
+    type: chat
+    label: Help & Contact Us (online chat and callback)
+    value: https://www.amazon.com/gp/help/customer/display.html?nodeId=508510
+    purposes: [refund_request, lost_package, damaged_item, cancel_service, unauthorized_charge, billing_error]
+    access: login
+    source: https://www.amazon.com/gp/help/customer/display.html?nodeId=508510
+    last_verified: 2026-10-12
+  - id: returns-center
+    type: portal
+    label: Return items you ordered (start from Your Orders)
+    value: https://www.amazon.com/gp/help/customer/display.html?nodeId=G6E3B2E8QPHQ88KF
+    purposes: [refund_request, damaged_item]
+    access: login
+    notes: Go to Your Orders, choose the item, select the return option, pick a reason, refund or replacement, and a return method. Gift recipients use the 17-digit order number from the packing slip or digital gift receipt.
+    source: https://www.amazon.com/gp/help/customer/display.html?nodeId=G6E3B2E8QPHQ88KF
+    last_verified: 2026-10-12
+  - id: replace-damaged-item
+    type: portal
+    label: Replace a damaged, defective, or broken item
+    value: https://www.amazon.com/gp/help/customer/display.html?nodeId=GP7Z9RS868ZP5J9F
+    purposes: [damaged_item]
+    access: login
+    source: https://www.amazon.com/gp/help/customer/display.html?nodeId=GP7Z9RS868ZP5J9F
+    last_verified: 2026-10-12
+  - id: a-to-z-claim
+    type: portal
+    label: A-to-z Guarantee claim (third-party seller orders)
+    value: https://www.amazon.com/gp/help/customer/display.html?nodeId=GQ37ZCNECJKTFYQV
+    purposes: [lost_package, damaged_item, refund_request]
+    access: login
+    notes: The claim is filed from the order in Your Orders. Status is on the A-to-z claim status help page (nodeId=GX8W2A9JG23YBY9W).
+    source: https://www.amazon.com/gp/help/customer/display.html?nodeId=GQ37ZCNECJKTFYQV
+    last_verified: 2026-10-12
+  - id: prime-cancel
+    type: portal
+    label: How to cancel Amazon Prime (links to the cancel flow)
+    value: https://www.amazon.com/gp/help/customer/display.html?nodeId=GTJQ7QZY7QL2HK4Y
+    purposes: [cancel_service]
+    access: login
+    notes: >-
+      Path for direct sign-ups: Your Memberships and Subscriptions, select the subscription,
+      Manage Subscription, then Cancel Subscription under Advanced Controls. A Prime membership
+      bought through a third party (for example Google Play) must be cancelled there.
+    source: https://www.amazon.com/gp/help/customer/display.html?nodeId=GU8AWX4GDKM7QGTE
+    last_verified: 2026-10-12
+  - id: report-suspicious
+    type: portal
+    label: Report suspicious activity
+    value: https://www.amazon.com/gp/help/customer/display.html?nodeId=T3MYikBay7swNeFqFo
+    purposes: [unauthorized_charge, account_access]
+    access: login
+    notes: From the Customer Service page select "Report Something Suspicious". Use "Identify an Amazon Charge" (nodeId=GSNBBJP63SM65UDB) first to match the charge to an order or subscription.
+    source: https://www.amazon.com/gp/help/customer/display.html?nodeId=T3MYikBay7swNeFqFo
+    last_verified: 2026-10-12
+  - id: ftc-prime-refund-administrator
+    type: phone
+    label: FTC v. Amazon Prime settlement refund administrator
+    value: +1-888-999-8094
+    purposes: [cancel_service, refund_request]
+    notes: For the 2025 FTC Prime settlement only. Website www.SubscriptionMembershipSettlement.com. No claim is needed; payments are automatic.
+    source: https://www.ftc.gov/enforcement/refunds/amazon-refunds
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: help-contact}
+  - {rung: supervisor, channel: customer-service-phone}
+  - {rung: written_complaint, note: "Conditions of Use require a Notice of Dispute through Amazon's claim form and 60 days of negotiation before arbitration."}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: refund_request
+    summary: Start the return from Your Orders within the return window; the refund follows Amazon's receipt and processing of the item.
+    evidence: [order number, return authorization or QR code, drop-off receipt or tracking number]
+    steps:
+      - do: Open Your Orders, select the item, and start the return. Choose refund or replacement and a drop-off method.
+        channel: returns-center
+      - do: Keep the drop-off receipt or tracking number until the refund posts.
+      - do: For a third-party seller order, the seller reviews the request first. If the seller does not respond within 48 hours, or refuses an approved return method, request an A-to-z Guarantee refund.
+        channel: a-to-z-claim
+      - do: If the refund does not post after the item is received, contact customer service by chat or phone.
+        channel: help-contact
+      - do: If Amazon still does not refund, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: Most items can be returned for a refund or replacement within 30 days of delivery, in original or unused condition.
+        issues: [refund_request]
+        source: https://www.amazon.com/gp/help/customer/display.html?nodeId=G6E3B2E8QPHQ88KF
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: For the 2025 holiday season, most items purchased November 1 through December 31, 2025 could be returned until January 31, 2026; Apple-branded products until January 15, 2026.
+        issues: [refund_request]
+        source: https://www.aboutamazon.com/news/retail/amazon-holiday-return-policy-2025
+        last_verified: 2026-10-12
+      - kind: process
+        claim: After Amazon issues a refund, it reaches an Amazon Gift Card balance in 2-3 hours and a credit card in 3-5 business days; a prepaid card can take up to 30 days.
+        issues: [refund_request]
+        source: https://www.amazon.com/gp/help/customer/display.html?nodeId=GKQNFKFK5CF3C54B
+        last_verified: 2026-10-12
+      - kind: process
+        claim: It can take up to 30 days for Amazon to receive and process a return.
+        issues: [refund_request]
+        source: https://www.amazon.com/gp/help/customer/display.html?nodeId=GKQNFKFK5CF3C54B
+        last_verified: 2026-10-12
+  - issue: lost_package
+    summary: For an Amazon-sold order, ask customer service for a refund or replacement; for a third-party order, contact the seller, then file an A-to-z claim.
+    evidence: [order number, tracking history, delivery photo if any, messages with the seller]
+    steps:
+      - do: Check the tracking page and the delivery location. Confirm the shipping address on the order.
+      - do: For an order sold by Amazon, report the missing package through Help & Contact and ask for a refund or replacement.
+        channel: help-contact
+      - do: For a third-party seller order, contact the seller from Your Orders. If the seller does not resolve it, file an A-to-z Guarantee claim from the order (Problem with order, then the reason, then Request refund).
+        channel: a-to-z-claim
+      - do: If the claim is denied and you were charged, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: You have up to 90 days after the maximum estimated delivery date to request a refund under the A-to-z Guarantee.
+        issues: [lost_package, damaged_item, refund_request]
+        source: https://www.amazon.com/gp/help/customer/display.html?nodeId=GQ37ZCNECJKTFYQV
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The A-to-z Guarantee covers orders from third-party sellers.
+        issues: [lost_package, damaged_item]
+        source: https://www.amazon.com/gp/help/customer/display.html?nodeId=GQ37ZCNECJKTFYQV
+        last_verified: 2026-10-12
+      - kind: process
+        claim: If a third-party seller's order is returned as undeliverable and the seller does not resolve it or respond within two business days, you may be eligible for an A-to-z refund.
+        issues: [lost_package]
+        source: https://www.amazon.com/gp/help/customer/display.html?nodeId=GCC7G9HKYQBZT5FX
+        last_verified: 2026-10-12
+  - issue: damaged_item
+    summary: Request a replacement or return from Your Orders; third-party seller items go through the seller, then A-to-z.
+    evidence: [photos of the item and packaging, order number]
+    steps:
+      - do: Photograph the item and the box before you discard anything.
+      - do: Use the replace or return option on the order and select the damaged or defective reason.
+        channel: replace-damaged-item
+      - do: For a third-party seller, if the seller does not offer an approved return method or does not respond within 48 hours, file an A-to-z claim.
+        channel: a-to-z-claim
+    facts:
+      - kind: policy
+        claim: For a return to a third-party seller, if the seller does not respond within 48 hours you can request an A-to-z Guarantee refund in some cases, such as no approved return method for a damaged, defective or not-as-described item.
+        issues: [damaged_item, refund_request]
+        source: https://www.amazon.com/gp/help/customer/display.html?nodeId=G38BHJQ25PNCLUBU
+        last_verified: 2026-10-12
+  - issue: cancel_service
+    summary: Cancel Prime online from Your Memberships and Subscriptions; refunds depend on benefit use since the last charge.
+    evidence: [cancellation confirmation screen or email, date of cancellation, card statement with later charges]
+    steps:
+      - do: Go to Your Memberships and Subscriptions, select Prime, Manage Subscription, and Cancel Subscription. For a free trial, choose to end the trial and benefits.
+        channel: prime-cancel
+      - do: Save the confirmation screen or email. The cancel flow shows the refund amount before you confirm.
+      - do: If you joined through a third party (for example Google Play), cancel with that provider.
+      - do: Dispute any Prime charge made after the cancellation date with Amazon, then with the card issuer.
+        channel: help-contact
+      - do: If cancellation was blocked, report it to the FTC and your state attorney general.
+        regulator: ftc
+    facts:
+      - kind: policy
+        claim: If you cancel Prime within 3 business days of signing up or converting from a free trial, Amazon refunds the full fee but may withhold the value of Prime benefits used in that period.
+        issues: [cancel_service]
+        source: https://www.amazon.com/gp/help/customer/display.html?nodeId=G2B9L3YR7LR8J4XP
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: After the first 3 business days, Prime is refunded in full only if you and your account made no eligible purchases and used no Prime benefits since the latest membership charge; otherwise the fee is non-refundable except as the Prime Terms state.
+        issues: [cancel_service]
+        source: https://www.amazon.com/gp/help/customer/display.html?nodeId=G2B9L3YR7LR8J4XP
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Amazon's cancel help page says paid members who have not used their benefits get a full refund of the current period, processed in three to five business days.
+        issues: [cancel_service]
+        source: https://www.amazon.com/gp/help/customer/display.html?nodeId=GTJQ7QZY7QL2HK4Y
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: Under the FTC Prime settlement, eligible U.S. Prime customers (challenged sign-up flow or failed online cancellation between June 23, 2019 and June 23, 2025) get automatic refunds through April 2027; no claim is needed and payments expire 60 days after issue.
+        issues: [cancel_service]
+        source: https://www.ftc.gov/enforcement/refunds/amazon-refunds
+        last_verified: 2026-10-12
+  - issue: unauthorized_charge
+    summary: Match the charge to an order or subscription first; if it is fraud, report it to Amazon and to your card issuer.
+    evidence: [card statement line, Amazon order history, list of household members with card access]
+    steps:
+      - do: Use Identify an Amazon Charge and your order and subscription history to match the charge. Check Prime and Prime Video renewals and other household orders.
+      - do: If it is not yours, report it through Report Something Suspicious and ask for a refund.
+        channel: report-suspicious
+      - do: Tell your card issuer at once and ask for a dispute and a new card if needed.
+      - do: Report fraud to the FTC at ReportFraud.ftc.gov.
+        regulator: ftc
+
+facts:
+  - kind: process
+    claim: Amazon's Conditions of Use require you to contact customer service first, then submit a Notice of Dispute through Amazon's claim form and negotiate for 60 days before arbitration; JAMS administers the arbitration, and small claims court is excepted.
+    source: https://www.amazon.com/gp/help/customer/display.html?nodeId=GLSBYFE9MGKKQXXM
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Amazon help pages, Your Orders, A-to-z claims and the Prime cancel flow require the account holder's sign-in.
+  - Amazon help pages block automated fetches (HTTP 503), so an agent may need the person to read the current page.

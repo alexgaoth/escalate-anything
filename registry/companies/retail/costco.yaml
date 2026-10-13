@@ -1,0 +1,163 @@
+id: costco
+name: Costco
+aliases: [costco wholesale, costco.com, costco membership, costco executive membership, kirkland signature]
+sector: retail
+also_sectors: [subscription]
+parent: Costco Wholesale Corporation
+website: https://www.costco.com
+account_url: https://www.costco.com/OrderStatusCmd
+regulators: [ftc]
+notes: >-
+  Costco is a paid-membership warehouse club. Its terms of use send legal actions to the state
+  or federal courts in Seattle, Washington; no arbitration clause was found in the terms
+  (last updated October 7, 2026).
+
+channels:
+  - id: online-orders-phone
+    type: phone
+    label: Costco.com online orders and Costco Logistics deliveries
+    value: +1-800-955-2292
+    hours: Mon-Fri 5am-8pm PT, Sat-Sun 5am-7pm PT (chat same hours)
+    purposes: [refund_request, lost_package, damaged_item, billing_error]
+    source: https://customerservice.costco.com/app/answers/answer_view/a_id/8162
+    last_verified: 2026-10-12
+  - id: membership-phone
+    type: phone
+    label: Membership and warehouse (Member Service Center)
+    value: +1-800-774-2678
+    hours: Mon-Fri 6am-6pm PT, Sat-Sun 8am-5pm PT
+    purposes: [cancel_service, refund_request, unauthorized_charge, account_access]
+    notes: Also the number for reporting a lost or stolen membership card.
+    source: https://customerservice.costco.com/app/answers/answer_view/a_id/8162
+    last_verified: 2026-10-12
+  - id: warranty-phone
+    type: phone
+    label: Costco Technical & Warranty Services
+    value: +1-866-861-0450
+    hours: Mon-Sun 5am-8pm PT
+    purposes: [warranty_claim]
+    notes: "Self-help: https://productsupport.costco.com/"
+    source: https://customerservice.costco.com/app/answers/answer_view/a_id/8162
+    last_verified: 2026-10-12
+  - id: contact-us
+    type: chat
+    label: Costco Customer Service contact page (phone and chat by topic)
+    value: https://customerservice.costco.com/app/answers/answer_view/a_id/8162
+    purposes: [refund_request, lost_package, damaged_item, cancel_service]
+    source: https://customerservice.costco.com/
+    last_verified: 2026-10-12
+  - id: return-replace-online
+    type: portal
+    label: Return or replace a Costco.com order (Orders & Returns)
+    value: https://customerservice.costco.com/app/answers/answer_view/a_id/6874
+    purposes: [refund_request, damaged_item, lost_package]
+    access: login
+    source: https://customerservice.costco.com/app/answers/answer_view/a_id/6874
+    last_verified: 2026-10-12
+  - id: price-adjustment
+    type: portal
+    label: Price match / price adjustment requests
+    value: https://customerservice.costco.com/app/answers/answer_view/a_id/628
+    purposes: [refund_request]
+    source: https://customerservice.costco.com/app/answers/answer_view/a_id/628
+    last_verified: 2026-10-12
+  - id: feedback
+    type: web_form
+    label: Costco feedback form
+    value: https://customerservice.costco.com/app/answers/answer_view/a_id/1218/loc/en_US
+    purposes: [poor_service]
+    source: https://customerservice.costco.com/app/answers/answer_view/a_id/8162
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: contact-us}
+  - {rung: supervisor, channel: membership-phone}
+  - {rung: written_complaint, channel: feedback}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: refund_request
+    summary: Costco refunds most products under its satisfaction guarantee; electronics and major appliances have 90 days.
+    evidence: [membership card, receipt or order number, the item]
+    steps:
+      - do: Take a warehouse purchase to the returns counter at any Costco warehouse.
+      - do: For a Costco.com order, sign in, open Orders & Returns, and choose Return or Replace Items, or return it at any warehouse for an immediate refund.
+        channel: return-replace-online
+      - do: If the price dropped within 30 days of purchase, ask for a price adjustment (online button, or the returns counter of the original warehouse).
+        channel: price-adjustment
+      - do: If Costco refuses a refund you are owed, dispute the charge with your card issuer.
+    facts:
+      - kind: policy
+        claim: Costco's Risk-Free 100% Satisfaction Guarantee refunds the purchase price on any product, with listed exceptions.
+        issues: [refund_request]
+        source: https://customerservice.costco.com/app/answers/detail/a_id/1191
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Televisions, computers, cameras, cell phones, major appliances and other listed electronics must be returned within 90 days of receipt.
+        issues: [refund_request, damaged_item]
+        source: https://customerservice.costco.com/app/answers/detail/a_id/1191
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Items that drop in price within 30 days of purchase are eligible for a price adjustment; approved Costco.com credits are usually issued in 5 to 10 business days to the original payment method. Costco does not match other retailers.
+        issues: [refund_request]
+        source: https://customerservice.costco.com/app/answers/answer_view/a_id/628
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Costco.com refunds include shipping and handling fees and go to the original payment method; Costco does not charge for return shipping.
+        issues: [refund_request]
+        source: https://customerservice.costco.com/app/answers/answer_view/a_id/6874
+        last_verified: 2026-10-12
+  - issue: damaged_item
+    summary: Refuse a damaged delivery, or return or replace the item through Orders & Returns.
+    evidence: [photos of the item and box, order number]
+    steps:
+      - do: If the item or box is damaged at delivery, you can refuse it.
+      - do: Otherwise, start Return or Replace Items on the order, or return it at a warehouse.
+        channel: return-replace-online
+      - do: For a defect after the return window, call Costco Technical & Warranty Services or the manufacturer.
+        channel: warranty-phone
+  - issue: lost_package
+    summary: Report a lost Costco.com shipment for a return or replacement; missing items are replaced, not refunded.
+    evidence: [order number, tracking history]
+    steps:
+      - do: Use Return or Replace Items on the order, or call online orders customer service.
+        channel: online-orders-phone
+      - do: If Costco does not resolve it, dispute the charge with your card issuer.
+    facts:
+      - kind: policy
+        claim: On Costco.com, missing items qualify for replacement only, not a refund; lost shipments qualify for a return or replacement.
+        issues: [lost_package, damaged_item]
+        source: https://customerservice.costco.com/app/answers/answer_view/a_id/6874
+        last_verified: 2026-10-12
+  - issue: cancel_service
+    summary: Cancel the membership and ask for a fee refund; stop auto-renewal at least 72 hours before the renewal month.
+    evidence: [membership number, date of cancellation, card statement]
+    steps:
+      - do: Ask for a cancellation and a membership fee refund at a warehouse membership counter or through the Member Service Center.
+        channel: membership-phone
+      - do: To stop auto-renewal, turn it off in your Costco account, at a membership counter, or through the Member Service Center at least 72 hours before the first day of the renewal month.
+        channel: membership-phone
+      - do: Dispute any renewal charged after you cancelled with your card issuer.
+    facts:
+      - kind: policy
+        claim: Costco will cancel and refund the membership fee at any time if the member is dissatisfied.
+        issues: [cancel_service, refund_request]
+        source: https://customerservice.costco.com/app/answers/detail/a_id/1191
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: You must cancel auto renewal at least 72 hours before the first day of your renewal month to avoid the charge.
+        issues: [cancel_service]
+        source: https://www.costco.com/member-privileges-conditions.html
+        last_verified: 2026-10-12
+  - issue: warranty_claim
+    summary: Use Costco Technical & Warranty Services for covered electronics and appliances.
+    evidence: [order number or receipt, serial number, description of the fault]
+    steps:
+      - do: Call Costco Technical & Warranty Services or use the product support site.
+        channel: warranty-phone
+      - do: If the manufacturer warranty applies, file with the manufacturer as the warranty names.
+
+known_blockers:
+  - Costco.com returns and price adjustments need the member's sign-in.
