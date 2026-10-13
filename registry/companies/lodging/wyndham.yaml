@@ -101,3 +101,24 @@ facts:
 
 known_blockers:
   - Wyndham's cancellation, deposit-hold and resort-fee policies are set per hotel and were not found on a corporate page.
+
+official_domains: [wyndhamhotels.com, wyndham.com, wyndhamrewards.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Wyndham says it does not request money or charge fees in its job application process and will never require applicants to download an app. It does not contact job applicants through personal web-based email services or messaging apps.
+      source: https://careers.wyndhamhotels.com/content/Recruitment-Fraud-Information/?locale=en_US
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Wyndham warns of recruitment scams in which people posing as Wyndham recruiters or employers offer interviews or jobs to get personal or financial information, such as a Social Security number, bank details or passport number, for identity theft.
+      source: https://careers.wyndhamhotels.com/content/Recruitment-Fraud-Information/?locale=en_US
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: recruitment-fraud-email
+      type: email
+      label: Report suspicious recruiting activity (fake Wyndham job offers)
+      value: mycareer@wyndham.com
+      source: https://careers.wyndhamhotels.com/content/Recruitment-Fraud-Information/?locale=en_US
+      last_verified: 2026-10-12

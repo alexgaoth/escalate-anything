@@ -156,8 +156,8 @@ facts:
     claim: Avis website Terms of Use require written notice of a claim 30 days before a proceeding, then AAA arbitration under commercial rules with a class action waiver; small claims court is allowed.
     source: https://www.avis.com/en/legal-documents/terms-of-use
     last_verified: 2026-10-12
-  - kind: contact
-    claim: Avis says it never asks for gift card payments for tolls or fees; report such requests as fraud to the FTC.
+  - kind: policy
+    claim: Avis says it will never ask you to pay for your rental with a gift card; such a request is a common fraudulent practice and does not come from an Avis representative.
     issues: [billing_error]
     source: https://www.avis.com/en/customer-service/faqs/usa/customer-service
     last_verified: 2026-10-12
@@ -165,3 +165,11 @@ facts:
 known_blockers:
   - The Avis and Budget customer service portals require sign-in.
   - Damage claims are handled by third-party administrators (Fleet Response, Viking), not by Avis customer service.
+
+official_domains: [avis.com, budget.com, abgcustomerservice.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Avis says you will never be asked to pay for your rental with a gift card; such a request is a common fraudulent practice and does not come from an Avis representative.
+      source: https://www.avis.com/en/customer-service/faqs/usa/customer-service
+      last_verified: 2026-10-12

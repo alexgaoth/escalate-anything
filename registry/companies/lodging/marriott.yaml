@@ -153,3 +153,12 @@ known_blockers:
   - Account-related Contact Us topics appear only after sign-in to Marriott Bonvoy.
   - support.marriott.com articles load with JavaScript and may not render for automated fetches.
   - Homes & Villas by Marriott Bonvoy stays are serviced by the property management company on the confirmation, not by hotel customer care.
+
+official_domains: [marriott.com]
+
+security:
+  known_scams:
+    - kind: policy
+      claim: The FTC published a robocall recording that claims to be "an exclusive announcement from Marriott Hotels" and says your number was preselected for a complimentary stay in a five-star hotel.
+      source: https://www.ftc.gov/media/85095
+      last_verified: 2026-10-12

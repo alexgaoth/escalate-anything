@@ -169,3 +169,5 @@ known_blockers:
   - The Submit a Request form has a reCAPTCHA.
   - Chat is open only Monday-Friday business hours (Central time).
   - No Damage Recovery Unit phone, email or address is published on the pages checked.
+
+official_domains: [enterprise.com, nationalcar.com, alamo.com]

@@ -323,3 +323,20 @@ notes: >-
   ticket is refunded after a schedule change of more than 4 hours to the departure time, which is narrower than the 3
   or 4 hour significant-change rule in the same document. A second Customer Relations address on the liability page
   (P.O. Box 619612, MD 2400, DFW Airport, TX 75261-9612) is for written requests for the Conditions of Carriage.
+
+official_domains: [aa.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: American says it will never ask you to make security-related changes, or collect personal or financial information, in unsolicited emails, phone calls, postal mailings or faxes.
+      source: https://www.aa.com/i18n/customer-service/support/communication-and-email-security.html
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: American warns that phishing can come as phony phone calls, emails, faxes, contracts and postal mailings, and advises not to click links, open attachments or call phone numbers in a suspicious message.
+      source: https://www.aa.com/i18n/customer-service/support/communication-and-email-security.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: A consumer reported to BBB Scam Tracker (January 2025) that a number found by searching for American Airlines customer service reached impostors, who asked for the confirmation code and then demanded payment, saying the flights would be cancelled otherwise.
+      source: https://www.bbb.org/scamtracker/lookupscam/936308
+      last_verified: 2026-10-12

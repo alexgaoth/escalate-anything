@@ -230,3 +230,11 @@ known_blockers:
 
 notes: >-
   Contract of Carriage PDF is marked "2026-07-29 Revision: 103". JetBlue's delays page says Customer Bill of Rights compensation is issued as TrueBlue points instead of travel credit starting in early 2026.
+
+official_domains: [jetblue.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: JetBlue warns that fraudsters post fake JetBlue phone numbers online and get callers to give personal and financial information. It advises being wary of any phone numbers other than the ones JetBlue lists, and says the fraudsters may call back repeatedly if you hang up.
+      source: https://www.jetblue.com/safety/fraud-prevention
+      last_verified: 2026-10-12

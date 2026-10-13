@@ -99,3 +99,5 @@ facts:
 known_blockers:
   - bestwestern.com returns HTTP 403 to automated fetches.
   - Bookings made directly with the hotel cannot be changed or cancelled on bestwestern.com.
+
+official_domains: [bestwestern.com]

@@ -159,3 +159,46 @@ known_blockers:
   - Disputes, invoices and the Help Center contact flow require sign-in to the Turo account.
   - turo.com returns HTTP 403 to automated fetches.
   - A bank chargeback against Turo leads to account restrictions under Turo's chargeback policy.
+
+official_domains: [turo.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Turo says it will never ask for your Turo email verification codes, login information, security codes, SMS codes or verification codes, or for bank account information, credit card numbers, passwords or your Social Security number.
+      source: https://help.turo.com/en_us/preventing-and-reporting-fraud-guests-H1B2NElNq
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Turo says it will never call you to request payment for a trip by gift card, and will never threaten to close your account if you do not confirm, verify or authenticate personal information by email.
+      source: https://help.turo.com/en_us/preventing-and-reporting-fraud-guests-H1B2NElNq
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Turo says it sends only one-time passcodes through WhatsApp (in some countries, from its Meta-verified profile) and never sends other messages, including links, through WhatsApp.
+      source: https://help.turo.com/en_us/preventing-and-reporting-fraud-host-Sy8k9Tjlx
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: People posing as Turo representatives contact users by phone, email, text message or WhatsApp and ask for sensitive information to get access to their account or personal data.
+      source: https://help.turo.com/en_us/preventing-and-reporting-fraud-host-Sy8k9Tjlx
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Turo warns that phishing emails can look like official Turo emails and try to send you to a fake website or a non-Turo phone number; do not trust an email that claims to be from Turo but does not come from an official Turo email domain listed on its fraud page, even if the address contains the word Turo or an employee's name.
+      source: https://help.turo.com/en_us/preventing-and-reporting-fraud-guests-H1B2NElNq
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Turo warns of fake job-offer emails; if a job opening is not listed on Turo's careers page, the posting is not legitimate.
+      source: https://help.turo.com/en_us/preventing-and-reporting-fraud-guests-H1B2NElNq
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: spoof-email
+      type: email
+      label: Forward suspicious emails, fake website addresses and scam call or text details to Turo
+      value: spoof@turo.com
+      notes: Forward the entire suspicious email. Do not change the subject line and do not forward it as an attachment.
+      source: https://help.turo.com/en_us/preventing-and-reporting-fraud-guests-H1B2NElNq
+      last_verified: 2026-10-12
+    - id: account-services-email
+      type: email
+      label: Report unauthorized account changes, charges or trips
+      value: account-services@turo.com
+      source: https://help.turo.com/en_us/preventing-and-reporting-fraud-guests-H1B2NElNq
+      last_verified: 2026-10-12
