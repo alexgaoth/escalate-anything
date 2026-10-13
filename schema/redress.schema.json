@@ -174,7 +174,7 @@
       }
     },
     "rule": {
-      "description": "A law or regulation that gives consumers a right. 'status' records whether it is in force; several recent rules were vacated or withdrawn.",
+      "description": "A law or regulation that gives consumers a right. 'status' records whether it is in force; several recent rules were vacated, repealed or withdrawn.",
       "type": "object",
       "additionalProperties": false,
       "required": ["id", "title", "jurisdiction", "status", "applies_to", "summary", "points", "source", "last_verified"],
@@ -183,7 +183,7 @@
         "title": {"type": "string"},
         "citation": {"type": "string"},
         "jurisdiction": {"type": "string", "pattern": "^(us-federal|international|[a-z]{2})$"},
-        "status": {"enum": ["in_effect", "partially_in_effect", "stayed", "vacated", "proposed", "withdrawn", "superseded"]},
+        "status": {"enum": ["in_effect", "partially_in_effect", "stayed", "vacated", "repealed", "proposed", "withdrawn", "superseded"]},
         "applies_to": {
           "type": "object",
           "additionalProperties": false,
