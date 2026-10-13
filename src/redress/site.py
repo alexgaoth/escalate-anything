@@ -129,13 +129,16 @@ def contacts_document(reg: Registry, today: dt.date | None = None) -> dict:
             "email": "The full address, trimmed and in lower case. Look it up in `emails`.",
             "domains": "An email address or URL whose host is one of an owner's `domains`, or a subdomain of one, "
                        "belongs to that owner even if the exact address is not on file.",
-            "lookalike": "A host that is not in `brands.known_hosts` and not under any owner's `domains`, but contains "
-                         "a brand token after you remove its dots and hyphens, imitates that company. Use the longest "
-                         "token that matches. A company's official domains are its `domains` in `owners`.",
+            "lookalike": "Split the host into segments on '.' and '-'. A brand token matches when a segment equals it, "
+                         "a segment equals an affix from `brands.affixes` plus the token (or the token plus an affix), "
+                         "or two adjacent segments join to it. A host that is not in `brands.known_hosts` and not under "
+                         "any owner's `domains` imitates the company of the longest matching token. A company's "
+                         "official domains are its `domains` in `owners`.",
         },
         "owners": owners,
         "brands": {
             "tokens": [list(t) for t in brands.tokens],
+            "affixes": list(context.BRAND_AFFIXES),
             "stopwords": sorted(context.BRAND_STOPWORDS),
             "known_hosts": sorted(brands.known_hosts),
         },

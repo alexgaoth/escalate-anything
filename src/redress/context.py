@@ -210,8 +210,10 @@ URL_CHANNEL_TYPES = ("web_form", "chat", "portal", "social", "app", "in_person")
 
 # ---- look-alike domains --------------------------------------------------------
 # A brand token is a company's id part, id, name or alias in lower case with only letters and digits,
-# 4 or more characters long. A host that contains a brand token (with its dots and hyphens removed)
-# but is not a domain of any organization in the registry imitates that company.
+# 4 or more characters long. Split a host into segments on "." and "-". The host uses a brand when a
+# segment is the token, a segment is a scam affix plus the token (or the token plus an affix), or two
+# adjacent segments join to the token ("wells-fargo"). Such a host imitates the company when it is not
+# a domain of any organization in the registry and not a host on file.
 
 # Generic words, place names and surnames from company ids and aliases. Each brand keeps a longer token
 # (for example "wellsfargo", "americanairlines", "dukeenergy").
@@ -228,6 +230,13 @@ BRAND_STOPWORDS = frozenset({
     "southwest", "spirit", "state", "straight", "talk", "travelers", "union", "united", "wells", "western",
     "westin", "wireless", "wise", "xcel",
 })
+# Words that scam domains put before or after a brand in one segment ("mychase", "chaseonline").
+BRAND_AFFIXES = (
+    "my", "the", "secure", "login", "signin", "verify", "verification", "support", "help", "helpdesk", "service",
+    "services", "online", "alert", "alerts", "account", "accounts", "update", "billing", "pay", "payment", "refund",
+    "refunds", "center", "team", "info", "notice", "mail", "app", "web", "us", "usa", "official", "care", "customer",
+    "claim", "claims", "delivery", "track", "tracking",
+)
 LOOKALIKE_WHY = "Uses the name {name} but is not an official {name} domain (official: {official})"
 LOOKALIKE_ADVICE = "This domain imitates {names}. Do not use it."
 SUSPICIOUS_VERDICTS = ("not_on_file", "belongs_to_other", "lookalike")
@@ -273,6 +282,21 @@ def brand_index(reg: "Registry") -> BrandIndex:
     return idx
 
 
+def brand_candidates(host: str) -> set[str]:
+    """Every string that a brand token must equal to count as used in this host."""
+    segments = [s for s in re.split(r"[.-]", host.lower()) if s]
+    out = set(segments)
+    for seg in segments:
+        for affix in BRAND_AFFIXES:
+            if seg.startswith(affix):
+                out.add(seg[len(affix):])
+            if seg.endswith(affix):
+                out.add(seg[:-len(affix)])
+    out.update(a + b for a, b in zip(segments, segments[1:]))
+    out.discard("")
+    return out
+
+
 def lookalikes(reg: "Registry", host: str | None) -> list[dict[str, Any]]:
     """Companies whose brand token is in this host, when the host is not a domain of any organization on file."""
     host = (host or "").lower().rstrip(".")
@@ -281,8 +305,8 @@ def lookalikes(reg: "Registry", host: str | None) -> list[dict[str, Any]]:
     idx = brand_index(reg)
     if host in idx.known_hosts or _host_matches(host, idx.owner_domains):
         return []
-    compact = re.sub(r"[.-]", "", host)
-    hits = [(t, cid) for t, cid in idx.tokens if t in compact]
+    candidates = brand_candidates(host)
+    hits = [(t, cid) for t, cid in idx.tokens if t in candidates]
     if not hits:
         return []
     longest = len(hits[0][0])  # tokens are sorted longest first

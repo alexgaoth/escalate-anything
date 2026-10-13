@@ -167,7 +167,21 @@
     return hits.slice(0, limit);
   }
 
-  // context.lookalikes: companies whose brand token is in a host that no organization on file uses.
+  // context.brand_candidates: the segments of a host ("." and "-"), each without one scam affix at
+  // its start or end, and each pair of adjacent segments joined.
+  function brandCandidates(C, host) {
+    const segments = host.toLowerCase().split(/[.-]/).filter(Boolean);
+    const out = new Set(segments);
+    segments.forEach((seg) => C.brands.affixes.forEach((affix) => {
+      if (seg.startsWith(affix)) out.add(seg.slice(affix.length));
+      if (seg.endsWith(affix)) out.add(seg.slice(0, seg.length - affix.length));
+    }));
+    segments.slice(1).forEach((seg, i) => out.add(segments[i] + seg));
+    out.delete("");
+    return out;
+  }
+
+  // context.lookalikes: companies whose brand is used in a host that no organization on file uses.
   const BRANDS = new WeakMap();
   function lookalikes(C, host) {
     const h = String(host || "").toLowerCase().replace(/\.+$/, "");
@@ -182,8 +196,8 @@
       BRANDS.set(C, idx);
     }
     if (idx.known.has(h) || idx.domains.some((d) => h === d || h.endsWith("." + d))) return [];
-    const compact = h.replace(/[.-]/g, "");
-    const hits = C.brands.tokens.filter(([token]) => compact.includes(token)); // tokens are sorted longest first
+    const candidates = brandCandidates(C, h);
+    const hits = C.brands.tokens.filter(([token]) => candidates.has(token)); // tokens are sorted longest first
     const out = [];
     hits.forEach(([token, cid]) => {
       if (token.length === hits[0][0].length && !out.some((o) => o.company === cid)) {
@@ -257,7 +271,7 @@
     return { risk, red_flags: flags, contacts: checks, next_steps: risk !== "low" ? R.next_steps : R.next_steps_low, note: R.note };
   }
 
-  const core = { esc, renderMarkdown, stripFrontMatter, normPhone, normUrl, classify, normName, findCompany, lookalikes, verifyContact, scamCheck };
+  const core = { esc, renderMarkdown, stripFrontMatter, normPhone, normUrl, classify, normName, findCompany, brandCandidates, lookalikes, verifyContact, scamCheck };
   if (typeof module === "object" && module && module.exports) { module.exports = core; return; }
 
   // ==== the page ================================================================

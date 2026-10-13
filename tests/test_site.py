@@ -11,6 +11,7 @@ from redress.registry import Registry, normalize
 from redress.site import WEB_DIR, build_site, index_html
 
 from .conftest import FIXTURES
+from .test_context import LOOKALIKE_HOSTS
 
 NODE = shutil.which("node")
 needs_node = pytest.mark.skipif(NODE is None, reason="node is not installed")
@@ -108,7 +109,7 @@ def test_contacts_json_is_keyed_by_normalized_value(tmp_path, fixture_registry):
     brands = contacts["brands"]
     assert brands["tokens"] == [["exampleairlines", "example-air"], ["exampleair", "example-air"], ["example", "example-air"]]
     assert {"example.com", "example.gov"} <= set(brands["known_hosts"])
-    assert "bank" in brands["stopwords"]
+    assert "bank" in brands["stopwords"] and brands["affixes"] == list(context.BRAND_AFFIXES)
 
 
 def test_red_flags_json_comes_from_context(tmp_path, fixture_registry):
@@ -317,6 +318,11 @@ def test_js_checks_match_python_on_the_real_registry(tmp_path):
     reg = Registry.load()
     build_site(tmp_path, reg)
     queries = ["united", "untied airlines", "verizn", "t mobile", "delta air", "chase", "zzz", ""]
+    hosts = list(LOOKALIKE_HOSTS) + sorted(context.brand_index(reg).known_hosts)
+    looks = _js([["lookalikes", "$C", h] for h in hosts], tmp_path)
+    for host, js in zip(hosts, looks):
+        assert js == context.lookalikes(reg, host), host
+    assert [[x["company"] for x in js] for js in looks[:len(LOOKALIKE_HOSTS)]] == [[c] if c else [] for c in LOOKALIKE_HOSTS.values()]
     calls = [["findCompany", "$C", q, 5] for q in queries]
     calls += [["verifyContact", "$C", v, c] for v, c in REAL_CONTACTS]
     calls += [["scamCheck", "$C", "$R", t, c] for t, c in REAL_MESSAGES]

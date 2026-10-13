@@ -141,6 +141,25 @@ def test_official_hosts_never_look_alike(real_registry):
         assert context.brand_tokens(c), f"{c['id']} has no brand token"
 
 
+LOOKALIKE_HOSTS = {  # host -> the company it imitates, or None
+    "usps-redelivery-fee.com": "usps", "mychase-login.com": "chase", "secure-chaseonline.net": "chase",
+    "wells-fargo-alerts.net": "wells-fargo", "amazon-account-verify.com": "amazon",
+    "xfinity-support-billing.com": "comcast-xfinity", "paypal.verify-account.io": "paypal",
+    "purchase.com": None, "twincities.org": None, "discovery.com": None, "chaseplatform.com": None,
+}
+
+
+@pytest.mark.parametrize("host,company", LOOKALIKE_HOSTS.items())
+def test_brand_matching_uses_segments_and_affixes(real_registry, host, company):
+    assert [x["company"] for x in context.lookalikes(real_registry, host)] == ([company] if company else [])
+
+
+def test_brand_candidates():
+    assert context.brand_candidates("secure-chaseonline.net") >= {"secure", "chaseonline", "chase", "net"}
+    assert "wellsfargo" in context.brand_candidates("wells-fargo-alerts.net")
+    assert "chase" not in context.brand_candidates("purchase.com")
+
+
 @pytest.mark.parametrize("value,company", [
     ("chase-secure-verify.com", "Chase"), ("https://wells-fargo-alerts.net/login", "Wells Fargo"),
     ("https://usps-redelivery-fee.com", "United States Postal Service"), ("billing@xfinity-billing.help", "Xfinity"),
