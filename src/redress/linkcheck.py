@@ -60,9 +60,12 @@ async def _check(client: httpx.AsyncClient, sem: asyncio.Semaphore, url: str, us
     async with sem:
         try:
             resp = await client.head(url)
-            if resp.status_code in (405, 403, 400) or resp.status_code >= 500:
+            # Many sites answer HEAD wrongly (404, 403, 405); trust only a GET before calling a link dead.
+            if resp.status_code >= 400:
                 resp = await client.get(url)
         except httpx.ConnectError as e:
+            if "CERTIFICATE_VERIFY_FAILED" in str(e) or "SSL" in str(e):
+                return Result(url, "error", None, "TLS certificate not trusted by Python; check in a browser", used_by)
             return Result(url, "dead", None, f"connect error: {e}", used_by)
         except httpx.HTTPError as e:
             return Result(url, "error", None, f"{type(e).__name__}: {e}", used_by)
