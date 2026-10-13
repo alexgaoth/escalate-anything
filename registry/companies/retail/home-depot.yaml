@@ -4,6 +4,7 @@ aliases: [home depot, homedepot.com, thd]
 sector: retail
 parent: The Home Depot, Inc.
 website: https://www.homedepot.com
+official_domains: [homedepot.com]
 regulators: [ftc]
 notes: >-
   Home improvement retailer. Online-order help, price matches and price adjustments go through

@@ -4,6 +4,21 @@ aliases: [tinder, hinge, match group]
 sector: subscription
 parent: Match Group
 website: https://www.tinder.com
+official_domains: [tinder.com, hinge.co]
+security:
+  known_scams:
+    - kind: policy
+      claim: Matches who ask for money by wire transfer, banking service or app, claim to be from your country but stuck somewhere else, or push you to invest or open an account with a service they recommend. Tinder says never to send money.
+      source: https://policies.tinder.com/safety/intl/en/
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: tinder-in-app-report
+      type: app
+      label: Report a suspicious Tinder profile or message in the app
+      value: Tinder app, profile page or messaging window, Report
+      purposes: [fraud]
+      source: https://policies.tinder.com/safety/intl/en/
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: Covers Tinder (Tinder LLC, Dallas, Texas, for US users) and Hinge (Hinge, Inc.). Both share the same cancellation P.O. Box in Dallas. The 2025 FTC settlement with Match Group was not checked on ftc.gov for this entry.
 

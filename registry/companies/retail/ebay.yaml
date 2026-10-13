@@ -5,6 +5,30 @@ sector: retail
 parent: eBay Inc.
 website: https://www.ebay.com
 account_url: https://www.ebay.com/mye/myebay/purchase
+official_domains: [ebay.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: eBay says it will never ask you to confirm your account password or personal details by email, and will never ask for your password or financial information over the phone.
+      source: https://pages.ebay.com/securitycenter/stay_safe.html
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Fake emails with the eBay logo and a false sender address, fake eBay sign-in pages, and offers to complete a sale outside eBay or with unapproved payment methods.
+      source: https://pages.ebay.com/securitycenter/stay_safe.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: 'Overpayment schemes, often with counterfeit cashier''s checks, and requests for extra shipping or other charges after a sale.'
+      source: https://pages.ebay.com/securitycenter/stay_safe.html
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-spoof-email
+      type: email
+      label: Forward suspicious emails that appear to come from eBay (as an attachment)
+      value: spoof@ebay.com
+      purposes: [fraud]
+      source: https://pages.ebay.com/securitycenter/stay_safe.html
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   eBay is a marketplace. The buyer opens a request with the seller first; eBay steps in under

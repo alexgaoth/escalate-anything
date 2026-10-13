@@ -4,6 +4,45 @@ aliases: [temu.com, whaleco, whaleco inc]
 sector: retail
 parent: PDD Holdings
 website: https://www.temu.com
+official_domains: [temu.com, temuemail.com, temumail.com, temuofficial.com, temufavor.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Temu says official Temu emails do not ask for your Temu password, card security code, card number or PIN, Social Security or tax ID number, or answers to security questions. Its listed sender domains are temu.com, temuemail.com, temumail.com, temuofficial.com and temufavor.com.
+      source: https://www.temu.com/support/c3/how-to-recognise-scam-emails-f-208-s-2039.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Temu says it will not ask you to pay additional fees by email or text after you place an order, for example for a free gift or for customs clearance.
+      source: https://www.temu.com/support/c3/how-to-recognise-scam-emails-f-208-s-2039.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Temu says it will not call you out of the blue to ask for your card number or other sensitive information, or ask you to transfer money.
+      source: https://www.temu.com/support/c3/beware-of-various-telephone-scams-and-how-to-deal-with-them-f-208-s-4387.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Temu says its customer support is always free of charge. If a third-party website offers Temu support for a fee, do not pay.
+      source: https://www.temu.com/support/c3/temu-customer-support-is-always-free-f-208-s-7911.html
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: 'Callers who say they are from "Temu Customer Service", may already know your name, address and phone number, and push for payment by wire transfer, gift card, cryptocurrency or payment app.'
+      source: https://www.temu.com/support/c3/beware-of-various-telephone-scams-and-how-to-deal-with-them-f-208-s-4387.html
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-phishing-email
+      type: email
+      label: Forward suspicious emails that claim to be from Temu (preferably as an attachment)
+      value: reportphishing@temu.com
+      purposes: [fraud]
+      source: https://www.temu.com/support/c3/how-to-recognise-scam-emails-f-208-s-2039.html
+      last_verified: 2026-10-12
+    - id: report-suspicious-form
+      type: web_form
+      label: Report fake Temu ads, accounts, websites, texts, calls or financial fraud
+      value: https://www.temu.com/bgch_report_suspicious.html
+      purposes: [fraud]
+      source: https://www.temu.com/support/c3/report-something-suspicious-on-temu-f-208-s-1841.html
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   Temu's U.S. terms are with Whaleco Inc., a Delaware company and PDD Holdings subsidiary.

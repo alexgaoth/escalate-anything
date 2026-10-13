@@ -5,6 +5,37 @@ sector: retail
 parent: Target Corporation
 website: https://www.target.com
 account_url: https://www.target.com/account
+official_domains: [target.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Target says it will never call, email or text to request personal information such as your password, Target Circle Card PIN or Social Security number.
+      source: https://www.target.com/c/redcard-benefits-identity-safeguards/-/N-4srzk
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Target says it will never ask for payment, gift cards or banking information during recruiting, and that recruiter emails come from an @target.com address.
+      source: https://corporate.target.com/careers/fraudulent-job-postings
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: 'BBB Scam Tracker''s 2025 Risk Report lists Target as the No. 3 most impersonated organization or brand in 2025, with 723 reports.'
+      source: https://bbbmarketplacetrust.org/wp-content/uploads/2026/08/Risk-Report-2025-US.pdf
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: verify-guest-relations-email
+      type: email
+      label: Ask Target Guest Relations whether a suspicious call, text or email came from Target
+      value: Guest.Relations@target.com
+      purposes: [fraud]
+      source: https://www.target.com/c/redcard-benefits-identity-safeguards/-/N-4srzk
+      last_verified: 2026-10-12
+    - id: verify-guest-relations-phone
+      type: phone
+      label: Target Guest Relations (verify a suspicious contact)
+      value: +1-800-440-0680
+      purposes: [fraud]
+      source: https://www.target.com/c/redcard-benefits-identity-safeguards/-/N-4srzk
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   Target Plus items are sold by partner sellers on Target.com and can have a 30-day window.

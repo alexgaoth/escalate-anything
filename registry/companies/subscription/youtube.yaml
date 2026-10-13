@@ -5,6 +5,7 @@ sector: subscription
 parent: Google LLC
 website: https://www.youtube.com
 account_url: https://www.youtube.com/paid_memberships
+official_domains: [youtube.com, google.com]
 regulators: [ftc]
 
 channels:

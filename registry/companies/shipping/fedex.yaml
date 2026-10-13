@@ -4,6 +4,37 @@ aliases: [federal express, fedex express, fedex ground, fedex home delivery, gof
 sector: shipping
 website: https://www.fedex.com
 account_url: https://www.fedex.com/secure-login/en-us/
+official_domains: [fedex.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: FedEx says it never requests payment or personal information in exchange for releasing a package, and does not request personal information about your account credentials or identity by unsolicited mail, email or text.
+      source: https://www.fedex.com/en-us/trust-center/report-fraud.html
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Fake delivery notices by text or email about a problem with a FedEx shipment, with links or attachments that can install malware; FedEx also names phishing links to .shop domains and look-alike domains such as fedx.com and fed-ex.com.
+      source: https://www.fedex.com/en-us/trust-center/report-fraud.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Fake customs fee requests. FedEx says it may email or text a secure link to pay duties and taxes on international shipments, and that you can verify the amount with the FedEx Import Tool.
+      source: https://www.fedex.com/en-us/trust-center/report-fraud.html
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-phishing-email
+      type: email
+      label: Forward phishing emails and suspicious messages that claim to be from FedEx
+      value: abuse@fedex.com
+      purposes: [fraud]
+      source: https://www.fedex.com/en-us/trust-center/report-fraud.html
+      last_verified: 2026-10-12
+    - id: fraud-phone
+      type: phone
+      label: FedEx Fraud (unrecognized charges, account misuse, suspicious package notices)
+      value: +1-800-584-2681
+      purposes: [fraud, unauthorized_charge]
+      source: https://www.fedex.com/en-us/trust-center/report-fraud.html
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   FedEx Express and FedEx Ground parcel and air freight claims use the FedEx claims portal. The claims page

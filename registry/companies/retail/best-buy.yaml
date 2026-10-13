@@ -6,6 +6,30 @@ also_sectors: [subscription]
 parent: Best Buy Co., Inc.
 website: https://www.bestbuy.com
 account_url: https://www.bestbuy.com/profile/ss/orderlookup
+official_domains: [bestbuy.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: 'Best Buy says that most legitimate companies, including Best Buy, will never request personal information through an email that asks you to "verify" your details.'
+      source: https://www.bestbuy.com/site/privacy-policy/protect-yourself/pcmcat266100050002.c?id=pcmcat266100050002
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Best Buy says it generally does not make unsolicited calls to customers, so treat an unexpected call that claims to be from Best Buy or Geek Squad with suspicion.
+      source: https://www.bestbuy.com/site/privacy-policy/protect-yourself/pcmcat266100050002.c?id=pcmcat266100050002
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Fake Geek Squad membership renewal notices. Best Buy shows one as an example of a phishing scam.
+      source: https://www.bestbuy.com/site/privacy-policy/protect-yourself/pcmcat266100050002.c?id=pcmcat266100050002
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-scam-email
+      type: email
+      label: Report suspected scams that use Best Buy or Geek Squad offers
+      value: abuse@BestBuy.com
+      purposes: [fraud]
+      source: https://www.bestbuy.com/site/privacy-policy/protect-yourself/pcmcat266100050002.c?id=pcmcat266100050002
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   My Best Buy Plus and Total are paid yearly memberships that lengthen the return window.

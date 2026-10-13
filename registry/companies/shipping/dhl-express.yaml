@@ -4,6 +4,17 @@ aliases: [dhl, dhl express, mydhl]
 sector: shipping
 parent: DHL Group
 website: https://mydhl.express.dhl/us/en/home.html
+official_domains: [dhl.com, express.dhl]
+security:
+  report_phishing:
+    - id: report-phishing-email
+      type: email
+      label: 'DHL anti-abuse mailbox (attach suspicious emails; send screenshots of suspicious texts with the sender''s number)'
+      value: phishing@dhl.com
+      purposes: [fraud]
+      notes: DHL asks you to attach a suspicious email to a new email instead of forwarding it, so the full headers are kept. Read from search-result text of this page on 2026-10-12; the page timed out for automated fetches.
+      source: https://www.dhl.com/us-en/home/footer/fraud-awareness.html
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   DHL Express is an international express carrier. In the U.S., only the bill-to party (the DHL account

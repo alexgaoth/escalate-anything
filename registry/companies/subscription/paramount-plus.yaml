@@ -5,6 +5,7 @@ sector: subscription
 parent: Skydance (Paramount)
 website: https://www.paramountplus.com
 account_url: https://www.paramountplus.com/account
+official_domains: [paramountplus.com]
 regulators: [ftc]
 notes: >-
   The Terms say the service is provided by CBS Interactive Inc. The paramountplus.com footer reads

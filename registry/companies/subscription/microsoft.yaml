@@ -5,6 +5,26 @@ sector: subscription
 parent: Microsoft Corporation
 website: https://www.microsoft.com
 account_url: https://account.microsoft.com/services
+official_domains: [microsoft.com, xbox.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Microsoft says it does not send unsolicited email or make unsolicited phone calls to request personal or financial information, its error and warning messages never include a phone number, and it will never ask you to pay for support in cryptocurrency or gift cards.
+      source: https://support.microsoft.com/en-us/windows/protect-yourself-from-tech-support-scams-2ebf91bd-f94c-2a8a-e541-f5c800d18435
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: 'Tech support scams: cold calls from fake Microsoft support that ask for passwords or remote access, and web pages that show fake blue-screen errors or activation dialogs to push you to call a number.'
+      source: https://support.microsoft.com/en-us/windows/protect-yourself-from-tech-support-scams-2ebf91bd-f94c-2a8a-e541-f5c800d18435
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-a-scam
+      type: web_form
+      label: Report a tech support scam to Microsoft
+      value: https://www.microsoft.com/reportascam
+      purposes: [fraud]
+      source: https://support.microsoft.com/en-us/windows/protect-yourself-from-tech-support-scams-2ebf91bd-f94c-2a8a-e541-f5c800d18435
+      last_verified: 2026-10-12
 regulators: [ftc]
 
 channels:

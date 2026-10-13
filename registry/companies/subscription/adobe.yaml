@@ -5,6 +5,17 @@ sector: subscription
 parent: Adobe Inc.
 website: https://www.adobe.com
 account_url: https://account.adobe.com/
+official_domains: [adobe.com]
+security:
+  report_phishing:
+    - id: report-phishing-email
+      type: email
+      label: Report an email, website or pop-up that falsely claims to represent Adobe
+      value: phishing@adobe.com
+      purposes: [fraud]
+      notes: Read from search-result text of this page on 2026-10-12; the page blocked automated fetches.
+      source: https://helpx.adobe.com/security/alertus.html
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: Terms quoted below are from the Adobe Subscription and Cancellation Terms with an effective date of August 1st, 2026. The plan label in the terms is "Annual contract, billed monthly".
 

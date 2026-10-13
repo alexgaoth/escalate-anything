@@ -3,6 +3,7 @@ name: Planet Fitness
 aliases: [planetfitness, planet fitness black card]
 sector: fitness
 website: https://www.planetfitness.com
+official_domains: [planetfitness.com]
 regulators: [ftc]
 notes: >-
   Planet Fitness calls itself "one of the fastest growing health club franchises in the U.S." Its US

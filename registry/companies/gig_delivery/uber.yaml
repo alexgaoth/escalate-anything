@@ -4,6 +4,22 @@ aliases: [uber, uber eats, ubereats, uber one, uber technologies]
 sector: gig_delivery
 website: https://www.uber.com
 account_url: https://account.uber.com/
+official_domains: [uber.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Uber says Uber employees will never contact you by email or phone to request your account information, including your password or email address.
+      source: https://help.uber.com/riders/article/keeping-your-uber-account-safe?nodeId=f05a47d0-f435-4872-91bc-6a36bcab668b
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Unsolicited emails or texts with a link to a counterfeit Uber login page. Uber says to check that the address bar shows https://www.uber.com before you sign in.
+      source: https://help.uber.com/riders/article/keeping-your-uber-account-safe?nodeId=f05a47d0-f435-4872-91bc-6a36bcab668b
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Fraudulent texts to drivers and delivery people that claim to be from Uber and ask them to check their details on a fake site.
+      source: https://help.uber.com/en/driving-and-delivering/article/report-sms-phishing-?nodeId=1e43d597-8c5b-4db1-b082-53dce11ec50e
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   Covers Uber rides and Uber Eats in the U.S. Uber says it does not offer a customer service phone number

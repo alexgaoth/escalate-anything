@@ -4,6 +4,27 @@ aliases: [etsy.com, etsy purchase protection, etsy inc]
 sector: retail
 parent: Etsy, Inc.
 website: https://www.etsy.com
+official_domains: [etsy.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: 'Etsy says it will never ask for your password or other sensitive personal information, such as your phone number or mailing address, over Messages, and will never ask for your email to complete a purchase. Real Etsy messages appear in the "From Etsy" folder. (Seen in search-result text of the page; the page blocked automated reading on 2026-10-12.)'
+      source: https://help.etsy.com/hc/en-us/articles/360000343128-How-to-Help-Protect-Yourself-from-Phishing-Scams
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: A seller or buyer asks you to pay off Etsy on another payment platform. Etsy says Purchase Protection does not apply when payment is made off Etsy. (Seen in search-result text of the page; the page blocked automated reading on 2026-10-12.)
+      source: https://help.etsy.com/hc/en-us/articles/360000343128-How-to-Help-Protect-Yourself-from-Phishing-Scams
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-phishing-email
+      type: email
+      label: Forward suspected phishing emails, or a screenshot of a text, that claim to be from Etsy
+      value: ReportPhishing@etsy.com
+      purposes: [fraud]
+      notes: Etsy says this address is only for phishing reports and that it does not reply. Read from search-result text of this page on 2026-10-12; the page blocked automated fetches.
+      source: https://help.etsy.com/hc/en-us/articles/360000343128-How-to-Help-Protect-Yourself-from-Phishing-Scams
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   Etsy is a marketplace of independent sellers; the buyer deals with the seller first and Etsy

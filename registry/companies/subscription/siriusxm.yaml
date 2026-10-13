@@ -4,6 +4,32 @@ aliases: [sirius xm, sirius, xm radio, sirius satellite radio]
 sector: subscription
 website: https://www.siriusxm.com
 account_url: https://care.siriusxm.com/account/manage/dashboard
+official_domains: [siriusxm.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: SiriusXM says it will never ask you for personal information such as your passwords, Social Security number or Tax ID numbers.
+      source: https://www.siriusxm.com/help/legitimate
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: SiriusXM says it does not accept payments by PayPal, Venmo, Zelle or Cash App or in cryptocurrency.
+      source: https://www.siriusxm.com/help/legitimate
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-phishing-email
+      type: email
+      label: Forward suspicious emails, and any URL you clicked, that claim to be from SiriusXM
+      value: reportphishing@siriusxm.com
+      purposes: [fraud]
+      source: https://www.siriusxm.com/help/legitimate
+      last_verified: 2026-10-12
+    - id: verify-phone
+      type: phone
+      label: SiriusXM line to call directly about a suspicious message
+      value: +1-800-689-6881
+      purposes: [fraud]
+      source: https://www.siriusxm.com/help/legitimate
+      last_verified: 2026-10-12
 regulators: [ftc]
 
 channels:
@@ -28,7 +54,6 @@ channels:
     type: phone
     label: SiriusXM phone for direct-billed subscriptions (manage or cancel)
     value: +1-866-635-8641
-    hours: Mon-Sun 8 am-8 pm ET
     purposes: [cancel_service]
     source: https://www.siriusxm.com/help/manage-or-cancel-service
     last_verified: 2026-10-12

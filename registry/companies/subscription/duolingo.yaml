@@ -3,6 +3,7 @@ name: Duolingo (Super Duolingo and Duolingo Max)
 aliases: [super duolingo, duolingo max]
 sector: subscription
 website: https://www.duolingo.com
+official_domains: [duolingo.com]
 regulators: [ftc]
 notes: Duolingo's help pages render only in a browser; the values below come from official-domain search snippets of the Duolingo help center and terms.
 

@@ -5,6 +5,7 @@ sector: subscription
 parent: Amazon (Audible, Inc. is an affiliate of Amazon.com Services LLC)
 website: https://www.audible.com
 account_url: https://www.audible.com/account/overview
+official_domains: [audible.com]
 regulators: [ftc]
 
 channels:

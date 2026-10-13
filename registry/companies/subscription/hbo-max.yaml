@@ -5,6 +5,13 @@ sector: subscription
 parent: Warner Bros. Discovery (combining with Paramount Skydance as Skydance)
 website: https://www.hbomax.com
 account_url: https://hbomax.com/subscription
+official_domains: [hbomax.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: 'BBB Scam Tracker''s 2025 Risk Report lists Warner Brothers Discovery (WBD Global Streaming) as the No. 4 most impersonated organization or brand in 2025, with 681 reports.'
+      source: https://bbbmarketplacetrust.org/wp-content/uploads/2026/08/Risk-Report-2025-US.pdf
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   The service is billed as WarnerMedia Direct, LLC (site footer, 2026). The brand is HBO Max in 2026.

@@ -5,6 +5,22 @@ sector: subscription
 parent: Google LLC
 website: https://play.google.com
 account_url: https://play.google.com/store/account/subscriptions
+official_domains: [google.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: Someone asks you to buy a Google Play gift card and share the code to pay for something outside Google Play, for example taxes, bail, a government agency or a family emergency. Google says Google Play gift cards can only be used for purchases on Google Play, and if anyone asks you for a code, it could be a scam.
+      source: https://support.google.com/googleplay/answer/9057338?hl=en
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: gift-card-scam-report
+      type: web_form
+      label: Report a Google Play gift card scam (form for people without a Google Account)
+      value: https://support.google.com/googleplay/contact/gc_scam_report
+      purposes: [fraud]
+      notes: Google says the person who reports must be the person affected by the scam, and to report to local police and the FTC first.
+      source: https://support.google.com/googleplay/answer/9057338?hl=en
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: Covers subscriptions and purchases billed through Google Play. The app developer often decides refunds after 48 hours.
 
