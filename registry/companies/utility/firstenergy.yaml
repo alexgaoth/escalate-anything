@@ -1,0 +1,328 @@
+id: firstenergy
+name: FirstEnergy
+aliases: [FirstEnergy Corp., Ohio Edison, The Illuminating Company, CEI, Toledo Edison, Met-Ed, Metropolitan Edison, Penelec, Penn Power, West Penn Power, FirstEnergy Pennsylvania, Jersey Central Power & Light, JCP&L, Mon Power, Potomac Edison]
+sector: utility
+website: https://www.firstenergycorp.com
+account_url: https://www.firstenergycorp.com/log_in.html
+notes: >-
+  FirstEnergy is the holding company for ten electric operating companies that together serve about 6 million
+  customers: Ohio Edison, The Illuminating Company and Toledo Edison (Ohio); Met-Ed, Penelec, Penn Power and
+  West Penn Power (Pennsylvania; consolidated into FirstEnergy Pennsylvania on January 1, 2024, brand names
+  still used); Jersey Central Power & Light (New Jersey); Mon Power and Potomac Edison (West Virginia and
+  Maryland). The FirstEnergy assistance page also lists a "Penelec NY" area. Each operating company has its
+  own Customer Care number; use the one on the bill. Rules for shutoffs and complaints come from the state
+  commission: Public Utilities Commission of Ohio (PUCO), Pennsylvania Public Utility Commission, New Jersey
+  Board of Public Utilities, Public Service Commission of West Virginia, Maryland Public Service Commission
+  (and the New York PSC for Penelec NY).
+
+channels:
+  - id: ohio-edison-phone
+    type: phone
+    label: Ohio Edison Customer Care
+    value: +1-800-633-4766
+    hours: "Mon-Fri 8:00 a.m.-6:00 p.m.; automated system 24/7"
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, deposit_refund, poor_service]
+    source: https://www.firstenergycorp.com/corporate/contact_us.html
+    last_verified: 2026-10-13
+  - id: illuminating-company-phone
+    type: phone
+    label: The Illuminating Company Customer Care
+    value: +1-800-589-3101
+    hours: "Mon-Fri 8:00 a.m.-6:00 p.m.; automated system 24/7"
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, deposit_refund, poor_service]
+    source: https://www.firstenergycorp.com/corporate/contact_us.html
+    last_verified: 2026-10-13
+  - id: toledo-edison-phone
+    type: phone
+    label: Toledo Edison Customer Care
+    value: +1-800-447-3333
+    hours: "Mon-Fri 8:00 a.m.-6:00 p.m.; automated system 24/7"
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, deposit_refund, poor_service]
+    source: https://www.firstenergycorp.com/corporate/contact_us.html
+    last_verified: 2026-10-13
+  - id: met-ed-penelec-phone
+    type: phone
+    label: Met-Ed and Penelec Customer Care (same number for both)
+    value: +1-800-545-7741
+    hours: "Mon-Fri 8:00 a.m.-6:00 p.m.; automated system 24/7"
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, deposit_refund, poor_service]
+    source: https://www.firstenergycorp.com/corporate/contact_us.html
+    last_verified: 2026-10-13
+  - id: penn-power-phone
+    type: phone
+    label: Penn Power Customer Care
+    value: +1-800-720-3600
+    hours: "Mon-Fri 8:00 a.m.-6:00 p.m.; automated system 24/7"
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, deposit_refund, poor_service]
+    source: https://www.firstenergycorp.com/corporate/contact_us.html
+    last_verified: 2026-10-13
+  - id: west-penn-power-phone
+    type: phone
+    label: West Penn Power Customer Care
+    value: +1-800-686-0021
+    hours: "Mon-Fri 8:00 a.m.-6:00 p.m.; automated system 24/7"
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, deposit_refund, poor_service]
+    source: https://www.firstenergycorp.com/corporate/contact_us.html
+    last_verified: 2026-10-13
+  - id: jcpl-phone
+    type: phone
+    label: Jersey Central Power & Light (JCP&L) Customer Care
+    value: +1-800-662-3115
+    hours: "Mon-Fri 8:00 a.m.-6:00 p.m.; automated system 24/7"
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, deposit_refund, poor_service]
+    source: https://www.firstenergycorp.com/corporate/contact_us.html
+    last_verified: 2026-10-13
+  - id: mon-power-phone
+    type: phone
+    label: Mon Power Customer Care
+    value: +1-800-686-0022
+    hours: "Mon-Fri 8:00 a.m.-6:00 p.m.; automated system 24/7"
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, deposit_refund, poor_service]
+    source: https://www.firstenergycorp.com/corporate/contact_us.html
+    last_verified: 2026-10-13
+  - id: potomac-edison-phone
+    type: phone
+    label: Potomac Edison Customer Care
+    value: +1-800-686-0011
+    hours: "Mon-Fri 8:00 a.m.-6:00 p.m.; automated system 24/7"
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, deposit_refund, poor_service]
+    source: https://www.firstenergycorp.com/corporate/contact_us.html
+    last_verified: 2026-10-13
+  - id: outage-phone
+    type: phone
+    label: Report an outage or emergency, all operating companies (1-888-LIGHTSS)
+    value: +1-888-544-4877
+    hours: 24/7
+    purposes: [service_outage]
+    source: https://www.firstenergycorp.com/corporate/contact_us.html
+    last_verified: 2026-10-13
+  - id: outage-text
+    type: sms
+    label: Report an outage by text (text OUT to 544487)
+    value: "544487"
+    purposes: [service_outage]
+    source: https://www.firstenergycorp.com/corporate/contact_us.html
+    last_verified: 2026-10-13
+  - id: outage-report-online
+    type: web_form
+    label: Report a power outage online
+    value: https://www.firstenergycorp.com/outages_help/Report_Power_Outages.html
+    purposes: [service_outage]
+    source: https://www.firstenergycorp.com/contact.html
+    last_verified: 2026-10-13
+  - id: email-us-form
+    type: web_form
+    label: Email Us form (choose the operating company and Customer Service)
+    value: https://www.firstenergycorp.com/corporate/contact_us.html
+    purposes: [billing_error, poor_service, payment_assistance]
+    access: open
+    notes: The page says FirstEnergy attempts to respond within two business days and that the form must not be used to report outages. No complaint mailing address or email address is published on the contact page.
+    source: https://www.firstenergycorp.com/corporate/contact_us.html
+    last_verified: 2026-10-13
+  - id: online-account
+    type: portal
+    label: Online account (payment arrangements, bills, payments)
+    value: https://www.firstenergycorp.com/log_in.html
+    purposes: [disconnection, payment_assistance]
+    access: login
+    notes: The Ohio Edison, Met-Ed and JCP&L assistance pages say payment arrangements can be set up by logging in online or by calling Customer Care.
+    source: https://www.firstenergycorp.com/help/billingpayments/assistance_serviceprogram/ohio_edison.html
+    last_verified: 2026-10-13
+  - id: assistance-programs
+    type: web_form
+    label: Payment assistance programs, by operating company
+    value: https://www.firstenergycorp.com/help/billingpayments/assistance_serviceprogram.html
+    purposes: [payment_assistance, disconnection]
+    access: open
+    source: https://www.firstenergycorp.com/help/billingpayments/assistance_serviceprogram.html
+    last_verified: 2026-10-13
+  - id: medical-certification
+    type: web_form
+    label: Medical certification (submitted online by the medical professional)
+    value: https://www.firstenergycorp.com/help/billingpayments/assistance_serviceprogram/medical-certification.html
+    purposes: [disconnection]
+    access: open
+    notes: The form is for medical professionals only. For problems with the Unique ID, the page lists the Medical Certification department at 1-866-596-1783.
+    source: https://www.firstenergycorp.com/help/billingpayments/assistance_serviceprogram/medical-certification.html
+    last_verified: 2026-10-13
+  - id: medical-certification-phone
+    type: phone
+    label: Medical Certification department
+    value: +1-866-596-1783
+    purposes: [disconnection]
+    source: https://www.firstenergycorp.com/help/billingpayments/assistance_serviceprogram/medical-certification.html
+    last_verified: 2026-10-13
+  - id: relay
+    type: phone
+    label: Telecommunications Relay Service (hearing or speech impairments)
+    value: "711"
+    source: https://www.firstenergycorp.com/corporate/contact_us.html
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, note: "Call the Customer Care number of your operating company (it is on the bill)."}
+  - {rung: supervisor, note: "Ask the Customer Care representative for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, channel: email-us-form}
+  - {rung: state_agency, agency_kind: utility_commission, note: "The commission of the state where you get service: PUCO (Ohio), Pennsylvania PUC, New Jersey BPU, West Virginia PSC or Maryland PSC. Contact the utility first; the commissions expect the company to have a chance to fix the problem."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Attorney general of the state where you get service."}
+
+playbooks:
+  - issue: disconnection
+    summary: Call your operating company's Customer Care before the shutoff date and ask for a payment arrangement; use a medical certificate if someone's health is at risk; in Ohio the winter $175 option and longer notice apply.
+    evidence: [disconnection notice, account number, account balance, medical certificate from a licensed professional, energy assistance application]
+    steps:
+      - do: Call Customer Care for your operating company before the date on the notice. Ask for a payment arrangement (installments added to the monthly bill) or set one up online.
+        channel: online-account
+      - do: If a household member has a serious illness or uses life-sustaining equipment, have a licensed medical professional submit a medical certificate, and ask about the Critical Care Program.
+        channel: medical-certification
+      - do: Apply for the assistance programs for your state (for example PIPP Plus, HEAP or Winter Crisis in Ohio; PCAP, LIHEAP or the Hardship Fund in Pennsylvania; USF, PAGE or NJ SHARES in New Jersey).
+        channel: assistance-programs
+      - do: In Ohio during the winter heating season, ask for the $175 Winter Option (pay the past-due balance or $175, whichever is less).
+        channel: ohio-edison-phone
+        note: Same option applies to The Illuminating Company and Toledo Edison through their own Customer Care numbers.
+      - do: If service is cut off, call Customer Care at once. Service is usually reconnected after payment of the full past-due amount, a payment plan or confirmed enrollment in an assistance program; fees or deposits may apply.
+      - do: If you cannot agree on terms, contact your state utility commission before the shutoff date.
+    facts:
+      - kind: deadline
+        claim: In Ohio, a utility may disconnect residential service for nonpayment only after at least fourteen days' notice, and from November 1 through April 15 it must also make contact ten days before disconnection.
+        issues: [disconnection]
+        source: https://codes.ohio.gov/ohio-administrative-code/rule-4901:1-18-06
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: In Ohio, a medical certification by a licensed physician, physician assistant, clinical nurse specialist, certified nurse practitioner, certified nurse-midwife or local board of health physician stops disconnection for thirty calendar days. It may be renewed two more times; the total may not exceed ninety days per household in any twelve-month period.
+        issues: [disconnection]
+        source: https://codes.ohio.gov/ohio-administrative-code/rule-4901:1-18-06
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: In Ohio, if service was disconnected for nonpayment within twenty-one calendar days before the medical certification, the utility must restore service when the certification is provided and the customer agrees to an extended payment plan.
+        issues: [disconnection]
+        source: https://codes.ohio.gov/ohio-administrative-code/rule-4901:1-18-06
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: In Ohio, if the customer does not propose acceptable terms, the utility must offer extended payment plans, including PIPP Plus, a one-sixth plan (six equal monthly payments on the past-due balance plus the current bill), a one-ninth plan (nine equal monthly payments plus a budget plan), and during the winter heating season a one-third plan.
+        issues: [disconnection, payment_assistance]
+        source: https://codes.ohio.gov/ohio-administrative-code/rule-4901:1-18-05
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Ohio Edison's $175 Winter Option lets a customer pay the past-due balance or $175, whichever is less, once per winter season.
+        issues: [disconnection]
+        source: https://www.firstenergycorp.com/help/billingpayments/assistance_serviceprogram/ohio_edison.html
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: For Met-Ed, the current bill must be paid while a medical certificate is in effect; if that is not met, renewals are limited to two, each for a maximum of 30 days, for the whole household.
+        issues: [disconnection]
+        source: https://www.firstenergycorp.com/help/billingpayments/assistance_serviceprogram/met-ed.html
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: JCP&L's Summer Termination Program protects eligible New Jersey residential customers from shutoff from June 15 through August 31; eligibility includes Lifeline, HEAP, TANF, SSI, PAAD, USF or General Assistance benefits. Under New Jersey law, eligible customers may get an interest-free plan of twelve monthly installments to prevent disconnection.
+        issues: [disconnection, payment_assistance]
+        source: https://www.firstenergycorp.com/help/billingpayments/assistance_serviceprogram/jersey_central_powerlight.html
+        last_verified: 2026-10-13
+      - kind: process
+        claim: FirstEnergy says that after a disconnection, service is usually reconnected after payment of the full past-due amount; a payment plan or confirmed enrollment in an assistance program can also be arranged. Fees or deposits may apply.
+        issues: [disconnection]
+        source: https://www.firstenergycorp.com/help.html
+        last_verified: 2026-10-13
+
+  - issue: payment_assistance
+    summary: Each operating company has its own list of state programs; Ohio customers can get PIPP Plus, Pennsylvania customers PCAP, and New Jersey customers USF, PAGE and NJ SHARES.
+    evidence: [proof of household income, account number, disconnection notice if any]
+    steps:
+      - do: Open the assistance page for your operating company and note the programs and phone numbers.
+        channel: assistance-programs
+      - do: Ask Customer Care for a payment arrangement or, if you are 60 or older or live on Social Security, pension or disability payments, an extended due date.
+      - do: Call 211 (or text your ZIP code to 898211) to find local help.
+    facts:
+      - kind: policy
+        claim: Ohio's PIPP Plus is for households at or below 175% of the federal poverty level. The payment is 5% of gross monthly household income or $10, whichever is more, for homes without electric heat, and 10% or $10 for homes with electric heat. Apply through ODOD at 1-800-282-0880.
+        issues: [payment_assistance]
+        source: https://www.firstenergycorp.com/help/billingpayments/assistance_serviceprogram/ohio_edison.html
+        last_verified: 2026-10-13
+      - kind: compensation
+        claim: The OPAE Fuel Fund for Ohio Edison customers opens March 1 and runs until funds are exhausted, with a maximum grant of $250, for households at or below 200% of federal poverty guidelines that first apply for HEAP or Crisis if eligible.
+        issues: [payment_assistance]
+        source: https://www.firstenergycorp.com/help/billingpayments/assistance_serviceprogram/ohio_edison.html
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Met-Ed's PCAP sets monthly bills at a percentage of income or actual usage, whichever is less, with a minimum of $12 (non-electric heating) or $45 (electric heating). Apply through Dollar Energy Fund at 888-282-6816.
+        issues: [payment_assistance]
+        source: https://www.firstenergycorp.com/help/billingpayments/assistance_serviceprogram/met-ed.html
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: PAGE (Payment Assistance for Gas & Electric) gives JCP&L customers an annual grant for accounts that are past due, have a disconnection notice or are disconnected, with a minimum balance of $100. Call SHARES at 866-657-4273.
+        issues: [payment_assistance]
+        source: https://www.firstenergycorp.com/help/billingpayments/assistance_serviceprogram/jersey_central_powerlight.html
+        last_verified: 2026-10-13
+
+  - issue: service_outage
+    summary: Report outages by phone, text or online; FirstEnergy does not pay for food or equipment lost in a weather-related outage.
+    evidence: [outage dates and times, outage ticket number]
+    steps:
+      - do: Report the outage at 1-888-LIGHTSS, by texting OUT to 544487, or online.
+        channel: outage-phone
+      - do: For food or equipment lost in a weather-related outage, check your renter's or homeowner's insurance.
+    facts:
+      - kind: policy
+        claim: FirstEnergy says it "does not reimburse customers for equipment damaged or food lost during a weather-related outage" and that customers should contact their renter's or homeowner's insurance carrier.
+        issues: [service_outage, property_damage_claim]
+        source: https://www.firstenergycorp.com/help.html
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: FirstEnergy says it "will never require payment to restore power"; a caller who asks for upfront payment to restore power after a storm is a scammer.
+        issues: [service_outage]
+        source: https://www.firstenergycorp.com/help/safety/scam-info/known-scams.html
+        last_verified: 2026-10-13
+
+facts:
+  - kind: process
+    claim: Met-Ed offers an extended due date to customers who are at least 60, receive Social Security or pension checks, or receive disability assistance (call 800-545-7741).
+    issues: [payment_assistance]
+    source: https://www.firstenergycorp.com/help/billingpayments/assistance_serviceprogram/met-ed.html
+    last_verified: 2026-10-13
+
+known_blockers:
+  - No complaint mailing address, complaint email or damage-claims page was found on firstenergycorp.com; written contact is the Email Us web form.
+  - Online payment arrangements need an online account sign-in.
+  - The medical certificate must be submitted by the medical professional, not the customer.
+
+official_domains: [firstenergycorp.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: FirstEnergy says its representatives "will not call or email to demand immediate payment to avoid a same-day shutoff."
+      source: https://www.firstenergycorp.com/help/safety/scam-info.html
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: FirstEnergy says its employees "do not contact customers to request sensitive information."
+      source: https://www.firstenergycorp.com/help/safety/scam-info.html
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: FirstEnergy says it never requires a prepaid money card as the only acceptable means of payment, and payments should go only to your FirstEnergy operating company.
+      source: https://www.firstenergycorp.com/help/safety/scam-info.html
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: FirstEnergy employees always carry photo identification; field collectors in New Jersey, Maryland and Ohio carry company-issued photo ID.
+      source: https://www.firstenergycorp.com/help/safety/scam-info.html
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Callers pose as utility employees and threaten to shut off power unless an immediate payment is made, often by prepaid debit card or money transfer, which the utilities do not accept. Caller ID may be spoofed.
+      source: https://www.firstenergycorp.com/help/safety/scam-info/known-scams.html
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Emails copy a real utility bill format and demand immediate payment to avoid disconnection.
+      source: https://www.firstenergycorp.com/help/safety/scam-info/known-scams.html
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: People at the door claim to be from a FirstEnergy utility, often in pairs, and ask for a copy of the bill, or pose as contractors to inspect meters or fuse boxes. FirstEnergy's utilities do not do door-to-door meter or fuse box surveys.
+      source: https://www.firstenergycorp.com/help/safety/scam-info/known-scams.html
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Callers demand payment for smart meter installation or a meter replacement and threaten shutoff. FirstEnergy says smart meter charges appear on the monthly bill.
+      source: https://www.firstenergycorp.com/help/safety/scam-info/known-scams.html
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Scammers claim a "special federal program" will pay utility bills, collect Social Security numbers and give a phony bank routing number. FirstEnergy says no such program exists.
+      source: https://www.firstenergycorp.com/help/safety/scam-info/known-scams.html
+      last_verified: 2026-10-13

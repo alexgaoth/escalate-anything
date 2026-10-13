@@ -1,0 +1,201 @@
+id: simplisafe
+name: SimpliSafe
+aliases: [simplisafe inc, simpli safe]
+sector: home_services
+website: https://simplisafe.com
+official_domains: [simplisafe.com]
+regulators: [ftc]
+notes: >-
+  DIY home security. Equipment is bought outright; professional monitoring is a separate month-to-month
+  subscription that renews automatically and has no termination fee (Terms of Service, November 2025).
+  Equipment bought directly from SimpliSafe has a 60-day return window from delivery. The Terms of Sale and
+  the Terms of Service each require AAA arbitration with a 60-day email opt-out. Neither document has a
+  3-business-day cancellation notice. SimpliSafe publishes several phone numbers: 1-888-910-1458 (support
+  contact page), 1-800-548-9508 (cancellation, Terms of Service), 1-800-297-1605 (payment methods, Terms of
+  Service) and 1-888-957-4675 (warranty, Terms of Sale). No SimpliSafe page about phishing or
+  impersonation was found.
+
+channels:
+  - id: support-phone
+    type: phone
+    label: SimpliSafe phone support
+    value: +1-888-910-1458
+    hours: "Every day, 8 a.m.-midnight EST"
+    purposes: [billing_error, refund_request, poor_service, cancel_service]
+    source: https://support.simplisafe.com/pages/contact-us?lang=en_US
+    last_verified: 2026-10-13
+  - id: live-chat
+    type: chat
+    label: SimpliSafe Live Chat ("Start Chatting" on the support contact page)
+    value: https://support.simplisafe.com/pages/contact-us?lang=en_US
+    hours: 24/7
+    purposes: [billing_error, refund_request, poor_service]
+    source: https://support.simplisafe.com/pages/contact-us?lang=en_US
+    last_verified: 2026-10-13
+  - id: cancellation-phone
+    type: phone
+    label: Customer Support line named in the Terms of Service for notice of termination
+    value: +1-800-548-9508
+    purposes: [cancel_service]
+    notes: 'The Terms of Service say to give notice of termination by "calling SimpliSafe Customer Support at 1-800-548-9508 and following the instructions provided." SimpliSafe may ask standard security questions to verify the request.'
+    source: https://simplisafe.com/legal/terms-of-service
+    last_verified: 2026-10-13
+  - id: app-cancellation
+    type: app
+    label: SimpliSafe app "Initiate Cancellation" process
+    value: SimpliSafe mobile app, "Initiate Cancellation"
+    purposes: [cancel_service]
+    access: login
+    notes: 'The Terms of Service say the app process "may create a cancellation request" "resulting in a call back by SimpliSafe to a user provided phone number to confirm cancellation."'
+    source: https://simplisafe.com/legal/terms-of-service
+    last_verified: 2026-10-13
+  - id: cancellation-mail
+    type: mail
+    label: Written notice of termination by regular mail or overnight delivery (principal place of business)
+    value: "SimpliSafe, Inc., 100 Summer Street, 3rd Floor, Boston, MA 02110"
+    purposes: [cancel_service]
+    notes: 'The Terms of Service allow notice of termination "by (1) regular mail, postage prepaid, or overnight delivery" to SimpliSafe''s principal place of business but do not print the address in that section. The State Alarm Company Licenses page lists this address as the "Mailing Address and Principal Place of Business". The privacy policy gives 100 Summer St, Suite 300, Boston, MA 02110, Attention: Legal for privacy mail.'
+    source: https://simplisafe.com/legal/licenses
+    last_verified: 2026-10-13
+  - id: billing-phone
+    type: phone
+    label: Plan & Billing line (update or remove a payment method)
+    value: +1-800-297-1605
+    purposes: [billing_error]
+    notes: 'The Terms of Service print it as "1800-297-1605": "Go to Plan & Billing under your account settings or contact us at 1800-297-1605."'
+    source: https://simplisafe.com/legal/terms-of-service
+    last_verified: 2026-10-13
+  - id: warranty-phone
+    type: phone
+    label: Customer Support for warranty service (1-888-95-SIMPLI)
+    value: +1-888-957-4675
+    purposes: [warranty_claim]
+    notes: 'The Terms of Sale say "For warranty service, please contact SimpliSafe Customer Support at 1-888-95-SIMPLI (957-4675)".'
+    source: https://simplisafe.com/legal/terms-sale
+    last_verified: 2026-10-13
+  - id: arbitration-opt-out-email
+    type: email
+    label: Arbitration opt-out and rejection of revised terms
+    value: TOS@simplisafe.com
+    notes: Opt out of arbitration within 60 days of the Terms of Sale or Terms of Service first becoming binding on you. Reject later changes to the Terms of Service within 30 days of their posting.
+    source: https://simplisafe.com/legal/terms-of-service
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: support-phone}
+  - {rung: retention, channel: cancellation-phone, note: "The cancellation line named in the Terms of Service."}
+  - {rung: written_complaint, channel: cancellation-mail, note: "Send by a method with proof of delivery."}
+  - {rung: payment_dispute, note: "Card dispute for monitoring charges after a confirmed cancellation, or for a return refund not paid."}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "AAA consumer arbitration under the Terms of Sale and Terms of Service (both November 2025), no class actions. Opt out by emailing TOS@simplisafe.com within 60 days of the terms first becoming binding; reject later Terms of Service changes within 30 days of posting. Terms of Service section 39(d) excludes tort claims for bodily injury or property damage. Neither document mentions small claims court."}
+
+playbooks:
+  - issue: cancel_service
+    summary: Monitoring is month-to-month with no termination fee. Cancel by phone at 1-800-548-9508, through the app's "Initiate Cancellation", or by mail. Cancellation takes effect when SimpliSafe receives and confirms it, and charges for a partial calendar month are not refunded.
+    evidence: [account email, date and time of the call or app request, cancellation confirmation, proof of mail delivery if sent by mail, card or bank statements]
+    steps:
+      - do: Call the cancellation line in the Terms of Service and follow the instructions. Be ready for security questions. Write down the date, the representative's name and any confirmation.
+        channel: cancellation-phone
+      - do: Or start "Initiate Cancellation" in the app, then answer SimpliSafe's call-back at the phone number you give to confirm it.
+        channel: app-cancellation
+      - do: Or mail written notice of termination by regular or overnight mail with tracking.
+        channel: cancellation-mail
+      - do: Make sure you get a confirmation. SimpliSafe refunds unearned charges only for full calendar months after termination.
+      - do: If SimpliSafe charges you after the confirmed cancellation, ask support to reverse it, then dispute the charge with your card issuer.
+        channel: support-phone
+    facts:
+      - kind: process
+        claim: 'The Terms of Service say "Subscriber shall provide notice of termination to SimpliSafe by (1) regular mail, postage prepaid, or overnight delivery, (2) calling SimpliSafe Customer Support at 1-800-548-9508 and following the instructions provided" or (3) any other cancellation method SimpliSafe deploys, including the app''s "Initiate Cancellation" process.'
+        issues: [cancel_service]
+        source: https://simplisafe.com/legal/terms-of-service
+        last_verified: 2026-10-13
+      - kind: process
+        claim: Cancellation takes effect on SimpliSafe's receipt and confirmation of the notice. SimpliSafe may ask standard security questions to verify it. An app cancellation request results in a call-back to a user-provided phone number to confirm it.
+        issues: [cancel_service]
+        source: https://simplisafe.com/legal/terms-of-service
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: '"There are no termination fees." "SimpliSafe shall refund any unearned service charges with respect to any full calendar month following any termination." "SimpliSafe shall not refund any unearned service charges with respect to any partial calendar month following any termination."'
+        issues: [cancel_service, early_termination_fee]
+        source: https://simplisafe.com/legal/terms-of-service
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'The Terms of Service say "You agree to continue paying any relevant monthly service fee per your auto renewing subscription" "until you or SimpliSafe terminate your subscription", and "Service billing recurs thereafter on a monthly basis on that same day of the month as the original bill date".'
+        issues: [cancel_service, billing_error]
+        source: https://simplisafe.com/legal/terms-of-service
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: Equipment bought directly from SimpliSafe can be returned within 60 days of delivery for a full refund, and SimpliSafe pays return shipping. Equipment bought from a retailer goes back to that retailer.
+    evidence: [order number, delivery date, proof of purchase, return tracking number, date the warehouse received the return]
+    steps:
+      - do: Check where you bought the equipment. Items from retail partners or other online sellers must be returned to that seller.
+      - do: Within 60 days of delivery, contact SimpliSafe support with your order number and ask for a prepaid return label.
+        channel: live-chat
+      - do: Ship the return with tracking. The refund goes to the original payment method, usually 5-7 business days after the warehouse receives it.
+      - do: Cancel monitoring separately if you have it. The return policy does not say that returning equipment cancels the monitoring subscription.
+        channel: cancellation-phone
+      - do: If the refund does not arrive, call support with the tracking number, then dispute the charge with your card issuer.
+        channel: support-phone
+    facts:
+      - kind: deadline
+        claim: 'SimpliSafe''s return policy says "Test SimpliSafe® in your home for 60 days." The 60 days run from the delivery date. Returns to SimpliSafe are only for items bought from the SimpliSafe website or with a SimpliSafe representative; "Products purchased from our retail partners or other online sellers must be returned at the same point of sale."'
+        issues: [refund_request]
+        source: https://support.simplisafe.com/articles/orders-warranty/simplisafe-return-policy?lang=en_US
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'The return policy says "we''ll even pay return shipping"; support can create a prepaid shipping label. Have the order number ready when you contact support.'
+        issues: [refund_request]
+        source: https://support.simplisafe.com/articles/orders-warranty/simplisafe-return-policy?lang=en_US
+        last_verified: 2026-10-13
+      - kind: process
+        claim: The refund goes to the original payment method. The return policy says to allow a standard 5-7 business days after the warehouse receives the return, and that processing may take longer.
+        issues: [refund_request]
+        source: https://support.simplisafe.com/articles/orders-warranty/simplisafe-return-policy?lang=en_US
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: 'The Terms of Sale say "Unless specified otherwise, the time frame for any satisfaction guarantee is 60 days." It applies item by item, starts on the delivery date for direct orders or the purchase date for retailer purchases, is non-transferable, and may require proof of purchase. "For online purchases where Delivery Date cannot be confirmed, Purchaser agrees that the start date for any relevant warranty or guarantee will be 30 days from the online purchase date."'
+        issues: [refund_request]
+        source: https://simplisafe.com/legal/terms-sale
+        last_verified: 2026-10-13
+
+  - issue: billing_error
+    summary: Fix payment methods in Plan & Billing or at 1-800-297-1605. SimpliSafe can raise monitoring prices by email notice, effective immediately where the law allows.
+    evidence: [bill or card statement with the charge, plan price at sign-up, any price-change email, cancellation confirmation if charged after cancelling]
+    steps:
+      - do: Compare the charge with your plan price and any price-change email from SimpliSafe.
+      - do: Call the billing line or support. Ask for a correction and a reference number.
+        channel: billing-phone
+      - do: If SimpliSafe does not fix it, dispute the charge with your card issuer within the deadline in rules/fcba-billing-error.
+    facts:
+      - kind: contact
+        claim: 'The Terms of Service say "Go to Plan & Billing under your account settings or contact us at 1800-297-1605" to update or remove a payment method.'
+        issues: [billing_error]
+        source: https://simplisafe.com/legal/terms-of-service
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: '"SimpliSafe may increase periodic recurring charges at any time under this Agreement by sending the notice to you by email" to the email address on file, and "any change in charges can be made effective immediately, after notice of such a pricing change is provided". No minimum notice period is stated.'
+        issues: [billing_error, bill_increase]
+        source: https://simplisafe.com/legal/terms-of-service
+        last_verified: 2026-10-13
+
+facts:
+  - kind: limit
+    claim: The Terms of Sale give a Limited Warranty that covered products "will be free from defects in materials and workmanship under normal use and service for one (1) year". SimpliSafe chooses the remedy (replacement, refund or store credit). Batteries, adhesive tapes and third-party items are excluded. SimpliSafe pays return shipping for warranty returns.
+    issues: [warranty_claim]
+    source: https://simplisafe.com/legal/terms-sale
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: The Terms of Service give a three-day "Practice Mode Period" after system activation. During it SimpliSafe will not notify authorities, the customer or emergency contacts about any alarm signal, even in an actual emergency.
+    issues: [poor_service]
+    source: https://simplisafe.com/legal/terms-of-service
+    last_verified: 2026-10-13
+  - kind: deadline
+    claim: 'The Terms of Service and the Terms of Sale (both updated November 2025) require AAA consumer arbitration and bar class arbitration. Each lets you opt out "BY EMAILING TOS@SIMPLISAFE.COM WITHIN 60 DAYS" of the terms first becoming binding. Revised Terms of Service changes can be rejected within 30 days of posting by emailing the same address.'
+    source: https://simplisafe.com/legal/terms-of-service
+    last_verified: 2026-10-13
+
+known_blockers:
+  - Phone cancellation can include security questions, and app cancellation needs a call-back to the account holder's phone, so the person may need to take the call.
+  - The app and Plan & Billing need sign-in.
+  - Equipment bought from a retailer cannot be returned to SimpliSafe.

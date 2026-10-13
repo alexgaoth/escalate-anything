@@ -1,0 +1,213 @@
+id: vivint
+name: Vivint
+aliases: [Vivint Smart Home, Vivint LLC, Vivint Security]
+sector: home_services
+website: https://www.vivint.com
+account_url: https://account.vivint.com
+regulators: [ftc]
+notes: >-
+  Smart home security company. Vivint says its products are sold exclusively by its own Smart Home Pros or
+  authorized contractors "through direct-to-home channels", which includes door-to-door sales. Service is a
+  month-to-month or multi-month subscription; month-to-month agreements are available when equipment is
+  bought upfront, and financed equipment needs a separate agreement with a third-party financing partner.
+  The Vivint Terms of Service (last updated January 29, 2025) say to cancel by calling Customer Service at
+  (800) 216-5232. In 2021 Vivint paid $20 million to settle FTC charges that its door-to-door sales reps
+  misused other people's credit reports to get financing approved.
+
+channels:
+  - id: cancel-phone
+    type: phone
+    label: Vivint Customer Service (cancellation line named in the Terms of Service)
+    value: +1-800-216-5232
+    purposes: [cancel_service, early_termination_fee, billing_error]
+    notes: The Terms of Service say a subscription "will be cancelled within 30 days of our receiving your request."
+    source: https://www.vivint.com/legal/terms-and-conditions
+    last_verified: 2026-10-13
+  - id: main-phone
+    type: phone
+    label: Vivint main number (shown on the home page, contact page and service promise page)
+    value: +1-844-481-8630
+    purposes: [billing_error, poor_service, refund_request]
+    source: https://www.vivint.com/company/contact-us
+    last_verified: 2026-10-13
+  - id: sales-phone
+    type: phone
+    label: New customers ("Not a customer? ... call us now to get started")
+    value: +1-855-749-2969
+    source: https://www.vivint.com/company/contact-us
+    last_verified: 2026-10-13
+  - id: chat
+    type: chat
+    label: Chat with us (on the contact page)
+    value: https://www.vivint.com/company/contact-us
+    purposes: [billing_error, poor_service]
+    source: https://www.vivint.com/company/contact-us
+    last_verified: 2026-10-13
+  - id: feedback-form
+    type: web_form
+    label: Vivint service promise feedback form ("Let us know how we can do better")
+    value: https://www.vivint.com/company/ceo-promise
+    purposes: [billing_error, poor_service, cancel_service, refund_request]
+    access: open
+    notes: The page title is "CEO Promise" but the page does not say feedback goes to the CEO, and it states no response time.
+    source: https://www.vivint.com/company/ceo-promise
+    last_verified: 2026-10-13
+  - id: support-site
+    type: portal
+    label: Vivint support site (technical support, account and billing articles)
+    value: https://support.vivint.com/s/
+    source: https://www.vivint.com/company/contact-us
+    last_verified: 2026-10-13
+  - id: billing-payments-mail
+    type: mail
+    label: Mail payments (Vivint Billing)
+    value: "Vivint: Billing, 62992 Collections Drive, Chicago, IL 60693-0629"
+    notes: Payment address only. It is not a complaint or cancellation address.
+    source: https://www.vivint.com/company/contact-us
+    last_verified: 2026-10-13
+  - id: arbitration-opt-out-mail
+    type: mail
+    label: Arbitration opt-out letter (within 30 days of first agreeing to the Terms)
+    value: "Vivint LLC, Attn: Legal Department - Arbitration, 3401 Ashton Blvd, Lehi, UT 84043"
+    source: https://www.vivint.com/legal/terms-and-conditions
+    last_verified: 2026-10-13
+  - id: identity-theft-report
+    type: web_form
+    label: Report identity theft involving a Vivint account
+    value: https://www.vivint.com/legal/idverify
+    purposes: [billing_error]
+    source: https://www.vivint.com/
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: main-phone}
+  - {rung: retention, channel: cancel-phone, note: "The Terms of Service name this phone line for cancellation. Ask for the cancellation date, any early termination fee and any remaining financing balance, and ask for written confirmation."}
+  - {rung: written_complaint, channel: feedback-form}
+  - {rung: payment_dispute, note: "Dispute charges after the cancellation takes effect with your card issuer or bank. Financed equipment is owed to the financing partner under a separate agreement."}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "The Terms of Service require arbitration unless you opted out by letter within 30 days of first agreeing to them, and waive class actions."}
+
+playbooks:
+  - issue: cancel_service
+    summary: Call Vivint Customer Service at (800) 216-5232; cancellation takes up to 30 days, and a multi-month subscription may carry an early termination fee. Within three business days of a door-to-door sale, cancel under the FTC Cooling-Off Rule.
+    evidence: [Vivint services agreement and any financing agreement, date of sale, cancellation confirmation, bills after the request]
+    steps:
+      - do: If a Smart Home Pro signed you up at your home in the last three business days, cancel in writing under the FTC Cooling-Off Rule, postmarked before midnight of the third business day.
+        note: See rules/ftc-cooling-off-rule.
+      - do: Otherwise call Vivint Customer Service to cancel. Write down the date, the representative's name and the confirmation number.
+        channel: cancel-phone
+      - do: Ask whether your subscription is month-to-month or multi-month, and what early termination fee and equipment financing balance remain.
+        channel: cancel-phone
+      - do: If you are still billed more than 30 days after the request, dispute the charges and send a written complaint through the feedback form.
+        channel: feedback-form
+    facts:
+      - kind: process
+        claim: The Vivint Terms of Service say "You can cancel a Vivint service or subscription by calling Vivint Customer Service at (800) 216-5232" and the subscription "will be cancelled within 30 days of our receiving your request."
+        issues: [cancel_service]
+        source: https://www.vivint.com/legal/terms-and-conditions
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Vivint subscriptions are offered "with a month-to-month term or with a multi-month term", and each continues until its term ends, the customer cancels it, or Vivint terminates it.
+        issues: [cancel_service]
+        source: https://www.vivint.com/legal/terms-and-conditions
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Vivint says "Month-to-month service agreements are available when equipment is purchased upfront," and "Without a Vivint services plan, product and system functionality is limited (including loss of remote connectivity)."
+        issues: [cancel_service]
+        source: https://www.vivint.com/legal
+        last_verified: 2026-10-13
+
+  - issue: early_termination_fee
+    summary: A multi-month subscription may carry an early termination fee, and financed equipment stays owed to the financing partner after cancellation.
+    evidence: [Vivint services agreement, financing agreement, bill with the fee]
+    steps:
+      - do: Ask Vivint for the early termination fee in writing and how it was calculated.
+        channel: cancel-phone
+      - do: Read the services agreement you signed for the fee clause and check the amount. Dispute it in writing if it does not match.
+        channel: feedback-form
+      - do: Contact the financing partner named in your financing agreement about the remaining equipment balance.
+    facts:
+      - kind: fee
+        claim: The Vivint Terms of Service say "If you have an active multi-month subscription to a Vivint service, you may have to pay an early termination fee". The amount is set in the customer's own agreement.
+        issues: [early_termination_fee]
+        source: https://www.vivint.com/legal/terms-and-conditions
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Financing for Vivint equipment is subject to credit approval by one of Vivint's third-party financing partners and "requires a separate agreement with the financing partner."
+        issues: [early_termination_fee, cancel_service]
+        source: https://www.vivint.com/legal/terms-and-conditions
+        last_verified: 2026-10-13
+
+  - issue: billing_error
+    summary: Vivint must notify you of new fees or fee increases before charging them; dispute anything that does not match your agreement.
+    evidence: [bills, services agreement, any fee notice]
+    steps:
+      - do: Compare the bill with your services agreement and any fee notice.
+      - do: Call Vivint or use chat to dispute the charge; get a reference number.
+        channel: main-phone
+      - do: If someone opened a Vivint account or financing in your name, report identity theft to Vivint.
+        channel: identity-theft-report
+    facts:
+      - kind: policy
+        claim: The Vivint Terms of Service say "We will notify you of any new fees or fee increases before they are charged."
+        issues: [billing_error]
+        source: https://www.vivint.com/legal/terms-and-conditions
+        last_verified: 2026-10-13
+
+facts:
+  - kind: policy
+    claim: You may opt out of the Vivint arbitration provision by sending a letter to Vivint LLC, Attn. Legal Department - Arbitration, 3401 Ashton Blvd, Lehi, UT 84043, within 30 days of the day you first agreed to the Terms.
+    issues: [cancel_service, billing_error]
+    source: https://www.vivint.com/legal/terms-and-conditions
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: On April 29, 2021 the FTC announced that Vivint would pay a $15 million civil penalty and $5 million to compensate consumers to settle charges that commission-only door-to-door sales reps used other people's credit histories ("white paging", or adding co-signers without permission) to qualify customers for financing, in violation of the FCRA and the Red Flags Rule.
+    issues: [billing_error]
+    source: https://www.ftc.gov/news-events/news/press-releases/2021/04/smart-home-monitoring-company-vivint-will-pay-20-million-settle-ftc-charges-it-misused-consumer
+    last_verified: 2026-10-13
+  - kind: compensation
+    claim: On December 5, 2024 the FTC sent payments totaling nearly $500,000 to 470 consumers harmed by Vivint's misuse of credit reports (average $1,056). Questions go to the refund administrator, Rust Consulting, Inc., at 1-833-472-1996.
+    issues: [billing_error]
+    source: https://www.ftc.gov/news-events/news/press-releases/2024/12/ftc-sends-payments-consumers-harmed-vivints-misuse-consumer-credit-reports
+    last_verified: 2026-10-13
+
+known_blockers:
+  - The Terms of Service name only a phone channel for cancellation, so the account holder may need to make the call.
+  - The services agreement and financing agreement are not published; ask the person for their signed copies.
+
+official_domains: [vivint.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Vivint says "We will never send someone from a manufacturer to inspect or upgrade your system, unless it is a Smart Home Pro."
+      source: https://www.vivint.com/company/verify-rep
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Authorized Vivint reps wear a uniform and an ID badge with a badge ID number; Vivint says "If they don't have an ID number, they don't work for Vivint." Check the number with the Verify ID tool.
+      source: https://www.vivint.com/company/verify-rep
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: People posing as Vivint reps, or reps from other companies, tell customers that Vivint is out of business, has left the area or was sold, ask for access to the system, or push immediate equipment replacement such as claiming the cellular communicator "isn't working."
+      source: https://www.vivint.com/company/verify-rep
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-rep-phone
+      type: phone
+      label: Report unauthorized reps or suspicious activity
+      value: +1-800-456-6433
+      source: https://www.vivint.com/company/verify-rep
+      last_verified: 2026-10-13
+    - id: report-scam-form
+      type: web_form
+      label: Report a scam (misconduct by a competitor's sales rep)
+      value: https://www.vivint.com/legal/misconduct-form
+      source: https://www.vivint.com/legal/misconduct-form
+      last_verified: 2026-10-13
+    - id: verify-rep-tool
+      type: web_form
+      label: Verify a Smart Home Pro by badge ID
+      value: https://www.vivint.com/company/verify-rep
+      source: https://www.vivint.com/company/verify-rep
+      last_verified: 2026-10-13

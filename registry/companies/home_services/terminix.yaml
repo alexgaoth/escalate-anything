@@ -1,0 +1,171 @@
+id: terminix
+name: Terminix
+aliases: [terminix international, terminix global holdings, rentokil terminix]
+sector: home_services
+parent: Rentokil North America, Inc. (Rentokil Initial plc)
+website: https://www.terminix.com
+account_url: https://www.terminix.com/my-account/
+official_domains: [terminix.com]
+regulators: [ftc]
+notes: >-
+  Pest and termite control. The terminix.com footer reads "© 2026 Rentokil North America, Inc.", and
+  the privacy policy is hosted on the parent's site, rentokil-initial.com. Terminix does not publish its
+  residential Service Contract online: the online Terms of Agreement page says the service
+  representative provides a copy of the Service Contract to sign. The contract term, renewal terms,
+  cancellation notice period, early termination charges, guarantee conditions and any 3-business-day
+  cancellation notice in that contract could not be sourced. No Terminix page about scams or
+  impersonation was found.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Terminix customer service ("Call")
+    value: +1-855-485-6300
+    hours: "7 days a week, 6am-10pm CST"
+    purposes: [cancel_service, billing_error, poor_service, refund_request]
+    source: https://www.terminix.com/contact-us/
+    last_verified: 2026-10-13
+  - id: invoice-appointments-phone
+    type: phone
+    label: Invoice and appointment questions (MyAccount FAQ)
+    value: +1-855-348-3152
+    purposes: [billing_error]
+    notes: 'The MyAccount FAQ says "For questions about invoices, please call 1-855-348-3152" and "For questions about appointments or to reschedule by phone, please call 1-855-348-3152."'
+    source: https://www.terminix.com/myaccount-faq/
+    last_verified: 2026-10-13
+  - id: text-line
+    type: sms
+    label: Text Terminix customer service
+    value: '+1-866-980-8669'
+    hours: "Mon-Fri 7am-7pm CST; Sat 7am-3pm CST"
+    purposes: [billing_error, poor_service]
+    source: https://www.terminix.com/contact-us/
+    last_verified: 2026-10-13
+  - id: live-chat
+    type: chat
+    label: Online chat with a representative (start from the "Chat" link on the contact page)
+    value: https://www.terminix.com/contact-us/
+    hours: "Mon-Fri 7am-7pm CST; Sat 7am-3pm CST"
+    purposes: [billing_error, poor_service]
+    source: https://www.terminix.com/contact-us/
+    last_verified: 2026-10-13
+  - id: residential-inquiry-form
+    type: web_form
+    label: Residential Customer Inquiries form (on the contact page)
+    value: https://www.terminix.com/contact-us/
+    purposes: [cancel_service, billing_error, poor_service, refund_request]
+    access: open
+    notes: The contact page says Terminix responds "within the next business day." The form opens from a "Click here" link on the contact page; it has no separate URL. Do not use the "Corporate Inquiries" form, which says it is not for current or potential customers.
+    source: https://www.terminix.com/contact-us/
+    last_verified: 2026-10-13
+  - id: myaccount
+    type: portal
+    label: MyAccount (invoices, payments, AutoPay)
+    value: https://www.terminix.com/my-account/
+    purposes: [billing_error]
+    access: login
+    notes: Invoices are under the Payments & Billing tab. Customers on AutoPay or with a prepaid balance have no invoices to view online. AutoPay is set up or viewed under Payments & Billing > My Payments Due.
+    source: https://www.terminix.com/myaccount-faq/
+    last_verified: 2026-10-13
+  - id: legal-notice-mail
+    type: mail
+    label: Written Notice of Dispute (terminix.com Terms of Use)
+    value: "Rentokil North America, Inc., ATTN: Legal Department, 1125 Berkshire Blvd., Suite 150, Wyomissing, PA 19610"
+    purposes: [poor_service, billing_error, refund_request]
+    notes: The website Terms of Use say "Your Notice of Dispute to the Company must be sent by mail to Rentokil North America, Inc." at this address, and give 60 days from receipt to resolve the dispute before a formal proceeding. These Terms of Use cover the website; a signed Service Contract can name a different notice address.
+    source: https://www.terminix.com/legal/
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: legal-notice-mail, note: "Send a dated written complaint by a method with proof of delivery. Terminix publishes no other written-complaint address; check the signed Service Contract for its notice address."}
+  - {rung: payment_dispute, note: "Card or bank dispute for charges after cancellation or for service not provided. The online Terms of Agreement say cancelling the AutoPay authorization does not cancel the customer's obligations under the agreement."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "In November 2020 the Alabama Attorney General announced a $60 million settlement with Terminix over termite service contracts."}
+  - {rung: small_claims, note: "The terminix.com Terms of Use require individual AAA arbitration for claims related to those Terms, with no small-claims carve-out and no opt-out window. They describe themselves as the entire agreement regarding the website. The residential Service Contract is not online, so check it for its own dispute clause before filing."}
+
+playbooks:
+  - issue: cancel_service
+    summary: Terminix does not publish a cancellation process online. Cancel by phone, confirm in writing with proof of delivery, and check the signed Service Contract for notice terms. Cancelling AutoPay alone does not end the contract.
+    evidence: [signed Service Contract, AutoPay authorization, date of the cancellation call with the representative's name and reference number, copy of the written notice and proof of delivery, card or bank statements]
+    steps:
+      - do: Find your signed Service Contract. Read its term, renewal and cancellation clauses. Terminix gives it at signing and does not publish it online.
+      - do: Call customer service and ask to cancel the service and the AutoPay authorization. Write down the representative's name, the date and a reference number. Ask where to send written notice.
+        channel: customer-service-phone
+      - do: Send written notice that cancels the service and the AutoPay authorization, by a method with proof of delivery. The AutoPay authorization stays in effect until the fifth business day after Terminix receives written notice.
+      - do: If Terminix charges you after the cancellation takes effect, dispute the charge in writing, then with your card issuer or bank.
+        channel: legal-notice-mail
+      - do: If the dispute is not resolved, complain to your state attorney general and the FTC.
+        regulator: ftc
+    facts:
+      - kind: deadline
+        claim: The online Terms of Agreement say the AutoPay authorization "will remain in effect until the fifth business day following Terminix's receipt from Purchaser of a written notice to cancel." No address for that notice is given on the page.
+        issues: [cancel_service, billing_error]
+        source: https://www.terminix.com/terms-agreement/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'The online Terms of Agreement say "Purchaser understands that cancellation of this authorization does not cancel Purchaser''s obligations under this Agreement."'
+        issues: [cancel_service]
+        source: https://www.terminix.com/terms-agreement/
+        last_verified: 2026-10-13
+      - kind: process
+        claim: 'The online Terms of Agreement say "Your service representative will provide you with a copy of the Service Contract to Sign" and "Your Credit Card will be charged at the time of service."'
+        issues: [cancel_service, billing_error]
+        source: https://www.terminix.com/terms-agreement/
+        last_verified: 2026-10-13
+
+  - issue: billing_error
+    summary: Check invoices in MyAccount, call the invoice line, then dispute in writing and with the card issuer.
+    evidence: [invoice or statement with the charge, Service Contract price, AutoPay authorization, check copy and mailing date if paid by check]
+    steps:
+      - do: Sign in to MyAccount and open Payments & Billing to see invoices and AutoPay.
+        channel: myaccount
+      - do: Call the invoice line with the invoice and the price in your Service Contract. Ask for a correction and a reference number.
+        channel: invoice-appointments-phone
+      - do: If Terminix does not correct it, send a written dispute with the evidence and keep proof of delivery.
+        channel: legal-notice-mail
+      - do: For a card charge, send a billing-error dispute to the card issuer within the deadline in rules/fcba-billing-error.
+    facts:
+      - kind: contact
+        claim: '"For questions about invoices, please call 1-855-348-3152."'
+        issues: [billing_error]
+        source: https://www.terminix.com/myaccount-faq/
+        last_verified: 2026-10-13
+      - kind: process
+        claim: 'For a check mailed before a statement arrived: "Please allow up to 2 weeks, from the date the check was sent, for processing."'
+        issues: [billing_error]
+        source: https://www.terminix.com/myaccount-faq/
+        last_verified: 2026-10-13
+      - kind: process
+        claim: Customers on AutoPay or with a prepaid balance have no invoices to view in MyAccount.
+        issues: [billing_error]
+        source: https://www.terminix.com/myaccount-faq/
+        last_verified: 2026-10-13
+
+facts:
+  - claim: 'A Terminix press release dated October 6, 2022 says Terminix shareholders approved the merger with Rentokil Initial plc and that "The acquisition is expected to close on October 12, 2022, subject to satisfaction of customary closing conditions."'
+    source: https://www.terminix.com/newsroom/press-releases/2022/terminix-shareholders-approve-merger-with-rentokil-initial/
+    last_verified: 2026-10-13
+  - kind: compensation
+    claim: On November 5, 2020 the Alabama Attorney General announced a $60 million settlement with Terminix, saying it systematically overcharged Alabama customers for termite services and failed to honor service contracts, in violation of the Alabama Deceptive Trade Practices Act. It included $25 million for a consumer relief fund for refunds and $10 million to retreat over 12,000 homes in Mobile, Baldwin and Monroe counties.
+    issues: [refund_request, poor_service]
+    source: https://www.alabamaag.gov/attorney-general-steve-marshall-announces-60-million-settlement-with-terminix-over-illegal-business-practices-targeting-alabama/
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: 'Terminix''s pest control page says for ongoing plans "If pests come back between treatments, so will we— at no additional cost", and for one-time plans "If pests come back within 30 days of your treatment, so will we — at no additional cost." It does not mention a money-back guarantee. Footnotes with conditions are not shown on the page.'
+    issues: [poor_service]
+    source: https://www.terminix.com/pest-control/
+    last_verified: 2026-10-13
+  - kind: limit
+    claim: 'Terminix''s termite page says the "Terminix It & Fix It Guarantee" means "if termites come back, so do we—at no additional cost. We''ll even fix any new termite damage up to $250,000." Its FAQ says repairs apply "as long as you maintain your plan", and that "not all homes qualify for coverage under certain plans." Footnotes with conditions are not shown on the page.'
+    issues: [warranty_claim, poor_service]
+    source: https://www.terminix.com/termite-control/
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: 'The terminix.com Terms of Use send claims related to those Terms to "FINAL AND BINDING INDIVIDUAL ARBITRATION" administered by the American Arbitration Association, waive class actions, require a mailed Notice of Dispute and a 60-day period to resolve it first, and are governed by Tennessee law. They state no opt-out window and no small-claims exception.'
+    source: https://www.terminix.com/legal/
+    last_verified: 2026-10-13
+
+known_blockers:
+  - The residential Service Contract (term, renewal, cancellation notice and fees) is not published online; the person must find their signed copy.
+  - MyAccount needs sign-in.
+  - Chat and the residential inquiry form start from links on the contact page and have no direct URL. Chat and text run only Mon-Fri 7am-7pm CST and Sat 7am-3pm CST.

@@ -1,0 +1,98 @@
+id: ftc-cooling-off-rule
+title: FTC Cooling-Off Rule for door-to-door sales (Rule Concerning Cooling-Off Period for Sales Made at Homes or at Certain Other Locations)
+citation: 16 CFR Part 429
+jurisdiction: us-federal
+status: in_effect
+applies_to:
+  sectors: [home_services]
+  issues: [cancel_service, refund_request]
+summary: >-
+  A buyer may cancel a covered door-to-door sale (made at the buyer's home, workplace or dormitory, or at a
+  seller's temporary location such as a hotel room, convention center, fairground or restaurant) until midnight
+  of the third business day after the sale, for any reason. The seller must tell the buyer about this right
+  orally and in writing, give two cancellation forms, and refund all payments within 10 business days of a
+  valid cancellation. Home security systems, alarm monitoring and pest control sold at the door are common
+  examples. State laws may give more rights.
+points:
+  - kind: limit
+    claim: >-
+      A "door-to-door sale" is a sale, lease or rental of consumer goods or services with a purchase price of $25
+      or more if made at the buyer's residence, or $130 or more if made at other locations, where the seller
+      personally solicits the sale (even if the buyer invited the contact) and the buyer agrees to buy at a place
+      other than the seller's place of business.
+    issues: [cancel_service, refund_request]
+    source: https://www.law.cornell.edu/cfr/text/16/429.0
+    last_verified: 2026-10-13
+  - kind: limit
+    claim: >-
+      The definition excludes sales after the buyer visits the seller's permanent retail store, sales conducted
+      entirely by mail or telephone with no other prior contact, buyer-initiated emergency sales where the buyer
+      gives a handwritten, dated, signed waiver, home repair or maintenance the buyer asked for (extra goods or
+      services sold during that visit are still covered), and sales of real property, insurance and certain
+      securities.
+    issues: [cancel_service]
+    source: https://www.law.cornell.edu/cfr/text/16/429.0
+    last_verified: 2026-10-13
+  - kind: deadline
+    claim: >-
+      The seller must give a completed receipt or contract that states, near the buyer's signature, in bold type
+      of at least 10 points: "You, the buyer, may cancel this transaction at any time prior to midnight of the
+      third business day after the date of this transaction." A business day is any calendar day except Sunday
+      and federal holidays, so Saturdays count.
+    issues: [cancel_service]
+    source: https://www.law.cornell.edu/cfr/text/16/429.1
+    last_verified: 2026-10-13
+  - kind: process
+    claim: >-
+      The seller must give the buyer two copies of a "NOTICE OF CANCELLATION" form and must tell the buyer orally,
+      at the time the buyer signs, about the right to cancel. The seller may not misrepresent the buyer's right
+      to cancel.
+    issues: [cancel_service]
+    source: https://www.law.cornell.edu/cfr/text/16/429.1
+    last_verified: 2026-10-13
+  - kind: deadline
+    claim: >-
+      Within 10 business days after receiving a valid cancellation notice, the seller must refund all payments,
+      return any trade-in in substantially as good condition, cancel any negotiable instrument and security
+      interest, and tell the buyer whether it will pick up or abandon any goods left with the buyer.
+    issues: [refund_request, cancel_service]
+    source: https://www.law.cornell.edu/cfr/text/16/429.1
+    last_verified: 2026-10-13
+  - kind: deadline
+    claim: >-
+      Under the notice of cancellation form, if the seller does not pick up the goods within 20 days of the
+      buyer's notice of cancellation, the buyer may keep or dispose of them without further obligation.
+    issues: [cancel_service]
+    source: https://www.law.cornell.edu/cfr/text/16/429.1
+    last_verified: 2026-10-13
+  - kind: process
+    claim: >-
+      To cancel, sign and date one copy of the cancellation form and mail it to the address given, postmarked
+      before midnight of the third business day. If the seller gave no form, write a cancellation letter
+      postmarked within three business days. The FTC suggests certified mail with a return receipt and keeping a
+      copy. No reason is needed.
+    issues: [cancel_service]
+    source: https://consumer.ftc.gov/articles/buyers-remorse-ftcs-cooling-rule-may-help
+    last_verified: 2026-10-13
+  - kind: process
+    claim: >-
+      Report a seller that does not honor the rule to the FTC at ReportFraud.ftc.gov and to your state attorney
+      general or local consumer protection agency. For a credit card purchase, also dispute the charge with the
+      card company.
+    issues: [cancel_service, refund_request]
+    source: https://consumer.ftc.gov/articles/buyers-remorse-ftcs-cooling-rule-may-help
+    last_verified: 2026-10-13
+  - kind: limit
+    claim: >-
+      The rule does not apply to sellers of automobiles at auctions, tent sales or other temporary locations when
+      the seller has a permanent place of business, or to sellers of arts or crafts at fairs or similar places.
+    issues: [cancel_service]
+    source: https://www.law.cornell.edu/cfr/text/16/429.3
+    last_verified: 2026-10-13
+source: https://consumer.ftc.gov/articles/buyers-remorse-ftcs-cooling-rule-may-help
+last_verified: 2026-10-13
+status_note: >-
+  In effect. The $130 threshold for sales away from the buyer's home was set by an amendment published at
+  80 FR 1332 (January 9, 2015), as shown on the Cornell LII copy of 16 CFR 429.0. The FTC consumer page on
+  the rule is dated September 2025. The eCFR site blocked automated fetches on 2026-10-13, so the regulation
+  text was read on Cornell LII. The FTC page says some state laws give more rights than the federal rule.

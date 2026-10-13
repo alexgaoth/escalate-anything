@@ -1,0 +1,179 @@
+id: rge
+name: Rochester Gas and Electric
+aliases: [RG&E, RGE, Rochester Gas & Electric]
+sector: utility
+parent: Avangrid (Iberdrola)
+website: https://www.rge.com
+notes: >-
+  Electric and natural gas utility for the Rochester, New York area. An Avangrid company (Avangrid has been a
+  wholly owned subsidiary of Iberdrola since December 2024); its sister utility NYSEG has its own website and
+  phone numbers (file nyseg). Regulated by the New York State Public Service Commission through the Department
+  of Public Service (DPS); residential protections come from the Home Energy Fair Practices Act (HEFPA).
+  rge.com timed out for every automated fetch, so channel values come from a NYSERDA (NYS Clean Heat) contact
+  page, a 2020 NYSEG/RG&E press release reposted by the Town of Shawangunk, and search-result summaries of
+  rge.com pages where noted.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service, also to verify a caller or visitor
+    value: +1-800-743-2110
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, deposit_refund, poor_service]
+    source: https://cleanheat.ny.gov/contact-us
+    last_verified: 2026-10-13
+  - id: electric-outage-phone
+    type: phone
+    label: Electricity outages or trouble
+    value: +1-800-743-1701
+    purposes: [service_outage]
+    notes: Seen only in a search-result summary of this page (rge.com does not load for automated fetches). Call 911 first if life is at risk.
+    source: https://www.rge.com/support/outages-help
+    last_verified: 2026-10-13
+  - id: pay-by-phone
+    type: phone
+    label: Automated payment line (the company says to pay by phone only through its automated services numbers)
+    value: +1-800-295-7323
+    notes: From a February 2020 NYSEG/RG&E press release.
+    source: https://shawangunk.gov/?p=7993
+    last_verified: 2026-10-13
+  - id: mailing-address
+    type: mail
+    label: RG&E address as listed on the NYS Clean Heat contact page
+    value: RG&E, 89 East Avenue, Rochester, NY 14649
+    purposes: [billing_error, poor_service]
+    notes: Listed by NYSERDA for RG&E; not confirmed on rge.com as the complaint address. Check the address on your bill.
+    source: https://cleanheat.ny.gov/contact-us
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, channel: customer-service-phone}
+  - {rung: written_complaint, channel: mailing-address}
+  - {rung: state_agency, agency_kind: utility_commission, note: "New York State Public Service Commission / Department of Public Service, Office of Consumer Services: Helpline 800-342-3377 (complaints), Hotline 800-342-3355 (shut-offs). DPS says to first seek the assistance of the utility; DPS asks the utility to contact you, and if it does not respond within two weeks, contact DPS again."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "New York State Office of the Attorney General."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the bill with RG&E, pay the undisputed amount, then file with the NY Department of Public Service.
+    evidence: [the disputed bill, earlier bills, meter photos with dates, call notes with reference numbers]
+    steps:
+      - do: Call RG&E and ask for a correction and a reference number. Keep paying the undisputed amount.
+        channel: customer-service-phone
+      - do: If not resolved, file a complaint with DPS online or at 800-342-3377. Contact DPS again if RG&E does not answer within two weeks.
+      - do: If you disagree with the DPS decision, request an informal hearing or review within 15 days.
+    facts:
+      - kind: process
+        claim: The NY Department of Public Service says to first seek the assistance of your utility provider, which is required by law to assist you; if the utility does not respond within two weeks, contact DPS again to have the case escalated.
+        issues: [billing_error, disconnection, poor_service]
+        source: https://dps.ny.gov/file-complaint
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "HEFPA (DPS brochure, 12/25): if you file a complaint with DPS, service cannot be shut off for the disputed amount while the complaint is investigated, as long as you pay the undisputed amount."
+        issues: [billing_error, disconnection]
+        source: https://dps.ny.gov/brochure-your-rights-protections-electric-or-natural-gas-customer
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: "HEFPA: late payment charges on unpaid balances are limited to no more than 1.5% monthly (18% annually)."
+        issues: [billing_error]
+        source: https://dps.ny.gov/brochure-your-rights-protections-electric-or-natural-gas-customer
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: A request for an informal hearing or review of a DPS initial decision should be made within 15 days of that decision; an appeal of the hearing decision is due within 15 days.
+        issues: [billing_error]
+        source: https://dps.ny.gov/guide-filing-complaints
+        last_verified: 2026-10-13
+
+  - issue: disconnection
+    summary: Call RG&E for a payment agreement on a final notice; New York requires 15 days' notice, limits shutoff hours, and protects medical emergencies and cold-weather cases.
+    evidence: [final termination notice, account number, medical certificate from a doctor or local board of health, income documents]
+    steps:
+      - do: Call RG&E first and ask for a payment agreement that is reasonable and affordable.
+        channel: customer-service-phone
+      - do: If someone has a serious illness that a shutoff would aggravate, get a certificate from a doctor or the local board of health to RG&E.
+      - do: Tell RG&E if you are blind, disabled or 62 or older and live only with people who are 62 or older, 18 or younger, or blind or disabled.
+      - do: If you cannot make an arrangement, call the DPS Emergency Hotline at 800-342-3355 (7:30 a.m.-7:30 p.m. business days). Do not use the online form for a final disconnection notice.
+    facts:
+      - kind: deadline
+        claim: "HEFPA (DPS brochure, 12/25): service may not be disconnected for overdue bills unless the provider has given a final written notice and waited 15 days to allow payment or a payment agreement."
+        issues: [disconnection]
+        source: https://dps.ny.gov/brochure-your-rights-protections-electric-or-natural-gas-customer
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "HEFPA: shutoffs are permitted only 8:00 a.m.-4:00 p.m., Monday through Thursday, excluding holidays, the day before a holiday, and the two-week period around Christmas and New Year's Day."
+        issues: [disconnection]
+        source: https://dps.ny.gov/brochure-your-rights-protections-electric-or-natural-gas-customer
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "HEFPA: between November 1 and April 15 the provider must make a special effort to determine whether terminating heat-related service will seriously impair health or safety."
+        issues: [disconnection]
+        source: https://dps.ny.gov/brochure-your-rights-protections-electric-or-natural-gas-customer
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "HEFPA: service may not be shut off with a medical certification by a doctor or local board of health; after 30 days the certificate must be renewed and inability to pay shown. For life-support equipment the certificate stays in effect until DPS ends it, with inability to pay shown every three months."
+        issues: [disconnection]
+        source: https://dps.ny.gov/brochure-your-rights-protections-electric-or-natural-gas-customer
+        last_verified: 2026-10-13
+
+  - issue: payment_assistance
+    summary: New York law gives residential customers the right to reasonable installments, budget billing and deposit installments.
+    evidence: [current bill, income and expense information]
+    steps:
+      - do: Ask RG&E for an installment agreement tailored to your finances, budget billing, or a due date adjusted to a fixed-income payment date.
+        channel: customer-service-phone
+      - do: If RG&E refuses a reasonable agreement, call DPS at 800-342-3377 (or 800-342-3355 if facing shutoff).
+    facts:
+      - kind: policy
+        claim: "HEFPA: customers must be given the option to pay overdue bills in reasonable installments tailored to their financial circumstances, and must be offered budget (levelized) billing. Customers on a fixed income may have the bill due date adjusted."
+        issues: [payment_assistance, disconnection]
+        source: https://dps.ny.gov/brochure-your-rights-protections-electric-or-natural-gas-customer
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "HEFPA: utilities may demand security deposits from existing customers who are delinquent; customers may pay security deposits in up to 12 monthly installments."
+        issues: [payment_assistance, deposit_refund]
+        source: https://dps.ny.gov/brochure-your-rights-protections-electric-or-natural-gas-customer
+        last_verified: 2026-10-13
+
+  - issue: service_outage
+    summary: Report electric outages to the outage line or online; report gas emergencies from a safe place.
+    evidence: [service address, outage start time]
+    steps:
+      - do: Call the electric outage line or use RG&E's online outage form.
+        channel: electric-outage-phone
+      - do: If you smell gas, leave and call 911 from a safe place, then RG&E (use the gas emergency number on your bill).
+
+known_blockers:
+  - rge.com (and all Avangrid sites) timed out for every automated fetch on 2026-10-13. The outage number comes only from a search-result summary; confirm it on the bill.
+  - No RG&E gas emergency number, damage-claim channel or assistance program page could be sourced.
+
+official_domains: [rge.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: NYSEG and RG&E say they will never demand that customers buy debit cards such as Green Dot cards to make payments (February 2020 release).
+      source: https://shawangunk.gov/?p=7993
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: NYSEG and RG&E say they provide notice before terminating service for non-payment, and their employees do not perform shut-offs when the Customer Service Center is closed (February 2020 release).
+      source: https://shawangunk.gov/?p=7993
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Callers pose as company employees, sometimes with forged caller ID, and threaten to cut service unless the customer pays immediately, usually with a prepaid card.
+      source: https://shawangunk.gov/?p=7993
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Callers know details about the customer and give a call-back number with a recorded greeting that imitates the company's customer service line.
+      source: https://shawangunk.gov/?p=7993
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Door-to-door visitors pose as contractors doing inside gas meter inspections.
+      source: https://shawangunk.gov/?p=7993
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-scam-phone
+      type: phone
+      label: Verify a caller or visitor, or report a scam
+      value: +1-800-743-2110
+      source: https://shawangunk.gov/?p=7993
+      last_verified: 2026-10-13

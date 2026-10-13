@@ -1,0 +1,261 @@
+id: washington-gas
+name: Washington Gas Light Company
+aliases: [Washington Gas, WGL, Washington Gas Light, washgas]
+sector: utility
+parent: WGL Holdings (AltaGas Ltd.)
+website: https://www.washingtongas.com
+account_url: https://my.washingtongas.com/portal/
+notes: >-
+  Natural gas utility for Washington, D.C., suburban Maryland and Northern Virginia, plus the Shenandoah Valley
+  of Virginia (separate phone line). Regulated by the Public Service Commission of the District of Columbia,
+  the Maryland Public Service Commission and the Virginia State Corporation Commission (Division of Public
+  Utility Regulation). Customers who buy gas from a third-party supplier still call Washington Gas for leaks,
+  service and delivery charges.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service and billing (844-WASHGAS)
+    value: +1-844-927-4427
+    hours: "Mon 8 a.m.-8 p.m., Tue-Fri 8 a.m.-6 p.m., Sat 8 a.m.-5 p.m. (except major holidays)"
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, deposit_refund, property_damage_claim, poor_service]
+    notes: The contact page also shows "Monday - Friday 8 a.m. to 6 p.m." for customer service in another tab. Self-service payment plans are option 2.
+    source: https://www.washingtongas.com/get-assistance/contact
+    last_verified: 2026-10-13
+  - id: gas-emergency-phone
+    type: phone
+    label: Gas emergency line (844-WASHGAS, select option 1); for a suspected leak, leave and call 911 first
+    value: +1-844-927-4427
+    hours: 24/7
+    purposes: [service_outage]
+    source: https://www.washingtongas.com/get-assistance/contact
+    last_verified: 2026-10-13
+  - id: shenandoah-phone
+    type: phone
+    label: Shenandoah Valley, Virginia customers
+    value: +1-800-566-7436
+    notes: The contact page also lists 540-869-1111.
+    source: https://www.washingtongas.com/get-assistance/contact
+    last_verified: 2026-10-13
+  - id: customer-support-email
+    type: email
+    label: Customer support email (not for gas emergencies)
+    value: customersupport@washgas.com
+    purposes: [billing_error, poor_service]
+    source: https://www.washingtongas.com/get-assistance/contact
+    last_verified: 2026-10-13
+  - id: customer-support-form
+    type: web_form
+    label: Customer support online form
+    value: https://eservice.washgas.com/Pages/CustomerSupport.aspx
+    purposes: [billing_error, poor_service]
+    source: https://www.washingtongas.com/get-assistance/contact
+    last_verified: 2026-10-13
+  - id: customer-care-mail
+    type: mail
+    label: Billing and account inquiries by mail
+    value: Washington Gas, Attn. Customer Care, 6801 Industrial Road, Springfield, VA 22151
+    purposes: [billing_error, disconnection, poor_service]
+    notes: Payments go to Washington Gas, P.O. Box 37747, Philadelphia, PA 19101-5047.
+    source: https://www.washingtongas.com/get-assistance/contact
+    last_verified: 2026-10-13
+  - id: damage-claim-form
+    type: web_form
+    label: Damage Claim Form
+    value: https://www.washingtongas.com/services/current-customers/damage-claims
+    purposes: [property_damage_claim]
+    source: https://www.washingtongas.com/services/current-customers/damage-claims
+    last_verified: 2026-10-13
+  - id: payment-plan-form
+    type: portal
+    label: Installment payment plan application
+    value: https://washingtongas.com/payment-plan
+    purposes: [payment_assistance, disconnection]
+    notes: Also available by signing in to My Account, in the My Washington Gas app, or by calling 844-WASHGAS and choosing self-service option 2.
+    source: https://www.washingtongas.com/billing-and-payment/payments/payment-plans
+    last_verified: 2026-10-13
+  - id: energy-assistance-email
+    type: email
+    label: Energy assistance questions (all jurisdictions; phone 703-750-4406)
+    value: EAP@washgas.com
+    purposes: [payment_assistance]
+    source: https://www.washingtongas.com/get-assistance/energy-assistance
+    last_verified: 2026-10-13
+  - id: dc-amp-phone
+    type: phone
+    label: DC Arrearage Management Program hotline (email DCAMP@washgas.com)
+    value: +1-703-750-4399
+    purposes: [payment_assistance]
+    notes: "Mail: P.O. Box 57000, Springfield, VA 22150-7000."
+    source: https://www.washingtongas.com/get-assistance/energy-assistance
+    last_verified: 2026-10-13
+  - id: medical-certification-page
+    type: web_form
+    label: Medical Certification Program forms (D.C., Maryland and Virginia forms)
+    value: https://www.washingtongas.com/get-assistance/medical-certification-program
+    purposes: [disconnection]
+    source: https://www.washingtongas.com/get-assistance/medical-certification-program
+    last_verified: 2026-10-13
+  - id: outage-map
+    type: portal
+    label: Outage information map
+    value: https://activitymaps.washingtongas.com/
+    purposes: [service_outage]
+    source: https://www.washingtongas.com/
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, channel: customer-service-phone, note: "The payment plans page says to contact a Customer Advocate for arrangements beyond 12 months. Otherwise ask for a supervisor."}
+  - {rung: written_complaint, channel: customer-care-mail}
+  - {rung: state_agency, agency_kind: utility_commission, note: "DC: Public Service Commission of the District of Columbia, (202) 626-5120. Maryland: Maryland Public Service Commission, (410) 767-8000 or 1-800-492-0474. Virginia: State Corporation Commission, Division of Public Utility Regulation, 1-800-552-7945 (the SCC suggests first trying to resolve the concern with the utility; call at once if service is being disconnected)."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Attorney General of the District of Columbia, Maryland or Virginia, by service address."}
+
+playbooks:
+  - issue: billing_error
+    summary: Raise the bill with Washington Gas by phone, form or letter, then go to the commission for your jurisdiction.
+    evidence: [the disputed bill, earlier bills, meter photos with dates, supplier name on the bill, call notes with reference numbers]
+    steps:
+      - do: Call customer service and ask for a review of the charge. Get a reference number.
+        channel: customer-service-phone
+      - do: If not resolved, send the details through the online form or by mail.
+        channel: customer-support-form
+      - do: If a third-party supplier you did not choose appears on the bill, dispute it as slamming with Washington Gas and the commission.
+      - do: Escalate to the DC PSC, the Maryland PSC or the Virginia SCC.
+    facts:
+      - kind: process
+        claim: The Virginia SCC suggests that customers first attempt to resolve concerns with the utility before filing a complaint with its Division of Public Utility Regulation (1-800-552-7945).
+        issues: [billing_error, disconnection]
+        source: https://www.scc.virginia.gov/consumers/public-utility/utility-complaints/
+        last_verified: 2026-10-13
+
+  - issue: disconnection
+    summary: Ask for an installment plan (no down payment); a medical certification postpones disconnection 30 days.
+    evidence: [termination notice, account number, medical certification form, energy assistance approval if any]
+    steps:
+      - do: Call 844-WASHGAS at once, or apply online for an installment plan.
+        channel: payment-plan-form
+      - do: If a household member has a serious medical condition, have a licensed physician, certified nurse practitioner or physician assistant complete the form for your jurisdiction.
+        channel: medical-certification-page
+      - do: Apply for energy assistance (DC DOEE, Maryland OHEP, Virginia VEAP) and the Washington Area Fuel Fund.
+        channel: energy-assistance-email
+      - do: If no arrangement is reached, contact the commission for your jurisdiction before the termination date.
+    facts:
+      - kind: policy
+        claim: Washington Gas postpones disconnection for 30 days on receipt of a Medical Certification form from a residential customer, certified by a licensed physician, certified nurse practitioner or physician assistant. During the 30 days the customer must enroll in an installment plan or pay the outstanding balance.
+        issues: [disconnection]
+        source: https://www.washingtongas.com/get-assistance/medical-certification-program
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: "Virginia: Washington Gas sends a written notice of termination at least 14 days before the scheduled termination date (except for emergencies or suspected meter tampering). The past-due amount must be paid on or before the termination date."
+        issues: [disconnection]
+        source: https://www.washingtongas.com/billing-and-payment/termination-policy-statement
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Washington Gas installment plans run up to 12 months, or 24 months for customers receiving energy assistance, with no down payment, and prevent further credit action while the customer keeps the agreement.
+        issues: [disconnection, payment_assistance]
+        source: https://www.washingtongas.com/billing-and-payment/payments/payment-plans
+        last_verified: 2026-10-13
+
+  - issue: payment_assistance
+    summary: Installment and budget plans for everyone; jurisdiction programs (DC RES/UDP and AMP, Maryland MEAP and USPP, Virginia VEAP) and the Washington Area Fuel Fund for eligible households.
+    evidence: [current bill, household income documents, energy assistance approval letters]
+    steps:
+      - do: Apply for an installment plan or the Budget Plan online, in the app or by phone.
+        channel: payment-plan-form
+      - do: "DC: check eligibility with DOEE (311 or doee.dc.gov/energyassistance); DOEE-approved customers are enrolled in the Arrearage Management Program automatically."
+        channel: dc-amp-phone
+      - do: "Maryland: apply for MEAP through the Office of Home Energy Programs, 800-332-6347. Virginia: apply for VEAP through 211 or 1-800-230-6977."
+      - do: Ask about the Washington Area Fuel Fund for supplemental heating help.
+        channel: energy-assistance-email
+    facts:
+      - kind: policy
+        claim: "DC Arrearage Management Program: accounts go on a 12-month Budget Plan; 1/12 of the arrearage at enrollment is forgiven each month the current budget bill is paid on time, and the full arrearage after 12 months. A past-due balance over $3,000 must first be reduced to $3,000 or less."
+        issues: [payment_assistance]
+        source: https://www.washingtongas.com/get-assistance/energy-assistance
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "DC Residential Essential Service (Utility Discount Program): DOEE-certified customers who heat mainly with natural gas get a 50% discount on the monthly Customer Charge during the non-winter season (May to October)."
+        issues: [payment_assistance]
+        source: https://www.washingtongas.com/get-assistance/energy-assistance
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Maryland Utility Service Protection Program (USPP): begins the first week of November for MEAP-eligible residential customers; participants must enroll in a year-round, even monthly budget billing program."
+        issues: [payment_assistance, disconnection]
+        source: https://www.washingtongas.com/get-assistance/energy-assistance
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: The Washington Gas Budget Plan spreads winter heating costs over 12 months; a late or missed payment may remove the customer from the plan and make the full balance due.
+        issues: [payment_assistance]
+        source: https://www.washingtongas.com/billing-and-payment/payments/payment-plans
+        last_verified: 2026-10-13
+
+  - issue: property_damage_claim
+    summary: File the online Damage Claim Form with photos and receipts as soon as possible after the incident.
+    evidence: [photos of the damage, invoices or receipts for repairs or replacements, date and location of the incident]
+    steps:
+      - do: Complete and submit the Damage Claim Form online. Include photos and repair invoices or receipts.
+        channel: damage-claim-form
+      - do: If you already made repairs, still file and include photos of the original damage and copies of receipts.
+      - do: If you get no answer, call customer service with the claim details.
+        channel: customer-service-phone
+    facts:
+      - kind: deadline
+        claim: Washington Gas states there is no strict deadline for a damage claim but recommends submitting as soon as possible after the incident; an initial response comes within 48-72 hours after submission.
+        issues: [property_damage_claim]
+        source: https://www.washingtongas.com/services/current-customers/damage-claims
+        last_verified: 2026-10-13
+
+  - issue: service_outage
+    summary: For a suspected gas leak, leave and call 911, then the emergency line; check gas outages on the outage map.
+    evidence: [service address, time the problem started]
+    steps:
+      - do: If you smell gas, leave the area, call 911 from a safe place, then call 844-WASHGAS and select option 1.
+        channel: gas-emergency-phone
+      - do: Check planned and unplanned gas outages on the outage information map.
+        channel: outage-map
+
+known_blockers:
+  - Online payment plans and account changes need sign-in to My Account (my.washingtongas.com) or the app.
+  - The damage claim form is embedded in the damage claims page itself; there is no separate form URL.
+
+official_domains: [washingtongas.com, washgas.com, wgl.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Washington Gas says it will never demand payment over the phone or ask customers to buy a prepaid debit card to pay the bill.
+      source: https://www.washingtongas.com/media-center/tips-to-avoid-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Washington Gas says customers will never be asked for a bank account number or credit card information over the phone.
+      source: https://www.washingtongas.com/media-center/tips-to-avoid-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Washington Gas says it does not communicate with customers by text message and does not market its gas service through phone calls or texts.
+      source: https://www.washingtongas.com/media-center/tips-to-avoid-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Washington Gas says it will never ask for sensitive information by email.
+      source: https://www.washingtongas.com/security-policy
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Messages demand that the customer pay the gas bill immediately or have service disconnected.
+      source: https://www.washingtongas.com/media-center/tips-to-avoid-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Scammers ask customers to pay the bill in bitcoin; Washington Gas says utilities do not accept bitcoin.
+      source: https://www.washingtongas.com/media-center/tips-to-avoid-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Telemarketers or door-to-door sellers offer gifts, lower rates or better service to switch gas supplier, or switch the supplier without permission (slamming).
+      source: https://www.washingtongas.com/media-center/tips-to-avoid-scams
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-scam-phone
+      type: phone
+      label: Report a suspected scam or verify a contact (844-WASHGAS)
+      value: +1-844-927-4427
+      source: https://www.washingtongas.com/media-center/tips-to-avoid-scams
+      last_verified: 2026-10-13

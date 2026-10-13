@@ -1,0 +1,251 @@
+id: we-energies
+name: We Energies
+aliases: [WE Energies, We-Energies]
+sector: utility
+parent: WEC Energy Group
+website: https://www.we-energies.com
+account_url: https://www.we-energies.com/secure/auth/l/acct/summary_accounts
+notes: >-
+  Electric and natural gas utility in Wisconsin and Michigan's Upper Peninsula. Wisconsin customers are
+  regulated by the Public Service Commission of Wisconsin (PSC); Michigan customers by the Michigan Public
+  Service Commission. The Wisconsin rules below come from the PSC's Utility Customer Bill of Rights and
+  General FAQ pages.
+
+channels:
+  - id: residential-phone
+    type: phone
+    label: Residential customer service
+    value: +1-800-242-9137
+    hours: 24 hours a day
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, deposit_refund, poor_service]
+    source: https://www.we-energies.com/secure/ssl/contact
+    last_verified: 2026-10-13
+  - id: business-phone
+    type: phone
+    label: Business customer service
+    value: +1-800-714-7777
+    source: https://www.we-energies.com/secure/ssl/contact
+    last_verified: 2026-10-13
+  - id: payment-arrangements-phone
+    type: phone
+    label: Payment arrangements and energy assistance
+    value: +1-800-842-4565
+    hours: "Automated self-service 24/7; representatives Mon-Fri 8 a.m.-5 p.m."
+    purposes: [payment_assistance, disconnection]
+    notes: The page says self-service arrangements offer the same terms as calling a representative.
+    source: https://www.we-energies.com/payment-bill/assistance
+    last_verified: 2026-10-13
+  - id: outage-phone
+    type: phone
+    label: Electric outage and downed power lines (call 911 for a downed line too)
+    value: +1-800-662-4797
+    hours: 24/7
+    purposes: [service_outage]
+    source: https://www.we-energies.com/services/outages
+    last_verified: 2026-10-13
+  - id: gas-emergency-phone
+    type: phone
+    label: Natural gas leak or damaged gas line (leave the area first)
+    value: +1-800-261-5325
+    hours: 24/7
+    source: https://www.we-energies.com/services/outages
+    last_verified: 2026-10-13
+  - id: email-form
+    type: web_form
+    label: Email customer service (questions, comments, concerns; not for emergencies or outages)
+    value: https://www.we-energies.com/secure/ssl/contact-email
+    purposes: [billing_error, poor_service, deposit_refund]
+    notes: Response in 1 to 2 business days.
+    source: https://www.we-energies.com/secure/ssl/contact
+    last_verified: 2026-10-13
+  - id: vp-customer-service-form
+    type: web_form
+    label: Vice president - customer service (feedback or unresolved service problem)
+    value: https://www.we-energies.com/secure/ssl/contact_svp.aspx
+    purposes: [billing_error, disconnection, poor_service]
+    source: https://www.we-energies.com/secure/ssl/contact
+    last_verified: 2026-10-13
+  - id: customer-service-mail
+    type: mail
+    label: Customer service by mail
+    value: "We Energies, Attn: Customer service, PO Box 2046, Milwaukee, WI 53201-2046"
+    purposes: [billing_error, poor_service]
+    notes: "Bill payments go to We Energies, PO Box 1125, Glenview, IL 60025-8125."
+    source: https://www.we-energies.com/secure/ssl/contact
+    last_verified: 2026-10-13
+  - id: payment-arrangements-online
+    type: portal
+    label: Online payment arrangements
+    value: https://www.we-energies.com/UpdateAccount/update/arrangement_terms
+    purposes: [payment_assistance, disconnection]
+    source: https://www.we-energies.com/payment-bill/arrangements
+    last_verified: 2026-10-13
+  - id: outage-status
+    type: portal
+    label: Check status or report an outage online
+    value: https://www.we-energies.com/OutageManagement/Status/CurrentOutage
+    purposes: [service_outage]
+    notes: We Energies cannot accept text messages or email for outages or emergencies.
+    source: https://www.we-energies.com/services/outages
+    last_verified: 2026-10-13
+  - id: outage-map
+    type: portal
+    label: Outage map
+    value: https://www.we-energies.com/OutageSummary/view/outagegrid
+    purposes: [service_outage]
+    source: https://www.we-energies.com/services/outages
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: residential-phone}
+  - {rung: supervisor, channel: residential-phone}
+  - {rung: written_complaint, channel: email-form}
+  - {rung: executive, channel: vp-customer-service-form, note: "We Energies lists a Vice president - customer service form for unresolved service problems."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Public Service Commission of Wisconsin, Consumer Affairs, 1-800-225-7729 (Mon-Fri 7:45 a.m.-4:30 p.m.). The PSC says you must first try to resolve the dispute directly with the utility. Michigan customers: Michigan Public Service Commission."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Wisconsin Department of Justice (Attorney General); Michigan Attorney General for Michigan customers."}
+
+playbooks:
+  - issue: billing_error
+    summary: Contact We Energies first by phone or email form, then the VP customer service form, then the Wisconsin PSC; backbilling is limited to two years.
+    evidence: [the disputed bill, earlier bills, meter photos with dates, call notes with reference numbers]
+    steps:
+      - do: Call customer service and ask for a correction and a reference number.
+        channel: residential-phone
+      - do: If not fixed, write through the email form (answer in 1 to 2 business days).
+        channel: email-form
+      - do: If still unresolved, use the vice president - customer service form.
+        channel: vp-customer-service-form
+      - do: Then contact the Wisconsin PSC.
+    facts:
+      - kind: process
+        claim: "Wisconsin PSC: you and the utility must first make reasonable attempts to resolve a dispute; if that fails, contact PSC Consumer Affairs."
+        issues: [billing_error, disconnection, poor_service]
+        source: https://www.psc.wi.gov/Pages/ForConsumers/MoreResources/UtilityCustomerBillRights.aspx
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: "Wisconsin PSC: a utility is limited to backbilling for a period of two years, and must offer payment arrangements when a customer cannot pay the full backbilled amount."
+        issues: [billing_error]
+        source: https://www.psc.wi.gov/Pages/ForConsumers/MoreResources/GeneralFAQ.aspx
+        last_verified: 2026-10-13
+
+  - issue: disconnection
+    summary: Set up a payment arrangement; in Wisconsin, heating service cannot be disconnected November 1 to April 15, and a medical emergency can delay shutoff up to 21 days.
+    evidence: [disconnection notice, account number, documentation of a medical or protective services emergency, energy assistance approval if any]
+    steps:
+      - do: Set up a payment arrangement online, by automated phone at any hour, or with a representative.
+        channel: payment-arrangements-phone
+      - do: If there is a medical or protective services emergency, tell We Energies and ask for a delay; provide professional documentation if asked.
+        channel: residential-phone
+      - do: Apply for Wisconsin Home Energy Assistance; assistance customers may get alternative payment arrangements.
+      - do: If the dispute is not resolved, contact the Wisconsin PSC before the disconnection date.
+    facts:
+      - kind: policy
+        claim: "Wisconsin PSC: a utility cannot disconnect service that is, or affects, the home's primary heat source from November 1 through April 15."
+        issues: [disconnection]
+        source: https://www.psc.wi.gov/Pages/ForConsumers/MoreResources/UtilityCustomerBillRights.aspx
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Wisconsin PSC: for a medical or protective services emergency, the utility may delay service shut-off for up to 21 days and may require documentation from a professional involved with the emergency."
+        issues: [disconnection]
+        source: https://www.psc.wi.gov/Pages/ForConsumers/MoreResources/UtilityCustomerBillRights.aspx
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Wisconsin PSC: a utility may not disconnect electric service to an occupied dwelling during a National Weather Service heat advisory, warning or emergency."
+        issues: [disconnection]
+        source: https://www.psc.wi.gov/Pages/ForConsumers/MoreResources/GeneralFAQ.aspx
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Wisconsin PSC: customers can request a deferred payment agreement for a current or past-due balance (a down payment plus negotiated installments); if installments are not paid, the utility may disconnect."
+        issues: [disconnection, payment_assistance]
+        source: https://www.psc.wi.gov/Pages/ForConsumers/MoreResources/UtilityCustomerBillRights.aspx
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: We Energies says it notifies customers about past-due bills before service is shut off, not by phone the same day.
+        issues: [disconnection]
+        source: https://www.we-energies.com/scam-warnings
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: We Energies may deny a payment arrangement if money is still owed on a previous payment plan, and service may be disconnected if arrangement payments are not made. Setting up an arrangement does not stop an automatic withdrawal.
+        issues: [disconnection, payment_assistance]
+        source: https://www.we-energies.com/payment-bill/arrangements
+        last_verified: 2026-10-13
+
+  - issue: payment_assistance
+    summary: Use payment arrangements (online, app or phone) and apply for Wisconsin Home Energy Assistance or the Keep Wisconsin Warm/Cool Fund.
+    evidence: [current bill, household income documents]
+    steps:
+      - do: Schedule monthly payments with an online payment arrangement.
+        channel: payment-arrangements-online
+      - do: Apply for the Wisconsin Home Energy Assistance Program (heating, electric, crisis, furnace and weatherization help) and ask about the Keep Wisconsin Warm/Cool Fund.
+      - do: Ask whether energy assistance makes you eligible for alternative payment arrangements.
+        channel: payment-arrangements-phone
+    facts:
+      - kind: policy
+        claim: We Energies says customers who qualify for energy assistance may be eligible for alternative payment arrangements (call 800-242-9137 for details).
+        issues: [payment_assistance]
+        source: https://www.we-energies.com/payment-bill/arrangements
+        last_verified: 2026-10-13
+
+  - issue: service_outage
+    summary: Report electric outages online or by phone; texts and emails are not accepted for outages.
+    evidence: [service address, outage start time]
+    steps:
+      - do: Report the outage or check status online.
+        channel: outage-status
+      - do: Or call the outage line. For a downed line, stay away and call 911 or the outage line.
+        channel: outage-phone
+
+facts:
+  - kind: policy
+    claim: "Wisconsin PSC: the PSC sets the interest rate on utility deposits each December for the following calendar year; the rate for 2026 is 3.6 percent."
+    issues: [deposit_refund]
+    source: https://www.psc.wi.gov/Pages/ForConsumers/MoreResources/GeneralFAQ.aspx
+    last_verified: 2026-10-13
+
+tips:
+  - kind: official
+    text: We Energies says to get its phone numbers from we-energies.com, its app or the bill, not from search results; paid search ads have listed fake numbers.
+    source: https://www.we-energies.com/scam-warnings
+    last_verified: 2026-10-13
+
+known_blockers:
+  - Online payment arrangements, outage status for an account and most account changes need sign-in.
+  - No published damage-claim channel was found on we-energies.com; ask customer service.
+
+official_domains: [we-energies.com, wecenergygroup.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: We Energies says it will never require a prepaid debit card or other unusual payment method.
+      source: https://www.we-energies.com/scam-warnings
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: We Energies says it notifies customers about past-due bills before shutoff, not by a same-day phone call.
+      source: https://www.we-energies.com/scam-warnings
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Scammers threaten to turn off energy in a short time and demand immediate payment, often by bar code or QR code, prepaid debit card, Zelle, Venmo or bitcoin.
+      source: https://www.we-energies.com/scam-warnings
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Scammers manipulate caller ID to display "We Energies".
+      source: https://www.we-energies.com/scam-warnings
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Paid search-engine results list fake We Energies numbers; callers to those numbers have been asked for credit card information and Social Security numbers.
+      source: https://www.we-energies.com/scam-warnings
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Messages ask customers to share personal information, often by clicking a link.
+      source: https://www.we-energies.com/scam-warnings
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-scam-phone
+      type: phone
+      label: Report a suspected scam or verify a contact
+      value: +1-800-242-9137
+      notes: We Energies also says to report theft to local law enforcement and to contact your bank or payment app if you sent money.
+      source: https://www.we-energies.com/scam-warnings
+      last_verified: 2026-10-13
