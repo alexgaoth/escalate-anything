@@ -25,6 +25,7 @@
 
 <p align="center">
   <b><a href="https://alexgaoth.github.io/redress/">Browse the directory</a></b> ·
+  <b><a href="https://alexgaoth.github.io/redress/#/check">Check a number before you call</a></b> ·
   <a href="#quick-start">Quick start</a> ·
   <a href="docs/clients.md">Connect your app</a> ·
   <a href="#what-your-agent-gets">Tools</a> ·
@@ -64,7 +65,7 @@ uvx --from redress-mcp redress install --all
 
 Or add `uvx redress-mcp` by hand. [Per-app instructions](docs/clients.md) cover Claude Desktop, Cursor, VS Code, Windsurf/Devin, Cline, Zed, Gemini CLI, Codex, Goose, LM Studio, Continue and JetBrains. For **ChatGPT** and **claude.ai**, run the read-only HTTP server ([Dockerfile](Dockerfile)) and add its URL as a custom connector.
 
-**No AI needed:**
+**No AI needed:** check a number, link or text at **[alexgaoth.github.io/redress/#/check](https://alexgaoth.github.io/redress/#/check)**. It runs in your browser and sends nothing. Or use the CLI:
 
 ```bash
 uvx --from redress-mcp redress playbook united-airlines delayed_baggage --state CA
@@ -85,8 +86,8 @@ Then ask your agent things like:
 | 🗺️ **Playbooks** | `get_playbook(company, issue, state)`: steps with deep links, phone numbers, evidence to collect, deadlines, and the company's own rules, for 54 issue types. |
 | 🪜 **Escalation ladders** | Frontline → written complaint → executive → federal regulator → **your state's** attorney general, utility commission or insurance department → card dispute → arbitration or small claims. |
 | ⚖️ **Rules with status** | 30 consumer rules (DOT refunds, Fair Credit Billing Act, Reg E, No Surprises Act, …) marked in force, vacated or repealed. Agents never cite a dead rule. |
-| 🛡️ **Scam shield** | `verify_contact`, `scam_check`, and per-company official domains, "we will never ask you for …", and how to report phishing. |
-| 🧭 **Context** | `get_context(company)`: cited dossiers on how each company handles complaints in practice, plus industry guides and a scam guide. |
+| 🛡️ **Scam shield** | `verify_contact` tells real contacts from fakes, including look-alike domains such as `usps-redelivery-fee.com` and `mychase-login.com`. `scam_check` flags package-fee, toll, gift-card, "send it to yourself" and other patterns. For all 188 companies: official domains, what the company says it will never ask for, known scams that use its name, and where to report phishing. |
+| 🧭 **Context** | `get_context(company)`: cited dossiers for 62 companies on how complaints actually go, what works, the fine print, complaint statistics (CFPB, DOT, FCC data) and the scams that target their customers. There are guides for all 20 industries and a scam guide with FTC and FBI figures. |
 | 📒 **Case log** | A local timeline of reference numbers, names, promises and follow-up dates; `draft_brief` turns it into a short, sourced, polite message. It stays on your machine. |
 | 📈 **Bill watch** | `bill_record` and `bill_check` flag bills that went up and promotions about to end. |
 | 🧩 **Prompts & skills** | `resolve`, `negotiate-bill`, `regulator-complaint`, `bill-watch` and `scam-check`, as Claude Code skills and as MCP prompts for every other app. |
