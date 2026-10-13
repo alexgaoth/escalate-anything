@@ -1,10 +1,15 @@
 name: freshness
+# Weekly: check every link, list stale and weakly sourced values, and keep one
+# "Freshness report" issue up to date so contributors can pick items to fix.
 on:
   schedule:
     - cron: "17 9 * * 1"
   workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
 jobs:
-  links:
+  report:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -12,13 +17,24 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -e .
-      - run: redress check-links --output linkcheck.md --fail-on-dead
-      - run: redress stale --days 180 | tee stale.txt
-        if: always()
+      - run: redress check-links --json links.json --output linkcheck.md
+      - run: redress freshness --links links.json > report.md
+      - name: Create or update the Freshness report issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create freshness --color 0e8a16 --description "Weekly data freshness report" 2>/dev/null || true
+          num=$(gh issue list --label freshness --state open --json number -q '.[0].number')
+          if [ -n "$num" ]; then
+            gh issue edit "$num" --body-file report.md
+          else
+            gh issue create --title "Freshness report" --label freshness --body-file report.md
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: freshness-report
+          name: freshness
           path: |
+            links.json
             linkcheck.md
-            stale.txt
+            report.md

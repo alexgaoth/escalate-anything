@@ -53,6 +53,7 @@ class LiveRegistry:
     CHECK_EVERY = 2.0  # seconds between file-system checks
 
     def __init__(self, root: Path | None = None):
+        self._fixed_root = root is not None
         self._reg = Registry.load(root)
         self._stamp = self._compute_stamp()
         self._checked = time.monotonic()
@@ -65,6 +66,15 @@ class LiveRegistry:
         now = time.monotonic()
         if now - self._checked >= self.CHECK_EVERY:
             self._checked = now
+            if not self._fixed_root:
+                from .registry import registry_dir
+
+                wanted = registry_dir()
+                if wanted != self._reg.root and (wanted / "sectors.yaml").exists():
+                    fresh = Registry.load(wanted)  # e.g. a newer download finished
+                    if not fresh.validate():
+                        self._reg, self._stamp = fresh, self._compute_stamp()
+                        return self._reg
             stamp = self._compute_stamp()
             if stamp != self._stamp:
                 fresh = Registry.load(self._reg.root)
@@ -384,6 +394,13 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
 
 
 def serve(transport: str = "stdio", host: str = "127.0.0.1", port: int = 8765, read_only: bool = False) -> None:
+    import os
+
+    from .registry import REPO_ROOT, data_root
+    from .updater import update_in_background_if_due
+
+    if data_root() != REPO_ROOT and not os.environ.get("REDRESS_REGISTRY"):
+        update_in_background_if_due()  # installed copy: fetch the weekly data refresh, never blocks
     server = build_server(read_only=read_only)
     if transport == "stdio":
         server.run("stdio")

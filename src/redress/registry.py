@@ -33,7 +33,17 @@ URL_TYPES = {"web_form", "chat", "portal", "social"}
 
 
 def registry_dir() -> Path:
-    return Path(os.environ.get("REDRESS_REGISTRY", data_root() / "registry"))
+    """REDRESS_REGISTRY, else a source checkout, else the latest downloaded data, else the bundled data."""
+    if os.environ.get("REDRESS_REGISTRY"):
+        return Path(os.environ["REDRESS_REGISTRY"])
+    root = data_root()
+    if root != REPO_ROOT:
+        from .updater import downloaded_registry
+
+        dl = downloaded_registry()
+        if (dl / "sectors.yaml").exists():
+            return dl
+    return root / "registry"
 
 
 class _Loader(yaml.SafeLoader):

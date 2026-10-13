@@ -197,6 +197,36 @@ def cmd_credibility(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_freshness(args: argparse.Namespace) -> int:
+    from . import freshness
+
+    rep = freshness.build(Registry.load(), freshness.load_links(args.links), args.days)
+    if args.worklist:
+        print(json.dumps(freshness.worklist(rep, args.worklist), indent=1))
+    else:
+        print(freshness.markdown(rep))
+    return 0
+
+
+def cmd_update(args: argparse.Namespace) -> int:
+    from . import updater
+    from .registry import REPO_ROOT, data_root
+
+    if args.status:
+        print(json.dumps(updater.status(), indent=2))
+        return 0
+    if data_root() == REPO_ROOT:
+        print("This is a source checkout; update it with: git pull", file=sys.stderr)
+        return 0
+    try:
+        meta = updater.update()
+    except Exception as e:
+        print(f"Update failed: {e}", file=sys.stderr)
+        return 1
+    print(f"Updated: {meta['companies']} companies, data verified up to {meta['last_verified']} ({meta['path']})")
+    return 0
+
+
 def cmd_issues(args: argparse.Namespace) -> int:
     from .advisor import sector_issues
 
@@ -215,6 +245,10 @@ def cmd_check_links(args: argparse.Namespace) -> int:
     print(text)
     if args.output:
         Path(args.output).write_text(text + "\n")
+    if args.json:
+        from .linkcheck import to_json
+
+        Path(args.json).write_text(json.dumps(to_json(results), indent=1))
     dead = sum(r.status == "dead" for r in results)
     return 1 if dead and args.fail_on_dead else 0
 
@@ -309,6 +343,16 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--grade", choices=["A", "B", "C"])
     p.set_defaults(func=cmd_credibility)
 
+    p = sub.add_parser("freshness", help="weekly freshness report (Markdown) or the refresh work list (JSON)")
+    p.add_argument("--links", help="JSON from `redress check-links --json`")
+    p.add_argument("--days", type=int, default=180)
+    p.add_argument("--worklist", type=int, metavar="N", help="print the N items the refresh routine should re-verify")
+    p.set_defaults(func=cmd_freshness)
+
+    p = sub.add_parser("update", help="download the latest registry data (installed copies; checkouts use git pull)")
+    p.add_argument("--status", action="store_true", help="show when data was last downloaded")
+    p.set_defaults(func=cmd_update)
+
     p = sub.add_parser("issues", help="list issue ids")
     p.add_argument("--sector")
     p.set_defaults(func=cmd_issues)
@@ -318,6 +362,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--only", help="only URLs used by entries whose id starts with this")
     p.add_argument("--output", help="also write the report to this file")
     p.add_argument("--fail-on-dead", action="store_true")
+    p.add_argument("--json", help="also write the results as JSON to this file")
     p.set_defaults(func=cmd_check_links)
 
     p = sub.add_parser("cases", help="list cases in the local log")
