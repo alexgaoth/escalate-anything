@@ -1,0 +1,81 @@
+id: duolingo
+name: Duolingo (Super Duolingo and Duolingo Max)
+aliases: [super duolingo, duolingo max]
+sector: subscription
+website: https://www.duolingo.com
+regulators: [ftc]
+notes: Duolingo's help pages render only in a browser; the values below come from official-domain search snippets of the Duolingo help center and terms.
+
+channels:
+  - id: web-settings-cancel
+    type: portal
+    label: Duolingo website, profile picture, Settings, Super Duolingo, Cancel subscription
+    value: https://www.duolingo.com
+    purposes: [cancel_service]
+    access: login
+    notes: For subscriptions started on the web. App subscriptions start from the Super icon, Settings, Manage subscription, then confirm in the App Store, Google Play or Alipay.
+    source: https://www.duolingo.com/help/cancel-my-super-duolingo-subscription
+    last_verified: 2026-10-12
+  - id: support-request
+    type: web_form
+    label: Duolingo Help Center support request form (choose "Purchase Issue" for billing)
+    value: https://www.duolingo.com/help/support-request
+    purposes: [refund_request, cancel_service, billing_error]
+    notes: The form asks for email, subject, description and type of issue.
+    source: https://www.duolingo.com/help/support-request
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: support-request}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel on the platform where the subscription started (web, App Store, Google Play); deleting the app or account does not cancel.
+    evidence: [cancellation confirmation, platform receipt, any later charge]
+    steps:
+      - do: On the web, sign in, click your profile picture, choose Settings, select Super Duolingo, then Cancel subscription.
+        channel: web-settings-cancel
+      - do: In the app, tap the Super icon, Settings, Manage subscription, Cancel subscription, then confirm in the App Store, Google Play or Alipay. On iOS you can also follow Apple's instructions.
+      - do: For an Android subscription you cannot cancel yourself, submit a support request.
+        channel: support-request
+      - do: For a free trial, cancel at least 24 hours before the trial ends.
+    facts:
+      - kind: process
+        claim: You must cancel based on how you originally started the subscription; "deleting the app and/or your account does not cancel your subscription."
+        issues: [cancel_service]
+        source: https://www.duolingo.com/help/cancel-my-super-duolingo-subscription
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: After cancelling you can use Super Duolingo features "for the remainder of the subscription period," and "canceling your subscription will not retroactively refund subscription payments."
+        issues: [cancel_service, refund_request]
+        source: https://www.duolingo.com/help/cancel-my-super-duolingo-subscription
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: For a free trial code, "unless you cancel at least 24 hours before your extended free trial ends, you will automatically become a recurring subscriber to the subscription plan you selected." (Duolingo Terms)
+        issues: [cancel_service]
+        source: https://www.duolingo.com/terms
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: Charges are generally nonrefundable; iOS refunds go to Apple, Android and web refunds go through Duolingo support.
+    evidence: [receipt, platform, subscription start date]
+    steps:
+      - do: For an iOS purchase, request the refund from Apple; Duolingo cannot access the App Store.
+      - do: For Android, contact Duolingo support, choose "Purchase Issue" and say you need a refund for your subscription.
+        channel: support-request
+      - do: For a web subscription, sign in, click the Super icon, choose to contact Duolingo support and ask for a refund of the web subscription.
+        channel: support-request
+    facts:
+      - kind: policy
+        claim: '"Generally, all charges for in-app purchases are nonrefundable, and there are no refunds or credits for partially used periods."'
+        issues: [refund_request]
+        source: https://www.duolingo.com/help/how-do-I-request-a-refund
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Help pages and account settings need a JavaScript browser; cancelling needs sign-in or the app store account.
+  - iOS subscriptions are cancelled and refunded only through Apple.

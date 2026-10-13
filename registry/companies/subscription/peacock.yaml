@@ -28,9 +28,69 @@ channels:
     purposes: [billing_error, refund_request, cancel_service]
     source: https://www.peacocktv.com/terms
     last_verified: 2026-10-12
+  - id: cancel-plans
+    type: portal
+    label: Peacock account Plans page (Cancel All Subscriptions)
+    value: https://www.peacocktv.com/account/plans
+    purposes: [cancel_service]
+    access: login
+    notes: Select Cancel All Subscriptions (base plan and add-ons), or Remove Add-On for one add-on. A confirmation shows on screen and by email, which may take a few hours. If you cannot log in, the cancellation article offers cancellation by chat.
+    source: https://www.peacocktv.com/help/article/cancellation
+    last_verified: 2026-10-12
+  - id: get-in-touch
+    type: chat
+    label: Peacock Get in Touch page (live chat or email message)
+    value: https://www.peacocktv.com/help/get-in-touch
+    hours: 9:00AM-1:00AM ET (live agent chat)
+    purposes: [cancel_service, billing_error, refund_request]
+    access: login
+    notes: Sign in first. Peacock lists no phone number.
+    source: https://www.peacocktv.com/help/article/contact-us-in-customer-service
+    last_verified: 2026-10-12
+  - id: peacocktvcare-x
+    type: social
+    label: PeacockTVCare on X (direct message)
+    value: https://twitter.com/PeacockTVCare
+    source: https://www.peacocktv.com/help/article/contact-us-in-customer-service
+    last_verified: 2026-10-12
+  - id: apple-cancel
+    type: web_form
+    label: Cancel Peacock billed through Apple
+    value: https://support.apple.com/en-us/HT202039
+    purposes: [cancel_service]
+    source: https://www.peacocktv.com/help/article/cancellation
+    last_verified: 2026-10-12
+  - id: google-play-cancel
+    type: web_form
+    label: Cancel Peacock billed through Google Play
+    value: https://support.google.com/googleplay/answer/7018481
+    purposes: [cancel_service]
+    source: https://www.peacocktv.com/help/article/cancellation
+    last_verified: 2026-10-12
+  - id: amazon-cancel
+    type: web_form
+    label: Cancel Peacock billed through Amazon
+    value: https://pay.amazon.com/help/202042890
+    purposes: [cancel_service]
+    source: https://www.peacocktv.com/help/article/cancellation
+    last_verified: 2026-10-12
+  - id: roku-cancel
+    type: web_form
+    label: Cancel Peacock billed through Roku
+    value: https://support.roku.com/article/208756478
+    purposes: [cancel_service]
+    source: https://www.peacocktv.com/help/article/cancellation
+    last_verified: 2026-10-12
+  - id: xfinity-cancel
+    type: web_form
+    label: Manage Peacock billed through Xfinity
+    value: https://www.xfinity.com/support/articles/peacock-manage-subscription
+    purposes: [cancel_service]
+    source: https://www.peacocktv.com/help/article/cancellation
+    last_verified: 2026-10-12
 
 escalation:
-  - {rung: frontline, channel: help-center}
+  - {rung: frontline, channel: get-in-touch}
   - {rung: written_complaint}
   - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
   - {rung: regulator, regulator: ftc}
@@ -41,11 +101,19 @@ playbooks:
     summary: Cancel on the account details page no later than the day before the next billing date; access continues to the end of the term.
     evidence: [cancellation confirmation, date cancelled, any later charge]
     steps:
-      - do: Sign in and follow the cancel instructions on the account details page. Cancel no later than the day before the next billing date.
-        channel: account
+      - do: Sign in, open the Plans page and select Cancel All Subscriptions. Cancel no later than the day before the next billing date. Save the on-screen confirmation and the email.
+        channel: cancel-plans
+      - do: If you cannot log in, cancel by chat through Get in Touch (live agents 9:00AM-1:00AM ET).
+        channel: get-in-touch
       - do: Cancel add-ons with a different billing date separately if you want them to stop.
-      - do: If a third party (app store, TV or internet provider) bills you, cancel with that third party.
+      - do: If you do not see Cancel All Subscriptions, a third party bills you (for example Apple, Google Play, Amazon, Roku or Xfinity). Cancel with that third party; Peacock cannot cancel it.
+        channel: apple-cancel
     facts:
+      - kind: process
+        claim: After you select Cancel All Subscriptions, "Your plan will not renew at the end of its current subscription term." If a third party bills you, "you must contact the third party directly to cancel your existing plan."
+        issues: [cancel_service]
+        source: https://www.peacocktv.com/help/article/cancellation
+        last_verified: 2026-10-12
       - kind: deadline
         claim: To avoid the next charge you must cancel no later than the day before your next recurring billing date. Cancellation takes effect "AT THE END OF THE THEN-CURRENT SUBSCRIPTION TERM" (Terms, section 2.6).
         issues: [cancel_service]
@@ -84,4 +152,5 @@ facts:
 
 known_blockers:
   - Cancellation needs sign-in to the Peacock account.
-  - No customer service phone number or email is published in the Terms or on the help pages that were read.
+  - Peacock publishes no customer service phone number. Live chat and email go through Get in Touch and need sign-in.
+  - Subscriptions billed by Apple, Google Play, Amazon, Roku, Xfinity or other partners must be cancelled with that partner.

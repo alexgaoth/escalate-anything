@@ -1,0 +1,104 @@
+id: planet-fitness
+name: Planet Fitness
+aliases: [planetfitness, planet fitness black card]
+sector: fitness
+website: https://www.planetfitness.com
+regulators: [ftc]
+notes: >-
+  Planet Fitness calls itself "one of the fastest growing health club franchises in the U.S." Its US
+  FAQ says some policies "may vary by location based on state and local guidelines". planetfitness.com
+  blocks automated fetches, so the values below come from official-domain search snippets and from
+  shop.planetfitness.com and investor.planetfitness.com.
+
+channels:
+  - id: member-portal
+    type: portal
+    label: Member portal (log into your account on planetfitness.com)
+    value: https://www.planetfitness.com
+    purposes: [cancel_service, billing_error]
+    access: login
+    notes: The US FAQ lists logging into your account online through the member portal on the website as one way to end a membership.
+    source: https://www.planetfitness.com/about-planet-fitness/customer-service/
+    last_verified: 2026-10-12
+  - id: home-club-mail
+    type: mail
+    label: Written notice by mail to your home club
+    value: Mailing address of your home club (written notification requesting to end your membership)
+    purposes: [cancel_service]
+    notes: Send it so the club receives it at least 8 days before the next billing date. Certified mail gives proof of delivery.
+    source: https://www.planetfitness.com/about-planet-fitness/customer-service/
+    last_verified: 2026-10-12
+  - id: home-club-in-person
+    type: in_person
+    label: Visit your home club in person
+    value: Your Planet Fitness home club, front desk
+    purposes: [cancel_service, billing_error]
+    access: human_only
+    source: https://www.planetfitness.com/about-planet-fitness/customer-service/
+    last_verified: 2026-10-12
+  - id: corporate-support-line
+    type: phone
+    label: Planet Fitness Corporate Support Line (membership inquiries; option 2 for customer service)
+    value: +1-603-750-0001
+    purposes: [cancel_service, billing_error, poor_service]
+    notes: Press option 2 for customer service. Planet Fitness says membership inquiries can also go to your home club directly.
+    source: https://shop.planetfitness.com/contact/
+    last_verified: 2026-10-12
+  - id: corporate-contact-page
+    type: portal
+    label: Planet Fitness general corporate contact page
+    value: https://www.planetfitness.com/about-planet-fitness/contact-us
+    purposes: [poor_service]
+    source: https://investor.planetfitness.com/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: home-club-in-person}
+  - {rung: written_complaint, channel: home-club-mail}
+  - {rung: payment_dispute, note: "Card or bank dispute for drafts after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel online in the member portal, in person at the home club, or by written notice mailed to the home club. The club must receive it at least 8 days before the next billing date. Commitment memberships owe a buyout fee if ended early.
+    evidence: [membership agreement (commitment length), portal confirmation or certified mail receipt and a copy of the letter, next billing date and annual fee date, bank statement]
+    steps:
+      - do: Check the membership agreement for a commitment length. A No Commitment membership has no cancellation fee; ending a commitment early triggers a buyout fee.
+      - do: Log into the member portal and end the membership online. Save the confirmation.
+        channel: member-portal
+      - do: If you cannot cancel online, go to the home club in person, or mail written notice to the home club by certified mail. Make sure it arrives at least 8 days before the next billing date, and at least 8 days before the annual fee date.
+        channel: home-club-mail
+      - do: If the club keeps billing, call the Corporate Support Line (option 2) with your confirmation, then dispute the drafts with your bank or card issuer.
+        channel: corporate-support-line
+    facts:
+      - kind: process
+        claim: 'US members can "send written notification via mail to your home club requesting to end your membership, visit your home club in person, or log into your account online through the member portal on the website."'
+        issues: [cancel_service]
+        source: https://www.planetfitness.com/about-planet-fitness/customer-service/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: '"The club must receive notice of your request to end your membership at least 8 days before your next billing date, as it may take up to 7 days for billing changes to take effect."'
+        issues: [cancel_service]
+        source: https://www.planetfitness.com/about-planet-fitness/customer-service/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: '"To stop the billing of the annual fee, your request must be received by the club at least 8 days prior to the annual fee date."'
+        issues: [cancel_service, bill_increase]
+        source: https://www.planetfitness.com/about-planet-fitness/customer-service/
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: '"The Commitment length associated with your membership is the minimal number of months you will be billed. If you cancel before this time, you may be subject to a buyout fee." "For No Commitment memberships, you may cancel at anytime without paying a fee."'
+        issues: [cancel_service]
+        source: https://www.planetfitness.com/gym-memberships
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: Planet Fitness's policies FAQ says that ending a membership with a minimum term before the term ends requires a buyout fee. The amount is in the member's own membership agreement.
+        issues: [cancel_service]
+        source: https://www.planetfitness.com/about-planet-fitness/planet-fitness-policies
+        last_verified: 2026-10-12
+
+known_blockers:
+  - planetfitness.com blocks automated access; the member portal needs sign-in.
+  - Mail and in-person cancellation go through the home club, and some rules vary by location and state.
+  - The annual fee and buyout fee amounts depend on the club and the membership agreement.
