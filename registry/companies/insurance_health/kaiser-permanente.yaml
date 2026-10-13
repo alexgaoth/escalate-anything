@@ -6,6 +6,55 @@ website: https://healthy.kaiserpermanente.org
 regulators: [dol-ebsa, cms-no-surprises]
 
 channels:
+  - id: member-services-phone
+    type: phone
+    label: Member Services, California (Northern and Southern), English
+    value: +1-800-464-4000
+    hours: 24 hours, 7 days; closed holidays
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill, poor_service]
+    notes: Listed as the English line on Northern and Southern California medical center member services pages. TTY 711.
+    source: https://healthy.kaiserpermanente.org/northern-california/facilities/san-mateo-medical-offices-300395/departments/member-and-administrative-services-dlp-108917
+    last_verified: 2026-10-12
+  - id: ca-senior-advantage-phone
+    type: phone
+    label: Member Services, Medicare Senior Advantage (Southern California)
+    value: +1-800-443-0815
+    purposes: [claim_denial, claim_delay, billing_error]
+    source: https://healthy.kaiserpermanente.org/southern-california/support/member-services-locations
+    last_verified: 2026-10-12
+  - id: ca-medi-cal-phone
+    type: phone
+    label: Member Services, Medi-Cal members (California)
+    value: +1-855-839-7613
+    hours: 24 hours a day, 7 days a week
+    purposes: [claim_denial, billing_error]
+    notes: TTY 711.
+    source: https://healthy.kaiserpermanente.org/southern-california/shop-plans/medicaid/new-members
+    last_verified: 2026-10-12
+  - id: wa-member-services-phone
+    type: phone
+    label: Member Services, Washington
+    value: +1-888-901-4636
+    purposes: [claim_denial, claim_delay, billing_error]
+    notes: Washington Medicare members call 1-888-901-4600.
+    source: https://healthy.kaiserpermanente.org/washington/support/member-services
+    last_verified: 2026-10-12
+  - id: nw-member-services-phone
+    type: phone
+    label: Membership Services, Northwest (Oregon and Southwest Washington), outside Portland
+    value: +1-800-813-2000
+    purposes: [claim_denial, claim_delay, billing_error]
+    notes: Portland area 503-813-2000. TTY 711.
+    source: https://healthy.kaiserpermanente.org/oregon-washington/facilities/Interstate-Medical-Office-Central-100269/departments/member-and-administrative-services-dlp-106149
+    last_verified: 2026-10-12
+  - id: co-complaint-form
+    type: web_form
+    label: Member grievance/complaint form, Colorado (PDF)
+    value: https://healthy.kaiserpermanente.org/content/dam/kporg/final/documents/forms/member-complaint-form-co-en.pdf
+    purposes: [claim_denial, poor_service]
+    notes: The form lists 303-338-3800 or toll-free 1-800-632-9700 for the Denver/Boulder and Mountain areas.
+    source: https://healthy.kaiserpermanente.org/content/dam/kporg/final/documents/forms/member-complaint-form-co-en.pdf
+    last_verified: 2026-10-12
   - id: complaint-form
     type: web_form
     label: Submit a complaint (file a grievance report)
@@ -64,7 +113,7 @@ channels:
     last_verified: 2026-10-12
 
 escalation:
-  - {rung: frontline, channel: member-services-message, note: "Or the member services number on the back of the member ID card."}
+  - {rung: frontline, channel: member-services-phone, note: "Use the member services number on the back of the member ID card for your region, or send a secure message."}
   - {rung: written_complaint, channel: complaint-form, note: "Grievance or appeal. Track it in the grievance case status page."}
   - {rung: state_agency, agency_kind: insurance_department, note: "External review for fully insured plans; complaint to the state. In California, HMO plans are regulated by the Department of Managed Health Care."}
   - {rung: regulator, regulator: dol-ebsa, note: "Employer self-funded (ERISA) plans."}
@@ -112,7 +161,7 @@ playbooks:
 
 known_blockers:
   - Member services messages, claims summaries and grievance status need a kp.org login.
-  - Kaiser Permanente does not show region member services numbers on public pages without JavaScript; use the number on the member ID card.
+  - Member services numbers differ by region and plan (Medicare, Medi-Cal, choice products); the number on the member ID card takes precedence. Numbers for Colorado, Georgia, Hawaii and Mid-Atlantic were not confirmed for HMO members.
   - The complaint page and EOB give the region-specific appeal procedure.
 
 notes: Kaiser Permanente (Oakland, California) comprises Kaiser Foundation Health Plan, Inc., Kaiser Foundation Hospitals and The Permanente Medical Groups, serving 12.9 million members in nine regions (Northern and Southern California, Hawaii, Colorado, Georgia, Mid-Atlantic States, Northwest, Washington and Nevada). Each region has its own health plan company. Risant Health and its affiliates are outside these figures. Medicare and Medicaid members have their own appeal rules.

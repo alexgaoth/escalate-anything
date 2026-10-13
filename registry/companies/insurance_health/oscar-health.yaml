@@ -32,6 +32,22 @@ channels:
     notes: The form page needs JavaScript; its fields could not be read automatically.
     source: https://www.hioscar.com/forms
     last_verified: 2026-10-12
+  - id: fl-appeals-mail
+    type: mail
+    label: Oscar grievances and appeals, Florida (Attn. Grievances)
+    value: Oscar Insurance, Attn. Grievances, P.O. Box 52146, Phoenix, AZ 85072
+    purposes: [claim_denial, poor_service, billing_error]
+    notes: "From the Florida grievance and appeal form. Fax 888-977-2062; email help@hioscar.com. Other states: check the Evidence of Coverage or the state forms page."
+    source: https://cdn.sanity.io/files/jnbz686p/hioscar_production/382ef1433c60f8cb1c3b1259e8131d33ca2285de.pdf
+    last_verified: 2026-10-12
+  - id: fl-appeal-form
+    type: web_form
+    label: Oscar grievance and appeal form, Florida (PDF)
+    value: https://cdn.sanity.io/files/jnbz686p/hioscar_production/382ef1433c60f8cb1c3b1259e8131d33ca2285de.pdf
+    purposes: [claim_denial, poor_service]
+    notes: Linked as "Oscar Grievance Static Form" on the Florida forms page. Completing the form is optional; a letter works too.
+    source: https://www.hioscar.com/forms/2025/fl
+    last_verified: 2026-10-12
   - id: forms-phone
     type: phone
     label: Help finding forms
@@ -61,9 +77,17 @@ playbooks:
     steps:
       - do: Read the EOB in your account. Ask the Care Team by message or phone for the reason, the appeal deadline and the appeal address.
         channel: account-message
-      - do: File the grievance or appeal in writing as the denial letter instructs, or use the grievance form.
-        channel: grievance-form
+      - do: File the grievance or appeal in writing as the denial letter instructs. Florida members can mail, fax or email the grievance and appeal form.
+        channel: fl-appeals-mail
+      - do: For an urgent appeal where there is imminent danger to life, limb or health, call 855-672-2755.
+        channel: member-services-phone
       - do: After the final internal denial, ask for external review through your state insurance department.
+    facts:
+      - kind: process
+        claim: Oscar's Florida grievance and appeal form says completing the form is optional, lists mail, fax and email for submission, and tells members with an urgent appeal or grievance involving imminent danger to life, limb or health to call 855-672-2755.
+        issues: [claim_denial]
+        source: https://cdn.sanity.io/files/jnbz686p/hioscar_production/382ef1433c60f8cb1c3b1259e8131d33ca2285de.pdf
+        last_verified: 2026-10-12
   - issue: billing_error
     summary: Compare the bill with the EOB, then ask the Care Team.
     evidence: [provider bill, EOB, member ID card]
@@ -98,7 +122,7 @@ playbooks:
         last_verified: 2026-10-12
 
 known_blockers:
-  - Oscar's public appeal pages and FAQ articles did not load for automated readers; appeal deadlines and addresses are in the denial letter and plan documents.
+  - Oscar publishes appeal deadlines in each plan's Evidence of Coverage; only the Florida grievance and appeal address was confirmed.
   - EOBs and Care Team messages need an Oscar account login.
 
 notes: Oscar sells individual and family (IFP) plans on and off the exchange in several states, plus employer products. Appeal rules and external review depend on the state.

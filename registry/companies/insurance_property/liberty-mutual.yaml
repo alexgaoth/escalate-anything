@@ -1,0 +1,113 @@
+id: liberty-mutual
+name: Liberty Mutual
+aliases: [liberty mutual insurance, liberty mutual group, libertymutual]
+sector: insurance_property
+website: https://www.libertymutual.com
+regulators: []
+
+channels:
+  - id: claims-phone
+    type: phone
+    label: Claims support (personal auto and home)
+    value: +1-800-225-2467
+    purposes: [claim_denial, claim_delay]
+    access: open
+    notes: Online claim filing and tracking are available 24/7, 365 days a year.
+    source: https://www.libertymutual.com/customer-support/claims-support
+    last_verified: 2026-10-12
+  - id: customer-service-phone
+    type: phone
+    label: Policy, billing or other service questions (and cancellations)
+    value: +1-800-290-8711
+    purposes: [bill_increase, billing_error, cancel_service, poor_service]
+    notes: Customers who bought through an agency should contact the agent for extra support.
+    source: https://www.libertymutual.com/customer-support
+    last_verified: 2026-10-12
+  - id: claims-center
+    type: portal
+    label: Claims Center (file and track a claim)
+    value: https://www.libertymutual.com/claims-center
+    purposes: [claim_delay, claim_denial]
+    source: https://www.libertymutual.com/customer-support
+    last_verified: 2026-10-12
+  - id: small-business-claims-phone
+    type: phone
+    label: Small business claims (1-844-3-CLAIMS)
+    value: +1-844-325-2467
+    hours: 24/7
+    source: https://www.libertymutual.com/customer-support/claims-support
+    last_verified: 2026-10-12
+  - id: corporate-contact
+    type: mail
+    label: Liberty Mutual Insurance headquarters
+    value: Liberty Mutual Insurance, 175 Berkeley Street, Boston, MA 02116
+    purposes: [claim_denial, poor_service]
+    notes: "Phone 617-357-9500. The corporate contact page also lists a Complaints link under general information and feedback."
+    source: https://www.libertymutualgroup.com/about-lm/corporate-information/contact-us
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: claims-phone, note: "Or the assigned claims representative."}
+  - {rung: supervisor, note: "Ask for the claims representative's manager."}
+  - {rung: written_complaint, channel: corporate-contact, note: "Use the Complaints link on the corporate contact page, or write to headquarters. Ask for the denial and the policy language it relies on, in writing."}
+  - {rung: state_agency, agency_kind: insurance_department, note: "Liberty Mutual's state claim disclosures name the state insurance department for settlement disagreements."}
+  - {rung: arbitration, note: "Liberty Mutual says an insured who disagrees with its determination of the amount of loss can use the policy's appraisal provision."}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: claim_denial
+    summary: Ask for the itemized valuation, dispute in writing, use appraisal for an amount dispute, then complain to the state.
+    evidence: [claim number, denial or settlement letter, itemized valuation, policy and declarations page, photos, estimates, comparable vehicle listings]
+    steps:
+      - do: For a total loss, ask for the itemization of the evaluation. Read your state's claims disclosure on the Liberty Mutual site.
+        channel: claims-center
+      - do: Call claims support. Ask for the reason and the policy language in writing, and give your evidence.
+        channel: claims-phone
+      - do: If you disagree only about the amount of the loss, invoke the appraisal provision of the policy.
+      - do: File a complaint with your state insurance department.
+    facts:
+      - kind: policy
+        claim: Liberty Mutual says that if you are its insured and disagree with its determination of the amount of loss, you are entitled to exercise the appraisal provision of your policy.
+        issues: [claim_denial]
+        source: https://www.libertymutual.com/claims-center/claims-third-party-faqs
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: In New Hampshire, if you disagree with a total-loss value, you can present evidence from 2 reliable sources within 15 days of receipt of the settlement payment that the vehicle had a higher cash value.
+        issues: [claim_denial]
+        source: https://www.libertymutual.com/claims-center/claims-faq/auto-claims-disclosures
+        last_verified: 2026-10-12
+      - kind: contact
+        claim: Liberty Mutual's property claims disclosures list the Texas Department of Insurance (800-252-3439) for Texas property claims.
+        issues: [claim_denial, claim_delay]
+        source: https://www.libertymutual.com/claims-center/claims-faq/property-claims-disclosures
+        last_verified: 2026-10-12
+  - issue: claim_delay
+    summary: Track the claim online, call claims support, then the state insurance department.
+    evidence: [claim number, dates of each contact, documents sent]
+    steps:
+      - do: Track the claim online and send what is missing.
+        channel: claims-center
+      - do: Call claims support and ask for the representative's manager if there is no progress.
+        channel: claims-phone
+      - do: File a complaint with your state insurance department.
+  - issue: bill_increase
+    summary: Review the policy online, then ask service or the agent what changed.
+    evidence: [prior declarations page, renewal declarations page, billing transaction history]
+    steps:
+      - do: Log in online and review the policy and Billing > Transaction History.
+      - do: Call service, or the agent for agency policies, to ask why the premium changed and which discounts apply.
+        channel: customer-service-phone
+
+facts:
+  - kind: policy
+    claim: Liberty Mutual says cancellation fees and process depend on your state's rules, and you can call 800-290-8711 anytime about cancelling.
+    issues: [cancel_service]
+    source: https://www.libertymutual.com/cancelling-your-policy
+    last_verified: 2026-10-12
+
+known_blockers:
+  - libertymutual.com returned 403 to automated page readers on 2026-10-12; values come from official-domain search results.
+  - Policy and claim tracking need sign-in.
+  - Agency-sold policies are serviced through the agent.
+
+notes: Liberty Mutual sells personal auto and home insurance directly and through agents. Claims disclosures and appraisal rules differ by state.

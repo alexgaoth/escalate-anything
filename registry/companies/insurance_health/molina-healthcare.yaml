@@ -1,0 +1,147 @@
+id: molina-healthcare
+name: Molina Healthcare
+aliases: [molina, molina healthcare inc, molina marketplace, connecticare]
+sector: insurance_health
+website: https://www.molinahealthcare.com
+regulators: [dol-ebsa, cms-no-surprises]
+
+channels:
+  - id: fl-marketplace-phone
+    type: phone
+    label: Molina Marketplace member services, Florida
+    value: +1-888-560-5716
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill, poor_service]
+    notes: The Florida contact page also lists a separate Medicaid line; use this one for Marketplace plans.
+    source: https://www.molinahealthcare.com/members/fl/en-us/mem/medicaid/contact.aspx
+    last_verified: 2026-10-12
+  - id: wa-marketplace-appeals-page
+    type: web_form
+    label: Complaints and appeals, Molina Marketplace Washington
+    value: https://www.molinamarketplace.com/marketplace/wa/en-us/Members/Members%20Resources/gna
+    purposes: [claim_denial, poor_service]
+    access: open
+    source: https://www.molinamarketplace.com/marketplace/wa/en-us/Members/Members%20Resources/gna
+    last_verified: 2026-10-12
+  - id: wa-marketplace-phone
+    type: phone
+    label: Molina Marketplace Washington (grievances, appeals and internal review requests)
+    value: +1-888-858-3492
+    purposes: [claim_denial, poor_service]
+    notes: Molina's Washington pages list different hours (8:00 a.m.-5:00 p.m. or 8:00 a.m.-6:00 p.m. PT, Monday-Friday).
+    source: https://www.molinamarketplace.com/marketplace/wa/en-us/Members/Members%20Resources/gna
+    last_verified: 2026-10-12
+  - id: wa-marketplace-appeals-mail
+    type: mail
+    label: Grievance and Appeals Unit, Molina Marketplace Washington
+    value: Molina Healthcare, Grievance and Appeals Unit, P.O. Box 4004, Bothell, WA 98041
+    purposes: [claim_denial, poor_service]
+    notes: Washington Marketplace only. Other states use the address on the denial notice.
+    source: https://www.molinamarketplace.com/marketplace/wa/en-us/Members/Members%20Resources/gna
+    last_verified: 2026-10-12
+  - id: wi-marketplace-appeals-page
+    type: web_form
+    label: Grievances (internal appeals) and external appeals, Molina Marketplace Wisconsin
+    value: https://www.molinahealthcare.com/marketplace/wi/en-us/Members/Members%20Resources/gna
+    purposes: [claim_denial]
+    notes: "Expedited grievance by phone: 1-888-560-2043. External appeal questions: 1-888-866-6205."
+    source: https://www.molinahealthcare.com/marketplace/wi/en-us/Members/Members%20Resources/gna
+    last_verified: 2026-10-12
+  - id: nv-marketplace-appeals-page
+    type: web_form
+    label: Complaints and appeals, Molina Marketplace Nevada
+    value: https://www.molinahealthcare.com/marketplace/nv/en-us/Members/Members%20Resources/gna
+    purposes: [claim_denial, poor_service]
+    notes: "Grievances toll-free 833-644-1623, Mon-Fri 8:00 a.m.-6:00 p.m. Written external review requests go to the Nevada Office for Consumer Health Assistance (702-486-3587 or 888-333-1597)."
+    source: https://www.molinahealthcare.com/marketplace/nv/en-us/Members/Members%20Resources/gna
+    last_verified: 2026-10-12
+  - id: fl-medicaid-appeals-page
+    type: web_form
+    label: Complaints, grievances and appeals, Molina Medicaid Florida
+    value: https://www.molinahealthcare.com/members/fl/en-us/mem/medicaid/overvw/quality/cna/cna.aspx
+    purposes: [claim_denial, poor_service]
+    source: https://www.molinahealthcare.com/members/fl/en-us/mem/medicaid/overvw/quality/cna/cna.aspx
+    last_verified: 2026-10-12
+  - id: mi-medicaid-appeals-page
+    type: web_form
+    label: Medicaid appeals, Molina Michigan
+    value: https://www.molinahealthcare.com/medicaid/mi/appeals
+    purposes: [claim_denial]
+    notes: "Michigan member services (888) 898-7969, Monday-Friday 8:00 a.m.-5:00 p.m. local time."
+    source: https://www.molinahealthcare.com/medicaid/mi/appeals
+    last_verified: 2026-10-12
+  - id: tx-medicaid-phone
+    type: phone
+    label: Molina Texas member services (Medicaid appeals and State Fair Hearing requests)
+    value: +1-866-449-6849
+    purposes: [claim_denial]
+    source: https://www.molinahealthcare.com/members/tx/en-US/mem/information.aspx
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, note: "Call the member services number on the back of the member ID card. Molina numbers differ by state and by Medicaid, Medicare or Marketplace plan."}
+  - {rung: written_complaint, channel: wa-marketplace-appeals-page, note: "Internal grievance or appeal with the state plan, at the address on the denial notice."}
+  - {rung: state_agency, agency_kind: insurance_department, note: "External review for Marketplace plans; Medicaid members can ask for a State Fair Hearing."}
+  - {rung: regulator, regulator: dol-ebsa, note: "Employer self-funded (ERISA) plans."}
+  - {rung: regulator, regulator: cms-no-surprises, note: "Surprise bills under the No Surprises Act."}
+
+playbooks:
+  - issue: claim_denial
+    summary: Appeal to your state Molina plan within 180 days of the denial notice, then ask for external review (Marketplace) or a State Fair Hearing (Medicaid).
+    evidence: [Notice of Adverse Benefit Determination, member ID card, medical records, provider letter of medical necessity]
+    steps:
+      - do: Call the member services number on the ID card. Ask for the reason, the appeal deadline and the appeal address for your state and plan.
+      - do: File the grievance or appeal in writing or by phone. In Washington Marketplace, send it to the Grievance and Appeals Unit in Bothell.
+        channel: wa-marketplace-appeals-mail
+      - do: Marketplace members who disagree with the internal decision can request external review by an Independent Review Organization, in writing.
+        channel: wa-marketplace-appeals-page
+      - do: Medicaid members follow their state appeals page, then ask for a State Fair Hearing (for example Michigan or Texas).
+        channel: mi-medicaid-appeals-page
+    facts:
+      - kind: deadline
+        claim: "Molina's Washington Marketplace grievance and appeals guide: appeal requests must be received within 180 days of receipt of an Adverse Benefit Determination, and internal review or appeal is completed within fourteen (14) calendar days."
+        issues: [claim_denial]
+        source: https://www.molinahealthcare.com/~/media/Molina/PublicWebsite/PDF/providers/wa/Marketplace/grievance-and-appeals.pdf
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: "Molina's Washington Marketplace guide: a grievance can be filed in writing or by phone within 180 days of the incident; Molina acknowledges it within 72 hours and resolves it within 30 calendar days."
+        issues: [claim_denial, poor_service]
+        source: https://www.molinahealthcare.com/~/media/Molina/PublicWebsite/PDF/providers/wa/Marketplace/grievance-and-appeals.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: "Molina's Washington Marketplace guide says external review by an Independent Review Organization is optional and the member pays no application or processing fees."
+        issues: [claim_denial]
+        source: https://www.molinahealthcare.com/~/media/Molina/PublicWebsite/PDF/providers/wa/Marketplace/grievance-and-appeals.pdf
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: For Molina Medicaid in Michigan, you must ask for an External Review within 6 months from the date on the letter that tells you the original appeal decision.
+        issues: [claim_denial]
+        source: https://www.molinahealthcare.com/medicaid/mi/appeals
+        last_verified: 2026-10-12
+  - issue: billing_error
+    summary: Compare the bill with the EOB, call member services, then file a grievance.
+    evidence: [provider bill, EOB, member ID card]
+    steps:
+      - do: Compare the provider bill with the EOB.
+      - do: Call the member services number on the ID card and ask for a correction. Ask the provider to rebill to the EOB amount.
+      - do: If it is not fixed, file a grievance with the state plan.
+  - issue: surprise_medical_bill
+    summary: Compare the bill with the EOB, tell Molina and the provider, then contact the CMS help desk.
+    evidence: [the bill, EOB, member ID card]
+    steps:
+      - do: Compare the bill with the EOB. Note whether it was emergency care or care at an in-network facility.
+      - do: Tell Molina (number on the ID card) and the provider that the bill may be a surprise bill.
+      - do: Contact the CMS No Surprises Help Desk.
+        regulator: cms-no-surprises
+
+facts:
+  - kind: policy
+    claim: Molina's acquisition of ConnectiCare closed effective February 1, 2025. ConnectiCare had about 140,000 members in Marketplace, Medicare and certain commercial products.
+    source: https://investors.molinahealthcare.com/news-releases/news-release-details/molina-healthcare-announces-closing-its-acquisition-connecticare
+    last_verified: 2026-10-12
+
+known_blockers:
+  - molinahealthcare.com blocks automated page readers; values come from official-domain search results.
+  - Molina has no national member services number or appeal address. Each state and plan type (Medicaid, Medicare, Marketplace) has its own.
+  - Several Molina state pages are old and list conflicting numbers and hours; prefer the ID card and the denial notice.
+
+notes: Molina Healthcare, Inc. serves Medicaid, Medicare and state Marketplace members through state plans. ConnectiCare (Connecticut) became part of Molina on February 1, 2025. Medicaid members have State Fair Hearing rights; Medicare members follow Medicare appeal rules.
