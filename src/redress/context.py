@@ -290,6 +290,15 @@ RED_FLAGS: list[tuple[str, str, str]] = [
 ]
 
 
+# How scam_check finds contacts in a message. The website exports these, so keep them plain regexes
+# that JavaScript reads the same way (no Python-only syntax).
+CONTACT_PATTERNS: dict[str, str] = {
+    "url": r"https?://[^\s)>\]\"']+",
+    "email": r"[\w.+-]+@[\w-]+(?:\.[\w-]+)+",
+    "phone": r"(?:\+?1[\s.-]?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}",
+}
+
+
 def scam_check(reg: "Registry", text: str, company: str | None = None) -> dict[str, Any]:
     flags = []
     lowered = text.lower()
@@ -298,9 +307,9 @@ def scam_check(reg: "Registry", text: str, company: str | None = None) -> dict[s
         if m:
             flags.append({"flag": fid, "why": why, "matched": text[max(0, m.start() - 20):m.end() + 20].strip()})
     contacts = set()
-    contacts.update(re.findall(r"https?://[^\s)>\]\"']+", text))
-    contacts.update(re.findall(r"[\w.+-]+@[\w-]+(?:\.[\w-]+)+", text))
-    contacts.update(m.strip() for m in re.findall(r"(?:\+?1[\s.-]?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}", text))
+    contacts.update(re.findall(CONTACT_PATTERNS["url"], text))
+    contacts.update(re.findall(CONTACT_PATTERNS["email"], text))
+    contacts.update(m.strip() for m in re.findall(CONTACT_PATTERNS["phone"], text))
     checks = [verify_contact(reg, c.rstrip(".,;"), company) for c in sorted(contacts)]
     suspicious = [c for c in checks if c["verdict"] in ("not_on_file", "belongs_to_other")]
     level = "high" if flags and (suspicious or len(flags) >= 2) else "medium" if flags or suspicious else "low"
