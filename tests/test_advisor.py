@@ -68,3 +68,10 @@ def test_next_rung():
     assert advisor.next_rung(ladder, [])["rung"] == "frontline"
     assert advisor.next_rung(ladder, ["frontline"])["rung"] == "written_complaint"
     assert advisor.next_rung(ladder, ["regulator"]) is None
+
+
+def test_attorney_general_falls_back_to_consumer_affairs(fixture_registry):
+    fixture_registry.states["hi"] = {"id": "hi", "name": "Hawaii", "agencies": [
+        {"id": "hi-dcca", "kind": "consumer_affairs", "name": "Hawaii DCCA", "channels": []}]}
+    assert [a["id"] for a in advisor.state_agencies(fixture_registry, "HI", "airline", "attorney_general")] == ["hi-dcca"]
+    assert advisor.state_agencies(fixture_registry, "hi", "utility", "utility_commission") == []
