@@ -1,0 +1,107 @@
+id: ky
+name: Kentucky
+agencies:
+  - id: ky-ag
+    kind: attorney_general
+    name: Kentucky Office of the Attorney General, Office of Consumer Protection
+    website: https://www.ag.ky.gov/Resources/Consumer-Resources/Consumers/Pages/Consumer-Complaints.aspx
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer Complaint and Mediation Request form
+        value: https://kyoag.highq.com/kyoag/renderSmartForm.action?formId=078dc72e-bd16-4041-9119-d248b2240c25
+        access: open
+        source: https://www.ag.ky.gov/Resources/Consumer-Resources/Consumers/Pages/Consumer-Complaints.aspx
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Office of the Attorney General (main line)
+        value: +1-502-696-5300
+        source: https://www.ag.ky.gov/Resources/Consumer-Resources/Consumers/Pages/Consumer-Complaints.aspx
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Office of the Attorney General by mail
+        value: Office of the Attorney General, 1024 Capital Center Drive, Suite 200, Frankfort, Kentucky 40601
+        source: https://www.ag.ky.gov/Resources/Consumer-Resources/Consumers/Pages/Consumer-Complaints.aspx
+        last_verified: 2026-10-12
+  - id: ky-puc
+    kind: utility_commission
+    name: Kentucky Public Service Commission
+    covers_sectors: [utility]
+    website: https://psc.ky.gov/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Utility Inquiry Form (file a consumer complaint online)
+        value: https://psc.ky.gov/WebNet/Inquiry
+        access: open
+        notes: The form asks whether you have contacted the utility about the problem.
+        source: https://psc.ky.gov/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer complaint hotline
+        value: +1-800-772-4636
+        source: https://psc.ky.gov/
+        last_verified: 2026-10-12
+    notes: The PSC pages fetched do not say which telecom services (wireless, cable, internet) are within its jurisdiction.
+  - id: ky-insurance
+    kind: insurance_department
+    name: Kentucky Department of Insurance, Division of Consumer Protection
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://insurance.ky.gov/ppc/forms/complaints_home.aspx
+    channels:
+      - id: email
+        type: email
+        label: Division of Consumer Protection (complaints)
+        value: DOI.ConsumerComplaints@ky.gov
+        notes: Complaints use a printable form; instructions at https://insurance.ky.gov/ppc/Documents/KDOI_InstructionsConsumerComplaintForm071824.pdf
+        source: https://insurance.ky.gov/ppc/staff.aspx
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Division of Consumer Protection (toll-free, option 1)
+        value: +1-800-595-6053
+        notes: In-state only (Kentucky only). Choose option 1.
+        source: https://insurance.ky.gov/ppc/staff.aspx
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Division of Consumer Protection
+        value: +1-502-564-6034
+        source: https://insurance.ky.gov/ppc/staff.aspx
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Department of Insurance by mail
+        value: Kentucky Department of Insurance, 500 Mero Street, 2 SE 11, Frankfort, KY 40601
+        source: https://insurance.ky.gov/ppc/staff.aspx
+        last_verified: 2026-10-12
+    notes: The department links a guide to appealing a denial from a health benefit plan (https://insurance.ky.gov/ppc/Documents/abdappeal071217.pdf); its content was not reviewed.
+  - id: ky-financial
+    kind: financial_regulator
+    name: Kentucky Department of Financial Institutions (DFI)
+    covers_sectors: [bank, credit_union, payments]
+    website: https://kfi.ky.gov/newstatic_Info.aspx?static_ID=347
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Electronic complaint form
+        value: https://kfiweb.ky.gov/OnlineComplaintPublic/PublicWebForm.aspx
+        access: open
+        source: https://kfi.ky.gov/newstatic_Info.aspx?static_ID=347
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Department of Financial Institutions
+        value: +1-502-573-3390
+        source: https://kfi.ky.gov/
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Department of Financial Institutions email
+        value: kfi@ky.gov
+        source: https://kfi.ky.gov/
+        last_verified: 2026-10-12
+    notes: DFI regulates state-chartered banks and credit unions, money transmitters, check cashers, mortgage lenders and other consumer lenders. National banks and federal savings banks go to the OCC, federal credit unions to the NCUA. DFI does not regulate credit card companies or auto loans.

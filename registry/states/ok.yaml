@@ -1,0 +1,123 @@
+id: ok
+name: Oklahoma
+agencies:
+  - id: ok-ag
+    kind: attorney_general
+    name: Oklahoma Attorney General, Consumer Protection Unit
+    website: https://oklahoma.gov/oag/about/divisions/cpu.html
+    notes: The Corporation Commission refers internet, cable and satellite TV complaints to the Attorney General.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint form
+        value: https://oklahoma.gov/oag/complaints-tiplines/complaints/consumer.html
+        notes: The Consumer Protection Unit page says to download and complete the form, save it as a PDF, and email it with relevant documents to ConsumerProtection@oag.ok.gov with "Complaint" in the subject line.
+        source: https://oklahoma.gov/oag/about/divisions/cpu.html
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Protection Unit email
+        value: ConsumerProtection@oag.ok.gov
+        source: https://oklahoma.gov/oag/about/divisions/cpu.html
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Protection Unit
+        value: +1-833-681-1895
+        source: https://oklahoma.gov/oag/about/divisions/cpu.html
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Consumer Protection Unit, Oklahoma City
+        value: +1-405-521-2029
+        source: https://oklahoma.gov/oag/about/divisions/cpu.html
+        last_verified: 2026-10-12
+  - id: ok-puc
+    kind: utility_commission
+    name: Oklahoma Corporation Commission, Public Utility Division Consumer Services
+    covers_sectors: [utility]
+    website: https://oklahoma.gov/occ/divisions/public-utility/consumer-services.html
+    notes: Takes complaints about regulated public utility and telecommunications companies. It does not regulate non-lifeline wireless (FCC), internet (provider and Attorney General), cable or satellite TV (provider, local franchising authority and Attorney General), municipal electric, gas or water, or rural water districts.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Public utility complaints (links to the online complaint form for public utility and telecommunications companies)
+        value: https://oklahoma.gov/occ/complaints/public-utility.html
+        notes: Contact the service provider first for billing or service matters. Confirm the company is OCC-regulated before filing.
+        source: https://oklahoma.gov/occ/complaints/public-utility.html
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Consumer Services, toll-free
+        value: +1-800-522-8154
+        hours: Business days 8 a.m.-4:30 p.m.
+        source: https://oklahoma.gov/occ/complaints/public-utility.html
+        last_verified: 2026-10-12
+      - id: consumer-affairs-local
+        type: phone
+        label: Consumer Services, Oklahoma City
+        value: +1-405-521-2331
+        hours: Business days 8 a.m.-4:30 p.m.
+        source: https://oklahoma.gov/occ/complaints/public-utility.html
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Services email
+        value: CS@occ.ok.gov
+        notes: Do not send driver's licenses, Social Security cards or other confidential information by email.
+        source: https://oklahoma.gov/occ/complaints/public-utility.html
+        last_verified: 2026-10-12
+  - id: ok-insurance
+    kind: insurance_department
+    name: Oklahoma Insurance Department
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.oid.ok.gov/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online complaint form (NAIC-hosted)
+        value: https://sbs.naic.org/solar-web/pages/public/onlineComplaintForm/onlineComplaintForm.jsf?state=OK
+        source: https://www.oid.ok.gov/consumers/file-an-online-complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer assistance, toll-free
+        value: +1-800-522-0071
+        source: https://www.oid.ok.gov/consumers/file-an-online-complaint/
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Oklahoma City office
+        value: +1-405-521-2828
+        source: https://www.oid.ok.gov/consumers/file-an-online-complaint/
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: External reviews of health plan decisions are conducted by Independent Review Organizations certified by the Oklahoma Insurance Department, generally after the plan's internal grievance procedure is complete.
+        issues: [claim_denial]
+        source: https://www.oid.ok.gov/consumers/external-review-process/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: You have 4 months from the date of the decision or final decision to request an external review.
+        issues: [claim_denial]
+        source: https://www.oid.ok.gov/consumers/external-review-process/
+        last_verified: 2026-10-12
+  - id: ok-financial
+    kind: financial_regulator
+    name: Oklahoma State Banking Department
+    covers_sectors: [bank, credit_union, payments]
+    website: https://oklahoma.gov/banking.html
+    notes: Regulates state banks, credit unions, trust companies, savings and loans, money order and money transmission companies. Mortgage companies, loan companies, check cashers, finance companies and credit card companies are overseen by other agencies.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Complaints page (bank, credit union and money transmission company complaint forms)
+        value: https://oklahoma.gov/banking/complaints.html
+        source: https://oklahoma.gov/banking/complaints.html
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Banking Department, Oklahoma City
+        value: +1-405-521-2782
+        source: https://oklahoma.gov/banking/complaints.html
+        last_verified: 2026-10-12

@@ -1,0 +1,127 @@
+id: sc
+name: South Carolina
+agencies:
+  - id: sc-ag
+    kind: attorney_general
+    name: South Carolina Attorney General, Consumer Protection and Antitrust
+    website: https://www.scag.gov/inside-the-office/legal-services-division/consumer-protection-antitrust/
+    notes: The Attorney General does not handle individual consumer complaints against businesses. It refers them to the South Carolina Department of Consumer Affairs (agency sc-consumer-affairs).
+    channels:
+      - id: complaint-form
+        type: portal
+        label: SC Department of Consumer Affairs complaint portal (the Attorney General refers complaints here)
+        value: https://applications.sc.gov/DCAComplaintSystem/Login/ConsumerLogin.aspx
+        access: login
+        source: https://www.scag.gov/inside-the-office/legal-services-division/consumer-protection-antitrust/
+        last_verified: 2026-10-12
+  - id: sc-consumer-affairs
+    kind: consumer_affairs
+    name: South Carolina Department of Consumer Affairs
+    website: https://consumer.sc.gov/
+    notes: Takes consumer complaints against businesses. It refers matters under another agency's jurisdiction, for example mortgage and payday lenders to the Consumer Finance Division and insurance companies to the Department of Insurance.
+    channels:
+      - id: complaint-form
+        type: portal
+        label: Consumer complaint portal
+        value: https://applications.sc.gov/DCAComplaintSystem/Login/ConsumerLogin.aspx
+        access: login
+        notes: You must log in or register for an account to file. The department encourages consumers to contact the business first.
+        source: https://consumer.sc.gov/consumer-resources/consumer-complaints
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Affairs, toll-free
+        value: +1-800-922-1594
+        hours: Mon-Fri 8:30 a.m.-5 p.m., except state holidays
+        notes: Toll-free in South Carolina. Other callers use +1-803-734-4200.
+        source: https://consumer.sc.gov/consumer-resources/consumer-complaints
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Consumer Affairs
+        value: +1-803-734-4200
+        source: https://consumer.sc.gov/consumer-resources/consumer-complaints
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Affairs email
+        value: scdca@scconsumer.gov
+        source: https://consumer.sc.gov/consumer-resources/consumer-complaints
+        last_verified: 2026-10-12
+  - id: sc-puc
+    kind: utility_commission
+    name: South Carolina Office of Regulatory Staff
+    covers_sectors: [utility]
+    website: https://ors.sc.gov/
+    notes: The Office of Regulatory Staff, not the Public Service Commission, takes consumer complaints about regulated utilities (including telecommunications) and transportation companies. The pages seen do not say whether it handles wireless, internet or cable TV.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint or make an inquiry
+        value: https://sc.accessgov.com/ors/Forms/Page/ors/comsumercomplaint/0
+        notes: Discuss the matter directly with the utility first.
+        source: https://ors.sc.gov/consumers/resolve-dispute
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Consumer complaints and inquiries, toll-free
+        value: +1-800-922-1531
+        notes: Toll-free within South Carolina. Other callers use +1-803-737-5230.
+        source: https://ors.sc.gov/consumers/resolve-dispute
+        last_verified: 2026-10-12
+      - id: consumer-affairs-local
+        type: phone
+        label: Consumer complaints and inquiries
+        value: +1-803-737-5230
+        source: https://ors.sc.gov/consumers/resolve-dispute
+        last_verified: 2026-10-12
+  - id: sc-insurance
+    kind: insurance_department
+    name: South Carolina Department of Insurance
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://doi.sc.gov/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online complaint form (NAIC-hosted)
+        value: https://sbs.naic.org/solar-web/pages/public/onlineComplaintForm/onlineComplaintForm.jsf?state=SC
+        source: https://doi.sc.gov/8/Consumers
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Services, toll-free
+        value: +1-800-768-3467
+        source: https://doi.sc.gov/8/Consumers
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Consumer Services
+        value: +1-803-737-6180
+        source: https://doi.sc.gov/8/Consumers
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Services email
+        value: consumers@doi.sc.gov
+        source: https://doi.sc.gov/8/Consumers
+        last_verified: 2026-10-12
+  - id: sc-financial
+    kind: financial_regulator
+    name: South Carolina Office of the Commissioner of Banking (State Board of Financial Institutions)
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://banking.sc.gov/
+    notes: Takes complaints about state banks, credit unions and other institutions it regulates. Mortgage lenders, payday lenders and check cashers are under the Consumer Finance Division (https://consumerfinance.sc.gov/).
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Banking complaint form
+        value: https://sc.accessgov.com/banking/Forms/Page/banking/bankingcomplaint
+        notes: The link on banking.sc.gov is wrapped in a urldefense.com redirect; this is the target URL inside it.
+        source: https://banking.sc.gov/
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Main office
+        value: +1-803-734-2001
+        source: https://banking.sc.gov/
+        last_verified: 2026-10-12

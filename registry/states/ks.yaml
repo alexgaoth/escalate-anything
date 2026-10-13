@@ -1,0 +1,73 @@
+id: ks
+name: Kansas
+agencies:
+  - id: ks-puc
+    kind: utility_commission
+    name: Kansas Corporation Commission (KCC), Office of Public Affairs and Consumer Protection
+    covers_sectors: [utility]
+    website: https://kcc.ks.gov/consumer-information
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint (KCC-Connect)
+        value: https://kcc-connect.kcc.ks.gov/s/file-a-complaint
+        notes: The page loads with JavaScript.
+        source: https://kcc.ks.gov/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer inquiries and complaints (toll-free)
+        value: +1-800-662-0027
+        source: https://kcc.ks.gov/contact-us
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Consumer inquiries and complaints
+        value: +1-785-271-3140
+        source: https://kcc.ks.gov/contact-us
+        last_verified: 2026-10-12
+    notes: The KCC lists electric, water and gas providers as jurisdictional utilities. Co-ops and municipal utilities generally do not fall under its jurisdiction. Its jurisdiction page does not mention wireless, cable or internet service.
+  - id: ks-insurance
+    kind: insurance_department
+    name: Kansas Insurance Department, Consumer Assistance
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://insurance.ks.gov/consumer-assistance/
+    channels:
+      - id: hotline
+        type: phone
+        label: Consumer Hotline
+        value: +1-800-432-2484
+        source: https://insurance.ks.gov/consumer-assistance/
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Kansas Insurance Department
+        value: +1-785-296-3071
+        source: https://insurance.ks.gov/consumer-assistance/
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Kansas Insurance Department email
+        value: KDOI@ks.gov
+        source: https://insurance.ks.gov/consumer-assistance/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Kansas Insurance Department by mail
+        value: Kansas Insurance Department, 1300 SW Arrowhead, Topeka, Kansas 66604
+        source: https://insurance.ks.gov/consumer-assistance/
+        last_verified: 2026-10-12
+    notes: The department's site moved to insurance.kansas.gov, which blocks automated fetches; the online complaint form URL was not confirmed.
+  - id: ks-financial
+    kind: financial_regulator
+    name: Kansas Office of the State Bank Commissioner (OSBC), Consumer Affairs
+    covers_sectors: [bank, payments]
+    website: https://osbckansas.gov/consumers/file-a-complaint/
+    channels:
+      - id: phone
+        type: phone
+        label: OSBC main office (starts the Consumer Affairs complaint process)
+        value: +1-785-380-3939
+        source: https://osbckansas.gov/consumers/file-a-complaint/
+        last_verified: 2026-10-12
+    notes: To begin a complaint, call the main office; there is no online form. OSBC regulates Kansas state-chartered banks and money transmitters. Kansas-chartered credit unions are regulated by the Kansas Department of Credit Unions.

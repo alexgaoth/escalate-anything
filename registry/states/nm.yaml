@@ -1,0 +1,61 @@
+id: nm
+name: New Mexico
+agencies:
+  - id: nm-puc
+    kind: utility_commission
+    name: New Mexico Public Regulation Commission, Consumer Relations Division
+    covers_sectors: [utility]
+    website: https://www.prc.nm.gov/
+    notes: The informal complaint form covers utilities and telecommunications. The commission's company directory lists electric, gas, water, sewer and telecommunications companies and cooperatives. The pages seen do not say whether it takes wireless, internet or cable TV complaints.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Utility/telecommunications informal complaint form
+        value: https://complaints.nm-prc.org/
+        notes: The commission strongly suggests discussing the issue with the company first.
+        source: https://www.prc.nm.gov/consumer-relations/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Consumer Relations, toll-free
+        value: +1-888-427-5772
+        source: https://www.prc.nm.gov/consumer-relations/consumer-relations-contact-us/
+        last_verified: 2026-10-12
+  - id: nm-insurance
+    kind: insurance_department
+    name: New Mexico Office of Superintendent of Insurance
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.osi.state.nm.us/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Home, auto and life insurance complaint form (NAIC-hosted)
+        value: https://sbs.naic.org/solar-web/pages/public/onlineComplaintForm/onlineComplaintForm.jsf?state=NM
+        source: https://osi.state.nm.us/en/complaints/
+        last_verified: 2026-10-12
+      - id: health-complaint-form
+        type: web_form
+        label: Managed health care complaint form
+        value: https://osi.state.nm.us/en/mhcb-complaint/
+        source: https://osi.state.nm.us/en/complaints/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer assistance
+        value: +1-855-427-5674
+        source: https://osi.state.nm.us/en/complaints/
+        last_verified: 2026-10-12
+  - id: nm-financial
+    kind: financial_regulator
+    name: New Mexico Regulation and Licensing Department, Financial Institutions Division
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://www.rld.nm.gov/financial-institutions/
+    notes: Covers state-chartered banks and credit unions, consumer lenders, money service businesses, mortgage companies and collection agencies.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint (PDF form, emailed to the industry manager)
+        value: https://www.rld.nm.gov/help-center/file-a-complaint/
+        notes: Download the complaint form and email it with documents to the industry manager for the type of company named on this page. No phone number is listed for these complaints.
+        source: https://www.rld.nm.gov/help-center/file-a-complaint/
+        last_verified: 2026-10-12

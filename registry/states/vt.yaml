@@ -1,0 +1,131 @@
+id: vt
+name: Vermont
+agencies:
+  - id: vt-ag
+    kind: attorney_general
+    name: Vermont Attorney General's Office, Consumer Assistance Program
+    website: https://ago.vermont.gov/cap
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer Assistance Program complaint form
+        value: https://ago.vermont.gov/consumer-assistance-program-complaint-form
+        source: https://ago.vermont.gov/cap/get-help-consumer-complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Assistance Program, toll-free
+        value: +1-800-649-2424
+        source: https://ago.vermont.gov/cap/get-help-consumer-complaint
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Consumer Assistance Program
+        value: +1-802-828-3171
+        source: https://ago.vermont.gov/cap/get-help-consumer-complaint
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Assistance Program email
+        value: AGO.CAP@vermont.gov
+        source: https://ago.vermont.gov/cap/get-help-consumer-complaint
+        last_verified: 2026-10-12
+  - id: vt-puc
+    kind: utility_commission
+    name: Vermont Department of Public Service, Consumer Affairs and Public Information (CAPI)
+    covers_sectors: [utility]
+    website: https://publicservice.vermont.gov/consumer-affairs-and-public-information
+    notes: The Department of Public Service (not the Public Utility Commission) runs CAPI, which helps consumers reach informal resolution of disputes with regulated utilities; the department covers energy, telecommunications, water and wastewater. The pages seen do not say whether it handles wireless, internet or cable TV complaints, and refer federal-regulation concerns to the FCC.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online utility complaint form
+        value: https://capi.epsd.vermont.gov/?q=node/51
+        notes: While uploads are unavailable, email attachments to PSD.Consumer@vermont.gov.
+        source: https://publicservice.vermont.gov/complaint-reporting-and-information
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: CAPI hotline
+        value: +1-800-622-4496
+        hours: Mon-Fri 7:45 a.m.-4:30 p.m. (department office hours)
+        source: https://publicservice.vermont.gov/contact
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer email
+        value: psd.consumer@vermont.gov
+        source: https://publicservice.vermont.gov/contact
+        last_verified: 2026-10-12
+  - id: vt-insurance
+    kind: insurance_department
+    name: Vermont Department of Financial Regulation, Insurance Division
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://dfr.vermont.gov/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online insurance complaint form (NAIC-hosted)
+        value: https://sbs.naic.org/solar-web/pages/public/onlineComplaintForm/onlineComplaintForm.jsf?state=VT
+        source: https://dfr.vermont.gov/consumers/file-complaint/insurance/insurance-complaints
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Insurance help line
+        value: +1-800-964-1784
+        source: https://dfr.vermont.gov/consumers/file-complaint/insurance/insurance-complaints
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Insurance consumers
+        value: +1-802-828-3302
+        source: https://dfr.vermont.gov/consumers/file-complaint/insurance/insurance-complaints
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Insurance information email
+        value: dfr.insuranceinfo@vermont.gov
+        source: https://dfr.vermont.gov/consumers/file-complaint/insurance/insurance-complaints
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: After the insurer's first-level internal appeal, DFR forwards a health claim denial to an Independent Review Organization, an independent third party unrelated to the insurer or consumer, which decides the external appeal.
+        issues: [claim_denial]
+        source: https://dfr.vermont.gov/consumers/file-complaint/insurance/healthcare-external-appeal
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Request the external appeal within 120 days or 4 months (whichever is longer) of receiving the insurer's final denial letter.
+        issues: [claim_denial]
+        source: https://dfr.vermont.gov/consumers/file-complaint/insurance/healthcare-external-appeal
+        last_verified: 2026-10-12
+  - id: vt-financial
+    kind: financial_regulator
+    name: Vermont Department of Financial Regulation, Banking Division
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://dfr.vermont.gov/
+    notes: Covers state-chartered banks and credit unions and licensed providers such as mortgage companies, lenders, money transmitters and debt adjusters. National banks go to the OCC, federal credit unions to the NCUA.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Banking consumer complaint form
+        value: https://dfr.vermont.gov/form/banking-consumer-complaint-form
+        source: https://dfr.vermont.gov/consumers/file-complaint/banking
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Banking Division
+        value: +1-802-828-3307
+        source: https://dfr.vermont.gov/consumers/file-complaint/banking
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: DFR toll-free
+        value: +1-833-337-4685
+        source: https://dfr.vermont.gov/consumers/file-complaint/banking
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Banking consumer email
+        value: dfr.bnkconsumer@vermont.gov
+        source: https://dfr.vermont.gov/consumers/file-complaint/banking
+        last_verified: 2026-10-12

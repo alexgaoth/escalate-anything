@@ -1,0 +1,137 @@
+id: me
+name: Maine
+agencies:
+  - id: me-ag
+    kind: attorney_general
+    name: Maine Attorney General, Consumer Protection Division
+    website: https://www.maine.gov/ag/consumer/complaints/index.shtml
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint about a business
+        value: https://www.maine.gov/ag/online-services/complaint-form
+        access: open
+        source: https://www.maine.gov/ag/consumer/complaints/index.shtml
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Protection (toll-free)
+        value: +1-800-436-2131
+        hours: Monday through Thursday, 9 A.M. to noon
+        source: https://www.maine.gov/ag/about-us/contact-us
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Consumer Protection
+        value: +1-207-626-8849
+        hours: Monday through Thursday, 9 A.M. to noon
+        source: https://www.maine.gov/ag/about-us/contact-us
+        last_verified: 2026-10-12
+  - id: me-puc
+    kind: utility_commission
+    name: Maine Public Utilities Commission, Consumer Assistance and Safety Division
+    covers_sectors: [utility]
+    website: https://www.maine.gov/mpuc/consumer-assistance/file-complaint
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Residential customer complaint form
+        value: https://mpuc-cms.maine.gov/CQM.Public.WebUI/CAD/CADResidentialComplaint.aspx
+        access: open
+        source: https://www.maine.gov/mpuc/consumer-assistance/file-complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Assistance Hotline
+        value: +1-800-452-4699
+        hours: Monday through Friday, 9:00 a.m. to 4:00 p.m.
+        source: https://www.maine.gov/mpuc/consumer-assistance/file-complaint
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: MPUC by mail
+        value: Maine Public Utilities Commission, 18 State House Station, Augusta, ME 04333-0018
+        source: https://www.maine.gov/mpuc/consumer-assistance
+        last_verified: 2026-10-12
+    notes: You must first contact the utility and try to resolve the complaint, except for slamming and cramming on telephone service. The Commission regulates electric, telephone (landline), water and natural gas utilities. It does not regulate cable TV companies, cellular or wireless phone companies (except some aspects of Unicel's service), propane, sewer districts or fuel oil. Internet service is not mentioned.
+  - id: me-insurance
+    kind: insurance_department
+    name: Maine Bureau of Insurance
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.maine.gov/pfr/insurance/consumers/file-a-complaint-dispute
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Health, life, annuity, long-term care, disability and Medicare supplement complaint form
+        value: https://www.maine.gov/pfr/insurance/consumers/file-a-complaint-dispute/life-health-complaint-form
+        access: open
+        source: https://www.maine.gov/pfr/insurance/consumers/file-a-complaint-dispute
+        last_verified: 2026-10-12
+      - id: complaint-form-property
+        type: web_form
+        label: Property and casualty complaint form
+        value: https://www.maine.gov/pfr/insurance/consumers/file-a-complaint-dispute/property-casualty-complaint-form
+        access: open
+        source: https://www.maine.gov/pfr/insurance/consumers/file-a-complaint-dispute
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Bureau of Insurance (toll-free)
+        value: +1-800-300-5000
+        source: https://www.maine.gov/pfr/insurance/consumers/file-a-complaint-dispute
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Bureau of Insurance
+        value: +1-207-624-8475
+        source: https://www.maine.gov/pfr/insurance/consumers/file-a-complaint-dispute
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Complaint by email (subject "Consumer Complaint")
+        value: insurance.pfr@maine.gov
+        source: https://www.maine.gov/pfr/insurance/consumers/file-a-complaint-dispute
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Complaint by mail
+        value: Bureau of Insurance, 34 State House Station, Augusta, ME 04333
+        source: https://www.maine.gov/pfr/insurance/consumers/file-a-complaint-dispute
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: For certain out-of-network emergency service bills, the Bureau offers independent dispute resolution through IMPROVE Health; the arbitrator issues a written decision within 30 calendar days after a completed application.
+        source: https://www.maine.gov/pfr/insurance/Consumers/independent-dispute-resolution
+        last_verified: 2026-10-12
+  - id: me-financial
+    kind: financial_regulator
+    name: Maine Bureau of Financial Institutions, Consumer Outreach Program
+    covers_sectors: [bank, credit_union]
+    website: https://www.maine.gov/pfr/financialinstitutions/consumer-tools/complaints
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Inquiries and assistance online form
+        value: https://me.accessgov.com/financialinstitutions/Forms/Page/financialinstitutions/inquiryandassistance/
+        access: open
+        source: https://www.maine.gov/pfr/financialinstitutions/consumer-tools/complaints
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Bureau of Financial Institutions (800 number)
+        value: +1-800-965-5235
+        source: https://www.maine.gov/pfr/financialinstitutions/consumer-tools/complaints
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Bureau of Financial Institutions
+        value: +1-207-624-8570
+        source: https://www.maine.gov/pfr/financialinstitutions/consumer-tools/complaints
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Complaint by mail
+        value: Maine Bureau of Financial Institutions, Consumer Outreach Program, 36 State House Station, Augusta, ME 04333-0036
+        source: https://www.maine.gov/pfr/financialinstitutions/consumer-tools/complaints
+        last_verified: 2026-10-12
+    notes: The Bureau is not the primary regulator of all banks and credit unions doing business in Maine; it may refer you to the right state or federal regulator.

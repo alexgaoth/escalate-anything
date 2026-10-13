@@ -1,0 +1,22 @@
+id: co
+name: Colorado
+agencies:
+  - id: co-ag
+    kind: attorney_general
+    name: Colorado Attorney General, Consumer Protection (Stop Fraud Colorado)
+    website: https://stopfraudcolorado.gov/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint
+        value: https://coag.gov/file-complaint/
+        access: open
+        notes: Linked as "File a Complaint" from the Attorney General's Stop Fraud Colorado site. The page loads its content with JavaScript.
+        source: https://stopfraudcolorado.gov/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Colorado Attorney General, Stop Fraud Colorado
+        value: +1-800-222-4444
+        source: https://stopfraudcolorado.gov/
+        last_verified: 2026-10-12

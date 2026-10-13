@@ -1,0 +1,21 @@
+id: oh
+name: Ohio
+agencies:
+  - id: oh-ag
+    kind: attorney_general
+    name: Ohio Attorney General, Consumer Protection Section
+    website: https://www.ohioattorneygeneral.gov/about-ag/service-divisions/consumer-protection
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint
+        value: https://filecomplaint.ohioattorneygeneral.gov/
+        notes: A printable consumer complaint form is at https://www.ohioattorneygeneral.gov/Files/Forms/Forms-for-Consumers/ConsumerComplaintForm.aspx.
+        source: https://www.ohioattorneygeneral.gov/Individuals-and-Families/Consumers/File-a-Complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: AGO Help Center, toll-free
+        value: +1-800-282-0515
+        source: https://www.ohioattorneygeneral.gov/about-ag/service-divisions/consumer-protection
+        last_verified: 2026-10-12

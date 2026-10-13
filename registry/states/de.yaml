@@ -1,0 +1,117 @@
+id: de
+name: Delaware
+agencies:
+  - id: de-ag
+    kind: attorney_general
+    name: Delaware Department of Justice, Consumer Protection Unit
+    website: https://attorneygeneral.delaware.gov/fraud/cpu/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint form
+        value: https://attorneygeneral.delaware.gov/fraud/cpu/complaint/
+        access: open
+        source: https://attorneygeneral.delaware.gov/fraud/cpu/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Protection Unit (help with the complaint form)
+        value: +1-800-220-5424
+        source: https://attorneygeneral.delaware.gov/fraud/cpu/complaint/
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Protection Unit email
+        value: consumer.protection@delaware.gov
+        source: https://attorneygeneral.delaware.gov/fraud/cpu/complaint/
+        last_verified: 2026-10-12
+  - id: de-puc
+    kind: utility_commission
+    name: Delaware Public Service Commission
+    covers_sectors: [utility]
+    website: https://depsc.delaware.gov/customer-assistance/
+    channels:
+      - id: phone
+        type: phone
+        label: Public Service Commission
+        value: +1-302-736-7500
+        source: https://depsc.delaware.gov/contact-information/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Public Service Commission (800 number)
+        value: +1-800-282-8574
+        source: https://depsc.delaware.gov/contact-information/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Public Service Commission by mail
+        value: Delaware Public Service Commission, Cannon Building, 861 Silver Lake Boulevard, Suite 100, Dover, DE 19904
+        source: https://depsc.delaware.gov/contact-information/
+        last_verified: 2026-10-12
+    notes: The Commission addresses only formal complaints (https://depsc.delaware.gov/formal-complaint-process/). Consumers are urged to contact the utility first; if that fails, the Division of the Public Advocate can help. The PSC says SafeLink Wireless is not regulated by it. The site has cable and telecommunications pages but does not say whether it takes wireless or internet complaints.
+  - id: de-insurance
+    kind: insurance_department
+    name: Delaware Department of Insurance, Consumer Services Division
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://insurance.delaware.gov/services/filecomplaint/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online complaint form (NAIC system)
+        value: https://sbs.naic.org/solar-web/pages/public/onlineComplaintForm/onlineComplaintForm.jsf?state=DE
+        access: open
+        notes: Contact the insurer, agent or adjuster first. Do not use the online form if you have already contacted the department about the same matter.
+        source: https://insurance.delaware.gov/services/filecomplaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Services (toll-free)
+        value: +1-800-282-8611
+        notes: Listed as the number to call "in Delaware".
+        source: https://insurance.delaware.gov/services/filecomplaint/
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Consumer Services
+        value: +1-302-674-7310
+        source: https://insurance.delaware.gov/services/filecomplaint/
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Services email
+        value: consumer@delaware.gov
+        source: https://insurance.delaware.gov/services/filecomplaint/
+        last_verified: 2026-10-12
+    facts:
+      - kind: deadline
+        claim: Through the Independent Health Care Appeals Program, a covered person can file a request for an external appeal within 4 months from receiving an adverse claim decision.
+        source: https://insurance.delaware.gov/divisions/consumerhp/ihcap/
+        last_verified: 2026-10-12
+  - id: de-financial
+    kind: financial_regulator
+    name: Delaware Office of the State Bank Commissioner
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://banking.delaware.gov/consumer-complaints/
+    channels:
+      - id: email
+        type: email
+        label: Written complaint by email
+        value: bankcommissioner@delaware.gov
+        notes: Complaints that need investigation must be in writing. PDF form at https://banking.delaware.gov/wp-content/uploads/sites/73/2019/07/WEB-Complaint-Form-July-2019.pdf
+        source: https://banking.delaware.gov/consumer-complaints/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Written complaint by mail
+        value: Office of the State Bank Commissioner, Attention Compliance, 1110 Forrest Avenue, Dover, DE 19904
+        source: https://banking.delaware.gov/consumer-complaints/
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Compliance staff
+        value: +1-302-739-4235
+        hours: 8:00 am to 4:30 pm, Monday through Friday
+        source: https://banking.delaware.gov/consumer-complaints/
+        last_verified: 2026-10-12
+    notes: Handles complaints about state-chartered financial institutions in Delaware, mortgage and small loan companies, preneed funeral contracts and check cashing.

@@ -1,0 +1,119 @@
+id: ak
+name: Alaska
+agencies:
+  - id: ak-ag
+    kind: attorney_general
+    name: Alaska Department of Law, Consumer Protection Unit
+    website: https://law.alaska.gov/department/civil/consumer/cp_complaint.html
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint form
+        value: https://law.alaska.gov/department/civil/consumer/complaint-form.html
+        access: open
+        source: https://law.alaska.gov/department/civil/consumer/cp_complaint.html
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Protection Unit
+        value: +1-907-269-5200
+        source: https://law.alaska.gov/department/civil/consumer/cp_complaint.html
+        last_verified: 2026-10-12
+      - id: hotline-toll-free
+        type: phone
+        label: Consumer Protection Unit (toll-free outside Anchorage)
+        value: +1-888-576-2529
+        notes: Toll-free outside Anchorage.
+        source: https://law.alaska.gov/department/civil/consumer/cp_complaint.html
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Protection Unit email
+        value: consumerprotection@alaska.gov
+        source: https://law.alaska.gov/department/civil/consumer/cp_complaint.html
+        last_verified: 2026-10-12
+  - id: ak-puc
+    kind: utility_commission
+    name: Regulatory Commission of Alaska, Consumer Protection and Information Section
+    covers_sectors: [utility]
+    website: https://rca.alaska.gov/RCAWeb/ContactUs/ContactInfo.aspx
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Informal complaint form
+        value: https://rca.alaska.gov/RCAWeb/ForConsumers/SubmitInformalComplaint.aspx
+        access: open
+        notes: Do not put social security, account or card numbers on the form; filings may become public record after the informal investigation.
+        source: https://rca.alaska.gov/RCAWeb/ForConsumers/SubmitInformalComplaint.aspx
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Protection mailbox
+        value: cp.mail@alaska.gov
+        source: https://rca.alaska.gov/RCAWeb/ContactUs/ContactInfo.aspx
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Regulatory Commission of Alaska (Anchorage)
+        value: +1-907-276-6222
+        source: https://rca.alaska.gov/RCAWeb/ContactUs/ContactInfo.aspx
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Regulatory Commission of Alaska (toll-free)
+        value: +1-800-390-2782
+        notes: In-state only (outside Anchorage, within Alaska).
+        source: https://rca.alaska.gov/RCAWeb/ContactUs/ContactInfo.aspx
+        last_verified: 2026-10-12
+    notes: Try to resolve the problem with the utility first. The RCA says that, due to federal preemption, it does not regulate cable, internet or wireless services, and Senate Bill 83 (effective November 27, 2019) limits its telecom complaint work. The rca.alaska.gov site blocks automated fetches; values were confirmed from search snippets of the official pages.
+  - id: ak-insurance
+    kind: insurance_department
+    name: Alaska Division of Insurance, Consumer Services
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.commerce.alaska.gov/web/ins/Consumers/Complaints/FileAComplaint.aspx
+    channels:
+      - id: email
+        type: email
+        label: Complaint form by email
+        value: insurance@alaska.gov
+        notes: Send the Insurance Inquiry / Consumer Complaint Form (PDF https://www.commerce.alaska.gov/web/portals/11/pub/Consumers/complaint-form.pdf). Documentation must be received within 10 days of filing or the case can be closed.
+        source: https://www.commerce.alaska.gov/web/portals/11/pub/Consumers/complaint-form.pdf
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Complaint form by mail
+        value: Alaska Division of Insurance, Attn. Consumer Services, 550 West 7th Avenue, Suite 1560, Anchorage, AK 99501
+        source: https://www.commerce.alaska.gov/web/portals/11/pub/Consumers/complaint-form.pdf
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Consumer Services Office (Anchorage)
+        value: +1-907-269-7900
+        source: https://www.commerce.alaska.gov/web/portals/11/pub/Consumers/complaint-form.pdf
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Services Office (toll-free)
+        value: +1-800-467-8725
+        notes: In-state only, outside Anchorage.
+        source: https://www.commerce.alaska.gov/web/Portals/11/Pub/INS_HomeownersInsuranceGuide.pdf
+        last_verified: 2026-10-12
+    notes: The division also has an online filing link on its File a Consumer Complaint page, but commerce.alaska.gov blocks automated fetches, so the online form URL is not recorded.
+  - id: ak-financial
+    kind: financial_regulator
+    name: Alaska Division of Banking and Securities
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    channels:
+      - id: mail
+        type: mail
+        label: General complaint form by mail
+        value: Division of Banking & Securities, 550 W. 7th Avenue, Suite 1850, Anchorage, Alaska 99501
+        notes: Use the PDF general complaint form https://www.commerce.alaska.gov/web/portals/3/pub/DBSGeneralComplaintFormupdated.pdf. It covers state-chartered banks, credit unions and trust companies among other licensees.
+        source: https://www.commerce.alaska.gov/web/portals/3/pub/DBSGeneralComplaintFormupdated.pdf
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Division of Banking and Securities
+        value: +1-907-269-8140
+        source: https://www.commerce.alaska.gov/web/portals/3/pub/DBSGeneralComplaintFormupdated.pdf
+        last_verified: 2026-10-12

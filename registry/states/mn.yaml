@@ -1,0 +1,132 @@
+id: mn
+name: Minnesota
+agencies:
+  - id: mn-ag
+    kind: attorney_general
+    name: Minnesota Attorney General's Office
+    website: https://www.ag.state.mn.us/Office/Complaint.asp
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online Consumer Assistance Request Form
+        value: https://www.ag.state.mn.us/Office/Forms/ConsumerAssistanceRequest.asp
+        access: open
+        source: https://www.ag.state.mn.us/Office/Complaint.asp
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Attorney General's Office (Twin Cities calling area)
+        value: +1-651-296-3353
+        source: https://www.ag.state.mn.us/Office/Complaint.asp
+        last_verified: 2026-10-12
+      - id: hotline-outside-metro
+        type: phone
+        label: Attorney General's Office (outside the Twin Cities)
+        value: +1-800-657-3787
+        source: https://www.ag.state.mn.us/Office/Complaint.asp
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Attorney General's Office by mail
+        value: Office of Minnesota Attorney General, 445 Minnesota Street, Suite 600, St. Paul, MN 55101
+        source: https://www.ag.state.mn.us/Office/Complaint.asp
+        last_verified: 2026-10-12
+  - id: mn-puc
+    kind: utility_commission
+    name: Minnesota Public Utilities Commission, Consumer Affairs Office
+    covers_sectors: [utility]
+    website: https://mn.gov/puc/consumers/help/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Utility complaints
+        value: https://mn.gov/puc/consumers/complaint/index.jsp
+        notes: mn.gov serves a bot check to automated clients.
+        access: captcha
+        source: https://mn.gov/puc/consumers/help/
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Consumer Affairs Office
+        value: +1-651-296-0406
+        source: https://mn.gov/puc/consumers/help/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Affairs Office (800 number)
+        value: +1-800-657-3782
+        source: https://mn.gov/puc/consumers/help/
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Affairs Office email
+        value: consumer.puc@state.mn.us
+        source: https://mn.gov/puc/consumers/help/
+        last_verified: 2026-10-12
+    notes: The Consumer Affairs Office helps with complaints about energy and telecommunications utility services (service quality, billing, disconnections). Its page does not say whether wireless, cable or internet service is covered.
+  - id: mn-insurance
+    kind: insurance_department
+    name: Minnesota Department of Commerce
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://mn.gov/commerce/consumers/file-a-complaint/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint (Department of Commerce)
+        value: https://mn.gov/commerce/consumer/file-a-complaint/index.jsp
+        access: captcha
+        notes: mn.gov serves a bot check to automated clients.
+        source: https://mn.gov/commerce/consumers/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Complaints
+        value: +1-651-539-1600
+        source: https://mn.gov/commerce/consumers/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Greater Minnesota
+        value: +1-800-657-3602
+        source: https://mn.gov/commerce/consumers/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Department of Commerce by mail
+        value: Minnesota Department of Commerce, 85 7th Place East, Suite 292, Saint Paul, MN 55101
+        source: https://mn.gov/commerce/consumers/file-a-complaint/
+        last_verified: 2026-10-12
+    notes: The department has an external review page for health insurance denials (https://mn.gov/commerce/insurance/health/consumer-protections/external-review.jsp); its content could not be read.
+  - id: mn-financial
+    kind: financial_regulator
+    name: Minnesota Department of Commerce, Financial Institutions
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://mn.gov/commerce/consumers/file-a-complaint/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Banking complaints
+        value: https://mn.gov/commerce/consumer/file-a-complaint/bank-complaints.jsp
+        access: captcha
+        notes: mn.gov serves a bot check to automated clients.
+        source: https://mn.gov/commerce/consumers/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: complaint-form-credit-union
+        type: web_form
+        label: Credit union complaints
+        value: https://mn.gov/commerce/consumer/file-a-complaint/cu-complaints.jsp
+        access: captcha
+        source: https://mn.gov/commerce/consumers/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Complaints
+        value: +1-651-539-1600
+        source: https://mn.gov/commerce/consumers/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Greater Minnesota
+        value: +1-800-657-3602
+        source: https://mn.gov/commerce/consumers/file-a-complaint/
+        last_verified: 2026-10-12

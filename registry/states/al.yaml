@@ -1,0 +1,132 @@
+id: al
+name: Alabama
+agencies:
+  - id: al-ag
+    kind: attorney_general
+    name: Alabama Attorney General, Consumer Interest Division
+    website: https://www.alabamaag.gov/consumer-complaint/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint form
+        value: https://www.alabamaag.gov/consumer-complaint/
+        access: open
+        notes: The form is on this page. Supplemental documents can go to ConsumerInterest@AlabamaAG.gov after filing.
+        source: https://www.alabamaag.gov/consumer-complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer hotline (toll-free)
+        value: +1-800-392-5658
+        source: https://www.alabamaag.gov/consumer-complaint/
+        last_verified: 2026-10-12
+      - id: hotline-local
+        type: phone
+        label: Consumer hotline (local)
+        value: +1-334-242-7335
+        source: https://www.alabamaag.gov/consumer-complaint/
+        last_verified: 2026-10-12
+  - id: al-puc
+    kind: utility_commission
+    name: Alabama Public Service Commission, Consumer Services Section
+    covers_sectors: [utility]
+    website: https://psc.alabama.gov/consumers/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online complaint form
+        value: https://psc.alabama.gov/file-a-complaint/
+        access: open
+        source: https://psc.alabama.gov/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Services (toll-free)
+        value: +1-800-392-8050
+        hours: 8 a.m. to 5 p.m., Monday through Friday (excluding holidays)
+        source: https://psc.alabama.gov/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Consumer Services (local)
+        value: +1-334-242-5211
+        hours: 8 a.m. to 5 p.m., Monday through Friday (excluding holidays)
+        source: https://psc.alabama.gov/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Written complaint
+        value: Alabama Public Service Commission, Attn. Consumer Service Section, PO Box 304260, Montgomery, AL 36130
+        source: https://psc.alabama.gov/file-a-complaint/
+        last_verified: 2026-10-12
+    notes: The commission asks consumers to contact the utility first. It does not regulate electric cooperatives, most water companies, municipal utilities, wireless services, cable TV systems, or the Tennessee Valley Authority, and cannot resolve complaints about them.
+  - id: al-insurance
+    kind: insurance_department
+    name: Alabama Department of Insurance, Consumer Services Division
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://aldoi.gov/consumers/filecomplaint.aspx
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online consumer complaint form (NAIC system)
+        value: https://sbs.naic.org/solar-web/pages/public/onlineComplaintForm/onlineComplaintForm.jsf?state=al
+        access: open
+        notes: Contact the insurer or producer first.
+        source: https://aldoi.gov/consumers/filecomplaint.aspx
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Services (toll-free)
+        value: +1-800-433-3966
+        source: https://aldoi.gov/contactus.aspx
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Consumer Services (local)
+        value: +1-334-241-4141
+        source: https://aldoi.gov/contactus.aspx
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Services email
+        value: ConsumerServices@insurance.alabama.gov
+        source: https://aldoi.gov/contactus.aspx
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: A denied health insurance claim has a first-level internal appeal with the insurer, then a second-level external review by an independent third party.
+        source: https://aldoi.gov/currentnewsitem.aspx?ID=1317
+        last_verified: 2026-10-12
+    notes: The department does not act when the consumer has an attorney.
+  - id: al-financial
+    kind: financial_regulator
+    name: Alabama State Banking Department
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://banking.alabama.gov/con_affairs/file-a-complaint/
+    channels:
+      - id: email
+        type: email
+        label: Consumer Affairs, complaints about banks
+        value: Consumer.Banking@banking.alabama.gov
+        notes: Complete the PDF complaint form https://banking.alabama.gov/wp-content/uploads/2023/06/ComplaintForm_Apr09.pdf and send it.
+        source: https://banking.alabama.gov/con_affairs/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: email-lending
+        type: email
+        label: Consumer Lending, complaints about finance, mortgage, pawn and payday lenders
+        value: Consumer.Lending@banking.alabama.gov
+        source: https://banking.alabama.gov/con_affairs/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Complaint form by mail (banks)
+        value: State of Alabama, State Banking Department, ATTN Consumer Affairs, P.O. Box 4600, Montgomery, AL 36103-4600
+        source: https://banking.alabama.gov/con_affairs/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: State Banking Department (toll-free)
+        value: +1-866-465-2279
+        source: https://banking.alabama.gov/con_affairs/file-a-complaint/
+        last_verified: 2026-10-12
+    notes: No online form. The department takes a PDF complaint form by email or mail.

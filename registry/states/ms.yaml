@@ -1,0 +1,119 @@
+id: ms
+name: Mississippi
+agencies:
+  - id: ms-ag
+    kind: attorney_general
+    name: Mississippi Attorney General's Office, Consumer Protection Division
+    website: https://www.ago.state.ms.us/divisions/consumer-protection/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint form
+        value: https://portal.ago.ms.gov/public/?q=node/403
+        source: https://www.ago.state.ms.us/divisions/consumer-protection/
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Attorney General's Office (Contact Us)
+        value: +1-601-359-3680
+        source: https://www.ago.state.ms.us/divisions/consumer-protection/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Attorney General's Office by mail
+        value: Mississippi Attorney General's Office, P.O. Box 220, Jackson MS 39205
+        source: https://www.ago.state.ms.us/divisions/consumer-protection/
+        last_verified: 2026-10-12
+    notes: The ago.state.ms.us page redirects to attorneygenerallynnfitch.com, where these values were read.
+  - id: ms-puc
+    kind: utility_commission
+    name: Mississippi Public Service Commission
+    covers_sectors: [utility]
+    website: https://www.psc.ms.gov/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a utility complaint
+        value: https://ctsportal.psc.ms.gov/portal/Workflow/Run?workflowId=gb7c65056-6fc2-40df-965e-81966b7748da
+        source: https://www.psc.ms.gov/
+        last_verified: 2026-10-12
+      - id: hotline-northern
+        type: phone
+        label: Northern District Commissioner (toll-free)
+        value: +1-800-356-6428
+        source: https://www.psc.ms.gov/home/psc-contacts
+        last_verified: 2026-10-12
+      - id: hotline-central
+        type: phone
+        label: Central District Commissioner (toll-free)
+        value: +1-800-356-6430
+        source: https://www.psc.ms.gov/home/psc-contacts
+        last_verified: 2026-10-12
+      - id: hotline-southern
+        type: phone
+        label: Southern District Commissioner (toll-free)
+        value: +1-800-356-6429
+        source: https://www.psc.ms.gov/home/psc-contacts
+        last_verified: 2026-10-12
+    notes: The PSC lists gas, electric, water, sewer and telecom as regulated utilities. Its home page also has "Report Lack of Service" links for cellular and internet, but does not say it takes billing complaints about wireless, cable or internet. Contacts are by commissioner district.
+  - id: ms-insurance
+    kind: insurance_department
+    name: Mississippi Insurance Department
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.mid.ms.gov/mississippi-insurance-department/consumers/file-a-complaint/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File company complaint (use for claim-related complaints)
+        value: https://www.mid.ms.gov/mississippi-insurance-department/consumers/file-a-complaint/file-company-complaint/
+        source: https://www.mid.ms.gov/mississippi-insurance-department/consumers/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Help Line (toll-free)
+        value: +1-800-562-2957
+        source: https://www.mid.ms.gov/
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Consumer Help Line (Jackson area)
+        value: +1-601-359-2453
+        source: https://www.mid.ms.gov/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Insurance Department by mail
+        value: Mississippi Insurance Department, P.O. Box 79, Jackson, MS 39205
+        source: https://www.mid.ms.gov/mississippi-insurance-department/consumers/file-a-complaint/
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: The department explains how to request an external review of an adverse determination of a health claim; the review is done by health care professionals with no association with your insurance company.
+        source: https://www.mid.ms.gov/mississippi-insurance-department/healthcare/health-care-external-review/
+        last_verified: 2026-10-12
+  - id: ms-financial
+    kind: financial_regulator
+    name: Mississippi Department of Banking and Consumer Finance
+    covers_sectors: [bank, credit_union, payments]
+    website: https://dbcf.ms.gov/complaint-form/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online complaint form
+        value: https://dbcf.ms.gov/complaint-form/
+        notes: Try to resolve the issue with the institution first. Submit only one form per institution, and do not also email, fax or mail it.
+        source: https://dbcf.ms.gov/complaint-form/
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Department of Banking and Consumer Finance
+        value: +1-601-321-6901
+        source: https://dbcf.ms.gov/complaint-form/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Department of Banking and Consumer Finance by mail
+        value: Mississippi Department of Banking and Consumer Finance, P.O. Box 12129, Jackson, MS 39236-2129
+        source: https://dbcf.ms.gov/complaint-form/
+        last_verified: 2026-10-12
+    notes: The form covers banks, credit unions, check cashers, mortgage companies, pawnshops, small loan companies and title pledge lenders.

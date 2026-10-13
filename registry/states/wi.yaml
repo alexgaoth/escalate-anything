@@ -1,0 +1,131 @@
+id: wi
+name: Wisconsin
+agencies:
+  - id: wi-ag
+    kind: attorney_general
+    name: Wisconsin Department of Justice, Consumer Protection and Antitrust Unit
+    website: https://www.wisdoj.gov/Pages/PublicSafety/consumer-protection-concerns.aspx
+    notes: The DOJ has no consumer complaint form. It mainly litigates cases referred by agencies such as DATCP and DFI, and directs most consumer complaints (advertising, telemarketing, fraud) to DATCP (agency wi-consumer-protection).
+    channels:
+      - id: hotline
+        type: phone
+        label: DOJ Consumer Protection Hotline
+        value: +1-800-998-0700
+        source: https://www.wisdoj.gov/Pages/PublicSafety/consumer-protection-concerns.aspx
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: DOJ Consumer Protection Hotline, local
+        value: +1-608-266-1852
+        source: https://www.wisdoj.gov/Pages/PublicSafety/consumer-protection-concerns.aspx
+        last_verified: 2026-10-12
+  - id: wi-consumer-protection
+    kind: consumer_affairs
+    name: Wisconsin Department of Agriculture, Trade and Consumer Protection (DATCP), Bureau of Consumer Protection
+    website: https://datcp.wi.gov/Pages/Programs_Services/ConsumerProtection.aspx
+    notes: DATCP takes consumer complaints in Wisconsin, including telecommunications complaints. The PSC refers services it does not regulate to DATCP.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a consumer complaint (choose a category; general complaint form)
+        value: https://datcp.wi.gov/Pages/Programs_Services/FileConsumerComplaint.aspx
+        notes: Categories include landlord-tenant, telemarketing, home improvement, identity theft, telecommunications, motor vehicle repair and a general complaint form. Complaints can also be filed by mail.
+        source: https://datcp.wi.gov/Pages/Programs_Services/FileConsumerComplaint.aspx
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Protection Hotline
+        value: +1-800-422-7128
+        hours: Mon-Fri 7:45 a.m.-4:30 p.m., except state holidays
+        source: https://datcp.wi.gov/Pages/Programs_Services/ContactBCP.aspx
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Protection Hotline email
+        value: DATCPHotline@wisconsin.gov
+        source: https://datcp.wi.gov/Pages/Programs_Services/ContactBCP.aspx
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Mail
+        value: DATCP Bureau of Consumer Protection, PO Box 8911, Madison, WI 53708-8911
+        source: https://datcp.wi.gov/Pages/Programs_Services/ContactBCP.aspx
+        last_verified: 2026-10-12
+  - id: wi-puc
+    kind: utility_commission
+    name: Public Service Commission of Wisconsin
+    covers_sectors: [utility]
+    website: https://psc.wi.gov/
+    notes: Helps with electric, natural gas and water disputes and very limited aspects of local telephone service. For services it does not regulate it refers consumers to DATCP at 1-800-422-7128.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a utility complaint online
+        value: https://apps.psc.wi.gov/pages/complaint.htm
+        notes: You must first try to resolve the dispute directly with the utility.
+        source: https://psc.wi.gov/Pages/ForConsumers/LogAComplaint.aspx
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Consumer Affairs, toll-free
+        value: +1-800-225-7729
+        hours: Mon-Fri 7:45 a.m.-4:30 p.m.
+        source: https://psc.wi.gov/Pages/ForConsumers/LogAComplaint.aspx
+        last_verified: 2026-10-12
+      - id: consumer-affairs-local
+        type: phone
+        label: Consumer Affairs
+        value: +1-608-266-2001
+        hours: Mon-Fri 7:45 a.m.-4:30 p.m.
+        source: https://psc.wi.gov/Pages/ForConsumers/LogAComplaint.aspx
+        last_verified: 2026-10-12
+  - id: wi-insurance
+    kind: insurance_department
+    name: Wisconsin Office of the Commissioner of Insurance
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://oci.wi.gov/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online insurance complaint form (NAIC-hosted)
+        value: https://sbs.naic.org/solar-web/pages/public/onlineComplaintForm/onlineComplaintForm.jsf?spanish=N&state=WI
+        source: https://oci.wi.gov/Pages/Consumers/Filing-a-Complaint.aspx
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Complaints, within Wisconsin
+        value: +1-800-236-8517
+        notes: Within Wisconsin. Callers outside Wisconsin use +1-608-266-0103.
+        source: https://oci.wi.gov/Pages/Consumers/Filing-a-Complaint.aspx
+        last_verified: 2026-10-12
+      - id: out-of-state
+        type: phone
+        label: Complaints, outside Wisconsin
+        value: +1-608-266-0103
+        source: https://oci.wi.gov/Pages/Consumers/Filing-a-Complaint.aspx
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Complaints email (request a paper form)
+        value: ocicomplaints@wisconsin.gov
+        source: https://oci.wi.gov/Pages/Consumers/Filing-a-Complaint.aspx
+        last_verified: 2026-10-12
+  - id: wi-financial
+    kind: financial_regulator
+    name: Wisconsin Department of Financial Institutions
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://dfi.wi.gov/Pages/Home.aspx
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online complaint system
+        value: https://dfi.wi.gov/apps/onlinecomplaintsystem
+        notes: A separate Wisconsin Consumer Act complaint page is at https://dfi.wi.gov/Pages/ConsumerServices/WisconsinConsumerAct/FileAComplaint.aspx.
+        source: https://dfi.wi.gov/Pages/Home.aspx
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Department phone
+        value: +1-608-261-9555
+        source: https://dfi.wi.gov/Pages/Home.aspx
+        last_verified: 2026-10-12

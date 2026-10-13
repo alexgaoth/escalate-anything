@@ -1,0 +1,86 @@
+id: ar
+name: Arkansas
+agencies:
+  - id: ar-ag
+    kind: attorney_general
+    name: Arkansas Attorney General, Consumer Protection Division
+    website: https://arkansasag.gov/divisions/public-protection/consumer-protection/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint form
+        value: https://arkansasag.gov/file-a-complaint/
+        access: captcha
+        notes: The fillable form is on this page and is protected by reCAPTCHA. Supporting documents can be faxed to (501) 683-2520 or mailed to 101 West Capitol Avenue, Little Rock, AR 72201.
+        source: https://arkansasag.gov/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer complaints (toll-free)
+        value: +1-800-482-8982
+        source: https://arkansasag.gov/divisions/public-protection/consumer-protection/
+        last_verified: 2026-10-12
+  - id: ar-puc
+    kind: utility_commission
+    name: Arkansas Public Service Commission, Consumer Services
+    covers_sectors: [utility]
+    website: https://apsc.arkansas.gov/filing-a-complaint/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a Complaint form
+        value: https://apsc.arkansas.gov/consumer-services/contact-form/
+        access: open
+        source: https://apsc.arkansas.gov/filing-a-complaint/
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Complaints phone
+        value: +1-501-682-1718
+        source: https://apsc.arkansas.gov/filing-a-complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Arkansas PSC (toll-free)
+        value: +1-800-482-1164
+        source: https://apsc.arkansas.gov/filing-a-complaint/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Consumer Services by mail
+        value: Arkansas Public Service Commission, Consumer Services, P.O. Box 400, Little Rock, AR 72203-0400
+        source: https://apsc.arkansas.gov/filing-a-complaint/
+        last_verified: 2026-10-12
+    notes: The APSC regulates electric, gas and telephone service and larger water companies. It does not regulate municipally owned electric, gas, water or sewer utilities. Its complaint page does not mention cable, wireless or internet service. Before a formal complaint, you must give the utility a good-faith chance to resolve the problem.
+  - id: ar-insurance
+    kind: insurance_department
+    name: Arkansas Insurance Department, Consumer Services Division
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://insurance.arkansas.gov/consumer-assistance/consumer-services/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online complaint form (NAIC system)
+        value: https://sbs.naic.org/solar-web/pages/public/onlineComplaintForm/onlineComplaintForm.jsf?state=AR
+        access: open
+        source: https://insurance.arkansas.gov/consumer-assistance/consumer-services/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Services (toll-free)
+        value: +1-800-852-5494
+        source: https://insurance.arkansas.gov/consumer-assistance/consumer-services/
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Consumer Services
+        value: +1-501-371-2640
+        source: https://insurance.arkansas.gov/consumer-assistance/consumer-services/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Consumer Services Division by mail
+        value: Arkansas Insurance Department, Consumer Services Division, 1 Commerce Way, Suite 102, Little Rock, AR 72202-2087
+        source: https://insurance.arkansas.gov/consumer-assistance/consumer-services/file-a-complaint/
+        last_verified: 2026-10-12
+    notes: The department has an External Review page at https://insurance.arkansas.gov/consumer-assistance/consumer-services/external-review/ but its content could not be read.

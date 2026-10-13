@@ -1,0 +1,105 @@
+id: hi
+name: Hawaii
+agencies:
+  - id: hi-dcca
+    kind: consumer_affairs
+    name: Hawaii Department of Commerce and Consumer Affairs (DCCA), Office of Consumer Protection
+    website: https://cca.hawaii.gov/ocp/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer protection and business complaint form
+        value: https://web2.dcca.hawaii.gov/ocpcomplaint/
+        access: open
+        source: https://cca.hawaii.gov/ocp/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: DCCA Consumer Resource Center
+        value: +1-844-808-3222
+        source: https://cca.hawaii.gov/ocp/
+        last_verified: 2026-10-12
+      - id: cable-complaint-form
+        type: web_form
+        label: Cable television complaints (DCCA)
+        value: https://hdcca.hawaii.gov/s/cable-television-complaints
+        notes: For complaints against cable television operators and companies.
+        source: https://cca.hawaii.gov/file-a-complaint/
+        last_verified: 2026-10-12
+    notes: In Hawaii, consumer protection complaints go to the DCCA Office of Consumer Protection, not the Attorney General. DCCA also takes cable television complaints.
+  - id: hi-puc
+    kind: utility_commission
+    name: Hawaii Public Utilities Commission
+    covers_sectors: [utility]
+    website: https://puc.hawaii.gov/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Public utility complaints (CDMS eServices)
+        value: https://hpuc.my.site.com/cdms/s/consumers/complaints
+        notes: The site loads with JavaScript.
+        source: https://cca.hawaii.gov/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: consumer-advocacy-form
+        type: web_form
+        label: DCCA Division of Consumer Advocacy complaints (utility billing disputes and PUC complaints)
+        value: https://hdcca.hawaii.gov/s/consumer-advocacy-complaints
+        source: https://cca.hawaii.gov/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: PUC Oahu main office
+        value: +1-808-586-2020
+        source: https://puc.hawaii.gov/contact/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: PUC by mail
+        value: Hawaii Public Utilities Commission, Kekuanaoa Building, 465 South King St., #103, Honolulu, HI 96813
+        source: https://puc.hawaii.gov/contact/
+        last_verified: 2026-10-12
+    notes: The PUC regulates electricity, gas, telecommunications, private water/wastewater, water carriers and motor carriers. Its pages do not say whether it takes wireless or internet complaints. Cable television complaints go to DCCA (see hi-dcca).
+  - id: hi-insurance
+    kind: insurance_department
+    name: Hawaii Insurance Division (DCCA)
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://cca.hawaii.gov/ins/filing-a-complaint/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online complaint form (NAIC system)
+        value: https://sbs.naic.org/solar-web/pages/public/onlineComplaintForm/onlineComplaintForm.jsf?state=HI
+        access: open
+        source: https://cca.hawaii.gov/ins/filing-a-complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Insurance Division investigator (DCCA line)
+        value: +1-844-808-3222
+        hours: 7:45AM-4:30PM Hawaii Standard Time, Monday to Friday, except state holidays
+        source: https://cca.hawaii.gov/ins/filing-a-complaint/
+        last_verified: 2026-10-12
+  - id: hi-financial
+    kind: financial_regulator
+    name: Hawaii Division of Financial Institutions (DCCA)
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://cca.hawaii.gov/dfi/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Financial institution complaints
+        value: https://hdcca.hawaii.gov/s/financial-institution-complaints
+        source: https://cca.hawaii.gov/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Division of Financial Institutions
+        value: +1-808-586-2818
+        source: https://cca.hawaii.gov/dfi/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: DCCA (toll-free)
+        value: +1-844-808-3222
+        source: https://cca.hawaii.gov/dfi/
+        last_verified: 2026-10-12

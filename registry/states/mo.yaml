@@ -1,0 +1,77 @@
+id: mo
+name: Missouri
+agencies:
+  - id: mo-ag
+    kind: attorney_general
+    name: Missouri Attorney General, Consumer Protection Division
+    website: https://ago.mo.gov/divisions/consumer/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Submit consumer complaint
+        value: https://app.ago.mo.gov/app/consumercomplaint
+        source: https://ago.mo.gov/divisions/consumer/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Protection Hotline
+        value: +1-800-392-8222
+        source: https://ago.mo.gov/divisions/consumer/
+        last_verified: 2026-10-12
+  - id: mo-puc
+    kind: utility_commission
+    name: Missouri Public Service Commission
+    covers_sectors: [utility]
+    website: https://psc.mo.gov/General/Submit_A_Complaint
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Informal complaint e-filing (EFIS)
+        value: https://efis.psc.mo.gov/Inquiry/Add
+        notes: PDF informal and formal complaint forms are also on the Submit a Complaint page.
+        source: https://psc.mo.gov/General/Submit_A_Complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Utility Consumer Hotline
+        value: +1-800-392-4211
+        source: https://psc.mo.gov/General/Submit_A_Complaint
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: PSC information email
+        value: pscinfo@psc.mo.gov
+        source: https://psc.mo.gov/General/Submit_A_Complaint
+        last_verified: 2026-10-12
+    notes: First contact the utility and let it investigate. The PSC does not regulate cellphones, internet providers, paging services, cable television rates or service, retail telecommunications services, rates of municipally owned utilities, rural cooperatives, or public water and sewer districts. The Office of the Public Counsel is a separate agency.
+  - id: mo-financial
+    kind: financial_regulator
+    name: Missouri Division of Finance
+    covers_sectors: [bank, payments]
+    website: https://finance.mo.gov/consumer-complaints
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Division of Finance complaint form
+        value: https://finance.mo.gov/consumer-complaints-0/missouri-division-finance-complaint-form
+        source: https://finance.mo.gov/consumer-complaints
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Division of Finance email
+        value: finance@dof.mo.gov
+        source: https://finance.mo.gov/consumer-complaints
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Missouri Division of Finance
+        value: +1-573-751-3242
+        source: https://finance.mo.gov/consumer-complaints
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Division of Finance by mail
+        value: Missouri Division of Finance, Truman State Office Building, Room 630, Jefferson City, MO 65102
+        source: https://finance.mo.gov/consumer-complaints
+        last_verified: 2026-10-12
+    notes: Takes complaints about state-regulated banks, mortgage brokers and lenders. Nationally chartered banks go to the OCC. Credit unions and insurance are handled by the Department of Commerce and Insurance. Missouri does not regulate collection agencies.

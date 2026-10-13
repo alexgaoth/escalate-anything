@@ -1,0 +1,119 @@
+id: nj
+name: New Jersey
+agencies:
+  - id: nj-ag
+    kind: attorney_general
+    name: New Jersey Office of the Attorney General, Division of Consumer Affairs
+    website: https://www.njconsumeraffairs.gov/
+    notes: The Division of Consumer Affairs is part of the Office of the Attorney General and takes general consumer complaints.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a consumer complaint
+        value: https://njconsumeraffairs.nj.gov/file-a-complaint/
+        notes: Online filing with document upload, or print the form and mail it. Anonymous complaints get no status updates or restitution.
+        source: https://njconsumeraffairs.nj.gov/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Service Center, toll-free
+        value: +1-800-242-5846
+        notes: Toll-free for New Jersey callers only. Other callers use +1-973-504-6200.
+        source: https://www.njconsumeraffairs.gov/ocp/Pages/default.aspx
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Consumer Service Center hotline
+        value: +1-973-504-6200
+        source: https://www.njconsumeraffairs.gov/ocp/Pages/default.aspx
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Questions for Consumer Affairs
+        value: AskConsumerAffairs@dca.njoag.gov
+        source: https://www.njconsumeraffairs.gov/ocp/Pages/default.aspx
+        last_verified: 2026-10-12
+  - id: nj-puc
+    kind: utility_commission
+    name: New Jersey Board of Public Utilities, Division of Customer Assistance
+    covers_sectors: [utility, internet_tv]
+    website: https://www.nj.gov/bpu/
+    notes: Takes utility and cable TV complaints. For internet, FiOS, cellular telephone or DSL service, the board recommends contacting the provider, the municipality or the FCC.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Utility or cable complaint form
+        value: https://www.nj.gov/bpu/assistance/complaints/inquiry.html
+        notes: Contact the utility first. Online complaints are processed 9 a.m.-4 p.m. on business days; report urgent matters such as shutoffs by phone.
+        source: https://www.nj.gov/bpu/assistance/complaints/
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Utility complaints, toll-free
+        value: +1-800-624-0241
+        hours: 9 a.m.-4 p.m.
+        source: https://www.nj.gov/bpu/assistance/complaints/
+        last_verified: 2026-10-12
+      - id: out-of-state
+        type: phone
+        label: Utility complaints, out-of-state callers
+        value: +1-609-341-9188
+        source: https://www.nj.gov/bpu/assistance/
+        last_verified: 2026-10-12
+      - id: cable-tv
+        type: phone
+        label: Cable TV complaints, toll-free
+        value: +1-800-624-0331
+        source: https://www.nj.gov/bpu/assistance/complaints/
+        last_verified: 2026-10-12
+  - id: nj-insurance
+    kind: insurance_department
+    name: New Jersey Department of Banking and Insurance
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.nj.gov/dobi/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online insurance complaint form (NAIC-hosted)
+        value: https://sbs.naic.org/solar-web/pages/public/onlineComplaintForm/onlineComplaintForm.jsf?state=NJ
+        source: https://www.nj.gov/dobi/consumer.htm
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer hotline
+        value: +1-800-446-7467
+        hours: Mon-Fri 8:30 a.m.-5:00 p.m. Eastern
+        source: https://www.nj.gov/dobi/consumer.htm
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Consumer inquiries
+        value: +1-609-292-7272
+        source: https://www.nj.gov/dobi/consumer.htm
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: A person who disagrees with a health plan denial, termination or limit on a covered service appeals first internally with the carrier, then externally with the Independent Health Care Appeals Program (IHCAP) if not satisfied.
+        issues: [claim_denial]
+        source: https://www.nj.gov/dobi/division_insurance/managedcare/mcfaqs.htm
+        last_verified: 2026-10-12
+  - id: nj-financial
+    kind: financial_regulator
+    name: New Jersey Department of Banking and Insurance
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://www.nj.gov/dobi/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaints page (banking online form and mail/fax form)
+        value: https://www.nj.gov/dobi/consumer.htm
+        notes: The online banking complaint form opens in a pop-up window from this page. A mail/fax banking complaint form is at https://www.nj.gov/dobi/bcomform.pdf.
+        source: https://www.nj.gov/dobi/consumer.htm
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer hotline
+        value: +1-800-446-7467
+        hours: Mon-Fri 8:30 a.m.-5:00 p.m. Eastern
+        source: https://www.nj.gov/dobi/consumer.htm
+        last_verified: 2026-10-12

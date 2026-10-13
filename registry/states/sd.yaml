@@ -1,0 +1,128 @@
+id: sd
+name: South Dakota
+agencies:
+  - id: sd-ag
+    kind: attorney_general
+    name: South Dakota Attorney General, Division of Consumer Protection
+    website: https://consumer.sd.gov/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint form page (Submit A Complaint)
+        value: https://consumer.sd.gov/complaintform.aspx
+        notes: The page's Submit A Complaint button opens the online form; a downloadable PDF form is also linked.
+        source: https://consumer.sd.gov/complaintform.aspx
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Protection, toll-free
+        value: +1-800-300-1986
+        notes: In-state only. Other callers use +1-605-773-4400.
+        source: https://consumer.sd.gov/contact.aspx
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Consumer Protection
+        value: +1-605-773-4400
+        source: https://consumer.sd.gov/contact.aspx
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Protection email
+        value: consumerhelp@state.sd.us
+        source: https://consumer.sd.gov/contact.aspx
+        last_verified: 2026-10-12
+  - id: sd-puc
+    kind: utility_commission
+    name: South Dakota Public Utilities Commission
+    covers_sectors: [utility]
+    website: https://puc.sd.gov/
+    notes: Regulates investor-owned electric, natural gas and telephone utilities. It has a more limited regulatory role with wireless companies and with cooperative, independent and municipal utilities. The pages seen do not mention internet or cable TV.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint online form
+        value: https://puc.sd.gov/consumer/complaint_form.aspx
+        notes: Try to resolve the dispute with the company first.
+        source: https://puc.sd.gov/consumer/consumercomplaints.aspx
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Consumer affairs, toll-free
+        value: +1-800-332-1782
+        source: https://puc.sd.gov/consumer/consumercomplaints.aspx
+        last_verified: 2026-10-12
+      - id: consumer-affairs-local
+        type: phone
+        label: Consumer affairs
+        value: +1-605-773-3201
+        source: https://puc.sd.gov/consumer/consumercomplaints.aspx
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer information email
+        value: PUCConsumerInfo@state.sd.us
+        source: https://puc.sd.gov/consumer/consumercomplaints.aspx
+        last_verified: 2026-10-12
+  - id: sd-insurance
+    kind: insurance_department
+    name: South Dakota Division of Insurance
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://dlr.sd.gov/insurance/default.aspx
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online insurance complaint form (NAIC-hosted)
+        value: https://sbs.naic.org/solar-web/pages/public/onlineComplaintForm/onlineComplaintForm.jsf?spanish=N&state=SD
+        notes: Contact the company first. For health plan disputes, you must go through the carrier's internal appeals process before filing.
+        source: https://dlr.sd.gov/insurance/doi_complaint.aspx
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Division of Insurance
+        value: +1-605-773-3563
+        source: https://dlr.sd.gov/insurance/doi_complaint.aspx
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Division of Insurance email
+        value: sdinsurance@state.sd.us
+        source: https://dlr.sd.gov/insurance/doi_complaint.aspx
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: The Division of Insurance runs the external review process for denied health coverage or benefits, after all appeal options with the insurer are used.
+        issues: [claim_denial]
+        source: https://dlr.sd.gov/insurance/external_review_health_major_medical.aspx
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: An external review request must be filed within four months of the denial.
+        issues: [claim_denial]
+        source: https://dlr.sd.gov/insurance/external_review_health_major_medical.aspx
+        last_verified: 2026-10-12
+  - id: sd-financial
+    kind: financial_regulator
+    name: South Dakota Division of Banking
+    covers_sectors: [bank, payments, student_loan]
+    website: https://dlr.sd.gov/banking/default.aspx
+    notes: Regulates state-chartered banks and trust companies, money lenders, money transmitters and mortgage companies. It does not regulate federally chartered banks and thrifts or credit unions.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaints and resources (links to the online complaint form)
+        value: https://dlr.sd.gov/banking/consumers/information_for_consumers.aspx
+        notes: All complaints against institutions the division regulates are filed online through the Submit a Complaint link on this page.
+        source: https://dlr.sd.gov/banking/consumers/information_for_consumers.aspx
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Division of Banking
+        value: +1-605-773-3421
+        source: https://dlr.sd.gov/banking/consumers/information_for_consumers.aspx
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Division of Banking email
+        value: banking@state.sd.us
+        source: https://dlr.sd.gov/banking/consumers/information_for_consumers.aspx
+        last_verified: 2026-10-12

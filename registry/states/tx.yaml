@@ -1,0 +1,41 @@
+id: tx
+name: Texas
+agencies:
+  - id: tx-insurance
+    kind: insurance_department
+    name: Texas Department of Insurance
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.tdi.texas.gov/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Get help with an insurance complaint (choose the type of insurance to reach the right form)
+        value: https://www.tdi.texas.gov/consumer/get-help-with-an-insurance-complaint.html
+        source: https://www.tdi.texas.gov/consumer/get-help-with-an-insurance-complaint.html
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Help Line
+        value: +1-800-252-3439
+        hours: Mon-Fri 8 a.m.-5 p.m. Central
+        source: https://www.tdi.texas.gov/consumer/get-help-with-an-insurance-complaint.html
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: If you are not happy with your health plan appeal, or were denied care for a life-threatening condition, you can ask for a free external review by an independent reviewer. TDI can help with fully insured plans but cannot overturn the reviewer's decision.
+        issues: [claim_denial]
+        source: https://www.tdi.texas.gov/consumer/complaint-health.html
+        last_verified: 2026-10-12
+  - id: tx-financial
+    kind: financial_regulator
+    name: Texas Department of Banking
+    covers_sectors: [bank, payments]
+    website: https://www.dob.texas.gov/
+    notes: Handles complaints about state-chartered banks, trust companies, foreign bank agencies and money services businesses (and prepaid funeral and cemetery companies). State credit unions go to the Texas Credit Union Department (https://cud.texas.gov/), consumer finance companies to the Office of Consumer Credit Commissioner (https://occc.texas.gov), state savings banks to the Department of Savings and Mortgage Lending, and national banks to the OCC.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint (choose the type of institution)
+        value: https://www.dob.texas.gov/file-complaint
+        source: https://www.dob.texas.gov/file-complaint
+        last_verified: 2026-10-12

@@ -1,0 +1,110 @@
+id: nc
+name: North Carolina
+agencies:
+  - id: nc-ag
+    kind: attorney_general
+    name: North Carolina Department of Justice, Consumer Protection Division
+    website: https://ncdoj.gov/protecting-consumers/
+    notes: The NC Public Staff refers broadband, internet, bundled packages, cable or satellite TV, wireless and propane complaints to the Attorney General.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: General consumer complaint form
+        value: https://ncdoj.gov/file-a-complaint/consumer-complaint/
+        notes: Online filing is preferred. Up to four supporting documents can be attached. A Spanish form is at https://ncdoj.gov/file-a-complaint/queja-del-consumidor/.
+        source: https://ncdoj.gov/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer protection, toll-free (1-877-5-NO-SCAM)
+        value: +1-877-566-7226
+        notes: Toll-free within North Carolina. Callers outside North Carolina use +1-919-716-6000.
+        source: https://ncdoj.gov/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: out-of-state
+        type: phone
+        label: Consumer protection, outside North Carolina
+        value: +1-919-716-6000
+        source: https://ncdoj.gov/file-a-complaint/
+        last_verified: 2026-10-12
+  - id: nc-puc
+    kind: utility_commission
+    name: North Carolina Utilities Commission, Public Staff Consumer Services Division
+    covers_sectors: [utility]
+    website: https://publicstaff.nc.gov/
+    notes: The Public Staff takes complaints about electric, gas, water and sewer, and telephone utilities. It refers broadband, internet, bundled packages, cable or satellite TV, wireless and propane complaints to the NC Attorney General; electric and telephone membership corporations to the Rural Electrification Authority; and municipal utilities to the local government. Formal complaints go to the Utilities Commission.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Utility or transportation complaint form
+        value: https://publicstaff.nc.gov/submit-complaint
+        notes: Try to resolve the problem with the utility first. Only the account holder or a legal representative can file.
+        source: https://publicstaff.nc.gov/submit-complaint
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Consumer Services, toll-free
+        value: +1-866-380-9816
+        hours: Mon-Fri 8:00 a.m.-5:00 p.m., except state holidays
+        source: https://publicstaff.nc.gov/submit-complaint
+        last_verified: 2026-10-12
+      - id: consumer-affairs-local
+        type: phone
+        label: Consumer Services, other callers
+        value: +1-919-880-1837
+        source: https://publicstaff.nc.gov/submit-complaint
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Services email
+        value: consumer.services@psncuc.gov
+        source: https://publicstaff.nc.gov/submit-complaint
+        last_verified: 2026-10-12
+  - id: nc-insurance
+    kind: insurance_department
+    name: North Carolina Department of Insurance
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.ncdoi.gov/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online request for assistance / file a complaint
+        value: https://my.ncdoi.com/SA_form/INS_COMPLAINT
+        source: https://www.ncdoi.gov/consumers/assistance-or-file-complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Services, toll-free
+        value: +1-855-408-1212
+        source: https://www.ncdoi.gov/consumers/assistance-or-file-complaint
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: Smart NC handles external review of health claim denials. An Independent Review Organization conducts the review after the insurer's appeal process is complete.
+        issues: [claim_denial]
+        source: https://www.ncdoi.gov/consumers/health-insurance/health-claim-denied/request-external-review
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: The external review request must be submitted within 120 days of receiving the insurer's final decision on appeal.
+        issues: [claim_denial]
+        source: https://www.ncdoi.gov/consumers/health-insurance/health-claim-denied/request-external-review
+        last_verified: 2026-10-12
+  - id: nc-financial
+    kind: financial_regulator
+    name: North Carolina Commissioner of Banks
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://www.nccob.nc.gov/
+    notes: Charters and regulates North Carolina state banks, trust companies and mortgage companies, and licenses other financial companies. The page seen does not say where credit union or national bank complaints go.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer inquiries and complaint information
+        value: https://www.nccob.nc.gov/consumer-information/consumer-inquiries-and-complaint-information
+        source: https://www.nccob.nc.gov/consumer-information/consumer-inquiries-and-complaint-information
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Main office
+        value: +1-919-733-3016
+        source: https://www.nccob.nc.gov/consumer-information/consumer-inquiries-and-complaint-information
+        last_verified: 2026-10-12

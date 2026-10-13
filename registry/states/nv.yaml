@@ -1,0 +1,110 @@
+id: nv
+name: Nevada
+agencies:
+  - id: nv-ag
+    kind: attorney_general
+    name: Nevada Attorney General, Bureau of Consumer Protection
+    website: https://ag.nv.gov/About/Consumer_Protection/Bureau_of_Consumer_Protection/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint form (English, Microsoft Forms)
+        value: https://forms.office.com/g/WgHe2FtGTv
+        notes: Linked from the AG complaints page, which also links a Spanish form (https://forms.office.com/g/9scU9nbtjg). The office forwards complaints that belong to another agency. Emailing allegations delays review; use the form.
+        source: https://ag.nv.gov/Complaints/CSU_Complaints___FAQ/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer protection, toll-free
+        value: +1-888-434-9989
+        source: https://ag.nv.gov/About/Consumer_Protection/Bureau_of_Consumer_Protection/
+        last_verified: 2026-10-12
+      - id: hotline-nevada
+        type: phone
+        label: Consumer protection hotline in Nevada
+        value: +1-702-486-3132
+        source: https://ag.nv.gov/About/Consumer_Protection/Bureau_of_Consumer_Protection/
+        last_verified: 2026-10-12
+  - id: nv-puc
+    kind: utility_commission
+    name: Public Utilities Commission of Nevada
+    covers_sectors: [utility]
+    website: https://puc.nv.gov/
+    notes: The PUCN cannot help with a utility it does not regulate; check its regulated-utilities list. For telephone matters its complaint page also refers consumers to the FCC and FTC. It also takes complaints about solar installation companies.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Utility consumer complaint form
+        value: https://hal.nv.gov/form/PUC/Oral_Complaint_Form
+        notes: Contact the utility first and ask for a supervisor if needed.
+        source: https://puc.nv.gov/consumers/consumer-complaints-with-a-utility/
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Consumer complaints, Northern Nevada
+        value: +1-775-684-6100
+        hours: Mon-Fri 8 a.m.-5 p.m.
+        source: https://puc.nv.gov/consumers/consumer-complaints-with-a-utility/
+        last_verified: 2026-10-12
+      - id: consumer-affairs-south
+        type: phone
+        label: Consumer complaints, Southern Nevada
+        value: +1-702-486-2600
+        hours: Mon-Fri 8 a.m.-5 p.m.
+        source: https://puc.nv.gov/consumers/consumer-complaints-with-a-utility/
+        last_verified: 2026-10-12
+  - id: nv-insurance
+    kind: insurance_department
+    name: Nevada Division of Insurance
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://doi.nv.gov/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint (links to the secure online complaint portal)
+        value: https://doi.nv.gov/Consumers/File-A-Complaint/
+        source: https://doi.nv.gov/Consumers/File-A-Complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Department of Business and Industry, toll-free (statewide)
+        value: +1-888-872-3234
+        source: https://doi.nv.gov/Contact-Us/
+        last_verified: 2026-10-12
+      - id: consumer-services-north
+        type: phone
+        label: Consumer Services, Northern Nevada
+        value: +1-775-687-0700
+        source: https://doi.nv.gov/Contact-Us/
+        last_verified: 2026-10-12
+      - id: consumer-services-south
+        type: phone
+        label: Consumer Services, Southern Nevada
+        value: +1-702-486-4009
+        source: https://doi.nv.gov/Contact-Us/
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer services email
+        value: cscc@doi.nv.gov
+        source: https://doi.nv.gov/Contact-Us/
+        last_verified: 2026-10-12
+  - id: nv-financial
+    kind: financial_regulator
+    name: Nevada Financial Institutions Division
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://fid.nv.gov/
+    notes: Covers state-chartered banks and credit unions, money transmitters, installment lenders, payday lenders and collection agencies. National banks go to the OCC and federal credit unions to the NCUA. Mortgage companies go to the Nevada Mortgage Lending Division.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: FID complaint form
+        value: https://hal.nv.gov/form/FID_ADA_Forms/Complaint_Form
+        source: https://fid.nv.gov/resources/resources-and-complaints/
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Office of the Commissioner
+        value: +1-702-486-4120
+        source: https://fid.nv.gov/resources/resources-and-complaints/
+        last_verified: 2026-10-12

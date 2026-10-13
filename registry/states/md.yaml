@@ -1,0 +1,152 @@
+id: md
+name: Maryland
+agencies:
+  - id: md-ag
+    kind: attorney_general
+    name: Maryland Attorney General, Consumer Protection Division
+    website: https://oag.maryland.gov/i-need-to/Pages/business-complaints.aspx
+    channels:
+      - id: complaint-form
+        type: portal
+        label: Consumer Protection Division complaint portal
+        value: https://portal.oag.state.md.us/cpdportal/
+        access: login
+        notes: You must register on the portal and log in to file and see "My Cases".
+        source: https://oag.maryland.gov/i-need-to/Pages/business-complaints.aspx
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Hotline
+        value: +1-410-528-8662
+        source: https://oag.maryland.gov/i-need-to/Pages/business-complaints.aspx
+        last_verified: 2026-10-12
+      - id: hotline-toll-free
+        type: phone
+        label: Toll-free (in Maryland)
+        value: +1-888-743-0023
+        notes: In-state only (toll-free in Maryland).
+        source: https://oag.maryland.gov/i-need-to/Pages/business-complaints.aspx
+        last_verified: 2026-10-12
+      - id: health-hotline
+        type: phone
+        label: Health Education and Advocacy hotline
+        value: +1-410-528-1840
+        hours: Mon-Fri 10am-2pm Eastern
+        source: https://oag.maryland.gov/i-need-to/Pages/business-complaints.aspx
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Protection Division mediation
+        value: mediator@oag.maryland.gov
+        source: https://oag.maryland.gov/i-need-to/Pages/business-complaints.aspx
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Consumer Protection Division by mail
+        value: Office of the Attorney General, Consumer Protection Division, 200 St. Paul Place, 16th Floor, Baltimore, MD 21202
+        source: https://oag.maryland.gov/i-need-to/Pages/business-complaints.aspx
+        last_verified: 2026-10-12
+  - id: md-puc
+    kind: utility_commission
+    name: Maryland Public Service Commission, Consumer Affairs Division
+    covers_sectors: [utility]
+    website: https://psc.maryland.gov/online-services/file-a-complaint/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Utility complaint form
+        value: https://mdpsc.my.site.com/complaints/s/?language=en_US
+        source: https://psc.maryland.gov/online-services/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Public Service Commission (MD toll-free)
+        value: +1-800-492-0474
+        notes: In-state only (Maryland toll-free).
+        source: https://psc.maryland.gov/contact/
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Public Service Commission (main)
+        value: +1-410-767-8000
+        source: https://psc.maryland.gov/contact/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Public Service Commission by mail
+        value: Maryland Public Service Commission, William Donald Schaefer Tower, 6 St. Paul St., 16th Floor, Baltimore, MD 21202
+        source: https://psc.maryland.gov/contact/
+        last_verified: 2026-10-12
+    notes: The Consumer Affairs Division processes utility service complaints. The PSC regulates wholesale and local retail telecommunications services, but its pages do not say whether it takes wireless, cable or internet complaints.
+  - id: md-insurance
+    kind: insurance_department
+    name: Maryland Insurance Administration, Consumer Complaint Investigation
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://insurance.maryland.gov/Consumer/Pages/FileAComplaint.aspx
+    channels:
+      - id: complaint-form
+        type: portal
+        label: Online complaint portal
+        value: https://enterprise.insurance.maryland.gov/consumer/
+        source: https://insurance.maryland.gov/Consumer/Pages/FileAComplaint.aspx
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Maryland Insurance Administration (toll-free)
+        value: +1-800-492-6116
+        source: https://insurance.maryland.gov/Consumer/Pages/FileAComplaint.aspx
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Maryland Insurance Administration (main)
+        value: +1-410-468-2000
+        source: https://insurance.maryland.gov/Consumer/Pages/FileAComplaint.aspx
+        last_verified: 2026-10-12
+      - id: email-property
+        type: email
+        label: Property and casualty complaints
+        value: pccomplaints.mia@maryland.gov
+        source: https://insurance.maryland.gov/Consumer/Pages/FileAComplaint.aspx
+        last_verified: 2026-10-12
+      - id: email-health
+        type: email
+        label: Appeals and grievance (health) complaints
+        value: agcomplaints.mia@maryland.gov
+        source: https://insurance.maryland.gov/Consumer/Pages/FileAComplaint.aspx
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Life and health / appeals and grievance complaints by mail
+        value: Maryland Insurance Administration, Attn. Consumer Complaint Investigation, Life and Health/Appeals and Grievance, 200 St. Paul Place, Suite 2700, Baltimore, MD 21202
+        source: https://insurance.maryland.gov/Consumer/Pages/FileAComplaint.aspx
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: Under Maryland's Appeals and Grievance Law you can appeal health insurance denial decisions to the Maryland Insurance Administration. For medical necessity denials you generally must file a grievance with the carrier first, unless you have a compelling reason or it is an emergency.
+        source: https://insurance.maryland.gov/Consumer/Pages/FileAComplaint.aspx
+        last_verified: 2026-10-12
+  - id: md-financial
+    kind: financial_regulator
+    name: Maryland Office of Financial Regulation, Consumer Response Unit
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://labor.maryland.gov/finance/consumers/comphow.shtml
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online consumer complaint form
+        value: https://iprod.dllr.state.md.us/form/FinRegComplaintFirst
+        source: https://labor.maryland.gov/finance/consumers/comphow.shtml
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Office of Financial Regulation
+        value: +1-410-230-6077
+        source: https://labor.maryland.gov/finance/consumers/comphow.shtml
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Complaint by mail
+        value: Office of Financial Regulation, ATTN Consumer Response Unit, 100 S. Charles Street, Tower 1, Suite 5300, Baltimore, MD 21201
+        source: https://labor.maryland.gov/finance/consumers/comphow.shtml
+        last_verified: 2026-10-12
+    notes: Covers banks and credit unions, check cashing and money transmission, consumer debt, credit reporting, mortgages and student loans under the Commissioner of Financial Regulation.

@@ -1,0 +1,113 @@
+id: ny
+name: New York
+agencies:
+  - id: ny-ag
+    kind: attorney_general
+    name: New York State Office of the Attorney General, Bureau of Consumer Frauds and Protection
+    website: https://ag.ny.gov/resources/individuals/consumer-issues
+    notes: The New York Department of Public Service refers cellular telephone, satellite TV and internet complaints to the Attorney General.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint form (retail, services, contracts, credit and personal finance)
+        value: https://formsnym.ag.ny.gov/OAGOnlineSubmissionForm/faces/OAGCFCHome
+        notes: The category chooser at https://ag.ny.gov/file-complaint/consumer links the right form for each issue.
+        source: https://ag.ny.gov/file-complaint/consumer
+        last_verified: 2026-10-12
+      - id: tech-complaint-form
+        type: web_form
+        label: Complaint form for internet providers, streaming, software, apps and data privacy
+        value: https://formsnym.ag.ny.gov/OAGOnlineSubmissionForm/faces/OAGBITHome
+        source: https://ag.ny.gov/file-complaint/consumer
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: OAG Help Line
+        value: +1-800-771-7755
+        source: https://ag.ny.gov/file-complaint/consumer
+        last_verified: 2026-10-12
+  - id: ny-puc
+    kind: utility_commission
+    name: New York State Department of Public Service
+    covers_sectors: [utility, internet_tv]
+    website: https://dps.ny.gov/
+    notes: Takes complaints about electric, natural gas, steam, landline telephone, cable TV and water utilities. Cellular telephone, satellite TV and internet complaints are referred to the NYS Attorney General. Municipal water complaints go to the municipality.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a new complaint
+        value: https://www3.dps.ny.gov/ocs/itxgate.nsf/wdps_complaint.xsp
+        notes: First seek the assistance of the utility provider.
+        source: https://dps.ny.gov/file-complaint
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Helpline (complaints and inquiries)
+        value: +1-800-342-3377
+        hours: Mon-Fri 8:30 a.m.-4:00 p.m.
+        source: https://dps.ny.gov/file-complaint
+        last_verified: 2026-10-12
+      - id: shutoff-hotline
+        type: phone
+        label: Residential electric and gas shut-off hotline
+        value: +1-800-342-3355
+        hours: Mon-Fri 7:30 a.m.-7:30 p.m.
+        purposes: [disconnection]
+        source: https://dps.ny.gov/file-complaint
+        last_verified: 2026-10-12
+  - id: ny-insurance
+    kind: insurance_department
+    name: New York State Department of Financial Services
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.dfs.ny.gov/
+    channels:
+      - id: complaint-form
+        type: portal
+        label: DFS consumer complaint portal (insurance, banking, student loan, mortgage)
+        value: https://myportal.dfs.ny.gov/web/guest-applications/consumer-complaint?hn=1&forward=new
+        source: https://www.dfs.ny.gov/complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: DFS consumer hotline
+        value: +1-800-342-3736
+        hours: Mon-Fri 8:30 a.m.-4:30 p.m.
+        source: https://www.dfs.ny.gov/contact_us/main
+        last_verified: 2026-10-12
+      - id: external-appeal
+        type: phone
+        label: External appeal questions and application help
+        value: +1-800-400-8882
+        purposes: [claim_denial]
+        source: https://www.dfs.ny.gov/complaints/file_external_appeal
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: When a health plan denies care as not medically necessary, experimental/investigational or out-of-network, and the internal appeal is complete, DFS sends an external appeal to an independent agent whose decision binds the patient and the plan.
+        issues: [claim_denial]
+        source: https://www.dfs.ny.gov/complaints/file_external_appeal
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: The external appeal application must reach DFS within 4 months from the date of the final adverse determination of the internal appeal.
+        issues: [claim_denial]
+        source: https://www.dfs.ny.gov/complaints/file_external_appeal
+        last_verified: 2026-10-12
+  - id: ny-financial
+    kind: financial_regulator
+    name: New York State Department of Financial Services
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://www.dfs.ny.gov/
+    channels:
+      - id: complaint-form
+        type: portal
+        label: DFS consumer complaint portal (insurance, banking, student loan, mortgage)
+        value: https://myportal.dfs.ny.gov/web/guest-applications/consumer-complaint?hn=1&forward=new
+        source: https://www.dfs.ny.gov/complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: DFS consumer hotline
+        value: +1-800-342-3736
+        hours: Mon-Fri 8:30 a.m.-4:30 p.m.
+        source: https://www.dfs.ny.gov/contact_us/main
+        last_verified: 2026-10-12

@@ -1,0 +1,121 @@
+id: mt
+name: Montana
+agencies:
+  - id: mt-ag
+    kind: attorney_general
+    name: Montana Department of Justice, Office of Consumer Protection
+    website: https://dojmt.gov/office-of-consumer-protection/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint page (online filing)
+        value: https://dojmt.gov/office-of-consumer-protection/consumer-complaints/
+        notes: The office asks consumers to contact the business first. A printable form (OCP-100) is also offered for mail filing.
+        source: https://dojmt.gov/office-of-consumer-protection/consumer-complaints/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Office of Consumer Protection, toll-free
+        value: +1-800-481-6896
+        source: https://dojmt.gov/office-of-consumer-protection/
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Office of Consumer Protection, main line
+        value: +1-406-444-4500
+        source: https://dojmt.gov/office-of-consumer-protection/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Mail complaints
+        value: Office of Consumer Protection, P.O. Box 200151, Helena, MT 59620-0151
+        source: https://dojmt.gov/office-of-consumer-protection/
+        last_verified: 2026-10-12
+  - id: mt-puc
+    kind: utility_commission
+    name: Montana Public Service Commission, Consumer Assistance Program
+    covers_sectors: [utility]
+    website: https://psc.mt.gov
+    notes: Takes complaints about regulated utilities, including local landline and in-state long distance telephone service. The commission's pages say it has no jurisdiction over rural electric and telephone cooperatives, cellular phone service, interstate phone service, cable TV, or internet/DSL service.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Request assistance or file a complaint
+        value: https://psc.mt.gov/Consumers/Request-Assistance
+        notes: Contact the utility first.
+        source: https://psc.mt.gov/Consumers/Request-Assistance
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Consumer Assistance Program, toll-free
+        value: +1-800-646-6150
+        source: https://psc.mt.gov/Consumers/Request-Assistance
+        last_verified: 2026-10-12
+      - id: consumer-affairs-local
+        type: phone
+        label: Consumer Assistance Program, local
+        value: +1-406-444-6150
+        source: https://psc.mt.gov/Consumers/Request-Assistance
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Assistance Program email
+        value: pschelp@mt.gov
+        source: https://psc.mt.gov/Consumers/Request-Assistance
+        last_verified: 2026-10-12
+  - id: mt-insurance
+    kind: insurance_department
+    name: Montana Commissioner of Securities and Insurance
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://csimt.gov
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online insurance complaint form (NAIC-hosted)
+        value: https://sbs.naic.org/solar-web/pages/public/onlineComplaintForm/onlineComplaintForm.jsf?state=MT
+        source: https://csimt.gov/insurance-complaints-fraud/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer services, toll-free
+        value: +1-800-332-6148
+        source: https://csimt.gov/insurance-complaints-fraud/
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Consumer services, local
+        value: +1-406-444-2040
+        source: https://csimt.gov/insurance-complaints-fraud/
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: The commissioner's office helps consumers appeal denied health insurance claims and publishes a guide to internal appeals and external review.
+        issues: [claim_denial]
+        source: https://csimt.gov/insurance-complaints-fraud/
+        last_verified: 2026-10-12
+  - id: mt-financial
+    kind: financial_regulator
+    name: Montana Division of Banking and Financial Institutions
+    covers_sectors: [bank, credit_union]
+    website: https://doa.mt.gov/bfid/
+    notes: Covers state-chartered banks, trust companies and credit unions, mortgage, consumer loan, sales finance, escrow and payday lenders. National banks go to the OCC and federal credit unions to the NCUA. The division refers student loans, credit and prepaid cards, money transfers and virtual currency to the CFPB.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint (PDF form; email, mail or fax)
+        value: https://doa.mt.gov/BFID/consumer-info#file-a-complaint
+        notes: Written complaints only; oral complaints are not accepted. Contact the company first.
+        source: https://doa.mt.gov/BFID/consumer-info
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Division main line
+        value: +1-406-841-2920
+        source: https://doa.mt.gov/bfid/
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Division email
+        value: banking@mt.gov
+        source: https://doa.mt.gov/bfid/
+        last_verified: 2026-10-12

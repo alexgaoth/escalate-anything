@@ -1,0 +1,111 @@
+id: id
+name: Idaho
+agencies:
+  - id: id-ag
+    kind: attorney_general
+    name: Idaho Attorney General, Consumer Protection Division
+    website: https://www.ag.idaho.gov/consumer-protection/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaint form
+        value: https://ag.idaho.gov/office-resources/online-forms/?form=File%20a%20Complaint&complaint=Consumer%20Complaint
+        access: open
+        source: https://www.ag.idaho.gov/consumer-protection/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Protection Division
+        value: +1-208-334-2424
+        source: https://www.ag.idaho.gov/consumer-protection/
+        last_verified: 2026-10-12
+      - id: hotline-toll-free
+        type: phone
+        label: Consumer Protection Division (toll-free)
+        value: +1-800-432-3545
+        source: https://www.ag.idaho.gov/consumer-protection/
+        last_verified: 2026-10-12
+  - id: id-puc
+    kind: utility_commission
+    name: Idaho Public Utilities Commission, Consumer Assistance
+    covers_sectors: [utility]
+    website: https://puc.idaho.gov/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer Complaint / Inquiry Form
+        value: https://puc.idaho.gov/Form/ConsumerAssistance/
+        access: open
+        notes: For problems with a utility (billing, rates and charges, disconnection, outages) that are not part of a utility case. The form asks whether you contacted the company first.
+        source: https://puc.idaho.gov/Form/ConsumerAssistance/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer assistance (toll-free)
+        value: +1-800-432-0369
+        source: https://puc.idaho.gov/
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Idaho PUC
+        value: +1-208-334-0300
+        source: https://puc.idaho.gov/
+        last_verified: 2026-10-12
+    notes: The PUC site lists electric, natural gas, water and telecom sections, but does not say whether it takes wireless, cable or internet complaints.
+  - id: id-insurance
+    kind: insurance_department
+    name: Idaho Department of Insurance
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://doi.idaho.gov/consumers/file-a-complaint/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online complaint form (NAIC system)
+        value: https://sbs.naic.org/solar-web/pages/public/onlineComplaintForm/onlineComplaintForm.jsf?state=id
+        access: open
+        notes: For employer-provided health insurance, complete the insurer's internal appeal first.
+        source: https://doi.idaho.gov/consumers/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Hotline
+        value: +1-800-721-3272
+        source: https://doi.idaho.gov/consumers/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Main office
+        value: +1-208-334-4250
+        source: https://doi.idaho.gov/consumers/file-a-complaint/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Department of Insurance by mail
+        value: Idaho Department of Insurance, 700 W. State Street, 3rd Fl., P.O. Box 83720, Boise, ID 83720-0043
+        source: https://doi.idaho.gov/consumers/file-a-complaint/
+        last_verified: 2026-10-12
+  - id: id-financial
+    kind: financial_regulator
+    name: Idaho Department of Finance
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://www.finance.idaho.gov/complaint-guidance/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online complaint form
+        value: https://id.accessgov.com/finance-complaints/Forms/Page/finance-complaints/online-complaints/
+        source: https://www.finance.idaho.gov/complaint-guidance/
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Department of Finance
+        value: +1-208-332-8000
+        source: https://www.finance.idaho.gov/complaint-guidance/
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Department of Finance by mail
+        value: Idaho Department of Finance, 11341 West Chinden Blvd., Building 4, Floor 3, Boise, ID 83714
+        source: https://www.finance.idaho.gov/complaint-guidance/
+        last_verified: 2026-10-12
+    notes: The department does not regulate all institutions; complaints about federally chartered credit unions are outside its jurisdiction. It refers misdirected complaints to the correct agency.
