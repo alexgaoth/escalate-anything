@@ -1,0 +1,192 @@
+id: brinks-home
+name: Brinks Home
+aliases: [Brinks Home Security, "BH Security, LLC", BH Security]
+sector: home_services
+website: https://www.brinkshome.com
+account_url: https://account.brinkshome.com
+regulators: [ftc]
+notes: >-
+  Home security monitoring company, BH Security, LLC dba Brinks Home, 1501 Lyndon B Johnson Fwy, Suite 700,
+  Dallas, TX 75234. Brinks Home says independent Sales Representatives and Dealers sell its products,
+  including door-to-door. Promotions on its terms page require a minimum 36-month monitoring contract. The
+  monitoring contract itself is not published; the FAQ says an early termination fee may be charged "as set
+  forth in the monitoring contract." The optional Brinks Home Plus extended service plan has its own terms
+  and its own early termination charge. The terms page requires binding arbitration, with small claims
+  court allowed for qualifying individual claims.
+
+channels:
+  - id: customer-support-phone
+    type: phone
+    label: Customer Support
+    value: +1-469-391-4024
+    hours: "Mon-Sat 8 a.m.-8 p.m. CT"
+    purposes: [cancel_service, early_termination_fee, billing_error, refund_request, poor_service]
+    source: https://www.brinkshome.com/contact-us
+    last_verified: 2026-10-13
+  - id: customer-support-text
+    type: sms
+    label: Customer Support by text
+    value: +1-469-513-8685
+    hours: 24/7
+    purposes: [billing_error, poor_service]
+    source: https://www.brinkshome.com/contact-us
+    last_verified: 2026-10-13
+  - id: chat
+    type: chat
+    label: Live Chat (on the contact page)
+    value: https://www.brinkshome.com/contact-us
+    purposes: [billing_error, poor_service]
+    source: https://www.brinkshome.com/contact-us
+    last_verified: 2026-10-13
+  - id: sales-phone
+    type: phone
+    label: Sales Center
+    value: +1-888-627-3631
+    hours: "Mon-Fri 7 a.m.-10 p.m. CT (the contact page card says Mon-Sat)"
+    source: https://www.brinkshome.com/contact-us
+    last_verified: 2026-10-13
+  - id: customer-portal
+    type: portal
+    label: Customer Portal (account, payments, equipment returns)
+    value: https://account.brinkshome.com
+    purposes: [refund_request, billing_error]
+    access: login
+    notes: Equipment returns need a return authorization and label from the portal's Return module.
+    source: https://www.brinkshome.com/return-policy
+    last_verified: 2026-10-13
+  - id: guest-payment
+    type: web_form
+    label: Make a payment without logging in
+    value: https://account.brinkshome.com/guestpayment
+    access: open
+    source: https://www.brinkshome.com/contact-us
+    last_verified: 2026-10-13
+  - id: company-mail
+    type: mail
+    label: Brinks Home mailing address
+    value: "Brinks Home, 1501 Lyndon B Johnson Fwy, Suite 700, Dallas, TX 75234"
+    purposes: [cancel_service, billing_error]
+    notes: Listed on the contact page and in the terms as the address of BH Security, LLC dba Brinks Home. Use it for written notices, with proof of delivery; check your monitoring contract for the notice address it names.
+    source: https://www.brinkshome.com/contact-us
+    last_verified: 2026-10-13
+  - id: additional-property-phone
+    type: phone
+    label: Add a vacation or additional property
+    value: +1-844-228-1171
+    source: https://www.brinkshome.com/faqs
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-support-phone}
+  - {rung: retention, channel: customer-support-phone, note: "Ask for the early termination amount under your monitoring contract and any remaining equipment financing balance, in writing."}
+  - {rung: written_complaint, channel: company-mail}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "The Brinks Home terms say binding arbitration is mandatory, with a class action waiver; small claims court is allowed for qualifying individual claims."}
+
+playbooks:
+  - issue: cancel_service
+    summary: The monitoring contract sets the term and the early termination fee; returning equipment does not cancel monitoring. Within three business days of a door-to-door sale, cancel under the FTC Cooling-Off Rule.
+    evidence: [monitoring contract with term and start date, equipment financing contract, cancellation confirmation, bills after cancellation]
+    steps:
+      - do: If a sales representative signed you up at your home in the last three business days, cancel in writing under the FTC Cooling-Off Rule, postmarked before midnight of the third business day.
+        note: See rules/ftc-cooling-off-rule.
+      - do: Read your monitoring contract for the term, renewal and early termination clauses.
+      - do: Call Customer Support to cancel. Ask for the cancellation date, any early termination fee and any remaining equipment financing balance, and a confirmation number.
+        channel: customer-support-phone
+      - do: Send written notice to Brinks Home by a method with proof of delivery and keep a copy.
+        channel: company-mail
+    facts:
+      - kind: policy
+        claim: Brinks Home promotions on its terms page require a minimum 36-month monitoring contract; for example, the Free Video Doorbell Promotion "Requires acceptance of a minimum 36-month monitoring contract starting at $54.99/month".
+        issues: [cancel_service, early_termination_fee]
+        source: https://www.brinkshome.com/terms
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: The Brinks Home return policy says "Returning any equipment will not automatically terminate your monitoring contract."
+        issues: [cancel_service, refund_request]
+        source: https://www.brinkshome.com/return-policy
+        last_verified: 2026-10-13
+
+  - issue: early_termination_fee
+    summary: The monitoring contract sets the fee; financed equipment is still owed; Brinks Home Plus charges 100% of remaining payments if cancelled in its initial term.
+    evidence: [monitoring contract, equipment financing contract, Brinks Home Plus enrollment, bill with the fee]
+    steps:
+      - do: Ask Customer Support for the early termination fee in writing, with the calculation.
+        channel: customer-support-phone
+      - do: Check the amount against the termination clause in your monitoring contract and dispute any difference in writing.
+        channel: company-mail
+      - do: If you have Brinks Home Plus, check whether you are in its initial term or a renewal term before cancelling it.
+    facts:
+      - kind: fee
+        claim: The Brinks Home FAQ says "We may charge an early termination fee as set forth in the monitoring contract," and a customer who financed equipment is responsible for any remaining balance under the equipment financing contract.
+        issues: [early_termination_fee]
+        source: https://www.brinkshome.com/faqs
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: Under the current Brinks Home Plus extended service plan terms, cancelling during the Initial Term costs "an amount equal to one hundred (100%) percent of the remaining payments owed"; there is no termination charge for cancelling during a Renewal Term. Plan fees and payments are non-refundable.
+        issues: [early_termination_fee, refund_request]
+        source: https://www.brinkshome.com/terms
+        last_verified: 2026-10-13
+      - kind: process
+        claim: After the Initial Term, Brinks Home Plus can be cancelled by "calling Brinks Home and completing Brinks Home's then-current cancellation procedures."
+        issues: [cancel_service]
+        source: https://www.brinkshome.com/terms
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: Existing customers can return shipped equipment within 30 days of the ship date through the Customer Portal; refunds take up to 30 days.
+    evidence: [shipping date, return authorization and tracking number, order details]
+    steps:
+      - do: Log in to the Customer Portal, open the Return module, and get a return authorization and label. If an item is not listed, call Customer Support.
+        channel: customer-portal
+      - do: Ship the items unused and in the original packaging within 30 days of the ship date, and keep the tracking number.
+      - do: If the refund has not arrived after 30 days, call Customer Support with the tracking number.
+        channel: customer-support-phone
+    facts:
+      - kind: deadline
+        claim: Existing customers may return equipment "within thirty (30) days of the date Brinks Home shipped the equipment." Items must be unused and in original packaging; incomplete or damaged items may be refused.
+        issues: [refund_request]
+        source: https://www.brinkshome.com/return-policy
+        last_verified: 2026-10-13
+      - kind: process
+        claim: Brinks Home refunds may take up to thirty days to process and are applied first to any past-due amount; refunds are reduced by discount, shipping and handling costs, and initial shipping charges are not refunded. Brinks Home has no drop-off locations and does not provide return boxes.
+        issues: [refund_request]
+        source: https://www.brinkshome.com/return-policy
+        last_verified: 2026-10-13
+
+known_blockers:
+  - The monitoring contract is not published online; ask the person for their signed contract to find the term and early termination clause.
+  - Equipment returns need a Customer Portal sign-in.
+
+official_domains: [brinkshome.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Brinks Home says it typically does not contact customers to offer equipment upgrades, and advises not to disclose account information without confirming affiliation.
+      source: https://www.brinkshome.com/verify-and-report
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Brinks Home Sales Representatives, Dealers and Installation Technicians carry badges with a photo, ID number and QR code; the ID can be checked with the Verify Rep tool.
+      source: https://www.brinkshome.com/verify-and-report
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: 'Deceptive door-to-door pitches include "Brinks Home is going out of business," "Your contract is expiring—here''s a new one to sign," "I can add you to this list to get a free system," and "You need to sign this contract today."'
+      source: https://www.brinkshome.com/verify-and-report
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-scam-phone
+      type: phone
+      label: Verify a representative or report a scam (Sales Center number on the verify page)
+      value: +1-469-391-5734
+      hours: "Mon-Fri 7 a.m.-10 p.m. CT"
+      source: https://www.brinkshome.com/verify-and-report
+      last_verified: 2026-10-13
+    - id: report-scam-form
+      type: web_form
+      label: Verify Rep tool and Report a Scam form
+      value: https://www.brinkshome.com/verify-and-report
+      source: https://www.brinkshome.com/verify-and-report
+      last_verified: 2026-10-13

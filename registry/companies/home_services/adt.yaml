@@ -1,0 +1,140 @@
+id: adt
+name: ADT
+aliases: [ADT Inc., ADT Security Services, ADT LLC, ADT Home Security, ADT+, ADT Blu]
+sector: home_services
+website: https://www.adt.com
+regulators: [ftc]
+notes: >-
+  Home security monitoring company. ADT's 10-K for 2025 reports about 6.1 million security monitoring
+  subscribers as of December 31, 2025. Customers come from ADT's own sales channels (including door-to-door
+  activities) and from independent authorized dealers who must offer ADT the monitored accounts they sign.
+  Contract terms depend on the version you signed: the 10-K says standard terms are two, three or five years
+  with residential contracts renewing automatically for successive 30-day periods, and a termination payment
+  equal to a designated percentage of the remaining monthly payments if the customer cancels during the
+  initial term. adt.com, help.adt.com and ADT's legal PDFs returned HTTP 403 or empty pages to automated
+  fetches on 2026-10-13; values marked "search snippet" were seen only in search results for adt.com pages.
+  newsroom.adt.com and sec.gov pages were readable.
+
+channels:
+  - id: customer-phone
+    type: phone
+    label: ADT customer line (800-ADT-ASAP)
+    value: +1-800-238-2727
+    purposes: [cancel_service, early_termination_fee, billing_error, poor_service]
+    notes: ADT's newsroom gives this number to verify an ADT or Authorized Dealer visit and to report attempts to switch your provider. Third-party cancellation guides also cite it for cancelling. Use the number in your own contract or on your bill if it differs.
+    source: https://newsroom.adt.com/safety-trends/protect-yourself-from-sales-scams-how-to-spot-and-avoid-fraudulent-sales-tactics
+    last_verified: 2026-10-13
+  - id: verify-rep
+    type: web_form
+    label: Verify an ADT representative by ID number
+    value: https://www.adt.com/verify
+    access: open
+    notes: Search snippet only. The search result title reads "Verify Your ADT or P1 Security Representative by Entering the ID Online". The page returned HTTP 403 to automated fetches.
+    source: https://www.adt.com/verify
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-phone}
+  - {rung: retention, note: "If offered a discount to stay, ask whether it starts a new contract term. Ask for the exact termination amount and the cancellation effective date in writing."}
+  - {rung: written_complaint, note: "No ADT complaint address or email could be verified. Send written cancellation notice to the notice address printed in your contract, by a method with proof of delivery."}
+  - {rung: payment_dispute, note: "Dispute charges after the cancellation effective date with your card issuer or bank."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "ADT's newsroom says to report deceptive sales to ADT, the Better Business Bureau and local law enforcement; the state attorney general takes consumer complaints about contracts and sales practices."}
+  - {rung: small_claims, note: "Check your contract for an arbitration clause first; ADT's terms could not be read directly."}
+
+playbooks:
+  - issue: cancel_service
+    summary: Check whether you are still in the initial term; after it, the contract renews in 30-day periods and can usually be ended with notice. Within three business days of a door-to-door sale, cancel under the FTC Cooling-Off Rule.
+    evidence: [signed contract or agreement with start date and term, cancellation confirmation number, bills after the cancellation date]
+    steps:
+      - do: Find your contract and note the initial term (two, three or five years), the start date, the renewal terms and the termination charge percentage.
+      - do: If you signed at home with a salesperson in the last three business days, cancel under the FTC Cooling-Off Rule by mailing the signed notice of cancellation form, postmarked before midnight of the third business day.
+        note: See rules/ftc-cooling-off-rule.
+      - do: Call ADT to cancel. Ask for the cancellation effective date, any termination charge and a confirmation number, and ask for written confirmation by email.
+        channel: customer-phone
+      - do: Send written notice of cancellation to the notice address in your contract by a method with proof of delivery, and keep a copy.
+      - do: If ADT keeps billing after the effective date, dispute the charges with your card issuer and file a complaint with your state attorney general.
+    facts:
+      - kind: policy
+        claim: ADT's 10-K for 2025 says its standard contract terms are two, three or five years, "with automatic renewals for successive 30-day periods for residential security customers."
+        issues: [cancel_service, early_termination_fee]
+        source: https://www.sec.gov/Archives/edgar/data/1703056/000170305626000022/adt-20251231.htm
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: Search snippet only. Search results for ADT's residential terms pages quote that contracts renew for successive thirty (30)-day terms unless terminated by either party at least thirty (30) days before the end of the current term, and that no termination charges are due for a termination during a 30-day renewal period. Check the wording in your own contract.
+        issues: [cancel_service]
+        source: https://www.adt.com/about-adt/legal/residential-terms-and-conditions
+        last_verified: 2026-10-13
+
+  - issue: early_termination_fee
+    summary: Cancelling during the initial term usually costs a share of the remaining monthly charges; ask for the calculation in writing and check whether a price increase lets you end the contract without the charge.
+    evidence: [signed contract with initial term and termination clause, latest bill, written quote of the termination charge, any price increase notice]
+    steps:
+      - do: Ask ADT for the termination charge in writing, with the number of months left and the monthly amount used.
+        channel: customer-phone
+      - do: Check the calculation against the termination clause in your contract. If it is wrong, dispute it in writing.
+      - do: If ADT sent a price increase notice, read your contract for a right to object in writing and end the contract without termination charges.
+      - do: If ADT bills a charge your contract does not allow, dispute it with your card issuer and complain to your state attorney general.
+    facts:
+      - kind: fee
+        claim: ADT's 10-K for 2025 says that if a customer cancels or defaults before the end of the initial contract term, ADT has the right to a termination payment "in an amount equal to a designated percentage of all remaining monthly payments."
+        issues: [early_termination_fee]
+        source: https://www.sec.gov/Archives/edgar/data/1703056/000170305626000022/adt-20251231.htm
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: Search snippet only. Search results for ADT's residential terms quote that upon early termination by the customer ADT may charge 75% of the monthly service charges due for the balance of the initial contract term; ADT's small business terms quote 90%. The percentage in your own contract controls.
+        issues: [early_termination_fee]
+        source: https://www.adt.com/about-adt/legal/residential-terms-and-conditions
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Search snippet only. A search result for ADT's residential terms quotes a clause that lets the customer object in writing within 30 days of a monitoring price increase notice and, if ADT does not waive the increase, terminate effective thirty (30) days after ADT receives written notice without paying contract termination charges. Confirm that your contract version has this clause.
+        issues: [early_termination_fee, cancel_service]
+        source: https://www.adt.com/about-adt/legal/residential-terms-and-conditions
+        last_verified: 2026-10-13
+
+facts:
+  - kind: policy
+    claim: ADT's 10-K for 2025 says its authorized dealers are third-party independent dealers that are contractually obligated to offer ADT all qualified monitored accounts they generate, and that ADT's direct channel includes door-to-door activities.
+    issues: [cancel_service]
+    source: https://www.sec.gov/Archives/edgar/data/1703056/000170305626000022/adt-20251231.htm
+    last_verified: 2026-10-13
+
+tips:
+  - kind: official
+    text: ADT advises never to sign any documents without a thorough review, and to call 800-ADT-ASAP before letting an unexpected ADT or Authorized Dealer visitor into the home.
+    issues: [cancel_service]
+    source: https://newsroom.adt.com/safety-trends/protect-yourself-from-sales-scams-how-to-spot-and-avoid-fraudulent-sales-tactics
+    last_verified: 2026-10-13
+
+known_blockers:
+  - adt.com, help.adt.com and ADT's legal PDFs block automated fetches (HTTP 403 or a blank page), so an agent cannot read the contract terms or contact page; ask the person for their signed contract.
+  - No ADT written-complaint address or email was found.
+
+official_domains: [adt.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: ADT says its Solutions Advisors and Authorized Dealers carry company-issued identification; "If they fail to provide it, don't believe them."
+      source: https://newsroom.adt.com/safety-trends/protect-yourself-from-sales-scams-how-to-spot-and-avoid-fraudulent-sales-tactics
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Door-to-door salespeople from other companies try to trick ADT customers into changing their security provider and pressure them to sign quickly. ADT says to call 800-ADT-ASAP to verify a visit before letting anyone in.
+      source: https://newsroom.adt.com/safety-trends/protect-yourself-from-sales-scams-how-to-spot-and-avoid-fraudulent-sales-tactics
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Search snippet only. ADT's deceptive sales pages list pitches such as "We're here to upgrade your ADT system", "Our company just bought ADT" and "Your service will be cancelled because ___ is taking over ADT."
+      source: https://www.adt.com/deceptive-security-sales
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: In a May 18, 2018 release about door-to-door security sales fraud, the BBB said that in 2017 thousands of consumers complained about dishonest and misleading sales pitches or reported door-to-door scams; one consumer described signing with a salesman she thought represented ADT.
+      source: https://investor.adt.com/News--Events/news/news-details/2018/BBB-Helps-Fight-Fraud-at-the-Front-Door-by-Teaming-with-ADT-and-Other-Security-Leaders-05-18-2018/default.aspx
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-deceptive-sales
+      type: phone
+      label: Report a deceptive sales attempt to ADT (800-ADT-ASAP)
+      value: +1-800-238-2727
+      notes: ADT also says to report to the Better Business Bureau and local law enforcement.
+      source: https://newsroom.adt.com/safety-trends/protect-yourself-from-sales-scams-how-to-spot-and-avoid-fraudulent-sales-tactics
+      last_verified: 2026-10-13

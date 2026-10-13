@@ -1,0 +1,299 @@
+id: portland-general-electric
+name: Portland General Electric
+aliases: [Portland General, Portland General Electric Company]
+sector: utility
+website: https://portlandgeneral.com
+account_url: https://portlandgeneral.com/secure/account/summary
+notes: >-
+  Electric utility for the Portland and Salem areas of Oregon. Not the same company as PG&E (Pacific
+  Gas and Electric, California); PGE's fraud page warns that scam emails sometimes say "PG&E". Regulated
+  by the Public Utility Commission of Oregon (Oregon PUC), Consumer Services: 503-378-6600 or
+  800-522-2404 (TTY 711), puc.consumer@puc.oregon.gov, complaint form https://puc.oregon.gov/complaint.
+  The PUC says to try to resolve the problem with the utility first. PGE emails use the pgn.com domain
+  (for example LiabilityClaims@pgn.com).
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: PGE Customer Service (payment arrangements, disconnect notices, billing)
+    value: +1-503-228-6322
+    hours: "Mon-Fri 8 a.m.-6 p.m."
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, poor_service]
+    notes: Payment plans and extensions can be requested 24/7 through the automated phone system or by signing in.
+    source: https://portlandgeneral.com/help/connect
+    last_verified: 2026-10-13
+  - id: customer-service-tollfree
+    type: phone
+    label: PGE Customer Service toll-free (also the language line, 200+ languages)
+    value: +1-800-542-8818
+    hours: "Mon-Fri 8 a.m.-6 p.m."
+    purposes: [billing_error, disconnection, payment_assistance, poor_service]
+    source: https://portlandgeneral.com/help/connect
+    last_verified: 2026-10-13
+  - id: outage-phone
+    type: phone
+    label: Outages, emergencies and power problems (24 hours)
+    value: +1-503-464-7777
+    hours: 24/7
+    purposes: [service_outage]
+    notes: Toll-free 800-544-1795.
+    source: https://portlandgeneral.com/help/connect
+    last_verified: 2026-10-13
+  - id: outage-report-online
+    type: web_form
+    label: Report a power outage online
+    value: https://portlandgeneral.com/outages
+    purposes: [service_outage]
+    source: https://portlandgeneral.com/help/connect
+    last_verified: 2026-10-13
+  - id: deaf-hoh-phone
+    type: phone
+    label: Deaf and hard of hearing phone line
+    value: +1-800-735-2900
+    source: https://portlandgeneral.com/help/connect
+    last_verified: 2026-10-13
+  - id: payment-arrangement
+    type: portal
+    label: Need more time to pay (payment plan or extension)
+    value: https://portlandgeneral.com/secure/need-more-time-to-pay
+    purposes: [disconnection, payment_assistance]
+    access: login
+    notes: Also by phone at 503-228-6322, 24/7 through the automated system.
+    source: https://portlandgeneral.com/help/resources
+    last_verified: 2026-10-13
+  - id: iqbd-application
+    type: portal
+    label: Income-Qualified Bill Discount application (for your own account)
+    value: https://portlandgeneral.com/secure/iqbd/form
+    purposes: [payment_assistance, disconnection]
+    access: login
+    notes: A form to apply for someone else is at https://portlandgeneral.com/iqbd/form. Phone 503-228-6322, Mon-Fri 8 a.m.-6 p.m.
+    source: https://portlandgeneral.com/income-qualified-bill-discount
+    last_verified: 2026-10-13
+  - id: energy-assistance
+    type: web_form
+    label: Energy assistance programs and county agencies (LIHEAP, OEAP, Oregon Energy Fund)
+    value: https://portlandgeneral.com/help/help-topics/energy-assistance-programs-residential
+    purposes: [payment_assistance]
+    access: open
+    source: https://portlandgeneral.com/help/help-topics/energy-assistance-programs-residential
+    last_verified: 2026-10-13
+  - id: medical-certificate-phone
+    type: phone
+    label: Medical Certificate program
+    value: +1-503-612-3838
+    hours: "Mon-Fri 8 a.m.-5 p.m."
+    purposes: [disconnection]
+    notes: "Application form (PDF, completed by a licensed physician, nurse practitioner or physician assistant): https://assets.ctfassets.net/416ywc1laqmd/7DHt6CfdsOWC3qdfd0gMIF/24c7f77959c5b9c00adc48793f7ed6d6/Medical_Certificate_Application.pdf"
+    source: https://portlandgeneral.com/outages-safety/be-prepared/powering-medical-equipment
+    last_verified: 2026-10-13
+  - id: claims-online
+    type: web_form
+    label: Submit a damage claim online
+    value: https://riskonnectpge.my.site.com/Intake/s/intake-incident
+    purposes: [property_damage_claim, service_outage]
+    access: open
+    notes: Third-party claims intake site (Riskonnect) linked from PGE's Claims Center; the domain is not portlandgeneral.com.
+    source: https://portlandgeneral.com/help/help-topics/claims-center
+    last_verified: 2026-10-13
+  - id: claims-email
+    type: email
+    label: PGE Liability Claims
+    value: LiabilityClaims@pgn.com
+    purposes: [property_damage_claim]
+    notes: "Fax 503-464-7055. Phone help: Customer Service 800-542-8818; the Claims Center lists Liability Claims at 503-228-6322."
+    source: https://portlandgeneral.com/help/help-topics/claims-center
+    last_verified: 2026-10-13
+  - id: claims-mail
+    type: mail
+    label: PGE Liability Claims Department by mail
+    value: "Portland General Electric Liability Claims Department, 121 S.W. Salmon St., Portland, OR 97204"
+    purposes: [property_damage_claim]
+    source: https://portlandgeneral.com/help/help-topics/claims-center
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, channel: customer-service-phone, note: "Ask for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, note: "PGE does not publish a complaint address or form on its Connect with Us page; put the complaint in writing to the Oregon PUC if a supervisor does not resolve it."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Public Utility Commission of Oregon, Consumer Services: 503-378-6600 or 800-522-2404, puc.consumer@puc.oregon.gov, https://puc.oregon.gov/complaint. The PUC says to first try to resolve the issue with the utility."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Oregon Department of Justice (Attorney General), consumer protection."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the bill with PGE customer service and a supervisor, then file with the Oregon PUC.
+    evidence: [the disputed bill, earlier bills, meter photos with dates, call notes with names and reference numbers]
+    steps:
+      - do: Call PGE, explain which charge is wrong and what it should be. Get a reference number.
+        channel: customer-service-phone
+      - do: If the representative cannot fix it, ask for a supervisor.
+        channel: customer-service-phone
+      - do: If PGE does not resolve it, file a complaint with the Oregon PUC Consumer Services team.
+    facts:
+      - kind: process
+        claim: The Oregon PUC says customers with a complaint about utility service should first try to resolve it with the utility, then contact PUC Consumer Services at 503-378-6600 or 800-522-2404, puc.consumer@puc.oregon.gov, or the online complaint form (Mon-Fri 8 a.m.-5 p.m.).
+        issues: [billing_error, poor_service, disconnection]
+        source: https://www.oregon.gov/puc/pages/consumer-information-center.aspx
+        last_verified: 2026-10-13
+
+  - issue: disconnection
+    summary: Oregon requires 15- and 5-day notices and pauses shutoffs in heat, cold, smoke and wildfire evacuations; ask PGE for a payment arrangement and enroll in the Income-Qualified Bill Discount or Medical Certificate program.
+    evidence: [disconnection notice, account balance, medical certificate, income information]
+    steps:
+      - do: Before the disconnection date, request a payment plan or extension online or by phone (24/7).
+        channel: payment-arrangement
+      - do: Apply for the Income-Qualified Bill Discount and call your county agency for LIHEAP or OEAP.
+        channel: iqbd-application
+      - do: If someone in the home has a medical condition, have a licensed physician, nurse practitioner or physician assistant complete PGE's Medical Certificate application.
+        channel: medical-certificate-phone
+      - do: If you and PGE cannot agree, contact the Oregon PUC before the disconnection date.
+    facts:
+      - kind: deadline
+        claim: The Oregon PUC says electric and natural gas utilities must give 15-day and 5-day notices before disconnection, and may not disconnect for nonpayment on a weekend or holiday or the day before one.
+        issues: [disconnection]
+        source: https://www.oregon.gov/puc/pages/consumer-information-center.aspx
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: The Oregon PUC says regulated utilities (other than phone companies) must offer time-payment arrangements, typically 12 months.
+        issues: [disconnection, payment_assistance]
+        source: https://www.oregon.gov/puc/pages/consumer-information-center.aspx
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: PGE says it will not disconnect residential service for nonpayment from 24 hours before to 48 hours after a heat advisory, extreme heat watch or extreme heat warning; when low temperatures are forecast at or below 32 degrees Fahrenheit or there is a winter storm advisory; during a level 2 or level 3 wildfire evacuation notice and for 48 hours after it ends; and when the Air Quality Index is 100 or above and for 48 hours after.
+        issues: [disconnection]
+        source: https://portlandgeneral.com/help/help-topics
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Residential customers disconnected for nonpayment in the 7 calendar days before a severe weather event, wildfire evacuation or poor air quality event can request reconnection at no upfront cost during the event and for 7 calendar days after it, according to PGE.
+        issues: [disconnection]
+        source: https://portlandgeneral.com/help/help-topics
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: For Income-Qualified Bill Discount and Medical Certificate program participants, PGE charges no late fees and caps the amount needed to reconnect after a nonpayment disconnection at $200. IQBD customers get the first field visit fee waived each year.
+        issues: [disconnection, payment_assistance]
+        source: https://portlandgeneral.com/help/help-topics
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: PGE's Medical Certificate program gives a specialized team for more flexible billing and payment arrangements, but PGE says it does not prevent disconnection if the customer does not pay or call to make arrangements.
+        issues: [disconnection]
+        source: https://portlandgeneral.com/outages-safety/be-prepared/powering-medical-equipment
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: The Oregon PUC's 2026 summer notice says regulated utilities including PGE must pause nonpayment disconnections when the Department of Environmental Quality issues an air-quality advisory or the AQI is forecast at 100 or higher, starting 24 hours before a forecast extreme heat warning, watch or heat advisory, and (best efforts) under a level 2 or 3 wildfire evacuation notice. Moratoriums generally remain for 48 hours after the event ends.
+        issues: [disconnection]
+        source: https://www.oregon.gov/puc/news-events/Documents/PR-202618.pdf
+        last_verified: 2026-10-13
+
+  - issue: payment_assistance
+    summary: Enroll in the Income-Qualified Bill Discount (15%-80% off for two years), ask about arrearage relief, and call your county agency for LIHEAP or OEAP.
+    evidence: [current bill, household size, gross income of household members 18 and older]
+    steps:
+      - do: Apply for the Income-Qualified Bill Discount online or by phone.
+        channel: iqbd-application
+      - do: Call the agency in your county for LIHEAP, OEAP or Oregon Energy Fund help, or dial 211.
+        channel: energy-assistance
+      - do: Ask PGE for a payment arrangement or extension, or change your due date.
+        channel: payment-arrangement
+    facts:
+      - kind: compensation
+        claim: PGE's Income-Qualified Bill Discount is between 15% and 80% a month, based on household size and combined annual income, and lasts two years from enrollment.
+        issues: [payment_assistance]
+        source: https://portlandgeneral.com/income-qualified-bill-discount
+        last_verified: 2026-10-13
+      - kind: compensation
+        claim: Eligible Income-Qualified Bill Discount customers can receive up to $500 each year through PGE's Arrearage Relief Program to reduce or eliminate past-due balances.
+        issues: [payment_assistance, disconnection]
+        source: https://portlandgeneral.com/help/help-topics
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: PGE's energy assistance page uses gross annual household income at or below 60% of State Median Income (as of Oct. 2025), for example $40,326 for one person and $77,550 for four. Funds are limited and qualifying does not guarantee assistance.
+        issues: [payment_assistance]
+        source: https://portlandgeneral.com/help/help-topics/energy-assistance-programs-residential
+        last_verified: 2026-10-13
+
+  - issue: service_outage
+    summary: Report the outage online or on the 24-hour line; PGE pays outage losses only when it was negligent, not for weather.
+    evidence: [outage start and end times, service address, photos and receipts for losses]
+    steps:
+      - do: Report the outage online or by phone.
+        channel: outage-report-online
+      - do: If you think PGE negligence caused a loss, file a claim.
+        channel: claims-online
+    facts:
+      - kind: policy
+        claim: PGE says it compensates damages caused by its negligence, and is not responsible for damages caused by weather (wind, lightning, heat, snow, ice or flooding), animal contacts with its equipment, or equipment failure beyond its reasonable control.
+        issues: [service_outage, property_damage_claim]
+        source: https://portlandgeneral.com/help/help-topics/claims-center
+        last_verified: 2026-10-13
+
+  - issue: property_damage_claim
+    summary: File online or by email with repair estimates and receipts; a PGE claim representative calls within two business days.
+    evidence: [photos, repair estimates or invoices, original purchase receipts, date and time of the incident]
+    steps:
+      - do: Take reasonable steps to limit the loss and keep the damaged items and photos.
+      - do: Submit the claim online, or email, fax or mail it to Liability Claims.
+        channel: claims-online
+      - do: If PGE denies a claim you believe is valid, ask for the reason in writing and contact the Oregon PUC.
+    facts:
+      - kind: process
+        claim: PGE sends an email acknowledgment the same day a claim is submitted, and a claim representative contacts the claimant within two business days.
+        issues: [property_damage_claim]
+        source: https://portlandgeneral.com/help/help-topics/claims-center
+        last_verified: 2026-10-13
+      - kind: compensation
+        claim: PGE pays the reasonable cost to repair damaged items, or the actual cash value of an item that must be replaced. Food spoilage is evaluated under U.S. Department of Agriculture guidelines.
+        issues: [property_damage_claim, service_outage]
+        source: https://portlandgeneral.com/help/help-topics/claims-center
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: PGE's Claims Center says requests for SNAP food replacement benefits (a separate state program) must be made within 10 days of the loss. PGE states no general deadline for its own claims.
+        issues: [property_damage_claim, service_outage]
+        source: https://portlandgeneral.com/help/help-topics/claims-center
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Payment arrangements, the Income-Qualified Bill Discount form for your own account and Medical Certificate temporary enrollment need a PGE account sign-in.
+  - The online claim form is on a third-party site (riskonnectpge.my.site.com).
+  - The Medical Certificate application must be completed by a licensed physician, nurse practitioner or physician assistant.
+
+official_domains: [portlandgeneral.com, pgn.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: PGE says it will never ask customers to pay with a pre-paid card, Zelle or Venmo.
+      source: https://portlandgeneral.com/help/help-topics/fraud-alert
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: PGE employees will not ask for immediate access to customers' homes.
+      source: https://portlandgeneral.com/help/help-topics/fraud-alert
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Texts from PGE never ask for payment or for personal information such as Social Security, bank or card numbers.
+      source: https://portlandgeneral.com/help/help-topics/fraud-alert
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Callers say the customer owes money and threaten to turn off power that day, usually within an hour, then tell the customer to buy a prepaid card (Reloadit, Green Dot, Vanilla Reload) and call back with the number.
+      source: https://portlandgeneral.com/help/help-topics/fraud-alert
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Scam emails look like PGE bills with fake account numbers, may say "PG&E" instead of "PGE", and link to sites that download malware.
+      source: https://portlandgeneral.com/help/help-topics/fraud-alert
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Texts pretending to be PGE ask for payment and give a callback number.
+      source: https://portlandgeneral.com/help/help-topics/fraud-alert
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: A person posing as a PGE employee comes to the door and demands immediate cash, usually $50 to $100, for a late bill. Real employees carry a badge with name, photo, PGE logo and a verification number.
+      source: https://portlandgeneral.com/help/help-topics/fraud-alert
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-scam-phone
+      type: phone
+      label: Report a scam to PGE (hang up, call, and say "report a scam")
+      value: +1-503-228-6322
+      notes: Also 800-542-8818. For door-to-door impostors, PGE says to call the police.
+      source: https://portlandgeneral.com/help/help-topics/fraud-alert
+      last_verified: 2026-10-13

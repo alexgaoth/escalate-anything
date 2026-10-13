@@ -1,0 +1,285 @@
+id: oge-energy
+name: Oklahoma Gas and Electric Company (OG&E)
+aliases: [OG&E, OGE, Oklahoma Gas & Electric, OGE Energy, OGE Energy Corp]
+sector: utility
+parent: OGE Energy Corp.
+website: https://www.oge.com
+notes: >-
+  Electric utility in Oklahoma and western Arkansas. Oklahoma service is regulated by the Oklahoma
+  Corporation Commission (OCC), Public Utility Division, Consumer Services; Arkansas service by the
+  Arkansas Public Service Commission (APSC). OG&E's contact page lists Oklahoma numbers only (OKC metro
+  and all other areas); its Arkansas customer guide uses the same 800 numbers. Oklahoma and Arkansas rules
+  on disconnection differ; the facts below say which state each applies to. The OG&E Arkansas customer
+  guide used here is the 2024 edition.
+
+channels:
+  - id: residential-support-phone
+    type: phone
+    label: Residential customer support (outside the OKC metro, Spanish, online account questions; Oklahoma and Arkansas)
+    value: +1-800-272-9741
+    hours: "Mon-Fri 8 a.m.-5 p.m."
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, poor_service]
+    source: https://www.oge.com/web/portal/label_ord/customer-service/contact-us
+    last_verified: 2026-10-13
+  - id: residential-support-okc-phone
+    type: phone
+    label: Residential customer support (OKC metro)
+    value: +1-405-272-9741
+    hours: "Mon-Fri 8 a.m.-5 p.m."
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, poor_service]
+    source: https://www.oge.com/web/portal/label_ord/customer-service/contact-us
+    last_verified: 2026-10-13
+  - id: business-phone
+    type: phone
+    label: Business customer support (Business Advantage Group)
+    value: +1-888-988-9747
+    source: https://www.oge.com/web/portal/label_ord/customer-service/contact-us
+    last_verified: 2026-10-13
+  - id: tty-phone
+    type: phone
+    label: Hearing or speech impaired (TTY to voice; or dial 711)
+    value: +1-800-722-0353
+    source: https://www.oge.com/web/portal/label_ord/customer-service/contact-us
+    last_verified: 2026-10-13
+  - id: customer-care-email
+    type: email
+    label: OG&E Customer Support email (listed in the Arkansas customer guide)
+    value: custcaredept@oge.com
+    purposes: [billing_error, disconnection, poor_service]
+    source: https://www.oge.com/documents/d/portal/oge_customerguide-2024-ar-digital-v6
+    last_verified: 2026-10-13
+  - id: outage-phone
+    type: phone
+    label: Outages, emergencies and downed power lines (all areas outside the OKC metro; also outage reporting and reconnection)
+    value: +1-800-522-6870
+    hours: 24/7
+    purposes: [service_outage]
+    source: https://www.oge.com/web/portal/label_ord/customer-service/contact-us
+    last_verified: 2026-10-13
+  - id: outage-okc-phone
+    type: phone
+    label: Outages, emergencies and downed power lines (OKC metro)
+    value: +1-405-272-9595
+    hours: 24/7
+    purposes: [service_outage]
+    source: https://www.oge.com/web/portal/label_ord/customer-service/contact-us
+    last_verified: 2026-10-13
+  - id: outage-report-online
+    type: web_form
+    label: Report an outage online
+    value: https://www.oge.com/web/portal/label_ord/outages/report-outage
+    purposes: [service_outage]
+    notes: The contact page also links a report-without-sign-in page at /web/portal/hidden/report-outage-nl and the System Watch outage map at https://outagemap.oge.com/.
+    source: https://www.oge.com/web/portal/label_ord/customer-service/contact-us
+    last_verified: 2026-10-13
+  - id: installment-plan
+    type: portal
+    label: Set up an installment (payment) plan
+    value: https://www.oge.com/web/portal/label_ord/myaccount/installment-plan
+    purposes: [disconnection, payment_assistance]
+    access: login
+    notes: OG&E says customers must qualify. The Oklahoma disconnection policy says to request it before the day of disconnection at OGE.com/assistance or through customer support.
+    source: https://www.oge.com/web/portal/label_ord/customer-service/financial-assistance
+    last_verified: 2026-10-13
+  - id: financial-assistance-page
+    type: web_form
+    label: Financial assistance (LIHEAP, Low-Income Assistance Program, 211, efficiency programs)
+    value: https://www.oge.com/web/portal/label_ord/customer-service/financial-assistance
+    purposes: [payment_assistance, disconnection]
+    access: open
+    source: https://www.oge.com/web/portal/label_ord/customer-service/financial-assistance
+    last_verified: 2026-10-13
+  - id: pay-by-phone
+    type: phone
+    label: Pay by phone through U.S. Payments (OG&E's only third-party payment processor; fees apply)
+    value: +1-877-306-9274
+    hours: "Mon-Fri 7 a.m.-6 p.m."
+    source: https://www.oge.com/web/portal/label_ord/customer-service/contact-us
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: residential-support-phone}
+  - {rung: supervisor, note: "Ask the customer support advocate for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, channel: customer-care-email}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Oklahoma: Oklahoma Corporation Commission, Consumer Services, 405-521-2331 or 1-800-522-8154, CS@occ.ok.gov; the OCC asks customers to contact the service provider first for billing or service matters. Arkansas: Arkansas Public Service Commission."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Oklahoma Attorney General or Arkansas Attorney General."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the bill with OG&E first; if that fails, go to the Oklahoma Corporation Commission or the Arkansas PSC.
+    evidence: [the disputed bill, earlier bills for comparison, meter photos with dates, notes of calls with reference numbers]
+    steps:
+      - do: Call OG&E customer support and say which part of the bill you dispute. Ask for a reference number.
+        channel: residential-support-phone
+      - do: Put the dispute in writing by email and keep a copy.
+        channel: customer-care-email
+      - do: In Arkansas, you can ask for a meter test; you pay $50 if the meter is accurate.
+      - do: If OG&E does not resolve it, file a complaint with the Oklahoma Corporation Commission (Oklahoma) or the Arkansas Public Service Commission (Arkansas).
+    facts:
+      - kind: process
+        claim: "Oklahoma: a customer may dispute any part of a bill or the terms of payment by contacting OG&E. If no solution is reached, the customer may contact the Oklahoma Corporation Commission, Consumer Services Division, 405-521-2331 or toll free 800-522-8154."
+        issues: [billing_error]
+        source: https://www.oge.com/documents/d/portal/oklahoma-disconnect-policy
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: "Arkansas: OG&E tests a meter on request. The customer is charged $50 for the test if the meter is found to be accurate."
+        issues: [billing_error]
+        source: https://www.oge.com/documents/d/portal/oge_customerguide-2024-ar-digital-v6
+        last_verified: 2026-10-13
+      - kind: contact
+        claim: "The Oklahoma Corporation Commission takes public utility complaints at 405-521-2331 or 1-800-522-8154 (regular business days, 8 a.m. to 4:30 p.m.), by email at CS@occ.ok.gov, through its online complaint form, or by mail to PO Box 171, Oklahoma City, OK 73101-9918. For damage claims it directs customers to the utility, because it has no authority over damages."
+        issues: [billing_error, disconnection]
+        source: https://oklahoma.gov/occ/complaints/public-utility.html
+        last_verified: 2026-10-13
+
+  - issue: disconnection
+    summary: Ask for an installment plan before the shutoff day. OG&E does not disconnect in extreme heat or cold, and a medical certification can delay a shutoff 30 days.
+    evidence: [10-day or shut-off notice, account balance, physician's certificate, assistance agency pledge]
+    steps:
+      - do: Before the day of disconnection, ask for an installment plan online or by phone. If you qualify and accept, OG&E will not disconnect.
+        channel: installment-plan
+      - do: If a disconnection would endanger the life or health of someone in the home, tell OG&E and ask for the medical certification form.
+        channel: residential-support-phone
+      - do: Ask OG&E for the list of assistance agencies. When an agency notifies OG&E of help, you get a 40-day extension (Oklahoma).
+        channel: financial-assistance-page
+      - do: If you are 65 or older or disabled, ask to be added to the extra-notice list and name a third party to receive shut-off notices.
+        channel: residential-support-phone
+      - do: If OG&E will not help, contact the Oklahoma Corporation Commission or the Arkansas PSC before the shutoff date.
+    facts:
+      - kind: deadline
+        claim: "Oklahoma: OG&E mails a 10-day notice and a 48-hour notice before disconnection, and calls the customer 7 days before and 24 hours before the disconnection."
+        issues: [disconnection]
+        source: https://www.oge.com/documents/d/portal/oklahoma-disconnect-policy
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Oklahoma: OG&E suspends residential disconnections when the temperature is, or is predicted to be, a 101 degrees Fahrenheit heat index or higher on the day of disconnection, or when the predicted high or overnight low is 32 degrees Fahrenheit or below."
+        issues: [disconnection]
+        source: https://www.oge.com/documents/d/portal/oklahoma-disconnect-policy
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Oklahoma: if disconnection would cause a life-threatening situation for someone living in the home, OG&E may delay it for 30 days. Certification of the condition is required."
+        issues: [disconnection]
+        source: https://www.oge.com/documents/d/portal/oklahoma-disconnect-policy
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Oklahoma: if a customer qualifies for agency assistance and the agency notifies OG&E, the customer gets a 40-day extension for the agency to pay. Customers 65 or older or disabled can ask the call center for an additional written disconnection notice."
+        issues: [disconnection, payment_assistance]
+        source: https://www.oge.com/documents/d/portal/oklahoma-disconnect-policy
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: "Oklahoma: the reconnect charge after a disconnection is $21, and the required deposit may be increased if the account is not secured by a sufficient deposit."
+        issues: [disconnection]
+        source: https://www.oge.com/documents/d/portal/oklahoma-disconnect-policy
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Arkansas: OG&E will not suspend service if the customer pays at least 1/4 of the overdue bill within three business days, agrees to pay the balance in installments over three months, and pays all new bills by their due dates. After a default OG&E need not offer another delayed payment agreement for 12 months."
+        issues: [disconnection, payment_assistance]
+        source: https://www.oge.com/documents/d/portal/oge_customerguide-2024-ar-digital-v6
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: "Arkansas: suspension may be postponed (or service reconnected) for 30 days or less once OG&E is told of a serious medical condition. A physician's certificate must be received within seven days of the notice; it can be extended once for another 30 days by re-verification before it expires. OG&E need not accept more than one certificate per household each year."
+        issues: [disconnection]
+        source: https://www.oge.com/documents/d/portal/oge_customerguide-2024-ar-digital-v6
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Arkansas: for registered customers 65 or older or with a physical disability that affects their ability to pay, OG&E tries to make contact at least 72 hours before suspension, and does not suspend service on a day when the National Weather Service forecasts 95 degrees Fahrenheit or higher or 32 degrees Fahrenheit or lower in the following 24 hours."
+        issues: [disconnection]
+        source: https://www.oge.com/documents/d/portal/oge_customerguide-2024-ar-digital-v6
+        last_verified: 2026-10-13
+
+  - issue: payment_assistance
+    summary: Ask for an installment plan; apply for LIHEAP first, then OG&E's Low-Income Assistance Program (Oklahoma).
+    evidence: [current bill, household income documents, LIHEAP approval]
+    steps:
+      - do: Ask for an installment plan online or by phone.
+        channel: installment-plan
+      - do: Apply for LIHEAP (Oklahoma Human Services in Oklahoma; community-based organizations in Arkansas). LIHEAP approval is needed for OG&E's low-income assistance.
+        channel: financial-assistance-page
+      - do: In Oklahoma, call 211 for other bill assistance.
+    facts:
+      - kind: compensation
+        claim: "Oklahoma: OG&E's Low-Income Assistance Program gives qualified customers a $13 per month bill credit. Customers must first qualify for LIHEAP."
+        issues: [payment_assistance]
+        source: https://www.oge.com/web/portal/label_ord/customer-service/financial-assistance
+        last_verified: 2026-10-13
+      - kind: compensation
+        claim: "Oklahoma: the Silver Energy Discount gives customers 65 and older on a SmartHours plan a $10 monthly credit June through October and $5 in other months."
+        issues: [payment_assistance]
+        source: https://www.oge.com/web/portal/label_ord/customer-service/financial-assistance
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Arkansas: residential customers with an annual income of $12,000 or less can qualify for an exemption from state sales tax on the first 500 kWh each month; the application form is available from OG&E Customer Support."
+        issues: [payment_assistance]
+        source: https://www.oge.com/documents/d/portal/oge_customerguide-2024-ar-digital-v6
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Arkansas: customers whose income is SSI, AFDC or AABD, or mainly Social Security or VA disability or retirement benefits, can ask for an Extended Due Date that follows receipt of that income."
+        issues: [payment_assistance]
+        source: https://www.oge.com/documents/d/portal/oge_customerguide-2024-ar-digital-v6
+        last_verified: 2026-10-13
+
+  - issue: service_outage
+    summary: Report the outage online, in the app or by phone; OG&E repairs the line to the house and the meter, the owner repairs the meter box and the cable on the house.
+    evidence: [service address, outage start time, photos of damage to the meter box or service cable]
+    steps:
+      - do: Report the outage online, in the OG&E app or by phone.
+        channel: outage-report-online
+      - do: For a downed line, call the emergency number at once and keep children and pets away.
+        channel: outage-phone
+      - do: If the meter box or the cable down the side of the house is damaged, hire an electrician to repair it; OG&E can then restore service.
+    facts:
+      - kind: policy
+        claim: The wire from the utility pole to the house and the meter are OG&E's responsibility. The customer owns the cable down the side of the house and the box that holds the meter.
+        issues: [service_outage]
+        source: https://www.oge.com/web/portal/label_ord/outages/report-outage/outage-faq1
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Installment plans and account balances need an oge.com sign-in.
+  - OG&E's Arkansas customer guide and Oklahoma disconnection policy are PDFs whose text WebFetch could not read directly; text was extracted locally.
+  - No OG&E damage claim form or claims contact was found on oge.com.
+  - The Arkansas Public Service Commission website failed with an SSL handshake error when fetched, so its contact details are not listed here.
+
+official_domains: [oge.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: OG&E says it will not call to ask for full bank information or a credit card number, will not demand payment with a prepaid debit card, and will not call to ask for a payment over the phone.
+      source: https://www.oge.com/scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: OG&E says it will not ask to meet in person for a payment, will not come to a home or business to collect cash or demand payment, and will not threaten immediate disconnection without prior notice.
+      source: https://www.oge.com/scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: OG&E says it may call when a balance is past due but will not demand payment, and will not come to the home selling products such as solar panels.
+      source: https://www.oge.com/scams
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Scammers spoof OG&E's name and customer service number on caller ID, and threaten that a technician will shut off power unless a delinquent bill is paid.
+      source: https://www.oge.com/scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Scammers manipulate search results and use fake 800 numbers that imitate payment processors. OG&E says U.S. Payments (877-306-9274) is its only third-party payment processor.
+      source: https://www.oge.com/scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Emails demand immediate action to verify account details. Door-to-door sellers, including some solar companies, falsely claim to be OG&E approved or partners.
+      source: https://www.oge.com/scams
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: scam-verify-phone
+      type: phone
+      label: Verify a call or report a scam to OG&E (outside the OKC metro)
+      value: +1-800-272-9741
+      notes: OG&E's scam page lists no reporting email or form; it also says to report scam calls to the FTC or the state consumer protection agency.
+      source: https://www.oge.com/scams
+      last_verified: 2026-10-13
+    - id: scam-verify-okc-phone
+      type: phone
+      label: Verify a call or report a scam to OG&E (OKC metro)
+      value: +1-405-272-9741
+      source: https://www.oge.com/scams
+      last_verified: 2026-10-13

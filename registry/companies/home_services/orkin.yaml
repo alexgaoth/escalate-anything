@@ -1,0 +1,143 @@
+id: orkin
+name: Orkin
+aliases: [orkin pest control, orkin llc, orkin exterminating]
+sector: home_services
+parent: Rollins, Inc.
+website: https://www.orkin.com
+account_url: https://www.orkin.com/my-account
+official_domains: [orkin.com, rollins.com]
+regulators: [ftc]
+notes: >-
+  Pest and termite control. Orkin says "Orkin is a subsidiary of Rollins, Inc. (NYSE: ROL)". orkin.com
+  shows several phone numbers for different purposes: 866-949-6097 (customer service on the contact page
+  and FAQ), 877-676-7537 (in Orkin's answer about cancelling a plan), 877-819-5061 (header, quotes and
+  AutoPay sign-up) and 1-800-800-ORKIN (AutoPay changes in the Terms of Use). Orkin does not publish its
+  residential service agreement, cancellation notice period, early termination charges, termite renewal
+  terms or any 3-business-day cancellation notice online. The website Terms of Use use web-term@rollins.com
+  for dispute notices. No Orkin page about scams or impersonation was found.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Orkin Customer Service ("Got a question, comment, compliment or concern")
+    value: +1-866-949-6097
+    purposes: [billing_error, poor_service, refund_request, cancel_service]
+    source: https://www.orkin.com/contact
+    last_verified: 2026-10-13
+  - id: cancellation-phone
+    type: phone
+    label: Customer service number given in Orkin's answer about cancelling a plan
+    value: +1-877-676-7537
+    purposes: [cancel_service]
+    notes: 'The answer says "You can either reach out to your local branch or our customer service number directly at 877-676-7537." The Q&A page is undated.'
+    source: https://www.orkin.com/ask-orkin/im-transferring-out-of-state-how-do-i-cancel-my-plan
+    last_verified: 2026-10-13
+  - id: toll-free-sales-phone
+    type: phone
+    label: Toll-free number in the site header (quotes; AutoPay sign-up with a representative)
+    value: +1-877-819-5061
+    hours: 24/7 ("We are here for you 24 hours a day, 7 days a week.")
+    purposes: [billing_error]
+    notes: The AutoPay page says to call this toll-free number and speak with an Orkin representative to sign up for AutoPay.
+    source: https://www.orkin.com/autopay
+    last_verified: 2026-10-13
+  - id: local-branch
+    type: in_person
+    label: Your local Orkin branch (find the branch phone number at https://www.orkin.com/locations)
+    value: Local Orkin branch office
+    purposes: [cancel_service, billing_error, poor_service]
+    notes: The FAQ says you can find your local branch's phone number at orkin.com/locations. Orkin's cancellation answer names the local branch as one way to cancel.
+    source: https://www.orkin.com/about/faq
+    last_verified: 2026-10-13
+  - id: my-account
+    type: portal
+    label: Orkin customer portal (pay bill, schedule service, manage account)
+    value: https://www.orkin.com/my-account
+    purposes: [billing_error]
+    access: login
+    notes: New accounts can be created at orkin.com/create-account.
+    source: https://www.orkin.com/about/faq
+    last_verified: 2026-10-13
+  - id: dispute-notice-email
+    type: email
+    label: Written dispute notice under the orkin.com Terms of Use
+    value: web-term@rollins.com
+    purposes: [billing_error, poor_service, refund_request]
+    notes: The Terms of Use (effective April 2024) say to notify this address in writing of a dispute, and that both sides will try in good faith to resolve it during the 60 days after the notice is received. A letter to start arbitration must also go to this address at least five days before the arbitration is filed.
+    source: https://www.orkin.com/terms-of-use
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: dispute-notice-email, note: "Written notice starts the 60-day informal resolution period in the Terms of Use."}
+  - {rung: payment_dispute, note: "The Terms of Use say you keep your Electronic Funds Transfer Act rights to stop AutoPay payments by contacting your bank. For card charges, use a billing-error dispute."}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: small_claims, note: "The orkin.com Terms of Use require individual arbitration and bar class actions, but say \"You and we also have the right to bring qualifying claims in small claims court.\" No arbitration opt-out window is stated. The Terms say they do not amend other agreements, so check the signed service agreement for its own dispute clause."}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel through your local branch or Orkin customer service, and stop AutoPay at least one day before the next due date. Orkin does not publish a notice period or cancellation fee online; check your service agreement.
+    evidence: [service agreement, date of the cancellation call with the representative's name, written confirmation of cancellation, AutoPay details, bank or card statements]
+    steps:
+      - do: Read your signed service agreement for its term, renewal, cancellation notice and any early-cancellation charge. Orkin does not publish these terms online.
+      - do: Call your local branch or the customer service number Orkin gives for cancellations. Ask for written confirmation of the cancellation date.
+        channel: cancellation-phone
+      - do: Ask Orkin to stop AutoPay at least one day before the next due date (the Terms of Use name 1-800-800-ORKIN for this). You can also tell your bank to stop the payments.
+      - do: If Orkin charges you after cancellation, send a written dispute to the Terms of Use notice address, then dispute the charge with your bank or card issuer.
+        channel: dispute-notice-email
+      - do: If it is still not resolved, complain to your state attorney general and the FTC.
+        regulator: ftc
+    facts:
+      - kind: contact
+        claim: 'Asked how to cancel a plan before moving out of state, Orkin answered "You can either reach out to your local branch or our customer service number directly at 877-676-7537."'
+        issues: [cancel_service]
+        source: https://www.orkin.com/ask-orkin/im-transferring-out-of-state-how-do-i-cancel-my-plan
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: 'To change or discontinue AutoPay, the Terms of Use say "you can contact us at 1-800-800-ORKIN one day prior to your next due date", and "We will not initiate further transfers or charges after you have cancelled AutoPay" once Orkin has had a reasonable period of time to process the request.'
+        issues: [cancel_service, billing_error]
+        source: https://www.orkin.com/terms-of-use
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'The Terms of Use say "You are not waiving any of your rights under the Electronic Funds Transfer Act" to stop AutoPay payments by contacting your financial institution directly.'
+        issues: [cancel_service, unauthorized_charge]
+        source: https://www.orkin.com/terms-of-use
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: Orkin advertises free return visits between treatments and a 30-day money back guarantee, but does not publish the guarantee conditions. Ask for a return visit first, then ask for the refund in writing.
+    evidence: [service agreement, service dates and invoices, photos of pest activity with dates, notes of calls and return visits]
+    steps:
+      - do: If pests come back between treatments, ask your branch or customer service for a return visit at no extra charge. Write down the dates.
+        channel: customer-service-phone
+      - do: If you are still not satisfied, ask for a refund under Orkin's 30-day money back guarantee as soon as possible. Ask Orkin to state the guarantee conditions in writing.
+        channel: customer-service-phone
+      - do: If Orkin refuses, send a written dispute with your evidence.
+        channel: dispute-notice-email
+    facts:
+      - kind: policy
+        claim: 'Orkin''s About page says "With off-schedule return visits and a 30-day money back guarantee". The page does not state what is refunded, the conditions, or from which date the 30 days run.'
+        issues: [refund_request]
+        source: https://www.orkin.com/about
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'The Orkin FAQ says of the Orkin Guarantee: "Your satisfaction is our goal. If you aren''t completely satisfied, we will work with you until you are." and "If pests return between treatments, your Orkin Pro will return at no extra charge."'
+        issues: [refund_request, poor_service]
+        source: https://www.orkin.com/about/faq
+        last_verified: 2026-10-13
+
+facts:
+  - kind: policy
+    claim: 'Orkin''s website Terms of Use (effective April 2024) require individual arbitration of disputes and bar class actions, but say "You and we also have the right to bring qualifying claims in small claims court." No arbitration opt-out window is stated. The Terms are governed by Georgia law, say they "apply only to the Website and the associated products and services we offer", and say they do not amend other agreements with Orkin.'
+    source: https://www.orkin.com/terms-of-use
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: 'Orkin says termites "require a separate contract" from general pest control, that a termite agreement should include an initial inspection, treatment and annual inspections, and that "Most homeowner''s insurance policies do not cover termite damage."'
+    issues: [warranty_claim]
+    source: https://www.orkin.com/pests/termites/termite-control-methods/termite-service-agreements
+    last_verified: 2026-10-13
+
+known_blockers:
+  - The residential service agreement (term, renewal, cancellation notice and fees) is not published online; the person must find their signed copy.
+  - orkin.com lists no email address, chat or web form for existing customers; contact is by phone or the local branch.
+  - The customer portal needs sign-in.

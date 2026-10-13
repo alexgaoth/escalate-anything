@@ -1,0 +1,286 @@
+id: tampa-electric
+name: Tampa Electric Company
+aliases: [Tampa Electric, TECO, TECO Tampa Electric]
+sector: utility
+parent: Emera Inc.
+website: https://www.tampaelectric.com
+account_url: https://account.tecoenergy.com
+notes: >-
+  Electric utility for the Tampa Bay area of Florida (the site footer says "Tampa Electric is an Emera
+  company"). Account sign-in, online payment and outage reporting use tecoenergy.com subdomains
+  (account.tecoenergy.com, outage.tecoenergy.com). Peoples Gas is a separate natural gas company and is
+  not covered by this file. Regulated by the Florida Public Service Commission (PSC), Office of
+  Consumer Assistance & Outreach, 1-800-342-3552; the PSC says to contact the utility first and to call
+  the PSC if a billing complaint is not resolved. Florida rules for disconnection are in Rule 25-6.105,
+  F.A.C., and Tampa Electric's tariff (Section 5, Rules and Regulations).
+
+channels:
+  - id: customer-care-phone
+    type: phone
+    label: Customer Care (residential)
+    value: +1-888-223-0800
+    hours: "Mon-Fri 7:30 a.m.-6 p.m."
+    purposes: [billing_error, bill_increase, disconnection, payment_assistance, poor_service]
+    notes: TTY 711.
+    source: https://www.tampaelectric.com/contact/
+    last_verified: 2026-10-13
+  - id: business-care-phone
+    type: phone
+    label: Customer Care (business, commercial or industrial)
+    value: +1-866-832-6249
+    hours: "Mon-Fri 7:30 a.m.-6 p.m."
+    source: https://www.tampaelectric.com/contact/
+    last_verified: 2026-10-13
+  - id: outage-phone
+    type: phone
+    label: Report an outage or a downed or damaged power line (call 911 first for a downed line)
+    value: +1-877-588-1010
+    purposes: [service_outage]
+    source: https://www.tampaelectric.com/contact/
+    last_verified: 2026-10-13
+  - id: outage-report-online
+    type: web_form
+    label: Report a power outage online
+    value: https://account.tecoenergy.com/outage
+    purposes: [service_outage]
+    notes: To report an outage you need the phone number, 12-digit account number or 6-digit meter number. Outage map at https://outage.tecoenergy.com/.
+    source: https://www.tampaelectric.com/contact/
+    last_verified: 2026-10-13
+  - id: residential-contact-form
+    type: web_form
+    label: Email Customer Care (residential contact form)
+    value: https://www.tampaelectric.com/forms/residential/contact/
+    purposes: [billing_error, poor_service]
+    source: https://www.tampaelectric.com/contact/
+    last_verified: 2026-10-13
+  - id: payment-arrangement
+    type: portal
+    label: Payment Arrangement request (TECO account)
+    value: https://account.tecoenergy.com
+    purposes: [disconnection, payment_assistance]
+    access: login
+    notes: Sign in and select Payment Arrangement. Without an online account, register at https://account.tecoenergy.com/Account/Register with the 12-digit account number.
+    source: https://www.tampaelectric.com/residential/payment-arrangement/
+    last_verified: 2026-10-13
+  - id: payment-assistance
+    type: web_form
+    label: Payment assistance (LIHEAP, EHEAP, Share program, Due Date Plus)
+    value: https://www.tampaelectric.com/residential/payment-assistance/
+    purposes: [payment_assistance]
+    access: open
+    source: https://www.tampaelectric.com/residential/payment-assistance/
+    last_verified: 2026-10-13
+  - id: medical-watch-phone
+    type: phone
+    label: Medical Watch enrollment (life-sustaining electric medical equipment)
+    value: +1-813-225-5051
+    purposes: [disconnection]
+    notes: Eligibility must be certified by a Florida-licensed physician.
+    source: https://www.tampaelectric.com/residential/start-service/medical-watch/
+    last_verified: 2026-10-13
+  - id: claims-email
+    type: email
+    label: Customer claims (send the Customer Claim Form and supporting documents)
+    value: ClaimsMgmt@tecoenergy.com
+    purposes: [property_damage_claim, service_outage]
+    notes: "Form: https://www.tecoenergy.com/49c6f7/siteassets/files/customerclaims/customerclaimsform.pdf. The PDF is encrypted; the value was read from the decrypted form text."
+    source: https://www.tecoenergy.com/49c6f7/siteassets/files/customerclaims/customerclaimsform.pdf
+    last_verified: 2026-10-13
+  - id: claims-phone
+    type: phone
+    label: Claims questions (leave a message)
+    value: +1-813-228-1415
+    purposes: [property_damage_claim]
+    source: https://www.tecoenergy.com/49c6f7/siteassets/files/customerclaims/customerclaimsform.pdf
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-care-phone}
+  - {rung: supervisor, channel: customer-care-phone, note: "Ask for a supervisor. Write down the name and reference number."}
+  - {rung: written_complaint, channel: residential-contact-form}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Florida Public Service Commission, Office of Consumer Assistance & Outreach, 1-800-342-3552. The PSC says to contact the utility first and to contact the PSC if you do not hear back in a reasonable time or are not satisfied."}
+  - {rung: state_agency, agency_kind: attorney_general, note: "Florida Attorney General."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the bill with Tampa Electric, ask for a free meter test if usage looks wrong, then call the Florida PSC.
+    evidence: [the disputed bill, earlier bills, meter photos with dates, call notes with names and reference numbers]
+    steps:
+      - do: Call Customer Care, explain the charge and the correct amount. Get a reference number.
+        channel: customer-care-phone
+      - do: If usage looks wrong, ask Tampa Electric to test the meter. You may ask to witness the test and for a PSC representative to witness it.
+        channel: customer-care-phone
+      - do: Put the dispute in writing through the contact form.
+        channel: residential-contact-form
+      - do: If not resolved, call the Florida PSC at 1-800-342-3552.
+    facts:
+      - kind: fee
+        claim: The Florida PSC says a customer can ask the utility to test the meter at no cost if it has not been tested within the last 12 months, may witness the test, and may ask for an FPSC representative to witness it. If the meter runs outside Commission limits, the testing cost is refunded.
+        issues: [billing_error]
+        source: https://www.floridapsc.com/pscfiles/website-files/PDF/publications/consumer/brochure/WhatYouNeedToKnowAboutElectricandNaturalGasService.pdf
+        last_verified: 2026-10-13
+      - kind: process
+        claim: If a billing complaint cannot be resolved with the utility, the Florida PSC says to call its Office of Consumer Assistance & Outreach at 1-800-342-3552.
+        issues: [billing_error, disconnection, poor_service]
+        source: https://www.floridapsc.com/pscfiles/website-files/PDF/publications/consumer/brochure/WhatYouNeedToKnowAboutElectricandNaturalGasService.pdf
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: Tampa Electric bills are due when rendered and become delinquent twenty (20) days after mailing or delivery.
+        issues: [billing_error, disconnection]
+        source: https://www.tampaelectric.com/4a19ee/siteassets/files/tariff/tariffsection5.pdf
+        last_verified: 2026-10-13
+
+  - issue: disconnection
+    summary: Florida requires 5 working days' written notice and bars shutoffs from Friday noon to Monday 8 a.m.; a certified Medically Essential Service customer gets up to 30 more days.
+    evidence: [delinquency notice, account balance, physician's certificate for medically essential service]
+    steps:
+      - do: Before the disconnection date, request a payment arrangement online or call Customer Care.
+        channel: payment-arrangement
+      - do: If someone at home depends on continuously operating electric medical equipment, ask Tampa Electric for Medically Essential Service certification by a Florida-licensed physician, and enroll in Medical Watch.
+        channel: medical-watch-phone
+      - do: Apply for LIHEAP, EHEAP or the Share program.
+        channel: payment-assistance
+      - do: If Tampa Electric will not help, call the Florida PSC before the disconnection date.
+    facts:
+      - kind: deadline
+        claim: Rule 25-6.105(5)(g), F.A.C. requires at least 5 working days' written notice before discontinuance for nonpayment, separate from any bill. A customer may name a third party to receive a copy of the delinquency notice.
+        issues: [disconnection]
+        source: https://www.flrules.org/gateway/readFile.asp?sid=0&tid=1463165&type=1&file=25-6.105.doc
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Rule 25-6.105(10), F.A.C. bars disconnecting non-commercial service from 12:00 noon on Friday to 8:00 a.m. Monday, and from 12:00 noon the day before a holiday (New Year's Day, Memorial Day, July 4, Labor Day, Thanksgiving, Christmas) to 8:00 a.m. the next working day, except for hazards, tampering, fraud or at the customer's request.
+        issues: [disconnection]
+        source: https://www.flrules.org/gateway/readFile.asp?sid=0&tid=1463165&type=1&file=25-6.105.doc
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: "Tampa Electric tariff 2.14.1 (Sheet 5.161): a residential customer whose electric service is medically essential, certified by a Florida-licensed doctor of medicine, gets a limited extension of up to thirty (30) days beyond the normal disconnection date, with written notice of the new date. The customer must make payment arrangements or other arrangements for the medical needs in that time. Recertification may be required no more than once every 12 months."
+        issues: [disconnection]
+        source: https://www.tampaelectric.com/4a19ee/siteassets/files/tariff/tariffsection5.pdf
+        last_verified: 2026-10-13
+      - kind: process
+        claim: For a Medically Essential Service customer, Tampa Electric must try to phone by 12 noon the day before a scheduled disconnection; if it cannot reach an adult, a field representative visits by 4 PM that day, and may leave written notice and then disconnect on the scheduled date.
+        issues: [disconnection]
+        source: https://www.tampaelectric.com/4a19ee/siteassets/files/tariff/tariffsection5.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Tampa Electric's Medical Watch gives advance notice of scheduled maintenance outages and of possible interruption for unpaid bills, but does not provide priority restoration, prevent interruption for non-payment or guarantee continuous service.
+        issues: [disconnection]
+        source: https://www.tampaelectric.com/residential/start-service/medical-watch/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: An account may not qualify for a payment arrangement if it already has one, is three or more months past due, is scheduled for disconnection or already disconnected, has an unsatisfied returned payment, or has not honored past arrangements. Arrangement payments are due by 5 p.m. Eastern on the agreed date, and terms cannot be renegotiated.
+        issues: [disconnection, payment_assistance]
+        source: https://www.tampaelectric.com/residential/payment-arrangement/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: If service is interrupted for nonpayment, Tampa Electric restores it after the full past-due balance is paid; additional fees may apply.
+        issues: [disconnection]
+        source: https://www.tampaelectric.com/residential/payment-arrangement/
+        last_verified: 2026-10-13
+
+  - issue: payment_assistance
+    summary: Ask for a payment arrangement online, apply for LIHEAP or EHEAP, contact a Share program partner, and ask for Due Date Plus on a fixed income.
+    evidence: [current bill, 12-digit account number, household income]
+    steps:
+      - do: Request a payment arrangement online for an immediate decision.
+        channel: payment-arrangement
+      - do: Apply for LIHEAP (floridajobs.org) or, with a resident aged 60 or older, EHEAP; or contact a Share program partner (Metropolitan Ministries, The Salvation Army, Catholic Charities Diocese of St. Petersburg).
+        channel: payment-assistance
+      - do: If you live on Social Security, disability or retirement payments, ask for Due Date Plus.
+        channel: customer-care-phone
+    facts:
+      - kind: limit
+        claim: Tampa Electric's assistance page says LIHEAP helps eligible Florida households with incomes from $32,155 to $85,335 depending on household size, and EHEAP serves households with a resident 60 or older at or below 150% of the Federal Poverty Guidelines.
+        issues: [payment_assistance]
+        source: https://www.tampaelectric.com/residential/payment-assistance/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Due Date Plus aligns the due date with Social Security, disability, retirement or other support payments; qualified customers get up to 52 extra days to pay.
+        issues: [payment_assistance]
+        source: https://www.tampaelectric.com/residential/payment-assistance/
+        last_verified: 2026-10-13
+
+  - issue: service_outage
+    summary: Report the outage online or by phone; Tampa Electric's tariff limits its liability for interruptions.
+    evidence: [outage start and end times, account or meter number]
+    steps:
+      - do: Report the outage online or call 877-588-1010.
+        channel: outage-report-online
+    facts:
+      - kind: policy
+        claim: "Tampa Electric tariff 2.2.2 (Sheet 5.080): the company uses reasonable diligence to provide continuous service and is not liable for damages from causes beyond its control or from its negligence, including complete or partial interruption, voltage fluctuations or delay in restoring service. Section 2.2.3 excludes liability for damage caused by hurricanes, storms, heat waves, lightning, freezes or other acts of God."
+        issues: [service_outage, property_damage_claim]
+        source: https://www.tampaelectric.com/4a19ee/siteassets/files/tariff/tariffsection5.pdf
+        last_verified: 2026-10-13
+
+  - issue: property_damage_claim
+    summary: Email the Customer Claim Form with photos and repair or replacement estimates; keep the items until the claim is settled.
+    evidence: [photos, repair estimates for large appliances, a licensed technician's non-repair statement if needed, replacement estimates, serial numbers and ages of items, account and meter numbers]
+    steps:
+      - do: Download the Customer Claim Form and list each damaged item with year, brand, model, serial number, age and cost.
+        channel: claims-email
+      - do: Send the form, photos and estimates to ClaimsMgmt@tecoenergy.com. Do not discard items until the claim is settled.
+        channel: claims-email
+      - do: For questions, leave a message on the claims line.
+        channel: claims-phone
+      - do: If the claim is denied and you disagree, ask for the reason in writing and call the Florida PSC.
+    facts:
+      - kind: process
+        claim: Tampa Electric's claim form requires a repair estimate for large items (A/C, washers and dryers, refrigerators), a licensed technician's non-repair statement plus a comparable replacement estimate if an item cannot be repaired, and a replacement estimate for other items. The claimant certifies the expenses were not reimbursed by anyone else, including insurance.
+        issues: [property_damage_claim]
+        source: https://www.tecoenergy.com/49c6f7/siteassets/files/customerclaims/customerclaimsform.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Damage behind the meter covered by Tampa Electric's Zap Cap surge protection is not processed by Tampa Electric; the customer claims with the equipment manufacturer (Meter Treater, Inc. for the primary unit).
+        issues: [property_damage_claim]
+        source: https://www.tampaelectric.com/residential/start-service/surge-protection/warrantiesandclaims/
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Payment arrangements and online payment need a TECO account sign-in at account.tecoenergy.com.
+  - The claim form PDF and the tariff PDFs are encrypted; some automated readers cannot extract their text.
+  - The scam page's "Report a Scam" link has no address in the fetched page; use Customer Care to verify or report.
+
+official_domains: [tampaelectric.com, tecoenergy.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Tampa Electric says it will never call to ask for credit or debit card information.
+      source: https://www.tampaelectric.com/scam/
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Tampa Electric does not visit or call customers offering unsolicited deals or discounts. Employees and contractors must carry photo ID cards.
+      source: https://www.tampaelectric.com/scam/
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Tampa Electric's official payment site is TECOaccount.com (account.tecoenergy.com).
+      source: https://www.tampaelectric.com/scam/
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Scammers pretend to be Tampa Electric employees, say the account is past due, threaten to shut off power unless paid immediately, and demand prepaid cards, wire transfers, cryptocurrency, gift cards or a payment app. They may spoof caller ID.
+      source: https://www.tampaelectric.com/scam/
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Callers or texters claim an outage at the address and demand immediate cash card or gift card payment before restoring power.
+      source: https://www.tampaelectric.com/scam/
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Fake payment websites use misspelled addresses or confusing subdomains and appear in sponsored search ads. Scammers also claim to offer a special or flat rate.
+      source: https://www.tampaelectric.com/scam/
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-scam-customer-care
+      type: phone
+      label: Verify a caller or employee, or report a scam (Customer Care)
+      value: +1-888-223-0800
+      notes: The page also says to report scams to local law enforcement or Crime Stoppers at 800-873-TIPS.
+      source: https://www.tampaelectric.com/scam/
+      last_verified: 2026-10-13
+    - id: report-scam-crime-stoppers
+      type: phone
+      label: Crime Stoppers (800-873-TIPS), named on Tampa Electric's scam page
+      value: +1-800-873-8477
+      source: https://www.tampaelectric.com/scam/
+      last_verified: 2026-10-13
