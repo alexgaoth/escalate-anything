@@ -1,137 +1,178 @@
 <!-- mcp-name: io.github.alexgaoth/redress -->
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/banner-dark.svg">
-    <img alt="redress — Get it fixed. Don't get scammed." src="docs/assets/banner-light.svg" width="100%">
-  </picture>
-</p>
+<div align="center">
 
-<p align="center">
-  <a href="https://github.com/alexgaoth/redress/actions/workflows/pr-gate.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/alexgaoth/redress/pr-gate.yml?branch=main&label=tests&style=flat-square"></a>
-  <a href="https://pypi.org/project/redress-mcp/"><img alt="PyPI" src="https://img.shields.io/pypi/v/redress-mcp?style=flat-square&label=pypi"></a>
-  <img alt="Python 3.12+" src="https://img.shields.io/badge/python-3.12%2B-3776AB?style=flat-square&logo=python&logoColor=white">
-  <a href="https://modelcontextprotocol.io"><img alt="MCP server" src="https://img.shields.io/badge/MCP-server-000000?style=flat-square"></a>
-  <a href="LICENSE"><img alt="Code: MIT" src="https://img.shields.io/badge/code-MIT-blue?style=flat-square"></a>
-  <a href="registry/LICENSE.md"><img alt="Data: CC BY 4.0" src="https://img.shields.io/badge/data-CC%20BY%204.0-lightgrey?style=flat-square"></a>
-  <a href="https://github.com/alexgaoth/redress/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/alexgaoth/redress?style=flat-square"></a>
-</p>
+# Redress: Get It Fixed
 
-<p align="center">
-  <a href="https://cursor.com/install-mcp?name=redress&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyJyZWRyZXNzLW1jcCJdfQ%3D%3D"><img alt="Install in Cursor" src="https://cursor.com/deeplink/mcp-install-dark.svg" height="32"></a>
-  <a href="https://insiders.vscode.dev/redirect/mcp/install?name=redress&config=%7B%22type%22%3A%22stdio%22%2C%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22redress-mcp%22%5D%7D"><img alt="Install in VS Code" src="https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=for-the-badge&logo=visualstudiocode&logoColor=white" height="32"></a>
-  <a href="https://lmstudio.ai/install-mcp?name=redress&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyJyZWRyZXNzLW1jcCJdfQ%3D%3D"><img alt="Add to LM Studio" src="https://files.lmstudio.ai/deeplink/mcp-install-dark.svg" height="32"></a>
-  <a href="https://block.github.io/goose/extension?cmd=uvx&arg=redress-mcp&id=redress&name=redress&description=Verified+contacts%2C+playbooks+and+scam+checks+for+US+companies"><img alt="Install in Goose" src="https://block.github.io/goose/img/extension-install-dark.svg" height="32"></a>
-</p>
+### One MCP to get any big company to fix it, without getting scammed.
 
-<p align="center">
-  <b><a href="https://alexgaoth.github.io/redress/">Browse the directory</a></b> ·
-  <b><a href="https://alexgaoth.github.io/redress/#/check">Check a number before you call</a></b> ·
-  <a href="#quick-start">Quick start</a> ·
-  <a href="docs/clients.md">Connect your app</a> ·
-  <a href="#what-your-agent-gets">Tools</a> ·
-  <a href="CONTRIBUTING.md">Fix a value</a>
-</p>
+**Bill went up? Bag lost? Refund denied? Your agent knows who to contact, what to say, when to escalate, and which "support number" is a scam.**
+
+[![companies](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Falexgaoth.github.io%2Fredress%2Fbadges%2Fcompanies.json)](https://alexgaoth.github.io/redress/)
+[![data verified](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Falexgaoth.github.io%2Fredress%2Fbadges%2Fverified.json)](docs/maintenance.md)
+[![dossiers](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Falexgaoth.github.io%2Fredress%2Fbadges%2Fdossiers.json)](https://alexgaoth.github.io/redress/#/guides)
+[![PyPI](https://img.shields.io/pypi/v/redress-mcp?style=flat-square&color=3775A9)](https://pypi.org/project/redress-mcp/)
+[![tests](https://img.shields.io/github/actions/workflow/status/alexgaoth/redress/pr-gate.yml?branch=main&style=flat-square&label=tests)](https://github.com/alexgaoth/redress/actions/workflows/pr-gate.yml)
+[![MCP](https://img.shields.io/badge/MCP-server-5c4ee5?style=flat-square)](docs/clients.md)
+[![license](https://img.shields.io/badge/code_MIT·data_CC_BY_4.0-f4c430?style=flat-square)](LICENSE)
+
+**[Website](https://alexgaoth.github.io/redress/) · [Check a number before you call](https://alexgaoth.github.io/redress/#/check) · [Scam guide](https://alexgaoth.github.io/redress/#/guides/scams)**
+
+[Quick start](#quick-start) · [How it works](#how-redress-works) · [What you can fix](#what-you-can-fix) · [Walkthroughs](#walkthroughs) · [Fresh and credible](#fresh-and-credible) · [FAQ](#faq)
+
+<code>uvx redress-mcp setup</code>
+
+<br />
+
+<img src="docs/assets/demo-playbook.svg" alt="redress playbook for a delayed United bag: deadlines, the exact forms and phone numbers, the bag-fee refund rule and the escalation path" width="900" />
+
+</div>
 
 ---
 
-Your airline lost your bag. Your internet bill jumped $25. Your bank won't reverse a charge. You know the drill: hold music, a chatbot that loops, a "case closed" email. And when you search for the company's number, the top result might belong to a scammer.
+Tell your agent what went wrong. redress gives it the company's real playbook: the exact form, phone line and deadline, the evidence to collect, the rules that apply, and the escalation ladder up to the regulator in your state. Before your agent calls a number it found online, redress checks whether it really belongs to that company.
 
-**redress** is an open, sourced index of *how to actually get things fixed* with the largest companies Americans deal with: the exact form, phone line, deadline, evidence, escalation ladder and regulator for each problem, plus the scams that impersonate each company. It ships as an **MCP server**, so Claude, ChatGPT, Cursor, VS Code, Gemini, Codex and other agents can use it. It also has a CLI and a website for people.
-
-## See it work
-
-<p align="center"><img alt="redress playbook output for an Xfinity bill increase" src="docs/assets/demo-playbook.svg" width="100%"></p>
-
-Every step links to the real page, every fact has a source and a check date, and the ladder ends at the regulator that applies in *your* state.
-
-<p align="center"><img alt="redress scam-check flags a fake Chase Zelle message and a phone number that belongs to another company" src="docs/assets/demo-scam.svg" width="100%"></p>
-
-Before your agent calls a number it found online, `verify_contact` checks it against every company, regulator and state agency in the registry. `scam_check` flags the patterns that cost people the most money.
+Every value links to the page it came from, with the date it was checked. A weekly routine re-checks the data, and your installed copy updates itself.
 
 ## Quick start
 
-**Claude Code** (MCP server + 5 skills):
+### Set up your agent
+
+With [uv](https://docs.astral.sh/uv/) installed, run:
 
 ```bash
-claude plugin marketplace add alexgaoth/redress
-claude plugin install redress@redress
+uvx redress-mcp setup
 ```
 
-**Any other MCP app.** redress finds your apps and adds itself. It backs up each config and never clobbers your settings:
+<sub>Before the first PyPI release, use `uvx --from git+https://github.com/alexgaoth/redress redress-mcp setup`.</sub>
+
+It finds your AI apps (Claude Desktop, Claude Code, Cursor, VS Code, Windsurf, Zed, Gemini CLI, Codex, LM Studio and [more](docs/clients.md)), shows the changes, and asks before writing. Each config is backed up first. Restart your app afterward.
+
+Or install with one click: [Cursor](https://cursor.com/install-mcp?name=redress&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyJyZWRyZXNzLW1jcCJdfQ%3D%3D) · [VS Code](https://insiders.vscode.dev/redirect/mcp/install?name=redress&config=%7B%22type%22%3A%22stdio%22%2C%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22redress-mcp%22%5D%7D) · [LM Studio](https://lmstudio.ai/install-mcp?name=redress&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyJyZWRyZXNzLW1jcCJdfQ%3D%3D) · [Goose](https://block.github.io/goose/extension?cmd=uvx&arg=redress-mcp&id=redress&name=redress&description=Verified+contacts%2C+playbooks+and+scam+checks+for+US+companies). Claude Code users can add the plugin, which also includes the skills: `claude plugin marketplace add alexgaoth/redress && claude plugin install redress@redress`.
+
+### Ask your agent
+
+```text
+United lost my bag on Friday's ORD→SFO flight. Use redress to get me reimbursed.
+```
+
+```text
+Is this text from USPS real? "Your package is held, pay a $1.99 redelivery fee at usps-redelivery-fee.com"
+```
+
+### Use the terminal
 
 ```bash
-uvx --from redress-mcp redress install --all
+uvx redress-mcp playbook comcast-xfinity bill_increase --state CA
+uvx redress-mcp verify "+1-888-555-0199" --company united-airlines
+uvx redress-mcp scam-check "Chase: your account is locked, send your money to yourself with Zelle"
 ```
 
-Or add `uvx redress-mcp` by hand. [Per-app instructions](docs/clients.md) cover Claude Desktop, Cursor, VS Code, Windsurf/Devin, Cline, Zed, Gemini CLI, Codex, Goose, LM Studio, Continue and JetBrains. For **ChatGPT** and **claude.ai**, run the read-only HTTP server ([Dockerfile](Dockerfile)) and add its URL as a custom connector.
+No install at all? Use the website: **[alexgaoth.github.io/redress](https://alexgaoth.github.io/redress/)**. The number checker runs in your browser and sends nothing.
 
-**No AI needed:** check a number, link or text at **[alexgaoth.github.io/redress/#/check](https://alexgaoth.github.io/redress/#/check)**. It runs in your browser and sends nothing. Or use the CLI:
-
-```bash
-uvx --from redress-mcp redress playbook united-airlines delayed_baggage --state CA
-uvx --from redress-mcp redress verify "+1-888-555-0199" --company united
-```
-
-Then ask your agent things like:
-
-> *United lost my bag on Friday's ORD→SFO flight. Get me reimbursed.*
-> *My Xfinity bill went from $80 to $105. Get it back down.*
-> *Is this text from "USPS" real?*
-> *Check my email for bills that went up this year.*
-
-## What your agent gets
-
-| | |
-|---|---|
-| 🗺️ **Playbooks** | `get_playbook(company, issue, state)`: steps with deep links, phone numbers, evidence to collect, deadlines, and the company's own rules, for 54 issue types. |
-| 🪜 **Escalation ladders** | Frontline → written complaint → executive → federal regulator → **your state's** attorney general, utility commission or insurance department → card dispute → arbitration or small claims. |
-| ⚖️ **Rules with status** | 30 consumer rules (DOT refunds, Fair Credit Billing Act, Reg E, No Surprises Act, …) marked in force, vacated or repealed. Agents never cite a dead rule. |
-| 🛡️ **Scam shield** | `verify_contact` tells real contacts from fakes, including look-alike domains such as `usps-redelivery-fee.com` and `mychase-login.com`. `scam_check` flags package-fee, toll, gift-card, "send it to yourself" and other patterns. For all 188 companies: official domains, what the company says it will never ask for, known scams that use its name, and where to report phishing. |
-| 🧭 **Context** | `get_context(company)`: cited dossiers for 62 companies on how complaints actually go, what works, the fine print, complaint statistics (CFPB, DOT, FCC data) and the scams that target their customers. There are guides for all 20 industries and a scam guide with FTC and FBI figures. |
-| 📒 **Case log** | A local timeline of reference numbers, names, promises and follow-up dates; `draft_brief` turns it into a short, sourced, polite message. It stays on your machine. |
-| 📈 **Bill watch** | `bill_record` and `bill_check` flag bills that went up and promotions about to end. |
-| 🧩 **Prompts & skills** | `resolve`, `negotiate-bill`, `regulator-complaint`, `bill-watch` and `scam-check`, as Claude Code skills and as MCP prompts for every other app. |
-
-**Agents draft; you decide.** The tools never send, submit or pay anything. The skills require your approval for every message and form, tell agents to identify themselves as AI on chats and calls, and hand sign-ins and CAPTCHAs back to you.
-
-## Coverage
-
-| Sector | Companies | Examples |
-|---|---:|---|
-| ✈️ Airlines | 11 | United, American, Delta, Southwest, Alaska, JetBlue |
-| 📱 Wireless | 12 | AT&T, Verizon, T-Mobile, Cricket, Mint, Google Fi |
-| 📺 Internet, cable & satellite | 14 | Xfinity, Spectrum, Optimum, Frontier, DIRECTV, Starlink |
-| ⚡ Electric & gas utilities | 30 | PG&E, Con Edison, Duke, Dominion, FPL, ComEd, TXU |
-| 🏦 Banks, cards & credit unions | 16 | Chase, Bank of America, Wells Fargo, Citi, Capital One, Amex |
-| 💸 Payment apps | 9 | PayPal, Venmo, Cash App, Zelle, Western Union |
-| 📄 Credit bureaus & student loans | 8 | Equifax, Experian, TransUnion, MOHELA, Nelnet, Aidvantage |
-| 🩺 Health insurance | 10 | UnitedHealthcare, Anthem/Elevance, Aetna, Cigna, Kaiser |
-| 🚗 Auto & home insurance | 9 | State Farm, GEICO, Progressive, Allstate, Liberty Mutual |
-| 🛒 Retail & marketplaces | 16 | Amazon, Walmart, Target, Costco, Best Buy, eBay, Temu |
-| 🎬 Subscriptions & gyms | 22 | Netflix, Spotify, Disney+, SiriusXM, Adobe, Planet Fitness |
-| 🏨 Travel | 21 | Marriott, Hilton, Airbnb, Expedia, Booking.com, Hertz, Amtrak |
-| 📦 Delivery & shipping | 10 | USPS, UPS, FedEx, Uber, DoorDash, Instacart |
-
-Plus all **18 federal regulators** consumers use (DOT, FCC, CFPB, FTC, OCC, CMS and others) and complaint agencies for **all 50 states and DC**. [Browse everything →](https://alexgaoth.github.io/redress/)
-
-## How it works
+## How redress works
 
 ```mermaid
 flowchart LR
-  A[You or your agent] -->|"United lost my bag"| B(redress MCP server)
-  B --> C[(Registry: YAML,<br/>sourced and dated)]
-  B --> D[Playbook + escalation<br/>+ your state's agencies]
-  B --> E[Scam shield:<br/>verify_contact · scam_check]
-  B --> F[(Local case log<br/>~/.redress)]
-  D --> G[Agent drafts message<br/>or fills form]
-  G -->|you approve| H[Company / regulator]
+  A["You: 'United lost my bag'"] --> B[Your agent]
+  B -->|MCP| C(redress)
+  C --> D["Playbook: forms, phones,<br/>deadlines, evidence"]
+  C --> E["Escalation: company → DOT,<br/>FCC, CFPB → your state"]
+  C --> F["Scam shield: is this<br/>number or link real?"]
+  D & E & F --> G["Agent drafts the message<br/>or fills the form"]
+  G -->|you approve| H[Company or regulator]
 ```
 
-The data lives in [`registry/`](registry) as plain YAML and Markdown. Every channel, fact and rule has a `source` URL and a `last_verified` date. A [JSON Schema](schema/redress.schema.json) and a validator check every change. A weekly [freshness job](.github/workflows/freshness.yml) checks every link and lists values older than 180 days. The research was done by AI agents reading official pages, and pages that block bots were read in a real browser. Anything taken only from a search snippet is marked as such.
+redress never sends, submits or pays anything. Your agent drafts; you approve. Case notes stay on your computer.
 
-## Contributing
+## What you can fix
 
-The most valuable contribution is a correction: a phone number that changed, a form that moved, a deadline that is wrong, or a tactic that worked for you (with a source). [Open a data correction](https://github.com/alexgaoth/redress/issues/new?template=data-correction.yml) or edit the YAML and open a PR; see [CONTRIBUTING.md](CONTRIBUTING.md) and the [authoring guide](docs/authoring.md).
+| Area | What you get | Companies |
+|---|---|---|
+| ✈️ Travel | Refunds, cancellations, lost and delayed bags, damage claims, DOT complaints | United, American, Delta, Southwest, Marriott, Airbnb, Expedia, Hertz |
+| 🚢 Cruises & 🎟️ tickets | Cancelled events and sailings, fees, refunds, FMC and FTC complaints | Carnival, Royal Caribbean, Norwegian, Ticketmaster, StubHub, SeatGeek |
+| 📱 Phone, internet, TV | Bill increases, retention offers, cancellation, equipment returns, FCC complaints | AT&T, Verizon, T-Mobile, Xfinity, Spectrum, Optimum, DIRECTV, Starlink |
+| 🏦 Money | Card and transfer disputes, fraud, frozen accounts, buy-now-pay-later, credit report errors | Chase, Bank of America, Wells Fargo, Capital One, Chime, SoFi, PayPal, Affirm, Equifax |
+| 📈 Investing & crypto | Blocked transfers and withdrawals, account takeovers, FINRA and SEC complaints | Robinhood, Fidelity, Schwab, Vanguard, Coinbase, Kraken |
+| 📨 Debt collectors | Validation notices, disputes in writing, credit report fixes | Portfolio Recovery, Midland Credit, LVNV, Jefferson Capital |
+| ⚡ Utilities | High bills, meter tests, shutoff protection, payment plans, outage claims | PG&E, Con Edison, Duke, ComEd, FPL, PPL, FirstEnergy and dozens more |
+| 🏠 Home services | Long contracts, early termination fees, cancelling in writing, door-to-door sales | ADT, Vivint, SimpliSafe, Brinks Home, Terminix, Orkin |
+| 🩺 Insurance | Claim denials, appeals, external review, surprise medical bills | UnitedHealthcare, Aetna, Cigna, Kaiser, State Farm, GEICO, Progressive |
+| 🛒 Shopping & subscriptions | Returns, missing packages, price adjustments, cancellations, free-trial charges, auto-renewals | Amazon, Walmart, Apple, Netflix, SiriusXM, Adobe, Norton, Peloton, Planet Fitness |
+| 🛡️ Scams | Is this call, text, email or link real? What will this company never ask for? | Every company, plus look-alike domain detection |
+| 🏛️ Regulators | The right federal agency and **your state's** attorney general, utility commission and insurance department | All 50 states and DC |
+
+[Browse all companies →](https://alexgaoth.github.io/redress/)
+
+## Walkthroughs
+
+### A delayed United bag
+
+The playbook in the image above, from United's own pages: report within **24 hours** (21 days if international), claim expenses within **45 days**, use the exact claim form and the Baggage Recovery Center number, and check the **automatic bag-fee refund** owed after a 12-hour domestic delay under the DOT refund rule. If United doesn't answer, the next rung is a DOT complaint.
+
+### A fake "USPS" text
+
+<img src="docs/assets/demo-scam.svg" alt="redress flags a fake Chase text and shows that a phone number belongs to a different company" width="900" />
+
+`scam_check` flags the package-fee pattern and the look-alike domain (`usps-redelivery-fee.com` imitates USPS, whose only official domain is usps.com). `verify_contact` shows that a "United" number actually belongs to Xfinity.
+
+### An internet bill that jumped $25
+
+The Xfinity playbook checks whether a promotion ended or the 5-Year Price Guarantee was broken, then gives the retention line, the dispute window from the subscriber agreement, and the FCC complaint as the next rung.
+
+Got a result with redress? **[Share what worked](https://github.com/alexgaoth/redress/issues/new?template=share-your-case.yml)**: good cases become tactics for the next person.
+
+## Fresh and credible
+
+- **Every value has a source and a date.** Every company gets a credibility grade (A, B or C) from how much of its data comes from its own pages or government sites, and from what was only seen in a search snippet or an archive.
+- **Agents see it too.** Each answer says when the company was last verified and how credible it is.
+- **A weekly routine keeps it current.** It checks every link, opens a [freshness report](https://github.com/alexgaoth/redress/issues?q=label%3Afreshness), and a Claude routine re-verifies stale values and proposes fixes as pull requests. Maintainers review every change.
+- **Your copy updates itself** once a week (`redress update`; `REDRESS_OFFLINE=1` to turn it off).
+
+How it works: [docs/maintenance.md](docs/maintenance.md).
+
+## Contribute
+
+- **A number or link is wrong?** [Report it](https://github.com/alexgaoth/redress/issues/new?template=data-correction.yml). A maintainer labels it, and the routine checks it against the official page and opens the fix.
+- **Something worked for you?** [Share your case](https://github.com/alexgaoth/redress/issues/new?template=share-your-case.yml).
+- **Want a company added?** [Ask for it](https://github.com/alexgaoth/redress/issues/new?template=new-company.yml), or add the YAML yourself; see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## FAQ
+
+<details>
+<summary><strong>Which agents can use redress?</strong></summary>
+
+Any app that supports MCP: `uvx redress-mcp setup` configures the [supported apps](docs/clients.md). ChatGPT and claude.ai need a remote URL; run the read-only server with the included Dockerfile. Agents without MCP can read the website's JSON and [`llms.txt`](https://alexgaoth.github.io/redress/llms.txt).
+</details>
+
+<details>
+<summary><strong>Does redress contact companies or pay anything for me?</strong></summary>
+
+No. It gives your agent the facts and the playbook. Your agent drafts messages or fills forms, and you approve each one before it is sent. redress never handles passwords or payment details.
+</details>
+
+<details>
+<summary><strong>Where does my case data go?</strong></summary>
+
+The case log and bill history live in `~/.redress` on your computer. redress refuses to store full card numbers or SSNs. The weekly data update downloads a public archive from GitHub and sends nothing about you. Your agent's model provider has its own data policy.
+</details>
+
+<details>
+<summary><strong>How current is the data, and can I trust it?</strong></summary>
+
+Each company shows its last-verified date and credibility grade; every value links to its source. Data changes, so check the source before you rely on a value. See [Fresh and credible](#fresh-and-credible).
+</details>
+
+<details>
+<summary><strong>Is this legal advice?</strong></summary>
+
+No. redress summarizes public pages from companies and government agencies and links to them. Rules have a status (in force, vacated, repealed) so agents don't cite dead ones, but it is not a lawyer.
+</details>
+
+<details>
+<summary><strong>Does it work outside the US?</strong></summary>
+
+Not yet. Companies, rules and regulators are US-only. Contributions for other countries are welcome.
+</details>
 
 ## Star history
 
@@ -142,8 +183,6 @@ The most valuable contribution is a correction: a phone number that changed, a f
   </picture>
 </a>
 
-## License and disclaimer
+## License
 
-Code: [MIT](LICENSE). Data in `registry/`: [CC BY 4.0](registry/LICENSE.md). Please credit "redress".
-
-redress is not a law firm and this is not legal advice. Facts summarize public pages, which change; check the linked source before you rely on it. redress is not affiliated with any company it lists.
+Code: [MIT](LICENSE). Data in `registry/`: [CC BY 4.0](registry/LICENSE.md); please credit "redress". Not affiliated with any company it lists.

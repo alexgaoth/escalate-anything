@@ -257,3 +257,61 @@ def main(args) -> int:
             print("  " + r.message.replace("\n", "\n  "))
         code = max(code, 1 if r.status == "error" else 0)
     return code
+
+
+def setup(args) -> int:
+    """Guided setup: find AI apps, show the planned changes, ask, apply with backups."""
+    cmd, cargs = server_command(args.source, args.read_only)
+    found = detected_clients()
+    print("redress setup: connect redress to your AI apps\n")
+    print(f"Server command: {cmd} {' '.join(cargs)}")
+    if not found:
+        print("\nNo supported AI apps were found. Manual setup for every app: "
+              "https://github.com/alexgaoth/redress/blob/main/docs/clients.md")
+        return 0
+    targets = args.clients or found
+    unknown = [t for t in targets if t not in CLIENTS]
+    if unknown:
+        print(f"Unknown app(s): {', '.join(unknown)}. Known: {', '.join(CLIENTS)}", file=sys.stderr)
+        return 2
+    interactive = sys.stdin.isatty() and not args.yes
+    if interactive and not args.clients:
+        print("\nFound:")
+        for i, t in enumerate(found, 1):
+            print(f"  {i}. {CLIENTS[t].label}")
+        answer = input("\nAdd redress to which apps? [Enter = all, numbers like 1,3, or n to cancel] ").strip().lower()
+        if answer in ("n", "no"):
+            print("Cancelled. Nothing changed.")
+            return 0
+        if answer:
+            try:
+                targets = [found[int(x) - 1] for x in answer.replace(" ", "").split(",") if x]
+            except (ValueError, IndexError):
+                print("Did not understand that. Nothing changed.", file=sys.stderr)
+                return 2
+    print("\nPlanned changes:")
+    for t in targets:
+        r = install(t, cmd, cargs, dry_run=True, remove=args.remove)
+        print(f"- {CLIENTS[t].label}: " + r.message.replace("\n", "\n    "))
+    if not args.yes:
+        if not interactive:
+            print("\nRun again with --yes to apply.")
+            return 0
+        if input("\nApply these changes? Each config file is backed up first. [y/N] ").strip().lower() not in ("y", "yes"):
+            print("Cancelled. Nothing changed.")
+            return 0
+    print()
+    code, restart = 0, []
+    for t in targets:
+        r = install(t, cmd, cargs, remove=args.remove)
+        print(f"{CLIENTS[t].label}: {r.status}{' (' + r.path + ')' if r.path else ''}")
+        if r.status == "manual" and r.message:
+            print("  " + r.message.replace("\n", "\n  "))
+        if r.status in ("installed", "updated", "removed"):
+            restart.append(CLIENTS[t].label)
+        code = max(code, 1 if r.status == "error" else 0)
+    if restart:
+        print(f"\nRestart {', '.join(restart)}. Then ask your agent, for example:")
+        print('  "My internet bill went up $25. Use redress to get it back down."')
+        print('  "Is this text from USPS real? <paste the text>"')
+    return code

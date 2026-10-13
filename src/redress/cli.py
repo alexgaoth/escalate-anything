@@ -168,6 +168,12 @@ def cmd_scam_check(args: argparse.Namespace) -> int:
     return 0 if r["risk"] == "low" else 2
 
 
+def cmd_setup(args: argparse.Namespace) -> int:
+    from .clients import setup
+
+    return setup(args)
+
+
 def cmd_install(args: argparse.Namespace) -> int:
     from .clients import main as install_main
 
@@ -327,6 +333,13 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--company")
     p.set_defaults(func=cmd_scam_check)
 
+    p = sub.add_parser("setup", help="connect redress to your AI apps: find them, review the changes, apply with backups")
+    p.add_argument("clients", nargs="*", help="only these app ids (default: every app found)")
+    p.add_argument("--yes", action="store_true", help="apply without asking")
+    p.add_argument("--source", choices=["auto", "local", "pypi", "git"], default="auto")
+    p.add_argument("--read-only", action="store_true")
+    p.set_defaults(func=cmd_setup, remove=False)
+
     for name, remove in (("install", False), ("uninstall", True)):
         p = sub.add_parser(name, help=f"{'remove the server from' if remove else 'add the MCP server to'} AI apps (Claude Desktop, Cursor, VS Code, ...)")
         p.add_argument("clients", nargs="*", help="client ids; run without arguments to list them")
@@ -375,9 +388,17 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+CLI_COMMANDS = {"setup", "install", "uninstall", "update", "playbook", "lookup", "verify", "scam-check",
+                "credibility", "issues", "freshness", "validate", "stats", "cases", "feedback", "export", "site"}
+
+
 def serve_main() -> None:
-    """Entry point `redress-mcp`: run the MCP server (stdio unless --transport http)."""
-    sys.exit(main(["serve", *sys.argv[1:]]))
+    """Entry point `redress-mcp`. With no command it runs the MCP server; `redress-mcp setup` (and other
+    CLI commands) work too, so `uvx redress-mcp setup` is the one command people need."""
+    argv = sys.argv[1:]
+    if argv and argv[0] in CLI_COMMANDS:
+        sys.exit(main(argv))
+    sys.exit(main(["serve", *argv]))
 
 
 def main(argv: list[str] | None = None) -> int:

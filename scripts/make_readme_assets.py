@@ -91,8 +91,8 @@ def main() -> None:
     (OUT / "banner-light.svg").write_text(banner(stats, dark=False))
     (OUT / "banner-dark.svg").write_text(banner(stats, dark=True))
     (OUT / "demo-playbook.svg").write_text(terminal(
-        "redress playbook xfinity bill_increase --state CA",
-        run("playbook", "comcast-xfinity", "bill_increase", "--state", "CA"), max_lines=24))
+        "redress playbook united-airlines delayed_baggage --state IL",
+        run("playbook", "united-airlines", "delayed_baggage", "--state", "IL"), max_lines=26))
     scam = ("Chase Fraud Dept: your account is locked. To protect your money, send it to yourself with Zelle now. "
             "Verify at https://chase-secure-verify.com or call 1-888-555-0199")
     out = run("scam-check", "--company", "chase", scam) + "\n" + "$ redress verify +1-800-934-6489 --company united\n" + \

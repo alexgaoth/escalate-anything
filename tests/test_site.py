@@ -339,3 +339,14 @@ def test_js_checks_match_python_on_the_real_registry(tmp_path):
         js = next(out)
         assert _risk(js) == _risk(context.scam_check(reg, t, c)), t
         assert js["risk"] == expected.get(t, js["risk"]), t
+
+
+def test_badges_are_written(fixture_registry, tmp_path):
+    import json
+
+    from redress.site import build_site
+
+    build_site(tmp_path / "out", fixture_registry)
+    b = json.loads((tmp_path / "out" / "badges" / "companies.json").read_text())
+    assert b == {"schemaVersion": 1, "label": "companies", "message": "1", "color": "2ea44f"}
+    assert json.loads((tmp_path / "out" / "badges" / "verified.json").read_text())["message"] == "2026-10-12"
