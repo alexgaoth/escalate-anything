@@ -1,0 +1,246 @@
+id: robinhood
+name: Robinhood
+aliases: [robinhood markets, robinhood financial, robinhood securities, robinhood crypto, robinhood gold, robinhood app]
+sector: investing
+parent: Robinhood Markets, Inc.
+website: https://robinhood.com
+official_domains: [robinhood.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Robinhood says it will never ask for your password, 2FA code or secret recovery phrase.
+      source: https://robinhood.com/us/en/support/articles/how-to-identify-and-report-scams/
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Robinhood Support will never ask you to download remote desktop software or share your screen, send you links in text messages, ask you to create a Robinhood account, or ask you to send money or crypto through Robinhood or other apps such as Cash App or Venmo.
+      source: https://robinhood.com/us/en/support/articles/how-to-identify-and-report-scams/
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Fake Robinhood support numbers appear in search results and on social media. Robinhood gives phone support through an in-app callback request and says not to use Robinhood phone numbers found through an internet browser.
+      source: https://robinhood.com/us/en/support/articles/how-to-identify-and-report-scams/
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Robinhood warns of off-platform investment groups on WhatsApp, Discord or Telegram that promise fast, high returns, and of pump-and-dump schemes in low-volume stocks or crypto.
+      source: https://robinhood.com/us/en/support/articles/how-to-identify-and-report-scams/
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Crypto transfers cannot be reversed, and Robinhood says it cannot reimburse you for crypto transfers that you authorize.
+      source: https://robinhood.com/us/en/support/articles/how-to-identify-and-report-scams/
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Report phishing emails, texts, calls, websites or social media accounts that claim to be Robinhood
+      value: reportphishing@robinhood.com
+      purposes: [fraud]
+      notes: >-
+        Robinhood does not reply to reports. For an email include the full headers; for a text send a screenshot
+        and the sending number; for a call include the phone number; for a website or social account send the URL
+        or handle and how you found it.
+      source: https://robinhood.com/us/en/support/articles/how-to-identify-and-report-scams/
+      last_verified: 2026-10-13
+regulators: [sec, finra, cfpb]
+notes: >-
+  Brokerage accounts are with Robinhood Financial LLC (introducing broker, FINRA CRD 165998) and cleared by
+  Robinhood Securities, LLC (CRD 287900). Crypto is held by Robinhood Crypto, LLC, which is licensed by the
+  New York State Department of Financial Services for virtual currency business. CFPB complaints cover the
+  cash, card, money transfer and crypto products; securities complaints go to FINRA and the SEC.
+
+channels:
+  - id: contact-support
+    type: web_form
+    label: Contact Robinhood Support (chat and support requests)
+    value: https://robinhood.com/contact
+    purposes: [account_transfer, frozen_funds, fraud, account_access, unauthorized_charge, poor_service]
+    hours: 24/7 chat
+    access: login
+    notes: >-
+      The help article calls this "Contact Robinhood Support 24/7". Account-specific help is given in the app or
+      after sign-in. Past chats are kept in the support tools.
+    source: https://robinhood.com/us/en/support/articles/how-to-contact-support/
+    last_verified: 2026-10-13
+  - id: phone-callback
+    type: app
+    label: Phone support by in-app callback request
+    value: Request a callback from Robinhood Support in the app or at robinhood.com/contact
+    purposes: [account_transfer, frozen_funds, fraud, account_access]
+    hours: "7 AM-9 PM ET; Monday–Friday only for investing features, excluding holidays"
+    access: login
+    notes: >-
+      Robinhood says it calls back as soon as an agent is available, typically in less than 30 minutes, and
+      sends a notification with the number it will call from. Not all inquiries are eligible for phone support.
+    source: https://robinhood.com/us/en/support/articles/how-to-contact-support/
+    last_verified: 2026-10-13
+  - id: support-email
+    type: email
+    label: Support email when you cannot log in to a compromised account
+    value: support@robinhood.com
+    purposes: [account_access, fraud]
+    source: https://robinhood.com/us/en/support/articles/how-to-identify-and-report-scams/
+    last_verified: 2026-10-13
+  - id: crypto-spending-phone
+    type: phone
+    label: Robinhood Crypto, Spending and Cash Card support line
+    value: +1-888-275-8523
+    purposes: [unauthorized_charge, fraud, frozen_funds]
+    access: human_only
+    notes: Agents on this line can only help with Robinhood Crypto, Spending and Cash Card. California Spending and Cash Card customers use +1-800-469-7205.
+    source: https://robinhood.com/us/en/support/articles/how-to-contact-support/
+    last_verified: 2026-10-13
+  - id: general-info-phone
+    type: phone
+    label: General information line (not for account questions)
+    value: +1-650-761-7789
+    notes: Robinhood says account-specific questions must go through in-app support.
+    source: https://robinhood.com/us/en/support/articles/how-to-contact-support/
+    last_verified: 2026-10-13
+  - id: wallet-email
+    type: email
+    label: Robinhood Wallet (self-custody wallet) support
+    value: walletsupport@robinhood.com
+    source: https://robinhood.com/us/en/support/articles/how-to-contact-support/
+    last_verified: 2026-10-13
+  - id: phishing-email
+    type: email
+    label: Report phishing that claims to be Robinhood
+    value: reportphishing@robinhood.com
+    purposes: [fraud]
+    notes: Only for phishing reports. Robinhood does not reply.
+    source: https://robinhood.com/us/en/support/articles/how-to-identify-and-report-scams/
+    last_verified: 2026-10-13
+  - id: brokercheck-rhf
+    type: portal
+    label: FINRA BrokerCheck record for Robinhood Financial LLC (CRD 165998)
+    value: https://brokercheck.finra.org/firm/summary/165998
+    notes: Robinhood Securities, LLC is CRD 287900 (https://brokercheck.finra.org/firm/summary/287900). CRD numbers confirmed through the BrokerCheck search service.
+    source: https://api.brokercheck.finra.org/search/firm?query=robinhood&hl=true&nrows=12&start=0&r=25&wt=json
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: contact-support}
+  - {rung: written_complaint, channel: contact-support, note: "Robinhood publishes no separate U.S. complaint address. Put the complaint in writing through Support and keep the case number."}
+  - {rung: regulator, regulator: finra, note: "For brokerage accounts (Robinhood Financial, Robinhood Securities)."}
+  - {rung: regulator, regulator: sec}
+  - {rung: regulator, regulator: cfpb, note: "For Robinhood Gold Card, Spending, Cash Card, money transfers and crypto."}
+  - {rung: arbitration, note: "The Customer Agreement (section 39) sends brokerage disputes to FINRA Dispute Resolution arbitration."}
+
+playbooks:
+  - issue: account_transfer
+    summary: Start an outbound transfer at the receiving broker; Robinhood charges $100 and crypto and futures cannot move.
+    evidence: [transfer request confirmation from the receiving broker, Robinhood statements, notices about restrictions or negative balances]
+    steps:
+      - do: Clear any account restriction or negative balance first, or the transfer may be delayed.
+      - do: Ask the receiving brokerage to start the ACATS transfer. Robinhood does not start outbound transfers.
+      - do: Sell or plan for assets that cannot move - crypto, futures, fractional shares and options that expire within 7 business days.
+      - do: If the transfer stalls, ask Robinhood Support in writing for the reason and what it needs, and ask the receiving firm to check the status too.
+        channel: contact-support
+      - do: If it is still blocked, file a complaint with FINRA.
+        regulator: finra
+    facts:
+      - kind: fee
+        claim: Robinhood charges $100 per outgoing ACATS transfer, full or partial, taken from the available cash balance. If that balance is too low, the outside brokerage account may be charged, depending on that firm's policies.
+        issues: [account_transfer]
+        source: https://robinhood.com/us/en/support/articles/transfer-your-assets-out/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Crypto held in Robinhood Crypto cannot be transferred to other brokerages, and crypto not sold within 5 months may be liquidated with the proceeds sent as cash. Futures cannot be transferred. Fractional shares are sold in a full transfer and the cash is sent in a residual sweep.
+        issues: [account_transfer]
+        source: https://robinhood.com/us/en/support/articles/transfer-your-assets-out/
+        last_verified: 2026-10-13
+      - kind: process
+        claim: After a full transfer starts, the Robinhood account is locked from buying and selling, and cash deposits and withdrawals are blocked. To cancel an outgoing transfer you must ask the receiving brokerage.
+        issues: [account_transfer]
+        source: https://robinhood.com/us/en/support/articles/transfer-your-assets-out/
+        last_verified: 2026-10-13
+      - kind: process
+        claim: Options that expire within 7 business days do not transfer. Residual sweeps usually happen weekly after the initial transfer is complete.
+        issues: [account_transfer]
+        source: https://robinhood.com/us/en/support/articles/transfer-your-assets-out/
+        last_verified: 2026-10-13
+
+  - issue: fraud
+    summary: Contact Support at once to freeze the account, report the phishing, and report scam payments to the FTC.
+    evidence: [account activity with the unauthorized trades or transfers, messages or call details from the scammer, FTC report number]
+    steps:
+      - do: Contact Robinhood Support immediately through the app or robinhood.com/contact and ask it to freeze the account.
+        channel: contact-support
+      - do: If you cannot log in, email Support.
+        channel: support-email
+      - do: Forward the phishing email, text, call details or website to Robinhood.
+        channel: phishing-email
+      - do: Report scam payments to the FTC at ReportFraud.ftc.gov.
+        regulator: ftc
+      - do: For unauthorized brokerage activity that Robinhood does not fix, complain in writing to Robinhood, then file with FINRA.
+        regulator: finra
+    facts:
+      - kind: policy
+        claim: Crypto transfers cannot be reversed or undone, and Robinhood cannot reimburse you for crypto transfers that you authorize.
+        issues: [fraud]
+        source: https://robinhood.com/us/en/support/articles/how-to-identify-and-report-scams/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: On March 7, 2025 FINRA fined Robinhood Financial and Robinhood Securities $26 million and ordered $3.75 million in restitution. FINRA found that their anti-money-laundering programs missed suspicious activity, including accounts taken over by third-party hackers.
+        issues: [fraud, account_access]
+        source: https://www.finra.org/media-center/newsreleases/2025/finra-orders-robinhood-financial-pay-375-million-restitution
+        last_verified: 2026-10-13
+
+  - issue: account_access
+    summary: Recover access only through the app or robinhood.com; never give a code or password to a caller.
+    evidence: [account email and phone number, ID, date access was lost, any security alerts received]
+    steps:
+      - do: Use only the app or robinhood.com/contact. Do not call numbers found in a web search.
+        channel: contact-support
+      - do: If the account was compromised and you cannot log in, email Support and ask it to freeze the account.
+        channel: support-email
+      - do: Never share a password, 2FA code or recovery phrase. Robinhood says it never asks for them.
+
+  - issue: frozen_funds
+    summary: Robinhood may restrict deposits, withdrawals or trading at its discretion; ask in writing for the reason and what it needs.
+    evidence: [restriction notice, account statements, ID and proof of ownership, written requests and answers]
+    steps:
+      - do: Ask Support in writing why the account is restricted, what documents it needs, and when the restriction will end.
+        channel: contact-support
+      - do: Keep the case number and every answer.
+      - do: If brokerage assets stay restricted, file a FINRA complaint. For cash card, spending or crypto balances, file with the CFPB.
+        regulator: finra
+      - do: To recover money, consider FINRA arbitration, which the Customer Agreement requires.
+    facts:
+      - kind: policy
+        claim: The Robinhood Customer Agreement (revised October 1, 2026, section 13) lets Robinhood, at its sole discretion and without prior notice, restrict your ability to deposit or withdraw funds or trade, or terminate the account.
+        issues: [frozen_funds]
+        source: https://cdn.robinhood.com/assets/robinhood/legal/Robinhood%20Customer%20Agreement.pdf
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: The agreement names reasons for restricting withdrawals or trading that include a reasonable suspicion of fraud, diminished capacity, inappropriate activity, or notice that ownership of assets in the account is in dispute.
+        issues: [frozen_funds]
+        source: https://cdn.robinhood.com/assets/robinhood/legal/Robinhood%20Customer%20Agreement.pdf
+        last_verified: 2026-10-13
+
+facts:
+  - kind: policy
+    claim: The Robinhood Financial and Robinhood Securities Customer Agreement (revised October 1, 2026) contains a predispute arbitration clause (section 39). Any controversy arising out of the agreement or the account is settled by arbitration before FINRA Dispute Resolution, Inc.
+    source: https://cdn.robinhood.com/assets/robinhood/legal/Robinhood%20Customer%20Agreement.pdf
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: Under the same clause, Robinhood will not enforce the arbitration agreement against a member of a putative class action in court until class certification is denied, the class is decertified, or the customer is excluded from the class.
+    source: https://cdn.robinhood.com/assets/robinhood/legal/Robinhood%20Customer%20Agreement.pdf
+    last_verified: 2026-10-13
+  - claim: BrokerCheck lists 56 regulatory events and 13 arbitrations for Robinhood Financial LLC, and 2 regulatory events and 3 arbitrations for Robinhood Securities, LLC.
+    source: https://api.brokercheck.finra.org/search/firm/165998?hl=true&nrows=12&query=&r=25&wt=json
+    last_verified: 2026-10-13
+  - claim: The CFPB received 1,815 complaints about ROBINHOOD MARKETS INC. from July 1, 2025 to June 30, 2026. All 1,815 were closed with explanation; 112 responses were not timely.
+    source: https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/?company=ROBINHOOD%20MARKETS%20INC.&date_received_min=2025-07-01&date_received_max=2026-06-30&size=0
+    last_verified: 2026-10-13
+
+tips:
+  - kind: official
+    text: When you request a callback, Robinhood sends a notification with the number it will call from. Treat any other "Robinhood" call as suspect.
+    issues: [fraud, account_access]
+    source: https://robinhood.com/us/en/support/articles/how-to-contact-support/
+    last_verified: 2026-10-13
+
+known_blockers:
+  - There is no inbound phone number for brokerage account issues; phone help is an in-app callback for the account holder.
+  - Support requests for an account need sign-in to the app or robinhood.com.
+  - Robinhood publishes no U.S. complaint mailing address or complaint email.

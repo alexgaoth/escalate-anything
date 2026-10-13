@@ -1,0 +1,95 @@
+id: jefferson-capital
+name: Jefferson Capital
+aliases: [jefferson capital systems, jefferson capital systems llc, jcap]
+sector: debt_collector
+parent: Jefferson Capital, Inc.
+website: https://www.jcap.com
+account_url: https://myjcap.com
+official_domains: [jcap.com, myjcap.com]
+regulators: [cfpb, ftc]
+notes: >-
+  Jefferson Capital buys and collects consumer debts. Its SEC filing lists subsidiaries including Jefferson
+  Capital Systems, LLC and CL Holdings, LLC (both Georgia). The CFPB complaint database has no company named
+  Jefferson Capital; it lists complaints under "CL Holdings LLC", which we could not confirm is the same
+  business, so treat that count as probable, not certain. Jefferson Capital publishes no dispute mailing
+  address on its site; use the address on your validation notice.
+
+channels:
+  - id: consumer-phone
+    type: phone
+    label: Jefferson Capital consumer phone
+    value: +1-833-851-5552
+    purposes: [debt_collection, credit_report_error]
+    access: human_only
+    notes: The site lists no hours.
+    source: https://www.jcap.com/contact-us
+    last_verified: 2026-10-13
+  - id: consumer-portal
+    type: portal
+    label: Consumer Account Support Department (account portal)
+    value: https://myjcap.com
+    purposes: [debt_collection, credit_report_error]
+    notes: Linked from jcap.com's contact page. The portal needs JavaScript.
+    source: https://www.jcap.com/contact-us
+    last_verified: 2026-10-13
+  - id: company-mail
+    type: mail
+    label: Jefferson Capital company address
+    value: "Jefferson Capital, 200 14th Ave E, Sartell, MN 56377"
+    purposes: [debt_collection]
+    notes: General company address on jcap.com, not labeled for disputes. Send a written dispute to the address on your validation notice first.
+    source: https://www.jcap.com/
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: written_complaint, note: "Dispute in writing within the validation period, at the address on the validation notice."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: debt_collection
+    summary: Dispute in writing at the address on the validation notice before the validation period ends.
+    evidence: [validation notice with the end date of the validation period, Jefferson Capital and original account numbers, proof of payment or identity theft report, copies of what you send]
+    steps:
+      - do: Find the date the validation notice gives as the end of the validation period, and the dispute address on the notice.
+      - do: Before that date, send a written dispute by certified mail asking for verification and the original creditor's name and address. Keep a copy.
+      - do: If the notice gives no address, send it to the company address too.
+        channel: company-mail
+      - do: If Jefferson Capital keeps collecting without sending verification, file a CFPB complaint.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: If you dispute in writing within the validation period, a debt collector must stop collecting the debt, or the disputed part, until it sends verification of the debt or a copy of a judgment (Regulation F, 12 CFR 1006.38).
+        issues: [debt_collection]
+        source: https://www.consumerfinance.gov/rules-policy/regulations/1006/38/
+        last_verified: 2026-10-13
+
+  - issue: credit_report_error
+    summary: Dispute the entry with each credit bureau and directly with Jefferson Capital at the address on your credit report.
+    evidence: [credit report page with the entry, proof of payment or identity theft report]
+    steps:
+      - do: Dispute the entry with each credit bureau that shows it.
+      - do: Send a direct dispute to the address on your credit report for Jefferson Capital.
+      - do: If the entry is not fixed, file a CFPB complaint.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: A furnisher must investigate a direct dispute sent to the address on your credit report or the address it gives for disputes, and finish within the same time a credit bureau has (Regulation V, 12 CFR 1022.43).
+        issues: [credit_report_error]
+        source: https://www.consumerfinance.gov/rules-policy/regulations/1022/43/
+        last_verified: 2026-10-13
+
+facts:
+  - kind: policy
+    claim: Jefferson Capital, Inc.'s list of subsidiaries filed with the SEC (June 2025) includes Jefferson Capital Holdings, LLC, CL Holdings, LLC and Jefferson Capital Systems, LLC.
+    source: https://www.sec.gov/Archives/edgar/data/2046042/000110465925059104/tm2430355d14_ex21-1.htm
+    last_verified: 2026-10-13
+  - claim: The CFPB received 25,014 complaints about "CL Holdings LLC" from July 1, 2025 to June 30, 2026 (debt collection 20,377; credit reporting 4,439). 20,052 were closed with explanation and 4,961 with non-monetary relief. The CFPB does not say this is Jefferson Capital; the name matches a Jefferson Capital subsidiary.
+    source: https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/?company=CL%20Holdings%20LLC&date_received_min=2025-07-01&date_received_max=2026-06-30&size=0
+    last_verified: 2026-10-13
+
+known_blockers:
+  - Jefferson Capital publishes no dispute address or hours on its site.
+  - The consumer portal needs JavaScript and sign-in.

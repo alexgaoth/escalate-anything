@@ -1,0 +1,106 @@
+id: webull
+name: Webull
+aliases: [webull financial, webull financial llc, webull app]
+sector: investing
+website: https://www.webull.com
+official_domains: [webull.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Webull says it will never ask for responses via text, and that its official social media pages will never initiate contact with you.
+      source: https://www.webull.com/help/faq/10946-Avoiding-Scams
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Webull warns of phishing emails that link to fake websites, vishing calls and smishing texts that ask for passwords or verification codes, and fake or hacked social media accounts that push false investment opportunities.
+      source: https://www.webull.com/help/faq/10946-Avoiding-Scams
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: support-email
+      type: email
+      label: Report suspected unauthorized activity or scams to Webull Support
+      value: support@webull.com
+      purposes: [fraud]
+      source: https://www.webull.com/help/faq/10946-Avoiding-Scams
+      last_verified: 2026-10-13
+regulators: [sec, finra]
+notes: >-
+  Brokerage accounts are with Webull Financial LLC (FINRA CRD 289063). Webull's transfer help page names Apex
+  Clearing as the party charging the outgoing transfer fee.
+
+channels:
+  - id: support-phone
+    type: phone
+    label: Webull customer support
+    value: +1-888-828-0618
+    purposes: [fraud, account_transfer, account_access, frozen_funds, poor_service]
+    access: human_only
+    notes: The inquiry page lists no hours. Search-engine extracts of other Webull help pages give Monday to Friday, 8:00 AM to 5:00 PM ET.
+    source: https://www.webull.com/help/faq/1081-how-to-file-an-inquiry
+    last_verified: 2026-10-13
+  - id: support-email
+    type: email
+    label: Webull support email
+    value: support@webull.com
+    purposes: [fraud, account_transfer, account_access, frozen_funds, poor_service]
+    source: https://www.webull.com/help/faq/1081-how-to-file-an-inquiry
+    last_verified: 2026-10-13
+  - id: in-app-support
+    type: app
+    label: In-app support
+    value: "Webull app: Menu > Support > Contact Support"
+    purposes: [fraud, account_access]
+    access: login
+    source: https://www.webull.com/help/faq/10946-Avoiding-Scams
+    last_verified: 2026-10-13
+  - id: brokercheck
+    type: portal
+    label: FINRA BrokerCheck record for Webull Financial LLC (CRD 289063)
+    value: https://brokercheck.finra.org/firm/summary/289063
+    source: https://www.webull.com/help/faq/1081-how-to-file-an-inquiry
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: support-phone}
+  - {rung: written_complaint, channel: support-email, note: "Webull publishes no separate complaint address. Write to support and keep the reply."}
+  - {rung: regulator, regulator: finra}
+  - {rung: regulator, regulator: sec}
+  - {rung: arbitration, note: "Brokerage account agreements usually require FINRA arbitration. Read your Webull customer agreement."}
+
+playbooks:
+  - issue: account_transfer
+    summary: Start the transfer at the receiving broker; Webull charges $75 and some assets are sold instead of moved.
+    evidence: [transfer request confirmation from the receiving broker, Webull statements]
+    steps:
+      - do: Submit the transfer request through the receiving broker. It will need Webull's DTC number, 0158.
+      - do: Expect fractional shares, Treasury bonds and money market funds to be sold, and options that expire within two weeks to stay behind.
+      - do: If the transfer is late, email Webull support for the reason and the expected date.
+        channel: support-email
+      - do: If it is still blocked, file a FINRA complaint.
+        regulator: finra
+    facts:
+      - kind: fee
+        claim: Webull deducts a $75 fee from the account's cash balance for both full and partial outgoing transfers. The fee table names Apex Clearing (Webull) as the charging party.
+        issues: [account_transfer]
+        source: https://www.webull.com/help/faq/10958-Initiating-your-transfer
+        last_verified: 2026-10-13
+      - kind: process
+        claim: Outgoing ACATS transfers typically take around 3-5 business days. Fractional shares, Treasury bonds and money market funds cannot be transferred and are liquidated when the transfer starts; options that expire within two weeks cannot be transferred.
+        issues: [account_transfer]
+        source: https://www.webull.com/help/faq/10958-Initiating-your-transfer
+        last_verified: 2026-10-13
+
+  - issue: fraud
+    summary: Report unauthorized activity by phone, email or in-app support, and change your password.
+    evidence: [account activity with the unauthorized transactions, the suspicious message, FTC report number]
+    steps:
+      - do: Report the unauthorized activity to Webull.
+        channel: support-phone
+      - do: Change your password and turn on two-factor authentication.
+      - do: Report the scam to the FTC at ReportFraud.ftc.gov.
+        regulator: ftc
+      - do: If Webull does not resolve it, complain in writing, then file with FINRA.
+        regulator: finra
+
+known_blockers:
+  - Phone support verifies the account holder by voice.

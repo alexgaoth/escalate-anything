@@ -1,0 +1,184 @@
+id: coinbase
+name: Coinbase
+aliases: [coinbase inc, coinbase global, coinbase one, coinbase wallet, coinbase exchange]
+sector: investing
+parent: Coinbase Global, Inc.
+website: https://www.coinbase.com
+official_domains: [coinbase.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Coinbase says its staff will never ask for your password or 2-step verification codes, or ask you to transfer assets to a specific or new address, account, vault or wallet. Seen in search-engine extracts of Coinbase's help center.
+      source: https://help.coinbase.com/en/coinbase/privacy-and-security/avoid-scams/tech-support-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Coinbase says it will never ask you to contact an unknown number to reach it, and will not ask you to complete identity verification or upload documents on non-Coinbase domains. Seen in search-engine extracts of Coinbase's help center.
+      source: https://help.coinbase.com/en/coinbase/privacy-and-security/avoid-scams/tech-support-scams
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: On May 14, 2025 Coinbase disclosed that a threat actor paid support contractors or employees outside the United States to take customer data, including names, addresses, phone numbers, emails, masked SSNs, government ID images and account balances. Coinbase said it was working to reduce the risk that the data is used in social-engineering attempts.
+      source: https://www.sec.gov/Archives/edgar/data/1679788/000167978825000094/coin-20250514.htm
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Scam emails can show "Coinbase" as the display name with a fake sender address. Coinbase says its real email addresses end with coinbase.com. Seen in a search-engine extract of Coinbase's help center.
+      source: https://help.coinbase.com/en/coinbase/privacy-and-security/other/is-this-email-really-from-coinbase
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: security-email
+      type: email
+      label: Email Coinbase security if a caller asked for sensitive information
+      value: security@coinbase.com
+      purposes: [fraud]
+      notes: Seen in a search-engine extract of a Coinbase blog post on phone scams; coinbase.com blocked automated fetches on 2026-10-13.
+      source: https://www.coinbase.com/blog/hang-up-the-phone-stop-social-engineering-scams
+      last_verified: 2026-10-13
+regulators: [cfpb, ftc, sec]
+notes: >-
+  Coinbase, Inc. runs the U.S. crypto exchange; CFPB complaints are filed under "Coinbase, Inc.". Coinbase
+  Capital Markets Corp is an active FINRA broker-dealer (CRD 10722). coinbase.com and help.coinbase.com
+  returned HTTP 403 to automated fetches on 2026-10-13, so the Coinbase values below come from search-engine
+  extracts of Coinbase's own pages unless the source is sec.gov, FINRA or the CFPB.
+
+channels:
+  - id: help-center
+    type: web_form
+    label: Coinbase Help Center (support requests and chat)
+    value: https://help.coinbase.com/
+    purposes: [fraud, account_access, frozen_funds, account_transfer, unauthorized_charge, poor_service]
+    access: login
+    notes: Coinbase's account-loss page says to report a loss through its secure support experience at help.coinbase.com.
+    source: https://help.coinbase.com/en/privacy-and-security/other/report-an-account-loss
+    last_verified: 2026-10-13
+  - id: support-phone
+    type: phone
+    label: Coinbase phone support
+    value: +1-888-908-7930
+    purposes: [fraud, account_access]
+    access: human_only
+    notes: Seen in a search-engine extract of a Coinbase blog post, which calls this its only support line and says other numbers found online are scams.
+    source: https://www.coinbase.com/blog/avoiding-phone-scams
+    last_verified: 2026-10-13
+  - id: account-loss-report
+    type: web_form
+    label: Report an account loss after a security incident
+    value: https://help.coinbase.com/en/privacy-and-security/other/report-an-account-loss
+    purposes: [fraud, unauthorized_charge]
+    access: login
+    notes: Page title seen in search results; not fetched.
+    source: https://help.coinbase.com/en/privacy-and-security/other/report-an-account-loss
+    last_verified: 2026-10-13
+  - id: lock-account
+    type: web_form
+    label: Lock or unlock a compromised account
+    value: https://help.coinbase.com/en/coinbase/privacy-and-security/account-compromised/my-account-was-compromised
+    purposes: [fraud, account_access]
+    notes: Seen in search results. A locked account can still sign in, view balances and contact support, but cannot trade, send crypto or change settings.
+    source: https://help.coinbase.com/en/coinbase/privacy-and-security/account-compromised/my-account-was-compromised
+    last_verified: 2026-10-13
+  - id: restriction-help
+    type: web_form
+    label: Resolve an account restriction
+    value: https://help.coinbase.com/en/coinbase/privacy-and-security/other/account-restriction
+    purposes: [frozen_funds, account_transfer]
+    access: login
+    notes: Seen in search results; not fetched.
+    source: https://help.coinbase.com/en/coinbase/privacy-and-security/other/account-restriction
+    last_verified: 2026-10-13
+  - id: security-email
+    type: email
+    label: Coinbase security email (after a suspicious call)
+    value: security@coinbase.com
+    purposes: [fraud]
+    notes: Seen in a search-engine extract; not fetched.
+    source: https://www.coinbase.com/blog/hang-up-the-phone-stop-social-engineering-scams
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: help-center}
+  - {rung: written_complaint, note: "The User Agreement requires its Formal Complaint Process (a complaint form) before arbitration or small claims. A 2021 law firm summary gives the form as help.coinbase.com/en/contact-us/submit-a-complaint."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator, note: "Complain to your state financial regulator."}
+  - {rung: arbitration, note: "Appendix 5 of the User Agreement requires binding arbitration with limited exceptions, plus class action and jury trial waivers."}
+
+playbooks:
+  - issue: fraud
+    summary: Lock the account, report the loss through the help center, and treat every unexpected "Coinbase" call as a scam.
+    evidence: [transaction IDs and wallet addresses, screenshots of messages, caller numbers, FTC or IC3 report number]
+    steps:
+      - do: Lock the account at once if someone else may have access.
+        channel: lock-account
+      - do: Report the loss through Coinbase's help center.
+        channel: account-loss-report
+      - do: If a caller asked for codes, passwords or a transfer, hang up and email Coinbase security.
+        channel: security-email
+      - do: Report the scam to the FTC at ReportFraud.ftc.gov, and to the FBI at ic3.gov.
+        regulator: ftc
+      - do: If Coinbase does not resolve it, file with the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: compensation
+        claim: For the May 2025 insider data theft, Coinbase said it intends to voluntarily reimburse eligible retail customers who sent funds to the threat actor as a direct result of the incident, after it reviews the facts. It estimated costs of about $180 million to $400 million for remediation and reimbursements.
+        issues: [fraud]
+        source: https://www.sec.gov/Archives/edgar/data/1679788/000167978825000094/coin-20250514.htm
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Coinbase said the May 2025 incident did not involve passwords or private keys, and the contractors or employees involved could not access customer funds.
+        issues: [fraud]
+        source: https://www.sec.gov/Archives/edgar/data/1679788/000167978825000094/coin-20250514.htm
+        last_verified: 2026-10-13
+
+  - issue: account_access
+    summary: Recover access only through coinbase.com or the app; expect sends to stay disabled for a security period.
+    evidence: [account email, phone, government ID, date access was lost]
+    steps:
+      - do: Use the account recovery flow on coinbase.com or in the app. Do not use phone numbers from search results.
+        channel: help-center
+      - do: Never give a password, 2-step code or recovery phrase to anyone who contacts you.
+    facts:
+      - kind: process
+        claim: Coinbase help pages say account recovery for lost 2-step verification usually takes up to 48 hours, and sends stay disabled until the security period ends. Seen in search-engine extracts of the help center.
+        issues: [account_access]
+        source: https://help.coinbase.com/en/coinbase/managing-my-account/get-back-into-my-account/account-recovery-lost-email-2step-verification
+        last_verified: 2026-10-13
+
+  - issue: frozen_funds
+    summary: Ask in writing why the account is restricted; Coinbase says restriction reviews typically take up to 10 business days.
+    evidence: [restriction notice, support case number, ID documents requested, account statements]
+    steps:
+      - do: Read the restriction notice in the account and answer any document request through Coinbase's own site.
+        channel: restriction-help
+      - do: If the review passes its stated time, open a support case and keep the case number.
+        channel: help-center
+      - do: Use the case number to file a formal complaint, then file with the CFPB and your state financial regulator.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: Coinbase help pages say restriction resolution and review typically take up to 10 business days, and some cases take longer. During a review you may still convert crypto to cash and withdraw cash to a verified bank account, depending on security and risk factors. Seen in search-engine extracts of the help center.
+        issues: [frozen_funds]
+        source: https://help.coinbase.com/en/coinbase/privacy-and-security/other/account-restriction
+        last_verified: 2026-10-13
+
+facts:
+  - kind: process
+    claim: The Coinbase U.S. User Agreement requires its Formal Complaint Process before any arbitration claim or small claims action. The process ends when Coinbase responds or 45 business days after it receives the complaint, whichever comes first. Seen in search-engine extracts of the agreement.
+    source: https://www.coinbase.com/legal/user_agreement/united_states
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: Appendix 5 of the U.S. User Agreement requires, with limited exceptions, that all disputes be resolved by binding arbitration, and contains a class action and jury trial waiver. Seen in search-engine extracts of the agreement.
+    source: https://www.coinbase.com/legal/user_agreement/united_states
+    last_verified: 2026-10-13
+  - claim: The CFPB received 1,292 complaints about Coinbase, Inc. from July 1, 2025 to June 30, 2026. 895 were closed with explanation, 394 with monetary relief and 3 with non-monetary relief; 23 responses were not timely. The top issues were other transaction problems (340), fraud or scam (326) and money not available when promised (226).
+    source: https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/?company=Coinbase%2C%20Inc.&date_received_min=2025-07-01&date_received_max=2026-06-30&size=0
+    last_verified: 2026-10-13
+
+tips:
+  - kind: official
+    text: Coinbase recommends a hardware security key or an authenticator app for 2-step verification instead of SMS, because phone numbers can be ported and stolen. Seen in search-engine extracts of Coinbase pages.
+    issues: [account_access, fraud]
+    source: https://www.coinbase.com/blog/security-psa-how-to-protect-yourself-from-phishing-attacks
+    last_verified: 2026-10-13
+
+known_blockers:
+  - coinbase.com and help.coinbase.com block automated browsers; hand the browser to the person.
+  - Support cases, loss reports and restriction reviews need sign-in.

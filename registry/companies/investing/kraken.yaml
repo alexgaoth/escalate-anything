@@ -1,0 +1,158 @@
+id: kraken
+name: Kraken
+aliases: [payward, payward interactive, payward ventures, kraken pro, kraken exchange, krak]
+sector: investing
+website: https://www.kraken.com
+official_domains: [kraken.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Kraken says its support will never ask for your password, two-factor authentication code, device approval code, wallet addresses or seed words, Master Key, remote access to your computer, or changes to your security settings.
+      source: https://support.kraken.com/articles/protect-yourself-from-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Kraken says it will never ask you to remove 2FA methods or your Master Key, or for access to your devices through remote desktop software such as AnyDesk or TeamViewer.
+      source: https://support.kraken.com/articles/protect-yourself-from-scams
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Inbound phone support scams use a fake phone number to impersonate Kraken's support team. Kraken says voice support is reached only through the "Call us" option in the app's Support tab, not by dialing a number, and any number found online claiming to be Kraken Support should be treated as phishing (search-engine extract of Kraken's voice support article).
+      source: https://support.kraken.com/articles/protect-yourself-from-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Kraken warns of fake investment or broker platforms, ICO scams, cloud mining scams, multi-level marketing schemes and romance or celebrity impersonation scams.
+      source: https://support.kraken.com/articles/protect-yourself-from-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Emails from Kraken always end in the @kraken.com domain, including subdomains such as @email.kraken.com.
+      source: https://support.kraken.com/articles/is-this-email-from-kraken
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: suspicious-email-form
+      type: web_form
+      label: Report a suspicious email that claims to be Kraken
+      value: https://support.kraken.com/forms/360000614072
+      purposes: [fraud]
+      notes: The help article links to this form with a relative link (/forms/360000614072).
+      source: https://support.kraken.com/articles/is-this-email-from-kraken
+      last_verified: 2026-10-13
+regulators: [cfpb, ftc, sec]
+notes: >-
+  U.S. crypto services are provided by Payward Interactive, Inc. (FinCEN MSB, NMLS ID 1843762); CFPB
+  complaints are filed under "Payward Ventures Inc. dba Kraken". Kraken Securities LLC is an active FINRA
+  broker-dealer (CRD 324343). Kraken's disclosures page gives state regulator complaint contacts, for example
+  the Texas Department of Banking and the California DFPI.
+
+channels:
+  - id: support-center
+    type: web_form
+    label: Kraken Support Center (chat and support requests)
+    value: https://support.kraken.com/hc/en-us
+    purposes: [fraud, account_access, frozen_funds, account_transfer, poor_service]
+    source: https://www.kraken.com/legal/disclosures
+    last_verified: 2026-10-13
+  - id: payward-interactive-phone
+    type: phone
+    label: Questions and complaints about Payward Interactive, Inc. (Kraken's U.S. entity)
+    value: +1-888-720-8670
+    purposes: [poor_service, frozen_funds]
+    access: human_only
+    notes: Listed in Kraken's state licensing disclosures. For account help Kraken uses the in-app "Call us" option.
+    source: https://www.kraken.com/legal/disclosures
+    last_verified: 2026-10-13
+  - id: in-app-voice
+    type: app
+    label: Voice support through the "Call us" option in the app's Support tab
+    value: "Kraken, Kraken Pro or Krak app: Support tab > Call us"
+    purposes: [fraud, account_access]
+    access: login
+    notes: Seen in a search-engine extract of Kraken's voice support article. The option appears where available; it cannot be reached by dialing a number.
+    source: https://support.kraken.com/articles/115013099227-how-to-contact-kraken-phone-support
+    last_verified: 2026-10-13
+  - id: complaint-process
+    type: web_form
+    label: Complaint handling process and complaint form
+    value: https://support.kraken.com/articles/complaint-handling-process
+    purposes: [poor_service, frozen_funds, account_transfer]
+    notes: The page links to the complaint form. Include your full name, account email, country, a description, ticket numbers and dates.
+    source: https://support.kraken.com/articles/complaint-handling-process
+    last_verified: 2026-10-13
+  - id: suspicious-email-form
+    type: web_form
+    label: Report a suspicious email that claims to be Kraken
+    value: https://support.kraken.com/forms/360000614072
+    purposes: [fraud]
+    source: https://support.kraken.com/articles/is-this-email-from-kraken
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: support-center}
+  - {rung: written_complaint, channel: complaint-process}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator, note: "Kraken's disclosures page lists the state regulator for each license."}
+
+playbooks:
+  - issue: frozen_funds
+    summary: Answer document requests by email quickly; scam-prevention restrictions last 90 days.
+    evidence: [restriction notice, emails from Kraken support, ID documents, transaction history]
+    steps:
+      - do: Make sure the account is fully verified and 2FA is set up, then reply promptly to any document request by email.
+      - do: If a withdrawal is held for review, wait for Kraken's email; if it does not come, contact support and keep the ticket number.
+        channel: support-center
+      - do: If it is not resolved, file a complaint through Kraken's complaint process.
+        channel: complaint-process
+      - do: Then complain to your state financial regulator or the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: Kraken may restrict an account for a potential security issue, suspected malicious activity, withdrawals to wallets tied to prohibited or scam activity, a chargeback, out-of-date identity information, or a Terms of Service violation.
+        issues: [frozen_funds]
+        source: https://support.kraken.com/articles/why-is-my-account-restricted
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: For withdrawals held for internal review, Kraken says its team will contact you by email within 5 business days. Scam-prevention restrictions can only be lifted after 90 days.
+        issues: [frozen_funds, account_transfer]
+        source: https://support.kraken.com/articles/why-is-my-account-restricted
+        last_verified: 2026-10-13
+
+  - issue: fraud
+    summary: Ask support to lock the account, report the scam, and never act on an unexpected "Kraken" call.
+    evidence: [transaction IDs and wallet addresses, screenshots, caller numbers, FTC or IC3 report number]
+    steps:
+      - do: Contact support so it can lock the account.
+        channel: support-center
+      - do: Report suspicious emails with the Kraken form.
+        channel: suspicious-email-form
+      - do: If someone calls claiming to be Kraken and you did not arrange it, hang up and contact Kraken through the app.
+      - do: Report the scam to the FTC at ReportFraud.ftc.gov.
+        regulator: ftc
+
+  - issue: account_transfer
+    summary: Withdrawals held for review get an email within 5 business days; complain if it stalls.
+    evidence: [withdrawal request details, transaction ID, support ticket numbers]
+    steps:
+      - do: Check your email for a review notice and answer document requests.
+      - do: If there is no answer, contact support and ask for the reason and expected date.
+        channel: support-center
+      - do: Escalate through the complaint process, then to the CFPB or your state regulator.
+        channel: complaint-process
+
+facts:
+  - kind: deadline
+    claim: Kraken's complaint process says it confirms receipt within 5 business days, asks for more information within 10 business days if needed, and responds within 15 business days; complex cases may take 30 to 35 business days.
+    source: https://support.kraken.com/articles/complaint-handling-process
+    last_verified: 2026-10-13
+  - kind: process
+    claim: For U.S. clients (Payward Interactive, Inc.), Kraken's complaint page names the state consumer regulatory agency on its disclosures page, or the CFPB at consumerfinance.gov/complaint or (855) 411-2372, as the escalation route.
+    source: https://support.kraken.com/articles/complaint-handling-process
+    last_verified: 2026-10-13
+  - claim: The CFPB received 250 complaints about Payward Ventures Inc. dba Kraken from July 1, 2025 to June 30, 2026. 243 were closed with explanation; 12 responses were not timely. The top issue was fraud or scam (69).
+    source: https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/?company=Payward%20Ventures%20Inc.%20dba%20Kraken&date_received_min=2025-07-01&date_received_max=2026-06-30&size=0
+    last_verified: 2026-10-13
+  - claim: BrokerCheck lists Kraken Securities LLC (formerly Payward Equities LLC, CRD 324343) as an active broker-dealer with no disclosures.
+    source: https://api.brokercheck.finra.org/search/firm?query=payward&hl=true&nrows=12&start=0&r=25&wt=json
+    last_verified: 2026-10-13
+
+known_blockers:
+  - Voice support is only through the app for the signed-in account holder.
+  - Kraken publishes no U.S. complaint mailing address.

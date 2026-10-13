@@ -1,0 +1,99 @@
+id: convergent-outsourcing
+name: Convergent Outsourcing (now Transworld Systems)
+aliases: [convergent, convergent outsourcing inc, convergent resources, convergent healthcare recoveries]
+sector: debt_collector
+parent: Transworld Systems Inc.
+website: https://www.convergentusa.com
+official_domains: [convergentusa.com, tsico.com]
+regulators: [cfpb, ftc]
+notes: >-
+  On 2026-10-13 convergentusa.com redirected (HTTP 301) to tsico.com, the site of Transworld Systems Inc. (TSI).
+  TSI completed its acquisition of Account Control Technology Holdings in June 2021, and trade press reported
+  that ACT owned Convergent Outsourcing, Inc. We found no notice on TSI's site about Convergent accounts, so
+  confirm with the collector named on your letter. CFPB complaints still appear under "Convergent Resources, Inc.".
+
+channels:
+  - id: tsi-main-phone
+    type: phone
+    label: Transworld Systems main line
+    value: +1-866-228-9034
+    hours: Monday through Friday, 8:00 am to 5:00 pm EST
+    purposes: [debt_collection, credit_report_error]
+    access: human_only
+    source: https://tsico.com/consumer-support-hub/
+    last_verified: 2026-10-13
+  - id: tsi-consumer-hotline
+    type: phone
+    label: TSI Consumer Hotline (complaints about how TSI is collecting a debt)
+    value: +1-866-545-9191
+    hours: Monday through Friday, 8:00 am to 5:00 pm EST
+    purposes: [debt_collection]
+    access: human_only
+    source: https://tsico.com/consumer-support-hub/
+    last_verified: 2026-10-13
+  - id: tsi-contact-form
+    type: web_form
+    label: TSI consumer contact form (written complaints)
+    value: https://my.tsico.com/contact-us/consumer
+    purposes: [debt_collection, credit_report_error]
+    notes: TSI says not to include payment card or bank information in the form.
+    source: https://tsico.com/consumer-support-hub/
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: written_complaint, channel: tsi-contact-form, note: "Dispute in writing within the validation period, at the address on the validation notice."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: debt_collection
+    summary: Check which company now holds the account, then dispute in writing at the address on the validation notice.
+    evidence: [validation notice with the end date of the validation period, account and original creditor numbers, copies of what you send]
+    steps:
+      - do: Check the collector's name and address on the letter. If it says Convergent, ask TSI whether it now handles the account.
+        channel: tsi-main-phone
+      - do: Before the validation period ends, send a written dispute by certified mail to the address on the notice, asking for verification and the original creditor's name and address.
+      - do: Complain about collection conduct through TSI's form or Consumer Hotline.
+        channel: tsi-contact-form
+      - do: If collection continues without verification, file a CFPB complaint.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: If you dispute in writing within the validation period, a debt collector must stop collecting the debt, or the disputed part, until it sends verification of the debt or a copy of a judgment (Regulation F, 12 CFR 1006.38).
+        issues: [debt_collection]
+        source: https://www.consumerfinance.gov/rules-policy/regulations/1006/38/
+        last_verified: 2026-10-13
+
+  - issue: credit_report_error
+    summary: Dispute the entry with each credit bureau and directly with the furnisher at the address on your credit report.
+    evidence: [credit report page with the entry, proof that it is wrong]
+    steps:
+      - do: Dispute the entry with each credit bureau that shows it.
+      - do: Send a direct dispute to the address on your credit report for the furnisher.
+      - do: If the entry is not fixed, file a CFPB complaint.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: A furnisher must investigate a direct dispute sent to the address on your credit report or the address it gives for disputes, and finish within the same time a credit bureau has (Regulation V, 12 CFR 1022.43).
+        issues: [credit_report_error]
+        source: https://www.consumerfinance.gov/rules-policy/regulations/1022/43/
+        last_verified: 2026-10-13
+
+facts:
+  - kind: policy
+    claim: Transworld Systems Inc. announced that it completed its acquisition of Account Control Technology Holdings, Inc. (ACT Holdings) in June 2021.
+    source: https://tsico.com/?p=57345
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: Trade press reported on June 7, 2021 that the companies owned and operated by ACT included Convergent Outsourcing, Inc., Convergent Revenue Cycle Management, Inc. and Convergent Healthcare Recoveries, Inc.
+    source: https://www.accountsrecovery.net/2021/06/07/tsi-continues-acquisition-binge-buying-account-control-technology/
+    last_verified: 2026-10-13
+  - claim: The CFPB received 48 complaints about Convergent Resources, Inc. from July 1, 2025 to June 30, 2026 (debt collection 39; credit reporting 9). All 48 were closed with explanation and all were timely.
+    source: https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/?company=Convergent%20Resources%2C%20Inc.&date_received_min=2025-07-01&date_received_max=2026-06-30&size=0
+    last_verified: 2026-10-13
+
+known_blockers:
+  - Convergent's own site no longer exists; it redirects to Transworld Systems.
+  - Neither site publishes a dispute mailing address.

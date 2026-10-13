@@ -1,0 +1,121 @@
+id: lvnv-funding
+name: LVNV Funding (serviced by Resurgent Capital Services)
+aliases: [lvnv, lvnv funding llc, resurgent, resurgent capital services, resurgent capital services lp]
+sector: debt_collector
+website: https://www.lvnvfunding.com
+official_domains: [lvnvfunding.com, resurgent.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: Resurgent warns of scams in which harassing or threatening calls are made about payday, credit or collection accounts. It says not to give a caller claiming to be Resurgent any financial, account, payment or personal information, and not to follow the caller's instructions.
+      source: https://www.resurgent.com/scams-and-frauds
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Resurgent says licensed, reputable collectors will not threaten arrest, jail or physical harm, threaten to freeze your assets without due process, use obscene language, or keep calling when they know you have a lawyer.
+      source: https://www.resurgent.com/scams-and-frauds
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: resurgent-phone
+      type: phone
+      label: Report a suspected scam call claiming to be Resurgent or LVNV
+      value: +1-888-665-0374
+      purposes: [fraud, debt_collection]
+      source: https://www.resurgent.com/scams-and-frauds
+      last_verified: 2026-10-13
+regulators: [cfpb, ftc]
+notes: >-
+  LVNV Funding buys charged-off debts and outsources the management of its accounts to Resurgent Capital
+  Services, and asks that all inquiries go to Resurgent. CFPB complaints are filed under "Resurgent Capital
+  Services L.P.". Resurgent's site lists P.O. Box 10497, Greenville, SC 29603 but does not say it is the dispute
+  address; use the address on your validation notice.
+
+channels:
+  - id: resurgent-phone
+    type: phone
+    label: Resurgent (questions and payments for LVNV-owned accounts)
+    value: +1-888-665-0374
+    purposes: [debt_collection, credit_report_error]
+    access: human_only
+    notes: Resurgent's pages list no hours.
+    source: https://www.resurgent.com/
+    last_verified: 2026-10-13
+  - id: resurgent-contact
+    type: web_form
+    label: Resurgent contact portal
+    value: https://portal.resurgent.com/contact
+    purposes: [debt_collection, credit_report_error, identity_theft]
+    notes: LVNV's site directs all inquiries here. The portal needs JavaScript.
+    source: https://www.lvnvfunding.com/
+    last_verified: 2026-10-13
+  - id: resurgent-mail
+    type: mail
+    label: Resurgent mailing address (site footer)
+    value: "Resurgent Capital Services, P.O. Box 10497, Greenville, SC 29603"
+    purposes: [debt_collection, credit_report_error]
+    notes: The site does not label this as a dispute address. Send a written dispute to the address on your validation notice, and to this address if the notice gives none.
+    source: https://www.resurgent.com/
+    last_verified: 2026-10-13
+  - id: resurgent-faq
+    type: web_form
+    label: Resurgent FAQ (credit reporting practices)
+    value: https://portal.resurgent.com/faq
+    purposes: [credit_report_error]
+    source: https://www.resurgent.com/credit-reporting
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: written_complaint, channel: resurgent-mail, note: "Dispute in writing within the validation period in the notice; use the address on the notice."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: debt_collection
+    summary: Dispute in writing to Resurgent within the validation period; collection must pause until it sends verification.
+    evidence: [validation notice with the end date of the validation period, Resurgent and original account numbers, proof of payment or identity theft report, copies of what you send]
+    steps:
+      - do: Check that the original creditor named in the letter matches one of your accounts. Resurgent suggests this check.
+      - do: Find the date the validation notice gives as the end of the validation period, and the dispute address on the notice.
+      - do: Before that date, send a written dispute by certified mail asking for verification and the original creditor's name and address.
+        channel: resurgent-mail
+      - do: You can also use the contact portal, but keep a mailed copy as proof.
+        channel: resurgent-contact
+      - do: If Resurgent keeps collecting without sending verification, file a CFPB complaint.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: If you dispute in writing within the validation period, a debt collector must stop collecting the debt, or the disputed part, until it sends verification of the debt or a copy of a judgment (Regulation F, 12 CFR 1006.38).
+        issues: [debt_collection]
+        source: https://www.consumerfinance.gov/rules-policy/regulations/1006/38/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: LVNV says a sale of the debt to it after charge-off "does not mean the debt goes away", and that it outsources the management of its accounts to Resurgent Capital Services.
+        issues: [debt_collection]
+        source: https://www.lvnvfunding.com/
+        last_verified: 2026-10-13
+
+  - issue: credit_report_error
+    summary: Dispute the LVNV entry with each credit bureau and directly with Resurgent.
+    evidence: [credit report page with the LVNV entry, proof of payment or identity theft report]
+    steps:
+      - do: Dispute the entry with each credit bureau that shows it.
+      - do: Send a direct dispute to the address on your credit report for LVNV, or through Resurgent.
+        channel: resurgent-contact
+      - do: If the entry is not fixed, file a CFPB complaint.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: A furnisher must investigate a direct dispute sent to the address on your credit report or the address it gives for disputes, and finish within the same time a credit bureau has (Regulation V, 12 CFR 1022.43).
+        issues: [credit_report_error]
+        source: https://www.consumerfinance.gov/rules-policy/regulations/1022/43/
+        last_verified: 2026-10-13
+
+facts:
+  - claim: The CFPB received 25,451 complaints about Resurgent Capital Services L.P. from July 1, 2025 to June 30, 2026 (debt collection 18,780; credit reporting 6,281). 18,913 were closed with explanation and 6,538 with non-monetary relief; 1 response was not timely. The top issue was "Attempts to collect debt not owed" (6,368).
+    source: https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/?company=Resurgent%20Capital%20Services%20L.P.&date_received_min=2025-07-01&date_received_max=2026-06-30&size=0
+    last_verified: 2026-10-13
+
+known_blockers:
+  - LVNV does not take inquiries directly; everything goes through Resurgent.
+  - Resurgent's contact portal needs JavaScript.

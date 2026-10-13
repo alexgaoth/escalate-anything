@@ -1,0 +1,182 @@
+id: midland-credit-management
+name: Midland Credit Management (Encore Capital Group)
+aliases: [midland credit management, midland credit, mcm, midland funding, midland funding llc, encore capital, encore capital group]
+sector: debt_collector
+parent: Encore Capital Group, Inc.
+website: https://www.midlandcredit.com
+account_url: https://accounts.midlandcredit.com
+official_domains: [midlandcredit.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: Midland's FAQ says it does not recommend paying someone to dispute your debt, because you can dispute it for free directly with Midland.
+      source: https://www.midlandcredit.com/help-center/faqs/
+      last_verified: 2026-10-13
+regulators: [cfpb, ftc]
+notes: >-
+  Encore Capital Group's U.S. family includes Midland Funding (which buys the debts), Midland Credit Management
+  (which collects them) and Atlantic Credit & Finance. CFPB complaints are filed under "ENCORE CAPITAL GROUP INC.".
+  Midland's NMLS ID is 934164.
+
+channels:
+  - id: account-managers-phone
+    type: phone
+    label: Account managers (general account questions and payments)
+    value: +1-800-296-2657
+    hours: Mon-Sun 8am – Midnight ET
+    purposes: [debt_collection, credit_report_error]
+    access: human_only
+    source: https://www.midlandcredit.com/contact-us/
+    last_verified: 2026-10-13
+  - id: consumer-resolution-phone
+    type: phone
+    label: Consumer Resolution Center (concerns and complaints)
+    value: +1-877-420-0039
+    purposes: [debt_collection, credit_report_error, identity_theft]
+    access: human_only
+    source: https://www.midlandcredit.com/contact-us/
+    last_verified: 2026-10-13
+  - id: consumer-support-phone
+    type: phone
+    label: Consumer Support Services (questions about inaccurate information)
+    value: +1-800-825-8131 ext. 32980
+    hours: Monday through Friday, 8am to 7:30pm ET
+    purposes: [credit_report_error, debt_collection]
+    access: human_only
+    source: https://www.midlandcredit.com/help-center/faqs/
+    last_verified: 2026-10-13
+  - id: dispute-form
+    type: web_form
+    label: Consumer Resolution Center form (formal disputes and complaints to the Chief Compliance Officer)
+    value: https://www.midlandcredit.com/help-center/disputes/
+    purposes: [debt_collection, credit_report_error, identity_theft]
+    access: open
+    notes: >-
+      Choose the issue type, such as "Notification of the debt" or "Inaccurate credit reporting". The form asks for
+      your name, last four SSN digits, phone, account or case numbers, address and what happened. You can upload
+      up to 10 files (PDF, JPG, JPEG, TIF, TIFF or PNG, 5 MB each).
+    source: https://www.midlandcredit.com/help-center/disputes/
+    last_verified: 2026-10-13
+  - id: compliance-mail
+    type: mail
+    label: Written disputes, concerns and complaints
+    value: "Midland Credit Management, Attention: Chief Compliance Officer, P.O. Box 939069, San Diego, CA 92193"
+    purposes: [debt_collection, credit_report_error, identity_theft]
+    notes: >-
+      Include your name, MCM or original account number, last four SSN digits, address, phone and what happened.
+      If you earlier told Midland to stop contacting you, say in the letter whether it may reply about your concern.
+      If your validation notice gives a different dispute address, use that one too.
+    source: https://www.midlandcredit.com/contact-us/
+    last_verified: 2026-10-13
+  - id: live-chat
+    type: chat
+    label: Chat with Us
+    value: https://www.midlandcredit.com/contact-us/
+    purposes: [debt_collection]
+    source: https://www.midlandcredit.com/contact-us/
+    last_verified: 2026-10-13
+  - id: account-portal
+    type: portal
+    label: Midland account sign-in (letters in the Document Center)
+    value: https://accounts.midlandcredit.com
+    purposes: [debt_collection]
+    access: login
+    source: https://www.midlandcredit.com/contact-us/
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: written_complaint, channel: dispute-form, note: "Dispute in writing within the validation period in the notice, or by mail to the Chief Compliance Officer."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: debt_collection
+    summary: Dispute in writing before the validation period in the notice ends; Midland must pause collection until it sends verification.
+    evidence: [validation notice with the end date of the validation period, MCM and original account numbers, proof of payment or identity theft report, copies of everything you send]
+    steps:
+      - do: Find the date the validation notice gives as the end of the validation period. Signed-in letters are in the Document Center.
+        channel: account-portal
+      - do: Before that date, dispute in writing. Say which part you do not owe and ask for verification and for the name and address of the original creditor.
+        channel: dispute-form
+      - do: Or mail the dispute to the Chief Compliance Officer by certified mail and keep a copy.
+        channel: compliance-mail
+      - do: If the debt is from identity theft, attach your FTC identity theft report from IdentityTheft.gov.
+        regulator: ftc
+      - do: If Midland keeps collecting without sending verification, file a CFPB complaint.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: If you dispute in writing within the validation period, a debt collector must stop collecting the debt, or the disputed part, until it sends verification of the debt or a copy of a judgment (Regulation F, 12 CFR 1006.38).
+        issues: [debt_collection]
+        source: https://www.consumerfinance.gov/rules-policy/regulations/1006/38/
+        last_verified: 2026-10-13
+      - kind: process
+        claim: A dispute sent through an electronic medium that the collector accepts, such as its website portal, counts as a written dispute under Regulation F.
+        issues: [debt_collection]
+        source: https://www.consumerfinance.gov/rules-policy/regulations/1006/38/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Midland says that if you are actively making payments on your account, it will not sue you.
+        issues: [debt_collection]
+        source: https://www.midlandcredit.com/help-center/faqs/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Once an account is past the statute of limitations for lawsuits, Midland says it will tell you in later letters that it cannot and will not sue. Logging into your account online does not restart the statute of limitations.
+        issues: [debt_collection]
+        source: https://www.midlandcredit.com/help-center/faqs/
+        last_verified: 2026-10-13
+
+  - issue: credit_report_error
+    summary: Dispute the Midland entry with each credit bureau and directly with Midland through the Consumer Resolution Center.
+    evidence: [credit report page with the Midland entry, proof of payment, settlement or identity theft]
+    steps:
+      - do: Dispute the entry with each credit bureau that shows it.
+      - do: Also dispute it directly with Midland, choosing "Inaccurate credit reporting".
+        channel: dispute-form
+      - do: For status questions, call Consumer Support Services.
+        channel: consumer-support-phone
+      - do: If the entry is not fixed, file a CFPB complaint.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: After you pay in full or settle, Midland asks the credit bureaus to delete its tradeline once the payment is processed; Midland says this typically takes up to 45 days.
+        issues: [credit_report_error]
+        source: https://www.midlandcredit.com/help-center/credit-reporting/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Midland says it will not report an account if payments begin within six months of its initial notice and continue monthly until the account is resolved. It must delete its tradeline seven years after the delinquency date, and sooner in some states.
+        issues: [credit_report_error]
+        source: https://www.midlandcredit.com/help-center/credit-reporting/
+        last_verified: 2026-10-13
+      - kind: process
+        claim: A furnisher must investigate a direct dispute sent to the address on your credit report or the address it gives for disputes, and finish within the same time a credit bureau has (Regulation V, 12 CFR 1022.43).
+        issues: [credit_report_error]
+        source: https://www.consumerfinance.gov/rules-policy/regulations/1022/43/
+        last_verified: 2026-10-13
+
+facts:
+  - claim: The CFPB received 22,637 complaints about ENCORE CAPITAL GROUP INC. from July 1, 2025 to June 30, 2026 (debt collection 18,386; credit reporting 3,843). 17,052 were closed with explanation, 5,579 with non-monetary relief and 5 with monetary relief; 2 responses were not timely.
+    source: https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/?company=ENCORE%20CAPITAL%20GROUP%20INC.&date_received_min=2025-07-01&date_received_max=2026-06-30&size=0
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: On October 16, 2020 a federal court entered a stipulated judgment in the CFPB's case against Encore Capital Group, Midland Funding, Midland Credit Management and Asset Acceptance, which alleged violations of a 2015 consent order. It ordered $79,308.81 in redress and a $15 million civil penalty, required disclosures, barred collecting time-barred debt without certain disclosures, and kept the 2015 order's conduct provisions for five more years.
+    source: https://www.consumerfinance.gov/enforcement/actions/encore-capital-group-et-al/
+    last_verified: 2026-10-13
+
+tips:
+  - kind: official
+    text: Do not send sensitive information such as your full Social Security number or a checking or debit card number in a complaint message; Midland asks only for the last four SSN digits.
+    issues: [debt_collection]
+    source: https://www.midlandcredit.com/contact-us/
+    last_verified: 2026-10-13
+  - kind: official
+    text: In a letter to the Chief Compliance Officer, name everyone you spoke with and give dates and amounts; Midland says this speeds processing.
+    issues: [debt_collection]
+    source: https://www.midlandcredit.com/contact-us/
+    last_verified: 2026-10-13
+
+known_blockers:
+  - Phone lines verify the account holder by voice.
+  - The account portal and Document Center need sign-in.
