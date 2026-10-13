@@ -17,6 +17,8 @@ from .registry import Registry
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36 redress-linkcheck"
 BLOCKED = {401, 403, 405, 406, 429, 451, 999}
 DEAD = {404, 410}
+# Sites whose bot protection answers 404 even for their home page (checked 2026-10-12).
+BOT_404_HOSTS = {"www.ftc.gov", "ftc.gov", "consumer.ftc.gov"}
 
 
 @dataclass
@@ -60,15 +62,20 @@ async def _check(client: httpx.AsyncClient, sem: asyncio.Semaphore, url: str, us
     async with sem:
         try:
             resp = await client.head(url)
-            if resp.status_code in (405, 403, 400) or resp.status_code >= 500:
+            # Many sites answer HEAD wrongly (404, 403, 405); trust only a GET before calling a link dead.
+            if resp.status_code >= 400:
                 resp = await client.get(url)
         except httpx.ConnectError as e:
+            if "CERTIFICATE_VERIFY_FAILED" in str(e) or "SSL" in str(e):
+                return Result(url, "error", None, "TLS certificate not trusted by Python; check in a browser", used_by)
             return Result(url, "dead", None, f"connect error: {e}", used_by)
         except httpx.HTTPError as e:
             return Result(url, "error", None, f"{type(e).__name__}: {e}", used_by)
     code = resp.status_code
     if code < 400:
         return Result(url, "ok", code, str(resp.url) if str(resp.url) != url else "", used_by)
+    if code in DEAD and httpx.URL(url).host in BOT_404_HOSTS:
+        return Result(url, "blocked", code, "site answers bots with 404; verify by hand", used_by)
     if code in DEAD:
         return Result(url, "dead", code, "", used_by)
     if code in BLOCKED:
