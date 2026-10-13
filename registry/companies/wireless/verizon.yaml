@@ -1,0 +1,234 @@
+id: verizon
+name: Verizon
+aliases: [verizon wireless, verizon mobile, verizon fios, fios, verizon 5g home, verizon home internet]
+sector: wireless
+also_sectors: [internet_tv]
+website: https://www.verizon.com
+account_url: https://secure.verizon.com/signin
+regulators: [fcc]
+notes: >-
+  Verizon wireless (postpaid), Fios and 5G Home internet. Verizon completed its acquisition of
+  Frontier Communications on January 20, 2026; Frontier is now a wholly owned Verizon subsidiary
+  with its own entry under internet providers. Visible and Straight Talk are separate Verizon brands
+  with their own entries. Wireless and wireline (Fios) use different Notice of Dispute forms.
+
+channels:
+  - id: wireless-phone
+    type: phone
+    label: Verizon customer service (speak to an agent)
+    value: +1-800-922-0204
+    hours: 8AM-7PM Mon-Sat, 8AM-5PM Sun (time zone not stated)
+    purposes: [billing_error, bill_increase, price_negotiation, cancel_service, equipment_return, service_outage]
+    source: https://www.verizon.com/support/port-out-faqs/
+    last_verified: 2026-10-12
+  - id: short-code-611
+    type: phone
+    label: Customer service from a Verizon phone
+    value: "*611"
+    source: https://www.verizon.com/support/pound-star-codes/
+    last_verified: 2026-10-12
+  - id: general-phone
+    type: phone
+    label: 1-800-VERIZON (general line shown on support pages)
+    value: +1-800-837-4966
+    notes: Verizon pages show it in the header without a stated purpose. The Notice of Dispute page tells customers to call 1-800-Verizon or chat first.
+    source: https://www.verizon.com/support/network/
+    last_verified: 2026-10-12
+  - id: chat
+    type: chat
+    label: Contact us and chat (My Verizon chat for account changes)
+    value: https://www.verizon.com/support/contact-us/
+    access: login
+    notes: For cancellation, sign in to My Verizon, choose "Chat with us" and type "Cancel". The contact page blocks automated fetches.
+    source: https://www.verizon.com/support/disconnect-cancel-mobile/
+    last_verified: 2026-10-12
+  - id: notice-of-dispute-wireless
+    type: web_form
+    label: Notice of Dispute form (wireless consumer and business)
+    value: https://www.verizon.com/about/nod/notice-of-dispute-wireless-form
+    purposes: [billing_error, bill_increase, cancel_service, equipment_return, service_outage, poor_service]
+    access: open
+    notes: Three-step online form, about 5-10 minutes. Needs the account owner's name, account number, phone number and billing address.
+    source: https://www.verizon.com/about/nod/notice-of-dispute-wireless-form
+    last_verified: 2026-10-12
+  - id: notice-of-dispute-wireline
+    type: web_form
+    label: Notice of Dispute form (wireline, including Fios)
+    value: https://www.verizon.com/about/nod/notice-of-dispute-wireline-form
+    purposes: [billing_error, bill_increase, cancel_service, equipment_return, service_outage, poor_service]
+    access: open
+    source: https://www.verizon.com/about/nod/notice-dispute-form
+    last_verified: 2026-10-12
+  - id: dispute-manager-mail
+    type: mail
+    label: Verizon Dispute Resolution Manager (residential arbitration notices)
+    value: Verizon Dispute Resolution Manager, One Verizon Way, VC54N100, Basking Ridge, NJ 07920-1097
+    purposes: [billing_error, poor_service]
+    notes: Published on Verizon's residential (Fios) arbitration page; the mediation section uses mail code VC54N090. The wireless agreement instead says to write to the customer service address on your bill.
+    source: https://www.verizon.com/support/residential/account/manage-account/security/arbitration-mediation
+    last_verified: 2026-10-12
+  - id: dispute-manager-email
+    type: email
+    label: Verizon Dispute Resolution Manager email (residential)
+    value: NoticeOfDispute@verizon.com
+    purposes: [billing_error, poor_service]
+    source: https://www.verizon.com/support/residential/account/manage-account/security/arbitration-mediation
+    last_verified: 2026-10-12
+  - id: trade-in
+    type: web_form
+    label: Device trade-in (start and check status)
+    value: https://www.verizon.com/trade-in/
+    purposes: [equipment_return]
+    source: https://www.verizon.com/trade-in/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: wireless-phone}
+  - {rung: retention, channel: wireless-phone, note: "Verizon says to call Customer Service before disconnecting to see if you qualify for additional offers."}
+  - {rung: supervisor, channel: wireless-phone, note: "Verizon's arbitration FAQ says you can ask to speak to a Supervisor."}
+  - {rung: written_complaint, channel: notice-of-dispute-wireless, note: "Starts the 60-day period before arbitration. Use the wireline form for Fios."}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "If not resolved within 60 days of the notice, file with the AAA, or bring an individual small claims action."}
+
+playbooks:
+  - issue: billing_error
+    summary: Ask customer service, then a supervisor, then send a written Notice of Dispute. Keep paying undisputed charges.
+    evidence: [the bill with the charge, account number, mobile number, what you expected to pay and why]
+    steps:
+      - do: Call customer service or chat. Ask for the correction and a reference number. Ask for a supervisor if refused.
+        channel: wireless-phone
+      - do: Submit the wireless Notice of Dispute form, or write to the customer service address on your bill. This preserves arbitration and small claims rights.
+        channel: notice-of-dispute-wireless
+      - do: If not resolved in 60 days, file an FCC complaint, or go to small claims court or AAA arbitration.
+        regulator: fcc
+    facts:
+      - kind: policy
+        claim: Postpay customers must still pay all charges while a dispute is pending, unless the law says otherwise. To preserve arbitration or small claims rights, you must write to Verizon at the customer service address on your bill or use the notice of dispute form.
+        issues: [billing_error]
+        source: https://www.verizon.com/support/customer-agreement/
+        last_verified: 2026-10-12
+  - issue: bill_increase
+    summary: Verizon can change prices with notice. A materially adverse change gives a 60-day window to cancel the affected line without an early termination fee.
+    evidence: [price change notice, bills before and after]
+    steps:
+      - do: Find the notice of the change and its date.
+      - do: Ask customer service for current offers or a cheaper plan with the same service.
+        channel: wireless-phone
+      - do: If the change has a material adverse effect on you, object to it and, if Verizon does not reverse it, cancel the affected line within 60 days of the notice.
+        channel: wireless-phone
+    facts:
+      - kind: policy
+        claim: Verizon may change prices or other terms at any time after notice. If a change to your plan or the agreement has a material adverse effect on you, you can cancel the affected line within 60 days of receiving the notice with no early termination fee, if Verizon fails to negate the change after you notify it of your objection.
+        issues: [bill_increase]
+        source: https://www.verizon.com/support/customer-agreement/
+        last_verified: 2026-10-12
+  - issue: price_negotiation
+    summary: Call customer service before cancelling and ask what offers you qualify for.
+    evidence: [current bill, current Verizon offers, competitor offers]
+    steps:
+      - do: Call customer service. Say you plan to cancel and ask whether you qualify for additional offers. Give a target price.
+        channel: wireless-phone
+      - do: Get the offer, its end date and conditions in writing (chat transcript or order confirmation).
+  - issue: cancel_service
+    summary: Port the number out (the new carrier closes the line), or cancel by My Verizon chat or phone. Cancellation takes effect at the end of the bill period.
+    evidence: [account PIN, cancellation confirmation, final bill]
+    steps:
+      - do: To keep the number, generate a Number Transfer PIN in the My Verizon app or website, dial #PORT, call 800-922-0204 or visit a store. Give it to the new carrier. Do not disconnect the Verizon line first.
+        channel: wireless-phone
+      - do: To cancel without porting, sign in to My Verizon, choose "Chat with us" and type "Cancel", or call customer service. The Account Owner must authorize it.
+        channel: chat
+      - do: Check the final bill. Any remaining device payment balance is due in full, and device promotion credits stop.
+      - do: Dispute wrong final-bill charges with the Notice of Dispute form, then the FCC.
+        channel: notice-of-dispute-wireless
+    facts:
+      - kind: limit
+        claim: Only the Account Owner or Account Managers can transfer numbers, and the Number Transfer PIN expires after 7 days. The account must stay open until the move is completed.
+        issues: [cancel_service]
+        source: https://www.verizon.com/support/port-out-faqs/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: A cancellation takes effect on the last day of the billing period in which you cancel. Any remaining device payment balance is due in full on the final bill, and security deposits are refunded within 30-60 days minus outstanding charges.
+        issues: [cancel_service]
+        source: https://www.verizon.com/support/disconnect-cancel-mobile/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: You can cancel a line of Service within 30 days of accepting the Customer Agreement, as long as you return any equipment you bought from Verizon within the applicable return period. You still pay for service through that date.
+        issues: [cancel_service]
+        source: https://www.verizon.com/support/customer-agreement/
+        last_verified: 2026-10-12
+  - issue: equipment_return
+    summary: Return devices within 30 days of purchase ($50 restocking fee). Return Verizon-owned home equipment within 30 days after cancellation.
+    evidence: [receipt, return tracking number, device IMEI or equipment serial number]
+    steps:
+      - do: Start a return through My Verizon, customer service or a Verizon store within 30 days of purchase. Returning a device does not cancel service.
+        channel: wireless-phone
+      - do: Mail a trade-in device within 30 days. The credit is applied after Verizon receives the device.
+        channel: trade-in
+      - do: For Fios or home internet equipment, return it within 30 days after cancellation and keep the receipt.
+      - do: If charged for returned equipment, send the tracking number and ask for removal. Then use the Notice of Dispute form.
+        channel: notice-of-dispute-wireless
+    facts:
+      - kind: deadline
+        claim: Devices can be returned or exchanged within 30 days of purchase, in like-new condition with the original box, all components and the original receipt. Only one exchange is allowed.
+        issues: [equipment_return]
+        source: https://www.verizon.com/support/return-policy/
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: A $50 restocking fee plus applicable taxes applies to any return or exchange of a wireless device (excluding Hawaii).
+        issues: [equipment_return]
+        source: https://www.verizon.com/support/return-policy/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Verizon's trade-in page says to mail the old device within 30 days, and applies the credit once it receives the device.
+        issues: [equipment_return]
+        source: https://www.verizon.com/trade-in/
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: Verizon-owned home internet equipment must be returned within 30 days after cancellation, or an unreturned equipment fee of up to $300 per unit may apply.
+        issues: [equipment_return]
+        source: https://www.verizon.com/support/customer-agreement/
+        last_verified: 2026-10-12
+  - issue: service_outage
+    summary: Postpay customers who lose service for more than 24 hours in a row through Verizon's fault can ask for a credit within 180 days.
+    evidence: [outage dates and times, location, ticket number]
+    steps:
+      - do: Call customer service within 180 days. Say how long service was lost and ask for a credit for the time lost.
+        channel: wireless-phone
+      - do: If refused, submit the Notice of Dispute form, then file an FCC complaint.
+        channel: notice-of-dispute-wireless
+    facts:
+      - kind: compensation
+        claim: If you are a Postpay customer and you lose Service in your Coverage Area for more than 24 hours in a row and Verizon is at fault, call within 180 days and Verizon gives you a credit for the time lost. The agreement says these are your only rights for dropped calls or interrupted Service.
+        issues: [service_outage]
+        source: https://www.verizon.com/support/customer-agreement/
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: The Verizon Mobile Customer Agreement (updated June 16, 2026) requires the party seeking arbitration to notify the other party in writing at least 60 days in advance. Notice to Verizon goes to the wireless dispute resolution manager through the online Notice of Dispute form.
+    issues: [billing_error, poor_service]
+    source: https://www.verizon.com/support/customer-agreement/
+    last_verified: 2026-10-12
+  - kind: process
+    claim: If the dispute is not resolved within 60 days of the notice, either party may file for arbitration with the AAA. For claims within the small claims court limit, either side can bring an individual small claims action instead.
+    issues: [billing_error, poor_service]
+    source: https://www.verizon.com/about/nod/notice-dispute-form
+    last_verified: 2026-10-12
+  - kind: fee
+    claim: If a Postpay payment is late, Verizon charges a late fee of up to 5 percent per month on the unpaid balance, or a flat $10 per month, whichever is greater, if allowed by law in the state of your billing address.
+    issues: [billing_error, bill_increase]
+    source: https://www.verizon.com/support/customer-agreement/
+    last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: Verizon's cancellation page says to call Customer Service before disconnecting to see if you qualify for additional offers.
+    issues: [price_negotiation, cancel_service]
+    source: https://www.verizon.com/support/disconnect-cancel-mobile/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Cancellation and number transfers need the Account Owner (or an Account Manager for transfers), with the Account PIN or the last 4 SSN digits.
+  - Generating a Number Transfer PIN online needs sign-in to My Verizon on a standard monthly account.
+  - Verizon's contact page and main customer agreement page block automated fetches; the support-path agreement page works.

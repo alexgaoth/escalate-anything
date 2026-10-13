@@ -1,0 +1,126 @@
+id: us-mobile
+name: US Mobile
+aliases: [usmobile, us mobile inc]
+sector: wireless
+parent: US Mobile, Inc.
+website: https://www.usmobile.com
+regulators: [fcc]
+notes: >-
+  Prepaid wireless service provided by US Mobile, Inc. (New York). Arbitration is with National
+  Arbitration and Mediation (NAM). Terms effective June 23, 2026.
+
+channels:
+  - id: support-phone
+    type: phone
+    label: US Mobile support
+    value: +1-878-205-0088
+    hours: 9am-9pm Eastern
+    purposes: [billing_error, bill_increase, cancel_service, service_outage]
+    source: https://www.usmobile.com/about-us
+    last_verified: 2026-10-12
+  - id: support-email
+    type: email
+    label: US Mobile support email (24/7)
+    value: help@usmobile.com
+    purposes: [billing_error, bill_increase, cancel_service, service_outage]
+    notes: The page shows the address behind an email-protection link; this is the decoded address.
+    source: https://www.usmobile.com/about-us
+    last_verified: 2026-10-12
+  - id: support-chat
+    type: chat
+    label: US Mobile chat support (24/7)
+    value: https://www.usmobile.com/about-us
+    purposes: [billing_error, cancel_service, service_outage]
+    notes: The page says "24/7 support by chat and email" but gives no direct chat link.
+    source: https://www.usmobile.com/about-us
+    last_verified: 2026-10-12
+  - id: notice-of-dispute-mail
+    type: mail
+    label: Notice of Dispute and arbitration opt-out (mail)
+    value: US Mobile, Inc., Attn Legal/Notice of Dispute, 295 Madison Ave, 6th Floor, New York, NY 10017
+    purposes: [billing_error, bill_increase, cancel_service, service_outage, poor_service]
+    notes: For an arbitration opt-out, use "Attn Legal/Arbitration Agreement Opt Out" at the same address.
+    source: https://www.usmobile.com/terms
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: support-chat}
+  - {rung: written_complaint, channel: notice-of-dispute-mail, note: "Written notice at least 60 days before arbitration."}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "National Arbitration and Mediation (NAM); small claims court for individual relief is an alternative."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute promptly (within 30 days of the charge appearing) by chat or email, then mail a Notice of Dispute.
+    evidence: [account email, invoice from the online account, the charge and the correct amount]
+    steps:
+      - do: Contact support by chat, email or phone as soon as the charge appears on your online account statement. Ask for a correction or refund to the payment method on file.
+        channel: support-email
+      - do: If not fixed, mail a Notice of Dispute to the Legal department.
+        channel: notice-of-dispute-mail
+      - do: After 60 days, file an FCC complaint, or start NAM arbitration or a small claims case.
+        regulator: fcc
+    facts:
+      - kind: deadline
+        claim: The Terms limit US Mobile's liability for unauthorized or disputed charges that appeared more than 30 days earlier on your online account statement and that you did not promptly dispute.
+        issues: [billing_error]
+        source: https://www.usmobile.com/terms
+        last_verified: 2026-10-12
+  - issue: bill_increase
+    summary: US Mobile must give at least 30 days' written notice of a price increase. If you do not accept a materially adverse change, cancel.
+    evidence: [price change notice, invoices before and after]
+    steps:
+      - do: Check the date of the written notice. An increase needs at least 30 days' prior notice.
+      - do: Ask support for a cheaper plan with the same service, or cancel if you do not accept the change.
+        channel: support-chat
+    facts:
+      - kind: policy
+        claim: US Mobile may increase any applicable charges upon at least thirty (30) days' prior written notice. If you do not accept a materially adverse change, you must cancel the service.
+        issues: [bill_increase]
+        source: https://www.usmobile.com/terms
+        last_verified: 2026-10-12
+  - issue: cancel_service
+    summary: Cancel any time. Porting out forfeits the rest of the billing cycle. Full refunds only within 45 days of purchase with no usage in the current cycle.
+    evidence: [account email, purchase date, usage in the current cycle]
+    steps:
+      - do: Before porting out, note that the remaining days in the billing cycle are forfeited.
+      - do: Ask support whether a refund applies. Month-to-month plans get a full refund only if purchased less than 45 days ago with no usage in the current cycle.
+        channel: support-chat
+    facts:
+      - kind: policy
+        claim: Porting out from US Mobile immediately forfeits any remaining days in your billing cycle.
+        issues: [cancel_service]
+        source: https://www.usmobile.com/terms
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: US Mobile does not refund Service used and canceled during the monthly billing cycle. Month-to-month plans can get a full refund if it has been less than 45 days since the date of purchase and the line has no usage in the current cycle. Refunds go to the original payment method.
+        issues: [cancel_service, billing_error]
+        source: https://www.usmobile.com/refund-policy
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: For unlimited plans, a partial refund is the amount paid for the current cycle minus $2 per GB of premium data used.
+        issues: [cancel_service]
+        source: https://www.usmobile.com/refund-policy
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: The party seeking arbitration must give written notice at least 60 days in advance. Notice to US Mobile goes to US Mobile, Inc., Attn Legal/Notice of Dispute, 295 Madison Ave, 6th Floor, New York, NY 10017. Arbitration is with National Arbitration and Mediation (NAM).
+    issues: [billing_error, poor_service]
+    source: https://www.usmobile.com/terms
+    last_verified: 2026-10-12
+  - kind: process
+    claim: Either side may bring an action seeking only individualized relief in a local small claims court instead of arbitration.
+    issues: [billing_error, poor_service]
+    source: https://www.usmobile.com/terms
+    last_verified: 2026-10-12
+  - kind: limit
+    claim: US Mobile's liability is limited to a credit or refund that must not exceed the total charges you paid. The Terms give no specific outage credit.
+    issues: [service_outage]
+    source: https://www.usmobile.com/terms
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Lines need Autopay with a valid card on file to renew; removing the card can cancel the account.
+  - The Terms do not publish port-out PIN steps; ask support.

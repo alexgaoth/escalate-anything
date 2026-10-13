@@ -1,0 +1,145 @@
+id: straight-talk
+name: Straight Talk Wireless
+aliases: [straight talk, straighttalk]
+sector: wireless
+parent: Verizon (Verizon Value, Inc., formerly Tracfone Wireless)
+website: https://www.straighttalk.com
+regulators: [fcc]
+notes: >-
+  Prepaid brand. The Terms are an agreement between the customer and Verizon Value, Inc., a
+  Delaware corporation; the site footer says Straight Talk is a registered trademark of Verizon
+  Value, Inc, a Verizon company. Devices bought at Walmart follow Walmart's return policy.
+
+channels:
+  - id: customer-care-phone
+    type: phone
+    label: Straight Talk Customer Care (1-877-430-CELL)
+    value: +1-877-430-2355
+    purposes: [billing_error, cancel_service, equipment_return, service_outage]
+    notes: The contact page says to call from an alternate device for technical issues.
+    source: https://www.straighttalk.com/support/contact
+    last_verified: 2026-10-12
+  - id: sales-phone
+    type: phone
+    label: Sales line (site banner)
+    value: +1-866-664-3878
+    source: https://www.straighttalk.com/
+    last_verified: 2026-10-12
+  - id: self-service-text
+    type: sms
+    label: Text self-service (balance, refills)
+    value: "611611"
+    hours: 24/7
+    source: https://www.straighttalk.com/support/contact
+    last_verified: 2026-10-12
+  - id: chat
+    type: chat
+    label: Online chat (Contact Us page)
+    value: https://www.straighttalk.com/support/contact
+    hours: 8AM - 3AM (EST) 7 days a week
+    purposes: [billing_error, cancel_service, equipment_return, service_outage]
+    source: https://www.straighttalk.com/support/contact
+    last_verified: 2026-10-12
+  - id: notice-email
+    type: email
+    label: Verizon Value dispute resolution manager (notice of dispute)
+    value: VZValueNOD@verizon.com
+    purposes: [billing_error, cancel_service, equipment_return, poor_service]
+    source: https://www.straighttalk.com/support/terms-conditions
+    last_verified: 2026-10-12
+  - id: notice-mail
+    type: mail
+    label: Verizon Value Legal Department (notices and written inquiries)
+    value: Verizon Value, Inc., Attn Verizon Value Legal Department, One Verizon Way, Basking Ridge, New Jersey 07920-1097
+    purposes: [billing_error, cancel_service, equipment_return, poor_service]
+    source: https://www.straighttalk.com/support/terms-conditions
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-care-phone}
+  - {rung: written_complaint, channel: notice-email, note: "Written notice at least 60 days before arbitration."}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "AAA Consumer Arbitration Rules after 60 days; small claims court is an alternative."}
+
+playbooks:
+  - issue: billing_error
+    summary: Ask Customer Care, then send a written notice to the Verizon Value dispute resolution manager.
+    evidence: [phone number, device serial number (MEID DEC), receipt or refill record, the charge]
+    steps:
+      - do: Call Customer Care or chat. Have the Straight Talk phone number and the device serial number ready.
+        channel: customer-care-phone
+      - do: If not fixed, email a written notice of dispute (or mail it to the Legal Department).
+        channel: notice-email
+      - do: After 60 days, file an FCC complaint, or start AAA arbitration or a small claims case.
+        regulator: fcc
+  - issue: cancel_service
+    summary: Plans are non-refundable. Porting the number out deactivates service at once.
+    evidence: [phone number, Number Transfer PIN, date of port]
+    steps:
+      - do: To keep the number, get the Number Transfer PIN from Straight Talk (contact Customer Care for help) and give it to the new carrier.
+        channel: customer-care-phone
+      - do: Use up or accept the loss of remaining service days before you port; they are lost when the number transfers.
+    facts:
+      - kind: policy
+        claim: When the number transfers to another carrier, Straight Talk Service is deactivated immediately and any unused service days are lost. You need the Number Transfer PIN that Straight Talk provides.
+        issues: [cancel_service]
+        source: https://www.straighttalk.com/support/terms-conditions
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Plans have no cash value and are non-refundable. Straight Talk does not allow returns or provide refunds for any SIM Kits or Plans.
+        issues: [cancel_service, billing_error]
+        source: https://www.straighttalk.com/support/terms-conditions
+        last_verified: 2026-10-12
+  - issue: equipment_return
+    summary: Devices bought online can be returned within 30 days of delivery, with no restocking fee; you pay return shipping.
+    evidence: [online order receipt, return tracking number, device serial number]
+    steps:
+      - do: Follow the return instructions that came with the device. Ship it in like-new, working condition in the original packaging with all accessories and a copy of the receipt.
+      - do: Allow up to 30 business days for the credit. If it does not arrive, contact Customer Care, then send a written notice.
+        channel: customer-care-phone
+    facts:
+      - kind: deadline
+        claim: For online purchases, you have thirty (30) days from the date the device was delivered to return it in like-new, working condition. No restocking, handling or shipping fees are charged, but you pay the cost to ship it back. Walmart purchases follow Walmart's return policy.
+        issues: [equipment_return]
+        source: https://www.straighttalk.com/support/terms-conditions
+        last_verified: 2026-10-12
+      - kind: process
+        claim: It takes up to thirty (30) business days to process a return and credit your account.
+        issues: [equipment_return]
+        source: https://www.straighttalk.com/support/terms-conditions
+        last_verified: 2026-10-12
+  - issue: service_outage
+    summary: The Terms give no outage credit.
+    steps:
+      - do: Report the outage to Customer Care and ask for a goodwill credit. The Terms do not promise one.
+        channel: customer-care-phone
+      - do: For a long outage, file an FCC complaint.
+        regulator: fcc
+    facts:
+      - kind: policy
+        claim: The Terms say Straight Talk is not responsible for any Service outages, interruptions in service or decline in the quality of service regardless of the cause.
+        issues: [service_outage]
+        source: https://www.straighttalk.com/support/terms-conditions
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: Notice to Verizon Value goes by email to the Verizon Value dispute resolution manager at VZValueNOD@verizon.com, or by mail to the Verizon Value Legal Department, One Verizon Way, Basking Ridge, New Jersey 07920-1097, at least 60 days before arbitration.
+    issues: [billing_error, poor_service]
+    source: https://www.straighttalk.com/support/terms-conditions
+    last_verified: 2026-10-12
+  - kind: process
+    claim: Arbitration is before the American Arbitration Association under its Consumer Arbitration Rules; claims within the small claims court limit can be brought there instead.
+    issues: [billing_error, poor_service]
+    source: https://www.straighttalk.com/support/terms-conditions
+    last_verified: 2026-10-12
+  - kind: fee
+    claim: Effective November 1, 2026, the Reg and Telco Recovery Charge is set at 7%.
+    issues: [bill_increase]
+    source: https://www.straighttalk.com/support/terms-conditions
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Support asks for the device serial number (MEID DEC) or the Straight Talk phone number; the account holder must have them.
+  - No published page explains how to get the Number Transfer PIN; Customer Care must help.

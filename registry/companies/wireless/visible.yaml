@@ -1,0 +1,129 @@
+id: visible
+name: Visible
+aliases: [visible wireless, visible by verizon, visible mobile]
+sector: wireless
+parent: Verizon (service provided by Verizon Value, Inc.)
+website: https://www.visible.com
+regulators: [fcc]
+notes: >-
+  "Visible by Verizon", an app-based prepaid service on Verizon's network. The Terms say service
+  is provided by Verizon Value, Inc. or an affiliate (Visible Fiber Home Internet by Verizon Online
+  LLC). Support is by chat in the app or website; the Terms list no support phone number.
+
+channels:
+  - id: chat
+    type: chat
+    label: Customer Care chat (Visible app or website)
+    value: https://www.visible.com/help/contact-us
+    access: login
+    purposes: [billing_error, cancel_service, equipment_return, service_outage]
+    notes: The Terms point to "our chat interface" for disputes. The returns page says to log in and type "return my device" in the chat box. The contact page needs JavaScript.
+    source: https://www.visible.com/legal/terms-and-conditions
+    last_verified: 2026-10-12
+  - id: notices-email
+    type: email
+    label: General notices to Visible
+    value: support@visible.com
+    purposes: [billing_error, poor_service]
+    source: https://www.visible.com/legal/terms-and-conditions
+    last_verified: 2026-10-12
+  - id: dispute-notice-email
+    type: email
+    label: Wireless dispute resolution manager (notice of dispute before arbitration)
+    value: VZValueNOD@verizon.com
+    purposes: [billing_error, cancel_service, equipment_return, service_outage, poor_service]
+    notes: Include the account holder's name, the phone number, a description of the claim, the supporting facts, the damages and the relief you want.
+    source: https://www.visible.com/legal/terms-and-conditions
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: chat}
+  - {rung: written_complaint, channel: dispute-notice-email, note: "Written notice at least 60 days before arbitration."}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "AAA Consumer Arbitration Rules after 60 days; small claims court in the state of your billing address is an alternative."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute the charge in chat within 180 days, then email the dispute resolution manager.
+    evidence: [account email, phone number, the charge and date, chat transcript]
+    steps:
+      - do: Open chat in the Visible app or website. Describe the charge and ask for a correction. Save the transcript.
+        channel: chat
+      - do: If not fixed, email a written notice of dispute to the dispute resolution manager within 180 days of the date the charge was incurred.
+        channel: dispute-notice-email
+      - do: After 60 days, file an FCC complaint, or start AAA arbitration or a small claims case.
+        regulator: fcc
+    facts:
+      - kind: deadline
+        claim: You must dispute charges for any Service within 180 days of the date the disputed charge was incurred.
+        issues: [billing_error]
+        source: https://www.visible.com/legal/terms-and-conditions
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If your account has been activated, Visible does not issue refunds for payments you have made.
+        issues: [billing_error, cancel_service]
+        source: https://www.visible.com/legal/terms-and-conditions
+        last_verified: 2026-10-12
+  - issue: cancel_service
+    summary: Cancel any time. Porting the number out cancels the line; get the port-out PIN from your Account profile.
+    evidence: [account email, port-out PIN, cancellation date]
+    steps:
+      - do: To keep the number, get the port-out PIN from your Account profile and give it to the new carrier. The port cancels Visible service for that number.
+        channel: chat
+      - do: To cancel without porting, cancel in chat. Expect no refund of any account balance.
+        channel: chat
+    facts:
+      - kind: policy
+        claim: If you port a number from Visible, Visible treats it as a request to cancel Service for that number. You need the port-out PIN from your Account profile, and you are not entitled to a refund of any balance on your account.
+        issues: [cancel_service]
+        source: https://www.visible.com/legal/terms-and-conditions
+        last_verified: 2026-10-12
+  - issue: equipment_return
+    summary: Return a device within 14 days of purchase. Get the prepaid label in chat.
+    evidence: [order receipt, return tracking number, device IMEI]
+    steps:
+      - do: Log in and type "return my device" in the chat box. A prepaid return label is emailed to you.
+        channel: chat
+      - do: Pack the like-new device with all accessories in the original box with the order receipt. Turn off Find My iPhone, delete data and remove any physical SIM.
+      - do: Card refunds can take up to 3 weeks after Visible receives the device. If not refunded, dispute it in chat, then by the dispute notice email.
+        channel: dispute-notice-email
+    facts:
+      - kind: deadline
+        claim: If you wish to return your wireless device, you must do so within 14 days of purchase. Credit card purchases are refunded to the card, which may take up to 3 weeks.
+        issues: [equipment_return]
+        source: https://www.visible.com/returns-policy
+        last_verified: 2026-10-12
+  - issue: service_outage
+    summary: For an outage over 24 hours in a row that is Visible's fault, contact Customer Care within 180 days for a credit.
+    evidence: [outage dates and times, location, chat transcript]
+    steps:
+      - do: Contact Customer Care by chat within 180 days. Give the outage dates and ask for a credit for the time lost.
+        channel: chat
+    facts:
+      - kind: compensation
+        claim: If you lose Service for more than 24 hours in a row and Visible is at fault, contact Customer Care within 180 days and Visible gives you a credit for the time lost.
+        issues: [service_outage]
+        source: https://www.visible.com/legal/terms-and-conditions
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: Notice of a dispute goes in writing to Visible's wireless dispute resolution manager at VZValueNOD@verizon.com, at least 60 days before arbitration. Arbitration is before the American Arbitration Association; small claims court is an alternative.
+    issues: [billing_error, poor_service]
+    source: https://www.visible.com/legal/terms-and-conditions
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Visible may change prices or other terms at any time, and you can cancel for any reason at any time. Visible says it gives notice before changes that would negatively affect your Service.
+    issues: [bill_increase]
+    source: https://www.visible.com/legal/terms-and-conditions
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: If you fail to make payment when due, Visible suspends and/or cancels your Service. The Terms list no late fee.
+    issues: [billing_error]
+    source: https://www.visible.com/legal/terms-and-conditions
+    last_verified: 2026-10-12
+
+known_blockers:
+  - No published support phone number; support is chat in the app or website and needs sign-in.
+  - The help center and contact pages need JavaScript and do not load for simple fetches.

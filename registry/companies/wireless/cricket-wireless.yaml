@@ -1,0 +1,121 @@
+id: cricket-wireless
+name: Cricket Wireless
+aliases: [cricket, cricket wireless llc]
+sector: wireless
+parent: AT&T
+website: https://www.cricketwireless.com
+regulators: [fcc]
+notes: >-
+  Prepaid brand of Cricket Wireless LLC. Cricket's terms name AT&T as an affiliate and say Cricket
+  Home Internet uses the AT&T wireless network. Disputes go to the same AT&T Legal Department
+  Notice of Dispute address as AT&T, then JAMS arbitration or small claims.
+
+channels:
+  - id: customer-care-phone
+    type: phone
+    label: Cricket customer support (1-800-CRICKET)
+    value: +1-800-274-2538
+    hours: Mon-Sat 9am-9pm ET; the page says Saturday hours changed to 12pm-9pm starting January 3, 2026
+    purposes: [billing_error, cancel_service, equipment_return, service_outage]
+    source: https://www.cricketwireless.com/contactus
+    last_verified: 2026-10-12
+  - id: short-code-611
+    type: phone
+    label: Customer support from a Cricket phone
+    value: "611"
+    source: https://www.cricketwireless.com/contactus
+    last_verified: 2026-10-12
+  - id: chat
+    type: chat
+    label: Chat with a support advocate (Contact us page)
+    value: https://www.cricketwireless.com/contactus
+    hours: Mon-Sat 9am-11pm ET, Sun 10am-11pm ET (Cricket Digital Assistant 24/7)
+    purposes: [billing_error, cancel_service, equipment_return, service_outage]
+    source: https://www.cricketwireless.com/contactus
+    last_verified: 2026-10-12
+  - id: notice-of-dispute-mail
+    type: mail
+    label: Notice of Dispute (mail or professional courier)
+    value: Legal Department - Notice of Dispute, 208 S. Akard, Office #2900.13, Dallas, TX 75202
+    purposes: [billing_error, cancel_service, equipment_return, service_outage, poor_service]
+    notes: Use the downloadable Notice of Dispute form linked from the Terms. The Terms do not mention an online submission method.
+    source: https://www.cricketwireless.com/terms
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-care-phone}
+  - {rung: written_complaint, channel: notice-of-dispute-mail, note: "Cricket has 60 days after it receives a complete notice to investigate."}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "JAMS arbitration under its streamlined rules, or small claims court in the county of your billing address."}
+
+playbooks:
+  - issue: billing_error
+    summary: Contact support within 180 days of the payment due date, then mail a Notice of Dispute.
+    evidence: [account number, payment receipt or statement, the charge and the correct amount]
+    steps:
+      - do: Call 1-800-CRICKET or chat. Ask for the correction and a reference number.
+        channel: customer-care-phone
+      - do: If not fixed, mail a Notice of Dispute to the Legal Department. Do it within 180 days of the payment due date.
+        channel: notice-of-dispute-mail
+      - do: If not resolved 60 days after Cricket receives the complete notice, file an FCC complaint, or start JAMS arbitration or a small claims case.
+        regulator: fcc
+    facts:
+      - kind: deadline
+        claim: You have 180 days from the payment due date to contact customer service or file a Notice of Dispute about a charge.
+        issues: [billing_error]
+        source: https://www.cricketwireless.com/terms
+        last_verified: 2026-10-12
+  - issue: cancel_service
+    summary: Prepaid service charges are not refunded when you cancel. Cancel by support phone or chat.
+    evidence: [account number, account PIN, cancellation date]
+    steps:
+      - do: Contact support by phone or chat to cancel. Have the account PIN ready; it is used to verify your identity.
+        channel: customer-care-phone
+      - do: Do not expect a refund of unused service time. Dispute only charges made after the cancellation.
+    facts:
+      - kind: policy
+        claim: Amounts paid for Service Charges are non-refundable. Unused time is not prorated or refunded when service ends, unless applicable law requires it.
+        issues: [cancel_service]
+        source: https://www.cricketwireless.com/terms
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If you do not pay, Cricket suspends the account for 60 days before it cancels it, and it may charge a fee to reactivate service.
+        issues: [cancel_service, billing_error]
+        source: https://www.cricketwireless.com/terms
+        last_verified: 2026-10-12
+  - issue: equipment_return
+    summary: Return devices within 7 days. Online orders go back by mail; store purchases go back to the same store.
+    evidence: [order number or store receipt, return tracking number, device with all original contents]
+    steps:
+      - do: For an online order, start the return through the return portal or customer support within 7 days of delivery. Ship it with the prepaid label Cricket emails you.
+        channel: customer-care-phone
+      - do: For a store purchase, return or exchange it at the same Cricket Authorized Retail store within 7 calendar days of purchase.
+      - do: Turn off Find My iPhone and remove personal data first, or the return is rejected.
+    facts:
+      - kind: deadline
+        claim: Online orders can be returned within seven (7) days of order delivery; store purchases within seven (7) calendar days of purchase. Cricket must receive a mailed device within 45 days of the return request.
+        issues: [equipment_return]
+        source: https://www.cricketwireless.com/support/orders-and-activations/returns-and-exchanges
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: In store, a fee of up to $25 may apply when a device is returned without all its original components. There is no fee for returning compliant devices purchased online; approved online returns are refunded to the original payment method within 10 business days of receipt.
+        issues: [equipment_return]
+        source: https://www.cricketwireless.com/support/orders-and-activations/returns-and-exchanges
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: Send a Notice of Dispute by U.S. mail or professional courier to Legal Department - Notice of Dispute, 208 S. Akard, Office #2900.13, Dallas, TX 75202. Cricket has 60 days after receiving a complete notice to investigate before arbitration can start.
+    issues: [billing_error, poor_service]
+    source: https://www.cricketwireless.com/terms
+    last_verified: 2026-10-12
+  - kind: process
+    claim: Arbitration is administered by JAMS. Either party may instead use small claims court in the county of the customer's billing address for an individual claim.
+    issues: [billing_error, poor_service]
+    source: https://www.cricketwireless.com/terms
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Changing the account PIN needs a call or chat with a Support Advocate; when account PIN security is on, the PIN is needed for plan and SIM changes.
+  - No published online form for a Notice of Dispute; it must be mailed or sent by courier.

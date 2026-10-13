@@ -1,0 +1,173 @@
+id: consumer-cellular
+name: Consumer Cellular
+aliases: [consumercellular, consumer cellular inc]
+sector: wireless
+website: https://www.consumercellular.com
+regulators: [fcc]
+notes: >-
+  Month-to-month postpaid wireless (Consumer Cellular, Incorporated, Portland, Oregon), marketed to
+  customers 50+ and AARP members. Disputes fall under the Wireless Customer Agreement (last updated
+  September 15, 2026): a certified-mail Notice of Dispute, 60 days of informal resolution, then AAA
+  arbitration or small claims. Consumer Cellular's own help pages do not say how to get a number
+  transfer (port-out) PIN; ask customer support.
+
+channels:
+  - id: customer-support-phone
+    type: phone
+    label: Consumer Cellular customer support (U.S. based)
+    value: +1-888-345-5509
+    purposes: [billing_error, cancel_service, refund_request, equipment_return]
+    source: https://www.consumercellular.com/help
+    last_verified: 2026-10-12
+  - id: unlock-phone
+    type: phone
+    label: Device unlock eligibility and unlock codes
+    value: +1-888-925-5291
+    purposes: [cancel_service]
+    source: https://www.consumercellular.com/devicepolicies
+    last_verified: 2026-10-12
+  - id: help-center
+    type: portal
+    label: Support and FAQs
+    value: https://www.consumercellular.com/help
+    purposes: [billing_error, cancel_service, refund_request]
+    source: https://www.consumercellular.com/help
+    last_verified: 2026-10-12
+  - id: billing-dispute-mail
+    type: mail
+    label: Written billing dispute address
+    value: Consumer Cellular, Incorporated, 12447 SW 69th Ave., Portland, OR 97223
+    purposes: [billing_error]
+    source: https://savings.consumercellular.com/legal/wireless-customer-agreement
+    last_verified: 2026-10-12
+  - id: dispute-resolution-mail
+    type: mail
+    label: Notice of Dispute and arbitration opt-out (Office for Dispute Resolution) - certified mail
+    value: Office for Dispute Resolution, Consumer Cellular, Incorporated, 12447 SW 69th Ave., Portland, OR 97223
+    purposes: [billing_error, cancel_service, refund_request, poor_service]
+    notes: The Notice of Dispute must go by certified mail and carry the customer's own signed statement verifying it.
+    source: https://savings.consumercellular.com/legal/wireless-customer-agreement
+    last_verified: 2026-10-12
+  - id: device-policies
+    type: portal
+    label: Risk-free Guarantee and Device Policies (returns, unlocks, warranty)
+    value: https://www.consumercellular.com/devicepolicies
+    purposes: [refund_request, cancel_service, equipment_return]
+    source: https://www.consumercellular.com/devicepolicies
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-support-phone}
+  - {rung: written_complaint, channel: billing-dispute-mail, note: "Call or write within 60 days of the bill date."}
+  - {rung: written_complaint, channel: dispute-resolution-mail, note: "Formal Notice of Dispute by certified mail; 60 days of informal resolution before arbitration."}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "AAA consumer arbitration or small claims court; claims must be filed within 1 year."}
+
+playbooks:
+  - issue: billing_error
+    summary: Call customer support or write to Consumer Cellular within 60 days of the bill date, or you waive the dispute.
+    evidence: [the bill with the charge, account number, phone number, what you expected to pay and why]
+    steps:
+      - do: Call customer support within 60 days of the bill date and ask for the charge to be corrected. Note the date and the representative's name.
+        channel: customer-support-phone
+      - do: Or write to Consumer Cellular within the same 60 days. Pay the bill, including disputed charges, by the due date.
+        channel: billing-dispute-mail
+      - do: If it is not resolved, send a Notice of Dispute by certified mail with your full legal name, mailing address, email, phone, account number, the facts, the relief you want, and your own signed statement that it is accurate.
+        channel: dispute-resolution-mail
+      - do: If 60 days pass without a resolution, file an FCC complaint or start AAA arbitration or small claims. File within 1 year of the dispute arising.
+        regulator: fcc
+    facts:
+      - kind: deadline
+        claim: To dispute charges on a bill you must either call customer support or notify Consumer Cellular in writing at 12447 SW 69th Ave., Portland, OR 97223 within 60 days of the date of the bill, or you waive the right to dispute the bill.
+        issues: [billing_error]
+        source: https://savings.consumercellular.com/legal/wireless-customer-agreement
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Payments of all charges, including disputed charges, must be received by the due date on the invoice.
+        issues: [billing_error]
+        source: https://savings.consumercellular.com/legal/wireless-customer-agreement
+        last_verified: 2026-10-12
+
+  - issue: cancel_service
+    summary: Cancel any time by calling support. New customers who cancel within 30 days (45 for AARP and USAA members) with 500MB or less of data pay no monthly or activation charges.
+    evidence: [account number, activation date, data used, cancellation date, final invoice]
+    steps:
+      - do: To keep your number, start the transfer with the new carrier first and keep Consumer Cellular active until it completes. Ask Consumer Cellular support for the account number and transfer PIN the new carrier needs.
+        channel: customer-support-phone
+      - do: To cancel, call customer support. New customers inside the risk-free period should say so and ask for the prepaid label to return the phone.
+        channel: customer-support-phone
+      - do: For a device bought from Consumer Cellular, ask for the unlock code if the device is paid in full and has been active at least 30 days.
+        channel: unlock-phone
+      - do: Check the final invoice. A remaining device financing (EasyPay) balance is billed on it. A credit over $25.00 should come back by check within 90 days.
+    facts:
+      - kind: deadline
+        claim: New customers may cancel within 30 days of activation and Consumer Cellular waives the monthly service charges and one-time network activation fees for new lines if data use is 500MB or less. Third-party charges, international, roaming, device upgrade fees, taxes and surcharges still apply. AARP and USAA members get a 45-day period.
+        issues: [cancel_service, refund_request]
+        source: https://www.consumercellular.com/devicepolicies
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Outside the risk-free period you can cancel any time, but monthly charges on the final invoice are not prorated or refunded. Service continues to the end of the billing cycle unless you transfer the number to another carrier first.
+        issues: [cancel_service]
+        source: https://www.consumercellular.com/help/billing/miscellaneous/what-if-i-need-to-cancel-service
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: After cancellation, remaining credits over $25.00 are returned automatically to the last-known address within 90 days; a credit under $25.00 is returned only on request.
+        issues: [cancel_service, refund_request]
+        source: https://savings.consumercellular.com/legal/wireless-customer-agreement
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Consumer Cellular unlocks a device bought from it on request when the device is paid in full, the account is in good standing, it is not reported lost or stolen, the unlock code is available, and the device has been active on Consumer Cellular for at least thirty (30) days. Only the original purchaser can request it.
+        issues: [cancel_service]
+        source: https://www.consumercellular.com/devicepolicies
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: Return devices bought directly from Consumer Cellular within 30 days (new customers) or 14 days (existing customers), in like-new condition.
+    evidence: [order number or receipt, ship or activation date, prepaid return label tracking number]
+    steps:
+      - do: For an online or phone order, call customer support to start the return and get a prepaid label. Returns go by mail only, not to a store. For a store purchase, go back to that Consumer Cellular store.
+        channel: customer-support-phone
+      - do: Remove all locks, PINs and passcodes, turn off Find My iPhone or Google Smart Lock, and pack the device in its original packaging with all parts.
+      - do: If the refund does not arrive within 10 business days of the warehouse receiving the device, call support, then write within 60 days of the bill.
+        channel: billing-dispute-mail
+    facts:
+      - kind: deadline
+        claim: New customers may return a device or accessories bought directly from Consumer Cellular within thirty (30) days of the shipment date (online or phone orders) or of the activation date (store purchases); 45 days for certain memberships such as AARP and USAA. Original shipping costs are not refunded.
+        issues: [refund_request, equipment_return]
+        source: https://www.consumercellular.com/devicepolicies
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Existing customers must return devices within fourteen (14) days of the shipment date (online or phone) or activation date (store). Device upgrade fees are non-refundable.
+        issues: [refund_request, equipment_return]
+        source: https://www.consumercellular.com/devicepolicies
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Eligible returns are processed within ten (10) business days after the warehouse receives them, and the refund for the device only goes to the original payment method. Devices that fail the return requirements are sent back with no refund.
+        issues: [refund_request]
+        source: https://www.consumercellular.com/devicepolicies
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Items bought from retail partners such as Walmart follow that retailer's return policy and must be returned there; Consumer Cellular does not accept those returns.
+        issues: [refund_request]
+        source: https://www.consumercellular.com/devicepolicies
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: A Notice of Dispute must be sent by certified mail to the Office for Dispute Resolution in Portland with a personally signed statement from the claimant. The parties then try to resolve it for 60 days, and either may ask for a telephone or video settlement conference. Completing this is a condition before arbitration with the AAA.
+    source: https://savings.consumercellular.com/legal/wireless-customer-agreement
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: To the extent the law allows, all disputes must be filed within 1 year after they arise. Either party may use small claims court for individual relief.
+    source: https://savings.consumercellular.com/legal/wireless-customer-agreement
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: You may opt out of the arbitration agreement by letter to the Office for Dispute Resolution no later than 30 days after you first agreed to it, with your full legal name, mailing address, email, phone, account number or phone number, a clear opt-out statement and your signature.
+    source: https://savings.consumercellular.com/legal/wireless-customer-agreement
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The Notice of Dispute must be sent by certified mail with the customer's own signature; an agent cannot send it alone.
+  - Unlock requests are honored only from the customer who originally bought the device.
+  - The Wireless Customer Agreement and help pages render only after JavaScript loads.
