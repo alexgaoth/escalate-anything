@@ -1,0 +1,191 @@
+id: becu
+name: BECU
+aliases: [boeing employees credit union, boeing employees' credit union, becu credit union]
+sector: credit_union
+website: https://www.becu.org
+official_domains: [becu.org]
+security:
+  never_asks:
+    - kind: policy
+      claim: BECU will never call, email or text you asking for a one-time passcode, your account password, your debit card number or any other sensitive information.
+      source: https://www.becu.org/fraud-and-security-center
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: BECU warns of a scam that recruits members to open accounts, deposit checks or send money for someone else, and says that if anyone asks to use your account for their purposes, it is likely a scam.
+      source: https://www.becu.org/fraud-and-security-center
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Report suspicious emails, texts or calls to the BECU security team
+      value: phishing@becu.org
+      purposes: [fraud]
+      notes: BECU says this mailbox is no-reply and is used to monitor trends; do not send confidential information. If you lost money or shared account details, call member support.
+      source: https://www.becu.org/contact-us
+      last_verified: 2026-10-13
+regulators: [ncua, cfpb]
+notes: BECU is a federally insured credit union (NCUA). Hours are Pacific Time. TTY users can dial 711 during business hours to reach member support.
+
+channels:
+  - id: member-support-phone
+    type: phone
+    label: Member Support (US and Canada); 24/7 telephone banking; lost or stolen cards and fraudulent charges during business hours
+    value: +1-800-233-2328
+    hours: Mon-Fri 7 a.m.-7 p.m. PT; Sat 9 a.m.-1 p.m. PT (telephone banking 24/7)
+    purposes: [fraud, unauthorized_charge, transaction_dispute, fee_reversal, frozen_funds, account_access, poor_service]
+    access: human_only
+    source: https://www.becu.org/contact-us
+    last_verified: 2026-10-13
+  - id: member-support-local-phone
+    type: phone
+    label: Member Support (local number)
+    value: +1-206-439-5700
+    hours: Mon-Fri 7 a.m.-7 p.m. PT; Sat 9 a.m.-1 p.m. PT
+    purposes: [fraud, unauthorized_charge, transaction_dispute, poor_service]
+    access: human_only
+    source: https://www.becu.org/contact-us
+    last_verified: 2026-10-13
+  - id: debit-card-after-hours-phone
+    type: phone
+    label: Lost or stolen BECU debit card and fraudulent charges - after hours (inside U.S.)
+    value: +1-888-241-2510
+    hours: Mon-Fri 7 p.m.-7 a.m. PT; Sat after 1 p.m.; Sun all day
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    source: https://www.becu.org/contact-us
+    last_verified: 2026-10-13
+  - id: debit-card-collect-phone
+    type: phone
+    label: Lost or stolen BECU debit card - after hours, collect from outside the U.S.
+    value: +1-909-941-1398
+    hours: Mon-Fri 7 p.m.-7 a.m. PT; Sat after 1 p.m.; Sun all day
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    source: https://www.becu.org/contact-us
+    last_verified: 2026-10-13
+  - id: credit-card-after-hours-phone
+    type: phone
+    label: Lost or stolen BECU credit card and fraudulent charges - after hours
+    value: +1-866-820-2999
+    hours: Mon-Fri 7 p.m.-7 a.m. PT; Sat after 1 p.m.; Sun all day
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    source: https://www.becu.org/contact-us
+    last_verified: 2026-10-13
+  - id: credit-card-tty
+    type: phone
+    label: Credit card TTY
+    value: +1-888-918-7323
+    hours: 24/7
+    purposes: [unauthorized_charge, fraud, accessibility]
+    access: human_only
+    source: https://www.becu.org/contact-us
+    last_verified: 2026-10-13
+  - id: business-member-phone
+    type: phone
+    label: Business Member Support
+    value: +1-800-704-8080
+    hours: Mon-Fri 7 a.m.-7 p.m. PT; Sat 9 a.m.-1 p.m. PT
+    purposes: [fraud, unauthorized_charge, transaction_dispute]
+    access: human_only
+    source: https://www.becu.org/contact-us
+    last_verified: 2026-10-13
+  - id: member-assistance-phone
+    type: phone
+    label: Member Assistance (hardship payment relief on loans and credit cards)
+    value: +1-877-256-6460
+    purposes: [payment_assistance]
+    access: human_only
+    source: https://www.becu.org/contact-us
+    last_verified: 2026-10-13
+  - id: messenger
+    type: chat
+    label: BECU Messenger (secure messaging)
+    value: https://www.becu.org/support/messenger
+    hours: Mon-Fri 7 a.m.-7 p.m.; Sat-Sun 9 a.m.-6 p.m. PT
+    purposes: [transaction_dispute, unauthorized_charge, poor_service]
+    access: login
+    notes: BECU says ACH disputes are not supported in Messenger.
+    source: https://www.becu.org/fraud-and-security-center
+    last_verified: 2026-10-13
+  - id: dispute-fraud-forms
+    type: web_form
+    label: Disputes and fraud forms (Written Statement of Unauthorized Debit, Affidavit of Forgery or Fraudulent Use, ID Theft Affidavit)
+    value: https://www.becu.org/support/forms#disputes-fraud
+    purposes: [unauthorized_charge, transaction_dispute, fraud, identity_theft]
+    access: open
+    notes: Many forms can be signed online through DocuSign; printed forms can be taken to a BECU location or mailed. The page lists no deadlines.
+    source: https://www.becu.org/support/forms
+    last_verified: 2026-10-13
+  - id: correspondence-mail
+    type: mail
+    label: Other loan payments and correspondence
+    value: "BECU, P.O. Box 97050, Seattle, WA 98124-9750"
+    purposes: [poor_service]
+    source: https://www.becu.org/contact-us
+    last_verified: 2026-10-13
+  - id: phishing-email
+    type: email
+    label: Report suspicious emails, texts or calls to the BECU security team (no-reply)
+    value: phishing@becu.org
+    purposes: [fraud]
+    source: https://www.becu.org/contact-us
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: member-support-phone}
+  - {rung: written_complaint, channel: messenger, note: "BECU lists no complaint address; it points to member consultants and a suggestion form. Secure messages create a written record."}
+  - {rung: regulator, regulator: ncua}
+  - {rung: regulator, regulator: cfpb}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Call member support (or the after-hours card line), then sign the Written Statement of Unauthorized Debit.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: During business hours call member support; after hours call the debit or credit card line.
+        channel: member-support-phone
+      - do: After hours for a debit card, call the after-hours debit card line.
+        channel: debit-card-after-hours-phone
+      - do: After hours for a credit card, call the after-hours credit card line.
+        channel: credit-card-after-hours-phone
+      - do: Complete the Written Statement of Unauthorized Debit (consumer accounts) online or on paper.
+        channel: dispute-fraud-forms
+      - do: If BECU does not resolve it, complain to the NCUA.
+        regulator: ncua
+
+  - issue: transaction_dispute
+    summary: Call member support or send a secure message (not for ACH disputes), and use the disputes forms.
+    evidence: [statement showing the transaction, receipt, record of contact with the merchant]
+    steps:
+      - do: Try the merchant first and keep proof.
+      - do: Call member support, or send a secure message for card disputes.
+        channel: member-support-phone
+      - do: Use the disputes and fraud forms when BECU asks for a signed statement.
+        channel: dispute-fraud-forms
+      - do: If BECU does not resolve it, complain to the NCUA or the CFPB.
+        regulator: ncua
+
+  - issue: fraud
+    summary: Call member support if you lost money or shared information; report suspicious messages to phishing@becu.org.
+    evidence: [transaction details, messages from the scammer, FTC or police report number]
+    steps:
+      - do: Call member support right away.
+        channel: member-support-phone
+      - do: Report the suspicious email, text or call.
+        channel: phishing-email
+      - do: For identity theft, complete the ID Theft Affidavit.
+        channel: dispute-fraud-forms
+      - do: Report to the FTC or the FBI's IC3; complain to the NCUA if BECU does not act.
+        regulator: ncua
+
+  - issue: payment_assistance
+    summary: Call Member Assistance for hardship payment relief on a loan or credit card.
+    steps:
+      - do: Call Member Assistance, or request relief online with the loan and credit card payment relief form.
+        channel: member-assistance-phone
+
+known_blockers:
+  - Phone lines verify the member.
+  - Messenger and many forms need a BECU online banking sign-in or a signature.

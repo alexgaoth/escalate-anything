@@ -1,0 +1,189 @@
+id: affirm
+name: Affirm
+aliases: [affirm inc, affirm holdings, affirm pay in 4, affirm loan, affirm card, affirm buy now pay later]
+sector: payments
+parent: Affirm Holdings, Inc.
+website: https://www.affirm.com
+official_domains: [affirm.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Affirm says it will never ask for your password, PIN or a one-time code, and that if someone calls claiming to be Affirm you should hang up and contact Affirm using the phone number on its website. (Seen in a search snippet of affirm.com/security; the page renders with JavaScript.)
+      source: https://www.affirm.com/security
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Scam callers impersonate Affirm and ask for one-time codes or sign-in details. Affirm says not to click links or attachments in suspicious emails or texts and to check your account in the Affirm app instead. (Seen in a search snippet of affirm.com/security.)
+      source: https://www.affirm.com/security
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: unauthorized-activity-form
+      type: web_form
+      label: Report unusual or unauthorized activity on an Affirm or Affirm Card account
+      value: https://helpcenter.affirm.com/s/contact-us?webform=Unauthorized%20Activity
+      purposes: [fraud, unauthorized_charge, identity_theft]
+      access: open
+      source: https://trust.affirm.com/
+      last_verified: 2026-10-13
+regulators: [cfpb, ftc]
+notes: >-
+  Affirm is not a bank. Its Terms of Service (last updated July 28, 2026) name its bank partners Celtic Bank,
+  Cross River Bank, Evolve Bank & Trust, Lead Bank and Stride Bank, N.A.; the Affirm Money account is held with
+  Cross River Bank and the Affirm Card debit card is issued by Evolve Bank & Trust or Stride Bank, N.A.
+  In California, Affirm Loan Services, LLC is licensed by the Department of Financial Protection and Innovation
+  (California Financing Law license 60DBO-111681). Affirm's U.S. help center renders with JavaScript and could
+  not be read directly.
+
+channels:
+  - id: customer-care-phone
+    type: phone
+    label: Affirm Customer Care
+    value: +1-855-423-3729
+    purposes: [transaction_dispute, refund_request, unauthorized_charge, fraud, billing_error, account_access, poor_service]
+    access: human_only
+    source: https://www.affirm.com/api/legal/v1/disclosures/static_disclosures/en_US/tos
+    last_verified: 2026-10-13
+  - id: help-center
+    type: web_form
+    label: Affirm Help Center contact page (disputes, account closure)
+    value: https://helpcenter.affirm.com/s/contact-us
+    purposes: [transaction_dispute, refund_request, billing_error, cancel_service, poor_service]
+    access: login
+    notes: The Terms of Service point to the Help Center for disputes and account closure. The page renders with JavaScript.
+    source: https://www.affirm.com/api/legal/v1/disclosures/static_disclosures/en_US/tos
+    last_verified: 2026-10-13
+  - id: unauthorized-activity-form
+    type: web_form
+    label: Report unusual or unauthorized activity on an Affirm or Affirm Card account
+    value: https://helpcenter.affirm.com/s/contact-us?webform=Unauthorized%20Activity
+    purposes: [fraud, unauthorized_charge, identity_theft]
+    access: open
+    source: https://trust.affirm.com/
+    last_verified: 2026-10-13
+  - id: billing-error-mail
+    type: mail
+    label: Billing error disputes (mark the letter "Attn - Billing Error Dispute")
+    value: "Affirm, Inc., 14039 Puritas Avenue, P.O. Box 35909, Cleveland, OH 44135"
+    purposes: [billing_error, transaction_dispute, refund_request]
+    notes: The same address takes the arbitration opt-out, marked Attn. "Terms of Service Section 5 Opt Out".
+    source: https://www.affirm.com/api/legal/v1/disclosures/static_disclosures/en_US/tos
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: help-center}
+  - {rung: frontline, channel: customer-care-phone}
+  - {rung: written_complaint, channel: billing-error-mail}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+  - {rung: arbitration, note: "The Terms of Service require individual arbitration with a class action waiver. Opt out by mailed, signed notice within 30 calendar days after agreeing to the Terms; Military Lending Act covered borrowers are excluded."}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: Try the merchant first, then dispute through the Affirm Help Center; for a billing error, also write to Affirm within 60 days after it first appeared on your statement.
+    evidence: [order confirmation, loan ID, proof of return or non-delivery, messages with the merchant]
+    steps:
+      - do: Contact the merchant first and keep proof of the return, cancellation or non-delivery.
+      - do: Open a dispute through the Affirm Help Center.
+        channel: help-center
+      - do: For a billing error, send a written notice with your name, phone number, the amount, the loan ID and the problem.
+        channel: billing-error-mail
+      - do: If Affirm does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: To dispute a billing error, notify Affirm in writing within 60 days after the error first appeared on your statement; phone calls alone do not start the investigation. Affirm must acknowledge the letter within 30 days and correct the error or explain why the bill is correct within 90 days.
+        issues: [transaction_dispute, billing_error]
+        source: https://www.affirm.com/api/legal/v1/disclosures/static_disclosures/en_US/tos
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: While a billing error is investigated, Affirm cannot try to collect the amount in question or report you as delinquent on that amount.
+        issues: [transaction_dispute, billing_error]
+        source: https://www.affirm.com/api/legal/v1/disclosures/static_disclosures/en_US/tos
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: For a purchase you are dissatisfied with, write to Affirm within 120 days of the purchase confirmation date after a good-faith attempt to fix it with the merchant; the purchase must cost more than $50, be financed with an Affirm loan not yet fully paid, and (with some exceptions) be made in your home state or within 100 miles of your mailing address.
+        issues: [transaction_dispute, refund_request]
+        source: https://www.affirm.com/api/legal/v1/disclosures/static_disclosures/en_US/tos
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Affirm's merchant dispute policy says customers can open a dispute within 60 calendar days of the purchase date and are not responsible for payments on the disputed amount while it is open. (Merchant-facing page, seen in a search snippet; it returns HTTP 403 to automated fetches.)
+        issues: [transaction_dispute, refund_request]
+        source: https://businesshub.affirm.com/hc/en-us/articles/23501902626452-Dispute-Resolution-Policy
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: The merchant processes the return; if the refund does not reach your Affirm loan, open a dispute through the Help Center.
+    evidence: [return receipt or tracking, merchant refund confirmation, loan ID]
+    steps:
+      - do: Ask the merchant to process the return or refund and get written confirmation.
+      - do: Keep making scheduled payments until the refund posts, then check the loan balance.
+      - do: If the refund was not processed, open a dispute through the Affirm Help Center.
+        channel: help-center
+      - do: If Affirm does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: unauthorized_charge
+    summary: Report the unauthorized loan or purchase through Affirm's unauthorized activity form or Customer Care.
+    evidence: [loan ID, date you noticed it, credit report entry if any]
+    steps:
+      - do: Report it with the unauthorized activity form.
+        channel: unauthorized-activity-form
+      - do: Or call Customer Care.
+        channel: customer-care-phone
+      - do: Check your Experian and TransUnion reports and dispute any loan you did not take out.
+      - do: If Affirm does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: Affirm's Trust Center says that if fraud occurs on your account you are protected and you are not responsible for any unauthorized purchases.
+        issues: [unauthorized_charge, fraud]
+        source: https://trust.affirm.com/
+        last_verified: 2026-10-13
+
+  - issue: fraud
+    summary: Never give a caller your one-time code; report through Affirm's form or the number on affirm.com.
+    evidence: [messages from the scammer, loan IDs, FTC report number]
+    steps:
+      - do: Hang up and contact Affirm using the number on its website.
+        channel: customer-care-phone
+      - do: Report unusual activity with the unauthorized activity form.
+        channel: unauthorized-activity-form
+      - do: Report the scam to the FTC, then complain to the CFPB if Affirm does not act.
+        regulator: cfpb
+
+  - issue: payment_assistance
+    summary: Affirm charges no late fees, but missed payments are reported to the credit bureaus and can go to collections.
+    steps:
+      - do: Contact Affirm through the Help Center or Customer Care before a payment is missed.
+        channel: customer-care-phone
+    facts:
+      - kind: fee
+        claim: Affirm's Terms of Service say you will never be charged any late fees when you buy with Affirm.
+        issues: [payment_assistance]
+        source: https://www.affirm.com/api/legal/v1/disclosures/static_disclosures/en_US/tos
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Affirm and its bank partners may report information about your loan to consumer reporting agencies, and Affirm may use collection efforts if you fail to pay.
+        issues: [payment_assistance, credit_report_error]
+        source: https://www.affirm.com/api/legal/v1/disclosures/static_disclosures/en_US/tos
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Affirm's help center says that since April 1, 2025 all payment activity, including on-time, late and missed payments, is reported to Experian, and plans starting on or after May 1, 2025 are also reported to TransUnion. (Seen in a search snippet; the help center renders with JavaScript.)
+        issues: [payment_assistance, credit_report_error]
+        source: https://helpcenter.affirm.com/s/article/understanding-your-credit
+        last_verified: 2026-10-13
+
+facts:
+  - kind: policy
+    claim: Affirm says your rate will be 0-36% APR based on credit and an eligibility check, and that its Pay in 4 option is 0% APR.
+    source: https://www.affirm.com/how-it-works
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: Your Affirm account cannot be closed until at least 30 days after your final loan payment, and only when loans are paid off and there is no active Savings or Card account.
+    issues: [cancel_service]
+    source: https://www.affirm.com/api/legal/v1/disclosures/static_disclosures/en_US/tos
+    last_verified: 2026-10-13
+
+known_blockers:
+  - Affirm's U.S. help center renders with JavaScript and needs a sign-in for most requests.
+  - Customer Care verifies the account holder.

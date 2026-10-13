@@ -1,0 +1,192 @@
+id: klarna
+name: Klarna
+aliases: [klarna inc, klarna ab, klarna pay in 4, klarna card, pay later with klarna, klarna financing]
+sector: payments
+parent: Klarna Group plc
+website: https://www.klarna.com/us/
+official_domains: [klarna.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Klarna says that if a message is not in your Klarna Inbox, it did not come from Klarna.
+      source: https://www.klarna.com/us/security/
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Klarna describes phishing by SMS, email and WhatsApp, fraudulent URLs, and phone calls that impersonate a bank with claims, threats or requests for sensitive information.
+      source: https://www.klarna.com/us/phishing-and-scams/
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Scam messages push urgent action, threaten consequences such as account deactivation, link to sites that do not match Klarna's, and ask for one-time passwords and payment details.
+      source: https://www.klarna.com/us/help/fraud-and-security/how-do-i-report-a-phishing-or-scam-attempt/
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails that claim to be from Klarna (monitored only, no reply)
+      value: phishing@klarna.com
+      purposes: [fraud]
+      source: https://www.klarna.com/us/phishing-and-scams/
+      last_verified: 2026-10-13
+    - id: phishing-form
+      type: web_form
+      label: Report a suspicious email or website to Klarna's security team
+      value: https://www.klarna.com/us/phishing-and-scams/
+      purposes: [fraud]
+      access: open
+      notes: Klarna says to use this form only for phishing; for account help contact Customer Service.
+      source: https://www.klarna.com/us/security/
+      last_verified: 2026-10-13
+regulators: [cfpb, ftc]
+notes: >-
+  Klarna Inc. (Columbus, Ohio) is the lender for Pay in 4 (Klarna Nevada for Nevada borrowers). The Klarna credit
+  card and Pay over time financing are issued by WebBank, a Utah state-chartered bank (FDIC BankFind cert 34404).
+  CFPB complaint data lists the company as "Klarna AB". Upgrade financing is closed to new purchases since
+  May 13, 2026.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Klarna Customer Service
+    value: +1-888-518-2771
+    hours: 24/7
+    purposes: [transaction_dispute, refund_request, unauthorized_charge, fraud, billing_error, account_access, poor_service]
+    access: human_only
+    notes: The Pay in 4 agreement gives Monday-Friday 8:00 AM-5:00 PM Eastern for calls to cancel a payment authorization.
+    source: https://www.klarna.com/us/customer-service/
+    last_verified: 2026-10-13
+  - id: app-chat
+    type: chat
+    label: Chat in the Klarna app (AI assistant 24/7, human support when needed)
+    value: https://l.klarna.com/22XC/chatUS
+    purposes: [transaction_dispute, refund_request, unauthorized_charge, fraud, billing_error, poor_service]
+    access: login
+    source: https://www.klarna.com/us/customer-service/
+    last_verified: 2026-10-13
+  - id: report-a-problem
+    type: app
+    label: Report a problem with a purchase (Klarna buyer protection)
+    value: Klarna app or web portal > select the purchase > Report a problem
+    purposes: [transaction_dispute, refund_request]
+    access: login
+    notes: Contact the store first and keep proof. Klarna pauses the payment once a problem is reported.
+    source: https://www.klarna.com/us/buyer-protection/
+    last_verified: 2026-10-13
+  - id: complaints-mail
+    type: mail
+    label: Written complaints and notices (mark complaints "Complaint")
+    value: "Klarna Inc., 800 N. High St., Suite 04121, Columbus, OH 43215"
+    purposes: [poor_service, transaction_dispute, billing_error]
+    source: https://cdn.klarna.com/1.0/shared/content/legal/terms/0/en_us/sliceitinx
+    last_verified: 2026-10-13
+  - id: phishing-email
+    type: email
+    label: Forward suspicious emails that claim to be from Klarna
+    value: phishing@klarna.com
+    purposes: [fraud]
+    source: https://www.klarna.com/us/phishing-and-scams/
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: app-chat}
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: complaints-mail, note: "Klarna aims to resolve complaints on first contact, otherwise within 20 business days when feasible."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+  - {rung: arbitration, note: "The Pay in 4 agreement uses the arbitration provision of the Klarna Shopping Service terms unless you opted out of it there; Military Lending Act protections excepted."}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: Contact the store first, then use Report a problem in the app; Klarna pauses the payment while it reviews, and claims must be raised within 120 days.
+    evidence: [order confirmation, proof of contact with the store, tracking or delivery record, photos of a wrong or damaged item]
+    steps:
+      - do: Contact the store first and keep proof of the contact.
+      - do: Report the problem on the purchase in the Klarna app or web portal.
+        channel: report-a-problem
+      - do: If Klarna does not resolve it, use chat or customer service and ask to escalate.
+        channel: app-chat
+      - do: If it is still not resolved, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: Klarna buyer protection covers orders not received (in whole or part) and items that differ significantly, including items damaged in shipment; claims must be raised within 120 days (Klarna's page counts from purchase in one place and from the invoice date in another).
+        issues: [transaction_dispute]
+        source: https://www.klarna.com/us/buyer-protection/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Once you report a problem, Klarna pauses your payment until the issue is solved and decides at its reasonable discretion whether to refund or remove your payment obligation.
+        issues: [transaction_dispute, refund_request]
+        source: https://www.klarna.com/us/buyer-protection/
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: Returns go through the store; report the return in Klarna with tracking to pause the payment for 21 days, and keep paying until the merchant credit arrives.
+    evidence: [return tracking number, store's refund confirmation, order number]
+    steps:
+      - do: Return the item under the store's policy and keep the tracking number.
+      - do: Report the return in the Klarna app to pause the payment.
+        channel: report-a-problem
+      - do: If the store does not refund, report a problem and contact Klarna.
+        channel: app-chat
+    facts:
+      - kind: policy
+        claim: Reporting a return with valid tracking pauses your payment for 21 days.
+        issues: [refund_request]
+        source: https://www.klarna.com/us/buyer-protection/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: A return does not change what you owe under the Pay in 4 agreement until Klarna receives a credit from the merchant, and merchant credits do not count as payments.
+        issues: [refund_request]
+        source: https://cdn.klarna.com/1.0/shared/content/legal/terms/0/en_us/sliceitinx
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: Check whether someone in your household used your account, then report it in the app or to customer service and lock the account.
+    evidence: [order details, date you noticed it, confirmation emails]
+    steps:
+      - do: Check whether it is a pending authorization, a split shipment, or a purchase by someone in your household.
+      - do: Lock your Klarna account in the app and report it by chat or phone.
+        channel: app-chat
+      - do: Or call customer service.
+        channel: customer-service-phone
+      - do: If Klarna does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: fraud
+    summary: Forward phishing to phishing@klarna.com; if you clicked a link or shared details, contact your bank, lock your Klarna account and change your password.
+    evidence: [messages from the scammer, screenshots, FTC report number]
+    steps:
+      - do: Forward the email or use the phishing form.
+        channel: phishing-email
+      - do: If you shared information, contact your bank or card issuer, lock the Klarna account, change your password, turn on two-factor authentication and block your cards in the app.
+      - do: Report the incident in the app.
+        channel: app-chat
+      - do: Report the scam to the FTC.
+        regulator: ftc
+
+  - issue: payment_assistance
+    summary: Pay in 4 payments are taken automatically every 2 weeks; a late fee of up to $7 can apply after 10 days.
+    steps:
+      - do: To change the payment method, do it at least three business days before the next scheduled payment.
+      - do: Contact Klarna before a payment fails.
+        channel: customer-service-phone
+    facts:
+      - kind: fee
+        claim: A late fee of up to $7 may be charged if a scheduled Pay in 4 payment stays unpaid for 10 days after its due date; total late fees on an order will never exceed 25% of the purchase amount.
+        issues: [payment_assistance, fee_reversal]
+        source: https://cdn.klarna.com/1.0/shared/content/legal/terms/0/en_us/sliceitinx
+        last_verified: 2026-10-13
+      - kind: process
+        claim: After the first payment, the next 3 payments are made automatically every 2 weeks. If a payment fails, Klarna may retry it up to two more times and may charge your backup payment method after at least one day's notice.
+        issues: [payment_assistance]
+        source: https://cdn.klarna.com/1.0/shared/content/legal/terms/0/en_us/sliceitinx
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Klarna may report information about your account to credit bureaus, and late or missed payments may appear on your credit report.
+        issues: [payment_assistance, credit_report_error]
+        source: https://cdn.klarna.com/1.0/shared/content/legal/terms/0/en_us/sliceitinx
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Most Klarna support starts in the app, which needs the account holder's sign-in.
+  - Customer Service verifies the account holder.

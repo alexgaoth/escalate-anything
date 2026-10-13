@@ -1,0 +1,170 @@
+id: chime
+name: Chime
+aliases: [chime financial, chime bank, chime card, chime spotme, chime mypay, chime credit builder]
+sector: bank
+parent: Chime Financial, Inc.
+website: https://www.chime.com
+official_domains: [chime.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Chime says it will never call, email or text you to ask for your password or personal information, and will never ask for your password or PIN or ask you to download third-party apps.
+      source: https://www.chime.com/blog/how-to-avoid-scams-that-target-chime-members/
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Chime team members will never ask you to download apps or to send money through Pay Anyone, and Chime will never request that you send it funds through Pay Anyone.
+      source: https://www.chime.com/blog/how-to-avoid-scams-that-target-chime-members/
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Scammers spoof Chime's support number so calls or texts appear to come from Chime, and set up fake customer support profiles, websites, emails and sponsored search ads that lead to phishing sites.
+      source: https://www.chime.com/blog/how-to-avoid-scams-that-target-chime-members/
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Fake sweepstakes and "Chime glitch" giveaways, and offers that recruit members as money mules, target Chime members.
+      source: https://www.chime.com/blog/how-to-avoid-scams-that-target-chime-members/
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: support-phone
+      type: phone
+      label: Report a scam or suspicious contact to Chime Member Services
+      value: +1-844-244-6363
+      hours: 24/7
+      purposes: [fraud]
+      access: human_only
+      notes: Chime lists no email address for scam reports. It says legitimate support emails come from @chime.com.
+      source: https://www.chime.com/blog/how-to-avoid-scams-that-target-chime-members/
+      last_verified: 2026-10-13
+regulators: [cfpb, ftc, occ]
+notes: >-
+  Chime is a financial technology company, not a bank. Banking services, the Chime Visa Debit Card and the
+  secured Chime Visa Credit Card are provided by The Bancorp Bank, N.A. or Stride Bank, N.A., Members FDIC.
+  Both partner banks are national banks supervised by the OCC (FDIC BankFind certs 35444 and 4091), so an
+  OCC complaint names the partner bank on your Chime statement. The deposit account agreement cited is the
+  Bancorp version (Rev. 09/2026). Chime says there is no customer support at its San Francisco headquarters.
+
+channels:
+  - id: support-phone
+    type: phone
+    label: Chime Member Services
+    value: +1-844-244-6363
+    hours: 24/7
+    purposes: [unauthorized_charge, transaction_dispute, fraud, frozen_funds, account_access, cancel_service, poor_service]
+    access: human_only
+    source: https://www.chime.com/security-and-support/trust-safety/
+    last_verified: 2026-10-13
+  - id: in-app-chat
+    type: app
+    label: Live chat in the Chime app
+    value: Chime app > Profile > Help > Chat
+    purposes: [unauthorized_charge, transaction_dispute, fraud, frozen_funds, account_access, poor_service]
+    access: login
+    source: https://www.chime.com/blog/how-to-avoid-scams-that-target-chime-members/
+    last_verified: 2026-10-13
+  - id: member-services-mail
+    type: mail
+    label: Chime Member Services (written error disputes and correspondence)
+    value: "Chime Member Services, P.O. Box 417, San Francisco, CA 94104-0417"
+    purposes: [transaction_dispute, unauthorized_charge, frozen_funds, poor_service]
+    source: https://www.chime.com/policies/bancorp/deposit-account-agreement/
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: in-app-chat}
+  - {rung: frontline, channel: support-phone}
+  - {rung: written_complaint, channel: member-services-mail}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: regulator, regulator: occ, note: "The OCC supervises Chime's partner banks (The Bancorp Bank, N.A. and Stride Bank, N.A.), not Chime itself."}
+  - {rung: state_agency, agency_kind: financial_regulator}
+  - {rung: arbitration, note: "The deposit account agreement has an AAA binding individual arbitration clause; the agreement checked shows no opt-out procedure."}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Turn off transactions in the app, contact Chime at once, and report errors within 60 days of the first statement that shows them.
+    evidence: [transaction date and amount, statement, date you learned of the loss or theft]
+    steps:
+      - do: In the app, go to Settings > Account Settings and turn off "Allow transactions".
+      - do: Contact Chime immediately through in-app chat or by phone.
+        channel: in-app-chat
+      - do: If needed, send the dispute in writing to Chime Member Services.
+        channel: member-services-mail
+      - do: If Chime does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: Chime must hear from you no later than sixty (60) days after the date it sent the FIRST statement on which the error appeared. You can call 1-844-244-6363, use the Mobile App or write to Chime Member Services.
+        issues: [unauthorized_charge, transaction_dispute]
+        source: https://www.chime.com/policies/bancorp/deposit-account-agreement/
+        last_verified: 2026-10-13
+      - kind: process
+        claim: Chime decides whether an error occurred within ten (10) business days, or may take up to forty-five (45) days if it provisionally credits your checking account within ten business days; up to ninety (90) days for new accounts, certain point-of-sale and foreign-initiated transactions.
+        issues: [unauthorized_charge, transaction_dispute]
+        source: https://www.chime.com/policies/bancorp/deposit-account-agreement/
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: The agreement says your liability for unauthorized Visa debit transactions on your Checking Account is $0.00. Otherwise liability is up to $50.00 if you tell Chime within two business days after learning of the loss or theft of your card, and up to $500.00 if you do not.
+        issues: [unauthorized_charge]
+        source: https://www.chime.com/policies/bancorp/deposit-account-agreement/
+        last_verified: 2026-10-13
+
+  - issue: transaction_dispute
+    summary: Dispute through in-app chat or by phone, then in writing if asked; the 60-day statement deadline applies.
+    evidence: [statement showing the transaction, receipt, record of contact with the merchant]
+    steps:
+      - do: For a problem with goods or services, contact the merchant first and keep proof.
+      - do: Contact Chime through in-app chat or by phone.
+        channel: in-app-chat
+      - do: Write to Chime Member Services with your name, account number, the transaction and the amount.
+        channel: member-services-mail
+      - do: If Chime does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: fraud
+    summary: Report through the app or 1-844-244-6363 only; Chime will never ask you to send money through Pay Anyone.
+    evidence: [transaction details, messages from the scammer, FTC report number]
+    steps:
+      - do: Contact Chime through in-app chat or by phone. Use only the number in the app or on chime.com.
+        channel: support-phone
+      - do: Report the scam to the FTC at ReportFraud.ftc.gov.
+      - do: If Chime does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: frozen_funds
+    summary: Chime and its partner bank can freeze or close an account without notice; ask in writing what they need and when the balance will be returned.
+    evidence: [notices from Chime, balance when frozen, proof of identity and source of funds]
+    steps:
+      - do: Contact Chime through in-app chat or by phone and ask why the account is restricted and what documents are needed.
+        channel: in-app-chat
+      - do: Send the documents and ask in writing when and how the balance will be released.
+        channel: member-services-mail
+      - do: If the funds are not released, complain to the CFPB.
+        regulator: cfpb
+      - do: You can also complain to the OCC about the partner bank named on your statement.
+        regulator: occ
+    facts:
+      - kind: policy
+        claim: The agreement says Chime and/or the Bank may suspend, freeze, restrict or close your Account for any reason with or without notice, and funds may be held pending a review of the activity.
+        issues: [frozen_funds]
+        source: https://www.chime.com/policies/bancorp/deposit-account-agreement/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: In May 2024 the CFPB found that Chime failed to refund consumers' balances within 14 days after account closure in thousands of instances, and ordered at least $1.3 million in redress and a $3.25 million penalty.
+        issues: [frozen_funds]
+        source: https://www.consumerfinance.gov/enforcement/actions/chime-financial-inc/
+        last_verified: 2026-10-13
+
+  - issue: cancel_service
+    summary: Close the account by calling Chime.
+    steps:
+      - do: Call 1-844-244-6363 to close your checking account.
+        channel: support-phone
+    facts:
+      - kind: process
+        claim: The agreement says you may cancel it by calling 1-844-244-6363 to close your Checking Account.
+        issues: [cancel_service]
+        source: https://www.chime.com/policies/bancorp/deposit-account-agreement/
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Most help is in the Chime app, which needs the member's sign-in.
+  - Phone support verifies the account holder.

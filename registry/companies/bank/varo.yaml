@@ -1,0 +1,112 @@
+id: varo
+name: Varo Bank
+aliases: [varo, varo money, varo bank na, varo advance, varo believe]
+sector: bank
+parent: Varo Money, Inc.
+website: https://www.varomoney.com
+official_domains: [varomoney.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Varo says it will never ask you for your confidential information, so when in doubt, contact Varo directly.
+      source: https://www.varomoney.com/blog/banking/protect-yourself-from-banking-scammers/
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Varo warns of fake messages from your bank, fake bankers or advisors, phishing, fake checks, overpayment scams and imposters who pose as bank employees and pressure you to pay.
+      source: https://www.varomoney.com/blog/banking/protect-yourself-from-banking-scammers/
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: identity-email
+      type: email
+      label: Email Varo if you think someone has taken over your account
+      value: identity@varomoney.com
+      purposes: [fraud, account_access]
+      notes: From a search snippet of the Varo Unauthorized Account Access help article; support.varomoney.com returns HTTP 403 to automated fetches.
+      source: https://support.varomoney.com/hc/en-us/articles/21995233434516-Unauthorized-Account-Access
+      last_verified: 2026-10-13
+regulators: [cfpb, occ]
+notes: >-
+  Varo Bank, National Association is a national bank supervised by the OCC (FDIC BankFind cert 59190).
+  support.varomoney.com returns HTTP 403 and the Varo account agreement page has an expired certificate, so the
+  contact and dispute values below come from search-engine snippets of Varo support pages. An older Varo account
+  agreement lists 1-800-827-6526; the current Contact Us page gives 1-877-377-8276.
+
+channels:
+  - id: support-phone
+    type: phone
+    label: Varo live support (disputes, digital wallet, sign-in problems)
+    value: +1-877-377-8276
+    hours: 7:00 AM-8:30 PM ET daily, closed on federal holidays
+    purposes: [transaction_dispute, unauthorized_charge, fraud, account_access, frozen_funds, poor_service]
+    access: human_only
+    notes: From a search snippet of the Varo Contact Us page; not read on the page itself.
+    source: https://support.varomoney.com/hc/en-us/articles/360000334946-Contact-Us
+    last_verified: 2026-10-13
+  - id: in-app-support
+    type: app
+    label: Varo app help (chatbot 24/7)
+    value: Varo app > My Varo > Help and Support
+    purposes: [transaction_dispute, unauthorized_charge, fraud, account_access, frozen_funds]
+    access: login
+    notes: From a search snippet of the Varo Contact Us page.
+    source: https://support.varomoney.com/hc/en-us/articles/360000334946-Contact-Us
+    last_verified: 2026-10-13
+  - id: identity-email
+    type: email
+    label: Email Varo if you think someone has taken over your account
+    value: identity@varomoney.com
+    purposes: [fraud, account_access]
+    notes: From a search snippet of the Varo Unauthorized Account Access help article.
+    source: https://support.varomoney.com/hc/en-us/articles/21995233434516-Unauthorized-Account-Access
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: in-app-support}
+  - {rung: frontline, channel: support-phone}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: regulator, regulator: occ}
+  - {rung: state_agency, agency_kind: financial_regulator}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: File the dispute with Varo and track it in the app under My Varo > Disputes; final answers can take 45 to 90 days.
+    evidence: [transaction date and amount, receipts, record of contact with the merchant]
+    steps:
+      - do: For an item with quality problems or one never delivered, contact the merchant first.
+      - do: For a transaction you do not recognize, start a dispute in the app or call Varo support.
+        channel: support-phone
+      - do: Track the dispute in the app under My Varo > Disputes.
+        channel: in-app-support
+      - do: If Varo does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: Varo says it sends an email update within 10 business days after you file a dispute, may issue a temporary provisional credit in some cases, and that disputes may take 45 to 90 calendar days to reach a final resolution. (Seen in a search snippet of the Varo Disputes Lifecycle article.)
+        issues: [transaction_dispute, unauthorized_charge]
+        source: https://support.varomoney.com/hc/en-us/articles/21999302251924-Disputes-Lifecycle
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: Call Varo or use the app to report the transaction, then track the dispute in the app.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: Call Varo support or use the app to report the transaction you do not recognize.
+        channel: support-phone
+      - do: If you think someone took over your account, email Varo.
+        channel: identity-email
+      - do: If Varo does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: fraud
+    summary: If someone contacts you claiming to be Varo, hang up and call Varo yourself.
+    evidence: [transaction details, messages from the scammer, FTC report number]
+    steps:
+      - do: Tell the caller you will call back, then call Varo on the number in the app or on varomoney.com.
+        channel: support-phone
+      - do: Report the scam to the FTC, then complain to the CFPB if Varo does not act.
+        regulator: cfpb
+
+known_blockers:
+  - Varo's help center (support.varomoney.com) blocks automated access; hand the browser to the person.
+  - Most support starts in the Varo app, which needs the member's sign-in.

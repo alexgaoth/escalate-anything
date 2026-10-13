@@ -1,0 +1,115 @@
+id: bmo
+name: BMO
+aliases: [bmo bank, bmo harris, bmo harris bank, bank of montreal, bmo bank na, bank of the west]
+sector: bank
+parent: BMO Financial Group (Bank of Montreal)
+website: https://www.bmo.com/en-us/main/personal/
+official_domains: [bmo.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: BMO says it does not contact you unprompted by phone, email, text or social media to ask for sensitive details, passwords, PINs or verification codes. (Seen in a search snippet of the BMO U.S. fraud page; bmo.com does not respond to automated fetches.)
+      source: https://www.bmo.com/en-us/main/personal/security-center/report-fraud/
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: If a call, voicemail, email, text or social media message that claims to be BMO seems suspicious, BMO says to share nothing and contact the bank using the number on the back of your card. (Seen in a search snippet of bmo.com.)
+      source: https://www.bmo.com/en-us/main/personal/security-center/learning-center/impersonation-scams/
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Send suspicious emails (as an attachment) or screenshots of suspicious texts to BMO, then delete them
+      value: Phishing@bmo.com
+      purposes: [fraud]
+      notes: From a search snippet of the BMO U.S. fraud page; not read on the page itself. An older BMO business page gives bmoharris.phish@bmo.com.
+      source: https://www.bmo.com/en-us/main/personal/security-center/report-fraud/
+      last_verified: 2026-10-13
+regulators: [cfpb, occ]
+notes: >-
+  BMO Bank National Association (formerly BMO Harris Bank) is a national bank supervised by the OCC
+  (FDIC BankFind cert 16571). bmo.com did not respond to automated fetches (connection closed), so every
+  value below comes from search-engine snippets of bmo.com U.S. pages. Canadian BMO numbers do not apply to
+  U.S. accounts. For credit cards other than those listed, call the number on the back of the card.
+
+channels:
+  - id: customer-contact-phone
+    type: phone
+    label: BMO U.S. customer contact center; suspected fraud, unfamiliar transactions, lost or stolen debit or ATM card
+    value: +1-888-340-2265
+    purposes: [fraud, unauthorized_charge, transaction_dispute, fee_reversal, frozen_funds, account_access, poor_service]
+    access: human_only
+    notes: From search snippets of the BMO U.S. fraud and debit card pages; not read on the page itself. One snippet says the line is staffed 24/7; not confirmed.
+    source: https://www.bmo.com/en-us/main/personal/security-center/report-fraud/
+    last_verified: 2026-10-13
+  - id: credit-card-phone
+    type: phone
+    label: Credit card customer service - BMO Platinum, Platinum Rewards, Cash Back and Boost Secured Mastercard
+    value: +1-855-825-9237
+    purposes: [unauthorized_charge, transaction_dispute, fraud, billing_error]
+    access: human_only
+    notes: Outside the U.S. call +1-262-780-8658. Read on BMO's credit card page in a browser.
+    source: https://www.bmo.com/en-us/main/personal/credit-cards/
+    last_verified: 2026-10-13
+  - id: credit-card-premium-phone
+    type: phone
+    label: Credit card customer service - BMO Premium Rewards and Escape Mastercard
+    value: +1-855-825-9238
+    purposes: [unauthorized_charge, transaction_dispute, fraud, billing_error]
+    access: human_only
+    source: https://www.bmo.com/en-us/main/personal/credit-cards/
+    last_verified: 2026-10-13
+  - id: phishing-email
+    type: email
+    label: Send suspicious emails (as an attachment) or screenshots of suspicious texts to BMO
+    value: Phishing@bmo.com
+    purposes: [fraud]
+    notes: From a search snippet of the BMO U.S. fraud page; not read on the page itself.
+    source: https://www.bmo.com/en-us/main/personal/security-center/report-fraud/
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-contact-phone}
+  - {rung: written_complaint, note: "No BMO U.S. complaint address could be confirmed. For credit card billing errors, use the billing rights address in your card agreement within 60 days."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: regulator, regulator: occ}
+  - {rung: state_agency, agency_kind: financial_regulator}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: Try the merchant (shown in the statement description), then call the number on the back of the card.
+    evidence: [statement showing the charge, receipt or order, record of contact with the merchant]
+    steps:
+      - do: Contact the merchant first; BMO says its details appear in the statement transaction description.
+      - do: For a credit card, call the number on the back of the card.
+        channel: credit-card-phone
+      - do: For a debit card or checking account, call the customer contact center.
+        channel: customer-contact-phone
+      - do: If BMO does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: unauthorized_charge
+    summary: Lock the card and report it lost or stolen in BMO Digital Banking, or call.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: Lock the card, report it lost or stolen and order a replacement in BMO Digital Banking, or call.
+        channel: customer-contact-phone
+      - do: For a credit card, call the number on the back of the card.
+        channel: credit-card-phone
+      - do: If BMO does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: fraud
+    summary: Call 1-888-340-2265 or visit a BMO branch; send phishing emails to Phishing@bmo.com.
+    evidence: [transaction details, messages from the scammer, FTC or police report number]
+    steps:
+      - do: Call BMO if someone got access to your information or accounts, or visit a local BMO branch.
+        channel: customer-contact-phone
+      - do: Send the phishing email or a screenshot of the text.
+        channel: phishing-email
+      - do: Report to the FTC, then complain to the CFPB if the bank does not act.
+        regulator: cfpb
+
+known_blockers:
+  - bmo.com did not respond to automated access, so an agent cannot read BMO help pages. Hand the browser to the person.
+  - Phone lines verify the account holder.

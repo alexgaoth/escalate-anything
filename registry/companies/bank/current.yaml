@@ -1,0 +1,152 @@
+id: current
+name: Current
+aliases: [current bank, current app, current mobile banking, finco services, current build card, current debit card]
+sector: bank
+parent: Finco Services, Inc.
+website: https://current.com
+official_domains: [current.com]
+regulators: [cfpb, ftc, fdic]
+notes: >-
+  Current (Finco Services, Inc. dba Current) is a financial technology company, not a bank. Banking services
+  are provided by Choice Financial Group and/or Cross River Bank, Members FDIC; the Current Visa Debit Card may be
+  issued by either bank and the Current Build secured charge card is issued by Cross River Bank. Both partner banks
+  are state-chartered banks that are not Federal Reserve members (FDIC BankFind certs 9423 and 58410), so the
+  FDIC is their federal regulator. Facts below are from the Choice deposit account agreement updated June 22, 2026;
+  Cross River customers have a separate agreement. support.current.com returns HTTP 403 to automated fetches.
+
+channels:
+  - id: member-services-phone
+    type: phone
+    label: Current Member Services; lost or stolen card, unauthorized transfers, errors
+    value: +1-888-851-1172
+    hours: Mon-Fri 9 a.m.-6 p.m. ET
+    purposes: [unauthorized_charge, transaction_dispute, fraud, frozen_funds, cancel_service, poor_service]
+    access: human_only
+    source: https://cdn.current.com/agreements/choice_account_agreement_06_22_2026.pdf
+    last_verified: 2026-10-13
+  - id: in-app-chat
+    type: app
+    label: Chat in the Current Mobile App
+    value: Current Mobile App > chat
+    purposes: [unauthorized_charge, transaction_dispute, fraud, frozen_funds, cancel_service, poor_service]
+    access: login
+    source: https://cdn.current.com/agreements/choice_account_agreement_06_22_2026.pdf
+    last_verified: 2026-10-13
+  - id: support-email
+    type: email
+    label: Current support (errors, written disputes, arbitration opt-out)
+    value: support@current.com
+    purposes: [unauthorized_charge, transaction_dispute, frozen_funds, poor_service]
+    source: https://cdn.current.com/agreements/choice_account_agreement_06_22_2026.pdf
+    last_verified: 2026-10-13
+  - id: disputes-email
+    type: email
+    label: Request copies of the documents used in an error investigation
+    value: disputes@current.com
+    purposes: [transaction_dispute, unauthorized_charge]
+    source: https://cdn.current.com/agreements/choice_account_agreement_06_22_2026.pdf
+    last_verified: 2026-10-13
+  - id: member-services-mail
+    type: mail
+    label: Finco Services, Inc. dba Current (member services address)
+    value: "Finco Services, Inc. dba Current, 217 Centre Street #180, New York, NY 10013"
+    purposes: [transaction_dispute, frozen_funds, poor_service]
+    source: https://cdn.current.com/agreements/choice_account_agreement_06_22_2026.pdf
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: in-app-chat}
+  - {rung: frontline, channel: member-services-phone}
+  - {rung: written_complaint, channel: support-email}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: regulator, regulator: fdic, note: "The FDIC supervises Current's partner banks (Choice Financial Group, Cross River Bank), not Current itself."}
+  - {rung: state_agency, agency_kind: financial_regulator}
+  - {rung: arbitration, note: "The deposit agreement has an arbitration agreement; opt out by emailing a signed notice to support@current.com within 30 days of opening the account."}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Call 1-888-851-1172 at once (it keeps your losses down), then confirm in writing within 10 business days if asked; report within 60 days of the first statement.
+    evidence: [transaction date and amount, statement, date you learned of the loss or theft]
+    steps:
+      - do: Call Current Member Services right away, or chat in the app.
+        channel: member-services-phone
+      - do: If Current asks for it in writing, email support within 10 business days with your name, account number, the transfer and the amount.
+        channel: support-email
+      - do: If Current does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: Current must hear from you no later than sixty (60) days after it provided the FIRST statement on which the problem or error appeared. If you tell Current orally, it may require your complaint in writing within ten (10) business days.
+        issues: [unauthorized_charge, transaction_dispute]
+        source: https://cdn.current.com/agreements/choice_account_agreement_06_22_2026.pdf
+        last_verified: 2026-10-13
+      - kind: process
+        claim: Current determines whether an error occurred within ten (10) business days, or may take up to forty-five (45) days if it credits your account within ten business days; up to ninety (90) days for new accounts, point-of-sale and foreign-initiated transactions, with up to twenty (20) business days to credit a new account.
+        issues: [unauthorized_charge, transaction_dispute]
+        source: https://cdn.current.com/agreements/choice_account_agreement_06_22_2026.pdf
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: If you tell Current within 2 business days after you learn of the loss or theft of your card, PIN or account number, you can lose no more than $50; Current says telephoning 1-888-851-1172 is the best way to keep losses down.
+        issues: [unauthorized_charge]
+        source: https://cdn.current.com/agreements/choice_account_agreement_06_22_2026.pdf
+        last_verified: 2026-10-13
+
+  - issue: transaction_dispute
+    summary: Phone or email Current about the error within 60 days of the first statement; you can ask disputes@current.com for the documents used.
+    evidence: [statement, receipt, record of contact with the merchant]
+    steps:
+      - do: Call or email Current with your name, account number, the transaction and why you think it is wrong.
+        channel: support-email
+      - do: After the investigation, ask for copies of the documents Current relied on.
+        channel: disputes-email
+      - do: If Current does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: fraud
+    summary: Call Current at once if your account is compromised or a Current Pay transfer was made without your permission.
+    evidence: [transaction details, messages from the scammer, FTC report number]
+    steps:
+      - do: Call Current Member Services immediately.
+        channel: member-services-phone
+      - do: Report the scam to the FTC, then complain to the CFPB if Current does not act.
+        regulator: cfpb
+    facts:
+      - kind: contact
+        claim: If you believe your account has been compromised or a Current Pay transfer from your account was completed without your permission, Current says to contact 1-888-851-1172 immediately.
+        issues: [fraud, unauthorized_charge]
+        source: https://cdn.current.com/agreements/choice_account_agreement_06_22_2026.pdf
+        last_verified: 2026-10-13
+
+  - issue: frozen_funds
+    summary: Current can restrict or close an account and hold funds until activity is verified; ask in writing what it needs.
+    evidence: [notices from Current, balance when restricted, documents that explain the activity]
+    steps:
+      - do: Chat or call and ask why the account is restricted and what documents Current needs.
+        channel: in-app-chat
+      - do: Send the documents and ask in writing when the balance will be returned.
+        channel: support-email
+      - do: If the funds are not released, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: The agreement says Current may close an account at any time with or without notice; if it detects unusual, unauthorized or unlawful activity it can restrict or close the account, ask for documents, and hold funds until the nature and purpose of the activity is verified. On closure it may return the balance less fees, claims or setoffs.
+        issues: [frozen_funds]
+        source: https://cdn.current.com/agreements/choice_account_agreement_06_22_2026.pdf
+        last_verified: 2026-10-13
+
+  - issue: cancel_service
+    summary: Close the account by chat or by calling Current.
+    steps:
+      - do: Chat in the app or call to close the account. Current will not close it while transactions are pending, the balance is negative or the account is under legal process.
+        channel: member-services-phone
+    facts:
+      - kind: process
+        claim: You may request to close your Account at any time by chatting in the Mobile App or calling 888-851-1172; Current is not required to close it if transactions are pending, the account is overdrawn or it is subject to legal process.
+        issues: [cancel_service]
+        source: https://cdn.current.com/agreements/choice_account_agreement_06_22_2026.pdf
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Phone support is only Monday to Friday, 9 a.m. to 6 p.m. ET; outside those hours use app chat.
+  - Current's help center (support.current.com) blocks automated access.
+  - Current publishes no security page with phishing guidance on the pages checked.

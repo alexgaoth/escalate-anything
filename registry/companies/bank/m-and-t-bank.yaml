@@ -1,0 +1,195 @@
+id: m-and-t-bank
+name: M&T Bank
+aliases: [m&t, m and t bank, mtb, manufacturers and traders trust company, m&t bank corporation]
+sector: bank
+parent: M&T Bank Corporation
+website: https://www.mtb.com
+official_domains: [mtb.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: M&T says it would never text you a hyperlink, and that it would not need to ask you for account information by text message.
+      source: https://www.mtb.com/security-center/how-we-protect-you/fraud-prevention/fraud-faqs
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: M&T says it and other legitimate businesses will never request your personal information unless you started the contact.
+      source: https://www.mtb.com/security-center/how-we-protect-you/fraud-prevention/fraud-faqs
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Phishing emails that look like M&T ask for account details, for example to award a prize or verify a statement, or ask you to click a link and enter sign-in credentials.
+      source: https://www.mtb.com/security-center/how-we-protect-you/fraud-prevention/general-tips
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Work-from-home ads are a common way fraudsters recruit money mules, people who move illegally obtained money for others.
+      source: https://www.mtb.com/security-center/how-we-protect-you/fraud-prevention/general-tips
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails that appear to be from M&T
+      value: phishing@mtb.com
+      purposes: [fraud]
+      source: https://www.mtb.com/security-center/how-we-protect-you/fraud-prevention/general-tips
+      last_verified: 2026-10-13
+    - id: suspicious-contact-phone
+      type: phone
+      label: Report suspicious calls or emails, a compromised account or identity theft
+      value: +1-800-724-2440
+      purposes: [fraud, identity_theft]
+      access: human_only
+      source: https://www.mtb.com/security-center/how-we-protect-you/fraud-prevention/general-tips
+      last_verified: 2026-10-13
+regulators: [cfpb, federal-reserve]
+notes: >-
+  M&T Bank's bank is Manufacturers and Traders Trust Company, a New York state-chartered bank that is a
+  member of the Federal Reserve System (FDIC BankFind cert 588, regulator FED). On the M&T fraud FAQ page
+  the displayed number 1-800-724-2440 has a tel: link to 1-800-790-9130; use the displayed number.
+
+channels:
+  - id: telephone-banking-phone
+    type: phone
+    label: M&T Telephone Banking Center (Contact Us); fraud on M&T accounts, transaction errors
+    value: +1-800-724-2440
+    hours: Mon-Fri 6am-9pm, Sat-Sun 9am-5pm ET; fraud reporting 24 hours a day, 7 days a week
+    purposes: [fraud, unauthorized_charge, transaction_dispute, fee_reversal, frozen_funds, identity_theft, poor_service]
+    access: human_only
+    source: https://www.mtb.com/security-center/how-we-protect-you/fraud-prevention/fraud-faqs
+    last_verified: 2026-10-13
+  - id: lost-stolen-card-phone
+    type: phone
+    label: Report a lost or stolen M&T debit or credit card
+    value: +1-800-724-1552
+    hours: 24/7
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    source: https://www.mtb.com/homepage/explore-the-m-and-t-bank-help-center/discover-top-banking-tasks/how-to-report-a-lost-debit-or-credit-card
+    last_verified: 2026-10-13
+  - id: credit-card-phone
+    type: phone
+    label: Replace a card (credit card customers)
+    value: +1-866-279-0888
+    purposes: [unauthorized_charge]
+    access: human_only
+    source: https://www.mtb.com/homepage/explore-the-m-and-t-bank-help-center/discover-top-banking-tasks/how-to-report-a-lost-debit-or-credit-card
+    last_verified: 2026-10-13
+  - id: business-phone
+    type: phone
+    label: Replace a card (business banking customers)
+    value: +1-800-724-6070
+    purposes: [unauthorized_charge]
+    access: human_only
+    source: https://www.mtb.com/homepage/explore-the-m-and-t-bank-help-center/discover-top-banking-tasks/how-to-report-a-lost-debit-or-credit-card
+    last_verified: 2026-10-13
+  - id: online-lost-card
+    type: app
+    label: Report a lost or stolen card in Online Banking or the M&T Mobile App
+    value: Online Banking > Services Menu > Report a Lost or Stolen Card (app - Card Services > Report a Lost or Stolen Card)
+    hours: 24/7
+    purposes: [unauthorized_charge, fraud]
+    access: login
+    source: https://www.mtb.com/homepage/explore-the-m-and-t-bank-help-center/discover-top-banking-tasks/how-to-report-a-lost-debit-or-credit-card
+    last_verified: 2026-10-13
+  - id: card-error-mail
+    type: mail
+    label: Written notice of a debit card transaction error
+    value: "Manufacturers and Traders Trust Company, P.O. Box 767, Buffalo, NY 14240-0767"
+    purposes: [transaction_dispute, unauthorized_charge]
+    source: https://www.mtb.com/personal/debit-card/faqs
+    last_verified: 2026-10-13
+  - id: phishing-email
+    type: email
+    label: Forward suspicious emails that appear to be from M&T
+    value: phishing@mtb.com
+    purposes: [fraud]
+    source: https://www.mtb.com/security-center/how-we-protect-you/fraud-prevention/general-tips
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: telephone-banking-phone}
+  - {rung: written_complaint, channel: card-error-mail, note: "For debit card errors. M&T publishes no general complaint address."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: regulator, regulator: federal-reserve}
+  - {rung: state_agency, agency_kind: financial_regulator}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: Report a debit card error right away by phone or in writing; M&T may give provisional credit in as little as 2 hours or up to 10 business days.
+    evidence: [statement showing the transaction, receipt, record of contact with the merchant]
+    steps:
+      - do: Call the Telephone Banking Center and report the error.
+        channel: telephone-banking-phone
+      - do: Or write to the error address with your name, account number, the transaction and the amount.
+        channel: card-error-mail
+      - do: If M&T does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: If you think there is an error with a debit card transaction, M&T says to report it right away at 1-800-724-2440 or by writing to Manufacturers and Traders Trust Company, P.O. Box 767, Buffalo, NY 14240-0767.
+        issues: [transaction_dispute, unauthorized_charge]
+        source: https://www.mtb.com/personal/debit-card/faqs
+        last_verified: 2026-10-13
+      - kind: process
+        claim: M&T says it may provide a provisional credit as soon as 2 hours, but it could take up to 10 business days.
+        issues: [transaction_dispute, unauthorized_charge]
+        source: https://www.mtb.com/personal/debit-card/faqs
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: Report the card lost or stolen at once (24/7 by phone, Online Banking or app); locking the card is not the same as reporting it.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: Call the lost or stolen card line, or report it in Online Banking or the app.
+        channel: lost-stolen-card-phone
+      - do: Report the unauthorized charges to the Telephone Banking Center.
+        channel: telephone-banking-phone
+      - do: If M&T does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: process
+        claim: M&T will disable your old card and issue a new one right away when you report it lost or stolen.
+        issues: [unauthorized_charge]
+        source: https://www.mtb.com/homepage/explore-the-m-and-t-bank-help-center/discover-top-banking-tasks/how-to-report-a-lost-debit-or-credit-card
+        last_verified: 2026-10-13
+
+  - issue: fraud
+    summary: Call 1-800-724-2440 (24/7 for fraud) and forward phishing emails to phishing@mtb.com.
+    evidence: [transaction details, messages from the scammer, FTC or police report number]
+    steps:
+      - do: Call M&T about fraud or identity theft on your M&T accounts.
+        channel: telephone-banking-phone
+      - do: Forward phishing emails to M&T.
+        channel: phishing-email
+      - do: Report to the FTC or the FBI's IC3, then complain to the CFPB if the bank does not act.
+        regulator: cfpb
+    facts:
+      - kind: contact
+        claim: M&T says to notify it immediately at 1-800-724-2440 (24 hours a day, 7 days a week) if you believe you have been a victim of fraud related to your M&T accounts.
+        issues: [fraud]
+        source: https://www.mtb.com/homepage/explore-the-m-and-t-bank-help-center/discover-top-banking-tasks/how-to-report-and-protect-against-card-fraud
+        last_verified: 2026-10-13
+
+  - issue: fee_reversal
+    summary: M&T charges at most one $15 overdraft fee per day; check the exceptions, then ask for a reversal.
+    evidence: [statement showing the fee, transaction amounts, whether you opted in to debit card overdraft]
+    steps:
+      - do: Check the exceptions - items under $5, a second fee on the same business day, or ATM and everyday debit card overdrafts you did not opt in to.
+      - do: Call the Telephone Banking Center and ask for the fee to be reversed.
+        channel: telephone-banking-phone
+      - do: If the fee breaks the stated rules and M&T refuses, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: fee
+        claim: M&T charges an overdraft fee of $15 per day (maximum of one fee per day) on personal checking, even if several transactions overdraw the account.
+        issues: [fee_reversal]
+        source: https://www.mtb.com/personal/checking-accounts/understanding-overdrafts
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: M&T does not charge the overdraft fee if the item is less than $5, if the account was already charged an overdraft fee that business day, or if the overdraft came from an ATM or everyday debit card transaction you did not opt in to. A declined NSF transaction has no fee.
+        issues: [fee_reversal]
+        source: https://www.mtb.com/personal/checking-accounts/understanding-overdrafts
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Phone lines verify the account holder.
+  - M&T publishes no general complaint mailing address or online complaint form on the pages checked.

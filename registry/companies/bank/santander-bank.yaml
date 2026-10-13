@@ -1,0 +1,142 @@
+id: santander-bank
+name: Santander Bank
+aliases: [santander, santander bank na, santander us, santander bank n.a., sovereign bank]
+sector: bank
+parent: Santander Holdings USA, Inc.
+website: https://www.santanderbank.com
+official_domains: [santanderbank.com, santander.us]
+security:
+  never_asks:
+    - kind: policy
+      claim: Santander says it will never ask you to provide confidential information by text or email, or to read back a one-time passcode.
+      source: https://www.santanderbank.com/personal/security-center/what-we-do
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Santander warns about unsolicited texts or emails that ask for personal information, and phone calls that ask you to read back a one-time passcode or give your PIN.
+      source: https://www.santanderbank.com/personal/security-center/what-we-do
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails that appear to be from Santander
+      value: reportabuse@santander.us
+      purposes: [fraud]
+      source: https://www.santanderbank.com/personal/security-center/what-we-do
+      last_verified: 2026-10-13
+regulators: [cfpb, occ]
+notes: >-
+  Santander Bank, N.A. is a national bank supervised by the OCC (FDIC BankFind cert 29950). Santander's
+  contact pages could not be loaded; the phone numbers below come from its security and dispute pages.
+  Search snippets of older Santander FAQ pages give other numbers and hours that were not confirmed.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer Service Center Advisor (unauthorized debit card or ATM transactions)
+    value: +1-877-768-2265
+    purposes: [unauthorized_charge, transaction_dispute, fraud, fee_reversal, frozen_funds, poor_service]
+    access: human_only
+    source: https://www.santanderbank.com/personal/resources/digital-banking/unauthorized-debit-card-or-atm-transaction
+    last_verified: 2026-10-13
+  - id: unauthorized-activity-phone
+    type: phone
+    label: Unauthorized activity on any Santander account; credit card unauthorized transactions
+    value: +1-888-728-1222
+    purposes: [unauthorized_charge, fraud, transaction_dispute, billing_error]
+    access: human_only
+    source: https://www.santanderbank.com/personal/security-center/what-we-do
+    last_verified: 2026-10-13
+  - id: fraud-victim-phone
+    type: phone
+    label: If you think you are a victim of fraud
+    value: +1-877-906-7500
+    purposes: [fraud, identity_theft]
+    access: human_only
+    source: https://www.santanderbank.com/personal/security-center/what-you-can-do-to-prevent-fraud/
+    last_verified: 2026-10-13
+  - id: phishing-email
+    type: email
+    label: Forward suspicious emails that appear to be from Santander
+    value: reportabuse@santander.us
+    purposes: [fraud]
+    source: https://www.santanderbank.com/personal/security-center/what-we-do
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, note: "For a credit card billing error, send a written notice within 60 days of the statement date. Santander publishes no general complaint address on the pages checked."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: regulator, regulator: occ}
+  - {rung: state_agency, agency_kind: financial_regulator}
+
+playbooks:
+  - issue: transaction_dispute
+    summary: Call at once about an unauthorized transaction; for a credit card billing error, also send a written notice within 60 days of the statement date.
+    evidence: [statement showing the charge, receipt or order, record of contact with the merchant]
+    steps:
+      - do: Try to resolve problems with goods or services with the seller first and keep proof.
+      - do: For a debit card or ATM transaction, call a Customer Service Center Advisor.
+        channel: customer-service-phone
+      - do: For a credit card charge, call the unauthorized activity line and send a written notice within 60 days of the statement date.
+        channel: unauthorized-activity-phone
+      - do: If you get no answer or the dispute is denied without reason, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: Santander's credit card dispute guide says consumers can dispute billing errors by submitting a written notice within 60 days of the statement date, and can dispute bad service or services not rendered within 60 days of the statement date if the seller does not fix it.
+        issues: [transaction_dispute, billing_error]
+        source: https://www.santanderbank.com/personal/resources/credit-card/how-to-dispute-credit-card-charge
+        last_verified: 2026-10-13
+      - kind: process
+        claim: Santander's guide says the issuer has one month to acknowledge a credit card dispute and must resolve it within 90 days (two billing cycles). You do not have to pay the disputed amount while it is investigated, but the issuer may temporarily lower your credit limit by that amount.
+        issues: [transaction_dispute, billing_error]
+        source: https://www.santanderbank.com/personal/resources/credit-card/how-to-dispute-credit-card-charge
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: Call at once; Santander gives separate lines for debit and ATM transactions and for unauthorized activity on any account.
+    evidence: [statement with the charge, date you noticed it, card status]
+    steps:
+      - do: For an unauthorized debit card or ATM transaction, call a Customer Service Center Advisor immediately.
+        channel: customer-service-phone
+      - do: For unauthorized activity on a credit card or any other Santander account, call the unauthorized activity line.
+        channel: unauthorized-activity-phone
+      - do: If Santander does not resolve it, complain to the CFPB.
+        regulator: cfpb
+
+  - issue: fraud
+    summary: Call the fraud victim line and forward phishing emails to reportabuse@santander.us.
+    evidence: [transaction details, messages from the scammer, FTC or police report number]
+    steps:
+      - do: Call Santander if you think you are a victim of fraud.
+        channel: fraud-victim-phone
+      - do: Forward suspicious emails to Santander.
+        channel: phishing-email
+      - do: Report to the FTC, then complain to the CFPB if the bank does not act.
+        regulator: cfpb
+
+  - issue: fee_reversal
+    summary: Santander charges no overdraft fee unless the account is overdrawn by more than $100; check the rules, then ask for a reversal.
+    evidence: [statement showing the fee, end-of-day balances, deposit times]
+    steps:
+      - do: Check whether the account was overdrawn by more than $100 when the item was paid, and how many fees were charged that business day.
+      - do: Call customer service and ask for the fee to be reversed.
+        channel: customer-service-phone
+      - do: If the fee breaks the stated rules and Santander refuses, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: fee
+        claim: The Item Paid overdraft fee is $15, charged when a paid item overdraws the account by more than $100. A maximum of three Item Paid fees may be charged per business day.
+        issues: [fee_reversal]
+        source: https://www.santanderbank.com/personal/banking/overdrafts/fees
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: There is no fee when an item is returned unpaid, and any Item Paid fee already charged for that item is refunded. A $15 sustained overdraft fee applies on the sixth business day if the account stays overdrawn for five consecutive business days and the first day's overdrawn balance was more than $100.
+        issues: [fee_reversal]
+        source: https://www.santanderbank.com/personal/banking/overdrafts/fees
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Phone lines verify the account holder.
+  - Santander's contact page and help-center answers could not be loaded; hours are not recorded.
