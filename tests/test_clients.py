@@ -99,3 +99,35 @@ def test_server_command_sources():
     assert args[:2] == ["--from", clients.GIT_SOURCE] and args[-1] == "--read-only"
     cmd, args = clients.server_command("auto")  # tests run from the checkout
     assert "--directory" in args
+
+
+def test_setup_non_interactive_plans_then_applies(home, monkeypatch, capsys):
+    import argparse
+
+    monkeypatch.setattr(clients, "detected_clients", lambda home=None: ["cursor", "codex"])
+    monkeypatch.setattr(clients.Path, "home", classmethod(lambda cls: home))
+    args = argparse.Namespace(clients=[], yes=False, source="pypi", read_only=False, remove=False)
+    assert clients.setup(args) == 0
+    out = capsys.readouterr().out
+    assert "Planned changes" in out and "Run again with --yes" in out
+    assert not CLIENTS["cursor"].config_path(home).exists()
+    args.yes = True
+    assert clients.setup(args) == 0
+    out = capsys.readouterr().out
+    assert CLIENTS["cursor"].config_path(home).exists() and "Restart" in out
+
+
+def test_redress_mcp_dispatches_cli_commands(monkeypatch):
+    from redress import cli
+
+    called = {}
+    monkeypatch.setattr(cli, "main", lambda argv: called.setdefault("argv", argv) and 0)
+    monkeypatch.setattr(cli.sys, "argv", ["redress-mcp", "setup", "--yes"])
+    with pytest.raises(SystemExit):
+        cli.serve_main()
+    assert called["argv"] == ["setup", "--yes"]
+    called.clear()
+    monkeypatch.setattr(cli.sys, "argv", ["redress-mcp", "--read-only"])
+    with pytest.raises(SystemExit):
+        cli.serve_main()
+    assert called["argv"] == ["serve", "--read-only"]

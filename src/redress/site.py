@@ -62,6 +62,9 @@ def build_site(out_dir: Path, reg: Registry, base_url: str = BASE_URL, today: dt
             (out / sub / f"{key}.md").write_text(doc.path.read_text(encoding="utf-8"), encoding="utf-8")
 
     (out / "llms.txt").write_text(llms_txt(reg, base_url), encoding="utf-8")
+    (out / "badges").mkdir(exist_ok=True)
+    for name, data in badges(reg, today).items():
+        _write_json(out / "badges" / f"{name}.json", data)
     (out / "index.html").write_text(index_html(reg, base_url, today), encoding="utf-8")
     (out / ".nojekyll").write_text("", encoding="utf-8")
     return {"companies": len(companies), "states": len(reg.states), "issues": len(reg.issues),
@@ -260,6 +263,23 @@ def index_data(reg: Registry, base_url: str, today: dt.date) -> dict[str, Any]:
 
 
 # ---- llms.txt ----------------------------------------------------------------
+
+
+def badges(reg: Registry, today: dt.date | None = None) -> dict[str, dict]:
+    """shields.io endpoint badges, so the README shows live counts: img.shields.io/endpoint?url=<site>/badges/<name>.json"""
+    from .credibility import registry_credibility
+
+    st = reg.stats()
+    cred = registry_credibility(reg, today)
+    def badge(label: str, message: str, color: str) -> dict:
+        return {"schemaVersion": 1, "label": label, "message": message, "color": color}
+    return {
+        "companies": badge("companies", str(st["companies"]), "2ea44f"),
+        "contacts": badge("verified contacts", f"{st['channels']:,}", "2ea44f"),
+        "verified": badge("data verified", cred["last_verified"] or "unknown", "0969da"),
+        "dossiers": badge("dossiers", str(st.get("dossiers", 0)), "8250df"),
+        "credibility": badge("grade A", f"{cred['grades']['A']} of {st['companies']}", "1a7f37"),
+    }
 
 
 def llms_txt(reg: Registry, base_url: str = BASE_URL) -> str:
