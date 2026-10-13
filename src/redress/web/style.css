@@ -85,14 +85,25 @@ button { font: inherit; color: inherit; }
 .nav a:hover { color: var(--text); background: var(--surface-2); }
 .nav a[aria-current="page"] { color: var(--text); font-weight: 600; }
 .nav .narrow { display: none; }
+@media (max-width: 860px) {
+  .nav .nav-check .wide { display: none; }
+}
+@media (max-width: 640px) {
+  /* The brand links home, and the footer links to the agents page. */
+  .nav .nav-home, .nav .nav-agents { display: none; }
+}
 @media (max-width: 520px) {
   .nav a { padding: 6px 6px; font-size: .875rem; }
   .nav .wide { display: none; }
   .nav .narrow { display: inline; }
   .brand::before { display: none; }
 }
+@media (max-width: 360px) {
+  .topbar-inner { gap: 8px; }
+  .nav a { padding: 6px 4px; font-size: .8125rem; }
+}
 
-main { min-height: 70vh; padding-bottom: 64px; outline: none; }
+main, main.wrap { min-height: 70vh; padding-bottom: 64px; outline: none; }
 
 /* ---- hero and search ------------------------------------------------- */
 .hero { padding: 44px 0 8px; max-width: 760px; }
@@ -322,6 +333,95 @@ main { min-height: 70vh; padding-bottom: 64px; outline: none; }
 .prose h2 { font-size: 1.25rem; margin-top: 32px; }
 .prose ul { padding-left: 20px; }
 .prose li + li { margin-top: 4px; }
+
+/* ---- scam shield: callout, company panel, check view ------------------ */
+.icon { width: 1.15em; height: 1.15em; flex: none; vertical-align: -0.2em; }
+.callout {
+  margin-top: 26px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 14px 16px; box-shadow: var(--shadow);
+}
+.callout-icon { color: var(--warn-text); display: grid; place-items: center; width: 36px; height: 36px; border-radius: 999px; background: var(--warn-bg); flex: none; }
+.callout-icon .icon { width: 20px; height: 20px; }
+.callout-text { flex: 1 1 200px; color: var(--muted); }
+.callout-text strong { color: var(--text); font-weight: 650; }
+@media (max-width: 560px) {
+  .callout { align-items: flex-start; }
+  .callout .btn { width: 100%; justify-content: center; }
+}
+
+.shield { margin-top: 22px; background: var(--surface); border: 1px solid var(--warn-border); border-radius: var(--r); padding: 4px 18px 18px; }
+.shield-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding: 12px 0 10px; border-bottom: 1px solid var(--border); }
+.shield-head h2 { font-size: 1.125rem; display: flex; align-items: center; gap: 8px; }
+.shield-head h2 .icon, .check-teaser h2 .icon { color: var(--warn-text); }
+.shield-head .btn { font-size: .875rem; padding: 6px 12px; }
+.shield-grid { display: grid; gap: 18px 28px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 14px; }
+.shield-part h3 { font-size: .9375rem; font-weight: 650; margin-bottom: 8px; }
+.shield-part .facts { gap: 10px; }
+.shield-part .ch { padding: 0; }
+.domains { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.domains code, .verdict code { font: 600 .875rem/1.4 var(--mono); background: var(--surface-2); border-radius: 4px; padding: 2px 7px; overflow-wrap: anywhere; }
+.check-teaser h2 { display: flex; align-items: center; gap: 8px; }
+
+.section-note { margin: -6px 0 12px; max-width: 72ch; }
+.guide-link { margin-top: 10px; }
+
+/* Rendered Markdown (dossiers and guides). */
+.md { max-width: 74ch; }
+.md h2 { font-size: 1.25rem; margin: 30px 0 10px; }
+.md h3 { font-size: 1.0625rem; margin: 24px 0 8px; }
+.md h4 { font-size: .9688rem; margin: 18px 0 6px; }
+.md > :first-child { margin-top: 0; }
+.md p { margin: 8px 0; }
+.md ul { padding-left: 20px; margin: 8px 0; }
+.md li { margin: 6px 0; padding-left: 2px; }
+.md li::marker { color: var(--muted); }
+.md a { overflow-wrap: anywhere; }
+.box.md { max-width: none; padding: 18px 20px; }
+.box.md h3:first-child { margin-top: 0; }
+.guide-body { font-size: 1.0313rem; }
+.guide-grid, .page-head + .empty { margin-top: 24px; }
+
+.check-layout { margin-top: 22px; }
+.check-form { display: grid; gap: 18px; max-width: 640px; }
+.check-form .field label .opt { font-weight: 400; color: var(--muted); font-size: .875rem; margin-left: 4px; }
+.check-form .search input { padding-right: 14px; }
+.field textarea {
+  display: block; width: 100%; min-height: 112px; resize: vertical; font: inherit; font-size: 1rem; line-height: 1.5; color: var(--text);
+  background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--r); padding: 10px 14px; box-shadow: var(--shadow);
+}
+.field textarea::placeholder { color: var(--muted); opacity: 1; }
+.field textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+.check-submit { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.check-submit .btn { padding: 10px 26px; font-size: 1rem; cursor: pointer; }
+.check-submit .hint { margin: 0; }
+.proof-note { font-size: .875rem; color: var(--warn-text); background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: var(--r); padding: 8px 12px; }
+.check-out { max-width: 640px; scroll-margin-top: 72px; }
+.check-out:empty { display: none; }
+.empty-hint { margin-top: 22px; color: var(--muted); }
+.result { margin-top: 30px; }
+.result > h2 { font-size: 1.125rem; margin-bottom: 10px; }
+.result > h3 { font-size: .9375rem; margin: 18px 0 8px; }
+.result > .notes { margin-top: 8px; }
+.verdict { border: 1px solid var(--border); border-radius: var(--r); background: var(--surface); padding: 14px 16px; }
+.verdict.ok { border-color: color-mix(in srgb, var(--accent) 35%, var(--border)); background: color-mix(in srgb, var(--accent-soft) 55%, var(--surface)); }
+.verdict.warn { border-color: var(--warn-border); background: var(--warn-bg); }
+.verdict.bad { border-color: var(--bad-border); background: var(--bad-bg); }
+.verdict-top { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.verdict-title { font-weight: 650; font-size: 1.0625rem; margin-top: 8px; overflow-wrap: anywhere; }
+.verdict-body { margin-top: 4px; font-size: .9375rem; }
+.verdict .badge { background: var(--surface); }
+.checked-value { font: 600 .9375rem/1.4 var(--mono); overflow-wrap: anywhere; }
+.matches { list-style: none; display: grid; gap: 10px; margin-top: 12px; padding-top: 12px; border-top: 1px solid color-mix(in srgb, var(--text) 12%, transparent); font-size: .9375rem; }
+.flags { list-style: none; display: grid; gap: 10px; margin-top: 12px; padding-top: 12px; border-top: 1px solid color-mix(in srgb, var(--text) 12%, transparent); }
+.flags li { position: relative; padding-left: 16px; }
+.flags li::before { content: ""; position: absolute; left: 0; top: .6em; width: 7px; height: 7px; border-radius: 999px; background: currentColor; opacity: .7; }
+.flag-why { font-size: .9375rem; }
+.flag-quote { font-size: .8438rem; color: var(--muted); margin-top: 2px; overflow-wrap: anywhere; font-style: italic; }
+.checked-list { list-style: none; display: grid; gap: 8px; }
+.checked { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 10px 14px; }
+.checked .badge { margin-left: 4px; }
+.checked-title { font-size: .9063rem; margin-top: 4px; }
+.blockers.plain li::before { background: var(--muted); }
 
 /* ---- loading --------------------------------------------------------- */
 .skel { display: grid; gap: 12px; }
