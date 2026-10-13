@@ -131,6 +131,11 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def serve_main() -> None:
+    """Entry point `redress-mcp`: run the MCP server (stdio unless --transport http)."""
+    sys.exit(main(["serve", *sys.argv[1:]]))
+
+
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     return args.func(args)

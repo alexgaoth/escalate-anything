@@ -15,7 +15,17 @@ import yaml
 from jsonschema import Draft202012Validator
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-SCHEMA_PATH = REPO_ROOT / "schema" / "redress.schema.json"
+PACKAGE_DATA = Path(__file__).resolve().parent / "data"
+
+
+def data_root() -> Path:
+    """The repo checkout when running from source, else the data bundled in the wheel."""
+    if (REPO_ROOT / "registry" / "sectors.yaml").exists():
+        return REPO_ROOT
+    return PACKAGE_DATA
+
+
+SCHEMA_PATH = data_root() / "schema" / "redress.schema.json"
 
 PHONE_RE = re.compile(r"^(\+1-\d{3}-\d{3}-\d{4}( ext\. \d+)?|\*?#?\d{3,6})$")
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[a-z]{2,}$", re.IGNORECASE)
@@ -23,7 +33,7 @@ URL_TYPES = {"web_form", "chat", "portal", "social"}
 
 
 def registry_dir() -> Path:
-    return Path(os.environ.get("REDRESS_REGISTRY", REPO_ROOT / "registry"))
+    return Path(os.environ.get("REDRESS_REGISTRY", data_root() / "registry"))
 
 
 class _Loader(yaml.SafeLoader):
