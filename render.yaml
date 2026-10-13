@@ -1,0 +1,8 @@
+# One-click deploy of the read-only MCP endpoint: https://render.com/deploy?repo=https://github.com/alexgaoth/redress
+services:
+  - type: web
+    name: redress-mcp
+    runtime: docker
+    plan: free
+    healthCheckPath: /mcp
+    autoDeploy: true

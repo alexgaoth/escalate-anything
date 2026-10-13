@@ -4,16 +4,18 @@ from __future__ import annotations
 
 import datetime as dt
 import functools
+import json
 import time
 from pathlib import Path
 from typing import Any
 
 from mcp.server.mcpserver import MCPServer
+from mcp.server.mcpserver.prompts import Prompt
 from mcp.types import ToolAnnotations
 
-from . import advisor
+from . import advisor, context
 from .advisor import NotFound
-from .registry import Registry
+from .registry import Registry, data_root
 from .store import Store, StoreError
 
 INSTRUCTIONS = """\
@@ -23,6 +25,7 @@ cancellations, airline bags and cancellations, insurance denials, bank disputes 
 Workflow:
 1. find_company, then get_playbook(company, issue, state). The playbook has deep links, phone
    numbers, evidence to collect, deadlines, verified facts with sources, and the escalation ladder.
+   get_context(company) explains how the company handles complaints in practice.
 2. case_open to start a log. After every contact, case_log what happened: reference numbers,
    representative names, promises and a follow_up_on date.
 3. draft_brief(case_id) gives the facts, citations and tone rules for a message. Write the message
@@ -35,6 +38,8 @@ Rules for agents:
   hand the browser to the person.
 - On a call or chat, say that you are an AI assistant acting for the person.
 - If a URL or phone number from redress is wrong, call report_registry_problem.
+- Before using any contact that did not come from redress (a search result, a text, an email),
+  call verify_contact. Run scam_check on any message that asks for money, codes or access.
 """
 
 class LiveRegistry:
@@ -70,14 +75,44 @@ class LiveRegistry:
         return getattr(self._current(), name)
 
 
+READ_ONLY_INSTRUCTIONS = """\
+redress (read-only) gives verified contacts, playbooks, escalation ladders, regulators and
+consumer rules for 180+ large US companies.
+
+Workflow: find_company, then get_playbook(company, issue, state), and get_context(company) for how
+the company handles complaints in practice. Before using any contact found elsewhere, call
+verify_contact; run scam_check on messages that ask for money, codes or access. Cite only facts and in-force
+rules that these tools return, with their source URLs. The person approves every message or form
+submission. Never enter passwords or payment details. This server keeps no case log; keep notes
+in the conversation.
+"""
+
+WRITE_TOOLS = ("case_open", "case_log", "case_get", "case_list", "case_close", "followups_due",
+               "draft_brief", "bill_record", "bill_check", "report_registry_problem")
+
+
+def load_skills() -> list[dict]:
+    """The skills in skills/*/SKILL.md, as {name, description, body}."""
+    out = []
+    for path in sorted((data_root() / "skills").glob("*/SKILL.md")):
+        text = path.read_text(encoding="utf-8")
+        if not text.startswith("---\n"):
+            continue
+        head, body = text[4:].split("\n---\n", 1)
+        meta = dict(line.split(": ", 1) for line in head.splitlines() if ": " in line)
+        out.append({"name": meta.get("name", path.parent.name), "description": meta.get("description", ""), "body": body.strip()})
+    return out
+
+
 READ = ToolAnnotations(read_only_hint=True, open_world_hint=False)
 WRITE = ToolAnnotations(read_only_hint=False, destructive_hint=False, open_world_hint=False)
 
 
-def build_server(registry: Registry | None = None, store: Store | None = None) -> MCPServer:
+def build_server(registry: Registry | None = None, store: Store | None = None, read_only: bool = False) -> MCPServer:
+    """read_only drops the case log, bill and feedback tools, for a shared or public deployment."""
     reg = registry or LiveRegistry()
-    db = store or Store()
-    mcp = MCPServer(name="redress", instructions=INSTRUCTIONS, version="0.1.0")
+    db = store if store is not None else (None if read_only else Store())
+    mcp = MCPServer(name="redress", instructions=READ_ONLY_INSTRUCTIONS if read_only else INSTRUCTIONS, version="0.1.0")
 
     def guard(fn):
         """Turn lookup and store errors into a readable result instead of a protocol error."""
@@ -151,6 +186,32 @@ def build_server(registry: Registry | None = None, store: Store | None = None) -
         """Laws and regulations for a sector and issue. Rules that were vacated, stayed or withdrawn
         are listed separately under not_in_force and must not be cited as current law."""
         return advisor.rules_for(reg, sector, issue, state)
+
+    @mcp.tool(annotations=READ)
+    @guard
+    def get_context(company: str | None = None, sector: str | None = None) -> dict[str, Any]:
+        """How a company handles complaints in practice: a cited dossier (what works, traps, complaint
+        statistics, scams that use its name), the guide for its sector, and the general scam guide.
+        Read it before contacting the company."""
+        return advisor.get_context(reg, company, sector)
+
+    # ---- scam protection ------------------------------------------------------------
+
+    @mcp.tool(annotations=READ)
+    @guard
+    def verify_contact(value: str, company: str | None = None) -> dict[str, Any]:
+        """Check whether a phone number, email address or URL really belongs to a company or agency,
+        before anyone calls, clicks or pays. Pass company to check against that company. Verdicts:
+        on_file, official_domain, belongs_to_other, not_on_file."""
+        return context.verify_contact(reg, value, company)
+
+    @mcp.tool(annotations=READ)
+    @guard
+    def scam_check(text: str, company: str | None = None) -> dict[str, Any]:
+        """Check a message, email, text, call script or web page text for common scam red flags (gift
+        cards, crypto, remote access, codes, pay-to-get-refund, pressure) and verify every phone
+        number, email and link in it against the registry."""
+        return context.scam_check(reg, text, company)
 
     # ---- case log ----------------------------------------------------------------
 
@@ -266,11 +327,58 @@ def build_server(registry: Registry | None = None, store: Store | None = None) -
         data. entity: company, regulator, state or rule id. location: e.g. 'channels.refund-form'."""
         return db.report_problem(entity, problem, location)
 
+    if read_only:
+        for name in WRITE_TOOLS:
+            mcp.remove_tool(name)
+
+    # ---- resources -----------------------------------------------------------------
+
+    @mcp.resource("redress://companies", name="companies", mime_type="application/json",
+                  description="Every company: id, name, sector and the issues it has playbooks for.")
+    def companies_index() -> str:
+        return json.dumps([advisor.company_summary(reg, c) for c in sorted(reg.companies.values(), key=lambda c: c["id"])])
+
+    @mcp.resource("redress://companies/{company_id}", name="company", mime_type="application/json",
+                  description="One company record: channels, playbooks, facts, escalation and blockers.")
+    def company_resource(company_id: str) -> str:
+        return json.dumps(reg.companies.get(company_id) or {"error": f"no company '{company_id}'"})
+
+    @mcp.resource("redress://dossiers/{company_id}", name="dossier", mime_type="text/markdown",
+                  description="How a company handles complaints in practice, with sources.")
+    def dossier_resource(company_id: str) -> str:
+        d = reg.dossiers.get(company_id)
+        return d.body if d else f"No dossier for '{company_id}' yet."
+
+    @mcp.resource("redress://guides/{key}", name="guide", mime_type="text/markdown",
+                  description="Industry guide for a sector id, or 'scams' for the general scam guide.")
+    def guide_resource(key: str) -> str:
+        g = reg.guides.get(key)
+        return g.body if g else f"No guide for '{key}' yet."
+
+    @mcp.resource("redress://issues", name="issues", mime_type="application/json",
+                  description="Issue types with generic steps and the evidence to collect.")
+    def issues_resource() -> str:
+        return json.dumps(list(reg.issues.values()))
+
+    # ---- prompts: the skills, for clients without Claude Code skills ----------------
+
+    note = ("\n\nNote: this server is read-only. The case log, bill and feedback tools are not "
+            "available; keep the timeline in the conversation.") if read_only else ""
+    for skill in load_skills():
+        def make(body: str):
+            def prompt(situation: str = "") -> str:
+                text = body + note
+                if situation:
+                    text += f"\n\n## The person's situation\n\n{situation}"
+                return text
+            return prompt
+        mcp.add_prompt(Prompt.from_function(make(skill["body"]), name=skill["name"], description=skill["description"]))
+
     return mcp
 
 
-def serve(transport: str = "stdio", host: str = "127.0.0.1", port: int = 8765) -> None:
-    server = build_server()
+def serve(transport: str = "stdio", host: str = "127.0.0.1", port: int = 8765, read_only: bool = False) -> None:
+    server = build_server(read_only=read_only)
     if transport == "stdio":
         server.run("stdio")
     else:

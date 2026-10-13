@@ -16,7 +16,7 @@ def anyio_backend():
 
 
 def test_skills_have_frontmatter():
-    assert len(SKILLS) == 4
+    assert len(SKILLS) == 5
     for path in SKILLS:
         text = path.read_text()
         m = re.match(r"---\nname: ([a-z-]+)\ndescription: (.+?)\n---\n", text, re.S)

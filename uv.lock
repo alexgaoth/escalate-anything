@@ -645,7 +645,7 @@ wheels = [
 ]
 
 [[package]]
-name = "redress"
+name = "redress-mcp"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

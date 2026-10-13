@@ -24,7 +24,8 @@ def test_fixture_registry_is_valid(fixture_registry):
 def test_docs_example_matches_fixture():
     doc = (Path(__file__).parents[1] / "docs" / "authoring.md").read_text()
     fixture = (FIXTURES / "companies" / "airline" / "example-air.yaml").read_text()
-    assert fixture in doc
+    block = doc.split("## Company example\n\n```yaml\n", 1)[1].split("```", 1)[0]
+    assert fixture.startswith(block)  # the fixture adds security data after the documented example
 
 
 def test_dates_stay_strings(fixture_registry):
