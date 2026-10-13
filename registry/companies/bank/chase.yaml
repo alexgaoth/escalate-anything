@@ -192,6 +192,28 @@ playbooks:
         source: https://www.chase.com/personal/checking/overdraft-services/standard-overdraft-practice
         last_verified: 2026-10-12
 
+  - issue: frozen_funds
+    summary: Chase may restrict an account or hold funds pending investigation, and may close it at any time; ask what is needed to release the funds.
+    evidence: [notices from Chase, balance when restricted, account agreement, proof of identity and ownership]
+    steps:
+      - do: Call personal banking and ask why the account is restricted, what Chase needs from you, and when the funds will be released.
+        channel: banking-phone
+      - do: If Chase closes the account, ask in writing how and when the remaining balance will be returned.
+        channel: complaints-feedback
+      - do: If the funds are not released, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: The Chase deposit account agreement lets Chase decline, freeze, reverse or delay transactions, or remove funds from the account to hold them pending investigation, for example when the account is in a legal proceeding or ownership information conflicts.
+        issues: [frozen_funds]
+        source: https://www.chase.com/content/dam/chase-ux/documents/personal/checking/deposit-account-agreement.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Either you or Chase may close the account at any time without prior notice. Chase may send written notice and return the balance less fees, claims and set-offs if it is greater than $1.
+        issues: [frozen_funds]
+        source: https://www.chase.com/content/dam/chase-ux/documents/personal/checking/deposit-account-agreement.pdf
+        last_verified: 2026-10-12
+
   - issue: billing_error
     summary: Dispute online, and send a written billing-error notice to keep your legal rights.
     evidence: [statement with the error, account number, amount, why it is wrong]

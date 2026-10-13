@@ -7,18 +7,86 @@ website: https://www.usaa.com
 regulators: [cfpb, occ]
 notes: >-
   USAA Federal Savings Bank is a federal savings bank (OCC) and issues USAA credit cards. USAA also sells
-  auto, home and renters insurance; usaa.com did not respond to automated fetches on 2026-10-12, so the
-  insurance claim channels and the deposit account terms are not recorded here.
+  auto and property insurance. usaa.com does not respond to automated page fetches; the usaa.com channels
+  here come from usaa.com search results, and the card terms from the agreement USAA files with the CFPB.
 
 channels:
   - id: member-services-phone
     type: phone
-    label: USAA main number (1-800-531-USAA), named in the credit card agreement
+    label: USAA main number (800-531-USAA)
     value: +1-800-531-8722
-    purposes: [transaction_dispute, unauthorized_charge, fraud, billing_error, fee_reversal]
+    purposes: [transaction_dispute, unauthorized_charge, fraud, billing_error, fee_reversal, frozen_funds]
     access: human_only
-    notes: The card agreement gives this number for the Pay-Ahead Program opt-out and for credit report dispute forms.
-    source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/USAA_FEDERAL_SAVINGS_BANK/bk-credit-card-combined-agreement-398902.pdf
+    notes: TTY 711. The local number is 210-531-USAA (+1-210-531-8722). The credit card agreement also names 1-800-531-USAA.
+    source: https://www.usaa.com/help/contact/
+    last_verified: 2026-10-12
+  - id: debit-fraud-phone
+    type: phone
+    label: Unauthorized ATM or debit card transactions
+    value: +1-800-951-4539
+    purposes: [unauthorized_charge, fraud, transaction_dispute]
+    access: human_only
+    notes: TTY 711. Days and times may vary.
+    source: https://www.usaa.com/support/security/report-fraud/
+    last_verified: 2026-10-12
+  - id: credit-fraud-phone
+    type: phone
+    label: Unauthorized credit card transactions
+    value: +1-800-945-6759
+    purposes: [unauthorized_charge, fraud, transaction_dispute]
+    access: human_only
+    notes: TTY 711.
+    source: https://www.usaa.com/support/security/report-fraud/
+    last_verified: 2026-10-12
+  - id: identity-theft-phone
+    type: phone
+    label: Suspected identity theft, or you gave out a password or logon credentials
+    value: +1-877-762-7256
+    purposes: [fraud, account_access]
+    access: human_only
+    source: https://www.usaa.com/support/security/report-fraud/
+    last_verified: 2026-10-12
+  - id: dispute-online
+    type: portal
+    label: Dispute a card transaction online or in the USAA Mobile App
+    value: https://www.usaa.com/support/security/report-fraud/
+    purposes: [transaction_dispute, unauthorized_charge, fraud]
+    access: login
+    notes: Log on to usaa.com or the app and select "Dispute Transaction" from the account activity.
+    source: https://www.usaa.com/support/security/report-fraud/
+    last_verified: 2026-10-12
+  - id: abuse-email
+    type: email
+    label: Report suspicious calls, texts or emails claiming to be USAA
+    value: abuse@usaa.com
+    purposes: [fraud]
+    notes: Include the phone number and details about the call or message.
+    source: https://www.usaa.com/support/security/report-fraud/
+    last_verified: 2026-10-12
+  - id: insurance-claims-center
+    type: portal
+    label: USAA insurance claims center (file a claim, check status)
+    value: https://www.usaa.com/support/insurance/claims/
+    purposes: [claim_delay, claim_denial]
+    access: login
+    notes: Auto and property claims can be reported any time on usaa.com or in the USAA Mobile App.
+    source: https://www.usaa.com/support/insurance/claims/
+    last_verified: 2026-10-12
+  - id: insurance-claims-phone
+    type: phone
+    label: USAA insurance claims (800-531-USAA)
+    value: +1-800-531-8722
+    purposes: [claim_delay, claim_denial]
+    access: human_only
+    source: https://www.usaa.com/support/insurance/claims/
+    last_verified: 2026-10-12
+  - id: glass-claims-phone
+    type: phone
+    label: Auto windshield and glass claims
+    value: +1-800-525-1790
+    purposes: [claim_delay]
+    access: human_only
+    source: https://www.usaa.com/support/insurance/claims/auto/windshield-glass/
     last_verified: 2026-10-12
   - id: billing-rights-mail
     type: mail
@@ -40,6 +108,7 @@ escalation:
   - {rung: written_complaint, channel: billing-rights-mail, note: "Card billing errors must be in writing within 60 days; a call alone does not require USAA to investigate."}
   - {rung: regulator, regulator: cfpb}
   - {rung: state_agency, agency_kind: financial_regulator}
+  - {rung: state_agency, agency_kind: insurance_department, note: "For USAA insurance claim disputes."}
   - {rung: arbitration, note: "USAA credit card agreement: either party may elect AAA arbitration; small claims court is an alternative; FSB pays the administrator's fees."}
 
 playbooks:
@@ -68,8 +137,10 @@ playbooks:
     summary: Tell USAA as soon as reasonably possible by phone, then dispute in writing.
     evidence: [statement with the charge, date you noticed it, card status]
     steps:
-      - do: Call USAA to report the lost or stolen card or unauthorized use.
-        channel: member-services-phone
+      - do: Call the line for the card type to report the lost or stolen card or unauthorized use.
+        channel: credit-fraud-phone
+      - do: For a debit or ATM card, call the debit line, or select "Dispute Transaction" in the account activity online or in the app.
+        channel: debit-fraud-phone
       - do: Write to the billing rights address within 60 days of the statement.
         channel: billing-rights-mail
       - do: If USAA does not resolve it, complain to the CFPB.
@@ -81,12 +152,31 @@ playbooks:
         source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/USAA_FEDERAL_SAVINGS_BANK/bk-credit-card-combined-agreement-398902.pdf
         last_verified: 2026-10-12
 
+  - issue: fraud
+    summary: Call the fraud line for the account type, and report scam messages to abuse@usaa.com.
+    evidence: [transaction details, messages from the scammer, police or FTC report number]
+    steps:
+      - do: For card fraud, call the credit or debit fraud line.
+        channel: credit-fraud-phone
+      - do: If you gave out a password, PIN or logon details, or suspect identity theft, call the identity theft line.
+        channel: identity-theft-phone
+      - do: Email details of suspicious calls, texts or emails.
+        channel: abuse-email
+      - do: Report to the FTC at ReportFraud.ftc.gov, then complain to the CFPB if USAA does not act.
+        regulator: cfpb
+
 facts:
+  - kind: process
+    claim: USAA says auto and property insurance claims can be reported any time in the claims center on usaa.com or in the USAA Mobile App.
+    issues: [claim_delay]
+    source: https://www.usaa.com/support/insurance/claims/
+    last_verified: 2026-10-12
   - kind: policy
     claim: The USAA credit card arbitration section does not apply to Military Lending Act covered borrowers, or to accounts that opted out of arbitration before January 1, 2015.
     source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/USAA_FEDERAL_SAVINGS_BANK/bk-credit-card-combined-agreement-398902.pdf
     last_verified: 2026-10-12
 
 known_blockers:
-  - usaa.com did not respond to automated fetches; insurance claim channels, deposit dispute steps and fraud lines are not recorded here.
+  - usaa.com does not respond to automated page fetches; an agent can link to its pages but may not be able to read them.
+  - Online disputes and claims need USAA logon.
   - Phone service verifies the member.

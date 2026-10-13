@@ -7,10 +7,50 @@ website: https://www.citi.com
 regulators: [cfpb, occ]
 notes: >-
   Citibank, N.A. is a national bank (OCC). It issues Citi-branded cards, co-brand cards (Costco, AAdvantage)
-  and store cards (Home Depot, Macy's, Best Buy and others). Citi's help and contact pages need JavaScript,
-  so most phone numbers here come from the "Contact Phone" column of Citi's card agreements page.
+  and store cards (Home Depot, Macy's, Best Buy and others). Citi's contact pages need JavaScript, so
+  per-card numbers come from the "Contact Phone" column of Citi's card agreements page, and banking
+  channels from the Consumer Deposit Account Agreement (effective November 20, 2025).
 
 channels:
+  - id: card-services-phone
+    type: phone
+    label: Citi credit cards, report a lost or stolen card or unauthorized use
+    value: +1-800-950-5114
+    purposes: [unauthorized_charge, fraud, transaction_dispute, billing_error]
+    access: human_only
+    notes: TTY 711 or other relay service. Citi's fraud page lists the same number for credit cards.
+    source: https://www.citi.com/credit-cards/understanding-credit-cards/what-to-do-when-you-lose-your-credit-card
+    last_verified: 2026-10-12
+  - id: citiphone-banking
+    type: phone
+    label: CitiPhone Banking (1-888-CITIBANK) - bank accounts, debit card lost or stolen, electronic transfer errors
+    value: +1-888-248-4226
+    hours: 24/7
+    purposes: [unauthorized_charge, fraud, transaction_dispute, frozen_funds, fee_reversal]
+    access: human_only
+    source: https://www.citi.com/content/dam/cfs/mobile/assets/JRS/popups/ao/CDAA.pdf
+    last_verified: 2026-10-12
+  - id: eft-error-mail
+    type: mail
+    label: Electronic fund transfer errors (bank accounts)
+    value: "Client Research, Citibank Client Services, P.O. Box 769014, San Antonio, Texas 78245-9014"
+    purposes: [transaction_dispute, unauthorized_charge]
+    source: https://www.citi.com/content/dam/cfs/mobile/assets/JRS/popups/ao/CDAA.pdf
+    last_verified: 2026-10-12
+  - id: lost-card-mail
+    type: mail
+    label: Lost or stolen Citibank Banking Card, or unauthorized transfer (bank accounts)
+    value: "Citibank Client Services, P.O. Box 769004, San Antonio, Texas 78245-9989"
+    purposes: [unauthorized_charge, fraud]
+    source: https://www.citi.com/content/dam/cfs/mobile/assets/JRS/popups/ao/CDAA.pdf
+    last_verified: 2026-10-12
+  - id: spoof-email
+    type: email
+    label: Forward suspicious emails and texts claiming to be Citi
+    value: spoof@citi.com
+    purposes: [fraud]
+    source: https://citicards.citi.com/cbol/fraudprevention/default.htm
+    last_verified: 2026-10-12
   - id: double-cash-phone
     type: phone
     label: Citi Double Cash Card contact phone
@@ -93,7 +133,7 @@ channels:
     last_verified: 2026-10-12
 
 escalation:
-  - {rung: frontline, channel: double-cash-phone, note: "Use the number on the back of the card; the listed numbers are per card product."}
+  - {rung: frontline, channel: card-services-phone, note: "Or the number on the back of the card; per-card numbers are listed below."}
   - {rung: written_complaint, note: "Write to the billing inquiries and correspondence address shown on the front of your statement."}
   - {rung: regulator, regulator: cfpb}
   - {rung: state_agency, agency_kind: financial_regulator}
@@ -141,8 +181,10 @@ playbooks:
     summary: Call the number on the back of the card at once.
     evidence: [statement with the charge, date you noticed it, card status]
     steps:
-      - do: Call the number on the back of the card to report a lost or stolen card or unauthorized use.
-        channel: double-cash-phone
+      - do: Call Citi to report a lost or stolen card or unauthorized use.
+        channel: card-services-phone
+      - do: For a Citibank debit (Banking) card, call CitiPhone Banking (24/7).
+        channel: citiphone-banking
       - do: If Citi does not resolve it, complain to the CFPB.
         regulator: cfpb
     facts:
@@ -150,6 +192,46 @@ playbooks:
         claim: The Citi card agreement says you must call Citi if a card is lost or stolen, or if you think someone has used or may use it without permission.
         issues: [unauthorized_charge, fraud]
         source: https://files.consumerfinance.gov/a/assets/credit-card-agreements/pdf/Q22026/CITIBANK_N.A./Citi_Double_Cash_Cardmember_Agreement-256158.pdf
+        last_verified: 2026-10-12
+
+  - issue: fraud
+    summary: Call the line for the card type and forward scam messages to spoof@citi.com.
+    evidence: [transaction details, messages from the scammer, police or FTC report number]
+    steps:
+      - do: For a credit card, call Citi credit cards.
+        channel: card-services-phone
+      - do: For a debit card or bank account, call CitiPhone Banking.
+        channel: citiphone-banking
+      - do: Forward suspicious emails and texts.
+        channel: spoof-email
+      - do: Report to the FTC at ReportFraud.ftc.gov, then complain to the CFPB if Citi does not act.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: For electronic fund transfer errors on Citibank deposit accounts, Citi must hear from you no later than sixty (60) days after it sent the first statement on which the problem appeared.
+        issues: [fraud, unauthorized_charge, transaction_dispute]
+        source: https://www.citi.com/content/dam/cfs/mobile/assets/JRS/popups/ao/CDAA.pdf
+        last_verified: 2026-10-12
+
+  - issue: frozen_funds
+    summary: Citi may freeze an account in a dispute or suspected fraud, and may close it at any time; ask what proof releases the funds.
+    evidence: [notices from Citi, balance at freeze or closure, proof of ownership and authority over the account]
+    steps:
+      - do: Call CitiPhone Banking and ask why the account is frozen and what written proof Citi needs to release it.
+        channel: citiphone-banking
+      - do: Send the requested proof, and ask in writing when and how the balance will be paid if the account is closed.
+      - do: If the funds are not released, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: If ownership or authority over an account is uncertain, an agency asks for a freeze over suspected elder abuse, or Citi believes a transaction may be fraudulent or unlawful, Citi may freeze the account and refuse transactions until it receives satisfactory written proof of each person's right to the funds.
+        issues: [frozen_funds]
+        source: https://www.citi.com/content/dam/cfs/mobile/assets/JRS/popups/ao/CDAA.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Citi may close a deposit account at any time with or without cause; it then remits the balance minus any amounts owed to Citi.
+        issues: [frozen_funds]
+        source: https://www.citi.com/content/dam/cfs/mobile/assets/JRS/popups/ao/CDAA.pdf
         last_verified: 2026-10-12
 
 facts:
@@ -163,6 +245,6 @@ facts:
     last_verified: 2026-10-12
 
 known_blockers:
-  - Citi's contact, dispute and security pages render only with JavaScript; phone numbers for fraud, banking and complaints were not confirmed.
+  - Citi's contact, dispute and security pages render only with JavaScript; no consumer complaint channel or dispute page was confirmed.
   - The billing-error mailing address is printed on each statement, not in the public agreement.
   - Online disputes and secure messages need sign-in.
