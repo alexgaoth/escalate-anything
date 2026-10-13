@@ -1,0 +1,122 @@
+id: sixt
+name: SIXT (USA)
+aliases: [sixt rent a car, sixt car rental, sixt usa]
+sector: car_rental
+website: https://www.sixt.com
+account_url: https://www.sixt.com/help-center/articles/invoice/
+regulators: [ftc]
+notes: >-
+  SIXT US rentals. Tolls, violations and damage claims are billed separately from the final invoice. SIXT+ car
+  subscriptions have separate terms and are not covered. Values come from sixt.com pages as shown in official-domain
+  search results; sixt.com returned HTTP 403 to direct fetches. Fee amounts can differ by state and agreement version.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: SIXT USA customer service (1-888-SIXT-CAR)
+    value: +1-888-749-8227
+    purposes: [billing_error, deposit_refund, reservation_problem, poor_service]
+    notes: Relay calls are accepted for deaf and hard-of-hearing customers.
+    source: https://www.sixt.com/help-center/articles/invoice/
+    last_verified: 2026-10-12
+  - id: damage-roadside-phone
+    type: phone
+    label: SIXT USA damage and breakdown line (report damage by phone first, then in writing)
+    value: +1-888-749-8543
+    hours: 24/7
+    purposes: [damage_claim, safety_incident]
+    source: https://www.sixt.com/help-center/articles/vehicle-damage/
+    last_verified: 2026-10-12
+  - id: claims-phone
+    type: phone
+    label: SIXT Customer Claims / Liability Department (USA)
+    value: +1-888-749-8555
+    purposes: [damage_claim]
+    notes: The accident FAQ says to choose option 1 for the Liability Department.
+    source: https://www.sixt.com/faqs/commercial-claims/
+    last_verified: 2026-10-12
+  - id: claims-email
+    type: email
+    label: SIXT USA claims management
+    value: claimsmanagement-usa@sixt.com
+    purposes: [damage_claim]
+    notes: Put your SIXT damage number in the subject line.
+    source: https://www.sixt.com/files/helpenter/insurance-categories/credit-card-insurance/mastercard.pdf
+    last_verified: 2026-10-12
+  - id: invoices
+    type: portal
+    label: My Bookings invoices and Customer Support request form
+    value: https://www.sixt.com/help-center/articles/invoice/
+    purposes: [billing_error]
+    access: login
+    notes: Final invoices appear within 3 days of return; self-service covers rentals up to 6 months old, older copies by support ticket.
+    source: https://www.sixt.com/help-center/articles/invoice/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: invoices, note: "For damage claims, write to claims management and ask for photos, repair invoices and the fleet utilization log."}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "SIXT US terms require individual AAA arbitration after notice and 30 days, with jury and class waivers."}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: damage_claim
+    summary: Report damage by phone at once and confirm in writing; deal with SIXT claims management using the damage number.
+    evidence: [rental agreement, SIXT damage number, police report and incident number, your photos at pickup and return, insurance or card benefit claim details]
+    steps:
+      - do: Report any damage immediately by phone, then confirm it in writing. After an accident, get a police report and keep the incident number.
+        channel: damage-roadside-phone
+      - do: Write to claims management with the damage number in the subject line; ask for photos, the repair invoice or estimate, and how fees were calculated.
+        channel: claims-email
+      - do: Give SIXT your credit card insurer's claim details if you use card coverage; SIXT says it cannot bill the card insurer without them.
+      - do: If the claim is unsupported, dispute the charge with your card issuer.
+    facts:
+      - kind: policy
+        claim: SIXT says that if you are not at fault, pursuing the other party does not absolve you of your contractual obligation to pay SIXT for the damage.
+        issues: [damage_claim]
+        source: https://www.sixt.com/help-center/articles/vehicle-damage/
+        last_verified: 2026-10-12
+  - issue: billing_error
+    summary: Toll and cleaning fees follow the rental terms; ask customer support through the request form with the rental agreement number.
+    evidence: [invoice, rental agreement, toll statements, photos of the car's condition at return]
+    steps:
+      - do: Download the final invoice from My Bookings (within 3 days of return).
+        channel: invoices
+      - do: Send the question through the Customer Support request form or call customer service with the rental agreement number.
+        channel: customer-service-phone
+      - do: If not corrected, dispute the charge with your card issuer.
+    facts:
+      - kind: fee
+        claim: SIXT's US terms charge an administrative fee of $15.99 per usage day, up to $99 per rental agreement, plus the toll, when an automated toll lane is used without your own transponder or a SIXT toll product.
+        issues: [billing_error]
+        source: https://www.sixt.com/shared/t-c/sixt_US_en_CALIFORNIA.pdf
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: The California rental agreement allows a reasonable cleaning fee not to exceed $400 if the car is returned substantially less clean or with evidence of smoking or vaping; SIXT's US fleet is smoke-free.
+        issues: [billing_error]
+        source: https://www.sixt.com/shared/t-c/sixt_US_en_CALIFORNIA.pdf
+        last_verified: 2026-10-12
+  - issue: deposit_refund
+    summary: SIXT releases the deposit hold shortly after return; the bank then takes several business days.
+    evidence: [rental agreement, return time, card statement showing the hold]
+    steps:
+      - do: Wait the bank's clearing time after return.
+      - do: If the hold is still there after that, call customer service, then your card issuer.
+        channel: customer-service-phone
+    facts:
+      - kind: deadline
+        claim: SIXT says the deposit is released within one business day after return, and the bank clears the hold within 3-10 business days depending on the card type.
+        issues: [deposit_refund]
+        source: https://www.sixt.com/help-center/articles/how-much-deposit-does-sixt-take-and-what-determines-the-amount/
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: SIXT's US deposit for standard vehicles is the rental amount plus USD 300 at some locations and plus USD 200 at others; some non-airport branches in Texas, Colorado, Louisiana, Minnesota, Illinois and Indiana require more.
+        issues: [deposit_refund]
+        source: https://www.sixt.com/help-center/articles/how-much-deposit-does-sixt-take-in-the-usa/
+        last_verified: 2026-10-12
+
+known_blockers:
+  - sixt.com returns HTTP 403 to automated fetches.
+  - Invoices and the support request form are in My Bookings and may need sign-in.

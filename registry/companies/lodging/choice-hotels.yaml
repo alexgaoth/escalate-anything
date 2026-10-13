@@ -1,0 +1,121 @@
+id: choice-hotels
+name: Choice Hotels International
+aliases: [choice hotels, choice privileges, comfort inn, comfort suites, quality inn, econo lodge, sleep inn, clarion, cambria hotels]
+sector: lodging
+website: https://www.choicehotels.com
+account_url: https://www.choicehotels.com/support
+regulators: [ftc]
+notes: >-
+  Choice's terms say most reservations are for properties owned and operated by franchisees, and that payments to a hotel
+  are matters between the guest and the hotel. Choice-run phone lines and the customer service form are the corporate
+  channels. Values here come from choicehotels.com pages as shown in official-domain search results; the site timed out
+  for direct fetches.
+
+channels:
+  - id: customer-relations-phone
+    type: phone
+    label: Choice Hotels Customer Relations
+    value: +1-800-300-8800
+    purposes: [billing_error, refund_request, reservation_problem, poor_service, deposit_refund]
+    notes: The support page lists it as available 24/7; a Choice Privileges page lists 7 a.m. - 10 p.m. MST, 7 days a week. Hearing-impaired callers can use 711.
+    source: https://www.choicehotels.com/support/contact
+    last_verified: 2026-10-12
+  - id: reservations-phone
+    type: phone
+    label: Choice Hotels reservations (also cancels and changes reservations)
+    value: +1-877-424-6423
+    hours: 24/7
+    purposes: [reservation_problem, refund_request]
+    source: https://www.choicehotels.com/support/contact
+    last_verified: 2026-10-12
+  - id: choice-privileges-phone
+    type: phone
+    label: Choice Privileges Service Center
+    value: +1-888-770-6800
+    hours: 24/7
+    purposes: [account_access]
+    source: https://www.choicehotels.com/choice-privileges/contact
+    last_verified: 2026-10-12
+  - id: customer-service-form
+    type: web_form
+    label: Choice Hotels customer service form
+    value: https://www.choicehotels.com/support/customer-service-form
+    purposes: [billing_error, refund_request, reservation_problem, poor_service, deposit_refund]
+    notes: Choice support pages recommend the online form for faster service.
+    source: https://www.choicehotels.com/support/contact
+    last_verified: 2026-10-12
+  - id: legal-notice-email
+    type: email
+    label: Choice legal notices (Dispute Notice before arbitration; Choice Privileges arbitration opt-out)
+    value: legalnotices@choicehotels.com
+    notes: The Terms of Use say to send the Dispute Notice by email here and by mail to the legal department.
+    source: https://www.choicehotels.com/legal/terms-of-use
+    last_verified: 2026-10-12
+  - id: legal-notice-mail
+    type: mail
+    label: Choice legal department (Dispute Notice address)
+    value: Choice Hotels International, Inc., ATTN Legal Department, 915 Meeting St Suite 600, North Bethesda, MD 20852
+    purposes: [billing_error, refund_request]
+    source: https://www.choicehotels.com/legal/terms-of-use
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-relations-phone, note: "Front desk or hotel manager first while you are there."}
+  - {rung: written_complaint, channel: customer-service-form}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: legal-notice-mail, note: "Signed Dispute Notice first, then 60 days of informal resolution, then individual JAMS arbitration."}
+
+playbooks:
+  - issue: refund_request
+    summary: The hotel sets the cancellation deadline shown at booking; advance purchase rates cannot be cancelled.
+    evidence: [confirmation number, cancellation deadline from the confirmation page, cancellation number, card statement]
+    steps:
+      - do: Find the cancellation deadline on the confirmation; it varies by property.
+      - do: Cancel in your Choice Privileges account or on the "manage reservations" page with confirmation number and last name, or call reservations. Keep the cancellation number.
+        channel: reservations-phone
+      - do: If you are charged after cancelling on time, call Customer Relations and then send the customer service form with the cancellation number.
+        channel: customer-service-form
+      - do: If the refund is not paid, dispute the charge with your card issuer.
+    facts:
+      - kind: policy
+        claim: Every Choice reservation has a cancellation deadline that varies by property and is shown on the confirmation page before booking; advance purchase rate reservations cannot be modified or cancelled.
+        issues: [refund_request]
+        source: https://www.choicehotels.com/support/faq
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The cash portion of a Points Plus Cash booking is non-refundable; the points are re-deposited when the cancellation is within the hotel's deadline.
+        issues: [refund_request]
+        source: https://www.choicehotels.com/choice-privileges/faq
+        last_verified: 2026-10-12
+  - issue: billing_error
+    summary: Choice treats payments to the hotel as between you and the hotel; ask the hotel first, then Customer Relations.
+    evidence: [folio, confirmation number, card statement]
+    steps:
+      - do: Ask the front desk or hotel manager to correct the folio.
+      - do: If the hotel does not fix it, call Customer Relations and send the customer service form with the folio.
+        channel: customer-service-form
+      - do: Dispute the charge with your card issuer if it is not corrected.
+    facts:
+      - kind: policy
+        claim: Choice's Terms of Use say payments to hotels or vacation rental management companies are to be resolved solely between the guest and that hotel or company, and Choice does not assume involvement in those disputes.
+        issues: [billing_error, deposit_refund]
+        source: https://www.choicehotels.com/legal/terms-of-use
+        last_verified: 2026-10-12
+
+facts:
+  - kind: fee
+    claim: Choice Privileges rules say members are responsible for incidental charges and for any resort or other mandatory fees imposed by the hotel.
+    source: https://www.choicehotels.com/choice-privileges/rules-regulations
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Choice's Terms of Use require a signed Dispute Notice, a 60-day informal resolution period, and then individual binding arbitration before JAMS, with a class and jury waiver.
+    source: https://www.choicehotels.com/legal/terms-of-use
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: Choice Privileges members can opt out of the program's arbitration clause by signed notice with name and account number within 30 calendar days of opening the account or of the clause being made available.
+    source: https://www.choicehotels.com/choice-privileges/rules-regulations
+    last_verified: 2026-10-12
+
+known_blockers:
+  - choicehotels.com timed out for automated fetches; the customer service form may need the person to submit it.

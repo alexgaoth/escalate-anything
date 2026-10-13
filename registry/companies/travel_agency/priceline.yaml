@@ -1,0 +1,109 @@
+id: priceline
+name: Priceline
+aliases: [priceline.com, priceline com llc, priceline penny]
+sector: travel_agency
+parent: Booking Holdings Inc.
+website: https://www.priceline.com
+account_url: https://www.priceline.com/penny
+regulators: [us-dot, ftc]
+notes: >-
+  priceline.com LLC runs Priceline. Help for existing trips starts with Penny, Priceline's AI assistant, which can modify
+  itineraries, check refund status and connect to live agents (help.priceline.com redirects there). Express Deals are
+  non-refundable. Values come from priceline.com pages as shown in official-domain search results; priceline.com returned
+  HTTP 403 to direct fetches.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Priceline customer service (United States and Canada)
+    value: +1-877-477-5807
+    purposes: [flight_cancellation, refund_request, reservation_problem]
+    source: https://www.priceline.com/partner/corporate-contact-information
+    last_verified: 2026-10-12
+  - id: customer-service-email
+    type: email
+    label: Priceline customer service email
+    value: customer.service@priceline.com
+    purposes: [flight_cancellation, refund_request, reservation_problem, poor_service]
+    source: https://www.priceline.com/partner/corporate-contact-information
+    last_verified: 2026-10-12
+  - id: penny
+    type: chat
+    label: Penny (AI assistant; modify trips, check refund status, connect to a live agent)
+    value: https://www.priceline.com/penny
+    purposes: [flight_cancellation, refund_request, reservation_problem]
+    source: https://help.priceline.com/contact-us-ByPSCAA9o
+    last_verified: 2026-10-12
+  - id: notice-of-dispute-mail
+    type: mail
+    label: Notice of Dispute and arbitration opt-out (certified mail)
+    value: Legal Department, priceline.com LLC, 800 Connecticut Avenue, Norwalk, CT 06854
+    purposes: [refund_request, flight_cancellation]
+    notes: Describe the claim and the specific relief sought. Priceline has 60 days to resolve it before arbitration.
+    source: https://www.priceline.com/static-pages/terms_en.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: customer-service-email}
+  - {rung: regulator, regulator: us-dot, note: "For air tickets bought through Priceline."}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: notice-of-dispute-mail, note: "Notice of Dispute, 60 days, then AAA arbitration; small claims court is allowed."}
+
+playbooks:
+  - issue: flight_cancellation
+    summary: Ask Priceline for the refund owed when the airline cancels; Express Deals and Cancellation Coverage have their own limits.
+    evidence: [Priceline trip number, airline confirmation code, ticket number, airline cancellation notice]
+    steps:
+      - do: Ask Penny or customer service for a refund to the original payment method for the cancelled flight.
+        channel: penny
+      - do: If needed, contact the airline directly; Priceline's help center lists airline contacts.
+      - do: Put the request in writing by email with the airline's notice.
+        channel: customer-service-email
+      - do: If the refund is not paid, file a complaint with the U.S. DOT and dispute the charge with your card issuer.
+        regulator: us-dot
+    facts:
+      - kind: policy
+        claim: Priceline's optional Cancellation Coverage must be bought at booking; the trip must be cancelled on the Priceline website at least 24 hours before the first departure, the coverage cost is non-refundable, and airline-initiated cancellations are not covered by it.
+        issues: [flight_cancellation, refund_request]
+        source: https://www.priceline.com/static-pages/cancel-anytime.html
+        last_verified: 2026-10-12
+  - issue: refund_request
+    summary: Express Deals cannot be cancelled or refunded; other bookings follow the provider's rules.
+    evidence: [trip number, booking type (Express Deal or standard), confirmation email, cancellation confirmation]
+    steps:
+      - do: Check whether the booking is an Express Deal; those are non-refundable.
+      - do: For other bookings, cancel and check refund status with Penny, or call customer service.
+        channel: penny
+      - do: If unresolved, email customer service, then send a Notice of Dispute or dispute the charge with your card issuer.
+        channel: customer-service-email
+    facts:
+      - kind: policy
+        claim: Priceline's terms say Express Deals flight reservations are non-cancelable, non-refundable, non-changeable and non-transferable, and the payment method is charged whether or not the booking is used.
+        issues: [refund_request, flight_cancellation]
+        source: https://www.priceline.com/static-pages/terms_en.html
+        last_verified: 2026-10-12
+  - issue: reservation_problem
+    summary: Contact the provider on the spot, then Priceline, then write.
+    evidence: [trip number, photos, receipts for replacement travel or lodging]
+    steps:
+      - do: Ask the hotel, airline or car company on the spot for an equal alternative.
+      - do: Call Priceline customer service while the problem is happening.
+        channel: customer-service-phone
+      - do: Afterwards email a refund request with receipts.
+        channel: customer-service-email
+
+facts:
+  - kind: policy
+    claim: Priceline's terms require AAA arbitration with a class action waiver after a Notice of Dispute and 60 days; small claims court is allowed, and claims must be brought within two (2) years.
+    source: https://www.priceline.com/static-pages/terms_en.html
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: You can reject arbitration by certified mail to the notice address within 30 days of purchase or before using the purchased services, whichever comes first.
+    source: https://www.priceline.com/static-pages/terms_en.html
+    last_verified: 2026-10-12
+
+known_blockers:
+  - priceline.com returns HTTP 403 to automated fetches; the help center redirects to the Penny assistant.
+  - Opting out of arbitration stops further purchases on the site until Priceline says otherwise.
