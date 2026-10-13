@@ -1,7 +1,20 @@
 {
   "name": "redress",
   "version": "0.1.0",
-  "description": "Resolve problems with large US companies: playbooks, verified contacts, escalation ladders, a local case log and bill watching.",
-  "author": { "name": "Alex Gao" },
-  "keywords": ["consumer", "complaints", "refunds", "bills", "escalation"]
+  "description": "Resolve problems with US companies and avoid scams: playbooks, verified contacts, escalation ladders, scam checks, a local case log and bill watching.",
+  "author": {
+    "name": "Alex Gao"
+  },
+  "keywords": [
+    "consumer",
+    "complaints",
+    "refunds",
+    "scams",
+    "bills",
+    "escalation",
+    "mcp"
+  ],
+  "homepage": "https://github.com/alexgaoth/redress",
+  "repository": "https://github.com/alexgaoth/redress",
+  "license": "MIT"
 }
