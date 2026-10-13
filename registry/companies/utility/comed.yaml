@@ -6,49 +6,192 @@ parent: Exelon Corporation
 website: https://www.comed.com
 notes: >-
   Electric utility for northern Illinois, including Chicago. Regulated by the Illinois Commerce Commission
-  (ICC), whose disconnection, deposit and payment rules are in 83 Ill. Adm. Code 280. comed.com returned
-  empty pages to automated fetches, so ComEd's customer service, outage and downed-wire phone numbers,
-  complaint channel and outage reimbursement terms were not confirmed for this file. Ask the customer for
-  the number on their bill.
+  (ICC), whose disconnection, deposit and payment rules are in 83 Ill. Adm. Code 280. comed.com pages
+  return empty to automated fetches; values below come from ComEd's customer handbook and claim form
+  PDFs (2023) and comed.com search results.
 
 channels:
+  - id: customer-service-phone
+    type: phone
+    label: Service inquiries and outage reporting (800-EDISON1)
+    value: +1-800-334-7661
+    hours: "Representatives 7 a.m.-7 p.m.; outages and emergencies 24/7"
+    purposes: [billing_error, bill_increase, disconnection, service_outage, deposit_refund, poor_service]
+    source: https://www.comed.com/SiteCollectionDocuments/ComEd_Welcome_Kit.pdf
+    last_verified: 2026-10-12
+  - id: customer-service-spanish-phone
+    type: phone
+    label: Service inquiries and outages in Spanish (800-95-LUCES)
+    value: +1-800-955-8237
+    source: https://www.comed.com/SiteCollectionDocuments/ComEd_Welcome_Kit.pdf
+    last_verified: 2026-10-12
+  - id: emergency-phone
+    type: phone
+    label: Downed wires and power outages (leave the area, then call)
+    value: +1-800-334-7661
+    hours: 24/7
+    purposes: [service_outage]
+    source: https://www.comed.com/SiteCollectionDocuments/ComEd_Welcome_Kit.pdf
+    last_verified: 2026-10-12
+  - id: business-phone
+    type: phone
+    label: Business customer service (1-877-4-COMED-1)
+    value: +1-877-426-6331
+    source: https://www.comed.com/my-account/customer-support/contact-us
+    last_verified: 2026-10-12
+  - id: payment-assistance-phone
+    type: phone
+    label: Financial assistance
+    value: +1-888-806-2273
+    purposes: [disconnection]
+    source: https://www.comed.com/SiteCollectionDocuments/ComEd_Welcome_Kit.pdf
+    last_verified: 2026-10-12
+  - id: complaint-form
+    type: web_form
+    label: Contact Us Online form (billing, meter reading, property damage claims, service requests)
+    value: https://secure.comed.com/MyAccount/CustomerSupport/Pages/ContactUsForms.aspx
+    purposes: [billing_error, poor_service]
+    source: https://www.comed.com/my-account/customer-support/contact-us
+    last_verified: 2026-10-12
+  - id: outage-report-online
+    type: web_form
+    label: Report an outage online
+    value: https://secure.comed.com/Outages/ReportanOutage/Pages/ReportanOutage.aspx
+    purposes: [service_outage]
+    source: https://www.comed.com/my-account/customer-support/contact-us
+    last_verified: 2026-10-12
+  - id: claims-mail
+    type: mail
+    label: Claims Department (mail the PDF claim form with documentation)
+    value: "Commonwealth Edison Company, Claims Department, P.O. Box 5520, Villa Park, IL 60181-4906"
+    purposes: [service_outage]
+    notes: "Claim form: https://www.comed.com/SiteCollectionDocuments/MyAccount/CustomerSupport/comedclaimform.pdf"
+    source: https://www.comed.com/SiteCollectionDocuments/MyAccount/CustomerSupport/comedclaimform.pdf
+    last_verified: 2026-10-12
+  - id: payment-arrangement
+    type: web_form
+    label: Deferred Payment Arrangement
+    value: https://www.comed.com/DPA
+    purposes: [disconnection]
+    notes: Or call 800-334-7661.
+    source: https://www.comed.com/SiteCollectionDocuments/ComEd_Welcome_Kit.pdf
+    last_verified: 2026-10-12
   - id: payment-assistance
     type: web_form
-    label: ComEd energy assistance programs (link listed by the Illinois Commerce Commission)
-    value: https://www.comed.com/MyAccount/CustomerSupport/Pages/AssistancePrograms.aspx
+    label: Payment assistance programs
+    value: https://www.comed.com/paymentassistance
     purposes: [disconnection]
-    notes: The ICC consumer site lists this link; the page did not render for automated review.
-    source: https://plugin.illinois.gov/consumer-protections/energy-assistance/help-paying-your-bill.html
+    source: https://www.comed.com/my-account/customer-support/contact-us
+    last_verified: 2026-10-12
+  - id: medical-certification
+    type: web_form
+    label: Medical certification (request form for a doctor or local Board of Health)
+    value: https://www.comed.com/my-account/customer-support/contact-us/medical-certification
+    purposes: [disconnection]
+    source: https://www.comed.com/my-account/customer-support/contact-us/medical-certification
     last_verified: 2026-10-12
 
 escalation:
-  - {rung: frontline, note: "Call ComEd customer service (number on the bill)."}
-  - {rung: supervisor, note: "Ask the representative for a supervisor. Write down the name and reference number."}
-  - {rung: written_complaint, note: "ComEd's complaint channel was not confirmed. Send a dated letter and keep call notes with reference numbers."}
-  - {rung: state_agency, agency_kind: utility_commission, note: "Illinois Commerce Commission (ICC), Consumer Services; consumer services counselors handle informal complaints."}
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, note: "ComEd's handbook says to ask for a supervisor if a representative cannot help."}
+  - {rung: written_complaint, channel: complaint-form}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Illinois Commerce Commission (ICC), Consumer Services Division. Contact ComEd first; a formal complaint requires an informal complaint first."}
   - {rung: state_agency, agency_kind: attorney_general, note: "Illinois Attorney General."}
 
 playbooks:
+  - issue: billing_error
+    summary: Dispute the bill with ComEd, ask for a supervisor, then file an informal complaint with the ICC Consumer Services Division.
+    evidence: [the disputed bill, previous bills, meter photos with dates, call notes with reference numbers]
+    steps:
+      - do: Call ComEd and dispute the bill. If the representative cannot help, ask for a supervisor. Get a reference number.
+        channel: customer-service-phone
+      - do: Put the dispute in writing through the online contact form.
+        channel: complaint-form
+      - do: If a supervisor cannot resolve it, file an informal complaint with the ICC Consumer Services Division.
+    facts:
+      - kind: process
+        claim: ComEd's handbook says to ask for a supervisor if a representative cannot help, then contact the ICC Consumer Services Division. During an ICC informal complaint, an ICC staff member and a ComEd representative are assigned, and ComEd has 14 days to attempt to resolve it. A formal ICC complaint requires an informal complaint first.
+        issues: [billing_error, poor_service]
+        source: https://www.comed.com/SiteCollectionDocuments/ComEd_Welcome_Kit.pdf
+        last_verified: 2026-10-12
+
   - issue: disconnection
-    summary: Ask ComEd for a deferred payment arrangement, apply for LIHEAP and ComEd assistance, and use a medical certificate for 60 days of protection.
+    summary: Ask for a deferred payment arrangement, call the assistance line, and send a medical certificate for 60 days of protection.
     evidence: [disconnection notice, account balance, medical certification, LIHEAP application]
     steps:
-      - do: Call ComEd before the disconnection date and ask for a deferred payment arrangement.
-      - do: Apply for LIHEAP and ComEd's energy assistance programs.
-        channel: payment-assistance
-      - do: If someone in the home has a medical need for service, have a medical certification sent to ComEd.
+      - do: Set up a deferred payment arrangement online or by phone before the disconnection date.
+        channel: payment-arrangement
+      - do: Call the financial assistance line about LIHEAP and ComEd programs.
+        channel: payment-assistance-phone
+      - do: If someone in the home has a medical need for service, have a doctor or the local Board of Health send a medical certification.
+        channel: medical-certification
       - do: If ComEd does not help, file an informal complaint with the ICC.
     facts:
       - kind: policy
-        claim: Under ICC rules (83 Ill. Adm. Code 280), a certified medical necessity gives temporary (60 days) protection from disconnection of residential service, after which the utility sets a Medical Payment Arrangement.
+        claim: A residential customer with a past-due amount is eligible for a deferred payment arrangement as long as they have not failed to complete one in the past 12 months.
+        issues: [disconnection]
+        source: https://www.comed.com/SiteCollectionDocuments/ComEd_Welcome_Kit.pdf
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: ComEd's deferred payment arrangement takes a down payment and spreads the rest over 4-12 months depending on eligibility, paid with the regular monthly bill.
+        issues: [disconnection]
+        source: https://www.comed.com/DPA
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: A medical certificate from a doctor or local Board of Health halts disconnection for 60 days if the customer has not used one in the past 12 months, or paid off the balance from the last one. ComEd then contacts the customer to set up a payment arrangement.
+        issues: [disconnection]
+        source: https://www.comed.com/my-account/customer-support/contact-us/medical-certification
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Under ICC rules (83 Ill. Adm. Code 280), certified medical necessity gives temporary (60 days) protection from disconnection, and a section governs disconnection of residential heating service from December 1 through March 31.
         issues: [disconnection]
         source: https://www.icc.illinois.gov/consumers/rules-applicable-to-utilities
         last_verified: 2026-10-12
-      - kind: policy
-        claim: ICC Part 280 gives customers deferred payment arrangements to retire past-due debts, and has a section on disconnection of residential heating service from December 1 through March 31 and on winter reconnection of former residential customers.
+      - kind: deadline
+        claim: If service was disconnected for non-payment and the payment covers the full amount needed, power should be restored within 2 hours.
         issues: [disconnection]
-        source: https://www.icc.illinois.gov/consumers/rules-applicable-to-utilities
+        source: https://www.comed.com/SiteCollectionDocuments/ComEd_Welcome_Kit.pdf
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Report the outage; ComEd reimburses storm and equipment-failure losses only under Illinois law for large outages (more than 30,000 customers for 4+ hours).
+    evidence: [outage dates and times, itemized list of spoiled food with prices, receipts, repair bills or estimates, photos]
+    steps:
+      - do: Report the outage online or by phone.
+        channel: outage-report-online
+      - do: To claim a loss, mail the claim form with documentation. Keep damaged items (except spoiled food) until ComEd authorizes disposal.
+        channel: claims-mail
+      - do: If you do not accept ComEd's proposed resolution, complain to the ICC.
+    facts:
+      - kind: policy
+        claim: ComEd does not reimburse damage from storms, wind, ice, accidents beyond its control, vandalism, tree or wildlife contact, equipment failure, scheduled outages or normal operations, except possibly under 220 ILCS 5/16-125(e) and (f).
+        issues: [service_outage]
+        source: https://www.comed.com/SiteCollectionDocuments/MyAccount/CustomerSupport/comedclaimform.pdf
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: Under 220 ILCS 5/16-125(e), a customer may claim actual damages when more than 30,000 customers have a continuous interruption of four hours or more; 16-125(f) covers replacement value of goods damaged by a surge affecting more than 30,000 customers. The ICC can waive this for unpreventable weather, tampering, unrest or animals, or third-party damage.
+        issues: [service_outage]
+        source: https://www.comed.com/SiteCollectionDocuments/MyAccount/CustomerSupport/comedclaimform.pdf
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Food spoilage claims need an itemized list of spoiled items with each price and the total, plus receipts or canceled checks if any.
+        issues: [service_outage]
+        source: https://www.comed.com/SiteCollectionDocuments/MyAccount/CustomerSupport/comedclaimform.pdf
+        last_verified: 2026-10-12
+
+  - issue: deposit_refund
+    summary: ComEd refunds deposits with interest after 12 months of satisfactory payment; eligible residential customers are no longer charged deposits.
+    evidence: [deposit receipt, 12 months of payment history]
+    steps:
+      - do: After 12 consecutive months with fewer than four late payments, ask ComEd to refund the deposit.
+        channel: customer-service-phone
+    facts:
+      - kind: policy
+        claim: Deposits earn interest at an ICC-set rate and are refunded after 12 consecutive months of service with fewer than four late payments, no disconnection for non-payment, no meter tampering and no past-due balance. Eligible residential customers are no longer assessed deposits.
+        issues: [deposit_refund]
+        source: https://www.comed.com/SiteCollectionDocuments/ComEd_Welcome_Kit.pdf
         last_verified: 2026-10-12
 
 known_blockers:
-  - comed.com returns empty pages to automated fetches; ComEd phone numbers, complaint channel and outage claim terms are not in this file.
+  - comed.com HTML pages return empty to automated fetches; use the phone line or the PDF forms.
+  - Medical certification must come from a doctor or the local Board of Health.

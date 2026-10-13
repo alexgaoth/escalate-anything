@@ -6,13 +6,78 @@ website: https://www.eversource.com
 notes: >-
   Electric and gas utility in Connecticut, Massachusetts and New Hampshire. Regulators by state:
   Connecticut Public Utilities Regulatory Authority (PURA), Massachusetts Department of Public Utilities
-  (DPU), New Hampshire Public Utilities Commission. eversource.com shows phone numbers, programs and
-  protections only after a town is selected (rendered by script), so state-specific customer service,
-  outage and gas emergency numbers were not confirmed for this file; ask the customer to read the
-  number on their bill or select their town at https://www.eversource.com/residential/contact-us.
+  (DPU), New Hampshire Public Utilities Commission; Eversource's March 2024 NH bill insert sends unresolved
+  NH billing disputes to the New Hampshire Department of Energy. eversource.com shows phone numbers only
+  after a town is selected; the state numbers below come from Eversource's static maintenance page, state
+  pages and bill inserts. Eversource warns customers about fake numbers online and says to use the number
+  printed on the bill. Massachusetts has separate Eastern (800-592-2000) and Western (877-659-6326) lines.
   Connecticut protections below are from PURA.
 
 channels:
+  - id: customer-service-phone-ct
+    type: phone
+    label: Connecticut electric service, outage or emergency
+    value: +1-800-286-2000
+    purposes: [billing_error, bill_increase, service_outage, poor_service]
+    source: https://cdn.eversource.com/prod/maintenance_pages/planned_maintanence.htm
+    last_verified: 2026-10-12
+  - id: gas-emergency-phone-ct
+    type: phone
+    label: Connecticut gas leak or emergency (call 911 first)
+    value: +1-877-944-5325
+    hours: 24/7
+    source: https://www.eversource.com/residential/safety/natural-gas-safety/report-gas-leak/ct
+    last_verified: 2026-10-12
+  - id: billing-help-electric-ct
+    type: phone
+    label: Connecticut payment help, electric
+    value: +1-800-286-2828
+    purposes: [disconnection]
+    source: https://www.eversource.com/content/residential/account-billing/payment-assistance/ct
+    last_verified: 2026-10-12
+  - id: billing-help-gas-ct
+    type: phone
+    label: Connecticut payment help, gas
+    value: +1-800-438-2278
+    purposes: [disconnection]
+    source: https://www.eversource.com/content/residential/account-billing/payment-assistance/ct
+    last_verified: 2026-10-12
+  - id: customer-service-phone-east-ma
+    type: phone
+    label: Eastern Massachusetts customer service, electric outage or emergency, and gas leak or emergency
+    value: +1-800-592-2000
+    purposes: [billing_error, bill_increase, disconnection, service_outage, poor_service]
+    source: https://cdn.eversource.com/prod/maintenance_pages/planned_maintanence.htm
+    last_verified: 2026-10-12
+  - id: customer-service-phone-west-ma
+    type: phone
+    label: Western Massachusetts customer service, electric outage or emergency
+    value: +1-877-659-6326
+    purposes: [billing_error, bill_increase, disconnection, service_outage, poor_service]
+    source: https://cdn.eversource.com/prod/maintenance_pages/planned_maintanence.htm
+    last_verified: 2026-10-12
+  - id: gas-emergency-phone-ma-former-columbia
+    type: phone
+    label: Massachusetts gas leak or emergency, former Columbia Gas territory (call 911 first)
+    value: +1-800-525-8222
+    hours: 24/7
+    source: https://www.eversource.com/residential/safety/natural-gas-safety/report-gas-leak/egma
+    last_verified: 2026-10-12
+  - id: customer-service-phone-nh
+    type: phone
+    label: New Hampshire customer service and electric outage or emergency
+    value: +1-800-662-7764
+    hours: "Customer service Mon-Fri 8 a.m.-6 p.m."
+    purposes: [billing_error, bill_increase, disconnection, service_outage, poor_service]
+    source: https://www.eversource.com/docs/bill-inserts/nh/nh-customer-rights-mar-24.pdf?sfvrsn=5c372677_1
+    last_verified: 2026-10-12
+  - id: complaint-mail-nh
+    type: mail
+    label: New Hampshire written inquiries
+    value: "Eversource, PO Box 330, Manchester, NH 03105-0330"
+    purposes: [billing_error]
+    source: https://www.eversource.com/docs/bill-inserts/nh/nh-customer-rights-mar-24.pdf?sfvrsn=5c372677_1
+    last_verified: 2026-10-12
   - id: contact-page
     type: web_form
     label: Contact Us (select your town to see phone numbers and emergency lines)
@@ -54,10 +119,10 @@ channels:
     last_verified: 2026-10-12
 
 escalation:
-  - {rung: frontline, channel: contact-page, note: "Call the customer service number for the customer's town (shown on the bill or after selecting the town)."}
+  - {rung: frontline, note: "Call the state line: CT 800-286-2000, Eastern MA 800-592-2000, Western MA 877-659-6326, NH 800-662-7764 (or the number on the bill)."}
   - {rung: supervisor, note: "Ask the representative for a supervisor. Write down the name and reference number."}
-  - {rung: written_complaint, note: "Eversource does not publish a complaint address or form. Send a dated letter or keep call notes with reference numbers; Connecticut PURA asks customers to show they tried to resolve the issue with the utility first."}
-  - {rung: state_agency, agency_kind: utility_commission, note: "Connecticut: Public Utilities Regulatory Authority (PURA). Massachusetts: Department of Public Utilities (DPU). New Hampshire: Public Utilities Commission."}
+  - {rung: written_complaint, note: "New Hampshire: write to Eversource, PO Box 330, Manchester, NH 03105-0330. CT and MA complaint addresses were not confirmed; send a dated letter and keep call notes. Connecticut PURA asks customers to show they tried to resolve the issue with the utility first."}
+  - {rung: state_agency, agency_kind: utility_commission, note: "Connecticut: Public Utilities Regulatory Authority (PURA). Massachusetts: Department of Public Utilities (DPU). New Hampshire: Public Utilities Commission; Eversource's NH bill insert names the NH Department of Energy (1-800-852-3793) for unresolved billing disputes."}
   - {rung: state_agency, agency_kind: attorney_general, note: "Attorney General of Connecticut, Massachusetts or New Hampshire, by the account's state."}
 
 playbooks:
@@ -65,8 +130,9 @@ playbooks:
     summary: Dispute the bill with Eversource first and keep records; in Connecticut, PURA takes the complaint only after you tried the utility.
     evidence: [the disputed bill, previous bills, meter photos with dates, call notes with reference numbers]
     steps:
-      - do: Call Eversource customer service for your town and dispute the bill. Get a reference number.
-        channel: contact-page
+      - do: Call Eversource customer service for your state and dispute the bill. Get a reference number.
+        channel: customer-service-phone-ct
+        note: Use the line for the account's state or region.
       - do: If not resolved, complain to the state regulator (PURA, DPU or NH PUC) with your records.
     facts:
       - kind: process
@@ -84,7 +150,8 @@ playbooks:
       - do: In Connecticut, apply for Financial Hardship designation (renew each October) and the Matching Payment Program.
         channel: payment-assistance
       - do: If someone has a serious or life-threatening illness, ask for Medical Protection with a physician's certification.
-        channel: contact-page
+        channel: customer-service-phone-ct
+        note: Use the line for the account's state or region.
       - do: If Eversource does not help, contact the state regulator before the shutoff date.
     facts:
       - kind: policy
@@ -133,7 +200,19 @@ playbooks:
         source: https://www.eversource.com/residential/services/claims/property-damage-claims
         last_verified: 2026-10-12
 
+facts:
+  - kind: policy
+    claim: In New Hampshire, a customer who believes a medical emergency exists or would result from disconnection may be protected from disconnection; call 1-800-662-7764. Unresolved billing disputes can go to the New Hampshire Department of Energy at 1-800-852-3793.
+    issues: [disconnection, billing_error]
+    source: https://www.eversource.com/docs/bill-inserts/nh/nh-customer-rights-mar-24.pdf?sfvrsn=5c372677_1
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: When Eversource cannot read the meter it sends an estimated bill, and adjusts billing when an actual reading is obtained.
+    issues: [billing_error]
+    source: https://www.eversource.com/docs/bill-inserts/nh/nh-customer-rights-mar-24.pdf?sfvrsn=5c372677_1
+    last_verified: 2026-10-12
+
 known_blockers:
-  - eversource.com renders phone numbers and state programs only after a town is selected; automated fetches see placeholders.
+  - eversource.com renders phone numbers and state programs only after a town is selected; automated fetches see placeholders. Confirm the number on the customer's bill.
   - Outage reporting online needs the account phone number or a sign-in.
   - Medical Protection needs a physician's certification.
