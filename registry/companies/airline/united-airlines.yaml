@@ -9,40 +9,149 @@ regulators: [us-dot]
 channels:
   - id: customer-service-phone
     type: phone
-    label: Customer service (1-800-UNITED-1)
+    label: Reservations and customer service, English (1-800-UNITED-1)
     value: +1-800-864-8331
+    hours: 24 hours daily
     purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, ancillary_fee_refund]
-    notes: United's refund form page gives this number to call if the online form returns an error.
-    source: https://www.united.com/ual/en/IL/customer/refund
+    notes: For calls from the U.S. and Canada. Spanish +1-800-426-5561, 24 hours daily. Booking a ticket by phone has a $25 fee.
+    source: https://www.united.com/en/us/fly/help/contact-reservations.html
     last_verified: 2026-10-12
-  - id: refund-form
+  - id: chat-and-text
+    type: sms
+    label: Text an agent (text UNITED to 32050)
+    value: "32050"
+    purposes: [flight_cancellation, flight_delay, refund_request]
+    notes: Send the word UNITED to short code 32050. The Help Center also has a Chat now button; the reservations directory says chat is available 24 hours a day.
+    source: https://www.united.com/en/us/fly/help-center.html
+    last_verified: 2026-10-12
+  - id: customer-care-form
     type: web_form
-    label: Refund Form (tickets, bag fees and other fees)
-    value: https://www.united.com/ual/en/IL/customer/refund
-    purposes: [flight_cancellation, refund_request, ancillary_fee_refund]
-    notes: This is the locale version of the form found on united.com; the U.S. locale path was not confirmed. For an active reservation, United says to cancel it first in Manage Reservations / My trips.
-    source: https://www.united.com/ual/en/IL/customer/refund
+    label: Customer Care form (complaints, feedback, reimbursement of disruption expenses)
+    value: https://www.united.com/en/us/customer-care
+    purposes: [poor_service, flight_cancellation, flight_delay, denied_boarding, accessibility]
+    access: open
+    notes: >-
+      Sign in to MileagePlus or select Continue as guest. A path without a confirmation or ticket number is offered.
+      The Contract of Carriage (Rule 29) gives the address www.united.com/en/us/customercare, which redirects here. The
+      refund page says to use this form, not the refund form, for reimbursement of expenses or compensation for a
+      flight disruption. A third party who complains for a customer must attach a signed letter or power of attorney.
+    source: https://www.united.com/en/us/fly/help-center.html
+    last_verified: 2026-10-12
+  - id: customer-care-mail
+    type: mail
+    label: Customer Care by mail (Contract of Carriage Rule 29)
+    value: Customer Care – NHCCR, United Airlines, Inc., 900 Grand Plaza Dr., Houston, TX 77067-4323
+    purposes: [poor_service, flight_cancellation, flight_delay, denied_boarding]
+    source: https://www.united.com/en/us/fly/contract-of-carriage.html
     last_verified: 2026-10-12
   - id: customer-care-email
     type: email
     label: Customer Care email
     value: customer.care@united.com
     purposes: [poor_service, flight_cancellation, flight_delay]
-    notes: Listed in United's Korea customer complaint resolution plan, which says United acknowledges claims within 7 days and replies within 14-60 days.
-    source: https://www.united.com/ual/en/us/fly/travel/destination/international/customer-complaint-resolution-plan.html
+    notes: Listed in United's Korea customer complaint resolution plan, which says United acknowledges claims within 7 days and replies within 14-60 days. U.S. pages point to the Customer Care form instead.
+    source: https://www.united.com/en/us/fly/travel/destination/international/customer-complaint-resolution-plan.html
     last_verified: 2026-10-12
-  - id: disability-phone
+  - id: refund-form
+    type: web_form
+    label: Refund form (tickets, bag fees, Wi-Fi and other purchases)
+    value: https://www.united.com/en/us/refunds
+    purposes: [flight_cancellation, refund_request, ancillary_fee_refund]
+    access: open
+    notes: >-
+      Up to 15 items per request. Add the trip or enter receipt details by hand; give an email address for the
+      reply. A Check status tab is on the same page. Signing in to MileagePlus is optional. For reimbursement of
+      expenses after a disruption, use the Customer Care form.
+    source: https://www.united.com/en/us/refunds
+    last_verified: 2026-10-12
+  - id: bag-help
+    type: portal
+    label: Bag help (delayed, lost, damaged bags, missing items, claim status)
+    value: https://www.united.com/en/us/baggage/bag-help
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    access: open
+    notes: Each tab gives the report and claim deadlines. The Claim status tab checks interim expense, lost bag, damaged bag and missing item claims.
+    source: https://www.united.com/en/us/baggage/bag-help
+    last_verified: 2026-10-12
+  - id: delayed-bag-report
+    type: web_form
+    label: Report a delayed bag online (schedule pickup or free delivery)
+    value: https://www.united.com/en/US/bagdelivery/start
+    purposes: [delayed_baggage, lost_baggage]
+    notes: Needs the confirmation number and last name. Green-tagged gate-checked bags cannot be reported online; call the Baggage Recovery Center.
+    source: https://www.united.com/en/us/baggage/bag-help
+    last_verified: 2026-10-12
+  - id: bag-tracker
+    type: portal
+    label: Bag tracker
+    value: https://www.united.com/en/US/bagtracker
+    purposes: [delayed_baggage]
+    notes: Search by confirmation number and last name, or by bag tag number for a bag from a previous trip. Needs an active or recent trip with checked bags.
+    source: https://www.united.com/en/US/bagtracker
+    last_verified: 2026-10-12
+  - id: baggage-recovery-phone
     type: phone
-    label: Assistive Device Desk (toll free within the U.S. and Canada)
+    label: Baggage Recovery Center
+    value: +1-800-335-2247
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    notes: >-
+      Toll free from the U.S. and Canada; English and Spanish only. The bag help page lists the international number
+      as both 1-281-821-3526 and 1-281-821-3525, so it is not recorded here. You can also text BAGS to 32050.
+    source: https://www.united.com/en/us/fly/help/contact-reservations.html
+    last_verified: 2026-10-12
+  - id: interim-expense-claim
+    type: web_form
+    label: Delayed bag interim expenses claim (clothes and toiletries)
+    value: https://www.united.com/en/US/claimform/login?claimType=INTERIM
+    purposes: [delayed_baggage]
+    notes: Needs the file reference number ending in M (for example ORD12345M) and last name, a photo ID and receipts. United says claims are usually processed within 4-6 weeks.
+    source: https://www.united.com/en/us/baggage/bag-help
+    last_verified: 2026-10-12
+  - id: lost-bag-claim
+    type: web_form
+    label: Lost bag claim
+    value: https://www.united.com/en/US/claimform/login?claimType=LOSS
+    purposes: [lost_baggage]
+    notes: For a bag reported delayed and missing more than 5 days. Needs the file reference number ending in M and last name; describe the contents and add receipts and a photo ID.
+    source: https://www.united.com/en/us/baggage/bag-help
+    last_verified: 2026-10-12
+  - id: damaged-bag-claim
+    type: web_form
+    label: Damaged bag claim
+    value: https://www.united.com/en/US/claimform/login?claimType=DAMAGE
+    purposes: [damaged_baggage]
+    notes: Needs the file reference number ending in D (for example ORD12345D) and last name, a photo ID and receipts. Use it only if the agent directs you to claim with United; otherwise the agent may direct you to rynnsluggage.com for repair or replacement.
+    source: https://www.united.com/en/us/baggage/bag-help
+    last_verified: 2026-10-12
+  - id: missing-items-claim
+    type: web_form
+    label: Missing items claim (items missing from a checked bag)
+    value: https://www.united.com/en/US/claimform/login?claimType=PILFERAGE
+    purposes: [damaged_baggage, lost_baggage]
+    notes: Needs the file reference number ending in P (for example ORD12345P) and last name.
+    source: https://www.united.com/en/us/baggage/bag-help
+    last_verified: 2026-10-12
+  - id: accessibility-desk-phone
+    type: phone
+    label: Accessibility Desk
+    value: +1-800-228-2744
+    hours: 24 hours
+    purposes: [accessibility]
+    notes: The reservations directory calls it the 24-hour Accessibility Desk. TDD users dial 711 for the National Relay Service.
+    source: https://www.united.com/en/us/fly/travel/accessibility-and-assistance.html
+    last_verified: 2026-10-12
+  - id: assistive-device-desk
+    type: phone
+    label: Assistive Device Desk (wheelchairs and assistive devices; toll free within the U.S. and Canada)
     value: +1-866-261-2395
-    purposes: [accessibility, damaged_baggage]
-    notes: Worldwide +1-281-553-2395; email AssistedDevice@united.com. The Contract of Carriage names this desk for damage to wheelchairs and assistive devices that could not be reported on arrival.
-    source: https://www.united.com/en/us/fly/contract-of-carriage.html
+    purposes: [accessibility, damaged_baggage, lost_baggage, delayed_baggage]
+    notes: Worldwide 281-553-2395; email AssistedDevice@united.com. For a lost, damaged or delayed wheelchair or scooter, and for damage that could not be reported at the airport on arrival.
+    source: https://www.united.com/en/us/fly/travel/accessibility-and-assistance/wheelchair-assistance.html
     last_verified: 2026-10-12
 
 escalation:
   - {rung: frontline, channel: customer-service-phone}
-  - {rung: written_complaint, channel: customer-care-email}
+  - {rung: written_complaint, channel: customer-care-form}
   - {rung: regulator, regulator: us-dot}
   - {rung: payment_dispute, note: "Card dispute for a refund United owes but has not paid."}
 
@@ -54,13 +163,15 @@ playbooks:
       - do: Do not accept the rebooking or the travel credit if you want a refund.
       - do: Cancel the reservation in My trips, or submit the refund form, including any bag and seat fees.
         channel: refund-form
+      - do: For hotel, meal or other expenses caused by the cancellation, submit the Customer Care form.
+        channel: customer-care-form
       - do: If the form fails, call customer service.
         channel: customer-service-phone
       - do: If the refund is not paid, file a complaint with the U.S. DOT, then dispute the charge with the card issuer.
         regulator: us-dot
     facts:
       - kind: policy
-        claim: Contract of Carriage Rule 24 says that after a schedule change United may rebook you on its closest available flight, reroute you on another carrier if all United service between the cities is cancelled, or offer a travel credit valid for one year; if none is offered or accepted, you can request a refund. For a significant change, declining the alternate transportation gives the refund right.
+        claim: Contract of Carriage Rule 24 says that after a schedule change United may rebook you on its closest available flight, reroute you on another carrier if all United service between the cities is cancelled, or let you apply the ticket value to United travel within one year from the date of issue; if none is offered or accepted, you can request a refund. If United determines the alternate is a significant change and you decline it, United will provide a refund.
         issues: [flight_cancellation, flight_delay, travel_credit]
         source: https://www.united.com/en/us/fly/contract-of-carriage.html
         last_verified: 2026-10-12
@@ -80,6 +191,8 @@ playbooks:
     evidence: [confirmation number, scheduled and actual times, cause given by United, receipts]
     steps:
       - do: Ask the agent for food and beverage vouchers. If you decline offered vouchers, United will not reimburse food you buy yourself.
+      - do: Request reimbursement of expenses caused by the delay through the Customer Care form.
+        channel: customer-care-form
       - do: If the delay becomes a significant change and you do not travel, request a refund.
         channel: refund-form
     facts:
@@ -90,33 +203,79 @@ playbooks:
         last_verified: 2026-10-12
 
   - issue: delayed_baggage
-    summary: Give United preliminary notice within 24 hours of arrival, then return the written claim form within 45 days of the flight.
-    evidence: [bag tag, baggage incident report number, itinerary, receipts]
+    summary: Report the bag within 24 hours of arrival (21 days if international), then claim clothes and toiletries within 45 days (21 days if international).
+    evidence: [bag tag, file reference number ending in M, confirmation number, itinerary, dated receipts, photo ID]
     steps:
-      - do: Report the missing bag at the airport before leaving and get the baggage incident report number. This is the preliminary notice and must be within 24 hours of arrival.
-      - do: Get the written claim form from United and return it to the System Tracing Center within 45 days after the flight date, with receipts.
+      - do: Report the bag before you leave the airport, online, by text (BAGS to 32050) or by phone. Domestic trips within 24 hours of arrival; international trips within 21 days. Keep the file reference number that ends in M.
+        channel: delayed-bag-report
+      - do: If you cannot report online (for example a green-tagged gate-checked bag), call the Baggage Recovery Center.
+        channel: baggage-recovery-phone
+      - do: Follow the bag in the bag tracker. Report delays only at the final destination, not at a connection.
+        channel: bag-tracker
+      - do: Submit the interim expenses claim with dated receipts within 45 days of arrival (21 days if international).
+        channel: interim-expense-claim
+      - do: If the bag arrived more than 12 hours late on a domestic flight, check that the bag fee was refunded automatically; if not, request it.
+        channel: refund-form
+      - do: If the bag is still missing 5 days after arrival, file a lost bag claim (see lost_baggage).
+        channel: lost-bag-claim
       - do: If United does not respond, file a complaint with the U.S. DOT.
         regulator: us-dot
     facts:
       - kind: deadline
-        claim: Contract of Carriage Rule 28 requires a preliminary notice of claim within twenty-four hours after arrival of the flight for lost, damaged or delayed baggage, and the completed written claim form must be received by United's System Tracing Center within 45 days after the flight date.
+        claim: United's bag help page says to report delayed bags within 24 hours of arrival for travel in the U.S., Guam, Puerto Rico or the U.S. Virgin Islands, and within 21 days of arrival for international travel. Submit the reimbursement claim within 45 days of arrival (domestic) or 21 days (international).
+        issues: [delayed_baggage]
+        source: https://www.united.com/en/us/baggage/bag-help
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Contract of Carriage Rule 28 (domestic carriage) requires a preliminary notice of claim within twenty-four hours after arrival of the flight for loss of, damage to or delay of baggage, and the completed written claim form must be received by United's System Tracing Center within 45 days after the flight date. Without either, absent extraordinary circumstances, no action lies against United.
         issues: [delayed_baggage, lost_baggage, damaged_baggage]
         source: https://www.united.com/en/us/fly/contract-of-carriage.html
         last_verified: 2026-10-12
+      - kind: deadline
+        claim: For international carriage under the Warsaw or Montreal Convention, Rule 28 says a complaint must be made within seven calendar days for damage to baggage and 21 calendar days for delay, and an action for damages must be brought within two years.
+        issues: [delayed_baggage, damaged_baggage]
+        source: https://www.united.com/en/us/fly/contract-of-carriage.html
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: United automatically refunds bag fees if a bag is delayed over 12 hours on a domestic flight, over 15 hours on an international flight of less than 12 hours, or over 30 hours on an international flight longer than 12 hours.
+        issues: [delayed_baggage, ancillary_fee_refund]
+        source: https://www.united.com/en/us/baggage/bag-help
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: United covers reasonable and necessary purchases of clothing and toiletries while a bag is delayed and you are away from home. Dated receipts showing the items and costs are required.
+        issues: [delayed_baggage]
+        source: https://www.united.com/en/us/baggage/bag-help
+        last_verified: 2026-10-12
 
   - issue: lost_baggage
-    summary: Meet the 24-hour notice and 45-day claim deadlines, document the value of the contents, and ask for the bag fee back.
-    evidence: [bag tag, baggage incident report number, contents list with values, receipts]
+    summary: A bag missing more than 5 days after arrival may be lost. Report it as delayed first, then file the lost bag claim within 45 days (21 days if international).
+    evidence: [bag tag, file reference number ending in M, contents list with values, receipts, photo ID]
     steps:
-      - do: Make sure preliminary notice was given within 24 hours of arrival.
-      - do: Return the written claim form with proof of value within 45 days after the flight date.
+      - do: Make sure the bag was reported as delayed within the reporting deadline and you have the file reference number ending in M.
+        channel: delayed-bag-report
+      - do: File the lost bag claim with a detailed contents list, receipts and a photo ID within 45 days of arrival (21 days if international).
+        channel: lost-bag-claim
       - do: Ask for the checked bag fee back.
         channel: refund-form
+      - do: Check the claim status on the bag help page, or call the Baggage Recovery Center.
+        channel: baggage-recovery-phone
+      - do: If United does not respond, file a complaint with the U.S. DOT.
+        regulator: us-dot
     facts:
       - kind: limit
-        claim: United's liability for checked baggage is limited to USD 4,700 per ticketed passenger unless a higher value was declared in advance and additional charges paid. The passenger must document and prove the actual value of the loss.
+        claim: If all ticketed segments are within the U.S.A., United's liability for checked baggage is limited to USD 4,700 per ticketed passenger unless a higher value was declared in advance and additional charges paid. The passenger must document and prove the actual value of the loss.
         issues: [lost_baggage, damaged_baggage, delayed_baggage]
         source: https://www.united.com/en/us/fly/contract-of-carriage.html
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: For international carriage under the Warsaw or Montreal Convention, Rule 28 limits liability to 1,519 SDR per passenger for destruction, loss, damage or delay of baggage.
+        issues: [lost_baggage, damaged_baggage, delayed_baggage]
+        source: https://www.united.com/en/us/fly/contract-of-carriage.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The bag help page says the maximum reimbursement for a lost bag is $4,700 for flights in the U.S. and $2,000 for international flights, and interim expenses already reimbursed are deducted. United searches for about 21 days after a lost bag claim.
+        issues: [lost_baggage]
+        source: https://www.united.com/en/us/baggage/bag-help
         last_verified: 2026-10-12
       - kind: policy
         claim: The Contract of Carriage says United will reimburse passengers for any fee charged to transport bags that are lost.
@@ -125,21 +284,34 @@ playbooks:
         last_verified: 2026-10-12
 
   - issue: damaged_baggage
-    summary: Report damage before leaving the airport and within 24 hours; minor wear is not covered.
-    evidence: [photos of the damage, bag tag, baggage incident report number, repair estimate]
+    summary: Report damage at the Baggage Service Office before leaving, or within 24 hours of arrival (7 days if international); then follow the agent's instructions to claim.
+    evidence: [photos of the damage, bag tag, file reference number ending in A or D, repair estimate or receipts, photo ID]
     steps:
-      - do: Show the damage at the airport and get a report number within 24 hours of arrival.
-      - do: Return the written claim form with photos and a repair estimate within 45 days after the flight date.
+      - do: At the airport, report the damage at the Baggage Service Office before you leave. Ask if a replacement bag is available.
+      - do: If you find the damage after leaving the airport, report it by text (BAGS to 32050), chat or phone within 24 hours of arrival (7 days if international). Keep the file reference number ending in A or D.
+        channel: baggage-recovery-phone
+      - do: If the agent directs you to rynnsluggage.com for repair or replacement, submit that claim within 14 days of the damage report.
+      - do: If the agent directs you to claim with United, submit the damaged bag claim within 45 days of arrival (21 days if international).
+        channel: damaged-bag-claim
+      - do: For items missing from the bag, file the missing items claim (report within 24 hours of arrival, 7 days if international).
+        channel: missing-items-claim
       - do: For a damaged wheelchair or assistive device that you could not report on arrival, contact the Assistive Device Desk.
-        channel: disability-phone
+        channel: assistive-device-desk
+      - do: Damage caused during TSA screening is claimed with TSA, not United.
+        regulator: tsa
     facts:
+      - kind: deadline
+        claim: United's bag help page says to report damaged bags within 24 hours of arrival for travel in the U.S., Guam, Puerto Rico or the U.S. Virgin Islands, and within 7 days for international travel. A claim to United is due within 45 days of arrival (domestic) or 21 days (international); a claim through rynnsluggage.com is due within 14 days of the damage report.
+        issues: [damaged_baggage]
+        source: https://www.united.com/en/us/baggage/bag-help
+        last_verified: 2026-10-12
       - kind: policy
-        claim: United is not liable for damage that does not impair the bag's ability to function, such as minor cuts, scratches, scuffs and dents.
+        claim: United is not liable for damage that does not impair the bag's ability to function, such as minor cuts, scratches, scuffs, dents, punctures, marks or soil from normal handling.
         issues: [damaged_baggage]
         source: https://www.united.com/en/us/fly/contract-of-carriage.html
         last_verified: 2026-10-12
       - kind: deadline
-        claim: For damage to a wheelchair or assistive device not reported on arrival, contact the Assistive Device Desk within 24 hours of arrival for domestic carriage, or within seven calendar days for carriage to or from Canada.
+        claim: For a lost, damaged or destroyed wheelchair or assistive device, Rule 28 requires a preliminary notice at the airport on arrival; if that is not possible, contact the Assistive Device Desk within 24 hours of arrival for domestic carriage, or within seven calendar days for carriage to or from Canada. For domestic carriage and carriage to or from Canada, the baggage liability limits do not apply to these claims, but the notice and claim requirements do.
         issues: [damaged_baggage, accessibility]
         source: https://www.united.com/en/us/fly/contract-of-carriage.html
         last_verified: 2026-10-12
@@ -149,32 +321,56 @@ playbooks:
     evidence: [boarding pass, written denied-boarding notice, arrival time of the new flight]
     steps:
       - do: Ask for the written statement of denied boarding compensation and payment by check.
-      - do: If not paid, complain in writing, then file with the U.S. DOT.
-        channel: customer-care-email
+      - do: If not paid, complain in writing through the Customer Care form.
+        channel: customer-care-form
+      - do: If United still does not pay, file with the U.S. DOT.
+        regulator: us-dot
     facts:
       - kind: compensation
-        claim: Contract of Carriage Rule 25 pays involuntarily bumped domestic passengers 200% of the fare (maximum 1,075 USD) if the alternate arrives more than one but less than two hours late, and 400% (maximum 2,150 USD) if later. No compensation is owed if the alternate arrives within 60 minutes.
+        claim: Contract of Carriage Rule 25 pays involuntarily bumped domestic passengers 200% of the fare (maximum 1,075 USD) if the alternate arrives more than one but less than two hours late, and 400% (maximum 2,150 USD) if later. No compensation is owed if the alternate is planned to arrive not later than 60 minutes after the original arrival time.
         issues: [denied_boarding]
         source: https://www.united.com/en/us/fly/contract-of-carriage.html
         last_verified: 2026-10-12
 
   - issue: ancillary_fee_refund
-    summary: Request refunds of unused fees (bags, seats, Premier Access) within 90 days of payment or the flight date.
+    summary: Request refunds of unused fees (bags, seats, Premier Access, Wi-Fi) within 90 days of payment or the flight date.
     evidence: [fee receipt, confirmation number, cancellation or schedule-change notice]
     steps:
       - do: Submit the refund form for the fee, selecting the purchase or entering the receipt details.
         channel: refund-form
     facts:
       - kind: deadline
-        claim: Passengers eligible for a refund of service or other fees must request it within 90 days of the date the fee was originally paid or the flight date, whichever is later.
+        claim: Passengers eligible for a refund of a fee for an ancillary service that was not provided must request it within 90 days of the date the fee was originally paid or the flight date, whichever is later.
         issues: [ancillary_fee_refund]
         source: https://www.united.com/en/us/fly/contract-of-carriage.html
         last_verified: 2026-10-12
+      - kind: policy
+        claim: The refund page says Wi-Fi provided by Panasonic, Thales or Viasat is refunded through the United form; for Wi-Fi from the other providers the page names ("Intelstat or Gogo"), contact that provider. United subscriptions are nonrefundable, with partial refunds for Wi-Fi and Economy Plus subscribers after a service disruption.
+        issues: [ancillary_fee_refund]
+        source: https://www.united.com/en/us/refunds
+        last_verified: 2026-10-12
+
+facts:
+  - kind: deadline
+    claim: The refund page says to allow up to seven business days for a refund to post to a credit card, and up to 20 days for other forms of payment. Refunds go to the original form of payment unless you ask for an electronic travel certificate.
+    issues: [refund_request, flight_cancellation]
+    source: https://www.united.com/en/us/refunds
+    last_verified: 2026-10-12
+  - kind: process
+    claim: The Contract of Carriage (revised September 30, 2026) Rule 29 says a third party who complains for a customer must include a signed letter from the customer or a power of attorney, or United will not reply.
+    issues: [poor_service]
+    source: https://www.united.com/en/us/fly/contract-of-carriage.html
+    last_verified: 2026-10-12
 
 known_blockers:
-  - united.com timed out or refused direct fetches on 2026-10-12. Values here were confirmed from united.com pages through search results; the indexed Contract of Carriage copy was about five months old.
-  - No production URL was confirmed for the United Customer Care web form or the online baggage claim.
+  - The baggage claim forms need the file reference number from the bag report and the passenger's last name. The online delayed-bag report and the bag tracker need the confirmation number and last name.
+  - Interim expense and damaged bag claims ask for a photo ID upload.
+  - A third party filing a Customer Care complaint must attach the customer's signed authorization or a power of attorney.
 
 notes: >-
-  All values were confirmed from united.com search results, not from a direct page load. Recheck the Contract of
-  Carriage dollar caps and deadlines against the live page.
+  Checked by loading united.com pages on 2026-10-12; the Contract of Carriage was revised September 30, 2026. United's
+  pages disagree in two places. The bag help page lists the international Baggage Recovery Center number as both
+  1-281-821-3526 and 1-281-821-3525, and its liability FAQ gives 1,288 SDR for Montreal Convention travel where the
+  Contract of Carriage gives 1,519 SDR. For wheelchairs and assistive devices, the Contract of Carriage says the notice
+  and claim requirements apply, while the wheelchair page says they do not; follow the stricter Contract of Carriage.
+  The old refund URL https://www.united.com/ual/en/IL/customer/refund was replaced by the U.S. form.

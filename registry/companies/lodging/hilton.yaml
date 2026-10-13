@@ -13,11 +13,15 @@ notes: >-
 channels:
   - id: honors-customer-care-phone
     type: phone
-    label: Hilton reservations and Hilton Honors customer care (1-800-4HONORS)
-    value: +1-800-446-6677
+    label: Hilton customer support, United States and Canada (1-888-4HONORS)
+    value: +1-888-446-6677
     purposes: [reservation_problem, refund_request, billing_error, poor_service]
-    notes: The Help Center lists the number as +1-800-4HONORS; Hilton travel-agent resources give the digits 1-800-446-6677 for Hilton Honors reservations.
-    source: https://www.hilton.com/en/portal/travel-agents/resources/
+    notes: >-
+      The Help Center home page lists +1-888-4HONORS (dials +1-888-446-6677), and the Global Phone Numbers page lists
+      888 446 6677 for the United States and Canada (including American Samoa, Guam, Mariana Islands, Puerto Rico and
+      the US Virgin Islands). The footer of the Global Phone Numbers page and older travel-agent pages still show
+      1-800-4HONORS (+1-800-446-6677). From other countries, Hilton lists the international free number +800 4445 8667.
+    source: https://www.hilton.com/en/help-center/global-phone-numbers/
     last_verified: 2026-10-12
   - id: help-center-chat
     type: chat

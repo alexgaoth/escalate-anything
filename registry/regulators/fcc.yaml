@@ -18,61 +18,77 @@ when_to_use: >-
 channels:
   - id: complaint-center
     type: web_form
-    label: FCC Consumer Complaint Center
+    label: FCC Consumer Inquiries and Complaints Center
     value: https://consumercomplaints.fcc.gov/hc/en-us
     purposes: [billing_error, bill_increase, cancel_service, service_outage, equipment_return, poor_service]
-    notes: Choose the category (phone, internet, TV, radio, accessibility, emergency communications) that fits the problem.
-    source: https://www.usa.gov/agencies/federal-communications-commission
+    access: open
+    notes: >-
+      Choose the category: phone, internet, TV, radio, emergency communications, or access for people with
+      disabilities. The FCC says filing online is the most effective way to contact it; fcc.gov/complaints leads
+      here. Share your story is not a complaint and is not sent to the provider.
+    source: https://www.fcc.gov/consumers/guides/filing-informal-complaint
     last_verified: 2026-10-12
   - id: consumer-phone
     type: phone
     label: FCC consumer line (1-888-CALL-FCC)
     value: +1-888-225-5322
-    source: https://www.usa.gov/agencies/federal-communications-commission
+    hours: 8:00 a.m. to 5:00 p.m. ET (FCC business hours for non-emergency calls)
+    purposes: [billing_error, cancel_service, service_outage, poor_service]
+    notes: The FCC lists this number for filing a complaint by phone, and for complaints in Spanish.
+    source: https://www.fcc.gov/consumers/guides/filing-informal-complaint
     last_verified: 2026-10-12
   - id: asl-videophone
     type: phone
-    label: ASL Consumer Support Line (videophone)
+    label: ASL Consumer Support Line (video call, 1-844-4-FCC-ASL)
     value: +1-844-432-2275
-    notes: For videophone users who use American Sign Language.
-    source: https://www.fcc.gov/consumers/guides/filing-informal-complaint
+    hours: 9:30 a.m. to 5 p.m. Eastern Time, Monday through Friday
+    notes: For deaf and hard of hearing consumers who use American Sign Language. Alternate number 202-810-0444.
+    source: https://consumercomplaints.fcc.gov/hc/en-us/articles/203402664
     last_verified: 2026-10-12
-  - id: headquarters-mail
+  - id: complaint-mail
     type: mail
-    label: FCC headquarters mailing address
-    value: Federal Communications Commission, 45 L Street NE, Washington, DC 20554
-    notes: USA.gov lists this as the FCC main address. The online form is the documented complaint path.
-    source: https://www.usa.gov/agencies/federal-communications-commission
+    label: Complaint by mail
+    value: Federal Communications Commission, Consumer and Governmental Affairs Bureau, Consumer Inquiries and Complaints Division, 45 L Street NE, Washington, DC 20554
+    notes: Include your name, address, contact information and as much detail about the complaint as possible.
+    source: https://www.fcc.gov/consumers/guides/filing-informal-complaint
     last_verified: 2026-10-12
 
 facts:
-  - kind: process
-    claim: >-
-      The FCC forwards informal complaints to the carrier for investigation and may set a due date for
-      the carrier's written response to the FCC, with a copy to the complainant.
-    source: https://www.law.cornell.edu/cfr/text/47/1.717
-    last_verified: 2026-10-12
   - kind: deadline
     claim: >-
-      The provider must respond in writing, to you and to the FCC, within 30 days of receiving the
-      complaint.
+      If the FCC serves a complaint on a provider, the provider must respond within 30 days of
+      receiving it, in writing, to you and the FCC. The FCC sends only certain complaints to the
+      provider.
     source: https://www.fcc.gov/consumers/guides/filing-informal-complaint
     last_verified: 2026-10-12
   - kind: process
     claim: >-
-      An informal complaint should be in writing and contain your name, address and phone number, the
-      name of the carrier, a complete statement of the facts, and the relief you want.
-    source: https://www.law.cornell.edu/cfr/text/47/1.716
+      For a telecom billing or service complaint, the FCC reviews it and in many instances serves it on
+      the provider, which has up to 30 days to respond to you and the FCC. Not all complaints are
+      served; some are shared internally or referred to another agency.
+    source: https://consumercomplaints.fcc.gov/hc/en-us/articles/202752940
     last_verified: 2026-10-12
   - kind: process
     claim: >-
-      USA.gov advises contacting the phone company directly first and going to the FCC only if the
-      company's response does not solve the problem.
-    source: https://www.usa.gov/phone-company-complaints
+      The FCC does not resolve individual complaints about loud commercials, indecency, unwanted calls
+      or texts (including robocalls) and unsolicited faxes. Those complaints inform enforcement and
+      policy work.
+    source: https://consumercomplaints.fcc.gov/hc/en-us/articles/202752940
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      The FCC sends an email confirming receipt, and periodic updates for complaints served on a
+      provider. You can reply to one of those emails to update the complaint.
+    source: https://consumercomplaints.fcc.gov/hc/en-us/articles/202752940
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      The FCC says to try to resolve the issue with your provider before filing. There is no filing
+      charge for an informal complaint and you do not need to appear in person.
+    source: https://www.fcc.gov/consumers/guides/filing-informal-complaint
     last_verified: 2026-10-12
 
 notes: >-
   The FCC does not resolve every individual complaint; for some issues it has no authority and points
-  you to another agency. fcc.gov and consumercomplaints.fcc.gov blocked automated page reads on
-  2026-10-12, so the 30-day rule and the ASL number were checked from search-index copies of the FCC
-  guide.
+  you to another agency. Checked by loading fcc.gov and consumercomplaints.fcc.gov pages on 2026-10-12
+  (the informal complaint guide was last reviewed February 17, 2026).

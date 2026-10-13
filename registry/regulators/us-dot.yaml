@@ -19,22 +19,18 @@ when_to_use: >-
   problem. Try the airline first. Safety problems go to the FAA and security problems go to TSA.
 
 channels:
-  - id: complaint-page
+  - id: complaint-form
     type: web_form
-    label: DOT air travel consumer complaint page
-    value: https://www.transportation.gov/airconsumer/file-consumer-complaint
+    label: OACP complaint, comment and compliment form (ACERS consumer portal)
+    value: https://airconsumer.dot.gov/consumer/s/oacp-form
     purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, ancillary_fee_refund, travel_credit, accessibility]
-    notes: Entry page for the online complaint form. USA.gov links here for airline service and discrimination complaints.
-    source: https://www.usa.gov/travel-complaints
-    last_verified: 2026-10-12
-  - id: acers-consumer-portal
-    type: web_form
-    label: ACERS consumer portal (complaints, comments, compliments)
-    value: https://airconsumer.dot.gov/consumer
+    access: open
     notes: >-
-      Aviation Complaint, Enforcement, and Reporting System (ACERS) consumer portal, launched on
-      2025-08-01. Source is an OACP notice republished by the American Council of the Blind.
-    source: https://www.acb.org/node/9141
+      Linked from DOT's File a Consumer Complaint page. Also for civil rights complaints, including disability.
+      Have the booking details (ticket, itinerary or invoice), flight details (dates, flight numbers, city pairs) and
+      supporting documents ready; the form cannot be saved and finished later. The portal home is
+      https://airconsumer.dot.gov/consumer/s/.
+    source: https://www.transportation.gov/airconsumer/file-consumer-complaint
     last_verified: 2026-10-12
   - id: disability-hotline
     type: phone
@@ -42,7 +38,7 @@ channels:
     value: +1-800-778-4838
     hours: 9 a.m. to 5 p.m. Eastern time, Monday through Friday, except federal holidays
     purposes: [accessibility]
-    notes: For general information and time-sensitive disability problems. For an investigation, submit the complaint in writing.
+    notes: Voice line. Deaf, hard of hearing or speech-disabled callers dial 711 for relay. For general information and time-sensitive disability problems. For a DOT investigation, submit the complaint in writing or online.
     source: https://www.transportation.gov/airconsumer/toll-free-hotline-air-travelers-disabilities
     last_verified: 2026-10-12
   - id: mail
@@ -56,28 +52,32 @@ channels:
 facts:
   - kind: process
     claim: >-
-      Since ACERS launched on 2025-08-01, the airline or ticket agent receives each complaint in real
-      time in the ACERS Aviation Industry Portal and by email.
-    source: https://www.acb.org/node/9141
+      DOT says that under ACERS, when a complaint, comment or compliment is submitted, the airline or
+      ticket agent receives it in real time in the ACERS Aviation Industry Portal and by email. Under
+      the old system it took over a month.
+    source: https://www.transportation.gov/briefing-room/usdot-modernizes-aviation-consumer-complaint-system
     last_verified: 2026-10-12
   - kind: deadline
     claim: >-
-      A covered carrier must acknowledge a complaint about its scheduled service in writing within
-      30 days of receiving it, and send a substantive written response within 60 days.
-    source: https://www.law.cornell.edu/cfr/text/14/259.7
+      DOT requires airlines to acknowledge consumer complaints within 30 days of receiving them and to
+      send written responses within 60 days of receiving them (30 days for disability-related
+      complaints).
+    source: https://www.transportation.gov/airconsumer/complaint-process
     last_verified: 2026-10-12
   - kind: process
     claim: >-
-      DOT told airlines in February 2025 to send OACP copies of their responses to consumer complaints
-      within 60 days of receipt, and copies of responses to civil rights complaints within 30 days.
-    source: https://www.eckertseamans.com/?p=24814
+      For a complaint filed with DOT, OACP directs the airline or ticket agent to respond directly to
+      the consumer and to give OACP a copy of the response. OACP investigates every civil rights
+      (discrimination) complaint, but does not investigate every other consumer complaint; it runs
+      targeted or sample reviews instead.
+    source: https://www.transportation.gov/airconsumer/complaint-process
     last_verified: 2026-10-12
   - kind: process
     claim: >-
       A mailed complaint should include your full name and contact details, a description of the
       problem, the ticket, itinerary or invoice, the flight dates, numbers and city pairs, and copies of
       supporting documents such as the complaint you sent the airline.
-    source: https://www.transportation.gov/airconsumer/file-consumer-complaint
+    source: https://www.transportation.gov/airconsumer/complaint-process
     last_verified: 2026-10-12
   - kind: deadline
     claim: >-
@@ -88,14 +88,19 @@ facts:
     last_verified: 2026-10-12
   - kind: process
     claim: >-
-      USA.gov says to try the airline first. Airline safety problems go to the FAA hotline, and airline
-      security problems go to the TSA security issue form.
-    source: https://www.usa.gov/travel-complaints
+      For a disability problem during the trip, ask to speak to the airline's Complaint Resolution
+      Official (CRO), who has authority to resolve complaints for the airline.
+    issues: [accessibility]
+    source: https://www.transportation.gov/airconsumer/complaint-process
+    last_verified: 2026-10-12
+  - kind: process
+    claim: >-
+      DOT says to give the airline a chance to resolve the problem first. Airline safety problems go
+      to the FAA, and aviation security problems go to TSA (1-866-289-9673).
+    source: https://www.transportation.gov/airconsumer/file-consumer-complaint
     last_verified: 2026-10-12
 
 notes: >-
   The office was formerly named the Aviation Consumer Protection Division (C-75); older documents use
-  that name. In August 2025 DOT replaced its 1990s complaint system with ACERS, which sends complaints
-  to airlines at once instead of after manual review by analysts. transportation.gov blocked automated
-  page reads on 2026-10-12, so the hotline hours and mailing address were checked from search-index
-  copies of the DOT pages.
+  that name. DOT replaced its 1990s complaint system with ACERS (announced as "recently launched" in a press release dated
+  August 13, 2025). Checked by loading transportation.gov and airconsumer.dot.gov pages on 2026-10-12.

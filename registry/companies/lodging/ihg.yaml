@@ -16,14 +16,15 @@ channels:
     label: IHG One Rewards Customer Care (United States and Canada)
     value: +1-888-211-9874
     purposes: [billing_error, refund_request, reservation_problem, poor_service, account_access]
-    notes: Same page lists fax 1-800-725-8232 and TDD 1-800-334-5194.
-    source: https://www.ihg.com/content/gb/en/customer-care/contact-us
+    notes: Listed under IHG One Rewards Service Centers. Same page lists fax 1-800-725-8232 and TDD 1-800-334-5194. For bookings, use the reservations number.
+    source: https://www.ihg.com/content/us/en/customer-care/contact-us
     last_verified: 2026-10-12
   - id: reservations-phone
     type: phone
     label: IHG reservations (United States and Canada)
     value: +1-877-424-2449
     purposes: [reservation_problem, refund_request]
+    notes: Listed under Worldwide Reservation Offices. Six Senses reservations use +1-855-496-0109.
     source: https://www.ihg.com/content/us/en/customer-care/contact-us
     last_verified: 2026-10-12
   - id: tdd-phone
@@ -31,7 +32,7 @@ channels:
     label: IHG Customer Care TDD (United States and Canada)
     value: +1-800-334-5194
     purposes: [accessibility]
-    source: https://www.ihg.com/content/gb/en/customer-care/contact-us
+    source: https://www.ihg.com/content/us/en/customer-care/contact-us
     last_verified: 2026-10-12
   - id: customer-care-forms
     type: portal

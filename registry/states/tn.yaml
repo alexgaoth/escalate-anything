@@ -90,8 +90,8 @@ agencies:
       - id: complaint-form
         type: web_form
         label: Online consumer complaint form
-        value: https://complaints.tdfi.tn.gov/UI/Defaulta.aspx
-        notes: Try to resolve the issue with the institution first. The page also links a Formstack form (https://stateoftennessee.formstack.com/forms/consumer_complaint).
+        value: https://stateoftennessee.formstack.com/forms/consumer_complaint
+        notes: Try to resolve the issue with the institution first. The source page also links complaints.tdfi.tn.gov, which returned 404 on 2026-10-12.
         source: https://www.tn.gov/tdfi/tdfi-how-do-i/file-a-complaint.html
         last_verified: 2026-10-12
       - id: hotline
