@@ -1,0 +1,119 @@
+id: macys
+name: Macy's
+aliases: [macys, macy's, macys.com, macy's inc, macy's backstage, macy's star rewards]
+sector: retail
+parent: Macy's, Inc.
+website: https://www.macys.com
+official_domains: [macys.com, customerservice-macys.com, macysinc.com]
+regulators: [ftc]
+notes: >-
+  Macy's department stores and macys.com. Macy's, Inc. is at 151 West 34th Street, New York, NY 10001, and its
+  corporate site links Macy's Customer Service at customerservice-macys.com. macys.com and
+  customerservice-macys.com blocked automated fetches on 2026-10-13, so the return, price adjustment and phone
+  values below were read from search-result text of Macy's own help articles; check the live page before relying
+  on a date or amount. Not covered (not verified): the Macy's credit card issuer and card dispute channel,
+  lost-package claims, protection plans, and Macy's anti-phishing guidance.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Macy's Customer Service (1-800-BUY-MACY)
+    value: +1-800-289-6229
+    purposes: [refund_request, damaged_item, lost_package, price_adjustment, billing_error]
+    notes: Read from search-result text of Macy's help articles on 2026-10-13 (macys.com blocked automated fetches). The return-policy text gives this number, 10 AM-10 PM ET daily, for returns of area rugs bought online; other Macy's pages may show other hours.
+    source: https://www.macys.com/customer-service/articles/what-is-macys-return-policy
+    last_verified: 2026-10-13
+  - id: customer-service-site
+    type: portal
+    label: Macy's Customer Service site (help articles and contact options)
+    value: https://customerservice-macys.com/articles/cuhc
+    purposes: [refund_request, damaged_item, lost_package, price_adjustment, poor_service]
+    notes: Linked as "Macy's Customer Service" from the Macy's, Inc. contact page. The page itself blocked automated fetches on 2026-10-13.
+    source: https://www.macysinc.com/contact-us
+    last_verified: 2026-10-13
+  - id: return-policy
+    type: portal
+    label: Macy's Return Policy help article
+    value: https://www.macys.com/customer-service/articles/what-is-macys-return-policy
+    purposes: [refund_request, damaged_item]
+    notes: Read from search-result text on 2026-10-13; the page blocked automated fetches.
+    source: https://www.macys.com/customer-service/articles/what-is-macys-return-policy
+    last_verified: 2026-10-13
+  - id: price-adjustment-help
+    type: portal
+    label: Macy's "How do I request a Price Adjustment?" help article
+    value: https://www.macys.com/customer-service/articles/how-can-i-get-a-price-adjustment
+    purposes: [price_adjustment]
+    notes: For online purchases, the article says to chat with Macy's or call customer service to request the adjustment. Read from search-result text on 2026-10-13; the page blocked automated fetches.
+    source: https://www.macys.com/customer-service/articles/how-can-i-get-a-price-adjustment
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor}
+  - {rung: written_complaint}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: refund_request
+    summary: Most Macy's purchases can be returned by mail or in store within 30 days; purchases from October 5, 2026 have a holiday window to January 31, 2027. Non-members pay a $9.99 return shipping fee on mail returns.
+    evidence: [receipt or order number, the item with original tags, card used for the purchase]
+    steps:
+      - do: Check the return window and the final-sale exceptions in the return policy.
+        channel: return-policy
+      - do: Return the item in saleable condition with its original tags at a Macy's store (free) or by mail.
+        channel: return-policy
+      - do: If Macy's refuses a return the policy allows, call customer service and ask for a supervisor.
+        channel: customer-service-phone
+      - do: If the refund still does not arrive, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: 'Most merchandise can be returned by mail or in store within 30 days of purchase. "Effective on purchases starting October 5, 2026, most merchandise purchased at Macy''s or macys.com will be accepted for return until Jan. 31, 2027." Read from search-result text of the page on 2026-10-13; the page blocked automated fetches.'
+        issues: [refund_request]
+        source: https://www.macys.com/customer-service/articles/what-is-macys-return-policy
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: 'Returns in store are free, and return shipping is free for Star Rewards members. For non-members, "a $9.99 return shipping fee plus tax, where applicable, will be deducted from your refund." Shipping and delivery fees are not refunded. Read from search-result text of the page on 2026-10-13; the page blocked automated fetches.'
+        issues: [refund_request]
+        source: https://www.macys.com/customer-service/articles/what-is-macys-return-policy
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'Final sale exceptions include gift cards (which "cannot be returned, exchanged, or price adjusted"), altered or personalized items, food and live plants. Returned items must be in saleable condition with original tags; rugs, mattresses and Backstage items have their own rules. Read from search-result text of the page on 2026-10-13; the page blocked automated fetches.'
+        issues: [refund_request]
+        source: https://www.macys.com/customer-service/articles/what-is-macys-return-policy
+        last_verified: 2026-10-13
+
+  - issue: price_adjustment
+    summary: If a Macy's advertised price drops within 10 days of your order date, ask for the difference; marketplace and Direct from Vendor items are excluded, and Macy's accepts requests only directly from the customer.
+    evidence: [order number or receipt, screenshot of the lower Macy's price with the date]
+    steps:
+      - do: Check that the price drop is within 10 days of the order date and is an advertised Macy's price.
+        channel: price-adjustment-help
+      - do: The customer must make the request personally, by chat or phone for online orders; Macy's does not accept requests sent through apps or third parties.
+        channel: customer-service-phone
+    facts:
+      - kind: deadline
+        claim: '"If the price of your item drops within 10 days of your order date, you can request a price adjustment and receive a refund of the difference." The lower price must be an advertised Macy''s price, and promotional discounts cannot be combined with a price adjustment. Read from search-result text of the page on 2026-10-13; the page blocked automated fetches.'
+        issues: [price_adjustment]
+        source: https://www.macys.com/customer-service/articles/how-can-i-get-a-price-adjustment
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: 'Items shipped and sold by Digital Third Party Sellers or Direct from Vendor partners are not eligible for price adjustments. "Macy''s does not accept price adjustment requests submitted via applications or third parties. Only requests submitted directly by a customer will be accepted." Read from search-result text of the page on 2026-10-13; the page blocked automated fetches.'
+        issues: [price_adjustment]
+        source: https://www.macys.com/customer-service/articles/how-can-i-get-a-price-adjustment
+        last_verified: 2026-10-13
+
+  - issue: damaged_item
+    summary: Return a damaged or defective item under the return policy, by mail or in store, or call customer service.
+    evidence: [photos of the item and packaging, order number]
+    steps:
+      - do: Photograph the item and the box, then return it by mail or in store within the return window.
+        channel: return-policy
+      - do: Or call Macy's Customer Service for help with the damaged item.
+        channel: customer-service-phone
+
+known_blockers:
+  - Macy's says it does not accept price adjustment requests submitted through apps or third parties; the customer must make the request directly.
+  - macys.com and customerservice-macys.com block automated readers, so an agent cannot confirm the current policy text; hand the browser to the person to check it.

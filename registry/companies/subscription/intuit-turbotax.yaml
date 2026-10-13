@@ -1,0 +1,254 @@
+id: intuit-turbotax
+name: TurboTax
+aliases: [turbotax, turbo tax, intuit turbotax, turbotax online, turbotax desktop, turbotax advantage, turbotax live]
+sector: subscription
+parent: Intuit Inc.
+website: https://turbotax.intuit.com
+account_url: https://accounts.intuit.com/app/account-manager/productsBilling/turbotax
+official_domains: [intuit.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: 'TurboTax says "Phishing and identity theft are the most common tax scams." Scammers send phony emails that impersonate tax preparers or the IRS and "often pretend to be IRS agents." The article also warns about "ghost" tax preparers who charge fees based on a percentage of the refund.'
+      source: https://turbotax.intuit.com/tax-tips/security/tax-time-scams-you-should-avoid/L0rtre77W
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: TurboTax says to contact the IRS Identity Protection Specialized Unit at 1-800-908-4490 if you think you are a victim of tax identity theft.
+      source: https://turbotax.intuit.com/tax-tips/security/tax-time-scams-you-should-avoid/L0rtre77W
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-phishing-email
+      type: email
+      label: Forward suspicious emails that claim to come from TurboTax to Intuit
+      value: security@intuit.com
+      purposes: [fraud]
+      notes: An older Intuit community thread names spoof@intuit.com; the current TurboTax article (updated August 31, 2026) names security@intuit.com.
+      source: https://turbotax.intuit.com/tax-tips/security/tax-time-scams-you-should-avoid/L0rtre77W
+      last_verified: 2026-10-13
+    - id: irs-phishing-email
+      type: email
+      label: IRS address for suspicious emails that claim to be from the IRS (named by TurboTax)
+      value: phishing@irs.gov
+      purposes: [fraud]
+      source: https://turbotax.intuit.com/tax-tips/security/tax-time-scams-you-should-avoid/L0rtre77W
+      last_verified: 2026-10-13
+regulators: [ftc]
+notes: >-
+  TurboTax Online is free to use until you pay, print or e-file; paying, printing or e-filing
+  counts as acceptance and waives the satisfaction refund. The FTC's January 2024 order on
+  "free" advertising was vacated by the Fifth Circuit on March 20, 2026 and remanded to the FTC.
+  The 2022 multistate attorneys general settlement ($141 million) paid restitution automatically
+  to eligible 2016-2018 filers. The Intuit Terms of Service require binding arbitration or small
+  claims court and a class waiver.
+
+channels:
+  - id: support-phone
+    type: phone
+    label: TurboTax customer support (1-800-4-INTUIT)
+    value: +1-800-446-8848
+    purposes: [refund_request, billing_error, cancel_service, unauthorized_charge]
+    notes: The contact page lists no hours.
+    source: https://ttlc.intuit.com/turbotax-support/en-us/contact
+    last_verified: 2026-10-13
+  - id: contact-page
+    type: web_form
+    label: TurboTax Support contact page
+    value: https://ttlc.intuit.com/turbotax-support/en-us/contact
+    purposes: [refund_request, billing_error, cancel_service]
+    source: https://ttlc.intuit.com/turbotax-support/en-us/help-article/intuit-account-billing/reduce-fees/L3Kp3yEYs_US_en_US
+    last_verified: 2026-10-13
+  - id: refund-request-form
+    type: portal
+    label: Intuit Refund Request form (Intuit Account > Products & billing > Request or track a refund)
+    value: https://accounts.intuit.com/app/oirr
+    purposes: [refund_request]
+    access: login
+    notes: For TurboTax Desktop (60-day money-back guarantee) and TurboTax Advantage renewals. TurboTax Online fees are non-refundable after payment. Guarantee claims are not processed through this form.
+    source: https://ttlc.intuit.com/turbotax-support/en-us/help-article/intuit-refunds/request-refund-turbotax-product/L834M6uyW_US_en_US
+    last_verified: 2026-10-13
+  - id: products-billing
+    type: portal
+    label: Intuit Account, Products & billing (TurboTax)
+    value: https://accounts.intuit.com/app/account-manager/productsBilling/turbotax
+    purposes: [refund_request, billing_error]
+    access: login
+    source: https://ttlc.intuit.com/turbotax-support/en-us/help-article/intuit-refunds/request-refund-turbotax-product/L834M6uyW_US_en_US
+    last_verified: 2026-10-13
+  - id: advantage-cancel
+    type: portal
+    label: Cancel TurboTax Advantage (sign in, then Cancel Membership)
+    value: https://accounts-tax.intuit.com/app/sign-in?app_group=TurboTax&asset_alias=Intuit.cg.turbotaxadvantage&redirect_uri=https%3A%2F%2Fshop.app.intuit.com%2Funified%2Fdownloads%3Froute%3Dmyaccounts%26cgcview%3Dtta
+    purposes: [cancel_service]
+    access: login
+    source: https://ttlc.intuit.com/oicms/L4UBBY0Th_US_en_US
+    last_verified: 2026-10-13
+  - id: audit-support-phone
+    type: phone
+    label: Audit Support Guarantee claims (TurboTax Online Terms, section B 5.3)
+    value: +1-800-624-9066
+    notes: Claims need proof of payment and a copy of the audit letter, within 60 days of receiving the letter.
+    source: https://www.intuit.com/legal/terms/en-us/turbotax/online-license/
+    last_verified: 2026-10-13
+  - id: apple-refund
+    type: web_form
+    label: Refund for TurboTax bought through the Apple App Store (Apple)
+    value: https://support.apple.com/en-us/118223
+    purposes: [refund_request]
+    source: https://ttlc.intuit.com/turbotax-support/en-us/help-article/intuit-refunds/request-refund-turbotax-product/L834M6uyW_US_en_US
+    last_verified: 2026-10-13
+  - id: google-play-refund
+    type: web_form
+    label: Refund for TurboTax bought through Google Play (Google)
+    value: https://support.google.com/googleplay/answer/2479637?hl=en
+    purposes: [refund_request]
+    source: https://ttlc.intuit.com/turbotax-support/en-us/help-article/intuit-refunds/request-refund-turbotax-product/L834M6uyW_US_en_US
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: support-phone}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: refund_request
+    summary: Cut TurboTax Online fees before you pay, because payment makes them non-refundable. Desktop software has a 60-day money-back guarantee through the Intuit Refund Request form. App store purchases are refunded by Apple or Google.
+    evidence: [order number or license code, dated receipt, fee breakdown email, date of payment, date filed or not filed]
+    steps:
+      - do: Before you pay, remove add-ons you do not need (PLUS Help & Support, Pay With Your Refund, Premium Services, MAX, a state return, Fast Deposit) or downgrade to a lower TurboTax Online product.
+        note: https://ttlc.intuit.com/turbotax-support/en-us/help-article/intuit-account-billing/reduce-fees/L3Kp3yEYs_US_en_US
+      - do: If you have not paid, registered, or chosen to deduct the TurboTax fee from your refund, use Clear & Start Over (Tax Tools > Tools > Clear & Start Over) to remove all fees.
+        note: https://ttlc.intuit.com/turbotax-support/en-us/help-article/change-service-level/clear-start-turbotax-online/L37BZFuBV_US_en_US
+      - do: For TurboTax Desktop bought from Intuit or an authorized retailer, request a refund within 60 days in the Intuit Account (Products & billing > Request or track a refund).
+        channel: refund-request-form
+      - do: If you bought through the Apple App Store or Google Play, request the refund from that store.
+        channel: apple-refund
+      - do: For a guarantee claim (100% Accurate Calculations, Maximum Refund, Audit Support), follow the claim process in the TurboTax Online Terms of Service; the refund request form does not process guarantee claims.
+        channel: audit-support-phone
+      - do: If you paid but believe an exception applies, call TurboTax support and describe it as a billing issue.
+        channel: support-phone
+    facts:
+      - kind: policy
+        claim: 'TurboTax Online (bought from Intuit): "Submitting payment reflects your satisfaction with TurboTax Online preparation of your taxes, and is non-refundable."'
+        issues: [refund_request]
+        source: https://ttlc.intuit.com/turbotax-support/en-us/help-article/intuit-refunds/request-refund-turbotax-product/L834M6uyW_US_en_US
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'TurboTax Online can be used "without charge up to the point you decide to print or electronically file," at which time "you will be required to pay and waive the right for a refund."'
+        issues: [refund_request]
+        source: https://turbotax.intuit.com/corp/guarantees/
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: 'TurboTax Desktop 60-Day Money Back Guarantee: if not completely satisfied, "go to refundrequest.intuit.com within 60 days"; you must return the product "using your license code or order number and dated receipt." Desktop add-on products and services are non-refundable.'
+        issues: [refund_request]
+        source: https://turbotax.intuit.com/corp/guarantees/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Clear & Start Over is available only "as long as you haven't submitted payment, deducted the TurboTax fee from your refund, or registered your product." After that you must edit the return manually.
+        issues: [refund_request]
+        source: https://ttlc.intuit.com/turbotax-support/en-us/help-article/change-service-level/clear-start-turbotax-online/L37BZFuBV_US_en_US
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: Maximum Refund Guarantee claims (Online Terms, section B 5.2) are due within 60 days of receiving the larger refund or paying the smaller tax, and no later than seven years after filing; they are sent by tracked mail. Free Edition users receive $30 instead of a purchase-price refund.
+        issues: [refund_request]
+        source: https://www.intuit.com/legal/terms/en-us/turbotax/online-license/
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: 100% Accurate Calculations Guarantee (Online Terms, section B 5.1) requires notice to Intuit no later than 30 days after the penalty or interest is assessed, and within seven years after filing.
+        issues: [refund_request]
+        source: https://www.intuit.com/legal/terms/en-us/turbotax/online-license/
+        last_verified: 2026-10-13
+
+  - issue: cancel_service
+    summary: TurboTax subscriptions (such as TurboTax Advantage) renew automatically; cancel in the Intuit Account. Cancellation takes effect after the current period and earns no refund, except the Desktop 60-day refund after an Advantage renewal.
+    evidence: [Intuit Account email, renewal charge date and amount, cancellation confirmation]
+    steps:
+      - do: Sign in to the Intuit Account and select Cancel Membership to cancel TurboTax Advantage.
+        channel: advantage-cancel
+      - do: If you missed the Advantage cancellation deadline, wait for the software download, submit a refund request within 60 days of receiving the product, then cancel the membership.
+        channel: refund-request-form
+      - do: For other subscriptions, follow that service's cancel instructions (for example Account & Settings for Expert 365 Business). Deleting the mobile app does not cancel a subscription.
+    facts:
+      - kind: policy
+        claim: 'Intuit Terms (Section A): "Your payment to Intuit will automatically renew at the end of the applicable subscription period." "Subscription cancellations will take effect the day after the last day of the current subscription period." "We do not provide refunds or credits for any cancellations or partial subscription period."'
+        issues: [cancel_service, refund_request]
+        source: https://www.intuit.com/legal/terms/en-us/turbotax/online-license/
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: If you miss the TurboTax Advantage auto-renewal cancellation deadline, submit a refund request "within 60 days of receiving your product," then cancel the membership.
+        issues: [cancel_service, refund_request]
+        source: https://ttlc.intuit.com/oicms/L4UBBY0Th_US_en_US
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: An unexpected TurboTax bank debit is often the Pay With My Refund backup debit. Check the fee emails first; pay early or ask for a one-time 21-day deferral before the debit date.
+    evidence: [bank statement with the debit, TurboTax order number, ZIP code on the return, fee notification emails]
+    steps:
+      - do: Check whether you chose Pay With My Refund. Intuit may debit your bank account if your tax refund does not cover the fees, or if the IRS still holds the refund 36 days after the original estimated refund date.
+      - do: To avoid the auto-debit, pay through the "pay online" link in the email notification (order number and ZIP code) by 12:00 PM PT on the Thursday before the scheduled debit date.
+      - do: To ask for a one-time 21-day deferral, use the "payment options" link in the email or call TurboTax.
+        channel: support-phone
+      - do: If you never used TurboTax or did not authorize the charge, report it to your card issuer or bank and ask TurboTax to reverse it.
+    facts:
+      - kind: policy
+        claim: 'With Pay With My Refund, you authorize a debit "in the event that you do not receive a tax refund that is sufficient to pay for them," and also if "the IRS is still holding your refund 36 days after your original estimated refund date." A one-time deferral of 21 days from the original debit date may be available at 1 (800) 446-8848.'
+        issues: [unauthorized_charge, billing_error]
+        source: https://ttlc.intuit.com/turbotax-support/en-us/help-article/intuit-account-billing/bank-account-auto-debited-turbotax-fees/L3rDdVynu_US_en_US
+        last_verified: 2026-10-13
+
+  - issue: bill_increase
+    summary: TurboTax Online prices can rise as the filing deadline approaches, and you pay the published price at the time you pay. Recurring subscription prices change with notice, and you can cancel before the change.
+    evidence: [screenshot of the price shown when you started, fee breakdown email, price change notice]
+    steps:
+      - do: Check the fee breakdown before you pay, and remove add-ons or downgrade if the total is higher than expected.
+        note: https://ttlc.intuit.com/turbotax-support/en-us/help-article/intuit-account-billing/reduce-fees/L3Kp3yEYs_US_en_US
+      - do: For a subscription price change you do not accept, cancel before the new price takes effect.
+        channel: advantage-cancel
+    facts:
+      - kind: policy
+        claim: '"Intuit may increase the price of any paid version of the Services as the respective tax filing deadline approaches" (section B 3.1), and "The price for your use ... is the published price at the time you pay" (section B 3.2).'
+        issues: [bill_increase]
+        source: https://www.intuit.com/legal/terms/en-us/turbotax/online-license/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: '"Intuit may change the price for recurring subscription fees from time to time with notice to you." "If you do not agree with the price change, you may unsubscribe prior to the price change going into effect" (Section A).'
+        issues: [bill_increase, cancel_service]
+        source: https://www.intuit.com/legal/terms/en-us/turbotax/online-license/
+        last_verified: 2026-10-13
+
+facts:
+  - kind: process
+    claim: 'FTC v. Intuit (FTC Docket No. 9408): on January 22, 2024 the Commission (3-0) found that Intuit "engaged in deceptive advertising" of "free" TurboTax products and issued a Final Order barring "free" claims unless the product is free for all or the qualifying share of consumers is disclosed. The press release describes no money for consumers.'
+    source: https://www.ftc.gov/news-events/news/press-releases/2024/01/ftc-issues-opinion-finding-turbotax-maker-intuit-inc-engaged-deceptive-practices
+    last_verified: 2026-10-13
+  - kind: process
+    claim: 'On March 20, 2026 the U.S. Court of Appeals for the Fifth Circuit (No. 24-60040) held that adjudicating the deceptive advertising claim before an administrative law judge violated the separation of powers: "Intuit''s petition for review is GRANTED; the FTC''s order is VACATED; and the case is REMANDED to the agency for further proceedings." No later ruling was found on 2026-10-13; the FTC case page shows "Closed" and was last updated June 14, 2024.'
+    source: https://www.ca5.uscourts.gov/opinions/pub/24/24-60040-CV0.pdf
+    last_verified: 2026-10-13
+  - kind: compensation
+    claim: On May 4, 2022 a coalition of 51 attorneys general announced a $141 million settlement with Intuit. Restitution was for people who filed with TurboTax in 2016 through 2018 after starting in TurboTax Free Edition and being told to pay, although they were eligible for the IRS Free File version. No claim was needed; eligible people were to receive a notice and a payment automatically, expected to be about $30.
+    issues: [refund_request]
+    source: https://ncdoj.gov/?p=359056
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: The 2022 multistate settlement bars Intuit from misleading taxpayers about needing to upgrade, requires clear and conspicuous disclosure of free-product limits, disclosure at the earliest possible point that a user will not qualify, and bars making users re-enter data when they return to a free product. California's share was $11.4 million for about 370,000 Californians.
+    source: https://www.oag.ca.gov/news/press-releases/attorney-general-bonta-announces-nationwide-settlement-against-intuit-deceptive
+    last_verified: 2026-10-13
+
+tips:
+  - kind: official
+    text: Do not open links in a suspicious email that claims to be from TurboTax. Forward it to security@intuit.com, and forward fake IRS emails to phishing@irs.gov.
+    source: https://turbotax.intuit.com/tax-tips/security/tax-time-scams-you-should-avoid/L0rtre77W
+    last_verified: 2026-10-13
+  - kind: community
+    text: 'A TurboTax Community helper advises using the key words "billing issues" (not "refund") when contacting support about TurboTax fees, so you are not routed to tax-refund help. Several posters report being refused refunds for Online fees after payment.'
+    issues: [refund_request]
+    source: https://ttlc.intuit.com/community/taxes/discussion/does-anyone-know-how-to-request-a-refund-for-turbotax-deluxe-online-not-the-download-or-cd-i-already/00/1381064
+    last_verified: 2026-10-13
+
+known_blockers:
+  - The Intuit Refund Request form and Products & billing page need sign-in to the Intuit Account.
+  - TurboTax Online fees are non-refundable once paid; Clear & Start Over does not work after payment, registration, or choosing to deduct fees from the refund.
+  - The TurboTax contact page lists a phone number but no hours.
+  - intuit.com legal pages rate-limited automated fetches (HTTP 429) during verification; the Terms text was read on a later attempt.

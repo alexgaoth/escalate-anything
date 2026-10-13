@@ -1,0 +1,203 @@
+id: fubo
+name: Fubo
+aliases: [fubotv, fubo tv, fubo.tv, fubo live tv, fubo sports]
+sector: subscription
+parent: FuboTV Inc.
+website: https://www.fubo.tv
+account_url: https://www.fubo.tv/subscription/subscription
+official_domains: [fubo.tv]
+security:
+  never_asks:
+    - kind: policy
+      claim: Fubo says it will never ask for personal information such as your password, your full credit card number or your Social Security number.
+      source: https://support.fubo.tv/hc/en-us/articles/43884943357197-Is-this-Email-from-Fubo-real
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: Fubo says legitimate Fubo emails come only from its official domains, such as fubo.tv, newsletters.fubo.tv and fubo.fubo.tv, and to be cautious of public domains like Gmail, Yahoo or Outlook. If you clicked a suspicious link, change your Fubo password immediately.
+      source: https://support.fubo.tv/hc/en-us/articles/43884943357197-Is-this-Email-from-Fubo-real
+      last_verified: 2026-10-13
+regulators: [ftc]
+notes: >-
+  Fubo is a live TV streaming service run by FuboTV Inc. Fubo's investor site (checked 2026-10-13) says
+  "FuboTV Inc. is an affiliate of The Walt Disney Company" and that FuboTV Inc. owns Hulu + Live TV, Fubo and
+  Molotov. Fubo's help center (article updated 2025-11-06) says Fubo and Hulu + Live TV "are still separate"
+  services, with no changes to current plans or pricing. Hulu + Live TV bought through the Fubo website is
+  managed on Hulu (see the disney-plus entry). Values come from support.fubo.tv articles read through the help
+  center's public article feed; the article pages and the Terms of Service page
+  (https://www.fubo.tv/documents/USA/terms-of-service) did not render for automated reading on 2026-10-13, so
+  the Terms of Service text was not checked.
+
+channels:
+  - id: web-account-subscription
+    type: portal
+    label: Fubo website, My Account, Subscription, Cancel (Fubo-billed subscriptions)
+    value: https://www.fubo.tv/subscription/subscription
+    purposes: [cancel_service, billing_error, bill_increase]
+    access: login
+    notes: >-
+      Sign in at https://fubo.tv/signin, pick a profile, open the settings icon, My Account, Subscription, scroll to
+      the bottom and select Cancel. A discount offer may appear; the subscription is not cancelled until you select
+      CANCEL SUBSCRIPTION and see the confirmation page. The same page shows the termination date once a
+      cancellation is set, and whether the subscription was created through Roku.
+    source: https://support.fubo.tv/hc/en-us/articles/360021527991-How-do-I-Cancel-My-Fubo-Subscription
+    last_verified: 2026-10-13
+  - id: roku-cancel
+    type: portal
+    label: Cancel Fubo billed by Roku (my.roku.com subscriptions, Unsubscribe)
+    value: https://my.roku.com/subscription/subscriptions
+    purposes: [cancel_service]
+    access: login
+    notes: Select Unsubscribe next to the Fubo plan, then Yes, Unsubscribe. On a Roku device, highlight the Fubo app, press the Star button, Manage subscription, Cancel subscription.
+    source: https://support.fubo.tv/hc/en-us/articles/360021527991-How-do-I-Cancel-My-Fubo-Subscription
+    last_verified: 2026-10-13
+  - id: support-phone
+    type: phone
+    label: Fubo Support phone
+    value: +1-844-441-3826
+    hours: 10:00 AM-10:00 PM ET, 7 days a week (holiday hours may vary)
+    purposes: [cancel_service, refund_request, billing_error, unauthorized_charge, account_access]
+    source: https://support.fubo.tv/hc/en-us/articles/360015151672-How-do-I-Contact-Fubo-Support
+    last_verified: 2026-10-13
+  - id: live-chat
+    type: chat
+    label: Fubo live chat (chat icon in the lower right corner of the help center)
+    value: https://support.fubo.tv/hc/en-us
+    hours: 10:00 AM-10:00 PM ET, 7 days a week (holiday hours may vary)
+    purposes: [cancel_service, refund_request, billing_error, unauthorized_charge]
+    notes: Fubo calls live chat "the quickest way to reach Fubo". The Fubo Virtual Assistant behind the same icon is available 24 hours a day, and support requests answered by email can be sent at any time.
+    source: https://support.fubo.tv/hc/en-us/articles/360015151672-How-do-I-Contact-Fubo-Support
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: live-chat}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel on the Fubo website (My Account, Subscription, Cancel) or with Roku if Roku bills you; a paid subscription runs to the end of the billing period, with no refund for the rest of the month.
+    evidence: [cancellation confirmation page or email, date cancelled, account email]
+    steps:
+      - do: Sign in on the Fubo website, open My Account, Subscription, and select Cancel at the bottom. Decline the discount offer with CANCEL SUBSCRIPTION and wait for the confirmation page.
+        channel: web-account-subscription
+      - do: If the subscription page says "Roku Subscription", cancel with Roku instead.
+        channel: roku-cancel
+      - do: Cancel before the next billing date. Then check the subscription page, which should show the termination date.
+        channel: web-account-subscription
+      - do: If you cannot cancel online, use live chat or call Fubo Support.
+        channel: live-chat
+    facts:
+      - kind: policy
+        claim: Paid Fubo subscriptions renew automatically each month until cancelled. After you cancel, service continues until the end of the current billing period and the subscription does not renew.
+        issues: [cancel_service]
+        source: https://support.fubo.tv/hc/en-us/articles/360004457571-What-Is-Fubo-s-Cancellation-Policy
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: Most Fubo plans have no cancellation fee, but a promotional offer with a commitment period may carry an early cancellation fee if you cancel before the commitment ends.
+        issues: [cancel_service, early_termination_fee]
+        source: https://support.fubo.tv/hc/en-us/articles/360004457571-What-Is-Fubo-s-Cancellation-Policy
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Charges can continue if the cancellation steps were not fully completed, if you have a second Fubo account under another email, or if a third-party provider bills you; for a third party, "the cancellation process will need to be completed directly with that provider."
+        issues: [cancel_service, unauthorized_charge]
+        source: https://support.fubo.tv/hc/en-us/articles/31641239310093-Why-am-I-still-being-charged-after-canceling-my-Fubo-account
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: Fubo does not refund prepaid or partial months; a pay-per-view order placed by mistake can be refunded if you contact Fubo before the event starts.
+    evidence: [billing history, date of cancellation, PPV order details]
+    steps:
+      - do: For an accidental pay-per-view order, contact Fubo before the event starts and ask for a refund; PPV orders cannot be cancelled on the My Account page.
+        channel: live-chat
+      - do: For a charge after you cancelled, check the cancellation date against the billing date, then contact Fubo Support.
+        channel: support-phone
+    facts:
+      - kind: policy
+        claim: '"Fubo doesn''t provide refunds for prepaid or partial months of service." If the cancellation was completed after you were billed, Fubo charges for the full billing period.'
+        issues: [refund_request, cancel_service]
+        source: https://support.fubo.tv/hc/en-us/articles/31641239310093-Why-am-I-still-being-charged-after-canceling-my-Fubo-account
+        last_verified: 2026-10-13
+      - kind: deadline
+        claim: 'Pay-per-view events are billed immediately for the full amount. For accidental orders, "contact us at any point up to the start of the event, and our team can refund the charges."'
+        issues: [refund_request]
+        source: https://support.fubo.tv/hc/en-us/articles/36676716172173-Can-I-Watch-Pay-Per-View-Events-on-Fubo
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: A temporary $1.00 authorization charge may appear when you sign up; Fubo says it is automatically refunded within 7-10 business days.
+        issues: [refund_request, billing_error]
+        source: https://support.fubo.tv/hc/en-us/articles/115003536047-What-is-this-1-charge-on-my-credit-card
+        last_verified: 2026-10-13
+
+  - issue: free_trial_conversion
+    summary: A Fubo free trial needs a card and converts to a paid plan automatically; cancel before it ends. On the Fubo website, cancelling during the trial ends access at once.
+    evidence: [trial end date and time shown at checkout, cancellation confirmation]
+    steps:
+      - do: Note the trial end date and time shown at checkout; trial lengths vary.
+      - do: Cancel before the trial ends to avoid the first charge.
+        channel: web-account-subscription
+      - do: If Roku billed the trial, cancel with Roku; the subscription then ends at the end of the trial.
+        channel: roku-cancel
+    facts:
+      - kind: policy
+        claim: The free trial needs a credit or debit card and is only for new customers. At the end of the trial, the subscription moves to a paid plan and the card is charged for the first billing cycle; cancel before the trial ends to avoid being charged. "The length of free trials offered can vary."
+        issues: [free_trial_conversion]
+        source: https://support.fubo.tv/hc/en-us/articles/115003648828-How-does-the-free-trial-work
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: If you signed up on the Fubo website or through the Fubo Sales Team, cancelling during the free trial ends the subscription immediately and you lose access. If you signed up through Roku, the subscription ends at the end of the free trial. No second free trial is given.
+        issues: [free_trial_conversion, cancel_service]
+        source: https://support.fubo.tv/hc/en-us/articles/360004457571-What-Is-Fubo-s-Cancellation-Policy
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: Tell Fubo first about a charge you did not make, a duplicate charge or a charge on a stolen card; have the charge date, amount and card details ready but give them only when asked.
+    evidence: [date and amount of each charge, last 4 digits and expiration date of the card, account email if known]
+    steps:
+      - do: Contact Fubo through chat or the Virtual Assistant; it routes you to the right team. Give card details only when prompted.
+        channel: live-chat
+      - do: If Fubo does not fix it, dispute the charge with your card issuer.
+    facts:
+      - kind: process
+        claim: 'For charges in error, duplicate charges, a stolen card or a charge from a service you do not recognize, Fubo says "Alerting us is the fastest way to resolve this issue." Have the date and amount of each charge and the last 4 digits and expiration date of the card ready, but "do not provide any of these requested details until prompted."'
+        issues: [unauthorized_charge, billing_error]
+        source: https://support.fubo.tv/hc/en-us/articles/360002147792-How-do-I-report-an-unauthorized-charge-from-Fubo-on-my-credit-debit-card
+        last_verified: 2026-10-13
+
+  - issue: bill_increase
+    summary: Introductory prices revert to the standard price without a separate notice; Fubo emails in advance about service-wide price changes. Cancel before the next billing date if you do not accept the new price.
+    evidence: [last bill before the increase, first bill after, promotion terms, Fubo price-change email]
+    steps:
+      - do: Compare the Subscription summary and Payment history in My Account to find what changed (promotion ended, add-on price, taxes or regional sports fees).
+        channel: web-account-subscription
+      - do: If you do not accept the new price, cancel before the next billing date.
+        channel: web-account-subscription
+    facts:
+      - kind: policy
+        claim: After a promotional period, the subscription "automatically reverts to the standard pricing", and a promotion ending does not trigger a separate notification. "You will be notified via email in advance of any service-wide pricing changes." Taxes, regulatory fees and regional sports fees vary by location.
+        issues: [bill_increase]
+        source: https://support.fubo.tv/hc/en-us/articles/37566340190349-Why-Did-My-Price-for-Fubo-Change
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: 'Fubo''s help center (article updated 2026-06-15) says existing Fubo TV plan subscribers'' price "will increase by $15/month" and Fubo Sports (Sports + News) by $9/month, on a date that depends on when NBCUniversal channels become available in the area. Fubo emails the login address with details. "you cannot opt out of these changes", but you can change the subscription in My Account.'
+        issues: [bill_increase]
+        source: https://support.fubo.tv/hc/en-us/articles/46604802430605-I-m-a-Fubo-Subscriber-Is-My-Price-Changing
+        last_verified: 2026-10-13
+
+facts:
+  - kind: policy
+    claim: Hulu + Live TV bought through the Fubo website is a separate service; "all account changes, including cancellation, will be managed through the Hulu website directly."
+    issues: [cancel_service]
+    source: https://support.fubo.tv/hc/en-us/articles/45642773853965-How-do-I-sign-up-for-Hulu-Live-TV-through-the-Fubo-website
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: Fubo says the Fubo and Hulu + Live TV business combination did not change current plans or pricing for either service, and "Both services are still separate."
+    source: https://support.fubo.tv/hc/en-us/articles/40933004978445-Does-the-Fubo-Hulu-Live-TV-Business-Combination-Change-Anything-for-Me
+    last_verified: 2026-10-13
+
+known_blockers:
+  - Online cancellation needs the account holder's Fubo sign-in, or Roku sign-in for Roku-billed plans.
+  - The cancel flow shows a discount offer first; the subscription stays active unless you select CANCEL SUBSCRIPTION and reach the confirmation page.
+  - Fubo's help pages describe only Fubo-website and Roku billing; for other app-store billing, ask Fubo Support where the subscription is billed.
+  - Phone and live chat are open 10:00 AM-10:00 PM ET only.

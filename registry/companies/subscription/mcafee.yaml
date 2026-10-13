@@ -1,0 +1,119 @@
+id: mcafee
+name: McAfee
+aliases: [mcafee llc, mcafee total protection, mcafee+, mcafee plus, mcafee antivirus, mcafee livesafe, mcafee internet security]
+sector: subscription
+website: https://www.mcafee.com
+official_domains: [mcafee.com]
+notes: www.mcafee.com refused every automated fetch on 2026-10-13 (connection reset), so McAfee's own policy pages could not be read directly. Values marked "search-result text" come from search-engine text of McAfee pages on that date; confirm them in the McAfee account or with McAfee before relying on them.
+security:
+  never_asks:
+    - kind: policy
+      claim: McAfee says it will never ask you to confirm personal details and will never require you to call a phone number given in an email or text. Read from search-result text for McAfee's Customer Scam Awareness page on 2026-10-13; mcafee.com blocked automated fetches.
+      source: https://www.mcafee.com/en-us/cyber-scam/customer-scam-awareness.html
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: 'The FTC says tech support scammers "use the names of well-known companies like Geek Squad, McAfee, and Norton" and send notices that you were charged hundreds of dollars to renew a subscription. If you call, they ask for remote access, send you to a spoofed refund website, then claim they "refunded you too much money" and demand repayment by gift card, wire, crypto or payment app.'
+      source: https://consumer.ftc.gov/articles/how-spot-avoid-and-report-tech-support-scams
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: McAfee describes invoice scams that claim you owe money for a product or service, often with a fake invoice PDF or a request to pay by phone, and recommends signing in at McAfee.com to check your real subscription and renewal status instead of using links in the message. Read from search-result text on 2026-10-13; mcafee.com blocked automated fetches.
+      source: https://www.mcafee.com/en-us/cyber-scam/customer-scam-awareness.html
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-scam-email
+      type: email
+      label: Report fraudulent emails that use the McAfee brand
+      value: scam@mcafee.com
+      purposes: [fraud]
+      notes: Read from search-result text for McAfee's Customer Scam Awareness page on 2026-10-13; mcafee.com blocked automated fetches.
+      source: https://www.mcafee.com/en-us/cyber-scam/customer-scam-awareness.html
+      last_verified: 2026-10-13
+    - id: report-scam-phone
+      type: phone
+      label: McAfee phone line for reporting scams that use the McAfee brand
+      value: +1-866-622-3911
+      purposes: [fraud]
+      notes: Read from search-result text for McAfee's Customer Scam Awareness page on 2026-10-13; mcafee.com blocked automated fetches. The same number is McAfee's listed phone on its BBB profile.
+      source: https://www.mcafee.com/en-us/cyber-scam/customer-scam-awareness.html
+      last_verified: 2026-10-13
+regulators: [ftc]
+
+channels:
+  - id: support-phone
+    type: phone
+    label: McAfee phone number (listed on McAfee's BBB business profile)
+    value: +1-866-622-3911
+    purposes: [cancel_service, refund_request, unauthorized_charge, billing_error, fraud]
+    notes: The BBB profile for McAfee, LLC (San Jose, CA) lists this number. Hours and phone menu were not checked because mcafee.com blocked automated fetches on 2026-10-13. Call only this number or one shown inside your McAfee account, never a number from an email or invoice.
+    source: https://www.bbb.org/us/ca/san-jose/profile/computer-services/mcafee-llc-1216-1534510/complaints
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: support-phone}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Turn off auto-renewal in your McAfee account before the payment date. If you were already renewed, ask for a refund inside the refund window.
+    evidence: [McAfee account email, subscription and renewal date, screenshot of auto-renewal turned off]
+    steps:
+      - do: Sign in to your McAfee account by typing mcafee.com into the browser (not from an email link), open the account menu and go to the auto-renewal settings. Turn auto-renewal off before the payment date and take a screenshot.
+        note: Path read from search-result text of McAfee pages on 2026-10-13; mcafee.com blocked automated fetches.
+      - do: If you cannot turn it off, call McAfee.
+        channel: support-phone
+      - do: If McAfee charges you after you turned auto-renewal off, ask McAfee for a refund, then dispute the charge with your card issuer if it refuses.
+
+  - issue: refund_request
+    summary: McAfee's published policy (search-result text) allows a refund request within 30 days of the first purchase or within 60 days of an automatic renewal, for terms of one year or longer.
+    evidence: [order or invoice number, charge date and amount, card statement]
+    steps:
+      - do: Check the charge date against the 30-day (new purchase) and 60-day (automatic renewal) windows.
+      - do: Call McAfee and ask for a full refund; turn off auto-renewal in the same contact.
+        channel: support-phone
+      - do: If McAfee refuses a refund inside the window, or charged you after you turned off auto-renewal, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: McAfee's US refund policy says annual subscribers who ask within 30 days of purchase are eligible for a refund, and that McAfee refunds the most recent automatic renewal charge in full if you ask within 60 days of the charge. McAfee does not give prorated refunds.
+        issues: [refund_request, bill_increase]
+        source: https://www.mcafee.com/support/s/article/000001679-refund?language=en_US
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: First check whether the "charge" is real. Fake McAfee renewal invoices are common; call no number in the message.
+    evidence: [card or bank statement, the suspicious email, McAfee order number if the charge is real]
+    steps:
+      - do: Do not call any number or click any link in the email or invoice. Check your card or bank statement, and sign in to McAfee by typing mcafee.com into the browser.
+      - do: If there is no matching charge, the message is a scam. Report it to McAfee and to the FTC, and delete it.
+        regulator: ftc
+      - do: If there is a real McAfee charge you did not expect, call McAfee and ask for a refund.
+        channel: support-phone
+      - do: If you gave a caller remote access, card details or money, contact your bank or card issuer at once.
+    facts:
+      - kind: policy
+        claim: 'The FTC says: "If you get a message about a tech support subscription renewal and you think it''s real, contact the company directly" using contact details you know are real, and check your statements for an unauthorized transaction.'
+        issues: [unauthorized_charge, fraud]
+        source: https://consumer.ftc.gov/articles/how-spot-avoid-and-report-tech-support-scams
+        last_verified: 2026-10-13
+
+  - issue: bill_increase
+    summary: McAfee auto-renewal prices have been the subject of a settled class action. If a renewal costs more than you expected, turn off auto-renewal and ask for a refund within 60 days of the renewal charge.
+    evidence: [renewal charge date and amount, earlier price paid, order number]
+    steps:
+      - do: Turn off auto-renewal in your McAfee account.
+      - do: Within 60 days of the renewal charge, call McAfee and ask for a refund.
+        channel: support-phone
+    facts:
+      - kind: policy
+        claim: In Williamson v. McAfee and Kirby v. McAfee (N.D. Cal.), plaintiffs alleged McAfee charged auto-renewal prices higher than it advertised. A federal judge granted final approval of a settlement on February 3, 2017; McAfee denied wrongdoing.
+        issues: [bill_increase]
+        source: https://www.mealeys.com/mealeys/articles/1622751/class-settlement-approved-in-2-mcafee-antivirus-auto-renewal-suits
+        last_verified: 2026-10-13
+
+known_blockers:
+  - www.mcafee.com refused automated fetches on 2026-10-13, so McAfee's refund policy, auto-renewal terms, account URL and phone hours could not be read directly. Values marked "search-result text" need confirming.
+  - Turning off auto-renewal needs sign-in to the McAfee account.
+  - Do not use "McAfee support" phone numbers from search results, pop-ups or emails; fake renewal invoices with call-back numbers are a common scam.

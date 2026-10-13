@@ -1,0 +1,261 @@
+id: linkedin
+name: LinkedIn
+aliases: [linkedin premium, linkedin premium career, linkedin premium business, linkedin sales navigator, linkedin corporation]
+sector: subscription
+parent: Microsoft Corporation
+website: https://www.linkedin.com
+account_url: https://www.linkedin.com/manage/purchases-payments
+official_domains: [linkedin.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: '"LinkedIn will never ask you for your password or ask you to download any programs."'
+      source: https://www.linkedin.com/help/linkedin/answer/a1339266
+      last_verified: 2026-10-13
+    - kind: contact
+      claim: 'LinkedIn says: "We don''t offer a phone number for customer support." and "we don''t charge for customer support and we''ll never ask you for your password or access to your computer." A caller claiming to be LinkedIn support is not LinkedIn.'
+      source: https://www.linkedin.com/help/linkedin/answer/a1336387
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: LinkedIn names linkedin_support@cs.linkedin.com, linkedin@e.linkedin.com and linkedin@el.linkedin.com as legitimate sender addresses that are not phishing.
+      source: https://www.linkedin.com/help/linkedin/answer/a1339266
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: LinkedIn lists inheritance or advance fee fraud scams, job scams, technical support scams, and dating and romance scams as scams on its platform.
+      source: https://www.linkedin.com/help/linkedin/answer/a1336387
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: LinkedIn lists phishing warning signs as messages with bad spelling and grammar that are not addressed to you personally, messages asking you to act immediately, and messages asking you to open an attachment to install a software update.
+      source: https://www.linkedin.com/help/linkedin/answer/a1339266
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-phishing-email
+      type: email
+      label: Forward suspicious emails that claim to be from LinkedIn
+      value: phishing@linkedin.com
+      purposes: [fraud]
+      source: https://www.linkedin.com/help/linkedin/answer/a1339266
+      last_verified: 2026-10-13
+    - id: report-scam-form
+      type: web_form
+      label: LinkedIn contact form to report a scam message
+      value: https://www.linkedin.com/help/linkedin/ask/TS-RPS
+      purposes: [fraud]
+      source: https://www.linkedin.com/help/linkedin/answer/a1336387
+      last_verified: 2026-10-13
+    - id: ftc-report-linkedin
+      type: web_form
+      label: FTC fraud report for LinkedIn scams, including job scams (linked by LinkedIn)
+      value: https://reportfraud.ftc.gov/#/?orgcode=LNK
+      purposes: [fraud]
+      source: https://www.linkedin.com/help/linkedin/answer/a1336387
+      last_verified: 2026-10-13
+regulators: [ftc]
+notes: >-
+  Premium renews automatically at the start of each subscription period. A cancelled paid
+  subscription stays active to the end of the billing cycle; a cancelled free trial ends at once.
+  Premium may be refundable within 7 days of the charge if Premium was not used. Apple App Store
+  purchases are refunded only by Apple. LinkedIn has no customer support phone number. For users
+  outside the EU, EEA and Switzerland the User Agreement applies California law and Santa Clara
+  County courts.
+
+channels:
+  - id: manage-purchases
+    type: portal
+    label: LinkedIn Admin Center, Purchases (cancel a Premium subscription or trial)
+    value: https://www.linkedin.com/manage/purchases-payments/purchases
+    purposes: [cancel_service, free_trial_conversion]
+    access: login
+    notes: 'Path from the homepage: Me > Premium features > Manage subscription > Purchases > select the Active subscription > Cancel subscription > Confirm cancel.'
+    source: https://www.linkedin.com/help/linkedin/answer/a1339127/
+    last_verified: 2026-10-13
+  - id: cancel-without-signin
+    type: web_form
+    label: Cancel some LinkedIn subscriptions without signing in (Germany and United States)
+    value: https://www.linkedin.com/help/linkedin/ask/PREMIUM-CANCEL
+    purposes: [cancel_service]
+    notes: '"If you''re in Germany or the United States, some subscriptions can be canceled without signing in."'
+    source: https://www.linkedin.com/help/linkedin/answer/50
+    last_verified: 2026-10-13
+  - id: refund-request
+    type: web_form
+    label: Request a Refund (linked from the LinkedIn refund policy)
+    value: https://www.linkedin.com/help/linkedin/feature-launcher/urn:li:helpCenterArticle:(1337140,LITHOGRAPH)
+    purposes: [refund_request, free_trial_conversion]
+    source: https://www.linkedin.com/help/linkedin/answer/5704
+    last_verified: 2026-10-13
+  - id: billing-support
+    type: web_form
+    label: LinkedIn billing support contact form
+    value: https://www.linkedin.com/help/linkedin/ask/pmt-rc
+    purposes: [billing_error, refund_request, unauthorized_charge]
+    source: https://www.linkedin.com/help/linkedin/answer/50
+    last_verified: 2026-10-13
+  - id: contact-us
+    type: web_form
+    label: LinkedIn Help Center contact form
+    value: https://www.linkedin.com/help/linkedin/ask
+    purposes: [billing_error, refund_request, unauthorized_charge, cancel_service]
+    source: https://www.linkedin.com/help/linkedin/answer/2949
+    last_verified: 2026-10-13
+  - id: purchase-history
+    type: portal
+    label: LinkedIn purchase history (receipts for charges on your account)
+    value: https://www.linkedin.com/payments/purchasehistory
+    purposes: [unauthorized_charge, billing_error]
+    access: login
+    source: https://www.linkedin.com/help/linkedin/answer/2949
+    last_verified: 2026-10-13
+  - id: apple-cancel
+    type: web_form
+    label: Cancel LinkedIn Premium bought through the Apple App Store (Apple)
+    value: https://support.apple.com/en-us/HT202039
+    purposes: [cancel_service, free_trial_conversion]
+    source: https://www.linkedin.com/help/linkedin/answer/a563180
+    last_verified: 2026-10-13
+  - id: apple-refund
+    type: web_form
+    label: Apple payment and refund support for LinkedIn App Store purchases
+    value: https://getsupport.apple.com/?caller=kbase&PGF=PGF63006&category_id=SC0060&symptom_id=23208
+    purposes: [refund_request]
+    source: https://www.linkedin.com/help/linkedin/answer/a563180
+    last_verified: 2026-10-13
+  - id: google-play-cancel
+    type: web_form
+    label: Cancel LinkedIn Premium bought through Google Play (Google)
+    value: https://support.google.com/googleplay/answer/7018481/
+    purposes: [cancel_service, free_trial_conversion]
+    source: https://www.linkedin.com/help/linkedin/answer/a569644
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: billing-support}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel Premium in the Admin Center (Purchases) at least one day before the billing date. Paid plans stay active to the end of the cycle. Apple App Store purchases are cancelled on the Apple device.
+    evidence: [cancellation confirmation, billing date, receipt from purchase history]
+    steps:
+      - do: 'On desktop: Me > Premium features > Manage subscription > Purchases > select the Active subscription > Cancel subscription > Confirm cancel.'
+        channel: manage-purchases
+      - do: In the United States, some subscriptions can be cancelled without signing in.
+        channel: cancel-without-signin
+      - do: If you bought through the Apple App Store, cancel from the LinkedIn app on your Apple device or in Apple subscriptions.
+        channel: apple-cancel
+      - do: If you bought through Google Play, cancel on LinkedIn or in Google Play.
+        channel: google-play-cancel
+    facts:
+      - kind: deadline
+        claim: '"Cancel at least one day before your billing date to avoid being charged for the next cycle."'
+        issues: [cancel_service]
+        source: https://www.linkedin.com/help/linkedin/answer/50
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: A cancelled paid subscription stays active until the end of the current billing cycle. "If you cancel a Premium free trial, the trial will end immediately, and Premium access will stop right away."
+        issues: [cancel_service, free_trial_conversion]
+        source: https://www.linkedin.com/help/linkedin/answer/50
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'User Agreement 2.3: "If you purchase a subscription, your payment method automatically will be charged at the start of each subscription period" and "To avoid future charges, cancel before the renewal date."'
+        issues: [cancel_service]
+        source: https://www.linkedin.com/legal/user-agreement
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: Premium may be refunded within 7 days of the charge if you did not use Premium. Cancelling alone does not refund. Apple App Store purchases are refunded only by Apple.
+    evidence: [charge date and amount, receipt, statement that Premium was not used since the charge]
+    steps:
+      - do: Within 7 days of the charge, and before using Premium, submit a refund request.
+        channel: refund-request
+      - do: For an Apple App Store purchase, ask Apple for the refund.
+        channel: apple-refund
+      - do: If the request is refused, contact billing support in writing and keep the case number.
+        channel: billing-support
+    facts:
+      - kind: deadline
+        claim: Premium subscriptions (including Premium Career, Premium Business and Sales Navigator) "may be refundable within 7 days from the date the subscription is charged without Premium usage." "A previous refund may affect your eligibility."
+        issues: [refund_request]
+        source: https://www.linkedin.com/help/linkedin/answer/a1337140
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: '"All iOS refunds must be issued by Apple." LinkedIn says it "can''t provide any billing support for Apple App Store purchases."'
+        issues: [refund_request]
+        source: https://www.linkedin.com/help/linkedin/answer/a563180
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'User Agreement 2.3: "All of your paid Services are subject to LinkedIn''s refund policy."'
+        issues: [refund_request]
+        source: https://www.linkedin.com/legal/user-agreement
+        last_verified: 2026-10-13
+
+  - issue: free_trial_conversion
+    summary: A Premium free trial charges the card one month after sign-up unless cancelled at least one day before. Desktop sign-ups get a reminder email; mobile sign-ups do not.
+    evidence: [trial sign-up date, renewal date shown in the Admin Center, cancellation confirmation, the charge]
+    steps:
+      - do: Check the renewal date in the Admin Center and cancel the trial at least one day before it.
+        channel: manage-purchases
+      - do: If you started the trial in the Apple or Google app, cancel it with Apple or Google.
+        channel: apple-cancel
+      - do: If the trial already converted, request a refund within 7 days of the charge if you have not used Premium since.
+        channel: refund-request
+    facts:
+      - kind: deadline
+        claim: The card used for the trial "will automatically be charged one month from the date you signed up." "You must cancel the trial at least one day prior to the auto-renewal billing date to avoid being charged after your free trial."
+        issues: [free_trial_conversion]
+        source: https://www.linkedin.com/help/linkedin/answer/a1339127/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Desktop sign-ups get "an email reminder sent to the primary email address on your LinkedIn account" before the trial ends; for mobile purchases "you won't receive an email reminder from LinkedIn prior to the auto-renewal."
+        issues: [free_trial_conversion]
+        source: https://www.linkedin.com/help/linkedin/answer/a1339127/
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: Check purchase history first. LinkedIn lists an ended free trial, an active subscription, job post or ad, a bank authorization hold, or someone else using your card as common causes.
+    evidence: [card statement line, receipts from purchase history]
+    steps:
+      - do: Compare the charge with your LinkedIn purchase history. You can see receipts only for purchases on your own account.
+        channel: purchase-history
+      - do: If someone else used your card on their LinkedIn account, ask them to remove it; if they cannot, they can contact LinkedIn.
+      - do: If you still do not recognize the charge, review the refund policy and contact LinkedIn; report fraud to your card issuer.
+        channel: contact-us
+    facts:
+      - kind: policy
+        claim: LinkedIn says an unrecognized charge may come from a current or former employee, family member or friend using the payment method on LinkedIn, an ended Premium free trial or promotion, an active subscription, job posting or advertisement, or a bank authorization hold.
+        issues: [unauthorized_charge]
+        source: https://www.linkedin.com/help/linkedin/answer/2949
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'User Agreement 2.3: "We may store and continue billing your payment method (e.g., credit card), even after it has expired."'
+        issues: [unauthorized_charge, cancel_service]
+        source: https://www.linkedin.com/legal/user-agreement
+        last_verified: 2026-10-13
+
+  - issue: bill_increase
+    summary: LinkedIn may change prices going forward on reasonable notice. Cancel before the renewal date if you do not accept a new price.
+    evidence: [price change notice, last receipt]
+    steps:
+      - do: If you do not accept the new price, cancel at least one day before the next billing date.
+        channel: manage-purchases
+    facts:
+      - kind: policy
+        claim: 'User Agreement 2.3: "We may modify our prices effective prospectively upon reasonable notice to the extent allowed under the law."'
+        issues: [bill_increase]
+        source: https://www.linkedin.com/legal/user-agreement
+        last_verified: 2026-10-13
+
+facts:
+  - kind: policy
+    claim: 'For users outside the EU, EEA and Switzerland, "the laws of the State of California, U.S.A., excluding its conflict of laws rules, shall exclusively govern," and claims are litigated in federal or state courts in Santa Clara County, California (User Agreement section 6, effective November 3, 2025).'
+    source: https://www.linkedin.com/legal/user-agreement
+    last_verified: 2026-10-13
+
+known_blockers:
+  - The Admin Center (Purchases) and purchase history need sign-in; only some US and German subscriptions can be cancelled without signing in.
+  - LinkedIn offers no customer support phone number; support is by help center forms only.
+  - LinkedIn cannot give billing support or refunds for Apple App Store purchases.

@@ -1,0 +1,123 @@
+id: sams-club
+name: Sam's Club
+aliases: [sams club, samsclub.com, sam's club membership, sam's club plus, sams club plus, member's mark]
+sector: retail
+also_sectors: [subscription]
+parent: Walmart Inc.
+website: https://www.samsclub.com
+official_domains: [samsclub.com]
+regulators: [ftc]
+notes: >-
+  Sam's Club is a paid-membership warehouse club owned by Walmart Inc., with its own help center
+  (help.samsclub.com) separate from Walmart's. On 2026-10-13 samsclub.com showed a bot check and
+  help.samsclub.com articles returned HTTP 403 to automated fetches; only the help center home page
+  could be read. Values marked "search-result text" were read from search-result text of the
+  named help.samsclub.com pages, not from the pages themselves. Recheck them before relying on them.
+
+channels:
+  - id: member-care-phone
+    type: phone
+    label: Sam's Club membership line (cancel membership)
+    value: +1-888-746-7726
+    purposes: [cancel_service, refund_request, unauthorized_charge, billing_error]
+    notes: Read from search-result text of the help.samsclub.com cancellation article on 2026-10-13; the page blocked automated fetches. Hours not confirmed.
+    source: https://help.samsclub.com/app/answers/detail/a_id/2563/~/how-to-cancel-sams-club-membership
+    last_verified: 2026-10-13
+  - id: club-membership-desk
+    type: in_person
+    label: Membership / Member Services desk at any Sam's Club
+    value: Any Sam's Club location, Member Services desk
+    purposes: [cancel_service, refund_request, damaged_item]
+    notes: Read from search-result text of help.samsclub.com on 2026-10-13; the pages blocked automated fetches.
+    source: https://help.samsclub.com/app/answers/detail/a_id/2563/~/how-to-cancel-sams-club-membership
+    last_verified: 2026-10-13
+  - id: help-email-form
+    type: web_form
+    label: Sam's Club help center email form
+    value: https://help.samsclub.com/app/ask
+    purposes: [refund_request, cancel_service, lost_package, damaged_item, poor_service]
+    notes: The help center home page said chat support was "currently not available" on 2026-10-13.
+    source: https://help.samsclub.com/
+    last_verified: 2026-10-13
+  - id: credit-personal-phone
+    type: phone
+    label: Sam's Club personal credit card line
+    value: +1-800-964-1917
+    purposes: [billing_error, unauthorized_charge, cancel_service]
+    notes: Members whose fee is auto-billed to a Sam's Club credit card must also contact the card issuer to leave the automatic billing program. Business credit is +1-800-203-5764.
+    source: https://help.samsclub.com/
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: member-care-phone}
+  - {rung: supervisor, channel: club-membership-desk}
+  - {rung: written_complaint, channel: help-email-form}
+  - {rung: payment_dispute, note: "Card dispute for a membership charge after a cancellation."}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel at a club or by phone and ask for the 100% Membership Satisfaction Guarantee refund of the current year's fee; turning off auto-renew is a separate step.
+    evidence: [membership number, renewal date and amount, cancellation confirmation]
+    steps:
+      - do: Cancel at the membership desk of any club, or call the membership line, and ask for a refund of the current year's fee under the 100% Membership Satisfaction Guarantee.
+        channel: member-care-phone
+      - do: To stop only the next renewal, turn off Auto-renew in your account settings, at a club, or through Sam's Club contact channels. This does not cancel the membership.
+        channel: club-membership-desk
+      - do: If the fee is auto-billed to a Sam's Club credit card, also call the card issuer to leave the automatic billing program.
+        channel: credit-personal-phone
+      - do: Dispute any renewal charge made after a confirmed cancellation with your card issuer.
+    facts:
+      - kind: policy
+        claim: Under the 100% Membership Satisfaction Guarantee, an unsatisfied member can ask Sam's Club to cancel the membership and refund the amount paid for the current year's membership fee. Read from search-result text of Sam's Club's terms page on 2026-10-13; the page blocked automated fetches.
+        issues: [cancel_service, refund_request]
+        source: https://help.samsclub.com/app/answers/detail/a_id/4075/~/terms-and-conditions---sams-club
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: The guarantee applies to current active members; memberships bought through the Sponsored Membership Program or third parties and guest memberships are excluded. Plus has a limit of one Plus Membership cancellation per household or business per year, and refunds cover the current membership year only. Read from search-result text on 2026-10-13; the pages blocked automated fetches.
+        issues: [cancel_service, refund_request]
+        source: https://help.samsclub.com/app/answers/detail/a_id/4075/~/terms-and-conditions---sams-club
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Cancellation of enrollment in the Auto-renew Program is distinct from cancellation of the Sam's Club Membership. Auto-renew can be removed in the account's Auto-renew settings, at a local club, or by contacting Sam's Club. Read from search-result text on 2026-10-13; the pages blocked automated fetches.
+        issues: [cancel_service]
+        source: https://help.samsclub.com/app/answers/detail/a_id/2386/~/how-to-change-auto-renew-settings
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: A member who cancels without a refund keeps access until the end of the membership year; a member who takes the guarantee refund loses access. Read from search-result text on 2026-10-13; the pages blocked automated fetches.
+        issues: [cancel_service]
+        source: https://help.samsclub.com/app/answers/detail/a_id/2563/~/how-to-cancel-sams-club-membership
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: Return items at the Member Services desk of any club; electronics and major appliances within 90 days; refunds go to the original form of payment.
+    evidence: [membership card, receipt or printed order, the item with accessories and packing slip]
+    steps:
+      - do: Take the item, its accessories and the receipt or order to the Member Services desk at any Sam's Club.
+        channel: club-membership-desk
+      - do: For an online order you cannot bring to a club, use the help center email form.
+        channel: help-email-form
+      - do: For a membership fee refund, use the cancel_service steps (100% Membership Satisfaction Guarantee).
+        channel: member-care-phone
+      - do: If Sam's Club refuses a refund you are owed, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: Electronics and major appliances must be returned within 90 days. Read from search-result text of Sam's Club's Returns page on 2026-10-13; the page blocked automated fetches.
+        issues: [refund_request]
+        source: https://help.samsclub.com/app/answers/detail/a_id/4072/~/returns---sams-club
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: Items with no return option include gift cards and prepaid cards, tickets, collectibles, trading cards, custom-made items and Wholesale Trading (Truckload) Program purchases, among others. Read from search-result text of Sam's Club's Returns page on 2026-10-13; the page blocked automated fetches.
+        issues: [refund_request]
+        source: https://help.samsclub.com/app/answers/detail/a_id/4072/~/returns---sams-club
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: '"We prefer your original receipt or printed order, but if that''s not available, we''ll do our best to process your return without it." Refunds are issued as cash or credit depending on the original form of payment. Read from search-result text of help.samsclub.com on 2026-10-13; the pages blocked automated fetches.'
+        issues: [refund_request]
+        source: https://help.samsclub.com/app/answers/detail/a_id/4072/~/returns---sams-club
+        last_verified: 2026-10-13
+
+known_blockers:
+  - samsclub.com shows a bot check ("Let us know you're human") and help.samsclub.com articles return HTTP 403 to automated tools; hand the browser to the person.
+  - Online membership changes (Manage Membership, Auto-renew settings) need the member's sign-in.

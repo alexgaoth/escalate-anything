@@ -1,0 +1,183 @@
+id: nintendo
+name: Nintendo (Nintendo Switch Online and Nintendo eShop)
+aliases: [nintendo of america, nintendo switch online, nso, nintendo eshop, eshop, nintendo account, my nintendo store, switch online expansion pack]
+sector: subscription
+parent: Nintendo Co., Ltd.
+website: https://www.nintendo.com/us/
+account_url: https://accounts.nintendo.com/portal
+official_domains: [nintendo.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: 'Nintendo (Japan support notice, October 29, 2024) warned of emails that fake Nintendo sender addresses such as no-reply@accounts.nintendo.com and link to fraudulent sites. Nintendo says to delete them without opening links; if you entered your Nintendo Account email and password on a linked site, change the password on the Nintendo Account website at once and set up a passkey and 2-step verification. Nintendo says blocking that sender may also block real eShop receipts and verification codes.'
+      source: https://support.nintendo.com/jp/information/2024/1029.html
+      last_verified: 2026-10-13
+regulators: [ftc]
+notes: >-
+  Covers Nintendo of America's Nintendo Switch Online memberships and Nintendo eShop digital purchases in the US.
+  Nintendo's Purchase and Subscription Terms (last updated 08/2026) have an arbitration clause (section 12). You
+  can opt out by written notice within 30 days of first agreeing to the terms, sent to Nintendo of America Inc.,
+  Attn: CS Admin, 4600 150th Ave NE, Redmond, WA 98052, with each person's name, contact information and Nintendo
+  Account email. No Nintendo of America page was found that lists what Nintendo never asks for, or a phishing
+  report address.
+
+channels:
+  - id: nintendo-account-portal
+    type: portal
+    label: Nintendo Account website, Nintendo Switch Online, Cancel Your Pass by Turning Off Auto-Renewal
+    value: https://accounts.nintendo.com/portal
+    purposes: [cancel_service, free_trial_conversion, unauthorized_charge, billing_error]
+    access: login
+    notes: Sign in with the Nintendo Account that bought the membership, select Nintendo Switch Online, then in Active Plan select Cancel Your Pass by Turning Off Auto-Renewal and Confirm. Purchase history is under Shop menu, Purchase History.
+    source: https://en-americas-support.nintendo.com/app/answers/detail/a_id/41196
+    last_verified: 2026-10-13
+  - id: eshop-console
+    type: app
+    label: Nintendo eShop on Nintendo Switch or Switch 2, Account Information, Cancel Your Subscription by Turning Off Automatic Renewal
+    value: Nintendo eShop on the console HOME Menu, select the buying account, icon in the upper-right corner (Account Information), Cancel Your Subscription by Turning Off Automatic Renewal
+    purposes: [cancel_service, free_trial_conversion]
+    access: login
+    notes: On a Nintendo Switch family console, highlight Nintendo Switch Online on the left side of Account Information first.
+    source: https://en-americas-support.nintendo.com/app/answers/detail/a_id/41196
+    last_verified: 2026-10-13
+  - id: support-phone
+    type: phone
+    label: Nintendo customer support (US and Canada)
+    value: +1-800-255-3700
+    hours: Daily 6 a.m.-7 p.m. PT, except observed holidays
+    purposes: [cancel_service, refund_request, unauthorized_charge, billing_error, account_access]
+    notes: TTY/TTD users can call 711 (Telecommunications Relay Service). Hours read from the contact page's open and close times on 2026-10-13.
+    source: https://en-americas-support.nintendo.com/app/contact
+    last_verified: 2026-10-13
+  - id: support-phone-international
+    type: phone
+    label: Nintendo customer support from outside the US or Canada
+    value: +1-425-558-7078
+    purposes: [refund_request, unauthorized_charge, account_access]
+    source: https://en-americas-support.nintendo.com/app/contact
+    last_verified: 2026-10-13
+  - id: contact-page
+    type: chat
+    label: Nintendo Support contact page (24/7 chatbot, help ticket, live chat when available)
+    value: https://en-americas-support.nintendo.com/app/contact
+    purposes: [refund_request, unauthorized_charge, billing_error, account_access]
+    notes: On 2026-10-13 live chat and text support showed "Temporarily unavailable"; the chatbot is available 24/7, and help tickets "typically" get a reply within 24 hours.
+    source: https://en-americas-support.nintendo.com/app/contact
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: support-phone}
+  - {rung: written_complaint}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Turn off auto-renewal on the Nintendo Account website or in the eShop at least 48 hours before the membership expires; it stays active to the end of its term, with no refund for the remaining time.
+    evidence: [screenshot showing auto-renewal off, membership expiration date, Nintendo Account email]
+    steps:
+      - do: Sign in to the Nintendo Account website with the account that bought the membership, open Nintendo Switch Online, and turn off auto-renewal.
+        channel: nintendo-account-portal
+      - do: Or turn it off in the Nintendo eShop on the console (Account Information).
+        channel: eshop-console
+      - do: Do this at least 48 hours before the membership expires.
+    facts:
+      - kind: deadline
+        claim: 'Turn off auto-renewal "at least 48 hours before the membership is set to expire." The membership stays active until the end of its term, and "you will not receive any refunds or credits for the remaining time left on your subscription." Once off, auto-renewal cannot be turned back on for that membership.'
+        issues: [cancel_service, refund_request]
+        source: https://en-americas-support.nintendo.com/app/answers/detail/a_id/41196
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'Purchase and Subscription Terms, section 5(b): the renewal amount is charged "NO SOONER THAN 48 HOURS BEFORE YOUR SUBSCRIPTION IS SET TO EXPIRE" at the then-current price plus applicable taxes, and "YOU CAN TURN OFF AUTOMATIC RENEWAL AT ANY TIME UP TO 48 HOURS BEFORE THE END OF THE THEN-CURRENT PERIOD."'
+        issues: [cancel_service, bill_increase]
+        source: https://www.nintendo.com/us/purchase-terms/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: When a family membership ends, the other members of the family group also lose access.
+        issues: [cancel_service]
+        source: https://en-americas-support.nintendo.com/app/answers/detail/a_id/41196
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: Nintendo treats digital purchases and subscription payments as final unless Nintendo authorizes a refund or the law requires one; ask through support anyway if the charge was an error.
+    evidence: [order number or purchase history entry, date and amount, Nintendo Account email]
+    steps:
+      - do: Find the purchase in the Nintendo Account purchase history.
+        channel: nintendo-account-portal
+      - do: Contact Nintendo support and ask for a refund; say why (error, duplicate, not delivered).
+        channel: support-phone
+    facts:
+      - kind: policy
+        claim: '"Except as authorized by Nintendo or as required by applicable law, all payments that you make through the Nintendo Account services (including pre-purchases and subscription payments) are final and non-refundable."'
+        issues: [refund_request]
+        source: https://www.nintendo.com/us/refund-return-policy/digital-products/
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'For downloaded games or DLC bought by mistake, Nintendo says "We are unable to provide refunds or exchanges for mistaken purchases."'
+        issues: [refund_request]
+        source: https://en-americas-support.nintendo.com/app/answers/detail/a_id/1981
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: 'Nintendo''s FAQ for digital games bought on Nintendo.com says "All sales are final", but "pre-orders can be canceled any time before the payment is processed and the game is pre-loaded on your console" "(up to 7 days before the game''s release date)".'
+        issues: [refund_request]
+        source: https://en-americas-support.nintendo.com/app/answers/detail/a_id/16482
+        last_verified: 2026-10-13
+
+  - issue: free_trial_conversion
+    summary: The free 7-day Nintendo Switch Online trial needs a payment method and turns on auto-renewal for a paid 30-day individual membership; turn off auto-renewal before the 7 days end.
+    evidence: [trial start date, screenshot showing auto-renewal off]
+    steps:
+      - do: Turn off auto-renewal on the Nintendo Account website or in the eShop before the seven-day trial ends.
+        channel: nintendo-account-portal
+    facts:
+      - kind: deadline
+        claim: 'Starting the free seven-day trial turns on auto-renewal "for an individual 30-day membership, to begin when the trial ends." A payment method for auto-renewal is required. "If you cancel the auto-renewal before the seven-day trial period ends, you will not be charged." The trial is available once per Nintendo Account.'
+        issues: [free_trial_conversion]
+        source: https://en-americas-support.nintendo.com/app/answers/detail/a_id/41197
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: Check the Nintendo Account purchase history first. If the charge is on your account and nobody you know made it, contact Nintendo and secure the account; dispute with the card issuer only if nobody you know could have made it.
+    evidence: [charge date and amount, purchase history screenshot, order confirmation emails]
+    steps:
+      - do: Sign in to the Nintendo Account website, open Shop menu, Purchase History, and look for a payment with the same amount and date.
+        channel: nintendo-account-portal
+      - do: If it is on your Nintendo Account and nobody you know made it, contact Nintendo, follow the Nintendo Account Recovery Process, and ask your card issuer or PayPal to block the card.
+        channel: contact-page
+      - do: Set parental controls to require a PIN for eShop purchases if someone in the household may have used the console.
+      - do: If the charge is not on your Nintendo Account and nobody you know could have made it, dispute it with the card issuer or PayPal as unauthorized.
+    facts:
+      - kind: policy
+        claim: If you dispute a Nintendo charge as unauthorized or fraudulent, Nintendo says "we will set restrictions on the Nintendo Account so that further unauthorized charges cannot be made." Nintendo asks you to contact it instead of disputing if you or someone you know might have made the purchase.
+        issues: [unauthorized_charge]
+        source: https://en-americas-support.nintendo.com/app/answers/detail/a_id/62076
+        last_verified: 2026-10-13
+      - kind: process
+        claim: To secure a compromised Nintendo Account, set a new password on the Nintendo Account website, sign out of all devices, add a passkey or 2-step verification, limit sign-in to your Sign-in ID, and remove saved credit card or PayPal details.
+        issues: [unauthorized_charge, account_access]
+        source: https://en-americas-support.nintendo.com/app/answers/detail/a_id/47194
+        last_verified: 2026-10-13
+
+  - issue: bill_increase
+    summary: Memberships renew at the then-current price; Nintendo says price changes will be communicated. Turn off auto-renewal at least 48 hours before expiry if you do not accept a new price.
+    evidence: [price change notice, purchase history]
+    steps:
+      - do: Turn off auto-renewal at least 48 hours before the membership expires.
+        channel: nintendo-account-portal
+    facts:
+      - kind: policy
+        claim: 'Purchase and Subscription Terms, section 5(d): "Any price changes or other material changes to the Subscriptions or the Features will be communicated to you." Continuing to use the subscription after notice counts as accepting the change.'
+        issues: [bill_increase]
+        source: https://www.nintendo.com/us/purchase-terms/
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: 'US Nintendo Switch Online prices listed on 2026-10-13: Individual 1-month $3.99, 3-month $7.99, 12-month $19.99; Expansion Pack Individual 12-month $49.99; Family 12-month $34.99; Expansion Pack Family $79.99 (USD).'
+        issues: [bill_increase]
+        source: https://en-americas-support.nintendo.com/app/answers/detail/a_id/41195
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Turning off auto-renewal needs the Nintendo Account sign-in of the account that bought the membership, or the console.
+  - Live chat and text support showed "Temporarily unavailable" on 2026-10-13; phone hours are 6 a.m.-7 p.m. PT.
+  - Disputing a charge with the card issuer leads Nintendo to restrict the Nintendo Account.

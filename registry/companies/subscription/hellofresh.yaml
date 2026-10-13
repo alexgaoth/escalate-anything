@@ -1,0 +1,188 @@
+id: hellofresh
+name: HelloFresh
+aliases: [hello fresh, hellofresh meal kit, grocery delivery e-services usa]
+sector: subscription
+parent: HelloFresh SE
+website: https://www.hellofresh.com
+official_domains: [hellofresh.com]
+regulators: [ftc]
+notes: >-
+  HelloFresh is a weekly meal-kit subscription. The U.S. contracting company named in the Terms is
+  Grocery Delivery E-Services USA, Inc. (Terms effective March 18, 2026). The Terms require a written
+  dispute notice and a 60-day informal resolution period, then individual arbitration or small claims
+  court, with a class action waiver (section 24). The contact-us page returned HTTP 403 to automated
+  fetches on 2026-10-13; contacts here come from the Terms.
+
+channels:
+  - id: account-settings
+    type: portal
+    label: 'HelloFresh account: click your name, then Account Settings > Plan settings > Manage (Subscription Status) to cancel'
+    value: https://www.hellofresh.com
+    purposes: [cancel_service]
+    access: login
+    notes: The Terms give the click path but no direct URL. Skip or change weekly deliveries on the "My Menu" page before the deadline shown there.
+    source: https://www.hellofresh.com/about/termsandconditions
+    last_verified: 2026-10-13
+  - id: customer-care-phone
+    type: phone
+    label: HelloFresh Customer Care
+    value: +1-646-846-3663
+    purposes: [cancel_service, refund_request, billing_error, unauthorized_charge, bill_increase]
+    notes: The Terms list this number for plan and pricing questions, returns of unsatisfactory items, security breaches and complaints. No hours are given in the Terms.
+    source: https://www.hellofresh.com/about/termsandconditions
+    last_verified: 2026-10-13
+  - id: customer-care-email
+    type: email
+    label: HelloFresh Customer Care email
+    value: hello@hellofresh.com
+    purposes: [cancel_service, refund_request, unauthorized_charge]
+    source: https://www.hellofresh.com/about/termsandconditions
+    last_verified: 2026-10-13
+  - id: contact-us
+    type: web_form
+    label: HelloFresh Customer Care contact page
+    value: https://www.hellofresh.com/contact-us
+    purposes: [cancel_service, refund_request]
+    notes: Named in the Terms as a way to cancel. Returned HTTP 403 to automated fetches on 2026-10-13.
+    source: https://www.hellofresh.com/about/termsandconditions
+    last_verified: 2026-10-13
+  - id: legal-dispute-mail
+    type: mail
+    label: Written dispute notice before arbitration (certified mail, copy to arbitrationoptout@hellofresh.com)
+    value: HelloFresh, Attn. Legal Department, 28 Liberty Street, 10th Floor, New York, NY 10005
+    source: https://www.hellofresh.com/about/termsandconditions
+    last_verified: 2026-10-13
+  - id: arbitration-opt-out-email
+    type: email
+    label: Arbitration opt-out (within 30 days) and copy of dispute notices
+    value: arbitrationoptout@hellofresh.com
+    source: https://www.hellofresh.com/about/termsandconditions
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: customer-care-phone}
+  - {rung: written_complaint, channel: customer-care-email}
+  - {rung: payment_dispute, note: "Card dispute for charges after a cancellation."}
+  - {rung: regulator, regulator: ftc}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel in Account Settings before the weekly deadline shown on the My Menu page (selections lock five days before delivery). After the deadline you are charged for and receive that week's box; the cancellation applies from the next delivery week.
+    evidence: [cancellation confirmation, screenshot of the My Menu deadline, date and time you cancelled, charges after that date]
+    steps:
+      - do: Check the deadline on the My Menu page for your next delivery.
+      - do: Sign in, click your name, then Account Settings. On the Plan settings page click Manage under Subscription Status and cancel.
+        channel: account-settings
+      - do: If you cannot cancel online, contact Customer Care through the contact page or by email.
+        channel: customer-care-email
+      - do: Save the confirmation. Dispute any box charged for a week after a cancellation made before that week's deadline.
+    facts:
+      - kind: deadline
+        claim: 'To cancel or change you must act "before the day and time listed on the ''My Menu'' page." Example in the Terms, for a Tuesday delivery: "you have until Thursday at 11:59 PM PT to cancel your subscription" (section 10.3).'
+        issues: [cancel_service]
+        source: https://www.hellofresh.com/about/termsandconditions
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: Selections "lock" five days before the delivery day, and the card is charged the following day (section 10.2). If you cancel after the deadline, "you will be charged and receive your Meal Box for that week," and the cancellation takes effect for the following Delivery Week (section 10.3).
+        issues: [cancel_service]
+        source: https://www.hellofresh.com/about/termsandconditions
+        last_verified: 2026-10-13
+      - kind: policy
+        claim: The subscription has "AN INITIAL CHARGE FOLLOWED BY RECURRING WEEKLY CHARGES" until cancelled. After cancelling you may use the subscription until the end of the then-current subscription week and "WILL NOT BE ELIGIBLE FOR A PRORATED REFUND OF ANY PORTION OF THE SUBSCRIPTION FEE" (section 5.2).
+        issues: [cancel_service, refund_request]
+        source: https://www.hellofresh.com/about/termsandconditions
+        last_verified: 2026-10-13
+
+  - issue: refund_request
+    summary: Report an unsatisfactory ingredient or meal kit within 5 days of receipt by email or phone. HelloFresh usually gives a credit and may, in some situations, give a partial or full refund.
+    evidence: [order and delivery date, photos of the item or box, description of the problem]
+    steps:
+      - do: Within 5 days of delivery, email or call Customer Care. Describe the problem and attach photos.
+        channel: customer-care-email
+      - do: Keep the item until HelloFresh replies; it may ask for the item back or a photo.
+      - do: If a box was late and you are unsure about freshness, contact Customer Care.
+        channel: customer-care-phone
+    facts:
+      - kind: deadline
+        claim: Report an unsatisfactory item "within five (5) days of the date you received the unsatisfactory item," by email to hello@hellofresh.com or by calling (646) 846-3663 (section 14).
+        issues: [refund_request]
+        source: https://www.hellofresh.com/about/termsandconditions
+        last_verified: 2026-10-13
+      - kind: compensation
+        claim: HelloFresh "may give you credit for the individual ingredient or Meal Kit" and "in some situations" a partial or full refund. It may require "the return of the unsatisfactory ingredient or Meal Kit, or a photograph of such" (section 14).
+        issues: [refund_request]
+        source: https://www.hellofresh.com/about/termsandconditions
+        last_verified: 2026-10-13
+      - kind: compensation
+        claim: Boxes are generally delivered before 9:00 PM local time on the delivery date. If delivery is not feasible, HelloFresh "will cancel your delivery for the impacted period and issue you a credit" (section 10.5).
+        issues: [refund_request, late_delivery]
+        source: https://www.hellofresh.com/about/termsandconditions
+        last_verified: 2026-10-13
+
+  - issue: free_trial_conversion
+    summary: An introductory voucher discount applies only to the first week; after that you are billed the standard weekly rate unless you cancel before the voucher period ends.
+    evidence: [voucher or offer terms, sign-up date, cancellation confirmation, the first full-price charge]
+    steps:
+      - do: Cancel in Account Settings before the end of the voucher period and before that week's My Menu deadline.
+        channel: account-settings
+      - do: If you were charged full price after cancelling in time, ask Customer Care for a refund and send the cancellation confirmation.
+        channel: customer-care-email
+    facts:
+      - kind: policy
+        claim: '"The discount found on the Voucher only lasts for the first week of your Plan." After that "you will be billed the standard rate for your Meal Kit on a recurring, weekly basis" unless you cancel "prior to the end of the Voucher period" (section 9).'
+        issues: [free_trial_conversion]
+        source: https://www.hellofresh.com/about/termsandconditions
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: HelloFresh may place "a $1.00 authorization charge" on your card, which "will be refunded following successful authorization" (section 9).
+        issues: [free_trial_conversion, unauthorized_charge]
+        source: https://www.hellofresh.com/about/termsandconditions
+        last_verified: 2026-10-13
+
+  - issue: unauthorized_charge
+    summary: If you think someone else used your account, tell HelloFresh at once by email or phone; the Terms make you responsible for activity on your account.
+    evidence: [the charges you did not make, order details, date you noticed]
+    steps:
+      - do: Report the suspected breach by email or phone as soon as possible, and change your password.
+        channel: customer-care-phone
+      - do: If HelloFresh does not reverse the charges, dispute them with your card issuer.
+    facts:
+      - kind: process
+        claim: If you suspect a security breach, "notify us as soon as possible either at hello@hellofresh.com or call (646) 846-3663." The Terms say you are "SOLELY RESPONSIBLE FOR ALL ACCESS TO AND USE OF THE SERVICES BY ANYONE USING YOUR ACCOUNT" (section 4.3).
+        issues: [unauthorized_charge]
+        source: https://www.hellofresh.com/about/termsandconditions
+        last_verified: 2026-10-13
+
+  - issue: bill_increase
+    summary: HelloFresh gives at least 10 days' notice of a change to your plan rate. Accepting deliveries after the notice counts as accepting the new price, so cancel or change the plan first if you object.
+    evidence: [price change notice, last charge before the increase, first charge after it]
+    steps:
+      - do: When you get a price notice, cancel or change the plan before the next My Menu deadline if you do not accept it.
+        channel: account-settings
+    facts:
+      - kind: policy
+        claim: HelloFresh "will provide you with at least ten (10) days' advance notice of any price changes with your specific Plan rate." Accepting deliveries after the notice means you accept the new price (section 6.1). Taxes and other fees are additional to prices shown (section 6.1).
+        issues: [bill_increase]
+        source: https://www.hellofresh.com/about/termsandconditions
+        last_verified: 2026-10-13
+
+facts:
+  - kind: process
+    claim: Before arbitration you must send a written dispute notice by certified mail to HelloFresh, Attn. Legal Department, 28 Liberty Street, 10th Floor, New York, NY 10005, with a copy to arbitrationoptout@hellofresh.com. Either side may start arbitration or small claims if it is not resolved within 60 days. You may opt out of arbitration by written notice to arbitrationoptout@hellofresh.com within 30 days of first becoming subject to it (section 24).
+    source: https://www.hellofresh.com/about/termsandconditions
+    last_verified: 2026-10-13
+  - kind: contact
+    claim: California residents may report complaints to the Complaint Assistance Unit of the California Department of Consumer Affairs at (800) 952-5210 (section 30, Cal. Civ. Code 1789.3).
+    source: https://www.hellofresh.com/about/termsandconditions
+    last_verified: 2026-10-13
+  - kind: policy
+    claim: Money loaded as HelloFresh Cash is a "non-refundable amount," and promotional, discount or compensation funds may be withdrawn "upon your account cancellation."
+    issues: [cancel_service, refund_request]
+    source: https://www.hellofresh.com/about/termsandconditions
+    last_verified: 2026-10-13
+
+known_blockers:
+  - Cancelling online needs sign-in; the Terms give the click path but no direct cancel URL.
+  - The weekly deadline is shown only on the signed-in My Menu page and depends on the delivery day.
+  - The contact-us page returned HTTP 403 to automated fetches on 2026-10-13.

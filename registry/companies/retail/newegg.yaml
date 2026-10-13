@@ -1,0 +1,168 @@
+id: newegg
+name: Newegg
+aliases: [newegg.com, newegg marketplace]
+sector: retail
+website: https://www.newegg.com
+account_url: https://secure.newegg.com/orders/list
+official_domains: [newegg.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: '"Newegg never puts a support callback number in an order, shipping or account notification." Newegg also says "We don''t ask you to call to cancel an order."'
+      source: https://kb.newegg.com/knowledge-base/spotting-a-fake-phone-number-in-a-newegg-email
+      last_verified: 2026-10-13
+    - kind: policy
+      claim: '"We never ask for your full card number, your account password, a one-time verification code, or gift cards" and "we never ask to install remote-access software on your computer."'
+      source: https://kb.newegg.com/knowledge-base/spotting-a-fake-phone-number-in-a-newegg-email
+      last_verified: 2026-10-13
+  known_scams:
+    - kind: policy
+      claim: Scammers place an order so that a real Newegg email (order confirmation, shipping notice, gift message or returns update) carries a fake "helpline" number typed into a field such as Ship To. Callers then ask for card details to "reverse the charge", a gift card purchase, or remote-access software. Do not call any number in the email; sign in to Newegg to check the account.
+      source: https://kb.newegg.com/knowledge-base/spotting-a-fake-phone-number-in-a-newegg-email
+      last_verified: 2026-10-13
+  report_phishing:
+    - id: report-phishing-email
+      type: email
+      label: Forward a suspicious email that claims to be from Newegg, then delete it
+      value: help@service.newegg.com
+      purposes: [fraud]
+      source: https://kb.newegg.com/knowledge-base/spotting-a-fake-phone-number-in-a-newegg-email
+      last_verified: 2026-10-13
+regulators: [ftc]
+notes: >-
+  Newegg sells its own stock and Marketplace items from third-party sellers. Marketplace items are
+  covered by each seller's return policy, and the seller answers return requests; the policy on the
+  product page for a Marketplace item "is the seller's policy — not Newegg's." Each product's
+  Warranty & Returns tab shows its refund window, replacement window and policy. Newegg's current
+  return policy uses the labels 15 Days, 30 Days, 90-Day Refreshed, Final Sale, Manufacturer
+  Warranty Only and Non-Returnable.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Newegg Customer Service (orders, returns, feedback)
+    value: +1-800-390-1119
+    hours: Mon-Fri 6:30 AM-5:00 PM PT; closed Saturday and Sunday
+    purposes: [refund_request, damaged_item, lost_package, late_delivery, billing_error]
+    source: https://kb.newegg.com/knowledge-base/call-customer-service
+    last_verified: 2026-10-13
+  - id: live-chat
+    type: chat
+    label: Newegg live chat
+    value: https://kb.newegg.com/contact-us
+    hours: 7 days a week, 6:00 AM-5:00 PM PT
+    purposes: [refund_request, damaged_item, lost_package, late_delivery, fraud]
+    notes: The Call Customer Service article lists weekend chat hours as Sat-Sun 6:30 AM-3:30 PM PT, which conflicts with the 7-days 6:00 AM-5:00 PM hours on the contact page.
+    source: https://kb.newegg.com/contact-us
+    last_verified: 2026-10-13
+  - id: order-history
+    type: portal
+    label: Order History (Refund or Replace, Delivery Issues, Contact a seller)
+    value: https://secure.newegg.com/orders/list
+    purposes: [refund_request, damaged_item, lost_package]
+    access: login
+    notes: Guests use Find Your Order instead of signing in.
+    source: https://kb.newegg.com/knowledge-base/returning-an-item
+    last_verified: 2026-10-13
+  - id: manufacturer-directory
+    type: portal
+    label: Newegg manufacturer contact directory (warranty support)
+    value: https://www.newegg.com/d/Info/ContactManufacturer
+    purposes: [warranty_claim]
+    source: https://kb.newegg.com/knowledge-base/contacting-the-manufacturer
+    last_verified: 2026-10-13
+
+escalation:
+  - {rung: frontline, channel: live-chat}
+  - {rung: supervisor, channel: customer-service-phone}
+  - {rung: written_complaint}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: refund_request
+    summary: Check the item's return window on its Warranty & Returns tab, then request Refund or Replace in Order History; Marketplace items follow the seller's policy.
+    evidence: [order number, item's return policy label, photos if defective]
+    steps:
+      - do: Open Order History, click Refund or Replace, choose the item and a reason, and submit. Days left to return show in orange with a return-by date.
+        channel: order-history
+      - do: Ship it with the RMA number on the package before the return label expires (14 days). Large items such as TVs need a carrier pickup arranged through Customer Service.
+        channel: customer-service-phone
+      - do: For a Marketplace item, start the return the same way; the seller responds directly. Confirm the seller's terms first.
+      - do: If Newegg or the seller refuses a refund you are owed, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: 'Return periods by label: 15 Days (PC accessories, notebooks, monitors, tablets, desktop PCs, home audio and video, projectors and similar); 30 Days (all other products not listed); 90-Day Refreshed (refund or replacement within 90 days of delivery).'
+        issues: [refund_request]
+        source: https://kb.newegg.com/knowledge-base/return-policy-2
+        last_verified: 2026-10-13
+      - kind: limit
+        claim: Final Sale (open-box) items get a replacement only if they arrived damaged or defective and you contact Customer Service within 15 days of delivery. Manufacturer Warranty Only items are handled by the manufacturer. Non-Returnable items include office supplies, software, ink and toner, warranty service and digital games.
+        issues: [refund_request, damaged_item]
+        source: https://kb.newegg.com/knowledge-base/return-policy-2
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: '"A 15% restocking fee may apply to select product categories", such as opened hard drives, motherboards, graphics cards, projectors and TVs. New, unopened returns and items received damaged or defective are not charged the fee.'
+        issues: [refund_request]
+        source: https://kb.newegg.com/knowledge-base/return-policy-2
+        last_verified: 2026-10-13
+      - kind: fee
+        claim: Items up to 50 lb get a free return label; heavier items get free return shipping only if defective or damaged. When a non-defective or wrong item is returned for a refund, Newegg may deduct the return shipping cost. Return labels expire after 14 days.
+        issues: [refund_request]
+        source: https://kb.newegg.com/knowledge-base/return-policy-2
+        last_verified: 2026-10-13
+      - kind: process
+        claim: Returns are "typically processed within 2 business days" after Newegg receives them. Refunds go to the original payment method, or by check to the billing address if that method is no longer valid.
+        issues: [refund_request]
+        source: https://kb.newegg.com/knowledge-base/refund-process
+        last_verified: 2026-10-13
+
+  - issue: damaged_item
+    summary: Report damage within 15 days of delivery with the order's Delivery Issues button and photos of the item and box.
+    evidence: [order number, clear photos of the item and the shipping box]
+    steps:
+      - do: Within 15 days of the delivery date, open the order and click Delivery Issues. Include clear photos of the item and the shipping box.
+        channel: order-history
+      - do: If asked to return the item, use the free return label that Newegg emails.
+      - do: If you cannot use the online form, contact live chat.
+        channel: live-chat
+    facts:
+      - kind: deadline
+        claim: Damaged, missing or not-received items must be reported "within 15 days of the delivery date" through Delivery Issues on the order. For damage, "Include clear photos of both the item and the shipping box".
+        issues: [damaged_item, lost_package]
+        source: https://kb.newegg.com/knowledge-base/reporting-a-delivery-issue
+        last_verified: 2026-10-13
+
+  - issue: lost_package
+    summary: If tracking says delivered but nothing arrived, or items are missing, report it within 15 days of the delivery date.
+    evidence: [order number, tracking history]
+    steps:
+      - do: Within 15 days of the delivery date, open the order and click Delivery Issues. File other items in the order as a separate request.
+        channel: order-history
+      - do: If Newegg does not resolve it, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: The 15-day window from the delivery date also applies when "tracking says delivered, but you never received the package" and when items are missing from a package.
+        issues: [lost_package]
+        source: https://kb.newegg.com/knowledge-base/reporting-a-delivery-issue
+        last_verified: 2026-10-13
+
+  - issue: warranty_claim
+    summary: After the return window, use the manufacturer's warranty from the product's Warranty & Returns tab; for Marketplace items, contact the seller.
+    evidence: [order number, serial number, description of the fault]
+    steps:
+      - do: Find the manufacturer's contact on the product's Warranty & Returns tab or in Newegg's manufacturer directory.
+        channel: manufacturer-directory
+      - do: For a Marketplace item, contact the seller first.
+        channel: order-history
+    facts:
+      - kind: policy
+        claim: '"Most products sold on Newegg are covered by both Newegg''s return policy and the product manufacturer''s warranty." For some items, warranty support beyond the return policy comes from a third-party service provider named on the Warranty & Returns tab.'
+        issues: [warranty_claim]
+        source: https://kb.newegg.com/knowledge-base/contacting-the-manufacturer
+        last_verified: 2026-10-13
+
+known_blockers:
+  - Returns and delivery-issue reports start in Order History, which needs the account holder's sign-in (guests use Find Your Order).
+  - Contact Customer Service before refusing a delivery so the refund is not delayed.
