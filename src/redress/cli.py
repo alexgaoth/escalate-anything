@@ -47,6 +47,48 @@ def cmd_export(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_serve(args: argparse.Namespace) -> int:
+    from .server import serve
+
+    serve(args.transport, args.host, args.port)
+    return 0
+
+
+def cmd_check_links(args: argparse.Namespace) -> int:
+    import asyncio
+
+    from .linkcheck import check_all, report
+
+    results = asyncio.run(check_all(Registry.load(), args.concurrency, only_prefix=args.only))
+    text = report(results)
+    print(text)
+    if args.output:
+        Path(args.output).write_text(text + "\n")
+    dead = sum(r.status == "dead" for r in results)
+    return 1 if dead and args.fail_on_dead else 0
+
+
+def cmd_cases(args: argparse.Namespace) -> int:
+    from .store import Store
+
+    db = Store()
+    if args.id:
+        print(json.dumps(db.get_case(args.id), indent=2))
+    else:
+        for c in db.list_cases(None if args.all else "open"):
+            fu = f"  follow up {c['follow_up']['on']}" if c["follow_up"] else ""
+            print(f"#{c['id']} [{c['status']}] {c['company']} / {c['issue']}: {c['summary']}{fu}")
+    return 0
+
+
+def cmd_feedback(args: argparse.Namespace) -> int:
+    from .store import Store
+
+    for f in Store().feedback():
+        print(f"#{f['id']} {f['reported_at']} {f['entity']} {f['location'] or ''}: {f['problem']}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="redress", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -65,6 +107,27 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("export", help="write the whole registry as one JSON file")
     p.add_argument("-o", "--output", default="dist/registry.json")
     p.set_defaults(func=cmd_export)
+
+    p = sub.add_parser("serve", help="run the MCP server")
+    p.add_argument("--transport", choices=["stdio", "http"], default="stdio")
+    p.add_argument("--host", default="127.0.0.1")
+    p.add_argument("--port", type=int, default=8765)
+    p.set_defaults(func=cmd_serve)
+
+    p = sub.add_parser("check-links", help="check that every registry URL still answers")
+    p.add_argument("--concurrency", type=int, default=16)
+    p.add_argument("--only", help="only URLs used by entries whose id starts with this")
+    p.add_argument("--output", help="also write the report to this file")
+    p.add_argument("--fail-on-dead", action="store_true")
+    p.set_defaults(func=cmd_check_links)
+
+    p = sub.add_parser("cases", help="list cases in the local log")
+    p.add_argument("id", nargs="?", type=int)
+    p.add_argument("--all", action="store_true")
+    p.set_defaults(func=cmd_cases)
+
+    p = sub.add_parser("feedback", help="list registry problems reported by agents")
+    p.set_defaults(func=cmd_feedback)
     return parser
 
 
