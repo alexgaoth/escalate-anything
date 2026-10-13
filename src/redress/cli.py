@@ -50,7 +50,87 @@ def cmd_export(args: argparse.Namespace) -> int:
 def cmd_serve(args: argparse.Namespace) -> int:
     from .server import serve
 
-    serve(args.transport, args.host, args.port)
+    serve(args.transport, args.host, args.port, args.read_only)
+    return 0
+
+
+def _pick(reg: Registry, query: str) -> dict | None:
+    from .advisor import NotFound, resolve_company
+
+    try:
+        return resolve_company(reg, query)
+    except NotFound as e:
+        print(e, file=sys.stderr)
+        return None
+
+
+def cmd_lookup(args: argparse.Namespace) -> int:
+    reg = Registry.load()
+    hits = reg.find_company(args.query, limit=10) if args.query else sorted(reg.companies.values(), key=lambda c: c["id"])
+    if args.sector:
+        hits = [c for c in hits if args.sector in reg.sector_of(c)]
+    for c in hits:
+        issues = ", ".join(pb["issue"] for pb in c.get("playbooks", [])) or "generic playbooks only"
+        print(f"{c['id']:<28} {c['name']}  [{c['sector']}]\n{'':<28} playbooks: {issues}")
+    if not hits:
+        print("No match. Try `redress lookup` with no query to list every company.", file=sys.stderr)
+    return 0 if hits else 1
+
+
+def cmd_playbook(args: argparse.Namespace) -> int:
+    from .advisor import NotFound, get_playbook
+
+    reg = Registry.load()
+    c = _pick(reg, args.company)
+    if not c:
+        return 1
+    try:
+        pb = get_playbook(reg, c["id"], args.issue, args.state)
+    except NotFound as e:
+        print(e, file=sys.stderr)
+        return 1
+    if args.json:
+        print(json.dumps(pb, indent=2))
+        return 0
+    out = [f"# {pb['company']['name']}: {pb['issue']['name']}", ""]
+    if pb.get("summary"):
+        out += [pb["summary"], ""]
+    if pb["evidence"]:
+        out += ["## Collect", *[f"- {e}" for e in pb["evidence"]], ""]
+    out.append("## Steps")
+    for i, st in enumerate(pb["steps"], 1):
+        line = f"{i}. {st['do']}"
+        if st.get("channel"):
+            line += f"\n   → {st['channel']['label']}: {st['channel']['value']}"
+        if st.get("regulator"):
+            reg_ch = (st["regulator"].get("channels") or [{}])[0]
+            line += f"\n   → {st['regulator']['name']}: {reg_ch.get('value', '')}"
+        out.append(line)
+    if pb["facts"]:
+        out += ["", "## Facts (with sources)"]
+        out += [f"- {f['claim']}\n  {f['source']} (verified {f['last_verified']})" for f in pb["facts"]]
+    if pb["rules"]["in_force"]:
+        out += ["", "## Rules in force"]
+        out += [f"- {r['title']} ({r['source']})" for r in pb["rules"]["in_force"]]
+    out += ["", "## If that fails, escalate"]
+    for step in pb["escalation"]:
+        target = step.get("channel", {}).get("value") or (step.get("regulator") or {}).get("name") or ""
+        if isinstance(step.get("agencies"), list):
+            target = ", ".join(a["name"] for a in step["agencies"])
+        out.append(f"- {step['rung'].replace('_', ' ')}{': ' + target if target else ''}")
+    if pb["known_blockers"]:
+        out += ["", "## Watch out", *[f"- {b}" for b in pb["known_blockers"]]]
+    if pb["warnings"]:
+        out += ["", *[f"! {w}" for w in pb["warnings"]]]
+    print("\n".join(out))
+    return 0
+
+
+def cmd_issues(args: argparse.Namespace) -> int:
+    from .advisor import sector_issues
+
+    for i in sector_issues(Registry.load(), args.sector):
+        print(f"{i['id']:<24} {i['name']}")
     return 0
 
 
@@ -112,7 +192,24 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--transport", choices=["stdio", "http"], default="stdio")
     p.add_argument("--host", default="127.0.0.1")
     p.add_argument("--port", type=int, default=8765)
+    p.add_argument("--read-only", action="store_true", help="registry lookups only; no case log (for shared deployments)")
     p.set_defaults(func=cmd_serve)
+
+    p = sub.add_parser("lookup", help="find companies by name or alias")
+    p.add_argument("query", nargs="?", default="")
+    p.add_argument("--sector")
+    p.set_defaults(func=cmd_lookup)
+
+    p = sub.add_parser("playbook", help="print the playbook for a company and issue")
+    p.add_argument("company")
+    p.add_argument("issue")
+    p.add_argument("--state", help="two-letter state code, to resolve state agencies")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=cmd_playbook)
+
+    p = sub.add_parser("issues", help="list issue ids")
+    p.add_argument("--sector")
+    p.set_defaults(func=cmd_issues)
 
     p = sub.add_parser("check-links", help="check that every registry URL still answers")
     p.add_argument("--concurrency", type=int, default=16)
