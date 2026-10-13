@@ -4,6 +4,13 @@ aliases: [grubhub, seamless, grubhub+, seamless+, grubhub plus, grubhub holdings
 sector: gig_delivery
 parent: Wonder
 website: https://www.grubhub.com
+official_domains: [grubhub.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Grubhub tells delivery partners it will never reach out to ask for bank account information, login credentials or a password reset code, and will never request their current password or provide a temporary password. (Seen in search-result text of the page; the page blocked automated reading on 2026-10-12.)
+      source: https://driver-support.grubhub.com/hc/en-us/articles/360038068112-Keeping-Personal-Information-Safe
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   Food delivery; Seamless is the same service (Grubhub+ and Seamless+ share the membership terms). Grubhub

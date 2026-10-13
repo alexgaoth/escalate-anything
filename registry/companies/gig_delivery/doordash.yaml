@@ -3,6 +3,18 @@ name: DoorDash
 aliases: [doordash, door dash, dashpass, caviar, doordash inc]
 sector: gig_delivery
 website: https://www.doordash.com
+official_domains: [doordash.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: DoorDash tells Dashers that no one from DoorDash will ever request their password or security code, will ever need the password to pay or help them, or will give them a specific password to use.
+      source: https://help.doordash.com/en-us/dashers/article/how-can-i-protect-my-doordash-account-information
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: 'Calls to Dashers from fake "Support" after a customer cancels, fake bonus or financial aid offers, and urgent requests to share a password or switch to a password the caller provides, plus lookalike apps or websites that ask for the Dasher email and password.'
+      source: https://help.doordash.com/en-us/dashers/article/how-can-i-protect-my-doordash-account-information
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   Food and convenience delivery. DoorDash also runs Caviar; the DoorDash help center covers Caviar orders.

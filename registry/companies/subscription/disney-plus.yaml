@@ -5,6 +5,7 @@ sector: subscription
 parent: The Walt Disney Company
 website: https://www.disneyplus.com
 account_url: https://www.disneyplus.com/account
+official_domains: [disneyplus.com, hulu.com]
 regulators: [ftc]
 notes: >-
   As of 2026-10-12, disneyplus.com and hulu.com say select Hulu content is available in the

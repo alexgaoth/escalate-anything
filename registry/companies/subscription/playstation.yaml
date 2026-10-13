@@ -4,6 +4,13 @@ aliases: [playstation plus, ps plus, psn, playstation network, playstation store
 sector: subscription
 website: https://www.playstation.com
 account_url: https://www.playstation.com/acct/management
+official_domains: [playstation.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: Unexpected messages that offer game beta or tournament invitations, claim your account was reported and can be restored, or ask you to sign in through a link or share account information. PlayStation also warns not to scan QR codes sent by other people, and about sites that offer free virtual currency in exchange for personal information.
+      source: https://www.playstation.com/en-us/support/account/security-best-practice/
+      last_verified: 2026-10-12
 regulators: [ftc]
 
 channels:

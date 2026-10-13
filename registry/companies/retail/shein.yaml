@@ -4,6 +4,17 @@ aliases: [shein, shein.com, us.shein.com, shein us services]
 sector: retail
 parent: Roadget Business Pte. Ltd.
 website: https://us.shein.com
+official_domains: [shein.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: Fake storefronts, listings or social media seller accounts that sell supposedly authentic SHEIN products at steep discounts and send buyers to outside sites or unofficial payment methods.
+      source: https://us.shein.com/faq/detail?id=77650
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: 'Fake login pages or pop-ups that imitate the SHEIN login to steal credentials, and fake remote "task" jobs that ask for activation fees or deposits. SHEIN says to contact customer support only through its official website, apps and authorized channels.'
+      source: https://us.shein.com/faq/detail?id=77650
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   The U.S. site and app are provided by SHEIN US Services, LLC. Third-party marketplace sellers

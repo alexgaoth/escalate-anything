@@ -4,6 +4,30 @@ aliases: [walgreens.com, walgreen co, duane reade, mywalgreens, walgreens boots 
 sector: retail
 parent: Sycamore Partners (private equity owner)
 website: https://www.walgreens.com
+official_domains: [walgreens.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Walgreens says it will never request personal, financial or account information by text message, will never ask for payment related to job applications, training or equipment, and will never require you to take action to claim rewards.
+      source: https://www.walgreens.com/topic/fraud_information.jsp
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Walgreens lists its email sender addresses as @walgreens.com, @eml.walgreens.com, @ecs.walgreens.com, @rxorder.walgreens.com and @e.walgreens.com.
+      source: https://www.walgreens.com/topic/fraud_information.jsp
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Walgreens warns about text message phishing, caller ID spoofing, gift card and money transfer scams, mystery shopping and recruitment scams, and medical record request scams.
+      source: https://www.walgreens.com/topic/fraud_information.jsp
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-fraud-email
+      type: email
+      label: Forward phishing emails that claim to be from Walgreens
+      value: report-fraud@walgreens.com
+      purposes: [fraud]
+      source: https://www.walgreens.com/topic/fraud_information.jsp
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   Sycamore Partners took Walgreens Boots Alliance private; the deal completed on August 28, 2025

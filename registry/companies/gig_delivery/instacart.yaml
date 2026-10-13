@@ -3,6 +3,7 @@ name: Instacart
 aliases: [instacart, instacart+, instacart plus, maplebear]
 sector: gig_delivery
 website: https://www.instacart.com
+official_domains: [instacart.com]
 regulators: [ftc]
 notes: >-
   Grocery delivery and pickup, operated by Maplebear Inc. (d/b/a Instacart). Terms last updated May 7, 2026.

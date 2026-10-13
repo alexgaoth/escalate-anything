@@ -4,6 +4,7 @@ aliases: [equinox fitness, equinox gym, equinox clubs]
 sector: fitness
 website: https://www.equinox.com
 account_url: https://www.equinox.com/account
+official_domains: [equinox.com]
 regulators: [ftc]
 
 channels:

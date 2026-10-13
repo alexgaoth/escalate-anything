@@ -5,6 +5,21 @@ sector: subscription
 parent: Spotify USA Inc. (US contracting entity)
 website: https://www.spotify.com
 account_url: https://www.spotify.com/account
+official_domains: [spotify.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Spotify says it will never ask by email for your payment info, password, or Social Security or tax identification number, will never request payment through a third party such as Western Union, and will never ask you to download anything from its emails. An email is suspicious if the sender address does not end in @spotify.com.
+      source: https://support.spotify.com/us/article/spotify-email-legit/
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-spoof-email
+      type: email
+      label: Forward suspicious emails that claim to be from Spotify
+      value: spoof@spotify.com
+      purposes: [fraud]
+      source: https://support.spotify.com/us/article/spotify-email-legit/
+      last_verified: 2026-10-12
 regulators: [ftc]
 
 channels:

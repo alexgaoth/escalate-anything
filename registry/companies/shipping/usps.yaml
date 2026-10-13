@@ -4,6 +4,38 @@ aliases: [usps, us postal service, postal service, us mail, post office]
 sector: shipping
 website: https://www.usps.com
 account_url: https://reg.usps.com
+official_domains: [usps.com, uspis.gov]
+security:
+  never_asks:
+    - kind: policy
+      claim: The Postal Inspection Service says USPS will not send customers text messages or emails without the customer first requesting the service, and a USPS tracking text will not contain a link.
+      source: https://www.uspis.gov/news/scam-article/smishing
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Unsolicited texts that say a USPS delivery is awaiting your action and include a link (smishing). The Postal Inspection Service says do not click the link.
+      source: https://www.uspis.gov/news/scam-article/smishing
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: 'FTC data: fake package delivery problems, usually from someone pretending to be USPS, were the most reported text scam of 2024. Many people paid a small "redelivery fee" that was a trick to get their credit card or Social Security number.'
+      source: https://www.ftc.gov/news-events/data-visualizations/data-spotlight/2025/04/top-text-scams-2024
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-smishing-email
+      type: email
+      label: Report USPS-related smishing to the U.S. Postal Inspection Service
+      value: spam@uspis.gov
+      purposes: [fraud]
+      notes: 'Include the copied text of the message, your name, and a screenshot that shows the sender''s number and the date.'
+      source: https://www.uspis.gov/news/scam-article/smishing
+      last_verified: 2026-10-12
+    - id: forward-spam-text
+      type: sms
+      label: Forward the scam text to 7726 (SPAM) so your wireless carrier can block the number
+      value: '7726'
+      purposes: [fraud]
+      source: https://www.uspis.gov/news/scam-article/smishing
+      last_verified: 2026-10-12
 regulators: [usps-oig]
 notes: >-
   USPS is a federal agency. Domestic claim rules are in the Domestic Mail Manual (DMM) section 609.

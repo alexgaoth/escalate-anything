@@ -6,6 +6,34 @@ also_sectors: [subscription]
 parent: Costco Wholesale Corporation
 website: https://www.costco.com
 account_url: https://www.costco.com/OrderStatusCmd
+official_domains: [costco.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Costco says unsolicited electronic communications from Costco do not ask for personal information such as your username, password, credit card information, birth date or Social Security number.
+      source: https://customerservice.costco.com/app/answers/answer_view/a_id/1174/~/preventing-fraud
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Costco says its emails come from a costco.com domain; Digital Costco Shop Cards come from costco@digitalshopcard.costco.com.
+      source: https://customerservice.costco.com/app/answers/answer_view/a_id/1174/~/preventing-fraud
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: 'Costco''s list of currently known scams (published 09/11/2026) includes fake surveys and giveaways, "Costco Membership Payment Failed" and membership expiration messages, "loyalty reward" and overcharge reimbursement texts, and calls from "Chinese Costco Member Service".'
+      source: https://customerservice.costco.com/app/answers/answer_view/a_id/9770/~/currently-known-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: 'BBB Scam Tracker''s 2025 Risk Report lists Costco as the No. 7 most impersonated organization or brand in 2025, with 418 reports.'
+      source: https://bbbmarketplacetrust.org/wp-content/uploads/2026/08/Risk-Report-2025-US.pdf
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-suspicious-email
+      type: portal
+      label: 'Report suspicious emails through the Contact Us options on Costco''s Preventing Fraud page'
+      value: https://customerservice.costco.com/app/answers/answer_view/a_id/1174/~/preventing-fraud
+      purposes: [fraud]
+      source: https://customerservice.costco.com/app/answers/answer_view/a_id/1174/~/preventing-fraud
+      last_verified: 2026-10-12
 regulators: [ftc]
 notes: >-
   Costco is a paid-membership warehouse club. Its terms of use send legal actions to the state

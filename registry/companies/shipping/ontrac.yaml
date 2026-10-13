@@ -3,6 +3,7 @@ name: OnTrac
 aliases: [ontrac, lasership, laser ship, ontrac lasership]
 sector: shipping
 website: https://www.ontrac.com
+official_domains: [ontrac.com]
 regulators: [ftc]
 notes: >-
   Regional ground parcel carrier that delivers many online orders. OnTrac says LaserShip merged with OnTrac

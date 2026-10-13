@@ -5,6 +5,7 @@ sector: retail
 parent: Wayfair Inc.
 website: https://www.wayfair.com
 account_url: https://www.wayfair.com/session/secure/account/order_search.php
+official_domains: [wayfair.com]
 regulators: [ftc]
 notes: >-
   wayfair.com rate-limits automated fetches (HTTP 429) and showed a "Press & Hold" bot check to a
