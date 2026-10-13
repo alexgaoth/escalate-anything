@@ -155,3 +155,5 @@ known_blockers:
   - Claims and EOBs need a member login.
 
 notes: UnitedHealthcare is the health benefits business of UnitedHealth Group. The UnitedHealthcare Medicare Solutions and Community Plan (Medicaid) sites redirect to uhc.com; AARP Medicare plan pages tell members to call the number on the back of the member ID card. Medicare and Medicaid plans have their own appeal rules.
+
+official_domains: [uhc.com, unitedhealthgroup.com]

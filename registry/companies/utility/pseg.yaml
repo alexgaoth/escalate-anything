@@ -231,3 +231,52 @@ facts:
 known_blockers:
   - Deferred Payment Arrangements are set up in My Account or the mobile app (sign-in required).
   - The Critical Care form must be signed by the prescribing licensed medical professional every year.
+
+official_domains: [pseg.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: PSE&G will never ask for payment in gift cards, wire transfers or cryptocurrency, and will never threaten or pressure customers to make immediate payments to avoid service interruption.
+      source: https://nj.pseg.com/newsroom/newsrelease469
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: PSE&G will never ask for personal information over the phone unless the customer started the contact, and would never require a specific type of payment.
+      source: https://nj.myaccount.pseg.com/customersupport/scamsandfraud
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Emails from PSE&G would never threaten to close an account unless the customer acts immediately, or ask for personal information online without first logging in to My Account.
+      source: https://nj.myaccount.pseg.com/customersupport/scamsandfraud
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: PSE&G will never send employees to a home or small business to offer cash refunds on deposits or utility charges. It only credits the account or mails a check to the service address.
+      source: https://nj.myaccount.pseg.com/customersupport/scamsandfraud
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Callers claiming to be PSE&G employees demand payment within hours with a prepaid debit card.
+      source: https://nj.myaccount.pseg.com/customersupport/scamsandfraud
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers threaten to disconnect service within an hour unless the customer pays immediately, and demand prepaid debit cards, gift cards, cryptocurrency or digital payment apps.
+      source: https://nj.pseg.com/newsroom/newsrelease469
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers spoof caller IDs or email addresses, sometimes showing "PSE&G" on the phone.
+      source: https://nj.pseg.com/newsroom/newsrelease469
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Fake job offers or postings impersonate PSEG recruiters to collect Social Security numbers or payments.
+      source: https://nj.myaccount.pseg.com/customersupport/scamsandfraud
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: People come to the door claiming to be PSE&G employees. All PSE&G employees must carry ID and show it when asked.
+      source: https://nj.myaccount.pseg.com/customersupport/scamsandfraud
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-scam-phone
+      type: phone
+      label: Report a scam, or verify a call, email or visit (customer service, 1-800-436-PSEG)
+      value: +1-800-436-7734
+      source: https://nj.myaccount.pseg.com/customersupport/scamsandfraud
+      last_verified: 2026-10-12

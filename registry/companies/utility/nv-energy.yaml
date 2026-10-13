@@ -111,3 +111,71 @@ playbooks:
 known_blockers:
   - nvenergy.com renders with JavaScript; automated tools saw only the title "NV Energy" on every page. NV Energy's customer service, outage and emergency phone numbers were not confirmed and are not listed.
   - The Rule No. 6 (south) tariff sheets used here carry effective dates from 2005 to 2017.
+
+official_domains: [nvenergy.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: NV Energy will never come to a customer's property to request or take payment. All NV Energy employees carry NV Energy identification.
+      source: https://www.nvenergy.com/publish/content/dam/nvenergy/brochures_arch/safety/scam-protection/Scam-Alert-Flyer_ENGLISH_Accessible.pdf
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: NV Energy will never demand immediate payment and threaten immediate disconnection, whether by phone, text message or email.
+      source: https://www.nvenergy.com/publish/content/dam/nvenergy/brochures_arch/safety/scam-protection/Scam-Alert-Flyer_ENGLISH_Accessible.pdf
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: NV Energy will never accept payment by Zelle, MoneyPak, Venmo, Bitcoin or QR code.
+      source: https://www.nvenergy.com/publish/content/dam/nvenergy/brochures_arch/safety/scam-protection/Scam-Alert-Flyer_ENGLISH_Accessible.pdf
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: People imitate NV Energy employees to ask customers for money. NV Energy says to hang up and call it directly to check the account status.
+      source: https://www.nvenergy.com/publish/content/dam/nvenergy/brochures_arch/safety/scam-protection/Scam-Alert-Flyer_ENGLISH_Accessible.pdf
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers using NV Energy's name threaten to disconnect electricity unless the customer pays immediately, usually by prepaid debit card, credit card, gift card or digital currency.
+      source: https://ag.nv.gov/News/PR/2021/Attorney_General_Ford_Echoes_Warning_from_NV_Energy_to_Nevadans_About_Scams_Affecting_NV_Energy_Customers/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers text a QR code and tell the customer to use it at a local bill pay kiosk. The QR code is linked to the scammer's account, not the utility's account.
+      source: https://ag.nv.gov/News/PR/2021/Attorney_General_Ford_Echoes_Warning_from_NV_Energy_to_Nevadans_About_Scams_Affecting_NV_Energy_Customers/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers robocall or disguise their caller ID to look like the utility, and may give a fake employee ID number.
+      source: https://ag.nv.gov/News/PR/2021/Attorney_General_Ford_Echoes_Warning_from_NV_Energy_to_Nevadans_About_Scams_Affecting_NV_Energy_Customers/
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-scam-phone-north
+      type: phone
+      label: Report a scam to NV Energy, Northern Nevada (775-834-SCAM)
+      value: +1-775-834-7226
+      source: https://www.nvenergy.com/publish/content/dam/nvenergy/brochures_arch/safety/scam-protection/Scam-Alert-Flyer_ENGLISH_Accessible.pdf
+      last_verified: 2026-10-12
+    - id: report-scam-phone-south
+      type: phone
+      label: Report a scam to NV Energy, Southern Nevada (702-402-SCAM)
+      value: +1-702-402-7226
+      source: https://www.nvenergy.com/publish/content/dam/nvenergy/brochures_arch/safety/scam-protection/Scam-Alert-Flyer_ENGLISH_Accessible.pdf
+      last_verified: 2026-10-12
+    - id: verify-account-phone-north
+      type: phone
+      label: Verify account status after a request for money, Northern Nevada (customer service)
+      value: +1-775-834-4444
+      hours: 24/7
+      source: https://www.nvenergy.com/publish/content/dam/nvenergy/brochures_arch/safety/scam-protection/Scam-Alert-Flyer_ENGLISH_Accessible.pdf
+      last_verified: 2026-10-12
+    - id: verify-account-phone-south
+      type: phone
+      label: Verify account status after a request for money, Southern Nevada (customer service)
+      value: +1-702-402-5555
+      hours: 24/7
+      source: https://www.nvenergy.com/publish/content/dam/nvenergy/brochures_arch/safety/scam-protection/Scam-Alert-Flyer_ENGLISH_Accessible.pdf
+      last_verified: 2026-10-12
+    - id: report-scam-form
+      type: web_form
+      label: Report a scam (NV Energy web page)
+      value: https://www.nvenergy.com/safety/scam-protection/report-scam
+      notes: URL taken from NV Energy's sitemap. The page loads with JavaScript; its form could not be read automatically.
+      source: https://www.nvenergy.com/sitemap.xml
+      last_verified: 2026-10-12

@@ -132,3 +132,46 @@ facts:
 known_blockers:
   - Consumers Energy does not publish a complaint form, email or mailing address on its contact page.
   - Medical Emergency Protection needs a doctor's written proof or public health notice.
+
+official_domains: [consumersenergy.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Consumers Energy will never threaten to shut off service if a customer does not comply with demands.
+      source: https://www.consumersenergy.com/outages-and-safety/avoiding-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Consumers Energy will never shut off service for non-payment without notifying the customer first. It sends a shut-off notice at least 10 days in advance.
+      source: https://www.consumersenergy.com/outages-and-safety/avoiding-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Consumers Energy sends email or text updates about an account, bill or payment only to customers who signed up for alerts.
+      source: https://www.consumersenergy.com/outages-and-safety/avoiding-scams
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Scammers call, visit or reach out on social media to collect a past-due bill and ask for wire transfers, cash, prepaid gift cards, a debit card number and PIN, or cryptocurrency.
+      source: https://www.consumersenergy.com/outages-and-safety/avoiding-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Impersonators at the door ask to see the bill, claim to look into a gas leak, offer free products or upgrades, or say the bill is overdue and threaten to shut off service.
+      source: https://www.consumersenergy.com/outages-and-safety/avoiding-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Impersonators copy Consumers Energy by phone, email, text and web to get full Social Security numbers, dates of birth, card or bank account numbers, or account numbers and login credentials.
+      source: https://www.consumersenergy.com/outages-and-safety/avoiding-scams
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-scam-phone
+      type: phone
+      label: Report a suspected scam (customer service)
+      value: +1-800-477-5050
+      source: https://www.consumersenergy.com/outages-and-safety/avoiding-scams
+      last_verified: 2026-10-12
+    - id: verify-visitor-phone
+      type: phone
+      label: Confirm that a visitor is from Consumers Energy
+      value: +1-800-760-3295
+      source: https://www.consumersenergy.com/outages-and-safety/avoiding-scams
+      last_verified: 2026-10-12

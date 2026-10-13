@@ -60,3 +60,49 @@ playbooks:
 
 known_blockers:
   - oncor.com timed out on every automated request on 2026-10-12. The outage number comes from Texas retail providers' published documents.
+
+official_domains: [oncor.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: No Oncor employee will ever come to a customer's home to collect a payment, or ask by phone, text, in person or online for credit card information.
+      source: https://www.oncor.com/content/oncorwww/wire/en/home/safety/oncor-recognizes-utility-scam-awareness-week.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Oncor will never ask to collect money to avoid service disconnection or shutoff. Oncor representatives do not need to enter a customer's home for any reason.
+      source: https://www.oncor.com/content/oncorwww/wire/en/home/safety/oncor-recognizes-utility-scam-awareness-week.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Oncor will never ask customers to pay with a prepaid debit card, gift card, any form of cryptocurrency or a third-party digital payment app.
+      source: https://www.oncor.com/content/oncorwww/wire/en/home/safety/oncor_raises_awareness_of_utility_scams_during_national_consumer_protection_week.html
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Impostors pose as Oncor employees to collect money or credit card information and imply that electric service will be disconnected if the customer does not pay. Oncor delivers electricity but does not sell it to customers directly.
+      source: https://www.oncor.com/content/oncorwww/wire/en/home/safety/oncor-recognizes-utility-scam-awareness-week.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers tell the customer to buy a prepaid debit card for immediate bill payment, then ask for the card's number when the customer calls back.
+      source: https://www.oncor.com/content/oncorwww/wire/en/home/safety/oncor-recognizes-utility-scam-awareness-week.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers ask for payment in cryptocurrency such as Bitcoin.
+      source: https://www.oncor.com/content/oncorwww/wire/en/home/safety/oncor-recognizes-utility-scam-awareness-week.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Door-to-door impostors say they are responding to reports of scammers in the neighborhood or doing unscheduled work that requires payment, such as a new meter or meter upgrade paid in cash or with a prepaid debit card.
+      source: https://www.oncor.com/content/oncorwww/wire/en/home/safety/oncor_raises_awareness_of_utility_scams_during_national_consumer_protection_week.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers use fraudulent phone numbers or websites that appear in internet search results.
+      source: https://www.oncor.com/content/oncorwww/wire/en/home/safety/oncor-recognizes-utility-scam-awareness-week.html
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: verify-employee-phone
+      type: phone
+      label: Confirm the identity of someone who claims to work for Oncor (general inquiries)
+      value: +1-888-313-6862
+      hours: Monday to Friday, 8 a.m. to 6 p.m. Central Time
+      source: https://www.oncor.com/content/oncorwww/wire/en/home/safety/oncor-recognizes-utility-scam-awareness-week.html
+      last_verified: 2026-10-12

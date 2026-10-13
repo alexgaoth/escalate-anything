@@ -357,3 +357,47 @@ known_blockers:
   - Grievance forms are PDFs that must be mailed or faxed.
 
 notes: Centene Corporation (St. Louis) runs marketplace plans under the Ambetter brand in 29 states, Medicare plans under Wellcare, and state Medicaid plans under local names (for example Sunshine Health, Superior HealthPlan, Peach State, Buckeye, Meridian, Health Net in California). Medicare and Medicaid plans have their own appeal rules.
+
+official_domains: [centene.com, ambetterhealth.com, wellcare.com, sunshinehealth.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Wellcare will never request a physician's signature when it sends a medical records request.
+      source: https://www.wellcare.com/-/media/pdfs/louisiana/provider/bulletins/la_care_prov_fax_scam_notification_2024_r.ashx?la=en&hash=5DDD6B4A0B76C8898A8217B21BA9A5E8
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: An Ambetter email-scam notice says health insurers and Medicare never ask for your username, password, Social Security number, Medicare number or banking information by email.
+      source: https://www.ambetterhealth.com/content/dam/centene/ambetteraz/pdfs/Email_Scams.pdf
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: In 2024 Wellcare warned providers about fraudulent Wellcare-branded faxes that request member medical records and physician signatures. Some of these faxes were followed by harassing phone calls.
+      source: https://www.wellcare.com/-/media/pdfs/louisiana/provider/bulletins/la_care_prov_fax_scam_notification_2024_r.ashx?la=en&hash=5DDD6B4A0B76C8898A8217B21BA9A5E8
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Criminals pose as Medicare or health insurers by email. The email says there is a problem with your account or asks for updated information, and asks you to click a link to enter it.
+      source: https://www.ambetterhealth.com/content/dam/centene/ambetteraz/pdfs/Email_Scams.pdf
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: fwa-helpline
+      type: phone
+      label: Centene Fraud, Waste and Abuse Helpline
+      value: +1-866-685-8664
+      hours: 24/7
+      notes: Independently administered. Anonymous reports are accepted. Some Ambetter state plans also list their own fraud hotlines.
+      source: https://www.centene.com/who-we-are/ethics-and-integrity.html
+      last_verified: 2026-10-12
+    - id: siu-email
+      type: email
+      label: Centene Special Investigations Unit (report fraud, waste and abuse)
+      value: Special_Investigations_Unit@centene.com
+      source: https://www.centene.com/why-were-different/healthcare-fraud-waste-abuse-oversight.html
+      last_verified: 2026-10-12
+    - id: ethicspoint-online
+      type: web_form
+      label: Centene online fraud and compliance report (hosted by EthicsPoint)
+      value: https://www.centene.ethicspoint.com/
+      access: open
+      source: https://www.centene.com/why-were-different/healthcare-fraud-waste-abuse-oversight.html
+      last_verified: 2026-10-12

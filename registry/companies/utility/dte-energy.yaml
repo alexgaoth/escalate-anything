@@ -170,3 +170,60 @@ playbooks:
 known_blockers:
   - Payment Agreements are set up in the online account (sign-in required).
   - The Medical Certification Form must be completed in English by a physician or public health official.
+
+official_domains: [dteenergy.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: DTE does not endorse or require a prepaid debit card for payment, and does not require a specific form of payment.
+      source: https://www.dteenergy.com/us/en/residential/emergency-and-safety/problems/energy-fraud-and-scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: DTE does not set unrealistic payment deadlines or threaten to disconnect power within a period of hours.
+      source: https://www.dteenergy.com/us/en/residential/emergency-and-safety/problems/energy-fraud-and-scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: DTE does not collect cash or accept bill payments at homes or businesses, and its employees never deliver cash refunds or rebates to homes.
+      source: https://www.dteenergy.com/us/en/residential/emergency-and-safety/problems/energy-fraud-and-scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: DTE will never come to a customer's home and ask to see the bill.
+      source: https://www.dteenergy.com/us/en/residential/emergency-and-safety/problems/energy-fraud-and-scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: DTE does not charge for line clearance (tree-trimming) work.
+      source: https://www.dteenergy.com/us/en/residential/emergency-and-safety/problems/energy-fraud-and-scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: DTE Energy will not ask for personal or account information in an email, unless the customer contacted DTE first and DTE is clarifying the request.
+      source: https://www.dteenergy.com/us/en/residential/billing-and-payments/online-account/safety-and-security.html
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Scammers pretend to be DTE employees to get into homes, often targeting senior citizens, new homeowners and people who live alone.
+      source: https://www.dteenergy.com/us/en/residential/emergency-and-safety/problems/energy-fraud-and-scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: People at the door claim to offer a DTE Electric or DTE Gas refund to get into the home.
+      source: https://www.dteenergy.com/us/en/residential/emergency-and-safety/problems/energy-fraud-and-scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers place sponsored ads in search engine listings when customers search for DTE's website or try to start service or pay a bill.
+      source: https://www.dteenergy.com/us/en/residential/emergency-and-safety/problems/energy-fraud-and-scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Callers spoof caller ID to look like DTE and demand immediate payment or tell the customer to get a prepaid debit card.
+      source: https://www.dteenergy.com/us/en/residential/emergency-and-safety/problems/energy-fraud-and-scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Solar panel sellers claim to be associated with DTE. DTE does not sell solar panels or solar panel equipment.
+      source: https://www.dteenergy.com/us/en/residential/emergency-and-safety/problems/energy-fraud-and-scams.html
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-scam-phone
+      type: phone
+      label: Report a suspected scam or verify a call or visit (customer service)
+      value: +1-800-477-4747
+      source: https://www.dteenergy.com/us/en/residential/emergency-and-safety/problems/energy-fraud-and-scams.html
+      last_verified: 2026-10-12

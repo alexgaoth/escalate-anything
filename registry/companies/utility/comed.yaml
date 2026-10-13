@@ -195,3 +195,58 @@ playbooks:
 known_blockers:
   - comed.com HTML pages return empty to automated fetches; use the phone line or the PDF forms.
   - Medical certification must come from a doctor or the local Board of Health.
+
+official_domains: [comed.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: ComEd will never call or come to a home or business to threaten to disconnect service, to sell electricity, or to ask to see the energy bill.
+      source: https://www.comed.com/my-account/customer-support/contact-us/fraud-theft
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: ComEd will never call or come to a home or business to ask for direct payment, or to take payment through a bogus website, a QR code, a prepaid cash card, a payment app such as Cash App, Zelle, Venmo or QuickPay, or cryptocurrency such as Bitcoin.
+      source: https://www.comed.com/my-account/customer-support/contact-us/fraud-theft
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: ComEd never collects payments at kiosks that issue prepaid cash cards or cryptocurrency such as Bitcoin.
+      source: https://www.comed.com/my-account/customer-support/contact-us/fraud-theft
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: ComEd will never call or come to a home or business to ask for a Social Security number, Tax ID or bank information, and will not ask for the ComEd account number unless the customer contacted ComEd first to enroll in a program or service.
+      source: https://www.comed.com/my-account/customer-support/contact-us/fraud-theft
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Imposters falsely claim that electric service will be disconnected unless payment is made, and tell the customer to buy a prepaid credit card and call back a different number with the PIN or other personal information.
+      source: https://www.comed.com/my-account/customer-support/contact-us/fraud-theft
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers spoof caller ID so that the call appears to come from a ComEd number.
+      source: https://www.comed.com/my-account/customer-support/contact-us/fraud-theft
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers may wear ComEd clothing and a fake ComEd ID badge. ComEd says to call 800-334-7661 to confirm a visitor before engaging.
+      source: https://www.comed.com/my-account/customer-support/contact-us/fraud-theft
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Fake outage and past-due alerts made with artificial intelligence imitate real messages to push customers to click links or send payments.
+      source: https://www.comed.com/my-account/customer-support/contact-us/fraud-theft
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Impostor third-party suppliers enroll customers without consent and raise rates after false savings promises.
+      source: https://www.comed.com/my-account/customer-support/contact-us/fraud-theft
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-scam-phone
+      type: phone
+      label: Report suspicious behavior or a scam to ComEd (800-EDISON-1)
+      value: +1-800-334-7661
+      source: https://www.comed.com/my-account/customer-support/contact-us/fraud-theft
+      last_verified: 2026-10-12
+    - id: report-scam-form
+      type: web_form
+      label: Report a utility-related scam to ComEd
+      value: https://secure.comed.com/MyAccount/CustomerSupport/Pages/ReportImpostersScams.aspx
+      source: https://secure.comed.com/MyAccount/CustomerSupport/Pages/ReportImpostersScams.aspx
+      last_verified: 2026-10-12

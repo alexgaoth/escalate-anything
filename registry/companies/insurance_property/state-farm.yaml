@@ -156,3 +156,49 @@ known_blockers:
   - Policy changes often go through the local State Farm agent.
 
 notes: Sells through local State Farm agents. Health, life, banking (U.S. Bank) and loan products have separate numbers on the contact page.
+
+official_domains: [statefarm.com, sfdividend.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: State Farm will not send unsolicited email with attachments, and does not require customers to send personal information by email or pop-up windows.
+      source: https://www.statefarm.com/customer-care/privacy-security/security
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: State Farm will not ask for your personal email password or banking password.
+      source: https://www.statefarm.com/customer-care/privacy-security/security
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: State Farm will not ask you to pay a fee to receive a dividend payment.
+      source: https://www.statefarm.com/customer-care/privacy-security/security
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Fake websites and phone numbers impersonate State Farm, including look-alike domains such as statfarm.com (missing the "e").
+      source: https://www.statefarm.com/customer-care/privacy-security/security
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers impersonate Verita, State Farm's dividend payment partner. statefarmdividend.com is not a State Farm site; real dividend selection emails come from donotreply@e.sfdividend.com.
+      source: https://www.statefarm.com/customer-care/privacy-security/security
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Emails and texts offer car emergency kits, fire safety kits or dash cameras for completing a survey. State Farm says it does not offer these items for a survey.
+      source: https://www.statefarm.com/customer-care/privacy-security/security
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Phishing emails impersonate State Farm Claims. State Farm advises not to click links or open attachments in unexpected claim emails.
+      source: https://www.statefarm.com/customer-care/privacy-security/security
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Ads promise free insurance for seniors or middle-aged drivers. State Farm says these ads contain inaccurate information and were not authorized by State Farm.
+      source: https://www.statefarm.com/customer-care/privacy-security/security
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: abuse-email
+      type: email
+      label: Forward suspicious State Farm emails
+      value: abuse@statefarm.com
+      notes: State Farm sends an automatic reply but no personal response.
+      source: https://www.statefarm.com/customer-care/privacy-security/security
+      last_verified: 2026-10-12

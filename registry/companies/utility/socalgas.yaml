@@ -182,3 +182,46 @@ known_blockers:
   - socalgas.com/contact-us returns 403 to automated fetches; use /about-us/contact-us.
   - Payment extensions and Past Due Bill Forgiveness enrollment need a My Account sign-in.
   - The Medical Baseline application needs a medical provider to complete Part 2.
+
+official_domains: [socalgas.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: SoCalGas will never ask for credit card or banking information over the phone.
+      source: https://www.socalgas.com/safety/safety-and-prevention/scams
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Callers spoof caller ID to appear to be SoCalGas or a partner, then try to sell products, collect personal information, or say a payment is due when it is not.
+      source: https://www.socalgas.com/safety/safety-and-prevention/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Callers or door-to-door impostors threaten to turn off service unless the customer pays immediately with prepaid cash cards, then send the customer to another phone number where the card's value is taken.
+      source: https://www.socalgas.com/safety/safety-and-prevention/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers say a "special government program" will pay utility bills and give a fake bank routing number for online payment. No such federal program exists.
+      source: https://www.socalgas.com/safety/safety-and-prevention/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Unofficial websites or partners at the top of search results take "payments" or give a phone number where the customer is asked for billing and credit card information. The money goes to the scammer.
+      source: https://www.socalgas.com/safety/safety-and-prevention/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Suspicious emails look like bills from another utility company and can contain the customer's real name or address.
+      source: https://www.socalgas.com/safety/safety-and-prevention/scams
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: verify-phone
+      type: phone
+      label: Verify someone who claims to represent SoCalGas
+      value: +1-800-427-2200
+      source: https://www.socalgas.com/safety/safety-and-prevention/scams
+      last_verified: 2026-10-12
+    - id: verify-phone-spanish
+      type: phone
+      label: Verify someone who claims to represent SoCalGas (Spanish)
+      value: +1-800-342-4545
+      source: https://www.socalgas.com/safety/safety-and-prevention/scams
+      last_verified: 2026-10-12

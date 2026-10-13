@@ -216,3 +216,33 @@ known_blockers:
   - eversource.com renders phone numbers and state programs only after a town is selected; automated fetches see placeholders. Confirm the number on the customer's bill.
   - Outage reporting online needs the account phone number or a sign-in.
   - Medical Protection needs a physician's certification.
+
+official_domains: [eversource.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Eversource will never call and demand immediate payment, ask for payment by gift card, prepaid debit card or Bitcoin, or threaten to shut off power or gas immediately.
+      source: https://www.eversource.com/residential/safety/avoiding-scams
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Callers phone without prior notice and demand immediate payment to avoid a shut-off.
+      source: https://www.eversource.com/residential/safety/avoiding-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Callers claim the customer overpaid the utility bill and ask for bank account or credit card information to send a refund.
+      source: https://www.eversource.com/residential/safety/avoiding-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers pretending to be a reputable company send text messages that ask for personal information.
+      source: https://www.eversource.com/residential/safety/avoiding-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers say the meter is about to expire and ask for a deposit to install a new one. Meters do not expire.
+      source: https://www.eversource.com/residential/safety/avoiding-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: People, sometimes claiming to be Eversource employees, offer to pay the customer's bill or provide another service for a fee.
+      source: https://www.eversource.com/residential/safety/avoiding-scams
+      last_verified: 2026-10-12

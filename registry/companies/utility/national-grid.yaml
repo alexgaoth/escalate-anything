@@ -304,3 +304,72 @@ known_blockers:
   - Phone numbers and rules differ by region; the regionalized pages on nationalgridus.com only render the right content with a region selected.
   - The Upstate NY Minimum Payment Agreement cannot be set up in My Account; call 1-800-443-1837.
   - Special protections need documentation from a medical professional or proof of age.
+
+official_domains: [nationalgridus.com, nationalgrid.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: National Grid will not contact customers to demand immediate payment by wire transfer, Green Dot MoneyPak or any other prepaid card service. It may ask for a payment over the phone, but leaves the payment method to the customer.
+      source: https://www.nationalgridus.com/Our-Company/Scam-Alert
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: National Grid will never contact customers by email or phone to ask for personal or account information.
+      source: https://www.nationalgridus.com/Our-Company/Security
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: National Grid will never ask customers to email personal information such as payment details or an address, will never ask for a password, and will never send programs to install on a computer.
+      source: https://www.nationalgridus.com/Our-Company/Security
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Callers, sometimes with Caller ID showing "National Grid", say the customer has a past-due balance, threaten to turn off service and demand immediate payment.
+      source: https://www.nationalgridus.com/Our-Company/Scam-Alert
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers demand immediate payment by wire transfer, Green Dot MoneyPak, prepaid debit cards, gift cards, cryptocurrency or third-party digital payment apps.
+      source: https://www.nationalgridus.com/Our-Company/Scam-Alert
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Robocalls offer 25% off future bills to get account information. National Grid says these calls are not from National Grid.
+      source: https://www.nationalgridus.com/Our-Company/Scam-Alert
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Fake websites closely resemble the official National Grid website to collect usernames, passwords and account details.
+      source: https://www.nationalgridus.com/Our-Company/Scam-Alert
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: People come to the door claiming to be from National Grid. All National Grid employees and contractors carry photo identification.
+      source: https://www.nationalgridus.com/Our-Company/Scam-Alert
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Report an unexpected email that appears to come from National Grid
+      value: customerservice@nationalgrid.com
+      source: https://www.nationalgridus.com/Our-Company/Security
+      last_verified: 2026-10-12
+    - id: verify-phone-massachusetts-electric
+      type: phone
+      label: Check account status after a suspected scam (customer service, Massachusetts electric)
+      value: +1-800-322-3223
+      source: https://www.nationalgridus.com/Our-Company/Scam-Alert
+      last_verified: 2026-10-12
+    - id: verify-phone-upstate-ny
+      type: phone
+      label: Check account status after a suspected scam (customer service, Upstate New York)
+      value: +1-800-642-4272
+      source: https://www.nationalgridus.com/Our-Company/Scam-Alert
+      last_verified: 2026-10-12
+    - id: verify-phone-nyc-metro
+      type: phone
+      label: Check account status after a suspected scam (customer service, New York City and Metro)
+      value: +1-718-643-4050
+      source: https://www.nationalgridus.com/Our-Company/Scam-Alert
+      last_verified: 2026-10-12
+    - id: verify-phone-long-island
+      type: phone
+      label: Check account status after a suspected scam (customer service, Long Island)
+      value: +1-800-930-5003
+      source: https://www.nationalgridus.com/Our-Company/Scam-Alert
+      last_verified: 2026-10-12

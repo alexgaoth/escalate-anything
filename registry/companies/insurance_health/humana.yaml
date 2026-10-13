@@ -177,3 +177,50 @@ known_blockers:
   - Medicaid plans are state-specific; use the Medicaid help page.
 
 notes: Medicare Advantage, Part D and state Medicaid plans have their own appeal rules. Humana's employer offering on its website is group dental, vision, life and disability.
+
+official_domains: [humana.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: A Humana member fraud flyer says Humana will never offer "free" or "low-cost" healthcare services in exchange for identifying information about you.
+      source: https://assets.humana.com/is/content/humana/SC_Detecting_Preventing_and_Reporting_Healthcare_Fraudpdf
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Medical identity thieves offer "free" or "low-cost" healthcare services in exchange for identifying information, such as a Humana, Medicare or Medicaid ID number.
+      source: https://assets.humana.com/is/content/humana/SC_Detecting_Preventing_and_Reporting_Healthcare_Fraudpdf
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Callers claim to be from a clinic, doctor's office, insurance company or pharmacy to get a member's ID number. Humana says not to give a Humana, Medicare or Medicaid ID number over the phone before you verify the caller's identity.
+      source: https://assets.humana.com/is/content/humana/SC_Detecting_Preventing_and_Reporting_Healthcare_Fraudpdf
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Callers offer to send medicine or medical equipment. Humana says to accept medicine or medical equipment in the mail only if your primary care provider or another healthcare provider ordered or prescribed it.
+      source: https://assets.humana.com/is/content/humana/SC_Detecting_Preventing_and_Reporting_Healthcare_Fraudpdf
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Humana lists agent fraud such as enrolling people in a non-existent plan, offering cash payments to enroll, unsolicited door-to-door marketing of Medicare Advantage or prescription drug plans, and misrepresenting plans.
+      source: https://assets.humana.com/is/content/humana/Ethics%20Every%20Daypdf
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: siu-phone
+      type: phone
+      label: Humana Special Investigations Unit (report suspected fraud, waste and abuse)
+      value: +1-800-614-4126
+      source: https://assets.humana.com/is/content/humana/Ethics%20Every%20Daypdf
+      last_verified: 2026-10-12
+    - id: siu-email
+      type: email
+      label: Humana Special Investigations Unit referrals
+      value: siureferrals@humana.com
+      source: https://assets.humana.com/is/content/humana/Ethics%20Every%20Daypdf
+      last_verified: 2026-10-12
+    - id: ethics-help-line
+      type: phone
+      label: Humana Ethics Help Line (1-877-5-THE-KEY)
+      value: +1-877-584-3539
+      hours: 24 hours a day, seven days a week
+      notes: Staffed by external, non-Humana representatives. Calls can be anonymous. Online reports at www.ethicshelpline.com.
+      source: https://assets.humana.com/is/content/humana/Ethics%20Every%20Daypdf
+      last_verified: 2026-10-12

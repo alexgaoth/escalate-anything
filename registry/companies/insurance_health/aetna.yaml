@@ -183,3 +183,25 @@ known_blockers:
   - Claims and EOBs need member login.
 
 notes: Aetna is part of CVS Health. Medicare Advantage, Part D (SilverScript) and Medicaid (Aetna Better Health) plans have separate appeal channels and rules. Mailing address of Aetna Inc. is 151 Farmington Avenue, Hartford, CT 06156.
+
+official_domains: [aetna.com, aetnabetterhealth.com]
+
+security:
+  known_scams:
+    - kind: policy
+      claim: Aetna's fraud page lists billing for services or supplies never provided and altering claims for higher payment as fraud. Members who see something suspicious on a plan statement should call the number on the ID card or the fraud hotline.
+      source: https://www.aetna.com/about-us/fraud-waste-abuse.html
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: fraud-hotline
+      type: phone
+      label: Aetna fraud hotline
+      value: +1-800-338-6361
+      source: https://www.aetna.com/about-us/fraud-waste-abuse.html
+      last_verified: 2026-10-12
+    - id: siu-email
+      type: email
+      label: Aetna Special Investigations Unit
+      value: AetnaSIU@aetna.com
+      source: https://www.aetna.com/about-us/fraud-waste-abuse.html
+      last_verified: 2026-10-12

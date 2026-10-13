@@ -128,3 +128,52 @@ playbooks:
 
 known_blockers:
   - The online Contact Us page and account tools run on a JavaScript site that agents may not be able to use; payment arrangements usually need the account holder.
+
+official_domains: [georgiapower.com, southerncompany.com, southernco.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Georgia Power will never threaten immediate disconnection or demand payment information over the phone, and will never call to ask for bank information or a credit card number.
+      source: https://www.georgiapower.com/about/safety/fraud-protection.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Georgia Power will never come to a home or business to demand an immediate payment, and will never come without identification or prior communication.
+      source: https://www.georgiapower.com/about/safety/fraud-protection.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Georgia Power will never show the full service address and the account number together in an email or text message.
+      source: https://www.georgiapower.com/about/safety/fraud-protection.html
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Callers pretending to be Georgia Power employees give a short payment deadline, tell the customer to buy a prepaid "money pack" card at a store such as Walmart, CVS or Walgreens, and then to call another number to give the card's number.
+      source: https://www.georgiapower.com/about/safety/fraud-protection.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers promote fraudulent 800 numbers for Georgia Power and fake the Caller ID. Georgia Power's customer service line is 888-660-5890.
+      source: https://www.georgiapower.com/about/safety/fraud-protection.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers claim to work for a public agency or government office and offer ways to pay the Georgia Power bill, then ask for credit card, account or banking information.
+      source: https://www.georgiapower.com/about/safety/fraud-protection.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scam emails demand immediate payment or personal information. Georgia Power says its billing emails come from G2georgiapps@southernco.com and its outage emails from do-not-reply@georgiapower.com.
+      source: https://www.georgiapower.com/about/safety/fraud-protection.html
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-scam-form
+      type: web_form
+      label: Report a scam to Georgia Power
+      value: https://www.georgiapower.com/about/safety/fraud-protection/report-a-scam.html
+      notes: The page says Georgia Power investigates submitted reports. The form fields could not be read automatically.
+      source: https://www.georgiapower.com/about/safety/fraud-protection/report-a-scam.html
+      last_verified: 2026-10-12
+    - id: verify-call-phone
+      type: phone
+      label: Verify a call or visit, or report suspicious activity (customer service)
+      value: +1-888-660-5890
+      hours: Monday to Friday, 7 a.m. to 7 p.m.
+      source: https://www.georgiapower.com/about/safety/fraud-protection.html
+      last_verified: 2026-10-12

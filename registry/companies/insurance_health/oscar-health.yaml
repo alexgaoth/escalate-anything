@@ -126,3 +126,28 @@ known_blockers:
   - EOBs and Care Team messages need an Oscar account login.
 
 notes: Oscar sells individual and family (IFP) plans on and off the exchange in several states, plus employer products. Appeal rules and external review depend on the state.
+
+official_domains: [hioscar.com]
+
+security:
+  report_phishing:
+    - id: siu-email
+      type: email
+      label: Oscar Special Investigation Unit (report suspected fraud, waste and abuse)
+      value: Fraud@hioscar.com
+      source: https://www.hioscar.com/compliance
+      last_verified: 2026-10-12
+    - id: compliance-hotline
+      type: phone
+      label: Oscar Compliance and fraud hotline
+      value: +1-844-392-7589
+      notes: Reports can be anonymous.
+      source: https://www.hioscar.com/compliance
+      last_verified: 2026-10-12
+    - id: online-report
+      type: web_form
+      label: Oscar online compliance and fraud report (hosted by EthicsPoint)
+      value: https://secure.ethicspoint.com/domain/media/en/gui/66399/index.html
+      access: open
+      source: https://www.hioscar.com/compliance
+      last_verified: 2026-10-12

@@ -126,3 +126,47 @@ known_blockers:
   - The contact pages list two different roadside numbers; confirm on the ID card or in the app.
 
 notes: Harleysville and Private Client policies have separate service lines on the call-us page. Business claims use 1-800-421-3535 as well.
+
+official_domains: [nationwide.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Nationwide will never ask for your password, verification code or full Social Security number in an email or text message.
+      source: https://www.nationwide.com/personal/cyber-security/report-fraud/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Nationwide will never urgently demand payment or threaten to close your account.
+      source: https://www.nationwide.com/personal/cyber-security/report-fraud/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Nationwide will never ask you to click a suspicious link or download an attachment to verify your information.
+      source: https://www.nationwide.com/personal/cyber-security/report-fraud/
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Scammers impersonate Nationwide to get people to share information or click malicious links. A message from an unknown or 10-digit number that claims to be Nationwide is a red flag.
+      source: https://www.nationwide.com/personal/cyber-security/report-fraud/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Fake Nationwide messages contain links that do not match official Nationwide or plan-specific websites.
+      source: https://www.nationwide.com/personal/cyber-security/report-fraud/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Impersonators ask for confidential information by text, call or email. Their messages can show poor grammar, unusual formatting or a misspelled company name.
+      source: https://www.nationwide.com/personal/cyber-security/report-fraud/
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: protect-email
+      type: email
+      label: Report a suspicious email, text, call, letter or website that claims to be Nationwide
+      value: protect@nationwide.com
+      notes: Nationwide asks for the date and time received, the phone number or sender, a screenshot, and the website URL if there is one.
+      source: https://www.nationwide.com/personal/cyber-security/report-fraud/
+      last_verified: 2026-10-12
+    - id: fraud-helpline
+      type: phone
+      label: Nationwide fraud helpline
+      value: +1-800-474-7633
+      source: https://www.nationwide.com/personal/cyber-security/report-fraud/
+      last_verified: 2026-10-12

@@ -172,3 +172,54 @@ playbooks:
 known_blockers:
   - Online payment arrangements and account changes need sign-in.
   - The Medical Care Program application needs a licensed medical professional's section.
+
+official_domains: [aps.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: APS will never send QR codes or texts, or call, demanding immediate payment.
+      source: https://www.aps.com/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: APS will never require payment by QR code or prepaid card, and will never specify which payment method a customer must use.
+      source: https://www.aps.com/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: APS field personnel will never visit homes to offer refunds or deposits or to collect payments.
+      source: https://www.aps.com/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Customers with past-due accounts get advance shut-off notices, such as a bill message or door hanger, and never a single notification one hour or less before shut-off.
+      source: https://www.aps.com/scams
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Scammers say the energy bill is past due and service will be shut off unless a payment is made right away, usually within an hour or less.
+      source: https://www.aps.com/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers tell customers to buy a prepaid card and call back with the card number, which gives them instant access to the funds.
+      source: https://www.aps.com/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Solar installers claim to be affiliated with APS or offer special deals or incentives by phone or door to door.
+      source: https://www.aps.com/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers spoof APS phone numbers on caller ID, and have also spoofed the numbers of community service organizations such as Chicanos Por La Causa.
+      source: https://www.aps.com/scams
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-scam-phoenix-phone
+      type: phone
+      label: Report a scam or verify a contact (APS Customer Experience Center, metro Phoenix)
+      value: +1-602-371-7171
+      source: https://www.aps.com/scams
+      last_verified: 2026-10-12
+    - id: report-scam-phone
+      type: phone
+      label: Report a scam or verify a contact (APS Customer Experience Center, other areas)
+      value: +1-800-253-9405
+      source: https://www.aps.com/scams
+      last_verified: 2026-10-12

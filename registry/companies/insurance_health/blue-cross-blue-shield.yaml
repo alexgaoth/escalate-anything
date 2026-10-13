@@ -151,3 +151,30 @@ known_blockers:
   - FEP eligibility questions go to the agency payroll office, retirement system or OWCP, not to the Plan.
 
 notes: Blue Cross and Blue Shield plans are independent companies licensed by the Blue Cross Blue Shield Association. Members must use their own local Blue plan (named on the ID card) for claims and appeals. The Federal Employee Program (FEP Blue, the Service Benefit Plan) covers FEHB and Postal Service (PSHB) members; its external step is OPM review, not state external review. Separate registry entries cover Blue plans owned by Elevance Health (Anthem).
+
+official_domains: [fepblue.org]
+
+security:
+  known_scams:
+    - kind: policy
+      claim: FEP Blue warns that "free" services that ask for your insurance card may not be free and could be fraudulently billed to you or your insurance company.
+      source: https://www.fepblue.org/legal/healthcare-fraud
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: FEP Blue warns members to avoid professionals who say they know how to bill for services the plan does not cover.
+      source: https://www.fepblue.org/legal/healthcare-fraud
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: fep-fraud-hotline
+      type: phone
+      label: FEP Fraud Hotline (Blue Cross and Blue Shield Federal Employee Program)
+      value: +1-800-337-8440
+      notes: Other Blue members can also contact the Blue Cross and Blue Shield plan in their area.
+      source: https://www.fepblue.org/legal/healthcare-fraud
+      last_verified: 2026-10-12
+    - id: opm-oig-fraud-hotline-mail
+      type: mail
+      label: U.S. Office of Personnel Management, Office of the Inspector General Fraud Hotline (by mail)
+      value: United States Office of Personnel Management, Office of the Inspector General, Fraud Hotline, 1900 E Street, NW, Room 6400, Washington, DC 20415-1100
+      source: https://www.fepblue.org/legal/healthcare-fraud
+      last_verified: 2026-10-12

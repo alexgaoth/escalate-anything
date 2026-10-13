@@ -235,3 +235,76 @@ playbooks:
 known_blockers:
   - The AEP Ohio customer handbook used here is marked Revised 11.23.2021. Check the current handbook for changes.
   - Outage status pages and most account changes need sign-in.
+
+official_domains: [aep.com, aepohio.com, appalachianpower.com, indianamichiganpower.com, kentuckypower.com, psoklahoma.com, swepco.com, aeptexas.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: AEP Ohio and the other AEP operating companies say they never ask customers to use prepaid debit cards for payment.
+      source: https://www.aepohio.com/account/bills/fraud-scams
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Scammers posing as utility employees threaten to shut off power unless an immediate payment is made, often by prepaid debit card, or ask for personal information under a false threat of disconnection.
+      source: https://www.aepohio.com/account/bills/fraud-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Some scammers show the utility's name on caller ID or play a telephone recording that sounds like the utility's phone system message.
+      source: https://www.aepohio.com/account/bills/fraud-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers tell customers they need a new meter and must pay before the new meter is installed.
+      source: https://www.aepohio.com/account/bills/fraud-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers go door to door offering to negotiate a lower total bill amount if an immediate payment is made.
+      source: https://www.aepohio.com/account/bills/fraud-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers offer a discount on the bill if the customer signs up for auto-pay.
+      source: https://www.aepohio.com/account/bills/fraud-scams
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-scam-aep-ohio
+      type: phone
+      label: Report a scam or verify a call (AEP Ohio)
+      value: +1-800-672-2231
+      source: https://www.aepohio.com/account/bills/fraud-scams
+      last_verified: 2026-10-12
+    - id: report-scam-appalachian-power
+      type: phone
+      label: Report a scam or verify a call (Appalachian Power)
+      value: +1-800-956-4237
+      source: https://www.appalachianpower.com/account/bills/fraud-scams
+      last_verified: 2026-10-12
+    - id: report-scam-indiana-michigan-power
+      type: phone
+      label: Report a scam or verify a call (Indiana Michigan Power)
+      value: +1-800-311-4634
+      source: https://www.indianamichiganpower.com/account/bills/fraud-scams
+      last_verified: 2026-10-12
+    - id: report-scam-kentucky-power
+      type: phone
+      label: Report a scam or verify a call (Kentucky Power)
+      value: +1-800-572-1113
+      source: https://www.kentuckypower.com/account/bills/fraud-scams
+      last_verified: 2026-10-12
+    - id: report-scam-pso
+      type: phone
+      label: Report a scam or verify a call (Public Service Company of Oklahoma)
+      value: +1-833-776-7697
+      source: https://www.psoklahoma.com/account/bills/fraud-scams
+      last_verified: 2026-10-12
+    - id: report-scam-swepco
+      type: phone
+      label: Report a scam or verify a call (SWEPCO)
+      value: +1-888-216-3523
+      source: https://www.swepco.com/account/bills/fraud-scams
+      last_verified: 2026-10-12
+    - id: report-scam-aep-texas
+      type: phone
+      label: Report a scam or verify a call (AEP Texas)
+      value: +1-877-373-4858
+      source: https://www.aeptexas.com/account/bills/fraud-scams
+      last_verified: 2026-10-12

@@ -178,3 +178,50 @@ tips:
 
 known_blockers:
   - The online contact form and account tools run on a JavaScript site that agents may not be able to use.
+
+official_domains: [alabamapower.com, southerncompany.com, southernco.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Alabama Power will never ask for immediate payment or for personal information, such as bank account details or credit card numbers, over the phone or by text.
+      source: https://www.alabamapower.com/residential/billing-and-payment-options/beware-of-scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Alabama Power will never demand immediate payment at the door. Its employees always show company identification on request.
+      source: https://www.alabamapower.com/residential/billing-and-payment-options/beware-of-scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Alabama Power will never show the full service address and the account number together in an email or text message.
+      source: https://www.alabamapower.com/residential/billing-and-payment-options/beware-of-scams.html
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Callers use the customer's own account information to seem real, demand immediate payment by money card and warn that service will be disconnected if payment is not received.
+      source: https://www.alabamapower.com/residential/billing-and-payment-options/beware-of-scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Fake websites pose as official utility sites and list fake customer service 800 numbers. Customers who call those numbers to pay a bill reach scammers.
+      source: https://www.alabamapower.com/residential/billing-and-payment-options/beware-of-scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers offer grants to pay utility bills and ask for credit card, bank or Alabama Power account details.
+      source: https://www.alabamapower.com/residential/billing-and-payment-options/beware-of-scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Suspicious texts claim there is a glitch in the company's system. Alabama Power says not to respond and to call 1-800-245-2244 to check the account.
+      source: https://www.alabamapower.com/residential/billing-and-payment-options/beware-of-scams.html
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-scam-residential-phone
+      type: phone
+      label: Report suspicious activity or verify a contact (residential customer service)
+      value: +1-800-245-2244
+      source: https://www.alabamapower.com/residential/billing-and-payment-options/beware-of-scams.html
+      last_verified: 2026-10-12
+    - id: report-scam-business-phone
+      type: phone
+      label: Report suspicious activity or verify a contact (business customer service)
+      value: +1-888-430-5787
+      source: https://www.alabamapower.com/residential/billing-and-payment-options/beware-of-scams.html
+      last_verified: 2026-10-12

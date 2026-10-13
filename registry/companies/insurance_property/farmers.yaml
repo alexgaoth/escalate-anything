@@ -157,3 +157,12 @@ known_blockers:
   - Many policies are serviced by a local Farmers agent.
 
 notes: Farmers Insurance Exchange, Fire Insurance Exchange and Truck Insurance Exchange are reciprocal insurers owned by their policyholders. Farmers Group, Inc. and its subsidiaries manage them as attorneys-in-fact. Farmers GroupSelect auto and home has its own line.
+
+official_domains: [farmers.com]
+
+security:
+  known_scams:
+    - kind: policy
+      claim: In a 2011 warning, Farmers said scammers mail letters with fake Farmers checks (for example for a prize draw or a mystery shopper job) and ask the recipient to cash the check and send a large part of the money back for fees, taxes or other charges. The check bounces.
+      source: https://newsroom.farmers.com/2011-08-01-Farmers-Insurance-Issues-a-Warning-The-Check-You-Just-Got-in-the-Mail-Could-be-a-Scam-Dont-be-Fooled
+      last_verified: 2026-10-12

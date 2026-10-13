@@ -299,3 +299,65 @@ known_blockers:
   - help.pge.com articles render only with JavaScript.
   - Online payment arrangements, Self-Identified Vulnerable status and outage claims tracking need a My Account sign-in.
   - The Medical Baseline application needs a medical practitioner to complete Part B.
+
+official_domains: [pge.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: PG&E says it will never ask for your financial information over the phone.
+      source: https://www.pge.com/en/account/customer-service/scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: PG&E says it will never request payment by gift card, MoneyPak card or payment apps such as Venmo or Zelle.
+      source: https://www.pge.com/en/account/customer-service/scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: PG&E says it will never threaten to shut off power within the hour unless you make an immediate payment, and never asks business customers for an immediate payment with a prepaid cash card over the phone or in person.
+      source: https://www.pge.com/en/account/customer-service/scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: PG&E says it will not call to ask for personal information when a power shutoff is about to happen, and its representatives will never call to sell a product or service.
+      source: https://www.pge.com/en/account/customer-service/scams.html
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Scammers spoof caller ID so the call shows a real PG&E number, such as 1-800-743-5000, then ask for sensitive information or access to the home.
+      source: https://www.pge.com/en/account/customer-service/scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Callers say a refund, discount or federal tax refund is owed, or that a past-due balance must be paid now.
+      source: https://www.pge.com/en/account/customer-service/scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Callers pose as vendors that offer energy-usage insights and ask for the PG&E account number, login or Social Security number. PG&E says vendors do not need this information to get usage data.
+      source: https://www.pge.com/en/account/customer-service/scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Fake emails, some that look like PG&E bills, carry links or come from spoofed senders. PG&E says most of its emails come from addresses that end in pge.com (for example em.pge.com, myacct.pge.com, notifications.pge.com).
+      source: https://www.pge.com/en/account/customer-service/scams.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: People come to the door claiming to be from PG&E, often offering a gas inspection. PG&E employees always carry ID and will show it.
+      source: https://www.pge.com/en/account/customer-service/scams.html
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: scam-line
+      type: phone
+      label: Report an in-person scam or verify a PG&E caller or visitor (1-833-500-SCAM)
+      value: +1-833-500-7226
+      source: https://www.pge.com/en/account/customer-service/scams.html
+      last_verified: 2026-10-12
+    - id: scam-email
+      type: email
+      label: Report a scam email to PG&E
+      value: ScamReporting@pge.com
+      source: https://www.pge.com/en/account/customer-service/scams.html
+      last_verified: 2026-10-12
+    - id: scam-call-form
+      type: web_form
+      label: Report a scam call to PG&E
+      value: https://forms.office.com/r/KiUQWWUH8P
+      notes: A Microsoft Forms page linked from PG&E's scams page, so the domain is not pge.com.
+      source: https://www.pge.com/en/account/customer-service/scams.html
+      last_verified: 2026-10-12

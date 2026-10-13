@@ -120,3 +120,35 @@ known_blockers:
   - Anthem publishes no public appeal address for employer or individual plans; use the address on the denial letter or EOB.
 
 notes: Elevance Health, Inc. (Indianapolis) operates Anthem Blue Cross and Blue Shield affiliated health plans in 14 states, and Wellpoint affiliated health plans. Carelon is its health services business. The former Empire BlueCross BlueShield site (empireblue.com) now redirects to anthembluecross.com, which uses the Anthem Blue Cross and Anthem Blue Cross and Blue Shield names for eastern and southeastern New York. Medicare and Medicaid plans have their own appeal rules.
+
+official_domains: [anthem.com, anthembluecross.com, elevancehealth.com]
+
+security:
+  known_scams:
+    - kind: policy
+      claim: Anthem warns members to be careful with offers of free products or extra services, and with ads that say "covered by insurance".
+      source: https://www.fighthealthcarefraud.com/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Medical identity thieves use a member's information to get services or submit false claims. This can use up the member's benefits and put false information in the health record.
+      source: https://www.fighthealthcarefraud.com/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Some providers bill the health plan for services that were never performed. Anthem asks members to check that each explanation of benefits (EOB) matches the care they received.
+      source: https://www.fighthealthcarefraud.com/
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: fraud-report-form
+      type: web_form
+      label: Anthem healthcare fraud report form (fighthealthcarefraud.com, linked as Healthcare Fraud Prevention in the anthem.com footer)
+      value: https://www.fighthealthcarefraud.com/report-fraud-form/
+      access: open
+      source: https://www.fighthealthcarefraud.com/
+      last_verified: 2026-10-12
+    - id: fraud-hotline
+      type: phone
+      label: Anthem fraud hotline for states without their own listed number
+      value: +1-866-847-8247
+      notes: The same page lists separate fraud hotlines for California, Colorado, Connecticut, Georgia, Indiana, Kentucky, Maine, Missouri, Nevada, New Hampshire, New York, Ohio, Virginia and Wisconsin. Members can also call Member Services on the back of the ID card. Anonymous reports are possible.
+      source: https://www.fighthealthcarefraud.com/
+      last_verified: 2026-10-12
