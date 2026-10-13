@@ -305,3 +305,43 @@ known_blockers:
 notes: >-
   Comcast's residential brand is Xfinity; Xfinity Mobile (wireless) and NOW Internet/NOW Mobile (prepaid) share the
   same support site. The residential agreement is the "Xfinity Residential Services Agreement".
+
+official_domains: [xfinity.com, comcast.net, comcast.com]
+security:
+  never_asks:
+  - kind: policy
+    claim: Xfinity representatives will never ask for your username and password over the phone.
+    source: https://www.xfinity.com/support/articles/protecting-from-fraud
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Xfinity will not ask you to pay using a specific payment method such as merchant gift cards, wire transfer, PayPal, Venmo or Zelle, and does not accept payment with gift cards from other companies.
+    source: https://www.xfinity.com/support/articles/protecting-from-fraud
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Xfinity tells customers to check that an email sender's address ends in @comcast.net or @xfinity.com, and never to share a verification code with anyone.
+    source: https://www.xfinity.com/support/articles/protecting-from-fraud
+    last_verified: 2026-10-12
+  known_scams:
+  - kind: policy
+    claim: Bad actors use phone numbers that look like Xfinity's, or rely on you calling a wrong number, to get account or payment information, place orders on your account, or have you ship a device or package.
+    source: https://www.xfinity.com/support/articles/protecting-from-fraud
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Look-alike websites with small spelling mistakes or extra characters imitate xfinity.com or an Xfinity partner's site.
+    source: https://www.xfinity.com/support/articles/protecting-from-fraud
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Social media messages from people who claim to be Xfinity employees, and emails or texts with links or QR codes that claim to be account updates.
+    source: https://www.xfinity.com/support/articles/protecting-from-fraud
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: The FCC warned on September 10, 2025 about robocalls and texts claiming a 50% discount on Comcast, Spectrum or Prime bills is about to expire; callers who call back are told to prepay several months of service with gift cards.
+    source: https://docs.fcc.gov/public/attachments/DOC-414472A1.pdf
+    last_verified: 2026-10-12
+  report_phishing:
+  - id: report-network-abuse
+    type: web_form
+    label: Xfinity Service Policy Assurance - report phishing, spam, online fraud or phone scams
+    value: https://spa.xfinity.com/help/network-abuse?faq=report-online-harassment
+    source: https://www.xfinity.com/support/articles/protecting-from-fraud
+    last_verified: 2026-10-12

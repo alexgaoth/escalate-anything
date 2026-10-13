@@ -201,3 +201,11 @@ notes: >-
   Contract of Carriage is the 58th revision, effective 09/24/2026. It now says checked bag fees apply and that Flight
   Credits from tickets issued or changed on or after May 28, 2025 expire, and it describes Basic fares. Older Southwest
   commitment documents that describe free checked bags are out of date.
+
+official_domains: [southwest.com, wnco.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: A consumer reported to BBB Scam Tracker (July 2024) that a Google search for Southwest customer service led to a website imitating Southwest, where they bought tickets from an impostor. The card charges showed the name Southwes, not Southwest.
+      source: https://www.bbb.org/scamtracker/lookupscam/861690
+      last_verified: 2026-10-12

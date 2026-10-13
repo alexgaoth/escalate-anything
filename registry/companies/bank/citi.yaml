@@ -4,6 +4,46 @@ aliases: [citibank, citibank na, citicards, citi cards, citigroup, citi retail s
 sector: bank
 parent: Citigroup Inc.
 website: https://www.citi.com
+official_domains: [citi.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Citi will never ask for your PIN, and no one at Citi will ever ask you to say or send it.
+      source: https://citicards.citi.com/cbol/fraudprevention/default.htm
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Citi will never ask for passcodes or credentials when it calls you.
+      source: https://citicards.citi.com/cbol/fraudprevention/default.htm
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Citi will never ask you to move or send money to resolve a fraud issue.
+      source: https://citicards.citi.com/cbol/fraudprevention/default.htm
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Scammers contact you by phone, email or text, pose as Citi or a trusted merchant, and ask you to say or send your Citi PIN.
+      source: https://citicards.citi.com/cbol/fraudprevention/default.htm
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: The caller ID shows a Citi number, and the caller says there is fraud on your account, tells you to move money to fix it, and pressures you to act at once. Caller ID and emails can be spoofed.
+      source: https://citicards.citi.com/cbol/fraudprevention/default.htm
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: A caller says suspicious activity was detected on your account and asks you for the one-time code sent to your phone.
+      source: https://citicards.citi.com/cbol/fraudprevention/default.htm
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Messages invite you to join a private investment group on social media hosted by people who claim to be from Citibank.
+      source: https://citicards.citi.com/cbol/fraudprevention/default.htm
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: spoof-email
+      type: email
+      label: Report suspicious emails or phishing that claim to be from Citi
+      value: spoof@citi.com
+      purposes: [fraud]
+      source: https://citicards.citi.com/cbol/fraudprevention/default.htm
+      last_verified: 2026-10-12
 regulators: [cfpb, occ]
 notes: >-
   Citibank, N.A. is a national bank (OCC). It issues Citi-branded cards, co-brand cards (Costco, AAdvantage)

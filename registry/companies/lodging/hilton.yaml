@@ -135,3 +135,29 @@ facts:
 known_blockers:
   - hilton.com returns HTTP 403 to automated fetches; an agent may need the person to open Help Center pages and forms.
   - Billing disputes go to the individual hotel first; Hilton corporate forms are the second step.
+
+official_domains: [hilton.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Hilton's Global Privacy Statement says Hilton will never ask you to send confidential personal information or payment card information by email or text message.
+      source: https://www.hilton.com/en/p/global-privacy-statement/
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Hilton warns of fraudulent telemarketers who use its name and branding to get personal information. Hilton says it never calls from a spoofed local-looking number, never uses a computer-generated voice or voicemail, and never uses a blocked caller ID.
+      source: https://stories.hilton.com/releases/statement-from-hilton-fraudulent-marketing
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: A BBB alert on fake hotel booking sites cites a consumer who paid for a Hilton hotel reservation in Chicago that neither the hotel nor Hilton reservations had any record of.
+      source: https://www.bbb.org/article/scams/28768-bbb-scam-alert-how-to-avoid-scams-when-booking-a-hotel-online
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: fraudulent-calls-phone
+      type: phone
+      label: Report fraudulent calls that use Hilton's name (1-800-HILTONS, ask for Guest Assistance)
+      value: +1-800-445-8667
+      notes: From a Hilton statement dated September 6, 2019.
+      source: https://stories.hilton.com/releases/statement-from-hilton-fraudulent-marketing
+      last_verified: 2026-10-12

@@ -87,17 +87,7 @@
         "rung": {"enum": ["frontline", "supervisor", "retention", "written_complaint", "executive", "regulator", "state_agency", "payment_dispute", "arbitration", "small_claims", "public"]},
         "channel": {"$ref": "#/$defs/id"},
         "regulator": {"$ref": "#/$defs/id"},
-        "security": {
-      "description": "What the company says about impersonation: what it never asks for, how to report phishing, and scams that use its name.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "never_asks": {"type": "array", "items": {"$ref": "#/$defs/fact"}},
-        "known_scams": {"type": "array", "items": {"$ref": "#/$defs/fact"}},
-        "report_phishing": {"type": "array", "items": {"$ref": "#/$defs/channel"}}
-      }
-    },
-    "agency_kind": {"$ref": "#/$defs/agency_kind"},
+        "agency_kind": {"$ref": "#/$defs/agency_kind"},
         "note": {"type": "string"}
       }
     },

@@ -4,6 +4,46 @@ aliases: [zellepay, zelle network]
 sector: payments
 parent: Early Warning Services, LLC
 website: https://www.zelle.com
+official_domains: [zelle.com, zellepay.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Zelle says your bank or credit union will never ask you to send money to yourself with Zelle.
+      source: https://www.zelle.com/how-to-spot-a-pay-yourself-scam
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Zelle says your bank or credit union will not ask you to send money with Zelle to any account, so any such request could be a scam.
+      source: https://www.zelle.com/how-to-spot-a-pay-yourself-scam
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: In the pay-yourself scam, a text that looks like a bank fraud alert is followed by a call that appears to be from your bank. The caller asks for the one-time passcode your bank sent, uses it to enroll their own account with your email or phone number, and the money you think you send to yourself goes to them.
+      source: https://www.zelle.com/how-to-spot-a-pay-yourself-scam
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: In a variation of the pay-yourself scam, the scammer gives you an email address that contains your name plus words such as Zelle Dispute, the bank's name, Fraud or Claim, and asks you to send money to it.
+      source: https://www.zelle.com/how-to-spot-a-pay-yourself-scam
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers send phishing emails that pretend to be from Zelle. Zelle says the only email domain it uses is zellepay.com and that it does not use gmail.com, aol.com, yahoo.com or other common email domains.
+      source: https://www.zelle.com/how-to-avoid-phishing-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: In purchase scams, you pay someone for goods such as concert tickets that never arrive. Because you authorized the payment, you may not be able to get your money back.
+      source: https://www.zelle.com/understanding-fraud-scams
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: scam-report-phone
+      type: phone
+      label: Zelle fraud and scam line (report emails or messages that pretend to be Zelle)
+      value: +1-844-428-8542
+      purposes: [fraud]
+      notes: >-
+        Zelle's phishing page says to report emails that pretend to be Zelle to Zelle, and links to its Report a Fraud
+        or Scam page, which gives this number (8 AM to 10 PM ET, 7 days a week, except some holidays). If money left your account, report it
+        to your own bank or credit union.
+      source: https://www.zelle.com/support/report-scam
+      last_verified: 2026-10-12
 regulators: [cfpb, ftc]
 notes: >-
   Zelle is now used only through participating banks' and credit unions' apps and online banking. On

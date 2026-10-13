@@ -295,3 +295,32 @@ known_blockers:
   - The meal and hotel reimbursement form is limited to U.S. and Canada residents; others must use the Comment & Complaint form.
 
 notes: Contract of Carriage page shows "Last Modified August 18, 2026". The domestic damaged-bag reporting window changed from 24 hours to 6 hours for tickets issued on or after October 8, 2025.
+
+official_domains: [delta.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Delta says it will never ask you for your password in an email, over the phone or through a social media platform.
+      source: https://www.delta.com/us/en/legal/privacy-and-security/protect-your-data
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Delta says it will never ask you to pay with alternative forms of payment, such as Visa gift cards, Amex gift cards or Google Play cards.
+      source: https://www.delta.com/us/en/legal/privacy-and-security/protect-your-data
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Fraudulent emails, letters, postcards, social media sites and gift card promotion websites claim to be from Delta, promise free travel or prizes, or say that a Delta ticket was bought or a card was charged, to collect personal information. Delta says it does not market to customers this way.
+      source: https://www.delta.com/us/en/legal/privacy-and-security/protect-your-data
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Websites offer free or heavily discounted flights for following or liking a social media account. Delta lists these as fraudulent communications that do not come from Delta.
+      source: https://www.delta.com/us/en/legal/privacy-and-security/protect-your-data
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: account-activity-phone
+      type: phone
+      label: Report unusual account activity
+      value: +1-800-221-1212
+      notes: Delta's security page says to message Delta or call this number to report unusual account activity. It gives no address for forwarding phishing emails.
+      source: https://www.delta.com/us/en/legal/privacy-and-security/protect-your-data
+      last_verified: 2026-10-12

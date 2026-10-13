@@ -5,6 +5,30 @@ sector: student_loan
 parent: Higher Education Loan Authority of the State of Missouri
 website: https://mohela.studentaid.gov/
 account_url: https://mohela.studentaid.gov/DL/secure/account/Login.aspx
+official_domains: [mohela.studentaid.gov, mohela.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: MOHELA says the U.S. Department of Education's Office of Federal Student Aid and MOHELA will never ask for your FSA ID or any other login information.
+      source: https://mohela.studentaid.gov/DL/resourceCenter/AvoidCostlyMistakes.aspx
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: MOHELA says you never have to pay for help with your student loans. MOHELA helps with all available repayment plans and options at no cost, and every repayment plan is available free of charge through the U.S. Department of Education.
+      source: https://mohela.studentaid.gov/DL/resourceCenter/AvoidCostlyMistakes.aspx
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: MOHELA warns that debt relief companies may offer to consolidate or forgive your loans, lower your balance or reduce your monthly payments in exchange for up-front or monthly fees, and often impersonate or imply they are affiliated with the U.S. Department of Education or MOHELA.
+      source: https://mohela.studentaid.gov/DL/resourceCenter/AvoidCostlyMistakes.aspx
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: MOHELA lists these warning signs. Someone you do not know contacts you about your loans, asks for up-front or monthly fees, asks for your FSA ID username and password or your card or bank details, urges you to act quickly because forgiveness programs are ending, promises an immediate lower balance, or says your servicer will not help you.
+      source: https://mohela.studentaid.gov/DL/resourceCenter/AvoidCostlyMistakes.aspx
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: MOHELA warns of official-looking envelopes, letters and emails, loan forgiveness offers sent by text message or voicemail, calls from spoofed phone numbers, and anyone who tells you to stop or redirect your student loan payments.
+      source: https://mohela.studentaid.gov/DL/resourceCenter/AvoidCostlyMistakes.aspx
+      last_verified: 2026-10-12
 regulators: [ed-fsa, cfpb]
 notes: >-
   MOHELA (the Missouri Higher Education Loan Authority) was established by the Missouri General Assembly in 1981 and is an

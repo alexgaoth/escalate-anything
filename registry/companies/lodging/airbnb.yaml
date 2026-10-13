@@ -166,3 +166,43 @@ known_blockers:
   - Contacting Airbnb support and using the Resolution Center require sign-in by the account holder.
   - Only the guest who made the booking can report a Reservation Issue.
   - Mediation requests must be answered within 1 hour.
+
+official_domains: [airbnb.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Airbnb says it will never call to ask you to change your payout method or to share one-time codes, account passwords, or payment or payout details.
+      source: https://www.airbnb.com/help/article/971
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Airbnb warns of fake emails, texts, calls and websites made to look like Airbnb; fake emails often come from look-alike domains such as @bnb.com or @reservation-airbnb.com. Airbnb says a misspelled Airbnb web address means the site is fake.
+      source: https://www.airbnb.com/help/article/971
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Airbnb says an unexpected request to pay outside Airbnb, including one from anyone claiming to represent Airbnb, may be fraudulent; signs of fraud include requests for wire or bank transfer, cashier's check, money order, or PDF or paper invoices.
+      source: https://www.airbnb.com/help/article/199
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: The BBB reports scammers posing as owners of rentals on sites such as Airbnb and Vrbo who offer a discount for paying directly by Venmo or Cash App, then stop responding after the deposit is sent.
+      source: https://www.bbb.org/article/scams/29117-bbb-scam-alert-how-to-spot-this-newly-common-vacation-rental-scam
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: The BBB reports hosts on Airbnb or Vrbo who move the booking to their own website; later the site disappears or the trip is cancelled at the last minute with no refund.
+      source: https://www.bbb.org/all/consumer/scam/vacation-rental-booking-scams
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-fake-site
+      type: web_form
+      label: Report fake or fraudulent sites that imitate Airbnb
+      value: https://www.airbnb.com/report-phishing
+      notes: Airbnb says this page is only for reporting suspicious websites; it does not create a support request or send a confirmation.
+      source: https://www.airbnb.com/help/article/971
+      last_verified: 2026-10-12
+    - id: report-off-platform-payment
+      type: web_form
+      label: Report a request to pay outside Airbnb
+      value: https://www.airbnb.com/help/contact-us/ticket-selection
+      source: https://www.airbnb.com/help/article/199
+      last_verified: 2026-10-12

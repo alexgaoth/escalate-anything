@@ -4,6 +4,34 @@ aliases: [truist bank, truist financial, suntrust, bb&t, bbt]
 sector: bank
 parent: Truist Financial Corporation
 website: https://www.truist.com
+official_domains: [truist.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Truist will not email, text or call to ask you to provide, update or verify personal or account information, such as passwords, Social Security numbers, PINs, or credit or debit card numbers.
+      source: https://www.truist.com/fraud-and-security/common-fraud
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Truist will not use scare tactics, threats or high-pressure language to get you to act quickly.
+      source: https://www.truist.com/fraud-and-security/common-fraud
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Truist and its investment professionals never give investment advice or solicit investments on social media or messaging platforms.
+      source: https://www.truist.com/fraud-and-security/common-fraud
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Scammers pretend to be Truist or a bank employee in emails, social media messages, texts, phone calls and voicemails to get access to your device, your data or your money. Truist says not to call back the number they give or the number they called from.
+      source: https://www.truist.com/fraud-and-security/common-fraud
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails, phone numbers, or screenshots of texts or social media messages that claim to be Truist
+      value: emailabuse@truist.com
+      purposes: [fraud]
+      source: https://www.truist.com/fraud-and-security/report-fraud
+      last_verified: 2026-10-12
 regulators: [cfpb, fdic]
 notes: >-
   Truist Bank is a state-chartered bank that is not a Federal Reserve member; its primary federal regulator

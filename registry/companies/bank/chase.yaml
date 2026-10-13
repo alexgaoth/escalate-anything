@@ -5,6 +5,38 @@ sector: bank
 parent: JPMorgan Chase & Co.
 website: https://www.chase.com
 account_url: https://secure.chase.com/web/auth/dashboard
+official_domains: [chase.com, jpmorganchase.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Chase says legitimate banks will never ask you to move money to resolve a fraud issue. If you are unsure, call Chase at the number on the back of your card.
+      source: https://www.chase.com/digital/resources/privacy-security/security/how-to-spot-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Chase says banks, police and government agencies never run "sting operations" with customers or ask you to distrust bank employees.
+      source: https://www.chase.com/digital/resources/privacy-security/security/how-to-spot-scams
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Scammers send "Did you make this transaction?" texts that claim to be from your bank and ask you to reply Yes or No about a purchase you did not make. Phony phone calls follow that tell you to move money to a "new account" the scammers created.
+      source: https://www.chase.com/digital/resources/privacy-security/security/latest-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers make caller ID show "Chase", say they suspect fraud on your account, offer to connect you to a supervisor, and tell you to transfer your money to a new account to fix the problem.
+      source: https://www.chase.com/digital/resources/privacy-security/security/how-to-spot-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers posing as Chase may say that someone at your local branch is involved in the fraud, so that you distrust branch employees and go to a different branch to move your money.
+      source: https://www.chase.com/digital/resources/privacy-security/security/how-to-spot-scams
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails that claim to be from Chase
+      value: phishing@chase.com
+      purposes: [fraud]
+      source: https://www.chase.com/digital/resources/privacy-security/security/report-fraud
+      last_verified: 2026-10-12
 regulators: [cfpb, occ]
 notes: >-
   JPMorgan Chase Bank, N.A. is a national bank (OCC). On 2026-01-07 Chase announced that it will become

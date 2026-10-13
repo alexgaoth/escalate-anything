@@ -4,6 +4,43 @@ aliases: [paypal inc, paypal holdings, paypal purchase protection, paypal resolu
 sector: payments
 parent: PayPal Holdings, Inc.
 website: https://www.paypal.com/us/home
+official_domains: [paypal.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: PayPal will never ask for your password, PIN or one-time verification codes.
+      source: https://www.paypal.com/us/security/learn
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: PayPal says a request from someone who claims to be customer service to share your password or two-factor authentication code, to send money as a test transaction, or to download software is never legitimate.
+      source: https://www.paypal.com/us/security/learn-about-scams
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Fraudsters use PayPal to send a real-looking invoice or money request so that you call a phone number in it. If you don't recognize the requester, ignore the request, don't call the number, and forward the email to PayPal.
+      source: https://www.paypal.com/us/security/learn-about-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: A seller you don't know asks you to pay with the Friends and Family payment type. PayPal calls this a red flag for a scam; Friends and Family payments are not covered by Purchase Protection, so pay for goods with Goods and Services.
+      source: https://www.paypal.com/us/security/learn-about-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers fake the caller ID so a call appears to come from PayPal, or use automated calls that ask you to call back a number. PayPal says to contact it only through the Help Center Contact page or at 1-888-221-1161.
+      source: https://www.paypal.com/us/security/learn-about-fake-messages
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Phishing messages that claim to be from PayPal often use generic greetings such as Dear user or Hello, PayPal member. PayPal says its messages always use the full name on your PayPal account.
+      source: https://www.paypal.com/us/security/learn-about-fake-messages
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails and texts that claim to be from PayPal
+      value: phishing@paypal.com
+      purposes: [fraud]
+      notes: Forward the entire email, then delete it. For a text, forward the message to this address, then block the sender and delete it.
+      source: https://www.paypal.com/us/security/report-suspicious-messages
+      last_verified: 2026-10-12
 regulators: [cfpb, ftc]
 notes: >-
   PayPal, Inc. also runs Venmo (see venmo). Most PayPal help is in-account: the Resolution Center

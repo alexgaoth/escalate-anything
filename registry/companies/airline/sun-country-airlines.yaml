@@ -101,3 +101,5 @@ notes: >-
   keeps its own brand, website, app, reservations line and voucher terms until the airlines get a single operating
   certificate. Contract of Carriage facts come from the October 15, 2025 version, seen through ir.suncountry.com search
   results because the file returned 403 to direct fetches.
+
+official_domains: [suncountry.com]

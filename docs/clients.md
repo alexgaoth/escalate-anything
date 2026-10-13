@@ -27,7 +27,7 @@ Every app below runs the same command: `uvx redress-mcp`. Until the first PyPI r
 
 | App | Command or file | Notes |
 |---|---|---|
-| **Claude Code** | `claude mcp add --scope user redress -- uvx redress-mcp`, or the plugin: `claude plugin marketplace add alexgaoth/redress` then `claude plugin install redress@redress-local` | The plugin also adds the 5 skills. |
+| **Claude Code** | `claude mcp add --scope user redress -- uvx redress-mcp`, or the plugin: `claude plugin marketplace add alexgaoth/redress` then `claude plugin install redress@redress` | The plugin also adds the 5 skills. |
 | **Claude Desktop** | `redress install claude-desktop`, or add to `claude_desktop_config.json` (macOS: `~/Library/Application Support/Claude/`, Windows: `%APPDATA%\Claude\`) | Quit the app completely and reopen. The workflows appear as prompts. |
 | **Cursor** | `~/.cursor/mcp.json` → `mcpServers` | One-click link above. |
 | **VS Code** (Copilot agent mode) | `code --add-mcp '{"name":"redress","command":"uvx","args":["redress-mcp"]}'` or user `mcp.json` → `servers` | Note the key is `servers`, not `mcpServers`. |

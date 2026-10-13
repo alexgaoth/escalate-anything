@@ -109,3 +109,20 @@ tips:
 known_blockers:
   - No general phone number is published; the contact flow asks questions first, and agents may need the person to sign in.
   - expedia.com returns HTTP 429 to automated fetches.
+
+official_domains: [expedia.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Expedia says it will never ask for your password or one-time passcode, never ask for a wire transfer, and never ask you to buy a gift card to pay for your trip; it asks for credit card information only at check-out.
+      source: https://www.expedia.com/lp/b/getintouch
+      last_verified: 2026-05-18
+  known_scams:
+    - kind: policy
+      claim: Expedia warns that fake Expedia phone numbers circulate online, often through misleading search engine ads and even whole pages; verify that you are on Expedia's official website or app before you enter sensitive information.
+      source: https://www.expedia.com/lp/b/getintouch
+      last_verified: 2026-05-18
+    - kind: policy
+      claim: A BBB scam alert quotes a traveler who searched online for an Expedia phone number to cancel a flight, reached an impostor who demanded a $150 fee, and then learned from the real Expedia that it was probably a scam.
+      source: https://www.bbb.org/article/scams/24106-bbb-warning-beware-of-twist-on-third-party-airline-ticket-booking-scam
+      last_verified: 2026-10-12

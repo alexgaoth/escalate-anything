@@ -4,6 +4,51 @@ aliases: [cashapp, square cash, cash app card, cash app pay]
 sector: payments
 parent: Block, Inc.
 website: https://cash.app
+official_domains: [cash.app, square.com, squareup.com, cash.me]
+security:
+  never_asks:
+    - kind: policy
+      claim: Cash App representatives will never ask for your password, PIN, full card number or sign-in code.
+      source: https://cash.app/help/us/en-us/3128-contact-cash-support
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Cash App Support will never ask for your Social Security Number (SSN) or Individual Taxpayer Identification Number (ITIN) to give you help. Cash App may ask you to verify your identity with your SSN or ITIN inside the app.
+      source: https://cash.app/help/us/en-us/3127-keeping-your-cash-app-secure
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Cash App Support will never ask you to send a payment or make a purchase. Cash App says there is never a valid reason to send money to an account that claims to be Cash App or Cash App Support.
+      source: https://cash.app/help/us/en-us/6482-recognize-scams-unauthorized-activity
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Cash App Support will never ask you to download a remote-access app (such as AnyDesk) or to complete a test transaction of any kind.
+      source: https://cash.app/help/us/en-us/6482-recognize-scams-unauthorized-activity
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Cash flipping scams promise to multiply your money if you first send funds (sometimes called a clearance fee or account verification). The scammer keeps the money and sends nothing back.
+      source: https://cash.app/help/us/en-us/6544-avoiding-common-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: A scammer sends you a payment by accident and asks you to send the amount back. The scammer then disputes the original payment with their bank, so they are paid twice. Cash App says to refund the payment, not to send a new payment.
+      source: https://cash.app/help/us/en-us/6544-avoiding-common-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers impersonate Cash App customer service on social media. Cash App says to trust only its official verified social media accounts.
+      source: https://cash.app/help/us/en-us/6545-trending-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Social media accounts run fake Cash App giveaways, and scammers offer rewards for a fake Cash App survey that requires you to buy products or services. Cash App says it never asks for money, login details or a PIN to enter a giveaway, and never requires payment or login credentials to take a survey.
+      source: https://cash.app/help/us/en-us/6545-trending-scams
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-to-support
+      type: web_form
+      label: Report suspicious messages, calls or phone numbers that claim to be Cash App (contact Support)
+      value: https://cash.app/help
+      purposes: [fraud]
+      notes: Cash App says to report these to Support through the app or at cash.app/help. Verified Cash App emails come only from @cash.app, @square.com or @squareup.com addresses.
+      source: https://cash.app/help/us/en-us/6544-avoiding-common-scams
+      last_verified: 2026-10-12
 regulators: [cfpb, ftc]
 notes: >-
   Cash App is operated by Block, Inc. The Cash App Terms of Service were last updated

@@ -1,6 +1,6 @@
 {
-  "name": "redress-local",
-  "description": "Local marketplace for the redress plugin.",
+  "name": "redress",
+  "description": "redress: verified contacts, playbooks, escalation paths and scam checks for US companies.",
   "owner": {
     "name": "Alex Gao"
   },

@@ -120,3 +120,11 @@ playbooks:
 known_blockers:
   - sixt.com returns HTTP 403 to automated fetches.
   - Invoices and the support request form are in My Bookings and may need sign-in.
+
+official_domains: [sixt.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: SIXT says it will never ask for your SIXT account user name or password by email.
+      source: https://www.sixt.com/pages/privacy/
+      last_verified: 2026-10-04

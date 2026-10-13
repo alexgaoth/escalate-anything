@@ -1,0 +1,32 @@
+name: Data correction
+description: A phone number, link, deadline or fact in redress is wrong or out of date.
+title: "[data] <company>: <what is wrong>"
+labels: [data]
+body:
+  - type: input
+    id: company
+    attributes:
+      label: Company or agency
+      placeholder: e.g. united-airlines, or "Texas PUC"
+    validations:
+      required: true
+  - type: textarea
+    id: wrong
+    attributes:
+      label: What is wrong?
+      placeholder: The refund form link returns 404.
+    validations:
+      required: true
+  - type: textarea
+    id: right
+    attributes:
+      label: What is right, and where does it say so?
+      description: Link the company's or the government's own page. Please do not link search ads or contact directories.
+      placeholder: "https://www.united.com/en/us/refunds shows the new form."
+    validations:
+      required: true
+  - type: dropdown
+    id: unsafe
+    attributes:
+      label: Could the wrong value send someone to a scammer?
+      options: ["No", "Yes, it is unsafe"]

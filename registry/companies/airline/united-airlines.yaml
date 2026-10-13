@@ -374,3 +374,11 @@ notes: >-
   Contract of Carriage gives 1,519 SDR. For wheelchairs and assistive devices, the Contract of Carriage says the notice
   and claim requirements apply, while the wheelchair page says they do not; follow the stricter Contract of Carriage.
   The old refund URL https://www.united.com/ual/en/IL/customer/refund was replaced by the U.S. form.
+
+official_domains: [united.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: BBB reported (June 2024) a consumer who bought discounted United Airlines tickets through a third-party seller, which then called to say the flight was cancelled and asked $80 extra to rebook on Southwest. United had not cancelled any flight, and the airlines were unaware of the purchase.
+      source: https://www.bbb.org/article/scams/20149-scam-alert-airfare-con-bills-victims-for-canceled-tickets
+      last_verified: 2026-10-12

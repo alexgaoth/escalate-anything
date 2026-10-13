@@ -211,3 +211,5 @@ known_blockers:
   - Drivers and Customer Service cannot change a ticket before departure; changes and cancellations go through Manage My Booking.
   - Voluntary refunds are vouchers only.
   - help.greyhound.com is a Salesforce site that may not render for automated fetches.
+
+official_domains: [greyhound.com]

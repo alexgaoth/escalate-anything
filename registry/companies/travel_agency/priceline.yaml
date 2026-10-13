@@ -107,3 +107,5 @@ facts:
 known_blockers:
   - priceline.com returns HTTP 403 to automated fetches; the help center redirects to the Penny assistant.
   - Opting out of arbitration stops further purchases on the site until Priceline says otherwise.
+
+official_domains: [priceline.com]

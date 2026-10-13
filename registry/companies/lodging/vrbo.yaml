@@ -130,3 +130,25 @@ tips:
 known_blockers:
   - vrbo.com returns HTTP 429 to automated fetches.
   - Vrbo expects guests to ask the host for a refund before asking Vrbo.
+
+official_domains: [vrbo.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Vrbo says it will never ask you to make a payment outside of its secure system.
+      source: https://help.vrbo.com/articles/What-Smishing-and-Vishing
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Vrbo says some scammers send fake emails that imitate its platform brands to get travelers to pay for a rental outside the secure payment system.
+      source: https://help.vrbo.com/articles/What-Smishing-and-Vishing
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: The BBB reports scammers posing as owners of rentals on sites such as Vrbo and Airbnb who offer a discount for paying directly by Venmo or Cash App, then stop responding after the deposit is sent.
+      source: https://www.bbb.org/article/scams/29117-bbb-scam-alert-how-to-spot-this-newly-common-vacation-rental-scam
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: The BBB reports hosts on Airbnb or Vrbo who move the booking to their own website; later the site disappears or the trip is cancelled at the last minute with no refund.
+      source: https://www.bbb.org/all/consumer/scam/vacation-rental-booking-scams
+      last_verified: 2026-10-12

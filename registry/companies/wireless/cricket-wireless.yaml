@@ -119,3 +119,31 @@ facts:
 known_blockers:
   - Changing the account PIN needs a call or chat with a Support Advocate; when account PIN security is on, the PIN is needed for plan and SIM changes.
   - No published online form for a Notice of Dispute; it must be mailed or sent by courier.
+
+official_domains: [cricketwireless.com]
+security:
+  never_asks:
+  - kind: policy
+    claim: Cricket will never call you to ask for your PIN or ask for your PIN via text.
+    source: https://www.cricketwireless.com/support/fraud-protection/sim-swaps-scams
+    last_verified: 2026-10-12
+  known_scams:
+  - kind: policy
+    claim: Callers posing as Cricket offer a discount if you prepay with a prepaid card or gift card.
+    source: https://www.cricketwireless.com/support/fraud-protection/customer-awareness
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Texts, emails or calls lead to fake Cricket websites that promise bill discounts or gift cards to collect personal information.
+    source: https://www.cricketwireless.com/support/fraud-protection/customer-awareness
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: 'SIM swap: a scammer convinces the carrier to replace the SIM for your number and then receives your calls, texts and authentication codes. Cricket''s Account Lock in the myCricket app prevents SIM swaps and port-outs while it is on.'
+    source: https://www.cricketwireless.com/support/fraud-protection/sim-swaps-scams
+    last_verified: 2026-10-12
+  report_phishing:
+  - id: report-fraud-phone
+    type: phone
+    label: Report fraud such as an unauthorized SIM swap (Cricket Care, 1-800-CRICKET)
+    value: +1-800-274-2538
+    source: https://www.cricketwireless.com/support/fraud-protection/sim-swaps-scams
+    last_verified: 2026-10-12

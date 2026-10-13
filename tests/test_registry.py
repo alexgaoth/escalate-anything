@@ -106,3 +106,14 @@ def test_export_contains_everything(fixture_registry):
     out = fixture_registry.export()
     assert [c["id"] for c in out["companies"]] == ["example-air"]
     assert out["states"][0]["id"] == "ca"
+
+
+def test_schema_shapes():
+    import json
+
+    from redress.registry import SCHEMA_PATH
+
+    defs = json.loads(SCHEMA_PATH.read_text())["$defs"]
+    assert set(defs["rung"]["properties"]) == {"rung", "channel", "regulator", "agency_kind", "note"}
+    assert set(defs["security"]["properties"]) == {"never_asks", "known_scams", "report_phishing"}
+    assert "security" in defs["company"]["properties"]

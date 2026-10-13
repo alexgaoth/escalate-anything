@@ -110,3 +110,25 @@ facts:
 known_blockers:
   - hyatt.com returns HTTP 403 to automated fetches; an agent may need the person to open forms.
   - Regional phone numbers only work from the country or region of origin.
+
+official_domains: [hyatt.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Hyatt's recruitment fraud notice says Hyatt does not ask applicants for money transfers or payments to secure an application, interview or job.
+      source: https://careers.hyatt.com/assets/documents/Recruitment_Fraud.pdf
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Hyatt warns of payment redirection scams in which someone impersonating a business or its employees by email, text or instant message asks that an upcoming payment go to a new account. Hyatt says to verify any change with a phone number you already know or one from the official website, not the number on the invoice.
+      source: https://www.hyatt.com/events/en-US/fraud-awareness
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: security-email
+      type: email
+      label: Report suspicious payment-change emails or texts and fake Hyatt job offers
+      value: security@hyatt.com
+      notes: Include your name, phone number, the Hyatt location and a short description of the suspicious activity.
+      source: https://www.hyatt.com/events/en-US/fraud-awareness
+      last_verified: 2026-10-12

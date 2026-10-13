@@ -116,3 +116,11 @@ known_blockers:
   - flybreeze.com returned 403 to direct fetches; values come from flybreeze.com search results and the Contract of Carriage PDF.
 
 notes: The Contract of Carriage PDF (media.flybreeze.com) is dated "Updated as of March 20, 2025".
+
+official_domains: [flybreeze.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: Breeze warns that fraudsters post fake Breeze phone numbers online and advises against copying phone numbers from search engine results.
+      source: https://www.flybreeze.com/support?a=Fraud-and-Scam-Protection---id--cEr2FnXYS3ajYvIUJGZX_Q
+      last_verified: 2026-10-12

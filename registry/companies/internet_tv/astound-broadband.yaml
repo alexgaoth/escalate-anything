@@ -178,3 +178,15 @@ notes: >-
   Astound Broadband is the trade name of Radiate HoldCo, LLC (site copyright line). The contact page shows RCN
   logos. Wave, Grande, enTouch and Digital West were not mentioned on fetched pages, and ownership (Stonepeak) and
   any combination with gFiber were not confirmed on a fetched official page.
+
+official_domains: [astound.com]
+security:
+  known_scams:
+  - kind: policy
+    claim: Pop-ups that ask you to click to stop Astound from collecting data are a scam; Astound says it does not do anything that causes a browser to ask permission.
+    source: https://help.astound.com/portal/articles/2157
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Tech-support scams use fake security warnings, fake free scans and remote-access requests; phone scams use spoofed caller ID or trick you into dialing *72, which forwards your calls.
+    source: https://help.astound.com/portal/articles/2157
+    last_verified: 2026-10-12

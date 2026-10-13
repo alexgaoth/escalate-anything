@@ -197,3 +197,11 @@ known_blockers:
   - The E-mail Us form is protected by reCAPTCHA Enterprise and cannot change or cancel tickets.
   - Cash refunds need the original paper tickets sent by certified mail.
   - Amtrak reports longer than normal hold times on 1-800-USA-RAIL.
+
+official_domains: [amtrak.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: Amtrak warns that criminals sell invalid discount Amtrak tickets on online auction sites and social media; Amtrak does not honor these tickets, the Amtrak Police Department investigates them, and only tickets bought from Amtrak or one of its partners are accepted for travel.
+      source: https://www.amtrak.com/fraud-alert
+      last_verified: 2026-10-12
