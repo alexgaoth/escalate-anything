@@ -206,3 +206,32 @@ playbooks:
 known_blockers:
   - Payment extensions, deferred plans and online cancellation need sign-in to the Reliant account.
   - Reliant's Terms of Service and Your Rights as a Customer documents could not be retrieved; plan-specific fees are in the customer's own EFL.
+
+official_domains: [reliant.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Neither Reliant nor the customer's utility (TDSP) will ever call to demand payment over the phone with a prepaid debit card or gift card, tell the customer to pay by money order, wire transfer, cryptocurrency or money transfer app, or tell the customer to call another number to pay.
+      source: https://www.reliant.com/en/residential/help-support/customer-resources/recognizing-scams-and-fraud
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Reliant representatives will never demand that customers email account or payment information, and will never collect payments in person at a residence.
+      source: https://www.reliant.com/en/residential/help-support/customer-resources/recognizing-scams-and-fraud
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Reliant representatives will never have the utility company (TDSP, such as CenterPoint, Oncor, TNMP or AEP) contact the customer to make a payment on the account, and will never insist on entering a residence without an appointment.
+      source: https://www.reliant.com/en/residential/help-support/customer-resources/recognizing-scams-and-fraud
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Reliant says disconnection scams are on the rise. Scam callers demand payment by prepaid debit card, gift card, money order, wire transfer, cryptocurrency or money transfer app, or tell the customer to call a different number to pay.
+      source: https://www.reliant.com/en/residential/help-support/customer-resources/recognizing-scams-and-fraud
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-scam-phone
+      type: phone
+      label: Report a suspected scam or verify a Reliant representative (customer service)
+      value: +1-866-222-7100
+      source: https://www.reliant.com/en/residential/help-support/customer-resources/recognizing-scams-and-fraud
+      last_verified: 2026-10-12

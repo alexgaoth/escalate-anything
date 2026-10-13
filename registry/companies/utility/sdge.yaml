@@ -167,3 +167,44 @@ known_blockers:
   - sdge.com/contact-us returns 403 to automated fetches; use the /residential/customer-service/contact-us page.
   - Payment arrangements are set up in My Energy Center (sign-in required).
   - The online claim form is hosted by a third-party claims vendor (dxc-ins.com).
+
+official_domains: [sdge.com, myenergycenter.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: SDG&E will never ask for credit card information over the phone, and never calls customers to get credit card numbers, banking information or prepaid cash cards.
+      source: https://www.sdge.com/residential/customer-service/assistance-help/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: SDG&E will never call or send a message demanding payment, and will not send text messages with demands for payment. It always sends written notice before shutting off service.
+      source: https://www.sdge.com/residential/customer-service/assistance-help/scams
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Callers spoof caller ID so that the call appears to come from SDG&E, then try to sell something, get personal information, or say the customer owes money.
+      source: https://www.sdge.com/residential/customer-service/assistance-help/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Callers say they are part of a government program that helps pay utility bills and give a fake bank routing number to use online. No such program exists.
+      source: https://www.sdge.com/residential/customer-service/assistance-help/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers set up temporary phone numbers with a recording and menu that imitate SDG&E's Customer Care line. SDG&E's main Customer Care number is 1-800-411-7343.
+      source: https://www.sdge.com/residential/customer-service/assistance-help/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Fake websites or phone numbers appear at the top of search engine results, pretend to be SDG&E, and take payments or card details.
+      source: https://www.sdge.com/residential/customer-service/assistance-help/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Payment requests through Venmo, PayPal, Google Pay or Apple Pay that claim to be from SDG&E are scams. Those payment methods work only through My Energy Center or by calling SDG&E Customer Care directly.
+      source: https://www.sdge.com/residential/customer-service/assistance-help/scams
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: verify-phone
+      type: phone
+      label: Verify a call, message or visit claiming to be from SDG&E (Customer Care)
+      value: +1-800-411-7343
+      source: https://www.sdge.com/residential/customer-service/assistance-help/scams
+      last_verified: 2026-10-12

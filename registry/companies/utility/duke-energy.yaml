@@ -229,3 +229,45 @@ tips:
 known_blockers:
   - duke-energy.com returned HTTP 403 to automated requests on 2026-10-12, and the main site showed a "Be Right Back" page. Values here come from that page and from search results on duke-energy.com.
   - Account changes, payment arrangements and extensions need sign-in to the Duke Energy account or a call by the account holder.
+
+official_domains: [duke-energy.com, piedmontng.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Duke Energy says it never threatens to cut off power immediately, never seeks immediate payment, and never calls customers to request personal information (January 2022 news release).
+      source: https://news.duke-energy.com/releases/duke-energy-warns-customers-of-scammers-during-carolinas-winter-storm
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Duke Energy and Piedmont Natural Gas employees will never ask for cash or prepaid cards in exchange for service.
+      source: https://illumination.duke-energy.com/articles/avoid-scammers-how-to-recognize-a-utility-employee
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Duke Energy never asks a customer with a delinquent account to buy a prepaid debit card to avoid disconnection. Delinquent accounts get advance notice with the regular monthly bill, never a single notice one hour before disconnection (March 2017 news release).
+      source: https://news.duke-energy.com/releases/duke-energy-joins-national-consumer-protection-week-to-warn-customers-of-utility-scams
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Callers falsely claim to be Duke Energy representatives and threaten shutoff unless a payment is made quickly, often by prepaid card, money wire or money order, then ask for the card's receipt number and PIN.
+      source: https://news.duke-energy.com/releases/duke-energy-joins-national-consumer-protection-week-to-warn-customers-of-utility-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers have copied Duke Energy's automated payment phone system so their callback numbers seem real, and some spoof Duke's customer service number on caller ID.
+      source: https://news.duke-energy.com/releases/duke-energy-joins-national-consumer-protection-week-to-warn-customers-of-utility-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers impersonate Duke Energy during storms with live calls or robocalls. Duke says a caller who asks for payment by prepaid debit card is a red flag.
+      source: https://news.duke-energy.com/releases/duke-energy-warns-customers-of-scammers-during-carolinas-winter-storm
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Impostors come to homes and businesses claiming to be utility employees. Duke advises not to let anyone in unless their identity is verified or the visit was scheduled.
+      source: https://illumination.duke-energy.com/articles/avoid-scammers-how-to-recognize-a-utility-employee
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: scams-page
+      type: web_form
+      label: Duke Energy scams and fraud page (reporting)
+      value: https://www.duke-energy.com/Customer-Service/Report-Fraud-and-Scams
+      notes: The page blocked automated readers (HTTP 403) on 2026-10-12, so its contents were not checked. Duke also tells customers to use the number on their bill.
+      source: https://www.duke-energy.com/Customer-Service/Report-Fraud-and-Scams
+      last_verified: 2026-10-12

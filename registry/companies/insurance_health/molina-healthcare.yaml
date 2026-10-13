@@ -145,3 +145,24 @@ known_blockers:
   - Several Molina state pages are old and list conflicting numbers and hours; prefer the ID card and the denial notice.
 
 notes: Molina Healthcare, Inc. serves Medicaid, Medicare and state Marketplace members through state plans. ConnectiCare (Connecticut) became part of Molina on February 1, 2025. Medicaid members have State Fair Hearing rights; Medicare members follow Medicare appeal rules.
+
+official_domains: [molinahealthcare.com, molinamarketplace.com]
+
+security:
+  report_phishing:
+    - id: anti-fraud-line
+      type: phone
+      label: Molina Healthcare Anti-Fraud Line
+      value: +1-866-606-3889
+      hours: 24 hours a day, 7 days a week
+      notes: TTY 711. Reports can be made without giving a name.
+      source: https://www.molinahealthcare.com/member-resources/fraud
+      last_verified: 2026-10-12
+    - id: alertline-online
+      type: web_form
+      label: Molina Healthcare AlertLine online fraud report
+      value: https://molinahealthcare.alertline.com/gcs/welcome
+      access: open
+      notes: Redirects to a reporting site hosted by EthicsPoint.
+      source: https://www.molinahealthcare.com/member-resources/fraud
+      last_verified: 2026-10-12

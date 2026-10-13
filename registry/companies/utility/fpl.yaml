@@ -160,3 +160,62 @@ playbooks:
 known_blockers:
   - Payment extensions and the online Medically Essential Service application need sign-in to the FPL account.
   - The Medically Essential Service form needs a certificate from a physician licensed in Florida.
+
+official_domains: [fpl.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: FPL will never come to a home or business to collect payment by prepaid card such as MoneyPak, gift card, cryptocurrency, or a wire transfer service such as PayPal, Zelle, Cash App or Venmo to avoid disconnection.
+      source: https://www.fpl.com/landing/protect.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: FPL will never try to sell a product at the door.
+      source: https://www.fpl.com/landing/protect.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: FPL will never ask for personal information such as account numbers or a Social Security number, unless the customer calls FPL. Then FPL asks questions to confirm the account holder.
+      source: https://www.fpl.com/landing/protect.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: FPL will never text to request immediate payment. Customers must opt in to FPL text notifications, and those texts do not ask for personal information.
+      source: https://www.fpl.com/landing/protect.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: FPL does not call customers to offer Home Energy Surveys. Its Energy Experts visit a home only on request, by appointment.
+      source: https://www.fpl.com/landing/protect.html
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Callers, usually aggressive, demand payment by credit card, prepaid debit card such as MoneyPak, gift card, cryptocurrency, PayPal, Zelle, Cash App or Venmo, and threaten immediate disconnection.
+      source: https://www.fpl.com/landing/protect.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers manipulate caller ID so that the caller name appears as FPL.
+      source: https://www.fpl.com/landing/protect.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers manipulate search results to show false FPL phone numbers, so customers who search for the number call scammers. FPL says to use only the number on the bill.
+      source: https://www.fpl.com/landing/protect.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Look-alike websites use URLs that mimic FPL's site with slight misspellings or extra characters.
+      source: https://www.fpl.com/landing/protect.html
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Visitors without FPL identification try to collect payment or aggressively sell products.
+      source: https://www.fpl.com/landing/protect.html
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-scam-form
+      type: web_form
+      label: Report suspected scam or fraud to FPL
+      value: https://www.fpl.com/fpl-app/my-account/fraud-reporting
+      source: https://www.fpl.com/landing/protect.html
+      last_verified: 2026-10-12
+    - id: verify-call-phone
+      type: phone
+      label: Verify a suspicious call (number given on FPL's scam page; the number on the bill also works)
+      value: +1-800-697-5223
+      source: https://www.fpl.com/landing/protect.html
+      last_verified: 2026-10-12

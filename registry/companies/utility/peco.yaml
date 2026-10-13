@@ -183,3 +183,36 @@ facts:
 known_blockers:
   - peco.com HTML pages return empty to automated fetches; use the phone lines or the online contact form.
   - Medical certificates must be signed by a licensed physician, physician assistant or nurse practitioner with their license number.
+
+official_domains: [peco.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: PECO representatives will never call customers for bill payment in cash or by prepaid credit card.
+      source: https://www.peco.com/my-account/customer-support/contact-us/fraud-theft/imposters-and-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: When customers pay PECO by phone, they enter the payment information themselves in a secure system. PECO says not to give card or banking information to a live customer service agent.
+      source: https://www.peco.com/my-account/customer-support/contact-us/fraud-theft/imposters-and-scams
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Scammers spoof the Caller ID so that a call appears to come from a PECO phone number.
+      source: https://www.peco.com/my-account/customer-support/contact-us/fraud-theft/imposters-and-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers send text messages ("smishing") that try to get customers to give personal and financial information.
+      source: https://www.peco.com/my-account/customer-support/contact-us/fraud-theft/imposters-and-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: People pose as PECO utility workers, sometimes with fake badges, to get account information or access to the home. Real PECO employees and contractors carry ID badges with their name, photograph and identification number.
+      source: https://www.peco.com/my-account/customer-support/contact-us/fraud-theft/imposters-and-scams
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-scam-phone
+      type: phone
+      label: Report a suspicious call, text, email or visit claiming to be from PECO (customer service)
+      value: +1-800-494-4000
+      source: https://www.peco.com/my-account/customer-support/contact-us/fraud-theft/imposters-and-scams
+      last_verified: 2026-10-12

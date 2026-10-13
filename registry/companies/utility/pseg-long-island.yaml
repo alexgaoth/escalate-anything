@@ -208,3 +208,48 @@ facts:
 known_blockers:
   - The LIPA Consumer Affairs form has a CAPTCHA.
   - Medical certificates must come from a doctor, local Board of Health, nurse practitioner or physician assistant.
+
+official_domains: [psegliny.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: PSEG Long Island will never ask customers to use one specific method of payment. It does not accept outside web-based electronic payment services (other than payments through My Account), prepaid debit cards or Bitcoin.
+      source: https://www.psegliny.com/en/Newsroom/2025/020926-Scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: PSEG Long Island would never ask customers to give personal information online without first logging in to My Account.
+      source: https://www.psegliny.com/myaccount/customersupport/scamsandfraud
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: PSEG Long Island does not require a deposit for meter installations.
+      source: https://www.psegliny.com/en/Newsroom/2025/020926-Scams
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Callers claiming to be PSEG Long Island employees demand payment within hours with a prepaid debit card.
+      source: https://www.psegliny.com/myaccount/customersupport/scamsandfraud
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers spoof caller ID so that their number shows as "PSEG Long Island" and threaten to shut off power immediately. Some tell the victim to buy a prepaid card at a store and read the PIN over the phone.
+      source: https://www.psegliny.com/en/Newsroom/2025/020926-Scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Phone scammers demand a deposit for a priority meter installation.
+      source: https://www.psegliny.com/en/Newsroom/2025/020926-Scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Fake websites use web addresses that closely resemble PSEG Long Island's and send bill payments to an outside payment site. The real website is psegliny.com.
+      source: https://www.psegliny.com/en/Newsroom/2025/020926-Scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Fraudulent QR code stickers on public electric vehicle chargers send people to websites that ask for personal or credit card information.
+      source: https://www.psegliny.com/en/Newsroom/2025/020926-Scams
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-scam-phone
+      type: phone
+      label: Report a scam, or verify a call, email or visit (customer service)
+      value: +1-800-490-0025
+      source: https://www.psegliny.com/myaccount/customersupport/scamsandfraud
+      last_verified: 2026-10-12

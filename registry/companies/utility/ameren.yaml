@@ -143,3 +143,50 @@ tips:
 known_blockers:
   - Deferred payment agreements are set up after sign-in; business accounts must call the Credit Department.
   - Ameren lists no outage phone number on its outage page.
+
+official_domains: [ameren.com, amerenillinois.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Ameren Illinois says it will never request payment by Green Dot card, MoneyPak or other prepaid credit card.
+      source: https://www.ameren.com/-/media/illinois-site/files/media-resources/scamkit/scam-awareness-week-fact-sheet.pdf
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Ameren Illinois says it will never threaten to disconnect service unless payment is made immediately.
+      source: https://www.ameren.com/-/media/illinois-site/files/media-resources/scamkit/scam-awareness-week-fact-sheet.pdf
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Callers threaten to disconnect service unless payment is received immediately, and often say a service person is on the way to shut off the power.
+      source: https://www.ameren.com/customer-service/scam-awareness
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers demand immediate payment and suggest Bitcoin, prepaid money cards or cash apps.
+      source: https://www.ameren.com/customer-service/scam-awareness
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers offer to wipe out the total amount due in exchange for an immediate partial or specially discounted payment.
+      source: https://www.ameren.com/customer-service/scam-awareness
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Search engine postings copy Ameren's contact information but link to scammers' phone numbers and websites.
+      source: https://www.ameren.com/customer-service/scam-awareness
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Callers claim the customer overpaid and ask for bank or card details. Ameren says it credits the account or mails a refund check instead.
+      source: https://www.ameren.com/customer-service/scam-awareness
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-scam-missouri-phone
+      type: phone
+      label: Report a suspected scam call (Ameren Missouri)
+      value: +1-800-552-7583
+      source: https://www.ameren.com/customer-service/scam-awareness
+      last_verified: 2026-10-12
+    - id: report-scam-illinois-phone
+      type: phone
+      label: Report a suspected scam call (Ameren Illinois)
+      value: +1-800-755-5000
+      source: https://www.ameren.com/customer-service/scam-awareness
+      last_verified: 2026-10-12

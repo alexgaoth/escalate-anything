@@ -141,3 +141,35 @@ known_blockers:
   - Some external review forms on the forms page are state-specific.
 
 notes: Cigna Healthcare is part of The Cigna Group. Behavioral health appeals use Evernorth-branded forms. The plan type (fully insured or employer self-funded) decides whether state external review or federal ERISA rules apply.
+
+official_domains: [cigna.com, evernorth.com]
+
+security:
+  known_scams:
+    - kind: policy
+      claim: Promotions offer free tests, treatment or services and ask for insurance information. Cigna says to be wary of them and careful about disclosing insurance information.
+      source: https://www.cigna.com/legal/members/report-fraud
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Fraudsters file claims for services never received, forge or alter bills, or use another person's coverage or insurance card. Check each explanation of benefits.
+      source: https://www.cigna.com/legal/members/report-fraud
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: special-investigations-phone
+      type: phone
+      label: Cigna Healthcare Special Investigations hotline (report fraud)
+      value: +1-800-667-7145
+      source: https://www.cigna.com/legal/members/report-fraud
+      last_verified: 2026-10-12
+    - id: special-investigations-email
+      type: email
+      label: Cigna Healthcare Special Investigations (report fraud)
+      value: specialInvestigations@evernorth.com
+      source: https://www.cigna.com/legal/members/report-fraud
+      last_verified: 2026-10-12
+    - id: special-investigations-mail
+      type: mail
+      label: Cigna Healthcare Special Investigations (report fraud by mail)
+      value: Cigna Healthcare Special Investigations, 900 Cottage Grove Road W3SIU, Hartford, CT 06152
+      source: https://www.cigna.com/legal/members/report-fraud
+      last_verified: 2026-10-12

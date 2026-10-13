@@ -199,3 +199,61 @@ known_blockers:
   - Payment arrangements online need a My Account sign-in.
   - The Medical Baseline application needs a medical professional's signature.
   - SCE's tariff rules (deposits, disputed bills, meter tests, disconnection) are hosted in a SharePoint folder that did not load for review.
+
+official_domains: [sce.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: SCE will never call to demand immediate payment with the threat of service disconnection, and it does not have a "disconnection department."
+      source: https://www.sce.com/outages-safety/stay-safe/scam-awareness
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: SCE says it does not take payments over the phone, and does not accept payment through money apps such as Zelle or Cash App, prepaid cash cards (such as MoneyPak or Green Dot) or cryptocurrency such as Bitcoin.
+      source: https://www.sce.com/outages-safety/stay-safe/scam-awareness
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: SCE does not collect bill payments or copies of bills in person, and does not send solar representatives to homes or have solar companies call anyone.
+      source: https://www.sce.com/outages-safety/stay-safe/scam-awareness
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Callers spoof caller ID to appear to be SCE, demand immediate payment, or ask for account, meter, Social Security, driver's license or financial information.
+      source: https://www.sce.com/outages-safety/stay-safe/scam-awareness
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers say the customer has a past-due bill and offer a discount for paying them immediately over the phone.
+      source: https://www.sce.com/outages-safety/stay-safe/scam-awareness
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Fraudsters ask realtors with sale listings to tell their sellers about a false overdue electricity bill, and give a fake SCE phone number to pay or face disconnection.
+      source: https://www.sce.com/outages-safety/stay-safe/scam-awareness
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Fake utility websites target customers who search for how to connect new electric service or pay online.
+      source: https://www.sce.com/outages-safety/stay-safe/scam-awareness
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers threaten disconnection and text a prepaid store barcode (for example Walmart, 7-Eleven, CVS or Walgreens) to pay by cash, debit, Bitcoin or prepaid card, or tell the customer to buy a prepaid card at a store.
+      source: https://www.sce.com/outages-safety/stay-safe/scam-awareness
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-scam-form
+      type: web_form
+      label: Report a fraudulent call, text, email or in-person visit to SCE
+      value: https://cloud.sce.com/Fraud_Form
+      source: https://www.sce.com/outages-safety/stay-safe/scam-awareness
+      last_verified: 2026-10-12
+    - id: report-scam-email
+      type: email
+      label: Report a fraudulent call, text, email or in-person visit to SCE by email
+      value: csinfogov@sce.com
+      source: https://www.sce.com/outages-safety/stay-safe/scam-awareness
+      last_verified: 2026-10-12
+    - id: verify-visitor-phone
+      type: phone
+      label: Verify an SCE badge or authorization letter
+      value: +1-800-655-4555
+      notes: Select option 5.
+      source: https://www.sce.com/outages-safety/stay-safe/scam-awareness
+      last_verified: 2026-10-12

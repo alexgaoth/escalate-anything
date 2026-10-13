@@ -126,12 +126,6 @@ playbooks:
         source: https://www.geico.com/information/faq/rate-increase/
         last_verified: 2026-10-12
 
-tips:
-  - kind: official
-    text: GEICO's totaled-car guide says that if you still disagree after a re-evaluation, most policies allow an independent appraisal or arbitration, depending on the policy and state rules.
-    issues: [claim_denial]
-    source: https://www.geico.com/living/totaled-car-guide/
-    last_verified: 2026-10-12
 
 known_blockers:
   - Claim tracking and secure messages need sign-in.
@@ -139,3 +133,36 @@ known_blockers:
   - Phone hold times are long; GEICO steers customers to the app and website.
 
 notes: GEICO is an indirect wholly owned subsidiary of Berkshire Hathaway Inc. It writes auto coverage itself. Home, renters, condo, flood, boat and many business policies sold by GEICO are written by partner insurers listed on its partner claims contacts page.
+
+official_domains: [geico.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: GEICO employees will never ask for your 2-Step Verification code.
+      source: https://www.geico.com/about/fraud-awareness/phishing-scams/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: GEICO says it won't text or call unexpectedly asking for sensitive details, and its texts only link directly to its official website.
+      source: https://www.geico.com/about/fraud-awareness/phishing-scams/
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Fake websites and phone numbers appear when people search online for GEICO's contact information. GEICO says not to give personal or payment information to them.
+      source: https://www.geico.com/about/fraud-awareness/phishing-scams/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers send emails and texts that look like they come from GEICO, and spoof caller ID, sender names and website addresses.
+      source: https://www.geico.com/about/fraud-awareness/phishing-scams/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Letters announce a sweepstakes win, a paid mystery-shopper or customer service evaluation, or a car with a year of free insurance, and include fake checks tied to GEICO. GEICO says it is not affiliated with these offers, has not issued such checks, and will not honor them.
+      source: https://www.geico.com/about/fraud-awareness/sweepstakes-scam/
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: verify-phone
+      type: phone
+      label: Verify a contact with GEICO (customer service number on GEICO's phishing page)
+      value: +1-800-207-7847
+      source: https://www.geico.com/about/fraud-awareness/phishing-scams/
+      last_verified: 2026-10-12

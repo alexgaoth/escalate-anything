@@ -246,3 +246,48 @@ known_blockers:
   - Payment agreements, payment extensions and life-support registration online need a My Account sign-in.
   - Medical certification must come from a medical doctor, nurse practitioner, physician assistant or local board of health official.
   - DPS says not to use its online complaint form after a final disconnection notice; call the hotline.
+
+official_domains: [coned.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Con Edison does not accept payment by prepaid gift card, cryptocurrency such as Bitcoin, wire transfer, or cash apps such as Venmo, Zelle or PayPal, whether in person, by phone or by text.
+      source: https://www.coned.com/en/safety/energy-safety/beware-of-scammers
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Con Edison says it will never ask for personally identifiable information.
+      source: https://www.coned.com/en/about-us/media-center/news/2025/11-20/awareness-is-your-best-defense
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: The SmartCharge NY program will never ask for credit card information through a QR code. Only conEd.com/smartcharge and scny.ev.energy are legitimate SmartCharge NY pages.
+      source: https://www.coned.com/en/safety/energy-safety/beware-of-scammers
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Paid search ads imitate bill payment, for example "Make A Bill Payment", makeabillpayment.com or 1-888-479-3560. Con Edison names conEd.com/GuestPayment and webpayments.billmatrix.com/ConEdResidential for card payments.
+      source: https://www.coned.com/en/safety/energy-safety/beware-of-scammers
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Look-alike websites such as con3d.com and c0edison.com impersonate Con Edison.
+      source: https://www.coned.com/en/safety/energy-safety/beware-of-scammers
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Callers spoof caller ID, ask for the account number, threaten shutoff within an hour and demand immediate payment by prepaid card or cryptocurrency. Con Edison account numbers changed from 15 to 11 digits, which scammers may exploit.
+      source: https://www.coned.com/en/safety/energy-safety/beware-of-scammers
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: People knock on the door, claim to be from Con Edison and try to get inside. Real employees carry photo ID with their name and employee number.
+      source: https://www.coned.com/en/about-us/media-center/news/2025/11-20/awareness-is-your-best-defense
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Unsolicited offers of discounts or refunds ask for personal or banking information.
+      source: https://www.coned.com/en/about-us/media-center/news/2025/11-20/awareness-is-your-best-defense
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: verify-report-phone
+      type: phone
+      label: Verify an employee or report a suspicious call (1-800-75-CONED)
+      value: +1-800-752-6633
+      source: https://www.coned.com/en/safety/energy-safety/beware-of-scammers
+      last_verified: 2026-10-12

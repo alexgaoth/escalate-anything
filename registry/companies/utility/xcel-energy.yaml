@@ -121,3 +121,52 @@ playbooks:
 
 known_blockers:
   - Most xcelenergy.com pages redirect to a JavaScript site (my.xcelenergy.com) that automated tools cannot read. Outage and gas emergency phone numbers were not confirmed.
+
+official_domains: [xcelenergy.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Xcel Energy never requires payment with a prepaid debit card such as a Green Dot card.
+      source: https://stories.xcelenergy.com/stories/How-to-protect-yourself-from-utility-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Xcel Energy will not call a customer to ask for bank account or credit card information to provide a refund. It applies overpayments to the customer's billing account.
+      source: https://stories.xcelenergy.com/stories/How-to-protect-yourself-from-utility-scams
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: A scammer calls or comes to the home unannounced, says the account is past due, and demands payment with a prepaid debit card such as a Green Dot card or the power will be disconnected.
+      source: https://stories.xcelenergy.com/stories/How-to-protect-yourself-from-utility-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: A scammer says the customer overpaid the energy bill and asks for a bank account or credit card number to process a refund.
+      source: https://stories.xcelenergy.com/stories/How-to-protect-yourself-from-utility-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers spoof caller ID to show a fake number, which can be Xcel Energy's number, and a call-back number may play a recording that sounds like an Xcel Energy phone system message.
+      source: https://stories.xcelenergy.com/stories/How-to-protect-yourself-from-utility-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Emails that appear to come from the energy company ask the customer to click a link to pay an overdue bill or claim a refund.
+      source: https://stories.xcelenergy.com/stories/How-to-protect-yourself-from-utility-scams
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: verify-phone-residential
+      type: phone
+      label: Verify a call or report a suspected scam (residential customer service)
+      value: +1-800-895-4999
+      source: https://stories.xcelenergy.com/stories/How-to-protect-yourself-from-utility-scams
+      last_verified: 2026-10-12
+    - id: verify-phone-business
+      type: phone
+      label: Verify a call (business customer service)
+      value: +1-800-481-4700
+      source: https://stories.xcelenergy.com/stories/How-to-protect-yourself-from-utility-scams
+      last_verified: 2026-10-12
+    - id: customer-service-email
+      type: email
+      label: Contact customer service about a suspected scam
+      value: CustomerService@xcelenergy.com
+      source: https://stories.xcelenergy.com/stories/How-to-protect-yourself-from-utility-scams
+      last_verified: 2026-10-12

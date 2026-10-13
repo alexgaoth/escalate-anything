@@ -111,3 +111,5 @@ known_blockers:
   - Agency-sold policies are serviced through the agent.
 
 notes: Liberty Mutual sells personal auto and home insurance directly and through agents. Claims disclosures and appraisal rules differ by state.
+
+official_domains: [libertymutual.com, libertymutualgroup.com]

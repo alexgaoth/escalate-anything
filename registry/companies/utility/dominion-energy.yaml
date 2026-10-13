@@ -179,3 +179,60 @@ tips:
 known_blockers:
   - Payment extensions and plans in Virginia are requested after signing in, or by the account holder by phone.
   - The Virginia medical form needs a physician's statement and signature.
+
+official_domains: [dominionenergy.com, dominionenergysc.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Dominion Energy never takes in-person payments.
+      source: https://www.dominionenergy.com/safety/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Dominion Energy employees do not take payments over the phone. Phone payments go only through its automated system.
+      source: https://www.dominionenergy.com/safety/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Dominion Energy will never ask a customer to buy a money order, prepaid debit or credit card, or gift card.
+      source: https://www.dominionenergy.com/safety/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Dominion Energy will never require a job applicant to pay for equipment before or after accepting a position with the company.
+      source: https://www.dominionenergy.com/safety/scams
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Scammers spoof phone numbers so that calls appear to come from Dominion Energy.
+      source: https://www.dominionenergy.com/safety/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers sometimes make payments to a customer's account to verify information. Dominion Energy asks customers to report unrecognized payments.
+      source: https://www.dominionenergy.com/safety/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers set up fake websites and customer service numbers to capture personal information.
+      source: https://www.dominionenergy.com/safety/scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Fake job offers ask people to pay for equipment. Real Dominion Energy job offers come only through its online applicant portal.
+      source: https://www.dominionenergy.com/safety/scams
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-scam-form
+      type: web_form
+      label: Report suspicious calls, texts and emails to Dominion Energy
+      value: https://www.dominionenergy.com/safety/scams/report-a-scammer
+      source: https://www.dominionenergy.com/safety/scams/report-a-scammer
+      last_verified: 2026-10-12
+    - id: verify-call-va-nc-phone
+      type: phone
+      label: Verify a call (customer service, Virginia and North Carolina)
+      value: +1-866-366-4357
+      source: https://www.dominionenergy.com/safety/scams
+      last_verified: 2026-10-12
+    - id: verify-call-sc-phone
+      type: phone
+      label: Verify a call (customer service, South Carolina)
+      value: +1-800-251-7234
+      source: https://www.dominionenergy.com/safety/scams
+      last_verified: 2026-10-12

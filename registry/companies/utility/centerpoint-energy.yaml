@@ -145,3 +145,45 @@ playbooks:
 known_blockers:
   - Payment extensions and arrangements are set up in My Account (sign-in).
   - CenterPoint's contact page shows phone numbers whose dial links do not match the displayed numbers (Houston electric, Ohio gas).
+
+official_domains: [centerpointenergy.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: CenterPoint Energy phone agents will never personally ask for banking or credit card information over the phone. Customers who pay by phone are transferred to an automated system.
+      source: https://www.centerpointenergy.com/en-us/savings-solutions/resource-hub/safety-reliability/public-utility-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: CenterPoint Energy agents will never ask for payment by cash, Western Union or MoneyGram transfer, prepaid debit card such as Green Dot, gift card, PayPal, Venmo, Apple Pay or Square Pay.
+      source: https://www.centerpointenergy.com/en-us/savings-solutions/resource-hub/safety-reliability/public-utility-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: CenterPoint Energy field employees are not authorized to collect payments at a home or business.
+      source: https://www.centerpointenergy.com/en-us/savings-solutions/resource-hub/safety-reliability/public-utility-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: CenterPoint Energy will not disconnect service without first mailing an overdue bill and then a disconnection notice that states the disconnection date and time.
+      source: https://www.centerpointenergy.com/en-us/savings-solutions/resource-hub/safety-reliability/public-utility-scams
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Scammers spoof caller ID so calls appear as CenterPoint Energy, and may threaten to disconnect utilities within the hour unless money is sent.
+      source: https://www.centerpointenergy.com/en-us/savings-solutions/resource-hub/safety-reliability/public-utility-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Imposters call or visit about an overdue bill and threaten quick disconnection unless the customer loads money onto a prepaid debit card and shares its serial number.
+      source: https://www.centerpointenergy.com/en-us/savings-solutions/resource-hub/safety-reliability/public-utility-scams/common-energy-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: After severe storms, fake utility workers offer immediate power restoration for a cash fee and leave without restoring service.
+      source: https://www.centerpointenergy.com/en-us/savings-solutions/resource-hub/safety-reliability/public-utility-scams/common-energy-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Imposters in official-looking clothing visit homes offering refunds of delivery fees, sometimes calling it a government program.
+      source: https://www.centerpointenergy.com/en-us/savings-solutions/resource-hub/safety-reliability/public-utility-scams/common-energy-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers describe fake federal programs that help pay utility bills and ask for Social Security numbers.
+      source: https://www.centerpointenergy.com/en-us/savings-solutions/resource-hub/safety-reliability/public-utility-scams/common-energy-scams
+      last_verified: 2026-10-12

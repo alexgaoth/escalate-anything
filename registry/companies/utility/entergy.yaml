@@ -139,3 +139,56 @@ playbooks:
 known_blockers:
   - Payment arrangements and online contact need a myEntergy sign-in.
   - Entergy's Critical Service registry in Texas is for non-residential critical loads; no residential medical certificate process was found on Entergy's pages.
+
+official_domains: [entergy.com, myentergy.com, entergytexas.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Entergy never demands immediate payment or cuts off service without considerable advance warning.
+      source: https://www.entergy.com/scams/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Entergy never asks for personal or financial information over the phone or in person for payments or refunds.
+      source: https://www.entergy.com/scams/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Entergy will never ask for payment by prepaid debit card, gift card, cryptocurrency or a third-party payment app such as Cash App, Venmo or Zelle.
+      source: https://www.entergy.com/scams/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Entergy never demands payment to reconnect power after a storm or outage.
+      source: https://www.entergy.com/scams/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Entergy will never ask for payment through social media.
+      source: https://www.entergy.com/scams/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Entergy never asks job applicants for money at any point in its recruiting or hiring process.
+      source: https://www.entergy.com/scams/
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Scammers spoof caller ID to appear as Entergy, and scam calls increase after severe storms.
+      source: https://www.entergy.com/scams/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Fake QR codes are placed over real ones on bills or flyers, or sent by email or text, and lead to fake payment pages or data theft.
+      source: https://www.entergy.com/scams/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Fake websites and phone numbers are promoted through search engines to capture payments or financial data.
+      source: https://www.entergy.com/scams/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Employment scams use Entergy's name to ask job applicants for money or personal data.
+      source: https://www.entergy.com/scams/
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: report-scam-phone
+      type: phone
+      label: Report a suspected scam or verify a contact (800-ENTERGY)
+      value: +1-800-368-3749
+      source: https://www.entergy.com/scams/
+      last_verified: 2026-10-12

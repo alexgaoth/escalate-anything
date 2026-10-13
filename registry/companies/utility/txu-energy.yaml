@@ -244,3 +244,63 @@ playbooks:
 known_blockers:
   - The TOSA used here is version TOSARESENT032022E (2022) and the YRAC is TXUEYRAC082023A; the plan's own EFL and TOSA control.
   - Payment arrangements and plan changes need the account holder or sign-in.
+
+official_domains: [txu.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: TXU Energy phone agents never ask you to buy a prepaid card and call back with the information, and never call to demand immediate payment under threat of shutoff.
+      source: https://www.txu.com/en/company/fraud-awareness/txu-energy-promise.aspx
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: TXU Energy phone agents never ask you to confirm personal information beyond the last four digits of your Social Security number.
+      source: https://www.txu.com/en/company/fraud-awareness/txu-energy-promise.aspx
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: TXU Energy in-person agents never ask for or accept cash, credit cards, bank account numbers or any payment, and never ask to come inside your home or to see a driver's license or Social Security number.
+      source: https://www.txu.com/en/company/fraud-awareness/txu-energy-promise.aspx
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: TXU Energy will never ask for personal information in an email, or ask you to update your information other than through txu.com or a Customer Care representative.
+      source: https://www.txu.com/fraud-awareness/suspicious-email-alert
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Phishing emails claim to be from TXU Energy and ask the reader to click a link or give personal information.
+      source: https://www.txu.com/fraud-awareness/suspicious-email-alert
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers create fake retail electric websites and social media pages that sign people up for unrealistic prices such as $75 every 30 days. Check a provider's certification on the Public Utility Commission of Texas site.
+      source: https://www.txu.com/fraud-awareness/ways-you-can-protect-yourself
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Identity thieves open TXU Energy accounts in another person's name.
+      source: https://www.txu.com/fraud-awareness/ways-you-can-protect-yourself
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: fraud-email
+      type: email
+      label: Forward suspicious TXU Energy emails
+      value: fraudgroup@txu.com
+      source: https://www.txu.com/fraud-awareness/suspicious-email-alert
+      last_verified: 2026-10-12
+    - id: customer-protection-email
+      type: email
+      label: TXU Energy Customer Protection (identity theft and utility fraud)
+      value: customerprotection@txu.com
+      source: https://www.txu.com/fraud-awareness/ways-you-can-protect-yourself
+      last_verified: 2026-10-12
+    - id: customer-protection-phone
+      type: phone
+      label: TXU Energy Customer Protection (identity theft and utility fraud)
+      value: +1-877-460-7060
+      hours: Mon-Fri 8 a.m.-5 p.m.
+      source: https://www.txu.com/fraud-awareness/ways-you-can-protect-yourself
+      last_verified: 2026-10-12
+    - id: verify-agent-phone
+      type: phone
+      label: Confirm the identity of a TXU Energy in-person agent
+      value: +1-855-979-1151
+      source: https://www.txu.com/en/company/fraud-awareness/txu-energy-promise.aspx
+      last_verified: 2026-10-12

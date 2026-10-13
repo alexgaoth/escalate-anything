@@ -130,3 +130,32 @@ playbooks:
 known_blockers:
   - Six and 12 month payment plans are set up in the online portal (sign-in required).
   - Medical statements must come from a licensed physician or public health official.
+
+official_domains: [nipsco.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: NIPSCO will never call customers directly to ask for account or payment information, or demand payment through a prepaid card.
+      source: https://www.nipsco.com/safety/home-safety/impostors-and-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: NIPSCO will never ask customers to pay with a specific type of payment method or by meeting in person.
+      source: https://www.nipsco.com/safety/home-safety/impostors-and-scams
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Callers demand immediate payment with a prepaid card. NIPSCO says these calls are scams.
+      source: https://www.nipsco.com/safety/home-safety/impostors-and-scams
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Scammers impersonate NIPSCO employees or contractors. Real NIPSCO employees and contractors wear their IDs visibly.
+      source: https://www.nipsco.com/safety/home-safety/impostors-and-scams
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: verify-phone
+      type: phone
+      label: Verify a call, email, offer or person claiming to be from NIPSCO (customer care)
+      value: +1-800-464-7726
+      source: https://www.nipsco.com/safety/home-safety/impostors-and-scams
+      last_verified: 2026-10-12

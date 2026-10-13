@@ -116,3 +116,20 @@ known_blockers:
   - The Consumer Affairs form was temporarily unavailable on 2026-10-12.
 
 notes: American Family Mutual Insurance Company, S.I. is named on amfam.com. Policies are often serviced by a local agent.
+
+official_domains: [amfam.com, afics.com]
+
+security:
+  report_phishing:
+    - id: siu-phone
+      type: phone
+      label: American Family Special Investigation Unit (report claim fraud)
+      value: +1-608-242-4100 ext. 29510
+      source: https://www.amfam.com/contact
+      last_verified: 2026-10-12
+    - id: siu-email
+      type: email
+      label: American Family Special Investigation Unit email (report claim fraud)
+      value: askSIU@afics.com
+      source: https://www.amfam.com/contact
+      last_verified: 2026-10-12

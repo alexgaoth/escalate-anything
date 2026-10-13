@@ -165,3 +165,29 @@ known_blockers:
   - The complaint page and EOB give the region-specific appeal procedure.
 
 notes: Kaiser Permanente (Oakland, California) comprises Kaiser Foundation Health Plan, Inc., Kaiser Foundation Hospitals and The Permanente Medical Groups, serving 12.9 million members in nine regions (Northern and Southern California, Hawaii, Colorado, Georgia, Mid-Atlantic States, Northwest, Washington and Nevada). Each region has its own health plan company. Risant Health and its affiliates are outside these figures. Medicare and Medicaid members have their own appeal rules.
+
+official_domains: [kaiserpermanente.org, kp.org]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Kaiser Permanente will never ask for your password over the phone or by email.
+      source: https://healthy.kaiserpermanente.org/pages/online-security/protecting-personal-information
+      last_verified: 2026-10-12
+  known_scams:
+    - kind: policy
+      claim: Callers claim to be from Kaiser Permanente, say an account needs to be confirmed and ask for personal information. Kaiser Permanente advises contacting customer service directly to check.
+      source: https://healthy.kaiserpermanente.org/pages/online-security/protecting-personal-information
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Offers of "free" medical treatment are usually scams, according to Kaiser Permanente Washington's fraud page.
+      source: https://wa.kaiserpermanente.org/html/public/customer-service/fraud
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: fraud-hotline
+      type: phone
+      label: Kaiser Permanente confidential fraud hotline (listed on the Washington region fraud page)
+      value: +1-888-774-9100
+      notes: The page does not say which regions the hotline covers.
+      source: https://wa.kaiserpermanente.org/html/public/customer-service/fraud
+      last_verified: 2026-10-12

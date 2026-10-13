@@ -139,3 +139,23 @@ known_blockers:
   - Claim status by phone is only staffed Mon-Fri 8 a.m.-5 p.m. local time.
 
 notes: Business policy service questions go to the agent. Travelers asks people not to send claim messages to employees' personal email accounts.
+
+official_domains: [travelers.com]
+
+security:
+  report_phishing:
+    - id: fraud-line
+      type: phone
+      label: Travelers Fraud Line
+      value: +1-800-637-2830
+      hours: 24 hours a day, 7 days a week
+      notes: Travelers says it does not monitor or respond to fraud reports sent to its employees' personal email, phone or social media accounts. Anonymous reports are possible.
+      source: https://www.travelers.com/claims/guides/understanding-insurance-fraud
+      last_verified: 2026-10-12
+    - id: fraud-report-online
+      type: web_form
+      label: Travelers online fraud report (hosted by EthicsPoint)
+      value: https://secure.ethicspoint.com/domain/en/report_company.asp?clientid=29160
+      access: open
+      source: https://www.travelers.com/claims/guides/understanding-insurance-fraud
+      last_verified: 2026-10-12

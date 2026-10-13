@@ -139,3 +139,30 @@ known_blockers:
   - No dedicated complaint channel; the email form is embedded in the contact page.
 
 notes: The contact page also lists a commercial customer service line (1-888-240-9839) and a fraud and identity theft line (1-888-288-0770).
+
+official_domains: [progressive.com]
+
+security:
+  known_scams:
+    - kind: policy
+      claim: Fake agents sell life insurance without real coverage and ask for cash or direct payments. Progressive says the payee for a premium should always be a legitimate insurance company, and to check the agent's license with the state department of insurance.
+      source: https://www.progressive.com/answers/life-insurance-fraud/
+      last_verified: 2026-10-12
+    - kind: policy
+      claim: Emails and texts that ask for personal information pose as insurers. Progressive advises calling the insurer at a number you know is theirs instead of replying.
+      source: https://www.progressive.com/answers/life-insurance-fraud/
+      last_verified: 2026-10-12
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward a suspicious email that claims to be from Progressive
+      value: phishing@email.progressive.com
+      source: https://www.progressive.com/contact-us/
+      last_verified: 2026-10-12
+    - id: fraud-phone
+      type: phone
+      label: Report fraud or identity theft to Progressive
+      value: +1-888-288-0770
+      hours: Daily 7 a.m.-10 p.m. ET
+      source: https://www.progressive.com/contact-us/
+      last_verified: 2026-10-12
