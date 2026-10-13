@@ -1,0 +1,124 @@
+id: uber
+name: Uber
+aliases: [uber, uber eats, ubereats, uber one, uber technologies]
+sector: gig_delivery
+website: https://www.uber.com
+account_url: https://account.uber.com/
+regulators: [ftc]
+notes: >-
+  Covers Uber rides and Uber Eats in the U.S. Uber says it does not offer a customer service phone number
+  for riders; support is through the Help section of the app or help.uber.com after sign-in. help.uber.com
+  article pages render with JavaScript and could not be read, so the in-app lost-item and Uber Eats refund
+  paths are not recorded here. The U.S. Terms of Use require an informal dispute resolution conference
+  before arbitration.
+
+channels:
+  - id: in-app-help
+    type: app
+    label: Uber app Help (rides and Uber Eats)
+    value: Uber app > Account > Help (or the Help tab in your account)
+    hours: 24/7
+    purposes: [refund_request, billing_error, unauthorized_charge, poor_service, lost_package, damaged_item]
+    access: login
+    notes: The Terms say to report or dispute a charge through the Help tab in your account.
+    source: https://www.uber.com/legal/en/document/?name=general-terms-of-use&country=united-states&lang=en
+    last_verified: 2026-10-12
+  - id: help-center
+    type: portal
+    label: Uber Help Center (sign in for personalized support)
+    value: https://help.uber.com/riders
+    purposes: [refund_request, billing_error, poor_service]
+    access: login
+    source: https://help.uber.com/riders
+    last_verified: 2026-10-12
+  - id: safety-toolkit
+    type: app
+    label: In-app Safety Toolkit (report a safety issue, contact an ADT safety agent, call 911)
+    value: Uber app during a trip > safety shield icon > Contact safety agent or report a safety issue
+    hours: 24/7
+    purposes: [poor_service]
+    access: login
+    notes: In an emergency, call 911 first. The app's Emergency Button calls 911 and shows your live location and trip details.
+    source: https://www.uber.com/us/en/ride/safety/
+    last_verified: 2026-10-12
+  - id: uber-one-manage
+    type: app
+    label: Cancel Uber One (Manage Membership > End Membership)
+    value: Uber app > Uber One > Manage Membership > End Membership
+    purposes: [cancel_service]
+    access: login
+    source: https://www.uber.com/us/en/uber-one/
+    last_verified: 2026-10-12
+  - id: legal-notice-mail
+    type: mail
+    label: Notice of dispute (informal dispute resolution before arbitration)
+    value: "Uber Technologies, Inc., Attn: Legal Department, 1725 3rd Street, San Francisco, CA 94158"
+    notes: Written notice to request the informal dispute resolution conference, which is a condition before arbitration.
+    source: https://www.uber.com/legal/en/document/?name=general-terms-of-use&country=united-states&lang=en
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: in-app-help}
+  - {rung: payment_dispute, note: "Card dispute if Uber does not reverse a wrong charge. The Terms ask you to raise it in Help within 30 days first."}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: legal-notice-mail, note: "Send a written notice and hold an informal conference within 60 days before arbitration."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute a wrong ride or order charge in the app's Help within 30 days, or you may lose the right to dispute it later.
+    evidence: [trip or order receipt, the charge on your statement, what you expected to pay]
+    steps:
+      - do: Open Help in the app, select the trip or order, and report the charge problem. Do this within 30 days of the charge.
+        channel: in-app-help
+      - do: If Uber does not fix it, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: Uber's Terms ask users to dispute a charge through the Help tab within 30 days after the charge occurred, unless the app gives a different timeframe; otherwise the user waives the right to dispute it later.
+        issues: [billing_error, unauthorized_charge, refund_request]
+        source: https://www.uber.com/legal/en/document/?name=general-terms-of-use&country=united-states&lang=en
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Uber's Terms say charges are final and non-refundable unless Uber or the third-party provider decides otherwise, and amounts for lost and found goods are non-refundable.
+        issues: [refund_request, billing_error]
+        source: https://www.uber.com/legal/en/document/?name=general-terms-of-use&country=united-states&lang=en
+        last_verified: 2026-10-12
+
+  - issue: cancel_service
+    summary: End Uber One in the app (Uber One > Manage Membership > End Membership). The current cycle is not refunded.
+    evidence: [screenshot of the cancellation confirmation, date of cancellation, any charge after that date]
+    steps:
+      - do: In the Uber app, open Uber One, select Manage Membership, then End Membership, and confirm.
+        channel: uber-one-manage
+      - do: If you are charged for a new cycle after cancelling, report it in Help.
+        channel: in-app-help
+      - do: If Uber does not refund a charge made after you cancelled, dispute it with your card issuer.
+    facts:
+      - kind: policy
+        claim: Except where prohibited by law, the Uber One subscription charge is non-refundable once the billing cycle begins. Paid members keep benefits until the end of the current billing cycle; free-trial benefits end immediately on cancellation.
+        issues: [cancel_service, refund_request]
+        source: https://www.uber.com/legal/en/document/?name=renewable-passes-terms&country=united-states&lang=en
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If you cancel within 24 hours before your renewal day and the next cycle's payment has already processed, Uber issues an automatic refund.
+        issues: [cancel_service, refund_request]
+        source: https://www.uber.com/legal/en/document/?name=renewable-passes-terms&country=united-states&lang=en
+        last_verified: 2026-10-12
+
+facts:
+  - kind: fee
+    claim: The Uber One page lists the membership at $9.99/month, with a 4-week free trial for eligible first-time members.
+    issues: [cancel_service]
+    source: https://www.uber.com/us/en/uber-one/
+    last_verified: 2026-10-12
+  - kind: contact
+    claim: Uber says it does not offer a customer service phone number for Uber riders; riders sign in to get personalized support.
+    source: https://help.uber.com/riders
+    last_verified: 2026-10-12
+  - kind: process
+    claim: The informal dispute resolution conference must occur within 60 days after the other party receives the notice, and is a condition precedent to arbitration.
+    source: https://www.uber.com/legal/en/document/?name=general-terms-of-use&country=united-states&lang=en
+    last_verified: 2026-10-12
+
+known_blockers:
+  - No customer service phone line for riders; nearly all support needs the account holder signed in to the app or help.uber.com.
+  - help.uber.com articles load with JavaScript, so an agent may not be able to read them.

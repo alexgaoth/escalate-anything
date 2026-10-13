@@ -1,0 +1,107 @@
+id: booking-com
+name: Booking.com
+aliases: [booking.com, booking dot com, booking com b v]
+sector: travel_agency
+parent: Booking Holdings Inc.
+website: https://www.booking.com
+account_url: https://secure.booking.com/help.en-us.html
+regulators: [us-dot, ftc]
+notes: >-
+  Booking.com B.V. runs the platform but is not a contractual party to accommodation bookings; the property's own
+  cancellation policy decides fees and refunds. Most flights are sold through an unnamed third-party aggregator and are
+  booked directly with the airline under its contract of carriage. Car rentals are paid to Booking.com Transport Limited
+  as merchant of record. Terms updated August 25, 2025. Booking.com shows no phone digits on its public help pages; the
+  number appears after sign-in or in the booking.
+
+channels:
+  - id: help-center
+    type: portal
+    label: Booking.com Help Center (messaging to customer service after sign-in; 24-hour phone line shown in the booking)
+    value: https://secure.booking.com/help.en-us.html
+    hours: 24/7
+    purposes: [reservation_problem, refund_request, flight_cancellation, poor_service]
+    access: login
+    notes: The page offers "Continue without an account", but messaging an agent about a booking requires sign-in.
+    source: https://secure.booking.com/help.en-us.html
+    last_verified: 2026-10-12
+  - id: dispute-resolution-form
+    type: web_form
+    label: Dispute resolution center (complaints, pre-dispute Internal Review Procedure, arbitration opt-out)
+    value: https://secure.booking.com/dispute_resolution.en-us.html
+    purposes: [refund_request, reservation_problem, poor_service, flight_cancellation]
+    access: open
+    notes: >-
+      No sign-in needed. For the mandatory pre-arbitration notice, start the message with "Request Under Arbitration
+      Agreement" and include name, address, reservation email, reservation number, reservation date, Service Provider name,
+      the complaint and the resolution sought. Save the support request ID.
+    source: https://secure.booking.com/dispute_resolution.en-us.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: help-center, note: "Contact the property or airline as well; it decides the refund."}
+  - {rung: written_complaint, channel: dispute-resolution-form}
+  - {rung: regulator, regulator: us-dot, note: "For air tickets bought through Booking.com."}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: dispute-resolution-form, note: "The Internal Review Procedure (60 days) must come first; small claims court is allowed."}
+
+playbooks:
+  - issue: refund_request
+    summary: The property's cancellation policy decides the refund; ask the property and Booking.com, then use the dispute form in writing.
+    evidence: [confirmation number and PIN, cancellation policy in the confirmation email, cancellation confirmation, card statement]
+    steps:
+      - do: Read the cancellation and no-show policy in the confirmation email.
+      - do: Cancel in the booking; ask the property and Booking.com customer service for any refund owed.
+        channel: help-center
+      - do: If not resolved, send a written complaint (topic "Refunds") through the dispute resolution form and save the request ID.
+        channel: dispute-resolution-form
+      - do: If the refund owed is not paid, dispute the charge with your card issuer (with the property if it charged you, or Booking.com if it charged you).
+    facts:
+      - kind: policy
+        claim: Booking.com's terms say any cancellation or no-show fee and any refund depend on the Service Provider's cancellation/no-show policy.
+        issues: [refund_request]
+        source: https://www.booking.com/content/terms.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: For car rentals, Booking.com Transport Limited is merchant of record for payments taken at booking, and a car cancelled more than 48 hours before the rental starts gets a full refund.
+        issues: [refund_request]
+        source: https://www.booking.com/content/terms.html
+        last_verified: 2026-10-12
+  - issue: reservation_problem
+    summary: Contact the property while there, then Booking.com customer service, then the dispute form.
+    evidence: [confirmation number, photos, messages with the property, receipts for a replacement stay]
+    steps:
+      - do: Tell the property at once and ask for an equal room.
+      - do: Contact Booking.com customer service through the booking (24 hours a day) and ask for help with relocation or a refund.
+        channel: help-center
+      - do: Afterwards, send a written complaint (topic "Reservation") with evidence through the dispute resolution form.
+        channel: dispute-resolution-form
+  - issue: flight_cancellation
+    summary: The airline's contract of carriage decides refunds; Booking.com may help change or cancel.
+    evidence: [booking reference, airline record locator, ticket number, airline cancellation notice]
+    steps:
+      - do: Check the airline's contract of carriage for the cancellation or change rule.
+      - do: Ask Booking.com customer service to process the refund or change, and ask the airline directly if Booking.com cannot.
+        channel: help-center
+      - do: If the refund is not paid, file a complaint with the U.S. DOT and dispute the charge with your card issuer.
+        regulator: us-dot
+    facts:
+      - kind: policy
+        claim: Booking.com says most flights on its platform are provided via a third-party aggregator acting as an intermediary to the airline, and the cancellation policy is in the airline's contract of carriage; there may be a fee to change or cancel.
+        issues: [flight_cancellation]
+        source: https://www.booking.com/content/terms.html
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Booking.com's terms require binding individual arbitration administered by National Arbitration & Mediation under New York law, after a mandatory Internal Review Procedure of 60 days; small claims court is allowed.
+    source: https://www.booking.com/content/terms.html
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: An arbitration opt-out notice ("Arbitration -- Opt-Out Notice") must be sent through the Dispute Resolution page within 30 days after you first become subject to the agreement, by you personally.
+    source: https://www.booking.com/content/terms.html
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Messaging customer service requires sign-in; the phone number is not on the public help page.
+  - Arbitration opt-out notices sent by third parties (including agents) have no effect.

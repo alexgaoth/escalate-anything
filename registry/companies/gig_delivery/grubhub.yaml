@@ -1,0 +1,111 @@
+id: grubhub
+name: Grubhub
+aliases: [grubhub, seamless, grubhub+, seamless+, grubhub plus, grubhub holdings]
+sector: gig_delivery
+parent: Wonder
+website: https://www.grubhub.com
+regulators: [ftc]
+notes: >-
+  Food delivery; Seamless is the same service (Grubhub+ and Seamless+ share the membership terms). Grubhub
+  is now part of Wonder: about.grubhub.com redirects (301) to about.wonder.com, whose media center lists
+  "Grubhub/Seamless" as a brand. The closing date of the acquisition was not confirmed on an official page.
+  Terms of Use (Grubhub Holdings Inc.) effective December 17, 2024; Grubhub+ Membership Terms last modified
+  October 28, 2025. grubhub.com help pages load with JavaScript and could not be read, so the in-app
+  missing-item path is not recorded here.
+
+channels:
+  - id: customer-care-phone
+    type: phone
+    label: Grubhub Customer Care
+    value: +1-877-585-7878
+    purposes: [refund_request, billing_error, poor_service, lost_package, damaged_item]
+    source: https://www.grubhub.com/legal/terms-of-use
+    last_verified: 2026-10-12
+  - id: grubhub-plus-phone
+    type: phone
+    label: Grubhub Customer Care for Grubhub+ charges and cancellation
+    value: +1-877-585-1085
+    purposes: [cancel_service, unauthorized_charge, billing_error]
+    source: https://lp.grubhub.com/legal/plus/
+    last_verified: 2026-10-12
+  - id: contact-us
+    type: web_form
+    label: Grubhub Help / Contact Us
+    value: https://www.grubhub.com/help/contact-us
+    purposes: [refund_request, billing_error, unauthorized_charge, cancel_service, poor_service]
+    source: https://lp.grubhub.com/legal/plus/
+    last_verified: 2026-10-12
+  - id: grubhub-plus-manage
+    type: app
+    label: Cancel Grubhub+ (Account > Grubhub+ membership > Manage Membership > Cancel membership)
+    value: "App: Account icon > Grubhub+ membership > Manage Membership > Cancel membership. Web (grubhub.com or seamless.com): account menu > Grubhub+ > Cancel membership"
+    purposes: [cancel_service]
+    access: login
+    notes: Grubhub+ through Amazon Prime is cancelled through Amazon's "Manage apps & services with data access" page, or through Grubhub support.
+    source: https://lp.grubhub.com/legal/plus/
+    last_verified: 2026-10-12
+  - id: dispute-resolution-email
+    type: email
+    label: Notice of dispute and arbitration opt-out
+    value: disputeresolution@grubhub.com
+    notes: Personally signed notice with your name, account email, a detailed description and the relief sought. Opt-out notices go to the same address within 30 days of first becoming subject to the arbitration agreement.
+    source: https://www.grubhub.com/legal/terms-of-use
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-care-phone}
+  - {rung: written_complaint, channel: contact-us}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: dispute-resolution-email, note: "Written description of the dispute, then 60 days to resolve it before arbitration."}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel Grubhub+ at least 24 hours before the next payment; partial periods are not refunded.
+    evidence: [cancellation confirmation, date of cancellation, any later charge]
+    steps:
+      - do: "In the app: Account icon > Grubhub+ membership > Manage Membership > Cancel membership, then confirm. On the web: account menu > Grubhub+ > Cancel membership."
+        channel: grubhub-plus-manage
+      - do: If charged after cancelling, or for a charge you did not authorize, contact Grubhub Customer Care within 60 days of the charge.
+        channel: grubhub-plus-phone
+      - do: If Grubhub does not refund it, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: Cancel Grubhub+ up to 24 hours before the next scheduled payment to avoid further charges. Benefits continue through the end of the current membership period.
+        issues: [cancel_service]
+        source: https://lp.grubhub.com/legal/plus/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Grubhub must be contacted about a dispute over an unauthorized Grubhub+ charge within 60 days of the date of the charge.
+        issues: [unauthorized_charge, cancel_service]
+        source: https://lp.grubhub.com/legal/plus/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Members are not eligible for refunds of Grubhub+ charges or credits for partly used membership periods unless Grubhub decides otherwise. A free trial converts to a paid membership unless cancelled before it ends.
+        issues: [cancel_service, refund_request]
+        source: https://lp.grubhub.com/legal/plus/
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: Contact Grubhub Customer Care about a missing or wrong order; refunds and credits are case by case.
+    evidence: [order number, photos of wrong or missing items, receipt]
+    steps:
+      - do: Contact Grubhub through Help or by phone with the order details.
+        channel: contact-us
+      - do: If Grubhub does not refund an order you paid for and did not get, dispute the charge with your card issuer.
+    facts:
+      - kind: policy
+        claim: Grubhub's Terms say payments are final and non-refundable unless Grubhub decides otherwise, and that it may offer credits or refunds on a case-by-case basis.
+        issues: [refund_request]
+        source: https://www.grubhub.com/legal/terms-of-use
+        last_verified: 2026-10-12
+
+facts:
+  - kind: deadline
+    claim: Grubhub's Terms require notice to Grubhub of any claim within one year of when it accrued, or the claim is waived.
+    source: https://www.grubhub.com/legal/terms-of-use
+    last_verified: 2026-10-12
+
+known_blockers:
+  - grubhub.com help and contact pages load with JavaScript ("Contact Us is loading..."), so an agent may not be able to use them.
+  - Membership cancellation needs the account holder signed in.

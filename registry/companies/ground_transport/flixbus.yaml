@@ -1,0 +1,131 @@
+id: flixbus
+name: FlixBus (Flix Bus, Inc.)
+aliases: [flix bus, flixbus inc, flixbus usa]
+sector: ground_transport
+parent: Flix SE
+website: https://www.flixbus.com
+account_url: https://shop.flixbus.com/rebooking/login
+regulators: [fmcsa]
+notes: >-
+  Flix Bus, Inc. is a ticket broker for independent bus operators in North America, including Greyhound. FlixBus-branded
+  trips use FlixBus channels (support.flixbus.com, 1-855-626-8585); Greyhound-branded trips have their own phone lines and
+  help center (see greyhound). The operator of a trip is shown during booking.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Flix Customer Service hotline
+    value: +1-855-626-8585
+    purposes: [refund_request, accessibility, poor_service]
+    notes: Flix says not all international calls are toll-free.
+    source: https://www.flixbus.com/general-terms-business-and-booking-conditions
+    last_verified: 2026-10-12
+  - id: contact-form
+    type: web_form
+    label: FlixHelp contact form (claims and complaints)
+    value: https://help.flixbus.com/support/s/contact-us/?language=en_US
+    purposes: [refund_request, poor_service, accessibility, lost_baggage]
+    notes: For wheelchair questions choose Subject "Passengers with Disabilities".
+    source: https://support.flixbus.com/us/en-us/delays-and-cancellations
+    last_verified: 2026-10-12
+  - id: help-center
+    type: portal
+    label: FlixBus US help center
+    value: https://support.flixbus.com/us/en
+    access: open
+    source: https://www.flixbus.com/
+    last_verified: 2026-10-12
+  - id: manage-my-booking
+    type: portal
+    label: Manage My Booking (reschedule or cancel)
+    value: https://shop.flixbus.com/rebooking/login
+    purposes: [refund_request]
+    access: login
+    notes: Needs the 10-digit booking number.
+    source: https://support.flixbus.com/us/en-us/changing-or-canceling-a-booking
+    last_verified: 2026-10-12
+  - id: lost-item-page
+    type: portal
+    label: Report a lost item (help article with the lost item form)
+    value: https://support.flixbus.com/us/en-us/reporting-and-tracking-lost-items
+    purposes: [lost_baggage]
+    source: https://support.flixbus.com/us/en
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: contact-form}
+  - {rung: regulator, regulator: fmcsa, note: "Interstate bus carrier."}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "Terms of purchase require individual AAA arbitration, except personal injury, lost or damaged luggage, ADA and Title VI claims, and injunctive relief."}
+
+playbooks:
+  - issue: refund_request
+    summary: Your own cancellation gives a voucher; a cancellation by FlixBus gives a money refund on request; claims must be filed within 3 months.
+    evidence: [10-digit booking number, departure time, delay or cancellation notice, payment method]
+    steps:
+      - do: To cancel, use Manage My Booking up to 15 minutes before departure. Bookings made by mistake can be cancelled free within 60 minutes after booking.
+        channel: manage-my-booking
+      - do: If the departure is delayed more than 2 hours, do not take the ride if you want money back; reschedule free or request a refund.
+      - do: If FlixBus cancelled the bus, choose a monetary refund to the original payment method.
+      - do: File the claim through the contact form within 3 months of the booked travel date.
+        channel: contact-form
+      - do: If the refund owed is not paid, dispute the charge with your card issuer.
+    facts:
+      - kind: policy
+        claim: "Voluntary cancellation gets a voucher for a percentage of the ticket price: less than 2 days before departure 20%, 2 to 6 days 40%, 7 to 29 days 70%, 30 days or more 100%. Booking and service fees are non-refundable; seat reservations and excess baggage are refunded at 100%."
+        issues: [refund_request]
+        source: https://www.flixbus.com/service/change-cancel-a-booking/cancellation-policy
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: A booking can be cancelled free of charge up to 60 minutes after completing it.
+        issues: [refund_request]
+        source: https://support.flixbus.com/us/en-us/changing-or-canceling-a-booking
+        last_verified: 2026-10-12
+      - kind: compensation
+        claim: If FlixBus cancels the bus, the passenger can choose a monetary refund to the original payment method within 7 working days; delays under 2 hours carry no compensation.
+        issues: [refund_request]
+        source: https://support.flixbus.com/us/en-us/delays-and-cancellations
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: For involuntary cancellations, monetary refunds are offered only for payments made by cash, card, PayPal or Google Pay; vouchers are always available.
+        issues: [refund_request]
+        source: https://www.flixbus.com/general-terms-business-and-booking-conditions
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Under FlixBus passenger rights, claims and requests must be submitted within 3 months of the booked travel date.
+        issues: [refund_request, poor_service]
+        source: https://support.flixbus.com/us/en-us/delays-and-cancellations
+        last_verified: 2026-10-12
+  - issue: accessibility
+    summary: Add the wheelchair during booking; use the contact form for anything else.
+    evidence: [booking number, date and route, what assistance was booked, what happened]
+    steps:
+      - do: Add the wheelchair during booking; no separate contact with Customer Service is needed and no booking deadline applies.
+      - do: For other needs or a complaint, use the contact form with Subject "Passengers with Disabilities".
+        channel: contact-form
+      - do: Escalate to FMCSA if FlixBus does not resolve it.
+        regulator: fmcsa
+    facts:
+      - kind: policy
+        claim: FlixBus says mobility aids can be transported free of charge.
+        issues: [accessibility]
+        source: https://support.flixbus.com/us/en-us/traveling-with-reduced-mobility
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Flix Bus, Inc. terms (dated 07/13/2026) require binding individual AAA arbitration under Texas law, excluding personal injury, lost or damaged luggage, ADA and Title VI claims, and injunctive relief; written notice of a damages claim must be received within 90 days of the event.
+    source: https://www.flixbus.com/general-terms-business-and-booking-conditions
+    last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: FlixBus says its AI assistant "Flora" and agent chat are available from the help center for claims and complaints.
+    source: https://support.flixbus.com/us/en-us/delays-and-cancellations
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Voluntary cancellations are refunded only as vouchers.
+  - help.flixbus.com is a Salesforce site that may not render for automated fetches.

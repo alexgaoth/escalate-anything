@@ -1,0 +1,104 @@
+id: lyft
+name: Lyft
+aliases: [lyft, lyft pink, lyft inc]
+sector: gig_delivery
+website: https://www.lyft.com
+account_url: https://account.lyft.com/
+regulators: [ftc]
+notes: >-
+  U.S. rideshare. Support is through the Lyft app and the Help Center (help.lyft.com); no rider phone line
+  was found. The Lyft Terms of Service were last updated February 9, 2026. Legal notices go by certified mail.
+
+channels:
+  - id: help-contact-form
+    type: web_form
+    label: Lyft Help Center contact form
+    value: https://help.lyft.com/hc/en-us/all/requests/loginprompt?ticket_form_id=724707
+    purposes: [refund_request, billing_error, unauthorized_charge, poor_service]
+    access: login
+    source: https://help.lyft.com/hc/en-us
+    last_verified: 2026-10-12
+  - id: lost-and-found
+    type: web_form
+    label: Lost & found for riders (report an item, contact the driver)
+    value: https://help.lyft.com/hc/en-us/articles/115012922987-Lost-found-for-passengers
+    purposes: [poor_service]
+    notes: Start from the Lyft app or the link in the emailed ride receipt. If you lost your phone or cannot reach the driver, use the form linked on this page.
+    source: https://help.lyft.com/hc/en-us/articles/115012922987-Lost-found-for-passengers
+    last_verified: 2026-10-12
+  - id: safety-report-form
+    type: web_form
+    label: Report a safety concern (Safety Team, 24/7)
+    value: https://help.lyft.com/hc/en-us/all/requests/new?ticket_form_id=724707&selectedOptions=%5B0%2C1%5D&isSubmittingTicket=false
+    hours: 24/7
+    purposes: [poor_service]
+    notes: In an emergency, call 911 first.
+    source: https://help.lyft.com/hc/en-us/articles/115013077888-Report-a-safety-incident-or-citation
+    last_verified: 2026-10-12
+  - id: lyft-pink-manage
+    type: app
+    label: Cancel Lyft Pink (Menu > Lyft Pink > Manage Plan)
+    value: Lyft app > Menu > Lyft Pink > Manage Plan > cancel
+    purposes: [cancel_service]
+    access: login
+    source: https://help.lyft.com/hc/en-us/articles/360037342653-Lyft-Pink
+    last_verified: 2026-10-12
+  - id: legal-notice-mail
+    type: mail
+    label: Legal notices to Lyft (certified mail, return receipt requested)
+    value: "Lyft, Inc., 548 Market Street, P.O. Box 68514, San Francisco, CA 94104"
+    notes: The Terms say a written notice of dispute to Lyft should be sent by mail as described in Section 22, and allow 60 days to negotiate.
+    source: https://www.lyft.com/terms
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: help-contact-form}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: legal-notice-mail, note: "Written notice of the dispute, then 60 days to negotiate before arbitration."}
+
+playbooks:
+  - issue: billing_error
+    summary: Check the ride receipt, then contact Lyft through the Help Center. Damage fees come with photos and can be answered by replying to the follow-up email.
+    evidence: [ride receipt, the charge on your statement, Lyft's damage fee email with photos if any]
+    steps:
+      - do: Check your ride receipts and payment history to match the charge to a ride.
+      - do: Contact Lyft through the Help Center about the wrong charge.
+        channel: help-contact-form
+      - do: For a damage fee you dispute, reply directly to Lyft's follow-up email with the information Lyft missed.
+      - do: If Lyft does not fix it, dispute the charge with your card issuer.
+    facts:
+      - kind: fee
+        claim: Lyft damage fees are $25 for minor damage (small spills, dirt, pet hair), $75 for moderate damage, and $150 for significant damage needing specialized cleaning or repairs.
+        issues: [billing_error]
+        source: https://help.lyft.com/hc/en-us/articles/115012927367-I-was-charged-a-damage-fee
+        last_verified: 2026-10-12
+
+  - issue: cancel_service
+    summary: Cancel Lyft Pink in the app under Lyft Pink > Manage Plan.
+    evidence: [screenshot of the cancellation confirmation, date of cancellation, any later charge]
+    steps:
+      - do: Open the app menu, tap Lyft Pink, tap Manage Plan, and choose cancel.
+        channel: lyft-pink-manage
+      - do: If you are charged after cancelling, contact Lyft through the Help Center.
+        channel: help-contact-form
+      - do: If Lyft does not refund a charge made after cancellation, dispute it with your card issuer.
+    facts:
+      - kind: fee
+        claim: Lyft Pink is $9.99/month or $99/year; Lyft Pink All Access is $199/year.
+        issues: [cancel_service]
+        source: https://help.lyft.com/hc/en-us/articles/360037342653-Lyft-Pink
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: To get a lost item back, riders can call or message the driver for 24 hours after the ride ends, through masked phone numbers in the app.
+    source: https://help.lyft.com/hc/en-us/articles/115012922987-Lost-found-for-passengers
+    last_verified: 2026-10-12
+  - kind: fee
+    claim: Lyft charges a $20 return fee in the app once the driver says the item was returned. If a driver asks for cash for the return, contact Lyft support.
+    source: https://help.lyft.com/hc/en-us/articles/115012922987-Lost-found-for-passengers
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The Help Center contact form and fare disputes need the rider to sign in to the Lyft account.

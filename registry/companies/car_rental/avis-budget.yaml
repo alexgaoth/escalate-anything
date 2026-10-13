@@ -1,0 +1,167 @@
+id: avis-budget
+name: Avis Budget Group (Avis and Budget)
+aliases: [avis, budget, budget rent a car, avis rent a car, avis budget]
+sector: car_rental
+website: https://www.avis.com
+account_url: https://www.avis.com/en/reservation/get-e-receipt
+regulators: [ftc]
+notes: >-
+  Avis and Budget have separate phone lines and customer service portals but the same damage claim administrators
+  (Fleet Response and Viking) and the same insurance-details portal (Axle). Payless and Zipcar channels were not checked
+  and are not included. Avis website Terms of Use last updated December 4, 2023.
+
+channels:
+  - id: avis-customer-service-phone
+    type: phone
+    label: Avis customer service (United States)
+    value: +1-800-352-7900
+    purposes: [billing_error, refund_request, deposit_refund, poor_service]
+    source: https://www.avis.com/en/customer-service
+    last_verified: 2026-10-12
+  - id: avis-customer-service-email
+    type: email
+    label: Avis customer service email
+    value: custserv@avis.com
+    purposes: [billing_error, refund_request, deposit_refund, damage_claim, poor_service]
+    source: https://www.avis.com/en/customer-service/faqs/usa/customer-service
+    last_verified: 2026-10-12
+  - id: avis-portal
+    type: portal
+    label: Avis Customer Service portal (contact customer service or give feedback)
+    value: https://avis.us.abgcustomerservice.com
+    purposes: [billing_error, poor_service]
+    access: login
+    notes: Sign in with an Avis account, email and password, or Amazon login.
+    source: https://www.avis.com/en/customer-service
+    last_verified: 2026-10-12
+  - id: avis-mail
+    type: mail
+    label: Avis Rent A Car System, LLC (customer contact and notice of dispute address)
+    value: Avis Rent A Car System, LLC, 379 Interpace Parkway, Parsippany, NJ 07054
+    purposes: [billing_error, damage_claim]
+    notes: Terms of Use require written notice of a claim 30 days before starting arbitration or small claims.
+    source: https://www.avis.com/en/legal-documents/terms-of-use
+    last_verified: 2026-10-12
+  - id: budget-customer-service-phone
+    type: phone
+    label: Budget customer service (United States)
+    value: +1-800-214-6094
+    hours: 7:30 AM - 7:30 PM CST Mon - Fri; 8:00 AM - 6:30 PM CST Sat - Sun
+    purposes: [billing_error, refund_request, deposit_refund, poor_service]
+    source: https://www.budget.com/en/customer-care/worldwide-telephone-numbers
+    last_verified: 2026-10-12
+  - id: budget-portal
+    type: portal
+    label: Budget Customer Service portal (contact customer service or submit feedback)
+    value: https://budget.us.abgcustomerservice.com
+    purposes: [billing_error, poor_service]
+    access: login
+    source: https://www.budget.com/en/customer-care
+    last_verified: 2026-10-12
+  - id: avis-e-receipt
+    type: portal
+    label: Get an Avis e-Receipt (confirmation or rental agreement number)
+    value: https://www.avis.com/en/reservation/get-e-receipt
+    purposes: [billing_error]
+    access: open
+    source: https://www.avis.com/en/customer-service/faqs/usa/customer-service
+    last_verified: 2026-10-12
+  - id: budget-e-receipt
+    type: portal
+    label: Get a Budget e-Receipt
+    value: https://www.budget.com/en/reservation/get-e-receipt
+    purposes: [billing_error]
+    source: https://www.budget.com/en/customer-care
+    last_verified: 2026-10-12
+  - id: claims-insurance-portal
+    type: portal
+    label: Axle portal for submitting insurance or credit card coverage details on a damage claim (Avis and Budget)
+    value: https://avisclaims.axle.insure
+    purposes: [damage_claim]
+    source: https://www.avis.com/en/customer-service/faqs/usa/claims-accident
+    last_verified: 2026-10-12
+  - id: roadside-phone
+    type: phone
+    label: Avis and Budget 24-hour roadside assistance
+    value: +1-800-354-2847
+    hours: 24 hours
+    source: https://www.avis.com/en/customer-service/faqs/usa/claims-accident
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: avis-customer-service-phone, note: "Budget renters use budget-customer-service-phone."}
+  - {rung: written_complaint, channel: avis-customer-service-email, note: "For damage claims, ask the claim administrator for photos, repair invoices and the fleet utilization log."}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: avis-mail, note: "Website Terms of Use: 30-day written notice, then AAA arbitration or small claims court."}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: damage_claim
+    summary: Avis and Budget damage claims are run by third-party administrators (Fleet Response and Viking); deal with them directly and ask for the evidence.
+    evidence: [rental agreement, your photos at pickup and return, return receipt, claim letter, LDW election, your insurance and card benefit details]
+    steps:
+      - do: Note the administrator and claim number on the claim letter or email; Avis says contact details are on any documentation sent about the claim.
+      - do: Ask the administrator in writing for photos, the repair invoice or estimate, and the loss-of-use calculation with the fleet utilization log.
+      - do: If you bought the Loss Damage Waiver, say so; Avis says you will not be charged for the damage when LDW was accepted and there is no breach of contract.
+      - do: Send your insurance or credit card coverage details through the Axle portal. For card coverage, file with the card benefit administrator first.
+        channel: claims-insurance-portal
+      - do: If the claim is not supported, dispute it in writing to Avis and keep proof.
+        channel: avis-mail
+    facts:
+      - kind: process
+        claim: Fleet Response and Viking Services are Avis Budget Group's third-party administrators and handle vehicle damage claims; renters should work with them directly.
+        issues: [damage_claim]
+        source: https://www.avis.com/en/customer-service/faqs/usa/claims-accident
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Avis says you can typically expect to hear from Avis in a 30-60 day time-frame from the date of the incident; final costs are known only after repair or salvage.
+        issues: [damage_claim]
+        source: https://www.avis.com/en/customer-service/faqs/usa/claims-accident
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Avis and Budget say they are self-insured, seek compensation for loss of use when the car cannot be rented, and pass the cost of processing claims to the responsible parties.
+        issues: [damage_claim]
+        source: https://www.budget.com/en/help/usa-faqs/rental-car-accident
+        last_verified: 2026-10-12
+  - issue: billing_error
+    summary: Get the e-Receipt, then dispute the charge with customer service by email or phone; ask for photos for any cleaning or smoking fee.
+    evidence: [e-Receipt, rental agreement, fuel gauge and odometer photos at return, toll records, the fee notice]
+    steps:
+      - do: Download the e-Receipt (available up to 7 days after return, kept online for six months).
+        channel: avis-e-receipt
+      - do: Call customer service or email custserv@avis.com with the receipt and the correct amount.
+        channel: avis-customer-service-email
+      - do: For a smoking or cleaning fee, ask for the inspection photos and the written notice of the fee.
+      - do: If not corrected, dispute the charge with your card issuer.
+    facts:
+      - kind: fee
+        claim: Avis says a cleaning fee of up to $450 may be applied if the non-smoking policy is violated; a manager reviews the return agent's photos and you are notified in writing.
+        issues: [billing_error]
+        source: https://www.avis.com/en/help/usa-faqs/smoking-policy
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Avis rental receipts are available up to 7 days after vehicle return and kept online for up to six months from return.
+        issues: [billing_error]
+        source: https://www.avis.com/en/customer-service/faqs/usa/customer-service
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: Renters are responsible for tolls, parking and moving traffic violations; an Avis designated agent may process them and add a reasonable administrative fee.
+        issues: [billing_error]
+        source: https://www.avis.com/en/customer-service/faqs/usa/customer-service
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Avis website Terms of Use require written notice of a claim 30 days before a proceeding, then AAA arbitration under commercial rules with a class action waiver; small claims court is allowed.
+    source: https://www.avis.com/en/legal-documents/terms-of-use
+    last_verified: 2026-10-12
+  - kind: contact
+    claim: Avis says it never asks for gift card payments for tolls or fees; report such requests as fraud to the FTC.
+    issues: [billing_error]
+    source: https://www.avis.com/en/customer-service/faqs/usa/customer-service
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The Avis and Budget customer service portals require sign-in.
+  - Damage claims are handled by third-party administrators (Fleet Response, Viking), not by Avis customer service.

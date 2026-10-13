@@ -1,0 +1,91 @@
+id: ihg
+name: IHG Hotels & Resorts
+aliases: [intercontinental hotels group, ihg one rewards, holiday inn, holiday inn express, crowne plaza, intercontinental hotels, kimpton]
+sector: lodging
+website: https://www.ihg.com
+account_url: https://www.ihg.com/content/us/en/customer-care/main
+regulators: [ftc]
+notes: >-
+  IHG asks guests to raise service and billing problems with the hotel's
+  management first, then with IHG Customer Care through its online forms. IHG added Ruby Hotels in 2025. ihg.com blocks
+  automated fetches; values here come from IHG pages as shown in official-domain search results.
+
+channels:
+  - id: customer-care-phone
+    type: phone
+    label: IHG One Rewards Customer Care (United States and Canada)
+    value: +1-888-211-9874
+    purposes: [billing_error, refund_request, reservation_problem, poor_service, account_access]
+    notes: Same page lists fax 1-800-725-8232 and TDD 1-800-334-5194.
+    source: https://www.ihg.com/content/gb/en/customer-care/contact-us
+    last_verified: 2026-10-12
+  - id: reservations-phone
+    type: phone
+    label: IHG reservations (United States and Canada)
+    value: +1-877-424-2449
+    purposes: [reservation_problem, refund_request]
+    source: https://www.ihg.com/content/us/en/customer-care/contact-us
+    last_verified: 2026-10-12
+  - id: tdd-phone
+    type: phone
+    label: IHG Customer Care TDD (United States and Canada)
+    value: +1-800-334-5194
+    purposes: [accessibility]
+    source: https://www.ihg.com/content/gb/en/customer-care/contact-us
+    last_verified: 2026-10-12
+  - id: customer-care-forms
+    type: portal
+    label: IHG Customer Care (online Issues Form, General Comment or Compliment form, Feedback Form)
+    value: https://www.ihg.com/content/us/en/customer-care/main
+    purposes: [billing_error, poor_service, reservation_problem, refund_request]
+    notes: >-
+      IHG FAQ says to use the online Issues Form for service problems the hotel did not resolve, billing disputes and
+      past-reservation errors; the General Comment or Compliment form goes to Guest Relations, which reviews it with the hotel.
+    source: https://www.ihg.com/content/us/en/customer-care/frequently-asked-questions
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-care-phone, note: "Hotel management first, while you are there."}
+  - {rung: written_complaint, channel: customer-care-forms}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: billing_error
+    summary: Ask the hotel, then file IHG's online Issues Form.
+    evidence: [folio, confirmation number, card statement]
+    steps:
+      - do: Contact the hotel directly by phone about the charge.
+      - do: If the hotel does not fix it, complete IHG's online Issues Form with the folio and confirmation number.
+        channel: customer-care-forms
+      - do: Dispute the charge with your card issuer if IHG does not correct it.
+  - issue: refund_request
+    summary: Cancel inside the hotel's window; prepaid "Book Early and Save" rates are final.
+    evidence: [confirmation number, rate details, cancellation confirmation]
+    steps:
+      - do: Check the cancellation policy for the rate in the reservation; IHG says it varies by rate.
+      - do: Cancel online or in the app. If cancellation is not available online, call IHG Customer Care.
+        channel: customer-care-phone
+      - do: If a refund you are owed is not paid, file the online Issues Form, then dispute the charge with your card issuer.
+        channel: customer-care-forms
+    facts:
+      - kind: policy
+        claim: Reward Night reservations cancelled before the hotel's cancellation time get the points re-deposited; after that time the points are still returned but the hotel charges the card on file its cancellation fee.
+        issues: [refund_request]
+        source: https://www.ihg.com/content/us/en/customer-care/member-tc
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: For Points & Cash bookings, the cash portion is nonrefundable when a night is cancelled, but the points are returned.
+        issues: [refund_request]
+        source: https://www.ihg.com/content/us/en/customer-care/faq/rewards
+        last_verified: 2026-10-12
+  - issue: reservation_problem
+    summary: Fix it online if you can; past or uncorrectable reservations go on the Issues Form.
+    evidence: [confirmation number, what was booked, what was provided, receipts for extra costs]
+    steps:
+      - do: Try to correct the reservation on the Manage Your Stay page.
+      - do: If it cannot be corrected online, or the stay is over, complete the online Issues Form.
+        channel: customer-care-forms
+
+known_blockers:
+  - ihg.com returns HTTP 403 to automated fetches; the exact Issues Form URL could not be confirmed.

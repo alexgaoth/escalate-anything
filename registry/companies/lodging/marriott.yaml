@@ -1,0 +1,155 @@
+id: marriott
+name: Marriott International
+aliases: [marriott, marriott bonvoy, marriott hotels, ritz-carlton, sheraton, westin, courtyard by marriott]
+sector: lodging
+website: https://www.marriott.com
+account_url: https://www.marriott.com/reservation/lookupReservation.mi
+regulators: [ftc]
+notes: >-
+  Marriott asks guests to raise problems with the
+  front desk during the stay; after the stay, the Contact Us form routes concerns by topic and hotel. Homes & Villas by
+  Marriott Bonvoy rentals are handled by the property management company named on the confirmation, under separate terms.
+
+channels:
+  - id: customer-care-phone
+    type: phone
+    label: Marriott International Customer Care (US and Canada)
+    value: +1-800-535-4028
+    hours: 24/7
+    purposes: [billing_error, poor_service, refund_request, reservation_problem]
+    notes: Support article says the Customer Care Team is available 24 hours a day, 7 days a week, for members in the US and Canada.
+    source: https://support.marriott.com/s/article/how-to-email-marriott
+    last_verified: 2026-10-12
+  - id: bonvoy-phone
+    type: phone
+    label: Marriott Bonvoy loyalty customer service (US and Canada)
+    value: +1-800-627-7468
+    purposes: [account_access]
+    source: https://www.marriott.com/help/loyalty-customer-support.mi
+    last_verified: 2026-10-12
+  - id: reservations-phone
+    type: phone
+    label: Marriott hotel reservations (US and Canada)
+    value: +1-888-236-2427
+    purposes: [reservation_problem]
+    notes: Brand-specific reservation lines (Ritz-Carlton, St. Regis, W, JW Marriott and others) are on the same page.
+    source: https://www.marriott.com/help/global-phone-reservation-numbers.mi
+    last_verified: 2026-10-12
+  - id: contact-form
+    type: web_form
+    label: Contact Us form (topic "Compliment/Concerns About a Stay", "Copy of A Hotel Bill")
+    value: https://www.marriott.com/marriott/contact.mi
+    purposes: [poor_service, billing_error, refund_request, reservation_problem]
+    access: open
+    notes: >-
+      Non-members can use the form; members should sign in first so the form fills in and account topics appear.
+      For a past stay choose "Compliment/Concerns About a Stay", then Concern and a sub-topic, the hotel, and the dates.
+    source: https://support.marriott.com/s/article/how-to-email-marriott
+    last_verified: 2026-10-12
+  - id: guest-services-mail
+    type: mail
+    label: Marriott International guest services mailing address (US and Canada)
+    value: Marriott International, 1818 N. 90th St., Omaha, NE 68114, USA
+    purposes: [poor_service, billing_error, refund_request]
+    notes: Listed under "Write or Fax Us" for the United States and Canada.
+    source: https://www.marriott.com/help/loyalty-customer-support.mi
+    last_verified: 2026-10-12
+  - id: bonvoy-program-email
+    type: email
+    label: Marriott Bonvoy program feedback (associates not located at a hotel)
+    value: Bonvoy.Program@marriott.com
+    purposes: [poor_service]
+    notes: Marriott says this address is for feedback about Marriott associates who are not located within a hotel property. Use the Contact Us form for hotel stays.
+    source: https://support.marriott.com/s/article/how-to-email-marriott
+    last_verified: 2026-10-12
+  - id: help-center
+    type: portal
+    label: Marriott help center
+    value: https://support.marriott.com/s/
+    access: open
+    source: https://www.marriott.com/help/loyalty-customer-support.mi
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-care-phone, note: "Front desk first while you are at the hotel; Marriott recommends this for the fastest help."}
+  - {rung: written_complaint, channel: contact-form}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "Marriott.com Terms of Use require individual AAA arbitration in Bethesda, Maryland, for disputes about the sites."}
+
+playbooks:
+  - issue: refund_request
+    summary: Check the rate's cancellation deadline, cancel before it, then ask Customer Care in writing for any charge you think is wrong.
+    evidence: [confirmation number, Rate Details showing the cancellation deadline, cancellation confirmation, card statement]
+    steps:
+      - do: Open the reservation (My Trips, or Look Up Reservation with confirmation number, last name and check-in date) and read the deadline in Rate Details. The deadline is in the hotel's local time.
+      - do: If you booked through a third-party site, cancel and ask for the refund through that site.
+      - do: If you were charged after cancelling on time, or a waiver was promised, call Customer Care and get a case reference.
+        channel: customer-care-phone
+      - do: Put the request in writing through the Contact Us form and attach the cancellation confirmation.
+        channel: contact-form
+      - do: If Marriott does not refund money it owes, dispute the charge with your card issuer.
+    facts:
+      - kind: policy
+        claim: Marriott says you must cancel before the deadline in your Rate Details, which is based on the hotel's local time, to avoid penalties.
+        issues: [refund_request]
+        source: https://support.marriott.com/s/article/find-marriott-cancellation-policy
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: For rates that need a deposit or prepayment, Marriott charges it to the card given at booking; for rates that allow cancellation, you may be charged if you do not cancel in time.
+        issues: [refund_request]
+        source: https://www.marriott.com/reservation/creditCardInfoText.mi
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Changing dates or room type after booking can give the reservation a new cancellation policy or a different room rate.
+        issues: [refund_request, reservation_problem]
+        source: https://support.marriott.com/s/article/find-marriott-cancellation-policy
+        last_verified: 2026-10-12
+  - issue: billing_error
+    summary: Get a copy of the folio, then dispute the wrong charge with the hotel and Marriott Customer Care.
+    evidence: [hotel folio, confirmation number, card statement, rate quoted at booking]
+    steps:
+      - do: Download the folio from My Trips, or ask for a copy of the hotel bill through the Contact Us form (topic "Copy of A Hotel Bill").
+        channel: contact-form
+      - do: Ask the hotel to correct the charge. If it does not, call Customer Care with the folio and the correct amount.
+        channel: customer-care-phone
+      - do: Send the dispute in writing through the Contact Us form and keep the reference.
+        channel: contact-form
+      - do: If the charge is on a Marriott Bonvoy co-branded credit card, the card issuer handles account billing; dispute it with the issuer.
+  - issue: deposit_refund
+    summary: The hotel releases the incidental hold at checkout; the bank controls when the money shows again.
+    evidence: [final folio showing no incidental charges, checkout date, card statement showing the hold]
+    steps:
+      - do: Check the final folio for posted incidental charges.
+      - do: Wait the bank's release time. If the hold is still there after that, ask the front desk to confirm it released the authorization, then contact your card issuer.
+      - do: If the hotel turned the hold into a charge you dispute, use the billing_error steps.
+        channel: customer-care-phone
+    facts:
+      - kind: deadline
+        claim: Marriott says the hotel releases the incidental hold at checkout; most banks release holds within 3 to 7 business days, and holds on cards from international banks can take up to 30 days.
+        issues: [deposit_refund]
+        source: https://support.marriott.com/s/article/what-is-incidental-hold
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Reservations made through a third-party site may need to be cancelled through that site.
+    issues: [refund_request]
+    source: https://support.marriott.com/s/article/find-marriott-cancellation-policy
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Marriott.com Terms of Use send disputes about the sites to binding individual arbitration before the American Arbitration Association in Bethesda, Maryland, with a class action waiver, and require claims to be started within one (1) year.
+    source: https://www.marriott.com/about/terms-of-use-modal.mi
+    last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: If you are still at the hotel, speak to the Front Desk first; Marriott says this gives the most immediate assistance.
+    issues: [poor_service, reservation_problem]
+    source: https://support.marriott.com/s/article/how-to-email-marriott
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Account-related Contact Us topics appear only after sign-in to Marriott Bonvoy.
+  - support.marriott.com articles load with JavaScript and may not render for automated fetches.
+  - Homes & Villas by Marriott Bonvoy stays are serviced by the property management company on the confirmation, not by hotel customer care.

@@ -1,0 +1,112 @@
+id: hyatt
+name: Hyatt Hotels Corporation
+aliases: [hyatt, hyatt hotels, world of hyatt, hyatt regency, grand hyatt, hyatt place, andaz]
+sector: lodging
+website: https://www.hyatt.com
+account_url: https://www.hyatt.com/help/faqs/canceling-changing-an-online-reservation
+regulators: [ftc]
+notes: >-
+  Hyatt completed its acquisition of Playa Hotels & Resorts on June 17, 2025, adding all-inclusive resorts in Mexico,
+  the Dominican Republic and Jamaica; it later sold the Playa real estate and kept management agreements. Cancellation
+  and deposit policies are set per hotel and rate. hyatt.com blocks most automated fetches; values here come from Hyatt
+  pages as shown in official-domain search results, except where a fetched page is cited.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Hyatt Customer Service / Guest Care Support
+    value: +1-800-323-7249
+    purposes: [poor_service, billing_error, refund_request, reservation_problem]
+    notes: Hyatt's help FAQ also lists +1-402-592-6465 for this line.
+    source: https://newsroom.hyatt.com/contacts
+    last_verified: 2026-10-12
+  - id: reservations-phone
+    type: phone
+    label: Hyatt reservations (United States, Canada and the Caribbean)
+    value: +1-800-233-1234
+    purposes: [reservation_problem, refund_request]
+    notes: Hyatt says its regional numbers only work from the country or region of origin.
+    source: https://www.hyatt.com/help/en-US/contact/contact-us
+    last_verified: 2026-10-12
+  - id: world-of-hyatt-phone
+    type: phone
+    label: World of Hyatt customer service (US and Canada, account and points)
+    value: +1-800-544-9288
+    purposes: [account_access]
+    notes: Hyatt's World of Hyatt contact page also lists +1-888-344-9288 for the United States and Canada.
+    source: https://help.hyatt.com/en/faqs/world-of-hyatt/accessing-your-account.html
+    last_verified: 2026-10-12
+  - id: consumer-affairs-email
+    type: email
+    label: Hyatt customer service email
+    value: consumeraffairs@hyatt.com
+    purposes: [poor_service, billing_error, refund_request]
+    source: https://newsroom.hyatt.com/contacts
+    last_verified: 2026-10-12
+  - id: stay-feedback-form
+    type: web_form
+    label: Share Feedback on a Recent Stay
+    value: https://www.hyatt.com/contact-hyatt/share-feedback-on-a-recent-stay
+    purposes: [poor_service, billing_error, reservation_problem]
+    source: https://www.hyatt.com/contact-hyatt/share-feedback-on-a-recent-stay
+    last_verified: 2026-10-12
+  - id: cancel-change-page
+    type: portal
+    label: Cancel or change an online reservation
+    value: https://www.hyatt.com/help/faqs/canceling-changing-an-online-reservation
+    purposes: [refund_request]
+    source: https://www.hyatt.com/help/faqs/canceling-changing-an-online-reservation
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone, note: "Front desk first while you are at the hotel."}
+  - {rung: written_complaint, channel: stay-feedback-form}
+  - {rung: written_complaint, channel: consumer-affairs-email}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: refund_request
+    summary: Find the hotel's cancellation and deposit policy in the confirmation, cancel online, then ask Guest Care in writing.
+    evidence: [confirmation number, cancellation and deposit policy from the confirmation email, cancellation number, card statement]
+    steps:
+      - do: Read the cancellation and deposit policy in the confirmation email; Hyatt says it is set per hotel and rate and given at booking.
+      - do: Cancel on hyatt.com with your name and confirmation number, or with the card used to book. Third-party bookings must be cancelled with the third party.
+        channel: cancel-change-page
+      - do: For a California Hyatt booked through Hyatt channels, cancel within 24 hours of booking for a full refund when check-in is at least 72 hours away.
+      - do: If a refund is not paid, call Guest Care, then send the request with the cancellation number by email or the feedback form.
+        channel: customer-service-phone
+    facts:
+      - kind: policy
+        claim: Hyatt says cancellation and deposit policies vary by hotel and confirmed rate, and the policy for a reservation is given when it is made.
+        issues: [refund_request]
+        source: https://www.hyatt.com/help/faqs/payment-and-cancellation
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If a hotel charges a deposit, Hyatt says the card is charged as soon as the hotel can process it; the deposit policy shows during the online booking.
+        issues: [refund_request, deposit_refund]
+        source: https://www.hyatt.com/help/faqs/payment-and-cancellation
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: For stays at Hyatt hotels in California booked through Hyatt channels, any reservation, including prepaid and nonrefundable ones, can be cancelled with Hyatt without penalty and with a full refund up to twenty-four (24) hours after booking, unless it was made less than seventy-two (72) hours before check-in.
+        issues: [refund_request]
+        source: https://www.hyatt.com/help/terms/hyatt
+        last_verified: 2026-10-12
+  - issue: billing_error
+    summary: Ask the hotel, then Hyatt Guest Care in writing with the folio.
+    evidence: [hotel bill, confirmation number, card statement]
+    steps:
+      - do: Ask the hotel to correct the bill. Hyatt's help center has a "Retrieve Hotel Bill" option for a copy.
+      - do: If the hotel does not correct it, call Guest Care and then send the folio and the correct amount by email.
+        channel: consumer-affairs-email
+      - do: Dispute the charge with your card issuer if Hyatt does not correct it.
+
+facts:
+  - kind: fee
+    claim: Hyatt hotel policy pages state destination or resort fees per room per night, for example "A daily destination fee of $25.00 (subject to change) is applied to each room of your stay" at Hyatt Regency New Orleans.
+    source: https://www.hyatt.com/hyatt-regency/en-US/msyrn-hyatt-regency-new-orleans/policies
+    last_verified: 2026-10-12
+
+known_blockers:
+  - hyatt.com returns HTTP 403 to automated fetches; an agent may need the person to open forms.
+  - Regional phone numbers only work from the country or region of origin.

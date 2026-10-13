@@ -1,0 +1,123 @@
+id: doordash
+name: DoorDash
+aliases: [doordash, door dash, dashpass, caviar, doordash inc]
+sector: gig_delivery
+website: https://www.doordash.com
+regulators: [ftc]
+notes: >-
+  Food and convenience delivery. DoorDash also runs Caviar; the DoorDash help center covers Caviar orders.
+  U.S. Consumer Terms effective August 13, 2026 (DoorDash, Inc.). The Terms require an informal dispute
+  resolution conference before arbitration, and allow an arbitration opt-out by email within 30 days of first
+  becoming subject to the agreement. doordash.com help article pages returned HTTP 403 to automated
+  requests; help.doordash.com pages could be read.
+
+channels:
+  - id: support-phone
+    type: phone
+    label: DoorDash customer support
+    value: +1-855-431-0459
+    hours: 24/7
+    purposes: [refund_request, billing_error, unauthorized_charge, cancel_service, poor_service, lost_package, damaged_item]
+    source: https://help.doordash.com/consumers/s/?language=en_US
+    last_verified: 2026-10-12
+  - id: in-app-chat
+    type: chat
+    label: Chat with DoorDash support in the app
+    value: https://doordash.com/orders/help?chat=true
+    hours: 24/7
+    purposes: [refund_request, billing_error, unauthorized_charge, poor_service, lost_package, damaged_item]
+    access: login
+    source: https://help.doordash.com/consumers/s/?language=en_US
+    last_verified: 2026-10-12
+  - id: order-help
+    type: portal
+    label: Order help (automated self-help for order issues)
+    value: https://www.doordash.com/orders/help/
+    purposes: [refund_request, lost_package, damaged_item, poor_service]
+    access: login
+    notes: "In the app: Orders > select the order > Help > Order Issues > Missing or incorrect items."
+    source: https://help.doordash.com/consumers/s/article/My-order-was-missing-an-item-incorrect-order?language=en_US
+    last_verified: 2026-10-12
+  - id: dashpass-manage
+    type: app
+    label: Cancel DashPass (account > Manage DashPass > Cancel Membership)
+    value: DoorDash app or doordash.com > account icon > Manage DashPass > Cancel Membership
+    purposes: [cancel_service]
+    access: login
+    source: https://help.doordash.com/consumers/s/article/How-do-I-cancel-my-DashPass-subscription?language=en_US
+    last_verified: 2026-10-12
+  - id: informal-resolution-email
+    type: email
+    label: Notice of dispute (informal dispute resolution before arbitration)
+    value: Informal.Resolution@doordash.com
+    notes: Include your name, the phone number and email on your account, and a description of the claim.
+    source: https://help.doordash.com/legal/document?type=cx-terms-and-conditions&region=US&locale=en-US
+    last_verified: 2026-10-12
+  - id: arbitration-opt-out-email
+    type: email
+    label: Arbitration agreement opt-out
+    value: opt-out@doordash.com
+    notes: Within 30 days after first becoming subject to the Arbitration Agreement. Include name, address, DoorDash username, account email and a clear statement that you want to opt out.
+    source: https://help.doordash.com/legal/document?type=cx-terms-and-conditions&region=US&locale=en-US
+    last_verified: 2026-10-12
+  - id: legal-mail
+    type: mail
+    label: DoorDash, Inc. (General Counsel, legal notices)
+    value: "DoorDash, Inc., Attn: General Counsel, 303 2nd Street, Suite 800, San Francisco, CA 94107"
+    source: https://help.doordash.com/legal/document?type=cx-terms-and-conditions&region=US&locale=en-US
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: order-help}
+  - {rung: frontline, channel: support-phone}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: informal-resolution-email, note: "Informal conference within 60 days of the notice is required before arbitration."}
+
+playbooks:
+  - issue: refund_request
+    summary: Report missing or incorrect items from the order's Help screen; DoorDash offers a credit, refund or redelivery.
+    evidence: [order number, photos of the wrong or missing items, receipt]
+    steps:
+      - do: "In the app: Orders > select the order > Help > Order Issues > Missing or incorrect items, then follow the prompts. On the website: menu > Orders > select the order > Help."
+        channel: order-help
+      - do: If self-help does not resolve it, chat with support or call 24/7.
+        channel: support-phone
+      - do: If DoorDash does not refund an order you did not receive, dispute the charge with your card issuer.
+    facts:
+      - kind: process
+        claim: DoorDash self-help for missing or incorrect items may offer a credit, refund or redelivery, depending on the circumstances.
+        issues: [refund_request, lost_package, damaged_item]
+        source: https://help.doordash.com/consumers/s/article/My-order-was-missing-an-item-incorrect-order?language=en_US
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Consumer Terms say payments for completed, delivered or merchant-confirmed orders are final and non-refundable, and DoorDash grants refunds or credits at its discretion.
+        issues: [refund_request]
+        source: https://help.doordash.com/legal/document?type=cx-terms-and-conditions&region=US&locale=en-US
+        last_verified: 2026-10-12
+
+  - issue: cancel_service
+    summary: Cancel DashPass under Manage DashPass at least 24 hours before the next payment.
+    evidence: [cancellation confirmation email, date of cancellation, any later charge]
+    steps:
+      - do: Open the DoorDash app or doordash.com, tap the account icon, go to Manage DashPass, tap Cancel Membership, choose a reason and confirm Cancel DashPass. Keep the confirmation email.
+        channel: dashpass-manage
+      - do: If charged after cancelling, chat with support or call.
+        channel: support-phone
+      - do: If DoorDash does not refund a charge made after cancellation, dispute it with your card issuer.
+    facts:
+      - kind: deadline
+        claim: To avoid the next DashPass charge, cancel at least 24 hours before the next scheduled payment. Paid benefits stay valid through the end of the current billing period; benefits in a free period end immediately.
+        issues: [cancel_service]
+        source: https://help.doordash.com/consumers/s/article/How-do-I-cancel-my-DashPass-subscription?language=en_US
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: The informal dispute resolution conference must occur within 60 days after the other party receives the notice, unless both sides agree to extend it.
+    source: https://help.doordash.com/legal/document?type=cx-terms-and-conditions&region=US&locale=en-US
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Order help and chat need the customer signed in to the DoorDash account.
+  - doordash.com help articles block automated requests (HTTP 403); use help.doordash.com pages.

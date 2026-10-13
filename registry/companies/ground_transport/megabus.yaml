@@ -1,0 +1,123 @@
+id: megabus
+name: megabus (US)
+aliases: [megabus.com, megabus us, us megabus]
+sector: ground_transport
+parent: Coach USA
+website: https://us.megabus.com
+account_url: https://us.megabus.com/contact-us
+regulators: [fmcsa]
+notes: >-
+  The terms say "megabus.com" is a trade name, not a legal entity; the contract is with the regional operating carrier
+  (for example Megabus Northeast LLC, 349 First St, Elizabeth, NJ 07206). The us.megabus.com footer shows "© 2026 Coach USA".
+  Ownership changes at Coach USA in 2024-2026 were not confirmed from a fetched page. Terms last updated November 7, 2023.
+
+channels:
+  - id: email
+    type: email
+    label: megabus questions email (answered first by the virtual assistant "Chuck", who can connect a representative)
+    value: questions@us.megabus.com
+    purposes: [refund_request, poor_service, lost_baggage]
+    source: https://us.megabus.com/contact-us
+    last_verified: 2026-10-12
+  - id: web-chat
+    type: chat
+    label: Chat with Chuck (virtual travel assistant)
+    value: https://us.megabus.com/webchat
+    purposes: [refund_request, poor_service, lost_baggage]
+    source: https://us.megabus.com/contact-us
+    last_verified: 2026-10-12
+  - id: booking-assistance-phone
+    type: phone
+    label: Customers with disabilities booking line (1-877-GO2-MEGA)
+    value: +1-877-462-6342
+    purposes: [accessibility]
+    source: https://us.megabus.com/passengers-with-disabilities
+    last_verified: 2026-10-12
+  - id: ada-email
+    type: email
+    label: Disability complaints contact (Coach USA)
+    value: t.daniel@coachusa.com
+    purposes: [accessibility]
+    notes: The page names the person to contact for disability complaints.
+    source: https://us.megabus.com/passengers-with-disabilities
+    last_verified: 2026-10-12
+  - id: ada-phone
+    type: phone
+    label: Disability complaints telephone
+    value: +1-908-372-6195
+    purposes: [accessibility]
+    source: https://us.megabus.com/passengers-with-disabilities
+    last_verified: 2026-10-12
+  - id: ada-mail
+    type: mail
+    label: Disability complaints mailing address
+    value: 349 First Street, Elizabeth, New Jersey 07206
+    purposes: [accessibility]
+    source: https://us.megabus.com/passengers-with-disabilities
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: web-chat}
+  - {rung: written_complaint, channel: email}
+  - {rung: regulator, regulator: fmcsa, note: "Interstate bus carrier."}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "Either party may elect individual AAA arbitration; small claims court remains available."}
+
+playbooks:
+  - issue: refund_request
+    summary: Tickets are non-refundable; refunds apply only when the operating carrier materially fails to provide the service.
+    evidence: [reservation number, scheduled and actual departure times, cause given, receipts]
+    steps:
+      - do: If you need a different trip, trade in the reservation online more than 3 hours before departure and pay the trade-in fee.
+      - do: If the trip was cancelled or badly late for reasons within megabus's control, ask for a refund or alternative travel by email or chat.
+        channel: email
+      - do: If refused, send a written request that cites Section 2E of the terms, then dispute the charge with your card issuer.
+    facts:
+      - kind: policy
+        claim: Reservations may not be refunded or cancelled except where a megabus operating carrier has materially failed to provide the service (Section 2E); carriers are not responsible for delays or cancellations caused by traffic, road conditions or weather.
+        issues: [refund_request]
+        source: https://us.megabus.com/terms
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: "Changes must be made at least 3 hours before departure. Trade-in fees: $3.00 more than 24 hours before departure, $5.00 at 6 to 24 hours, $7.50 at 3 to 6 hours, plus a $3.99 reservation fee ($7 by telephone)."
+        issues: [refund_request]
+        source: https://us.megabus.com/help
+        last_verified: 2026-10-12
+  - issue: accessibility
+    summary: Flag special requirements when booking or call the booking line; send complaints to the named Coach USA contact.
+    evidence: [reservation number, date and route, the assistance requested, what happened]
+    steps:
+      - do: When booking online, answer "yes" to the question about passengers travelling with special requirements, or call 1-877-GO2-MEGA.
+        channel: booking-assistance-phone
+      - do: Send a disability complaint by email, phone or mail to the contact on the Customers with Disabilities page.
+        channel: ada-email
+      - do: Escalate to FMCSA if megabus does not resolve it.
+        regulator: fmcsa
+  - issue: lost_baggage
+    summary: Report lost items to lost and found; claim baggage loss or damage within 60 days.
+    evidence: [reservation number, bag description, contents and values, photos]
+    steps:
+      - do: Report a lost item to the lost and found department through the contact page; megabus says the investigation can take several days.
+        channel: email
+      - do: File a loss or damage claim with megabus within 60 days of discovering it.
+    facts:
+      - kind: deadline
+        claim: Baggage loss or damage claims must be filed with megabus within 60 days of the discovery of the loss or damage.
+        issues: [lost_baggage]
+        source: https://us.megabus.com/terms
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: Operating carriers assume no liability for baggage loss or damage in excess of two hundred and fifty ($250) dollars.
+        issues: [lost_baggage]
+        source: https://us.megabus.com/terms
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Either party may elect individual AAA arbitration in the customer's county; class arbitration is excluded, megabus pays the arbitration fees for claims up to $75,000 unless frivolous, and small claims court remains available.
+    source: https://us.megabus.com/terms
+    last_verified: 2026-10-12
+
+known_blockers:
+  - megabus publishes no general customer service phone number; first contact is a virtual assistant by email or chat.

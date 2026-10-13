@@ -1,0 +1,171 @@
+id: enterprise
+name: Enterprise Mobility (Enterprise Rent-A-Car, National, Alamo)
+aliases: [enterprise rent-a-car, enterprise rent a car, enterprise holdings, national car rental, alamo, alamo rent a car]
+sector: car_rental
+website: https://www.enterprise.com
+account_url: https://www.enterprise.com/en/reserve/receipts.html
+regulators: [ftc]
+notes: >-
+  Enterprise Mobility runs three rental brands with separate phone lines: Enterprise Rent-A-Car, National and Alamo.
+  Post-rental balances, tolls and citations, and damage recovery payments for Enterprise US rentals go through the
+  Consumer Collections Support pages (enterprise.com/en/payments). Enterprise does not publish a Damage Recovery Unit
+  phone number or address on the pages checked.
+
+channels:
+  - id: enterprise-customer-service-phone
+    type: phone
+    label: Enterprise Rent-A-Car customer service
+    value: +1-855-266-9565
+    purposes: [billing_error, refund_request, deposit_refund, poor_service]
+    source: https://www.enterprise.com/en/help/contact.html
+    last_verified: 2026-10-12
+  - id: enterprise-chat
+    type: chat
+    label: Enterprise chat
+    value: https://www.enterprise.com/en/help/contact.html
+    hours: Monday-Friday 8:00 AM to 5:00 PM Central; closed weekends and holidays
+    purposes: [billing_error, refund_request]
+    source: https://www.enterprise.com/en/help/contact.html
+    last_verified: 2026-10-12
+  - id: enterprise-disabilities-phone
+    type: phone
+    label: Enterprise customers with disabilities
+    value: +1-866-225-4284
+    source: https://www.enterprise.com/en/help/contact.html
+    last_verified: 2026-10-12
+  - id: enterprise-roadside-phone
+    type: phone
+    label: Enterprise Roadside Assistance (also takes accident reports after police are called)
+    value: +1-800-307-6666
+    hours: 24 hours a day
+    purposes: [damage_claim]
+    source: https://www.enterprise.com/en/car-rental-faqs/us-general/accident-in-rental-car.html
+    last_verified: 2026-10-12
+  - id: consumer-collections
+    type: portal
+    label: Enterprise Consumer Collections Support (rental balances, citations or tolls, damage recovery payments)
+    value: https://www.enterprise.com/en/payments.html
+    purposes: [damage_claim, billing_error]
+    access: open
+    source: https://www.enterprise.com/en/payments.html
+    last_verified: 2026-10-12
+  - id: collections-request-form
+    type: web_form
+    label: Consumer Collections "Submit a Request" form (proof of payment, toll and citation disputes, other collections questions)
+    value: https://www.enterprise.com/en/payments/submit-a-request.html
+    purposes: [billing_error, damage_claim]
+    access: captcha
+    notes: Optional fields for rental agreement number and citation number; uploads up to 7MB.
+    source: https://www.enterprise.com/en/payments/submit-a-request.html
+    last_verified: 2026-10-12
+  - id: citations-email
+    type: email
+    label: Enterprise citations (proof that a violation was already paid)
+    value: citations2@em.com
+    purposes: [billing_error]
+    source: https://www.enterprise.com/en/payments/general-faqs.html
+    last_verified: 2026-10-12
+  - id: national-customer-service-phone
+    type: phone
+    label: National Car Rental customer service (United States)
+    value: +1-844-393-9989
+    purposes: [billing_error, refund_request, deposit_refund, poor_service]
+    notes: National chat Monday-Friday 7:00 AM to 6:00 PM Central. Emerald Club Member Services 1-800-962-7070.
+    source: https://www.nationalcar.com/en/support/contact-us.html
+    last_verified: 2026-10-12
+  - id: alamo-customer-service-phone
+    type: phone
+    label: Alamo customer service
+    value: +1-844-357-5138
+    hours: 7am-7pm CDT
+    purposes: [billing_error, refund_request, deposit_refund, poor_service]
+    source: https://www.alamo.com/en/customer-support.html
+    last_verified: 2026-10-12
+  - id: receipts
+    type: portal
+    label: Get an Enterprise receipt
+    value: https://www.enterprise.com/en/reserve/receipts.html
+    purposes: [billing_error]
+    source: https://www.enterprise.com/en/help.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: enterprise-customer-service-phone, note: "National and Alamo renters use their brand's customer service line."}
+  - {rung: written_complaint, channel: collections-request-form, note: "For damage claims, ask for photos, repair invoices and the fleet utilization log."}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: damage_claim
+    summary: Damage recovery bills for Enterprise US rentals are paid or questioned through Consumer Collections Support; ask for the evidence in writing before paying.
+    evidence: [rental agreement, your photos at pickup and return, damage claim letter, Damage Waiver election, insurance and card benefit details]
+    steps:
+      - do: After an accident, call 911 or local police, then Roadside Assistance, which files the damage report.
+        channel: enterprise-roadside-phone
+      - do: When a damage recovery bill arrives, send a written request through the Submit a Request form with the rental agreement number, asking for photos, the repair invoice, and how loss of use and fees were calculated.
+        channel: collections-request-form
+      - do: Give the claim to your auto insurer or credit card benefit administrator if you declined the Damage Waiver.
+      - do: If Enterprise charges your card without supporting evidence, dispute the charge with your card issuer.
+    facts:
+      - kind: policy
+        claim: For US rentals, minor damage such as scratches, dents or a chipped windshield is covered by the optional Damage Waiver; without it you may have to pay out of pocket for repairs.
+        issues: [damage_claim]
+        source: https://www.enterprise.com/en/car-rental-faqs/us-general/car-rental-scratch-policy.html
+        last_verified: 2026-10-12
+  - issue: billing_error
+    summary: Fuel, toll and citation charges each have a set path; submit proof through the collections form or citations email.
+    evidence: [receipt, rental agreement, fuel gauge photo at return, toll or citation notice, proof of payment to the agency]
+    steps:
+      - do: Get the receipt online and compare it with the rental agreement.
+        channel: receipts
+      - do: For a toll or violation you already paid, email proof to citations or submit the Proof of Payment form; Enterprise says it responds within two business days.
+        channel: citations-email
+      - do: For other wrong charges, call customer service, then put it in writing through the Submit a Request form.
+        channel: enterprise-customer-service-phone
+      - do: If not corrected, dispute the charge with your card issuer.
+    facts:
+      - kind: fee
+        claim: If you return the car with less fuel than at pickup, Enterprise charges the local Enterprise rate, which it says is typically above the local pump price; prepaid fuel is sold only as a full tank and is not refundable.
+        issues: [billing_error]
+        source: https://www.enterprise.com/en/car-rental-faqs/us-general/fueling-rental-car.html
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: Enterprise's standard administrative fee for citations and tolls still applies when local authorities bill you directly; notices typically arrive one to four weeks after the rental.
+        issues: [billing_error]
+        source: https://www.enterprise.com/en/payments/general-faqs.html
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Accepted proof for a toll or citation appeal includes proof of payment to the issuing agency, matching bank or card statements, a cashed check, an agency receipt, proof of a clerical error, or proof of whereabouts.
+        issues: [billing_error]
+        source: https://www.enterprise.com/en/payments/general-faqs.html
+        last_verified: 2026-10-12
+  - issue: deposit_refund
+    summary: Credit card holds are released at return; debit card deposits are refunded to the bank account in about 5 to 10 business days.
+    evidence: [rental agreement, return receipt, bank statement showing the deposit]
+    steps:
+      - do: Check the final receipt for added charges.
+      - do: If a debit card deposit has not come back after 10 business days, call the renting branch, then customer service.
+        channel: enterprise-customer-service-phone
+      - do: If the deposit is still not returned, dispute it with your bank or card issuer.
+    facts:
+      - kind: deadline
+        claim: For credit cards Enterprise says it immediately releases the authorization and charges only the rental amount; for debit cards the deposit is refunded to the account, typically in approximately 5 to 10 business days, and Enterprise says to call the renting branch if it has not appeared after 10 business days.
+        issues: [deposit_refund]
+        source: https://www.enterprise.com/en/car-rental-faqs/us-deposits-and-payments/car-rental-deposit-refunds.html
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: For cash, check or money order payments, refunds are mailed by check within 20 business days after Enterprise confirms there are no additional charges.
+        issues: [deposit_refund]
+        source: https://www.enterprise.com/en/car-rental-faqs/us-deposits-and-payments/car-rental-deposit-refunds.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Enterprise says the deposit amount varies by region, vehicle type and other factors, and to ask the renting location for the exact amount.
+        issues: [deposit_refund]
+        source: https://www.enterprise.com/en/car-rental-faqs/us-deposits-and-payments/how-much-is-a-rental-car-deposit.html
+        last_verified: 2026-10-12
+
+known_blockers:
+  - The Submit a Request form has a reCAPTCHA.
+  - Chat is open only Monday-Friday business hours (Central time).
+  - No Damage Recovery Unit phone, email or address is published on the pages checked.
