@@ -1,0 +1,225 @@
+id: charter-spectrum
+name: Spectrum
+aliases: [charter, charter communications, spectrum internet, spectrum mobile]
+sector: internet_tv
+also_sectors: [wireless]
+parent: Charter Communications, Inc. (to be renamed Cox Communications within a year of the August 2026 Cox transaction; it keeps operating as Spectrum)
+website: https://www.spectrum.com
+account_url: https://www.spectrum.net
+regulators: [fcc]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Spectrum residential customer service (complaints about service quality or equipment)
+    value: +1-855-757-7328
+    hours: 24 hours a day
+    purposes: [billing_error, bill_increase, price_negotiation, service_outage, equipment_return]
+    notes: Listed in Spectrum's 2026 FCC Annual Customer Notification. Hawaii has separate local numbers.
+    source: https://www.spectrum.com/policies/annual-notice
+    last_verified: 2026-10-12
+  - id: cancel-phone
+    type: phone
+    label: Spectrum customer service line given by Spectrum moderators for cancellation (1-855-70-SPECTRUM)
+    value: +1-855-707-7328
+    purposes: [cancel_service, price_negotiation]
+    notes: Spectrum Community moderators (verified employees) say to call this number and ask for the Customer Solutions team, or visit a Spectrum store, to disconnect service.
+    source: https://community.spectrum.net/discussion/178853/disconnect-service
+    last_verified: 2026-10-12
+  - id: support-chat
+    type: chat
+    label: Spectrum chat for customer support and outage information
+    value: https://www.spectrum.net/contact-us/chat-us
+    purposes: [billing_error, service_outage, equipment_return]
+    source: https://www.spectrum.net/contact-us/chat-us
+    last_verified: 2026-10-12
+  - id: cancel-page
+    type: portal
+    label: Change or cancel your Spectrum service (sign in to see cancellation options)
+    value: https://www.spectrum.net/support/account-and-billing/change-or-cancel-service
+    purposes: [cancel_service]
+    access: login
+    source: https://www.spectrum.net/support/account-and-billing/change-or-cancel-service
+    last_verified: 2026-10-12
+  - id: equipment-return
+    type: portal
+    label: After disconnecting your services (equipment return at a Spectrum Store or The UPS Store)
+    value: https://www.spectrum.net/support/account-and-billing/after-disconnecting-your-services
+    purposes: [equipment_return, cancel_service]
+    access: open
+    source: https://www.spectrum.net/support/account-and-billing/after-disconnecting-your-services
+    last_verified: 2026-10-12
+  - id: customer-commitment
+    type: portal
+    label: Spectrum Customer Commitment (outage credits, no annual contracts)
+    value: https://www.spectrum.com/our-customer-commitment
+    purposes: [service_outage]
+    access: open
+    source: https://www.spectrum.com/our-customer-commitment
+    last_verified: 2026-10-12
+  - id: arbitration-notice
+    type: mail
+    label: Notice of Intent to Arbitrate (and arbitration opt-out letter)
+    value: VP and Associate General Counsel, Litigation, Charter Communications, 12405 Powerscourt Drive, St. Louis, MO 63131
+    notes: The notice must be titled "Notice of Intent to Arbitrate", describe the nature and basis of the claim, and state the specific relief sought.
+    source: https://www.spectrum.com/policies/residential-general-terms-and-conditions-of-service
+    last_verified: 2026-10-12
+  - id: customer-agreement
+    type: portal
+    label: Spectrum Residential General Terms and Conditions of Service
+    value: https://www.spectrum.com/policies/residential-general-terms-and-conditions-of-service
+    access: open
+    notes: The page times out for automated fetch; terms here were confirmed from official-domain search snippets.
+    source: https://www.spectrum.com/policies/residential-general-terms-and-conditions-of-service
+    last_verified: 2026-10-12
+  - id: annual-notice
+    type: portal
+    label: Spectrum 2026 FCC Annual Customer Notification (complaint procedures, billing disputes, outage credits)
+    value: https://www.spectrum.com/policies/annual-notice
+    access: open
+    source: https://www.spectrum.com/policies/annual-notice
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: retention, channel: cancel-phone, note: "Spectrum moderators route cancellations to the Customer Solutions team at 1-855-707-7328."}
+  - {rung: written_complaint, channel: support-chat, note: "Spectrum publishes no complaint mailing address; a chat transcript is the written record."}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: utility_commission}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: arbitration-notice, note: "Send a Notice of Intent to Arbitrate first; either side may start arbitration if the claim is not resolved within 30 days after the notice is received."}
+
+playbooks:
+  - issue: billing_error
+    summary: Report a disputed charge within 60 days after the bill's due date.
+    evidence: [the bill, account number, order confirmation or offer terms]
+    steps:
+      - do: Within 60 days after the due date on the bill, report the disputed charge by phone or chat. Get a reference number.
+        channel: customer-service-phone
+      - do: Keep the chat transcript or the reference number as your written record.
+        channel: support-chat
+      - do: If not fixed, file an FCC complaint with the bill and record.
+        regulator: fcc
+    facts:
+      - kind: deadline
+        claim: Customers must report disputed charges within 60 days after the due date on the bill, or longer where applicable law requires.
+        issues: [billing_error]
+        source: https://www.spectrum.com/policies/annual-notice
+        last_verified: 2026-10-12
+
+  - issue: bill_increase
+    summary: Check whether a promotion ended; ask for current offers or move to a cheaper plan.
+    evidence: [bills before and after, offer or order confirmation with the promotional term]
+    steps:
+      - do: Compare the bills and find the end date of the promotion or price guarantee on your order.
+      - do: Ask customer service for current offers for existing customers, or a lower plan with the same services.
+        channel: customer-service-phone
+      - do: If the increase breaks a written price guarantee, dispute it as a billing error within 60 days of the bill due date.
+    facts:
+      - kind: policy
+        claim: Spectrum's Customer Commitment states there are no annual contracts for any residential services.
+        issues: [bill_increase, cancel_service]
+        source: https://www.spectrum.com/our-customer-commitment
+        last_verified: 2026-10-12
+
+  - issue: price_negotiation
+    summary: Ask for current offers before cancelling; cancellation calls go to the Customer Solutions team.
+    evidence: [current bill, Spectrum's new-customer price at your address, competitor offers]
+    steps:
+      - do: Call customer service, give the competitor price, and ask which current offers or plans lower the monthly price.
+        channel: customer-service-phone
+      - do: If you decide to cancel, call 1-855-707-7328 and ask for the Customer Solutions team; ask again about offers before confirming.
+        channel: cancel-phone
+      - do: Ask how long the new price lasts and get the offer confirmed in writing or in the order confirmation.
+
+  - issue: cancel_service
+    summary: Sign in to see cancellation options, or call 1-855-707-7328 or visit a store; there is no disconnect fee.
+    evidence: [account number, cancellation confirmation number, equipment return receipt]
+    steps:
+      - do: Sign in to see your cancellation options.
+        channel: cancel-page
+      - do: Or call 1-855-707-7328 and ask for the Customer Solutions team, or visit a Spectrum store. Get a confirmation number and the disconnect date.
+        channel: cancel-phone
+      - do: Return all leased equipment and keep the receipt until it is off the account.
+        channel: equipment-return
+      - do: Expect a final statement at the next billing cycle, and a second one if equipment is still unreturned. Account sign-in works for 60 days after disconnection.
+    facts:
+      - kind: process
+        claim: After a disconnect request is processed, the customer receives a final statement at the next billing cycle; a second statement may follow if equipment is unreturned. Customers can still sign in to Spectrum.net or the My Spectrum App for 60 days after disconnection.
+        issues: [cancel_service]
+        source: https://www.spectrum.net/support/account-and-billing/after-disconnecting-your-services
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: A Spectrum moderator states Spectrum does not have a disconnect fee.
+        issues: [cancel_service]
+        source: https://community.spectrum.net/discussion/178853/disconnect-service
+        last_verified: 2026-10-12
+
+  - issue: equipment_return
+    summary: Return leased equipment to any Spectrum Store, or to The UPS Store after contacting Spectrum; keep the receipt.
+    evidence: [store or UPS receipt listing the equipment, serial numbers]
+    steps:
+      - do: Return modems, routers, receivers and other leased equipment to any Spectrum Store. To use The UPS Store, contact Spectrum first.
+        channel: equipment-return
+      - do: Keep the receipt until the equipment is removed from the account. If an unreturned equipment fee appears, send the receipt by chat.
+        channel: support-chat
+    facts:
+      - kind: policy
+        claim: After disconnecting or downgrading, the customer is responsible for returning leased equipment, at any Spectrum Store or through The UPS Store after contacting Spectrum; an unreturned equipment fee may be charged. Hawaii has a different return process.
+        issues: [equipment_return]
+        source: https://www.spectrum.net/support/account-and-billing/after-disconnecting-your-services
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Ask for a credit for outages over two hours; request it within 60 days of the outage.
+    evidence: [outage start and end times, ticket number]
+    steps:
+      - do: Report the outage by chat or phone and get a ticket number.
+        channel: support-chat
+      - do: For a neighborhood outage longer than two hours, ask the agent for a credit for that full day under the Customer Commitment.
+        channel: customer-commitment
+      - do: Request any credit within 60 days after the outage ends, and check the next bill.
+        channel: customer-service-phone
+    facts:
+      - kind: compensation
+        claim: Spectrum's Customer Commitment says that for a neighborhood outage of Spectrum services lasting more than two hours, agents will give a credit for that full day, excluding power outages, natural disasters and overnight scheduled maintenance.
+        issues: [service_outage]
+        source: https://www.spectrum.com/our-customer-commitment
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: The 2026 annual notice provides a proportionate credit for qualifying outages of two or more consecutive hours after the interruption is reported and the customer requests a credit within 60 days after the outage ends; no credit for disruptions beyond Spectrum's reasonable control or caused by the customer.
+        issues: [service_outage]
+        source: https://www.spectrum.com/policies/annual-notice
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: Before arbitration, a party must send a written "Notice of Intent to Arbitrate" describing the claim and relief sought; if no agreement is reached within 30 days after the notice is received, either side may start arbitration. Small claims court is carved out.
+    source: https://www.spectrum.com/policies/residential-general-terms-and-conditions-of-service
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: A subscriber can opt out of arbitration by letter to the Arbitration Notice Address within 30 days of the date the provision took effect for existing customers or the date the customer first subscribed.
+    source: https://www.spectrum.com/policies/residential-general-terms-and-conditions-of-service
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Charter and Cox Communications completed their transaction (announced August 20, 2026). The parent will be renamed Cox Communications within a year but keep operating as Spectrum, and Spectrum's Customer Service Commitments (including credits for outages longer than two hours) will reach Cox customers within a year.
+    source: https://www.sec.gov/Archives/edgar/data/1091667/000114036126033909/ef20080687_ex99-1.htm
+    last_verified: 2026-10-12
+
+tips:
+  - kind: community
+    text: Spectrum Community moderators (verified employees) say cancellations cannot be done on social media or the forum; call 1-855-707-7328 and ask for the Customer Solutions team, or visit a Spectrum store.
+    issues: [cancel_service, price_negotiation]
+    source: https://community.spectrum.net/discussion/178853/disconnect-service
+    last_verified: 2026-10-12
+
+known_blockers:
+  - spectrum.com and spectrum.net pages time out or show a cookie wall to automated fetch; values here come from official-domain search snippets.
+  - Cancellation options online need sign-in; otherwise cancellation is by phone or in a store.
+
+notes: >-
+  Spectrum is Charter Communications' consumer brand (internet, TV, voice, Spectrum Mobile). The Charter-Cox
+  transaction closed in August 2026 (8-K Exhibit 99.1 dated August 20, 2026); former Cox customers are moving to
+  Spectrum ("Cox is now Spectrum" on cox.com). Spectrum says its Customer Commitments will be introduced to former Cox
+  markets in the future, so outage-credit terms may not yet apply there. The two phone numbers (855-757-7328 in the
+  annual notice, 855-707-7328 from moderators) are both Spectrum residential lines.

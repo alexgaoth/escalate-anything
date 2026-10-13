@@ -1,0 +1,180 @@
+id: astound-broadband
+name: Astound Broadband
+aliases: [astound, radiate holdco, rcn]
+sector: internet_tv
+parent: Radiate HoldCo, LLC (d/b/a Astound Broadband)
+website: https://www.astound.com
+account_url: https://my.astound.com
+regulators: [fcc]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Astound residential customer care and support
+    value: +1-800-427-8686
+    hours: 24 hours a day, 7 days a week
+    purposes: [billing_error, bill_increase, price_negotiation, cancel_service, service_outage, equipment_return]
+    source: https://www.astound.com/contact-us/
+    last_verified: 2026-10-12
+  - id: support-chat
+    type: chat
+    label: Astound Live Chat (digital assistant or live agent)
+    value: https://www.astound.com/contact-us/
+    purposes: [billing_error, service_outage, equipment_return]
+    notes: Opened from the chat icon on the website.
+    source: https://www.astound.com/contact-us/
+    last_verified: 2026-10-12
+  - id: help-center
+    type: portal
+    label: Astound Support Center
+    value: https://help.astound.com
+    access: open
+    source: https://www.astound.com/contact-us/
+    last_verified: 2026-10-12
+  - id: locations
+    type: in_person
+    label: Astound retail service centers and payment centers
+    value: https://www.astound.com/locations/
+    purposes: [equipment_return]
+    source: https://www.astound.com/contact-us/
+    last_verified: 2026-10-12
+  - id: equipment-return
+    type: portal
+    label: Astound equipment return policy (local office or prepaid FedEx label)
+    value: https://www.astound.com/support/internet/equipment-return/
+    purposes: [equipment_return, cancel_service]
+    access: open
+    source: https://www.astound.com/policies-disclaimers/
+    last_verified: 2026-10-12
+  - id: arbitration-opt-out
+    type: web_form
+    label: Arbitration opt-out (within 30 days of first receiving the agreement)
+    value: https://www.astound.com/policies-disclaimers/arbitration-opt-out/
+    notes: Or mail ASTOUND, 650 COLLEGE ROAD EAST, SUITE 3100, PRINCETON, NJ 08540, ATTN - LEGAL DEPARTMENT, with name, address, account number and a clear statement that you do not wish to arbitrate.
+    source: https://www.astound.com/policies-disclaimers/terms-conditions/
+    last_verified: 2026-10-12
+  - id: legal-department-mail
+    type: mail
+    label: Astound Legal Department (address named in the customer terms)
+    value: ASTOUND, 650 COLLEGE ROAD EAST, SUITE 3100, PRINCETON, NJ 08540, ATTN - LEGAL DEPARTMENT
+    purposes: [billing_error, poor_service]
+    notes: The terms name this address for arbitration opt-out notices. They require notice of a dispute within one year but do not name a notice-of-dispute address.
+    source: https://www.astound.com/policies-disclaimers/terms-conditions/
+    last_verified: 2026-10-12
+  - id: customer-agreement
+    type: portal
+    label: Astound Customer Terms and Conditions
+    value: https://www.astound.com/policies-disclaimers/terms-conditions/
+    access: open
+    source: https://www.astound.com/policies-disclaimers/
+    last_verified: 2026-10-12
+  - id: broadband-label
+    type: portal
+    label: Astound broadband labels
+    value: https://www.astound.com/labels/
+    access: open
+    source: https://www.astound.com/policies-disclaimers/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: retention, note: "Astound publishes no retention number."}
+  - {rung: written_complaint, channel: legal-department-mail, note: "Astound publishes no complaint address; this is the only postal address in the terms. Send disputes within one year of the event."}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: utility_commission}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, note: "Arbitration covers disputes not resolved informally. Claims of $5,000 or less may go to small claims court instead."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute within 180 days of the invoice date and pay the undisputed part on time.
+    evidence: [the invoice, account number, rate card or offer]
+    steps:
+      - do: Call or chat within 180 days of the invoice date. Pay the undisputed portion by the due date.
+        channel: customer-service-phone
+      - do: If not fixed, send the dispute in writing with your account number and evidence.
+        channel: legal-department-mail
+      - do: File an FCC complaint.
+        regulator: fcc
+    facts:
+      - kind: deadline
+        claim: Billing disputes must be raised within one hundred eighty (180) days of the invoice date or may be waived; the undisputed portion must still be paid on time.
+        issues: [billing_error]
+        source: https://www.astound.com/policies-disclaimers/terms-conditions/
+        last_verified: 2026-10-12
+
+  - issue: cancel_service
+    summary: Notify Astound to cancel; internet-only service is not prorated, and the deposit is refunded within 30 days.
+    evidence: [cancellation confirmation, disconnect work order number, FedEx tracking or office receipt]
+    steps:
+      - do: Call to cancel and schedule the disconnect work order.
+        channel: customer-service-phone
+      - do: Return equipment on or before the disconnect date.
+        channel: equipment-return
+      - do: Expect any deposit back within 30 days after termination and equipment return, less amounts owed.
+    facts:
+      - kind: policy
+        claim: Customers may terminate any or all services at any time by notifying Astound. Internet-only service is billed the full monthly charge without proration and termination takes effect at the end of the current monthly period; other services are prorated by days of service.
+        issues: [cancel_service]
+        source: https://www.astound.com/policies-disclaimers/terms-conditions/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Astound refunds any required deposit within thirty (30) days after termination and return of equipment, minus amounts owed.
+        issues: [cancel_service, deposit_refund]
+        source: https://www.astound.com/policies-disclaimers/terms-conditions/
+        last_verified: 2026-10-12
+
+  - issue: equipment_return
+    summary: Return equipment on or before the disconnect date, at a local office or by prepaid FedEx; keep the tracking number.
+    evidence: [FedEx tracking number or office receipt, equipment serial numbers]
+    steps:
+      - do: Call 1.800.427.8686 to schedule the disconnect and confirm the local office can take the equipment, or ask for a prepaid FedEx label.
+        channel: equipment-return
+      - do: Drop the package at any FedEx location and keep the tracking number.
+      - do: If charged for returned equipment, give the tracking number and ask for removal.
+        channel: customer-service-phone
+    facts:
+      - kind: deadline
+        claim: Astound asks customers to return equipment on the day of or before the scheduled disconnect work order; the terms require return immediately upon termination.
+        issues: [equipment_return]
+        source: https://www.astound.com/support/internet/equipment-return/
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: Unreturned equipment is charged according to Astound's then-current schedule of charges, and lost, damaged or destroyed equipment is charged regardless of circumstances.
+        issues: [equipment_return]
+        source: https://www.astound.com/policies-disclaimers/terms-conditions/
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Ask for an outage credit; the terms promise credit for qualifying outages but give no amount.
+    evidence: [outage dates and duration, ticket number]
+    steps:
+      - do: Report the outage and get a ticket number.
+        channel: customer-service-phone
+      - do: Ask for a credit for the qualifying outage and check the next bill.
+    facts:
+      - kind: policy
+        claim: Subject to applicable law, credit is given for qualifying outages; the outage credit and the customer's termination rights are the sole remedies for a disruption or failure of service.
+        issues: [service_outage]
+        source: https://www.astound.com/policies-disclaimers/terms-conditions/
+        last_verified: 2026-10-12
+
+facts:
+  - kind: deadline
+    claim: Customers must give Astound notice of a dispute within one (1) year of the event giving rise to it.
+    source: https://www.astound.com/policies-disclaimers/terms-conditions/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Astound will make reasonable efforts to notify customers of rate changes. Changes to the terms take effect 30 days after notice, and a customer who rejects a terms change may end service without any financial penalty.
+    issues: [bill_increase]
+    source: https://www.astound.com/policies-disclaimers/terms-conditions/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Rate cards are behind the MyAstound sign-in.
+  - The terms name no notice-of-dispute address.
+
+notes: >-
+  Astound Broadband is the trade name of Radiate HoldCo, LLC (site copyright line). The contact page shows RCN
+  logos. Wave, Grande, enTouch and Digital West were not mentioned on fetched pages, and ownership (Stonepeak) and
+  any combination with gFiber were not confirmed on a fetched official page.

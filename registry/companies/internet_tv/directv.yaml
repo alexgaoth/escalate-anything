@@ -1,0 +1,189 @@
+id: directv
+name: DIRECTV
+aliases: [direct tv, directv stream, u-verse tv, uverse tv]
+sector: internet_tv
+website: https://www.directv.com
+account_url: https://www.directv.com/login?returnUrl=overview
+regulators: [fcc]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: DIRECTV customer service (also the cancellation line)
+    value: +1-800-531-5000
+    hours: Mon-Sun, 8:00 AM to 9:00 PM CT
+    purposes: [billing_error, bill_increase, price_negotiation, cancel_service, service_outage, equipment_return]
+    source: https://www.directv.com/customer-service
+    last_verified: 2026-10-12
+  - id: main-phone
+    type: phone
+    label: 1-800-DIRECTV
+    value: +1-800-347-3288
+    source: https://www.directv.com/
+    last_verified: 2026-10-12
+  - id: support-chat
+    type: chat
+    label: DIRECTV chat ("Chat Now" on the contact page)
+    value: https://www.directv.com/customer-service
+    hours: Mon-Sun, 8:00 AM to 9:00 PM CT
+    purposes: [billing_error, cancel_service, service_outage]
+    source: https://www.directv.com/customer-service
+    last_verified: 2026-10-12
+  - id: cancel-help
+    type: portal
+    label: How to cancel DIRECTV
+    value: https://www.directv.com/customer/cancel-help
+    purposes: [cancel_service, equipment_return]
+    access: open
+    notes: Satellite customers are told to call 800.531.5000. Internet-only (no dish) customers can sign in and select "Cancel service".
+    source: https://www.directv.com/customer/cancel-help
+    last_verified: 2026-10-12
+  - id: equipment-return
+    type: portal
+    label: Return or recycle your DIRECTV equipment
+    value: https://www.directv.com/support/article/000093574/
+    purposes: [equipment_return]
+    access: open
+    source: https://www.directv.com/support
+    last_verified: 2026-10-12
+  - id: equipment-lease-agreement
+    type: portal
+    label: DIRECTV Equipment Lease Agreement (PDF; non-return fees)
+    value: https://www.directv.com/dtvassets/dtv/directv_marketing/agreements_and_policies/EquipLeaseAgrmt_English.pdf
+    purposes: [equipment_return]
+    access: open
+    notes: PDF metadata dates it to August 2016; the current lease page in the legal policy center did not load for automated fetch.
+    source: https://www.directv.com/dtvassets/dtv/directv_marketing/agreements_and_policies/EquipLeaseAgrmt_English.pdf
+    last_verified: 2026-10-12
+  - id: stream-cancellation-policy
+    type: portal
+    label: DIRECTV STREAM cancellation policy (device return within 14 days)
+    value: https://www.directv.com/legal/directv-stream-cancellation-policy/
+    purposes: [cancel_service, equipment_return]
+    access: open
+    source: https://www.directv.com/legal/directv-stream-cancellation-policy/
+    last_verified: 2026-10-12
+  - id: arbitration-notice
+    type: mail
+    label: Notice of Dispute (and Demand for Arbitration copy)
+    value: DIRECTV, LLC c/o CT Corporation, 1209 Orange Street, Wilmington, DE 19801
+    notes: Use the form at directv.com/arbitration-forms or a letter with name, account number, services, description of the claim, relief sought with calculations, and signature. Keep a copy.
+    source: https://www.directv.com/dtvassets/legal/dtv-arbitration-information_resolving-dispute.pdf
+    last_verified: 2026-10-12
+  - id: arbitration-notice-form
+    type: portal
+    label: Notice of Dispute form (PDF)
+    value: https://www.directv.com/dtvassets/legal/notice-of-dispute_arbitration-form.pdf
+    source: https://www.directv.com/legal/legal-policy-center/
+    last_verified: 2026-10-12
+  - id: customer-agreement
+    type: portal
+    label: DIRECTV Residential Terms of Service
+    value: https://www.directv.com/legal/directv-residential-terms-of-service/
+    access: open
+    source: https://www.directv.com/legal/legal-policy-center/
+    last_verified: 2026-10-12
+  - id: legal-policy-center
+    type: portal
+    label: DIRECTV legal policy center (fee schedule, equipment lease agreement, U-verse TV terms)
+    value: https://www.directv.com/legal/legal-policy-center/
+    access: open
+    source: https://www.directv.com/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: retention, channel: cancel-help, note: "The cancel page routes cost-related cancellations to 800.531.5000 for a personalized cancellation."}
+  - {rung: written_complaint, channel: arbitration-notice, note: "DIRECTV publishes no general complaint address; the Notice of Dispute is its written dispute channel."}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: utility_commission}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: arbitration-notice, note: "Mail the Notice of Dispute and allow at least 60 days; then send a Demand for Arbitration to DIRECTV and the AAA. The consumer generally pays the $200 AAA filing fee."}
+
+playbooks:
+  - issue: cancel_service
+    summary: Satellite customers cancel by phone; internet-only customers can cancel online. No prorated refund for partial months.
+    evidence: [account number, cancellation confirmation, contract end date, equipment return tracking]
+    steps:
+      - do: Satellite customers call 800.531.5000. Internet-only customers can sign in and select "Cancel service".
+        channel: cancel-help
+      - do: Ask the agent which equipment must be returned. DIRECTV sends prepaid UPS, FedEx or US Mail return instructions. Dishes, outside equipment, cables, splitters and switches are yours to keep.
+        channel: equipment-return
+      - do: If you have a contract, ask for the exact early cancellation fee before you confirm.
+    facts:
+      - kind: policy
+        claim: DIRECTV gives no prorated credit or refund for partial periods unless prohibited by law; service stays active until the end of the billing cycle.
+        issues: [cancel_service, refund_request]
+        source: https://www.directv.com/customer/cancel-help
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: Customers with a contract may need to pay a fee for the number of months left on the contract.
+        issues: [cancel_service]
+        source: https://www.directv.com/customer/cancel-help
+        last_verified: 2026-10-12
+      - kind: process
+        claim: A customer in a free trial who cancels has service end immediately and is not charged.
+        issues: [cancel_service]
+        source: https://www.directv.com/customer/cancel-help
+        last_verified: 2026-10-12
+
+  - issue: equipment_return
+    summary: Return only what the agent says, with DIRECTV's prepaid shipping, and keep tracking.
+    evidence: [return tracking number, equipment serial or access card numbers]
+    steps:
+      - do: Ask which equipment must be returned and use the prepaid return instructions DIRECTV sends. Ship satellite receivers so they arrive within 21 days of termination, and DIRECTV STREAM devices within 14 days after cancellation.
+        channel: equipment-return
+      - do: Keep the tracking number. If a non-return fee appears, send the tracking number and ask for removal.
+        channel: customer-service-phone
+    facts:
+      - kind: fee
+        claim: Customers with DIRECTV equipment may have to return it to avoid a non-return fee; DIRECTV sends return instructions and prepays shipping via UPS, FedEx or US Mail.
+        issues: [equipment_return]
+        source: https://www.directv.com/customer/cancel-help
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: The DIRECTV Equipment Lease Agreement (2016 PDF) charges $45 for each standard receiver, HD receiver and Genie Mini, and $135 for each DVR, HD DVR and Genie HD DVR, if leased equipment is not received within 21 days of termination of base programming or is returned damaged.
+        issues: [equipment_return, cancel_service]
+        source: https://www.directv.com/dtvassets/dtv/directv_marketing/agreements_and_policies/EquipLeaseAgrmt_English.pdf
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: DIRECTV STREAM devices must be returned within 14 days after cancellation by USPS with the return label sent with the equipment (call 800.531.5000 for a label); otherwise, or if damaged beyond normal wear, the non-return fee is $120.
+        issues: [equipment_return, cancel_service]
+        source: https://www.directv.com/legal/directv-stream-cancellation-policy/
+        last_verified: 2026-10-12
+
+  - issue: billing_error
+    summary: Chat or call first; if not resolved, mail a Notice of Dispute.
+    evidence: [the bill, account number, offer or order confirmation]
+    steps:
+      - do: Ask chat or 1-800-531-5000 to correct the charge. Get a reference number.
+        channel: customer-service-phone
+      - do: If not resolved, mail a complete Notice of Dispute and keep a copy.
+        channel: arbitration-notice
+      - do: File an FCC complaint with the bill and notice.
+        regulator: fcc
+    facts:
+      - kind: process
+        claim: DIRECTV says most bill or service concerns can be resolved by chat or 1 (800) 531-5000; otherwise the dispute process starts with a Notice of Dispute and at least 60 days for DIRECTV to investigate.
+        issues: [billing_error]
+        source: https://www.directv.com/dtvassets/legal/dtv-arbitration-information_resolving-dispute.pdf
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Claims within the small claims court's jurisdiction may be brought there instead of arbitration. Arbitration is individual only and administered by the AAA; the consumer is generally responsible for the $200 filing fee and DIRECTV pays the rest.
+    source: https://www.directv.com/dtvassets/legal/dtv-arbitration-information_resolving-dispute.pdf
+    last_verified: 2026-10-12
+  - kind: process
+    claim: Arbitration provisions in agreements before November 7, 2023 are posted separately in the legal policy center; the current Residential Terms of Service govern newer accounts.
+    source: https://www.directv.com/legal/legal-policy-center/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Satellite cancellation needs a phone call; only internet-only accounts can cancel online after sign-in.
+  - The Residential Terms of Service, fee schedule and return article load by JavaScript and do not render for automated fetches; satellite non-return fees come from a 2016 lease PDF and may be out of date.
+
+notes: >-
+  DIRECTV (satellite, DIRECTV STREAM / via Internet) also serves U-verse TV customers; U-verse TV terms and fee
+  schedules are in the DIRECTV legal policy center. Site trademarks are held by DIRECTV, LLC. Current ownership
+  (TPG and AT&T) and the end of the 2024 DIRECTV-DISH deal were not confirmed on a fetched official page.

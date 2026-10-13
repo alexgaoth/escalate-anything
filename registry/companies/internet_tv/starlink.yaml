@@ -1,0 +1,134 @@
+id: starlink
+name: Starlink
+aliases: [starlink internet, spacex starlink]
+sector: internet_tv
+parent: SpaceX
+website: https://www.starlink.com
+regulators: [fcc]
+
+channels:
+  - id: support-tickets
+    type: portal
+    label: Submit a Starlink Support Request (support ticket)
+    value: https://starlink.com/support/tickets
+    purposes: [billing_error, cancel_service, equipment_return, service_outage, refund_request]
+    access: login
+    notes: In the Starlink app - Support, Messages, Contact Starlink Support. On starlink.com - My Account, Messages, New Ticket. People without account access can use the "Submit a request" link on the Contact Starlink Customer Support article.
+    source: https://starlink.com/support/article/bdb63773-e93b-74e8-8e12-2da2fb6d534e
+    last_verified: 2026-10-12
+  - id: customer-service-phone
+    type: phone
+    label: Starlink phone support for the US and Canada, English (888-GO-STARLINK)
+    value: +1-888-467-8275
+    hours: 24/7
+    purposes: [billing_error, cancel_service, service_outage]
+    source: https://starlink.com/support/article/bdb63773-e93b-74e8-8e12-2da2fb6d534e
+    last_verified: 2026-10-12
+  - id: cancel-help
+    type: portal
+    label: How do I cancel service? (Starlink Help Center)
+    value: https://starlink.com/support/article/9d43bef2-36fe-bcd1-9f6a-e0304e9cf22e
+    purposes: [cancel_service]
+    access: open
+    source: https://starlink.com/support/article/9d43bef2-36fe-bcd1-9f6a-e0304e9cf22e
+    last_verified: 2026-10-12
+  - id: billing-faq
+    type: portal
+    label: Additional FAQs - Billing (30-day hardware trial, refunds)
+    value: https://starlink.com/support/article/9334ff65-c6e4-00d3-23ca-4ac4007c88fa
+    purposes: [refund_request, cancel_service, equipment_return]
+    access: open
+    source: https://starlink.com/support/article/9334ff65-c6e4-00d3-23ca-4ac4007c88fa
+    last_verified: 2026-10-12
+  - id: resolutions-email
+    type: email
+    label: Starlink pre-arbitration notice and complaints email
+    value: starlinkresolutions@spacex.com
+    purposes: [billing_error, poor_service]
+    notes: The US Terms of Service require a written description of the issue and desired resolution sent here before arbitration.
+    source: https://starlink.com/legal/documents/DOC-1020-91087-64
+    last_verified: 2026-10-12
+  - id: customer-agreement
+    type: portal
+    label: Starlink Terms of Service (US)
+    value: https://starlink.com/legal/documents/DOC-1020-91087-64
+    access: open
+    notes: The page loads by JavaScript; terms here were confirmed from official-domain search snippets.
+    source: https://starlink.com/legal/documents/DOC-1020-91087-64
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: support-tickets}
+  - {rung: written_complaint, channel: resolutions-email}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: utility_commission}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: resolutions-email, note: "Email a written description of the issue and the resolution you want first; arbitration may start if the dispute is not resolved within 60 days."}
+
+playbooks:
+  - issue: cancel_service
+    summary: Cancel in the account before the billing day (UTC); there are no refunds for unused service.
+    evidence: [cancellation confirmation, billing date, order date and delivery date]
+    steps:
+      - do: Cancel through the Starlink account. Make the change before 12:00 AM UTC on your billing day, or it is delayed to the next billing day.
+        channel: cancel-help
+      - do: If you are inside the 30-day hardware trial, choose to return the hardware when you cancel to get a refund.
+        channel: billing-faq
+      - do: If the cancel or return option is missing, open a support ticket.
+        channel: support-tickets
+    facts:
+      - kind: process
+        claim: Service can be cancelled at any time through the Starlink account. Billing runs on UTC, so changes must be made before 12:00 AM UTC on the billing day; service continues until the date paid for.
+        issues: [cancel_service]
+        source: https://starlink.com/support/article/9d43bef2-36fe-bcd1-9f6a-e0304e9cf22e
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Starlink does not issue refunds or credits for unused service; the subscription is month to month and not contingent on usage.
+        issues: [cancel_service, refund_request]
+        source: https://starlink.com/support/article/9334ff65-c6e4-00d3-23ca-4ac4007c88fa
+        last_verified: 2026-10-12
+
+  - issue: equipment_return
+    summary: Return hardware within the 30-day trial for a full refund; the trial covers hardware, not free service.
+    evidence: [order date, first bill date, delivery date, return label tracking]
+    steps:
+      - do: Within 30 days after billing begins, cancel and return the hardware for a full refund.
+        channel: billing-faq
+      - do: Use only the prepaid return label Starlink emails, and keep the tracking number.
+      - do: If you bought from a retailer, return the hardware to the retailer and cancel the service in your Starlink account; Starlink refunds service only after the service line is cancelled.
+        channel: support-tickets
+    facts:
+      - kind: deadline
+        claim: The 30-day trial is a trial of the Starlink hardware, not a free month of service. Customers unhappy within the first 30 days after billing begins can return the hardware for a full refund.
+        issues: [equipment_return, refund_request]
+        source: https://starlink.com/support/article/9334ff65-c6e4-00d3-23ca-4ac4007c88fa
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Residential plans get no outage credits; only Local and Global Priority plans have an uptime SLA.
+    evidence: [outage dates and times, ticket number]
+    steps:
+      - do: Report the outage by support ticket or phone.
+        channel: support-tickets
+      - do: On a Priority plan, check the account for the automatically detected outage; if it was not detected, submit a ticket within 14 calendar days.
+    facts:
+      - kind: limit
+        claim: Starlink does not offer service credits or refunds for outages except SLA violations on Local Priority and Global Priority plans, which commit to 99.9% uptime per billing period and give a 20% credit of recurring line and data fees when missed. Undetected outages must be reported by ticket within 14 calendar days.
+        issues: [service_outage]
+        source: https://starlink.com/support/article/b7142f8e-9762-6fcf-03f5-0d53c2895b3f
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: Before starting arbitration, the customer must email a written description of the issue and desired resolution to starlinkresolutions@spacex.com; if it is not resolved within 60 days, the customer may start arbitration with the AAA. Starlink pays the AAA fees unless the claim is found frivolous.
+    source: https://starlink.com/legal/documents/DOC-1020-91087-64
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Most Starlink support goes through tickets in the signed-in account or app.
+  - starlink.com help and legal pages load by JavaScript; values here come from official-domain search snippets.
+
+notes: >-
+  Starlink is SpaceX's satellite internet service. Help Center pages differ by country (for example on refunds after
+  the 30-day window), so use the US pages. A 12-month residential commitment option carries a Change Fee whose amount
+  differs between Starlink documents; it was not recorded here.

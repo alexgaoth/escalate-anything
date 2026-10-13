@@ -1,0 +1,186 @@
+id: kinetic-windstream
+name: Kinetic
+aliases: [kinetic, windstream, kinetic by windstream, gokinetic]
+sector: internet_tv
+parent: Uniti Group Inc.
+website: https://www.gokinetic.com
+regulators: [fcc]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Kinetic customer service and repair (account and service support)
+    value: +1-800-347-1991
+    hours: Account support Mon-Fri 7:00am-8:00pm ET, Sat 8:30am-5:00pm ET; service support Mon-Fri 7:00am-11:00pm ET, Sat-Sun 8:00am-11:00pm ET
+    purposes: [billing_error, bill_increase, cancel_service, service_outage, equipment_return]
+    notes: The outage help page calls this the customer service and repair line, available 24/7 for technical support and outage reports. The online terms say month-to-month customers may cancel at any time without penalty by phone at this number.
+    source: https://www.gokinetic.com/support
+    last_verified: 2026-10-12
+  - id: main-phone
+    type: phone
+    label: Kinetic main number (listed on the contact page)
+    value: +1-866-445-8084
+    source: https://www.gokinetic.com/contact-us
+    last_verified: 2026-10-12
+  - id: financial-phone
+    type: phone
+    label: Kinetic financial services line
+    value: +1-800-537-7755
+    hours: Mon-Fri 8:00am-6:00pm ET, Sat 8:30am-5:00pm ET
+    purposes: [billing_error, debt_collection]
+    source: https://www.gokinetic.com/support
+    last_verified: 2026-10-12
+  - id: contact-form
+    type: web_form
+    label: Kinetic contact us form (reply within 2 business days for non-urgent matters)
+    value: https://www.gokinetic.com/contact-us
+    purposes: [billing_error, poor_service]
+    source: https://www.gokinetic.com/support
+    last_verified: 2026-10-12
+  - id: support-chat
+    type: chat
+    label: Kinetic Digital Assistant chat (can connect to a live representative or open a trouble ticket)
+    value: https://www.gokinetic.com/support
+    purposes: [service_outage, billing_error]
+    source: https://www.gokinetic.com/support/internet-security/internet-outages-and-service-interruptions
+    last_verified: 2026-10-12
+  - id: executive-customer-relations
+    type: mail
+    label: Written disputes - Executive Customer Relations
+    value: Kinetic, 4005 N. Rodney Parham Rd., Little Rock, AR 72212, Attn - Executive Customer Relations
+    purposes: [billing_error, poor_service, service_outage]
+    notes: The online terms name this address for written disputes; the parties then try to resolve the dispute within 60 days of receipt.
+    source: https://www.gokinetic.com/about/legal/kinetic-online-terms
+    last_verified: 2026-10-12
+  - id: arbitration-notice
+    type: mail
+    label: Arbitration claims - Legal Department
+    value: Kinetic, 4005 Rodney Parham Rd., Little Rock, AR 72212, Attn - Legal Department
+    source: https://www.gokinetic.com/about/legal/kinetic-online-terms
+    last_verified: 2026-10-12
+  - id: customer-agreement
+    type: portal
+    label: Kinetic Online Terms and Conditions
+    value: https://www.gokinetic.com/about/legal/kinetic-online-terms
+    access: open
+    source: https://www.gokinetic.com/about/legal/terms-and-conditions
+    last_verified: 2026-10-12
+  - id: service-terms
+    type: portal
+    label: Kinetic service-specific terms (modem rental, equipment)
+    value: https://www.gokinetic.com/about/legal/product-specific-terms
+    access: open
+    source: https://www.gokinetic.com/about/legal/terms-and-conditions
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: retention, note: "Kinetic publishes no retention number."}
+  - {rung: written_complaint, channel: contact-form}
+  - {rung: executive, channel: executive-customer-relations, note: "Written disputes go to Executive Customer Relations; Kinetic has 60 days from receipt to try to resolve them."}
+  - {rung: regulator, regulator: fcc}
+  - {rung: state_agency, agency_kind: utility_commission}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: arbitration, channel: arbitration-notice, note: "Arbitration is through JAMS after the 60-day written dispute period. Small claims court in the billing-address city or county is an alternative."}
+
+playbooks:
+  - issue: billing_error
+    summary: Dispute in writing within 60 days after the bill date.
+    evidence: [the bill, account number, offer conditions or order confirmation]
+    steps:
+      - do: Call and ask for a correction. Get a reference number.
+        channel: customer-service-phone
+      - do: Within 60 days after the date on the bill, send the dispute in writing to Executive Customer Relations.
+        channel: executive-customer-relations
+      - do: If not resolved within 60 days, file an FCC complaint or use small claims court.
+        regulator: fcc
+    facts:
+      - kind: deadline
+        claim: Billing disputes must be submitted in writing within sixty (60) days after the date on the bill.
+        issues: [billing_error]
+        source: https://www.gokinetic.com/about/legal/kinetic-online-terms
+        last_verified: 2026-10-12
+
+  - issue: bill_increase
+    summary: Kinetic can raise charges with notice; a material change lets you cancel without an early cancellation fee.
+    evidence: [bills before and after, the notice of change]
+    steps:
+      - do: Find the notice of the change. If there was none, dispute the increase as a billing error.
+        channel: customer-service-phone
+      - do: If the change is material, you may end the affected service with thirty (30) days' written notice and no early cancellation fee.
+        channel: executive-customer-relations
+    facts:
+      - kind: policy
+        claim: Kinetic may change charges at any time if it gives notice. If a change is material, the customer may terminate the affected service by giving thirty (30) days' written notice without an early cancellation fee.
+        issues: [bill_increase, cancel_service]
+        source: https://www.gokinetic.com/about/legal/kinetic-online-terms
+        last_verified: 2026-10-12
+
+  - issue: cancel_service
+    summary: Cancel by phone; give 30 days notice for month-to-month service; no termination fee.
+    evidence: [cancellation date and confirmation, modem return receipt]
+    steps:
+      - do: Call 1-800-347-1991 to cancel. Give at least 30 days notice before the termination date.
+        channel: customer-service-phone
+      - do: Return any rented modem within 30 days after service ends.
+    facts:
+      - kind: policy
+        claim: Month-to-month customers may cancel at any time without penalty by phone at 1-800-347-1991; month-to-month termination needs notice at least thirty (30) days before the effective date.
+        issues: [cancel_service]
+        source: https://www.gokinetic.com/about/legal/kinetic-online-terms
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: Kinetic says it does not charge a termination fee if you decide to cancel service.
+        issues: [cancel_service]
+        source: https://www.gokinetic.com/support/my-account/billing-payments/is-there-an-early-cancellation-fee
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Deposits are refunded once satisfactory credit is established or on termination; advance payments made after installation are not refunded.
+        issues: [cancel_service, deposit_refund]
+        source: https://www.gokinetic.com/about/legal/kinetic-online-terms
+        last_verified: 2026-10-12
+
+  - issue: equipment_return
+    summary: Return a rented modem within 30 days after service ends or pay $100.
+    evidence: [return receipt or tracking number, modem serial number]
+    steps:
+      - do: Ask customer service how to return the modem and get proof of return.
+        channel: customer-service-phone
+      - do: If charged the $100 fee after returning the modem, send the proof and ask for removal.
+        channel: executive-customer-relations
+    facts:
+      - kind: fee
+        claim: Rented modems must be returned within thirty (30) days after services end; otherwise the account is automatically charged a $100 fee.
+        issues: [equipment_return]
+        source: https://www.gokinetic.com/about/legal/product-specific-terms
+        last_verified: 2026-10-12
+
+  - issue: service_outage
+    summary: Report promptly and ask for a credit for interruptions over 24 hours.
+    evidence: [outage start and end, repair ticket number]
+    steps:
+      - do: Report the outage at once through the Go Kinetic portal or app, chat, or 1-800-347-1991 (24/7). Get a ticket number.
+        channel: customer-service-phone
+      - do: Ask for a credit for the interruption. Credits are issued on request for interruptions longer than 24 hours.
+    facts:
+      - kind: compensation
+        claim: Kinetic's policy is generally to issue a credit, upon request, for service interruptions greater than 24 hours; no credit if Kinetic is not notified promptly or the cause is beyond its control.
+        issues: [service_outage]
+        source: https://www.gokinetic.com/support/internet-security/internet-outages-and-service-interruptions
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: Before arbitration, the customer sends a written dispute to Executive Customer Relations and the parties try to resolve it within 60 days of receipt. Small claims court in the city or county of the billing address is allowed instead.
+    source: https://www.gokinetic.com/about/legal/kinetic-online-terms
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Kinetic's chat opens from an in-page control with no direct URL.
+  - No online cancellation page was found; the terms name a phone number for cancellation.
+
+notes: >-
+  Kinetic is the residential brand of the former Windstream, now part of Uniti Group Inc. after the Uniti-Windstream
+  combination (uniti.com - "With the integration of Windstream, Uniti has emerged as a more powerful and agile
+  company"). windstream.com redirects to gokinetic.com. The online terms define "Kinetic" and "Uniti" as the Uniti
+  legal entities named on the bill. The merger closing date was not confirmed on a fetched page.
