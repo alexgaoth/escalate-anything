@@ -1,0 +1,108 @@
+id: cvs
+name: CVS Pharmacy
+aliases: [cvs, cvs.com, cvs/pharmacy, cvs extracare]
+sector: retail
+parent: CVS Health Corporation
+website: https://www.cvs.com
+regulators: [ftc]
+notes: >-
+  This entry covers CVS Pharmacy stores and CVS.com retail orders only. Aetna insurance and
+  CVS Caremark pharmacy benefits are separate businesses with their own complaint paths.
+  Prescriptions have separate return rules. The status of the CarePass membership was not
+  confirmed.
+
+channels:
+  - id: store-customer-service-phone
+    type: phone
+    label: CVS Pharmacy customer service (1-800-SHOP-CVS) for stores, pharmacy, policies and photo
+    value: +1-800-746-7287
+    hours: Mon-Fri 8:30 AM-7 PM ET; Sat-Sun 10:00 AM-6:30 PM ET; closed major holidays
+    purposes: [refund_request, damaged_item, unauthorized_charge, billing_error, poor_service]
+    source: https://www.cvs.com/retail/help/help-subtopic-store-customer-service
+    last_verified: 2026-10-12
+  - id: online-customer-care-phone
+    type: phone
+    label: CVS.com Customer Care (online orders, mail returns, PayPal refunds)
+    value: +1-888-607-4287
+    purposes: [refund_request, lost_package, damaged_item]
+    notes: Call before mailing back a CVS.com item.
+    source: https://www.cvs.com/returnpolicy
+    last_verified: 2026-10-12
+  - id: online-return-policy
+    type: portal
+    label: CVS.com online return policy
+    value: https://www.cvs.com/returnpolicy
+    purposes: [refund_request]
+    source: https://www.cvs.com/retail/help/help-subtopic-store-customer-service
+    last_verified: 2026-10-12
+  - id: store-refund-policy
+    type: portal
+    label: CVS in-store refund and return policy (PDF)
+    value: https://www.cvs.com/bizcontent/general/contactus/storerefundpolicy.pdf
+    purposes: [refund_request]
+    source: https://www.cvs.com/retail/help/help-subtopic-store-customer-service
+    last_verified: 2026-10-12
+  - id: online-help
+    type: portal
+    label: CVS.com and mobile app help
+    value: https://www.cvs.com/retail/help/help-subtopic-help-cvs-site-and-mobile
+    purposes: [lost_package, account_access]
+    source: https://www.cvshealth.com/contact.html
+    last_verified: 2026-10-12
+  - id: corporate-mail
+    type: mail
+    label: CVS Health corporate headquarters
+    value: "CVS Health, 1 CVS Drive, Woonsocket, Rhode Island 02895"
+    purposes: [poor_service]
+    source: https://www.cvshealth.com/contact.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: store-customer-service-phone}
+  - {rung: supervisor, channel: store-customer-service-phone}
+  - {rung: written_complaint, channel: corporate-mail}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: refund_request
+    summary: Most new, unopened items can be returned within 60 days with a receipt; CVS.com items can be mailed back after calling Customer Care.
+    evidence: [receipt or CVS.com order number, payment card, photo ID]
+    steps:
+      - do: Return the item to any CVS Pharmacy store within 60 days with the receipt. A photo ID may be required.
+      - do: For a CVS.com item you want to mail back, call Customer Care first.
+        channel: online-customer-care-phone
+      - do: If the store manager refuses, call CVS customer service, then dispute the charge with your card issuer.
+        channel: store-customer-service-phone
+    facts:
+      - kind: deadline
+        claim: Most new, unopened items bought at CVS Pharmacy or CVS.com can be returned or exchanged within 60 days of purchase.
+        issues: [refund_request]
+        source: https://www.cvs.com/returnpolicy
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: With a receipt, refunds go to the original payment method (check and PIN-debit purchases are refunded in cash); without a receipt, CVS issues the refund on a CVS/pharmacy Money Card. All returns are subject to the store manager's approval.
+        issues: [refund_request]
+        source: https://www.cvs.com/retail/help/help-subtopic-store-customer-service
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: CVS Store Brand products and cosmetics carry a 100% guarantee; Store Brand refunds need the product and proof of purchase.
+        issues: [refund_request, damaged_item]
+        source: https://www.cvs.com/retail/help/help-subtopic-store-customer-service
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: Prescriptions ordered online cannot be returned to stores; special-order items such as footwear, motorized scooters and lift chairs must be handled through Customer Care.
+        issues: [refund_request]
+        source: https://www.cvs.com/returnpolicy
+        last_verified: 2026-10-12
+  - issue: damaged_item
+    summary: Call CVS.com Customer Care for a damaged online order; stores handle in-store items.
+    evidence: [photos of the item and packaging, order number]
+    steps:
+      - do: Photograph the item and packaging.
+      - do: Call CVS.com Customer Care and ask for a refund or replacement.
+        channel: online-customer-care-phone
+
+known_blockers:
+  - cvs.com help pages often return HTTP 503 to automated fetches.

@@ -1,0 +1,149 @@
+id: etsy
+name: Etsy
+aliases: [etsy.com, etsy purchase protection, etsy inc]
+sector: retail
+parent: Etsy, Inc.
+website: https://www.etsy.com
+regulators: [ftc]
+notes: >-
+  Etsy is a marketplace of independent sellers; the buyer deals with the seller first and Etsy
+  decides cases under Etsy Purchase Protection. Kruti Patel Goyal became CEO on January 1, 2026.
+  Etsy sold Depop to eBay (completed July 2026). The help center at help.etsy.com opened in a browser
+  on 2026-10-12, but www.etsy.com (including the Purchase Protection legal page) showed "Access is
+  temporarily restricted", so the legal terms and arbitration notice address are not recorded here.
+  Etsy has no customer service phone number; phone support is only by callback request through the
+  Contact support form.
+
+channels:
+  - id: help-with-order
+    type: portal
+    label: Help with order (contact the seller, then open a case) from Purchases and reviews
+    value: https://www.etsy.com/your/purchases/select_order
+    purposes: [lost_package, damaged_item, refund_request, late_delivery]
+    access: login
+    source: https://help.etsy.com/hc/en-us/articles/115013375488-How-to-Contact-Etsy-Support
+    last_verified: 2026-10-12
+  - id: contact-support-form
+    type: web_form
+    label: Contact Etsy Support form (also the only way to request a phone callback)
+    value: https://www.etsy.com/help/contact
+    purposes: [lost_package, damaged_item, refund_request, unauthorized_charge, account_access]
+    access: login
+    notes: You must be signed in. Etsy says it has no phone number to call and warns that numbers circulating online may not be legitimate.
+    source: https://help.etsy.com/hc/en-us/articles/115013375488-How-to-Contact-Etsy-Support
+    last_verified: 2026-10-12
+  - id: help-center
+    type: portal
+    label: Etsy Help (shopper and seller questions, cases)
+    value: https://www.etsy.com/help
+    purposes: [lost_package, damaged_item, refund_request, unauthorized_charge, account_access]
+    access: login
+    source: https://investors.etsy.com/resources/faq
+    last_verified: 2026-10-12
+  - id: purchase-protection-article
+    type: portal
+    label: Etsy's Purchase Protection Program (help article)
+    value: https://help.etsy.com/hc/en-us/articles/7471925990807-Etsy-s-Purchase-Protection-Program
+    purposes: [lost_package, damaged_item, refund_request, late_delivery]
+    source: https://help.etsy.com/hc/en-us/articles/7471925990807-Etsy-s-Purchase-Protection-Program
+    last_verified: 2026-10-12
+  - id: phishing-report-email
+    type: email
+    label: Report suspected Etsy phishing emails
+    value: ReportPhishing@etsy.com
+    purposes: [account_access]
+    source: https://help.etsy.com/hc/en-us/articles/115013375488-How-to-Contact-Etsy-Support
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: help-with-order, note: "Send the seller a Help with order request."}
+  - {rung: supervisor, channel: help-with-order, note: "48 hours after the request and after the estimated delivery date, open a case so Etsy steps in."}
+  - {rung: written_complaint, channel: contact-support-form}
+  - {rung: payment_dispute, note: "A chargeback closes the Etsy case and stops Etsy from refunding; use it only if Etsy will not."}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: lost_package
+    summary: Send the seller a Help with order request; once the estimated delivery date has passed and 48 hours have gone by, open a case within 30 days of the estimated delivery date.
+    evidence: [order number, tracking number, estimated delivery date, Help with order messages]
+    steps:
+      - do: Go to Purchases and reviews, choose the order, select Help with order, and tell the seller what happened and what you want. Keep all messages on Etsy.
+        channel: help-with-order
+      - do: If not resolved after 48 hours and the estimated delivery date has passed, select Open a case, choose Non-delivery and your refund method, and submit to Etsy.
+        channel: help-with-order
+      - do: Answer every request in the case log. Open the case within 30 days of the estimated delivery date.
+      - do: If Etsy denies the case and you paid by card, dispute the charge with your card issuer. A chargeback closes the case.
+    facts:
+      - kind: policy
+        claim: Etsy Purchase Protection gives a full refund for qualifying orders when the item does not arrive, arrives damaged, arrives 7+ days after the maximum estimated delivery date shown at checkout, or differs significantly from the description or photos.
+        issues: [lost_package, damaged_item, late_delivery, refund_request]
+        source: https://help.etsy.com/hc/en-us/articles/7471925990807-Etsy-s-Purchase-Protection-Program
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: For physical items you can open a case only after the estimated delivery date has passed and 48 hours have passed since you sent the seller a Help with order request. The order stays eligible for a case for 30 days from its estimated delivery date.
+        issues: [lost_package, damaged_item, late_delivery]
+        source: https://help.etsy.com/hc/en-us/articles/5745586898199-How-to-Open-a-Case
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: Refunds processed by Etsy must take place within 180 days of the transaction date; after that Etsy cannot support a refund. Orders paid through standalone PayPal may need a PayPal dispute within 180 days of purchase instead.
+        issues: [lost_package, damaged_item, refund_request]
+        source: https://help.etsy.com/hc/en-us/articles/5745586898199-How-to-Open-a-Case
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Items that arrive late because of forces outside the seller's control (carrier strike, severe weather, war, civil unrest or similar, as Etsy decides) do not qualify. Orders that are late or not received because the buyer delayed or refused to pay customs charges also do not qualify.
+        issues: [lost_package, late_delivery]
+        source: https://help.etsy.com/hc/en-us/articles/7471925990807-Etsy-s-Purchase-Protection-Program
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If you filed a chargeback or disputed the charge with your bank, card company or PayPal, the seller cannot refund on Etsy and you cannot open a case; an open case closes automatically.
+        issues: [lost_package, damaged_item, refund_request]
+        source: https://help.etsy.com/hc/en-us/articles/5745586898199-How-to-Open-a-Case
+        last_verified: 2026-10-12
+
+  - issue: damaged_item
+    summary: Photograph the damage, send the seller a Help with order request, then open an "Item arrived damaged" case after 48 hours.
+    evidence: [photos of the item and packaging, listing description and photos, order number, Help with order messages]
+    steps:
+      - do: Photograph the item and packaging before you discard anything.
+      - do: Send the seller a Help with order request with the photos and the remedy you want.
+        channel: help-with-order
+      - do: If not resolved after 48 hours, open a case and choose "Item arrived damaged" (or "Not as described" for wrong color, design, quantity or condition).
+        channel: help-with-order
+      - do: Give Etsy what it asks for in the case log, such as photos, measurements or third-party evaluations.
+    facts:
+      - kind: compensation
+        claim: If Etsy finds the item does not match the listing, the seller must refund the item cost, the original shipping cost and the return shipping cost; Etsy may issue the refund on the seller's behalf.
+        issues: [damaged_item, refund_request]
+        source: https://help.etsy.com/hc/en-us/articles/5745586898199-How-to-Open-a-Case
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: You must have an Etsy account to start a Help request or open a case; a guest order must first be connected to an Etsy account.
+        issues: [damaged_item, lost_package, refund_request]
+        source: https://help.etsy.com/hc/en-us/articles/7471925990807-Etsy-s-Purchase-Protection-Program
+        last_verified: 2026-10-12
+
+  - issue: refund_request
+    summary: Outside Purchase Protection, returns depend on each seller's own policy; ask the seller first.
+    evidence: [order number, the seller's return and exchange policy, messages with the seller]
+    steps:
+      - do: Check the seller's shop policies for cancellations, returns or exchanges and ask the seller through Help with order.
+        channel: help-with-order
+      - do: If the order qualifies for Purchase Protection (not delivered, damaged, very late or not as described), open a case after 48 hours.
+        channel: help-with-order
+    facts:
+      - kind: policy
+        claim: For an order that does not meet the Purchase Protection criteria, the seller's own policies decide whether cancellations, returns or exchanges are accepted.
+        issues: [refund_request]
+        source: https://help.etsy.com/hc/en-us/articles/7471925990807-Etsy-s-Purchase-Protection-Program
+        last_verified: 2026-10-12
+
+facts:
+  - kind: contact
+    claim: Etsy does not have a phone number to call for customer service. A phone callback can be requested only through the Contact support form while signed in; Etsy will not make unrequested calls.
+    source: https://help.etsy.com/hc/en-us/articles/115013375488-How-to-Contact-Etsy-Support
+    last_verified: 2026-10-12
+
+known_blockers:
+  - www.etsy.com showed "Access is temporarily restricted" to a browser on 2026-10-12; help.etsy.com articles load.
+  - Help requests, cases and the Contact support form all need the buyer's Etsy sign-in.

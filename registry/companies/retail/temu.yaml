@@ -1,0 +1,124 @@
+id: temu
+name: Temu
+aliases: [temu.com, whaleco, whaleco inc]
+sector: retail
+parent: PDD Holdings
+website: https://www.temu.com
+regulators: [ftc]
+notes: >-
+  Temu's U.S. terms are with Whaleco Inc., a Delaware company and PDD Holdings subsidiary.
+  After the U.S. ended the de minimis exemption in May 2025, Temu said U.S. orders would be
+  handled by locally based sellers and fulfilled inside the country. Temu publishes no phone
+  number on the pages checked; support runs through the in-app or web support center.
+
+channels:
+  - id: support-center
+    type: chat
+    label: Temu support center ("Contact us")
+    value: https://www.temu.com/support-center.html
+    purposes: [refund_request, lost_package, damaged_item, unauthorized_charge, account_access]
+    access: login
+    notes: Select the order, then "missing item/parts" or "package shows delivered but not received".
+    source: https://www.temu.com/support-center.html
+    last_verified: 2026-10-12
+  - id: return-refund-policy
+    type: portal
+    label: Temu return and refund policy
+    value: https://www.temu.com/return-and-refund-policy.html
+    purposes: [refund_request, damaged_item]
+    source: https://www.temu.com/return-and-refund-policy.html
+    last_verified: 2026-10-12
+  - id: dispute-email
+    type: email
+    label: Informal dispute notice (required before arbitration)
+    value: dispute@temu.com
+    purposes: [refund_request, poor_service]
+    source: https://www.temu.com/terms-of-use.html
+    last_verified: 2026-10-12
+  - id: legal-mail
+    type: mail
+    label: Whaleco Inc. notice address (informal dispute notice and arbitration opt-out)
+    value: "Whaleco Inc., Suite 355, 31 St. James Avenue, Boston, Massachusetts 02116, USA"
+    purposes: [refund_request, poor_service]
+    notes: The opt-out notice must include your name, address, account email, and a clear statement that you opt out.
+    source: https://www.temu.com/terms-of-use.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: support-center}
+  - {rung: supervisor, channel: support-center}
+  - {rung: written_complaint, channel: dispute-email}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: lost_package
+    summary: Report a missing or not-received package in the support center within 90 days of the order date.
+    evidence: [order number, tracking history, delivery photo if any]
+    steps:
+      - do: In the support center, select the order and choose "package shows delivered but not received", or contact customer service or the seller.
+        channel: support-center
+      - do: Do this within 90 days of the order date.
+      - do: If Temu does not refund or resend, send a dispute notice and dispute the charge with your card issuer.
+        channel: dispute-email
+    facts:
+      - kind: deadline
+        claim: If a package has not arrived, or tracking shows delivered but you did not get it, contact Temu customer service immediately and within 90 days of the order date.
+        issues: [lost_package]
+        source: https://www.temu.com/shipping-info.html
+        last_verified: 2026-10-12
+  - issue: damaged_item
+    summary: Report missing parts or damage in the support center; return eligible items within 90 days of purchase.
+    evidence: [photos of the item and packaging, order number]
+    steps:
+      - do: Photograph the item and packaging.
+      - do: In the support center, select the order and choose "missing item/parts", or start a return.
+        channel: support-center
+      - do: For eligible fresh food that arrives damaged or defective, request a refund within 72 hours of delivery.
+      - do: After the return window, contact customer service about defects under statutory warranty rights.
+        channel: support-center
+    facts:
+      - kind: deadline
+        claim: Eligible fresh food that arrives damaged or defective can be refunded if requested within 72 hours of delivery.
+        issues: [damaged_item]
+        source: https://www.temu.com/return-and-refund-policy.html
+        last_verified: 2026-10-12
+  - issue: refund_request
+    summary: Most items can be returned within 90 days of purchase; the first return per order ships free.
+    evidence: [order number, return request confirmation, drop-off receipt]
+    steps:
+      - do: Start a return from the order in the support center. Choose refund to the original payment method if you do not want Temu credit.
+        channel: support-center
+      - do: Send the package back within 14 days after you submit the return request.
+      - do: If the refund does not post, contact the support center, then dispute the charge with your card issuer.
+        channel: support-center
+    facts:
+      - kind: deadline
+        claim: Most items can be returned within 90 days of purchase; electronics may have a 45-, 60- or 90-day window depending on the seller. You must send the package within 14 days after submitting the return request.
+        issues: [refund_request]
+        source: https://www.temu.com/return-and-refund-policy.html
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: The first return of one or more items in each order ships free; for the second and later returns from the same order, $7.99 plus tax is deducted from the refund.
+        issues: [refund_request]
+        source: https://www.temu.com/return-and-refund-policy.html
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Depending on the bank, refunds to the original payment method can take 5-14 business days (up to 30 days) to post; Temu credit refunds are faster but generally cannot be reversed or cashed out.
+        issues: [refund_request]
+        source: https://www.temu.com/return-and-refund-policy.html
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: Temu's terms (last updated November 7, 2025) require an informal dispute notice by email to dispute@temu.com or by mail to Whaleco Inc. before arbitration.
+    source: https://www.temu.com/terms-of-use.html
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: You may opt out of Temu's arbitration agreement within thirty (30) days after first becoming subject to it, by notice to the Whaleco Inc. Boston address.
+    source: https://www.temu.com/terms-of-use.html
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Support center contact, returns and refunds need the Temu account holder's sign-in.

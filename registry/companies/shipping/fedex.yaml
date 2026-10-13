@@ -1,0 +1,155 @@
+id: fedex
+name: FedEx
+aliases: [federal express, fedex express, fedex ground, fedex home delivery, gofedex]
+sector: shipping
+website: https://www.fedex.com
+account_url: https://www.fedex.com/secure-login/en-us/
+regulators: [ftc]
+notes: >-
+  FedEx Express and FedEx Ground parcel and air freight claims use the FedEx claims portal. The claims page
+  says FedEx Freight "became an independent less-than-truckload (LTL) company on June 1st" (no year given);
+  LTL claims now go to fedexfreight.com. Terms are in the FedEx Service Guide (2026), a PDF that could not be read.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: FedEx Customer Service (1.800.GoFedEx), U.S. and Canada
+    value: +1-800-463-3339
+    purposes: [lost_package, damaged_item, late_delivery, poor_service]
+    notes: The same number is listed for cargo claims inquiries and for filing or following up on a complaint.
+    source: https://www.fedex.com/en-us/customer-support/contact-us.html
+    last_verified: 2026-10-12
+  - id: billing-phone
+    type: phone
+    label: FedEx U.S. billing inquiries
+    value: +1-800-622-1147
+    purposes: [billing_error, refund_request]
+    source: https://www.fedex.com/en-us/customer-support/contact-us.html
+    last_verified: 2026-10-12
+  - id: claims-portal
+    type: portal
+    label: FedEx Express and Ground claims (file a claim, check status)
+    value: https://www.fedex.com/eclaims/#/claimcenter?locale=en_US
+    purposes: [lost_package, damaged_item]
+    access: login
+    notes: Shippers and recipients can both file. Add documents to an existing claim at https://www.fedex.com/eclaims/#/documentupload?locale=en_US
+    source: https://www.fedex.com/en-us/customer-support/claims.html
+    last_verified: 2026-10-12
+  - id: freight-ltl-claims
+    type: portal
+    label: FedEx Freight (LTL) claims
+    value: https://www.fedexfreight.com/en-us/manage-account/claims
+    purposes: [lost_package, damaged_item]
+    notes: Only for less-than-truckload freight. Parcel and air freight claims stay on the FedEx claims portal.
+    source: https://www.fedex.com/en-us/customer-support/claims.html
+    last_verified: 2026-10-12
+  - id: customer-relations-mail
+    type: mail
+    label: FedEx Customer Relations
+    value: "FedEx Customer Relations, 3875 Airways, Module H3, Department 4634, Memphis, TN 38116"
+    purposes: [poor_service]
+    source: https://www.fedex.com/en-us/customer-support/contact-us.html
+    last_verified: 2026-10-12
+  - id: delivery-manager
+    type: portal
+    label: FedEx Delivery Manager (free sign-up for home deliveries)
+    value: https://www.fedex.com/fdmenrollment/?signup=true
+    purposes: [lost_package]
+    access: login
+    notes: Free for residential addresses. Delivery instructions, free hold at a retail location, and picture proof of delivery. Some options cost extra.
+    source: https://www.fedex.com/en-us/delivery-manager.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: claims-portal, note: "Claim with FedEx. The recipient can file, or ask the merchant to file."}
+  - {rung: written_complaint, channel: customer-relations-mail}
+  - {rung: payment_dispute, note: "Dispute with the seller who shipped the item."}
+
+playbooks:
+  - issue: lost_package
+    summary: Ask the merchant or file a claim yourself within nine months of the shipment date for an undelivered package.
+    evidence: [tracking number, purchase invoice or receipt, description of the items (brand, model, size, quantity), serial numbers, shipping receipt]
+    steps:
+      - do: Check tracking. If you bought the item, ask the merchant to file the claim or to resend; FedEx says recipients can also file on their own.
+      - do: File the claim online with as much detail as possible. You can add documents later, so do not wait to file.
+        channel: claims-portal
+      - do: Follow up by phone if you get no answer.
+        channel: customer-service-phone
+      - do: If neither FedEx nor the seller pays, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: Claims for undelivered or lost shipments must be filed within nine months of the shipment date.
+        issues: [lost_package]
+        source: https://www.fedex.com/en-us/customer-support/claims.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Recipients can file a claim on their own or ask the merchant to file it. Shippers can file single claims or up to 200 claims at once.
+        issues: [lost_package, damaged_item]
+        source: https://www.fedex.com/en-us/customer-support/claims.html
+        last_verified: 2026-10-12
+
+  - issue: damaged_item
+    summary: Keep the item and packaging, and file within 60 calendar days of the shipment date (21 days for international).
+    evidence: [photos of the package and damaged contents, purchase invoice, repair estimate or invoice, airbill or shipping label scan, serial numbers]
+    steps:
+      - do: Keep the original packaging and contents until the claim is resolved. FedEx may ask for an inspection.
+      - do: File the claim online with photos, invoices and a repair estimate.
+        channel: claims-portal
+      - do: If you bought the item, also ask the seller for a replacement or refund.
+    facts:
+      - kind: deadline
+        claim: Claims for damaged or missing contents must be filed no later than 60 calendar days from the shipment date for U.S. packages, and 21 calendar days for international packages.
+        issues: [damaged_item]
+        source: https://www.fedex.com/en-us/customer-support/claims.html
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Supporting documents include the original manufacturer or purchase invoice, repair estimates or invoices, appraisals, a scan of the airbill or Ship Manager printout, photos of the package and damaged contents, and serial numbers.
+        issues: [damaged_item, lost_package]
+        source: https://www.fedex.com/en-us/customer-support/claims.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: FedEx is not deemed at fault when an improperly packed shipment is damaged, and the claimant must provide proof that FedEx is at fault.
+        issues: [damaged_item]
+        source: https://www.fedex.com/en-us/shipping/declared-value.html
+        last_verified: 2026-10-12
+
+  - issue: late_delivery
+    summary: Since Feb. 12, 2026 the Money-Back Guarantee applies only to listed overnight, 2Day A.M. and international priority services; it stays suspended for all other services.
+    evidence: [tracking number, the service level bought, the scheduled delivery commitment]
+    steps:
+      - do: Check whether the service is one of the services covered by the Money-Back Guarantee.
+      - do: Ask FedEx for the refund or credit. The guarantee page does not describe a request process, so start with customer service.
+        channel: customer-service-phone
+    facts:
+      - kind: policy
+        claim: Effective Feb. 12, 2026, the FedEx Money-Back Guarantee applies for U.S. payors to First Overnight, Priority Overnight, Standard Overnight, 2Day A.M. (and Extra Hours versions) and listed International Priority services. It remains suspended for all other FedEx services.
+        issues: [late_delivery]
+        source: https://www.fedex.com/en-us/service-guide/money-back-guarantee.html
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Shipments delayed due to regulatory changes are not eligible for a refund or credit under the money-back guarantee.
+        issues: [late_delivery]
+        source: https://www.fedex.com/en-us/service-guide/money-back-guarantee.html
+        last_verified: 2026-10-12
+
+facts:
+  - kind: limit
+    claim: The first $100 of value is included in the shipping rate (FedEx's standard $100 limit of liability). Higher coverage needs a declared value, with item maximums in the FedEx Service Guide.
+    issues: [lost_package, damaged_item]
+    source: https://www.fedex.com/en-us/shipping/declared-value.html
+    last_verified: 2026-10-12
+  - kind: limit
+    claim: FedEx liability will not exceed the lesser of the repair cost, the depreciated value or the replacement cost.
+    issues: [lost_package, damaged_item]
+    source: https://www.fedex.com/en-us/shipping/declared-value.html
+    last_verified: 2026-10-12
+  - kind: process
+    claim: Approved claims are paid by check or Electronic Funds Transfer, as selected when filing the claim.
+    issues: [lost_package, damaged_item]
+    source: https://www.fedex.com/en-us/customer-support/claims.html
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The claims portal needs a fedex.com login.
+  - FedEx may require an inspection of the damaged item and packaging before it decides a claim.

@@ -1,0 +1,62 @@
+id: wayfair
+name: Wayfair
+aliases: [wayfair.com]
+sector: retail
+parent: Wayfair Inc.
+website: https://www.wayfair.com
+account_url: https://www.wayfair.com/session/secure/account/order_search.php
+regulators: [ftc]
+notes: >-
+  wayfair.com rate-limits automated fetches (HTTP 429) and showed a "Press & Hold" bot check to a
+  real browser on 2026-10-12, so the return window, damage reporting deadline, phone number and
+  terms of use are not recorded here. Links come from aboutwayfair.com. The return policy link
+  formerly listed here (wayfair.com/help/article/return_policy) now opens a "No Search Results" help
+  page and was removed.
+
+channels:
+  - id: help-center
+    type: portal
+    label: Wayfair Help Center
+    value: https://www.wayfair.com/help/index
+    purposes: [refund_request, lost_package, damaged_item, unauthorized_charge]
+    access: login
+    source: https://www.aboutwayfair.com/
+    last_verified: 2026-10-12
+  - id: my-orders
+    type: portal
+    label: My Orders (report a problem with an order)
+    value: https://www.wayfair.com/session/secure/account/order_search.php
+    purposes: [lost_package, damaged_item, refund_request]
+    access: login
+    source: https://www.aboutwayfair.com/
+    last_verified: 2026-10-12
+  - id: corporate-mail
+    type: mail
+    label: Wayfair corporate address
+    value: "Wayfair, 4 Copley Place, 7th Floor, Boston, MA 02116"
+    purposes: [poor_service]
+    source: https://www.aboutwayfair.com/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: help-center}
+  - {rung: supervisor, channel: help-center}
+  - {rung: written_complaint, channel: corporate-mail}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: damaged_item
+    summary: Report damage from the order in My Orders with photos, then escalate.
+    evidence: [photos of the item, packaging and labels, order number, delivery date]
+    steps:
+      - do: Photograph the item, box and shipping labels before you discard anything.
+      - do: Report the problem from the order in My Orders and ask for a replacement part, replacement or refund.
+        channel: my-orders
+      - do: If Wayfair does not resolve it, send a written complaint and then dispute the charge with your card issuer.
+        channel: corporate-mail
+
+known_blockers:
+  - wayfair.com returns HTTP 429 to automated fetches; order actions need the customer's sign-in.
+  - Wayfair help pages show a "Press & Hold to confirm you are a human" bot check (CAPTCHA) to browsers; hand help-center steps to the person.

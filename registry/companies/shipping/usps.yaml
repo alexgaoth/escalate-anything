@@ -1,0 +1,221 @@
+id: usps
+name: United States Postal Service
+aliases: [usps, us postal service, postal service, us mail, post office]
+sector: shipping
+website: https://www.usps.com
+account_url: https://reg.usps.com
+regulators: [usps-oig]
+notes: >-
+  USPS is a federal agency. Domestic claim rules are in the Domestic Mail Manual (DMM) section 609.
+  Either the sender or the recipient can file a claim for insured mail, but for a lost item the filer
+  must hold the original mailing receipt or online label record. The faq.usps.com pages render with
+  JavaScript and could not be read directly.
+
+channels:
+  - id: customer-care-phone
+    type: phone
+    label: USPS Customer Care Center (1-800-ASK-USPS)
+    value: +1-800-275-8777
+    hours: Mon-Fri 8 AM to 8:30 PM ET; Sat 8 AM to 6 PM ET
+    purposes: [lost_package, damaged_item, late_delivery, poor_service, refund_request]
+    source: https://www.usps.com/help/contact-us.htm
+    last_verified: 2026-10-12
+  - id: tracking-phone
+    type: phone
+    label: Domestic and international USPS Tracking line
+    value: +1-800-222-1811
+    hours: Mon-Fri 8 AM to 8:30 PM ET; Sat 8 AM to 6 PM ET
+    purposes: [lost_package, late_delivery]
+    source: https://www.usps.com/help/contact-us.htm
+    last_verified: 2026-10-12
+  - id: email-us-form
+    type: web_form
+    label: Email Customer Service (Get Help Online)
+    value: https://emailus.usps.com/s/
+    purposes: [poor_service, lost_package, late_delivery]
+    source: https://www.usps.com/help/contact-us.htm
+    last_verified: 2026-10-12
+  - id: missing-mail-search
+    type: web_form
+    label: Missing Mail search request
+    value: https://missingmail.usps.com
+    purposes: [lost_package]
+    notes: Opens 7 days after the mailing date. Give sender and recipient addresses, container size and type, tracking number or mailing date, a description of the contents, and photos if you have them.
+    source: https://www.usps.com/help/missing-mail.htm
+    last_verified: 2026-10-12
+  - id: online-claims
+    type: portal
+    label: Domestic insurance claim (file, appeal and check status)
+    value: https://onlineclaims.usps.com/OICWeb/
+    purposes: [lost_package, damaged_item]
+    access: login
+    notes: Needs a free USPS.com account. First and final appeals of online claims are also filed here.
+    source: https://www.usps.com/help/claims.htm
+    last_verified: 2026-10-12
+  - id: claims-mail
+    type: mail
+    label: Domestic claims by mail (Accounting Services)
+    value: "Domestic Claims, Accounting Services, US Postal Service, PO Box 80143, St Louis MO 63180-0143"
+    purposes: [lost_package, damaged_item]
+    source: https://pe.usps.com/text/dmm300/608.htm
+    last_verified: 2026-10-12
+  - id: claims-appeals-mail
+    type: mail
+    label: Domestic claim appeals by mail (first appeal)
+    value: "Domestic Claims Appeals, Accounting Services, US Postal Service, PO Box 80141, St Louis MO 63180-0141"
+    purposes: [lost_package, damaged_item]
+    notes: For claims that were not filed online.
+    source: https://pe.usps.com/text/dmm300/608.htm
+    last_verified: 2026-10-12
+  - id: claim-forms-phone
+    type: phone
+    label: National Materials Customer Service (paper claim forms only)
+    value: +1-800-332-0317
+    hours: Mon-Fri 6 AM to 6 PM CT
+    notes: Only for ordering paper Domestic Claim Forms.
+    source: https://www.usps.com/help/claims.htm
+    last_verified: 2026-10-12
+  - id: consumer-advocate-mail
+    type: mail
+    label: USPS Consumer Advocate
+    value: "Consumer Advocate, US Postal Service, 475 L'Enfant Plz SW, Washington DC 20260-2200"
+    purposes: [poor_service, lost_package, damaged_item]
+    notes: DMM 609.6.3 sends final (second) appeals of claims that were not filed online to the Consumer Advocate.
+    source: https://pe.usps.com/text/dmm300/608.htm
+    last_verified: 2026-10-12
+  - id: service-refunds
+    type: portal
+    label: Priority Mail Express and extra-service refund request
+    value: https://servicerefunds.usps.com/OSR/
+    purposes: [late_delivery, refund_request]
+    access: login
+    notes: Needs a free USPS.com account. In person, use PS Form 3533 at a Post Office with the original Label 11 customer copy.
+    source: https://www.usps.com/help/refunds.htm
+    last_verified: 2026-10-12
+  - id: informed-delivery
+    type: portal
+    label: Informed Delivery sign-up (free mail and package preview)
+    value: https://reg.usps.com/informeddelivery/welcome
+    purposes: [lost_package]
+    access: login
+    notes: Free. Shows images of incoming letter-size mail and tracks packages to your address. Sign-up needs address eligibility and identity verification.
+    source: https://www.usps.com/manage/informed-delivery.htm
+    last_verified: 2026-10-12
+  - id: informed-delivery-support
+    type: web_form
+    label: Informed Delivery user support
+    value: https://emailus.usps.com/s/informed-delivery-inquiry
+    source: https://www.usps.com/help/contact-us.htm
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-care-phone}
+  - {rung: written_complaint, channel: online-claims, note: "Insurance claim. Sender or recipient can file; a lost-item claim needs the original mailing receipt."}
+  - {rung: executive, channel: consumer-advocate-mail, note: "Final appeal for claims filed by mail; general complaints by letter."}
+  - {rung: payment_dispute, note: "Dispute with the seller who shipped the item."}
+  - {rung: regulator, regulator: usps-oig, note: "Independent oversight of the Postal Service. Not a claims channel."}
+
+playbooks:
+  - issue: lost_package
+    summary: Check tracking, submit a Missing Mail search after 7 days, and file an insurance claim before day 60.
+    evidence: [tracking or label number, original mailing receipt or online label record, proof of value (receipt, invoice, card statement), sender and recipient addresses]
+    steps:
+      - do: Check USPS Tracking. If the item is a purchase, ask the seller first; the seller often holds the receipt and the insurance.
+      - do: From 7 days after mailing, submit a Missing Mail search request with addresses, container type, contents and photos.
+        channel: missing-mail-search
+      - do: If the item had insurance (Priority Mail, Priority Mail Express and Ground Advantage include up to $100), file a claim online. Do not wait for the search to finish.
+        channel: online-claims
+      - do: If the claim is denied, appeal within 30 days of the decision. If the appeal is denied, file a final appeal within 30 days.
+        channel: online-claims
+      - do: For a claim filed by mail, send the final appeal in writing to the Consumer Advocate.
+        channel: consumer-advocate-mail
+      - do: If you bought the item and nobody pays, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: "Missing Mail search requests can be submitted starting 7 days from mailing."
+        issues: [lost_package]
+        source: https://www.usps.com/help/missing-mail.htm
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: A lost-item claim can be filed 7 to 60 days after mailing for Priority Mail Express, and 15 to 60 days after mailing for Priority Mail, USPS Ground Advantage, Insured Mail, COD and Registered Mail.
+        issues: [lost_package]
+        source: https://www.usps.com/help/claims.htm
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: For a lost article, the mailer or addressee who has the original retail mailing receipt (or the online label record) can file the claim.
+        issues: [lost_package]
+        source: https://pe.usps.com/text/dmm300/609.htm
+        last_verified: 2026-10-12
+      - kind: process
+        claim: USPS usually sends claim decisions within 5 to 10 days, and pays approved claims within 7 to 10 business days.
+        issues: [lost_package, damaged_item]
+        source: https://www.usps.com/help/claims.htm
+        last_verified: 2026-10-12
+
+  - issue: damaged_item
+    summary: Keep the item and all packaging, then file an insurance claim right away and no later than 60 days after mailing.
+    evidence: [photos of the damage and packaging, tracking or label number, proof of insurance, proof of value, repair estimate from a reputable dealer]
+    steps:
+      - do: Keep the original packaging and all contents. Do not throw away damaged items; USPS can ask you to bring the package to a Post Office for inspection.
+      - do: Photograph the damage and get a repair cost estimate.
+      - do: File the claim online. Either the sender or the recipient can file for damaged or missing contents.
+        channel: online-claims
+      - do: If denied, appeal within 30 days, then make a final appeal within 30 days of the appeal decision.
+        channel: online-claims
+    facts:
+      - kind: deadline
+        claim: For damaged or partly missing contents, file the claim immediately but no later than 60 days after the mailing date.
+        issues: [damaged_item]
+        source: https://www.usps.com/help/claims.htm
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Either the mailer or the addressee can file a claim for damaged articles or articles with some or all of the contents missing.
+        issues: [damaged_item]
+        source: https://pe.usps.com/text/dmm300/609.htm
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Proof of insurance is the original mailing receipt, the outer packaging showing an insured label with sender and addressee, or a printed online label record. Proof of value is a sales receipt, paid invoice, bill of sale, repair cost statement, card statement or online transaction printout.
+        issues: [damaged_item, lost_package]
+        source: https://www.usps.com/help/claims.htm
+        last_verified: 2026-10-12
+
+  - issue: late_delivery
+    summary: Priority Mail Express has a money-back guarantee with the delivery date or time on its receipt. Ask for the postage refund 2 to 30 days after mailing.
+    evidence: [Priority Mail Express receipt (Label 11 customer copy) with the guaranteed date, tracking number]
+    steps:
+      - do: Check the guaranteed delivery date or time printed on the Priority Mail Express receipt.
+      - do: Request the refund online, or at a Post Office with PS Form 3533 and the original receipt.
+        channel: service-refunds
+    facts:
+      - kind: deadline
+        claim: A Priority Mail Express refund request is due 2 to 30 days after the mailing date without extra services, or 30 to 60 days after mailing when extra services were bought.
+        issues: [late_delivery]
+        source: https://www.usps.com/help/refunds.htm
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Priority Mail Express refund applies when the shipment did not arrive by the guaranteed delivery date or time shown on the receipt. Exceptions are in DMM 113 and 604.9.5.
+        issues: [late_delivery]
+        source: https://www.usps.com/ship/priority-mail-express.htm
+        last_verified: 2026-10-12
+
+facts:
+  - kind: limit
+    claim: Priority Mail Express, Priority Mail and USPS Ground Advantage include up to $100 of insurance when the piece has a USPS Tracking (IMpb) barcode. Up to $5,000 of insurance can be bought.
+    issues: [lost_package, damaged_item]
+    source: https://www.usps.com/ship/insurance-extra-services.htm
+    last_verified: 2026-10-12
+  - kind: limit
+    claim: If only the outer packaging is submitted as evidence of insurance, indemnity can be limited to $100 for insured mail, $50 for COD, $100 for Registered Mail and $100 for Priority Mail Express.
+    issues: [lost_package, damaged_item]
+    source: https://pe.usps.com/text/dmm300/609.htm
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: Appeal a claim decision within 30 days of the decision. If Accounting Services sustains the denial, a final appeal is due within 30 days; mail filers send it to the Consumer Advocate.
+    issues: [lost_package, damaged_item]
+    source: https://pe.usps.com/text/dmm300/609.htm
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Online claims, service refunds and Informed Delivery need a USPS.com account in the person's name.
+  - A lost-item claim needs the original mailing receipt or online label record, which the recipient often does not have; ask the sender or seller.
+  - USPS may ask the claimant to bring the damaged item and packaging to a Post Office for inspection.

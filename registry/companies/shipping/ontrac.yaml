@@ -1,0 +1,107 @@
+id: ontrac
+name: OnTrac
+aliases: [ontrac, lasership, laser ship, ontrac lasership]
+sector: shipping
+website: https://www.ontrac.com
+regulators: [ftc]
+notes: >-
+  Regional ground parcel carrier that delivers many online orders. OnTrac says LaserShip merged with OnTrac
+  in 2021, and lasership.com now redirects (301) to ontrac.com. OnTrac lists no voice phone number for
+  recipients; support is by text, chat and the inquiry form. Under the OnTrac Terms, only the shipper files
+  claims, so recipients must go through the retailer. Terms page published January 5, 2026.
+
+channels:
+  - id: text-support
+    type: sms
+    label: OnTrac text support (text "start")
+    value: +1-703-348-8441
+    hours: Mon-Fri 8 AM to 9 PM ET; Sat-Sun 8 AM to 8 PM ET
+    purposes: [lost_package, late_delivery, poor_service]
+    notes: Text-only line to track a package or open a case. Standard message and data rates apply.
+    source: https://www.ontrac.com/support/
+    last_verified: 2026-10-12
+  - id: virtual-assistant-chat
+    type: chat
+    label: OnTrac virtual assistant and live agent chat
+    value: https://www.ontrac.com/
+    purposes: [lost_package, late_delivery, poor_service]
+    notes: Select the chat (virtual assistant) icon in the bottom right corner of ontrac.com.
+    source: https://www.ontrac.com/support/
+    last_verified: 2026-10-12
+  - id: inquiry-form
+    type: web_form
+    label: Package inquiry and complaint form (on the tracking page)
+    value: https://www.ontrac.com/tracking
+    purposes: [lost_package, late_delivery, poor_service]
+    notes: Give the tracking number and contact details. OnTrac emails a case number and asks you to allow up to 48 hours for the investigation.
+    source: https://www.ontrac.com/support/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: inquiry-form}
+  - {rung: written_complaint, note: "Only the shipper can file a claim with OnTrac. Ask the retailer to file it."}
+  - {rung: payment_dispute, note: "Dispute with the seller who shipped the item."}
+
+playbooks:
+  - issue: lost_package
+    summary: Open an inquiry for "delivered, no package"; after 2 business days with no answer, go to the retailer, who must file any claim within 15 days.
+    evidence: [tracking number, order number, delivery photo or delivery scan, OnTrac case number]
+    steps:
+      - do: Open an inquiry with the tracking number (choose "Tracking shows delivered; no package" when offered), or text "start" to the support line. Save the case number.
+        channel: inquiry-form
+      - do: If there is no update or location after 2 business days, contact the retailer for next steps.
+      - do: Ask the retailer to resend or refund. Only the shipper can file a claim with OnTrac, and it has 15 calendar days from the expected delivery date.
+      - do: If the retailer does not refund or resend, dispute the charge with your card issuer.
+    facts:
+      - kind: process
+        claim: If a package is marked delivered but not found, submit an inquiry; if there is no update or location after 2 business days, OnTrac says to contact your retailer for next steps.
+        issues: [lost_package]
+        source: https://www.ontrac.com/support/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Under the OnTrac Terms, the shipper must file shipment claims within fifteen (15) calendar days of the anticipated due date of the shipment, with OnTrac's claim form, supporting documents and an invoice showing the replacement cost.
+        issues: [lost_package, damaged_item]
+        source: https://www.ontrac.com/terms-conditions/
+        last_verified: 2026-10-12
+
+  - issue: damaged_item
+    summary: Photograph the item and packaging and ask the retailer; only the shipper can file an OnTrac claim.
+    evidence: [photos of the item and packaging, order number, tracking number]
+    steps:
+      - do: Photograph the item and packaging before you discard anything.
+      - do: Ask the retailer for a replacement or refund. The retailer (shipper) files any claim with OnTrac within 15 calendar days of the expected delivery date.
+      - do: You can also report the delivery problem to OnTrac through the inquiry form.
+        channel: inquiry-form
+    facts:
+      - kind: policy
+        claim: The OnTrac Terms state that the Shipper shall file any Shipment Claims.
+        issues: [damaged_item, lost_package]
+        source: https://www.ontrac.com/terms-conditions/
+        last_verified: 2026-10-12
+
+  - issue: late_delivery
+    summary: OnTrac does not guarantee delivery by a specific day or time, so there is no carrier refund for lateness.
+    evidence: [tracking history, order number]
+    steps:
+      - do: Ask the retailer about any delivery-date promise or shipping fee refund.
+    facts:
+      - kind: policy
+        claim: The OnTrac Terms state that OnTrac does not guarantee delivery by a specific day or time.
+        issues: [late_delivery]
+        source: https://www.ontrac.com/terms-conditions/
+        last_verified: 2026-10-12
+
+facts:
+  - kind: limit
+    claim: OnTrac's liability is limited to the lesser of the actual replacement cost, $100 per parcel, or $250,000 per truckload.
+    issues: [lost_package, damaged_item]
+    source: https://www.ontrac.com/terms-conditions/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: OnTrac says LaserShip merged with OnTrac in 2021, and the combined transcontinental delivery service launched on July 27, 2022.
+    source: https://www.ontrac.com/about/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - No voice phone number is published; the 703-348-8441 line is text-only.
+  - Recipients cannot file claims; only the shipper (usually the retailer) can.

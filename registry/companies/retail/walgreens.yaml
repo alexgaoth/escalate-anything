@@ -1,0 +1,121 @@
+id: walgreens
+name: Walgreens
+aliases: [walgreens.com, walgreen co, duane reade, mywalgreens, walgreens boots alliance]
+sector: retail
+parent: Sycamore Partners (private equity owner)
+website: https://www.walgreens.com
+regulators: [ftc]
+notes: >-
+  Sycamore Partners took Walgreens Boots Alliance private; the deal completed on August 28, 2025
+  and split the group into separate companies, including Walgreens and The Boots Group. The
+  contracting entity in the terms of use is Walgreen Co. Prescriptions and contact lenses have
+  separate return rules.
+
+channels:
+  - id: customer-care-phone
+    type: phone
+    label: Walgreens.com Customer Care (damaged items, large medical equipment returns)
+    value: +1-877-250-5823
+    purposes: [refund_request, damaged_item, lost_package]
+    source: https://www.walgreens.com/topic/help/shophelp/returns_help_main.jsp
+    last_verified: 2026-10-12
+  - id: general-phone
+    type: phone
+    label: Walgreens toll-free (1-800-WALGREENS)
+    value: +1-800-925-4733
+    purposes: [refund_request, unauthorized_charge, poor_service]
+    source: https://www.walgreens.com/mktg/contactus/contact-us-landing.jsp
+    last_verified: 2026-10-12
+  - id: contact-forms
+    type: web_form
+    label: Walgreens contact forms by topic (customer service, products, store facilities, myWalgreens)
+    value: https://www.walgreens.com/mktg/contactus/contact-us-landing.jsp
+    purposes: [refund_request, damaged_item, poor_service, account_access]
+    source: https://www.walgreens.com/mktg/contactus/contact-us-landing.jsp
+    last_verified: 2026-10-12
+  - id: consumer-relations-mail
+    type: mail
+    label: Walgreens Consumer Relations
+    value: "ATTN: Consumer Relations, Walgreen Co., 108 Wilmot Rd, MS #2002, Deerfield, IL 60015"
+    purposes: [poor_service, refund_request]
+    source: https://www.walgreens.com/mktg/contactus/contact-us-landing.jsp
+    last_verified: 2026-10-12
+  - id: returns-help
+    type: portal
+    label: Walgreens returns help
+    value: https://www.walgreens.com/topic/help/shophelp/returns_help_main.jsp
+    purposes: [refund_request]
+    source: https://www.walgreens.com/topic/help/shophelp/returns_help_main.jsp
+    last_verified: 2026-10-12
+  - id: notice-of-dispute
+    type: mail
+    label: Notice of Dispute and Demand for Arbitration (by mail only)
+    value: "Walgreen Co. c/o Illinois Corporation Service Company, 801 Adlai Stevenson Drive, Springfield, IL 62703"
+    purposes: [refund_request, poor_service]
+    source: https://www.walgreens.com/topic/help/generalhelp/termsofuse.jsp
+    last_verified: 2026-10-12
+  - id: arbitration-opt-out
+    type: mail
+    label: Arbitration opt-out (signed, within 30 days)
+    value: "Walgreens, Attn: Litigation and Regulatory Law Department, 104 Wilmot Road, MS 1431, Deerfield, IL 60015"
+    notes: Include your name, address, phone number and the email addresses used to log in, and state that you do not agree to the arbitration agreement.
+    source: https://www.walgreens.com/topic/help/generalhelp/termsofuse.jsp
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: general-phone}
+  - {rung: supervisor, channel: customer-care-phone}
+  - {rung: written_complaint, channel: consumer-relations-mail}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: refund_request
+    summary: Return eligible items to any Walgreens store within 30 days with the receipt or order number; online orders are returned in store, not by mail.
+    evidence: [receipt or Walgreens.com order number, payment card]
+    steps:
+      - do: Take the item to any Walgreens store within 30 days with the receipt or order number (Product Purchase History in your account).
+      - do: For large medical equipment such as electric wheelchairs, scooters or lift chairs, call Customer Care instead of going to a store.
+        channel: customer-care-phone
+      - do: If the store refuses, write to Consumer Relations, then dispute the charge with your card issuer.
+        channel: consumer-relations-mail
+    facts:
+      - kind: deadline
+        claim: Eligible items bought at Walgreens or Walgreens.com can be returned or exchanged at any Walgreens store within 30 days of purchase with the original receipt or order number; refunds go to the original payment method.
+        issues: [refund_request]
+        source: https://www.walgreens.com/topic/help/shophelp/returns_help_main.jsp
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Walgreens-brand products carry a satisfaction guarantee; the unused portion can be returned to a Walgreens or Duane Reade store for a full refund, including shipping.
+        issues: [refund_request, damaged_item]
+        source: https://www.walgreens.com/topic/help/shophelp/returns_help_main.jsp
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: Gift and prepaid cards, mobile phones, bathing suits, underwear, earrings, sexual wellness items, seasonal products, hazmat items and COVID-19 test kits cannot be returned; hearing aids can be returned within 45 days.
+        issues: [refund_request]
+        source: https://www.walgreens.com/topic/help/shophelp/returns_help_main.jsp
+        last_verified: 2026-10-12
+  - issue: damaged_item
+    summary: Call Walgreens.com Customer Care for a refund on a damaged online order.
+    evidence: [photos of the item and packaging, order number]
+    steps:
+      - do: Photograph the item and packaging.
+      - do: Call Customer Care and ask for a refund.
+        channel: customer-care-phone
+    facts:
+      - kind: process
+        claim: For a damaged item from Walgreens.com, Walgreens says to call Customer Service at 1-877-250-5823 for a refund.
+        issues: [damaged_item]
+        source: https://www.walgreens.com/topic/help/shophelp/returns_help_main.jsp
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: Walgreens' terms (last updated May 21, 2024) require a mailed Notice of Dispute and 60 days of informal resolution before arbitration administered by National Arbitration and Mediation (NAM); small claims court is an exception.
+    source: https://www.walgreens.com/topic/help/generalhelp/termsofuse.jsp
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: You may opt out of Walgreens' arbitration agreement within 30 days after you first access the services or accept a later version of the terms, by a signed mailed notice.
+    source: https://www.walgreens.com/topic/help/generalhelp/termsofuse.jsp
+    last_verified: 2026-10-12

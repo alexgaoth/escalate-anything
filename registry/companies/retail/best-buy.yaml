@@ -1,0 +1,174 @@
+id: best-buy
+name: Best Buy
+aliases: [bestbuy.com, best buy co, geek squad, my best buy plus, my best buy total]
+sector: retail
+also_sectors: [subscription]
+parent: Best Buy Co., Inc.
+website: https://www.bestbuy.com
+account_url: https://www.bestbuy.com/profile/ss/orderlookup
+regulators: [ftc]
+notes: >-
+  My Best Buy Plus and Total are paid yearly memberships that lengthen the return window.
+  Geek Squad Protection plans have their own claim and cancellation lines. Marketplace items
+  are excluded from member return windows.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Best Buy customer service (1-888-BEST BUY)
+    value: +1-888-237-8289
+    purposes: [refund_request, lost_package, damaged_item, cancel_service, billing_error]
+    notes: Also the number for major appliance problems after delivery, membership cancellation and BestBuy.com price match requests.
+    source: https://www.bestbuy.com/contact-us
+    last_verified: 2026-10-12
+  - id: contact-chat
+    type: chat
+    label: Best Buy contact page ("Chat now")
+    value: https://www.bestbuy.com/contact-us
+    purposes: [refund_request, lost_package, damaged_item, billing_error]
+    source: https://www.bestbuy.com/contact-us
+    last_verified: 2026-10-12
+  - id: order-status
+    type: portal
+    label: Check order status
+    value: https://www.bestbuy.com/profile/ss/orderlookup
+    purposes: [lost_package, refund_request]
+    source: https://www.bestbuy.com/contact-us
+    last_verified: 2026-10-12
+  - id: plans-and-subscriptions
+    type: portal
+    label: Plans and Subscriptions (memberships and protection plans)
+    value: https://www.bestbuy.com/services/planlist
+    purposes: [cancel_service, warranty_claim]
+    access: login
+    source: https://www.bestbuy.com/site/electronics/services/pcmcat1528819595254.c?id=pcmcat1528819595254
+    last_verified: 2026-10-12
+  - id: geek-squad-phone
+    type: phone
+    label: Geek Squad Protection service, claims and plan cancellation
+    value: +1-800-433-5778
+    purposes: [warranty_claim, cancel_service]
+    source: https://www.bestbuy.com/site/geek-squad-protection/geek-squad-protection-faqs/pcmcat748302045943.c?id=pcmcat748302045943
+    last_verified: 2026-10-12
+  - id: geek-squad-lost-stolen-phone
+    type: phone
+    label: Geek Squad Protection lost or stolen cell phone claims
+    value: +1-866-205-4388
+    purposes: [warranty_claim]
+    source: https://www.bestbuy.com/site/geek-squad-protection/geek-squad-protection-faqs/pcmcat748302045943.c?id=pcmcat748302045943
+    last_verified: 2026-10-12
+  - id: service-triage
+    type: web_form
+    label: Schedule service or repair, or start a lost/stolen phone claim
+    value: https://www.bestbuy.com/service-triage/home
+    purposes: [warranty_claim]
+    access: login
+    source: https://www.bestbuy.com/site/geek-squad-protection/geek-squad-protection-faqs/pcmcat748302045943.c?id=pcmcat748302045943
+    last_verified: 2026-10-12
+  - id: arbitration-notice
+    type: mail
+    label: Notice of dispute and arbitration opt-out (Best Buy registered agent)
+    value: "Best Buy, CT Corporation System, Inc., 1010 Dale Street North, St. Paul, MN 55117-5603"
+    purposes: [refund_request, poor_service]
+    notes: The notice may also be emailed to Arbitration@BestBuy.com. It must be personally signed.
+    source: https://www.bestbuy.com/site/help-topics/terms-and-conditions/pcmcat204400050067.c?id=pcmcat204400050067
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: contact-chat}
+  - {rung: supervisor, channel: customer-service-phone}
+  - {rung: written_complaint, channel: arbitration-notice}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: refund_request
+    summary: Standard customers have 15 days, paid members 60 days, activatable devices 14 days; some categories carry a restocking fee.
+    evidence: [receipt or order number, payment card, item with all accessories]
+    steps:
+      - do: Check the window for your membership tier and product category.
+      - do: Return the item to a store or by mail with the receipt or order number. Do not ship a major appliance back.
+        channel: order-status
+      - do: If Best Buy lowers its own price during your return period, ask for a price match instead of returning.
+        channel: customer-service-phone
+      - do: If the refund does not post, contact customer service, then dispute the charge with your card issuer.
+        channel: contact-chat
+    facts:
+      - kind: deadline
+        claim: Most products have a 15-day return window for standard customers and a 60-day window for My Best Buy Plus and Total members; activatable devices have 14 days for all, and Verizon activatable devices 30 days.
+        issues: [refund_request]
+        source: https://www.bestbuy.com/site/help-topics/return-exchange-policy/pcmcat260800050014.c?id=pcmcat260800050014
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: Restocking fee of $45 for activatable devices (not prepaid phones) and 15% of the price for drones, digital cameras, lenses, camcorders, projectors and some other categories; no fee if the product is unopened or bought in AL, CO, HI, IA, MS, OH, OK or SC.
+        issues: [refund_request]
+        source: https://www.bestbuy.com/site/help-topics/return-exchange-policy/pcmcat260800050014.c?id=pcmcat260800050014
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Mailed returns are processed within 7-10 business days and the bank may take up to 10 more days; cash over $800, or check or debit over $250 without a card logo, is refunded by check within 10 business days.
+        issues: [refund_request]
+        source: https://www.bestbuy.com/site/help-topics/return-exchange-policy/pcmcat260800050014.c?id=pcmcat260800050014
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Best Buy matches qualified competitors' current prices for new, immediately available items, and matches its own lower price during the return period; competitor offers from the Thursday before Thanksgiving through the Monday after are excluded.
+        issues: [refund_request]
+        source: https://www.bestbuy.com/site/help-topics/price-match-guarantee/pcmcat290300050002.c?id=pcmcat290300050002
+        last_verified: 2026-10-12
+  - issue: damaged_item
+    summary: Inspect major appliances at delivery and refuse a damaged one; after acceptance, call 1-888-BEST BUY, not the store.
+    evidence: [photos of the item and packaging, order number, delivery date]
+    steps:
+      - do: Inspect a major appliance before you accept delivery. Refuse delivery if there is a problem.
+      - do: If you find a problem after you accepted delivery, call customer service at once.
+        channel: customer-service-phone
+      - do: For other items, return or exchange within your return window.
+      - do: After the return window, use the protection plan or the manufacturer warranty.
+        channel: geek-squad-phone
+  - issue: cancel_service
+    summary: Cancel My Best Buy Plus or Total online or by phone; full refund minus used benefits within 60 days.
+    evidence: [membership start or renewal date, cancellation confirmation, card statement]
+    steps:
+      - do: Cancel on the Plans and Subscriptions page or by calling 1-888-BEST BUY.
+        channel: plans-and-subscriptions
+      - do: Save the confirmation. Cancel before the renewal date to avoid the yearly charge.
+      - do: To cancel a Geek Squad Protection plan, chat with an agent, call, or visit a store.
+        channel: geek-squad-phone
+      - do: Dispute any renewal charged after you cancelled with Best Buy, then your card issuer.
+        channel: customer-service-phone
+    facts:
+      - kind: policy
+        claim: If you cancel My Best Buy Plus or Total within 60 days of purchase or renewal, you get a full refund of the yearly fee minus the value of discounts or benefits used this term; after 60 days the refund is prorated for unused days, minus benefits used.
+        issues: [cancel_service, refund_request]
+        source: https://www.bestbuy.com/site/best-buy-membership/best-buy-membership-faqs/pcmcat1630361388557.c?id=pcmcat1630361388557
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: My Best Buy Plus renews at $29.99 per year and Total at $199.99 per year, plus tax, or the then-current price, until cancelled.
+        issues: [cancel_service, bill_increase]
+        source: https://www.bestbuy.com/site/electronics/best-buy-membership/pcmcat1679668833285.c?id=pcmcat1679668833285
+        last_verified: 2026-10-12
+  - issue: warranty_claim
+    summary: Book Geek Squad Protection service online or by phone; lost or stolen phones have a separate claim line.
+    evidence: [plan number from Plans and Subscriptions, receipt, serial number, description of the fault]
+    steps:
+      - do: Find the plan number on the Plans and Subscriptions page.
+        channel: plans-and-subscriptions
+      - do: Schedule repair online or call Geek Squad. Large appliances, networking, home theater and TVs 42 inches and larger get in-home service; smaller items go to a store.
+        channel: service-triage
+      - do: For a lost or stolen cell phone, start the claim online or call the lost/stolen line.
+        channel: geek-squad-lost-stolen-phone
+      - do: If the manufacturer replaces the product, give Best Buy the new serial number so the plan still applies.
+
+facts:
+  - kind: process
+    claim: Best Buy's terms (last updated September 25, 2026) require a signed notice of dispute and 60 days of informal resolution before arbitration; claims within small claims limits must be heard in small claims court.
+    source: https://www.bestbuy.com/site/help-topics/terms-and-conditions/pcmcat204400050067.c?id=pcmcat204400050067
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: You can reject a future change to Best Buy's arbitration agreement within 30 days of the change by a signed notice to the CT Corporation address.
+    source: https://www.bestbuy.com/site/help-topics/terms-and-conditions/pcmcat204400050067.c?id=pcmcat204400050067
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Membership and protection plan management need the customer's Best Buy sign-in.
+  - Online chat price match requests must be made by the purchaser.

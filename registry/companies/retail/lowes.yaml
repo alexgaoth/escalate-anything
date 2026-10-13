@@ -1,0 +1,142 @@
+id: lowes
+name: Lowe's
+aliases: [lowe's, lowes.com, lowe's home improvement]
+sector: retail
+parent: Lowe's Companies, Inc.
+website: https://www.lowes.com
+regulators: [ftc]
+notes: >-
+  Home improvement retailer. Return windows run from 48 hours to 365 days depending on the product
+  and how it was paid for. Delivery damage and missing items go to customer care at 1-800-445-6937;
+  lower-price claims go to chat or 1-877-465-6937. The full Lowest Price Guarantee terms page was not
+  found, so only the FAQ answer on the returns page is recorded.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Lowe's customer care (1-800-44LOWES)
+    value: +1-800-445-6937
+    purposes: [refund_request, lost_package, damaged_item, unauthorized_charge, billing_error, warranty_claim]
+    notes: The returns page names this number for orders that arrive damaged, incomplete or needing parts, and for home pickup of appliance and oversize returns.
+    source: https://www.lowes.com/l/help/returns-policy
+    last_verified: 2026-10-12
+  - id: price-guarantee-phone
+    type: phone
+    label: Lowest Price Guarantee validation (also by chat)
+    value: +1-877-465-6937
+    purposes: [billing_error, refund_request]
+    source: https://www.lowes.com/l/help/returns-policy
+    last_verified: 2026-10-12
+  - id: service-advantage-phone
+    type: phone
+    label: Lowe's Service Advantage (defective items, in-home warranty service, 1-888-77-LOWES)
+    value: +1-888-775-6937
+    purposes: [warranty_claim, damaged_item]
+    source: https://www.lowes.com/l/help/returns-policy
+    last_verified: 2026-10-12
+  - id: contact-form
+    type: web_form
+    label: Lowe's customer service online form
+    value: https://www.lowes.com/l/contact-us.html
+    purposes: [refund_request, lost_package, damaged_item, poor_service]
+    source: https://corporate.lowes.com/contact-us
+    last_verified: 2026-10-12
+  - id: return-policy
+    type: portal
+    label: Returns, Refunds and Exchanges policy
+    value: https://www.lowes.com/l/help/returns-policy
+    purposes: [refund_request, damaged_item]
+    source: https://www.lowes.com/l/help/returns-policy
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: supervisor, channel: customer-service-phone}
+  - {rung: written_complaint, channel: contact-form}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: refund_request
+    summary: Return to any U.S. Lowe's store with proof of purchase inside the product's window (48 hours to 365 days); refunds go to the original payment method with listed exceptions.
+    evidence: [receipt, order number or the payment card used, photo ID, purchase date]
+    steps:
+      - do: Check the product's return window and whether it is nonrefundable.
+        channel: return-policy
+      - do: Start the return from your order history, or take the item with proof of purchase to any U.S. Lowe's store. Online purchases can be mailed back only if a FedEx label is provided.
+        channel: return-policy
+      - do: For an appliance or oversize item, return it to a store or call customer care to ask about home pickup.
+        channel: customer-service-phone
+      - do: If the refund does not arrive within 7 business days of the completed return, call customer care, then dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: Most new, unused merchandise can be refunded or exchanged with a receipt within 90 days of purchase, unless listed in the Return Policy Exceptions.
+        issues: [refund_request]
+        source: https://www.lowes.com/l/help/returns-policy
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Major appliances, air conditioners and evaporative coolers, paint sprayers, portable generators, pressure washers, chainsaws and pole saws, utility vehicles and motorized bikes, construction heat and tile saws must be returned within 48 hours of purchase.
+        issues: [refund_request]
+        source: https://www.lowes.com/l/help/returns-policy
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Liquid paint, TVs and electronics, water heaters, most outdoor power equipment, custom special-order blinds, HVAC systems and plants (other than trees, shrubs and perennials) must be returned within 30 days of purchase.
+        issues: [refund_request]
+        source: https://www.lowes.com/l/help/returns-policy
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Trees, shrubs and perennials, and purchases made with a Lowe's Commercial Account, Lowe's Business Advantage, MyLowe's Rewards Credit Card or Lowe's Business Rewards, can be returned within 365 days of purchase.
+        issues: [refund_request]
+        source: https://www.lowes.com/l/help/returns-policy
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Lowe's does not accept returns or exchanges without valid proof of purchase; it can look up a receipt by order number, payment card, phone number or MyLowe's account, and may require a photo ID.
+        issues: [refund_request]
+        source: https://www.lowes.com/l/help/returns-policy
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Nonrefundable items include labor, installation charges, delivery and shipping charges (unless due to Lowe's error), gift and merchandise cards, whole house generators, as-is merchandise and paint samples.
+        issues: [refund_request]
+        source: https://www.lowes.com/l/help/returns-policy
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Once a return is complete, allow up to 7 business days for the funds to be credited, depending on the financial institution. Gift card and in-store credit purchases are refunded as in-store credit.
+        issues: [refund_request]
+        source: https://www.lowes.com/l/help/returns-policy
+        last_verified: 2026-10-12
+
+  - issue: damaged_item
+    summary: Call customer care for a delivery that arrived damaged or incomplete; call Service Advantage for a defective product under warranty.
+    evidence: [photos of the item and packaging, order number, delivery date]
+    steps:
+      - do: Photograph the item and packaging before you discard anything.
+      - do: Report damage, missing items or delivery errors to customer care.
+        channel: customer-service-phone
+      - do: For a defective product, call Lowe's Service Advantage to set up a factory-certified service visit; repairs covered by the manufacturer's warranty are free.
+        channel: service-advantage-phone
+      - do: If Lowe's does not resolve it, dispute the charge with your card issuer.
+    facts:
+      - kind: process
+        claim: If an order arrives damaged, incomplete or needing replacement parts, contact Lowe's customer care at 1-800-445-6937 to report it.
+        issues: [damaged_item, lost_package]
+        source: https://www.lowes.com/l/help/returns-policy
+        last_verified: 2026-10-12
+
+  - issue: billing_error
+    summary: For a lower price found after purchase, ask Lowe's by chat or 1-877-465-6937 to validate it under the Lowest Price Guarantee.
+    evidence: [order number or receipt, link or ad showing the competitor's lower price for the identical item, shipping cost]
+    steps:
+      - do: Find the identical item at a lower price from a competitor that can ship it to your location.
+      - do: Contact Lowe's by chat or call the price guarantee line. The request must come from the customer who made the purchase.
+        channel: price-guarantee-phone
+    facts:
+      - kind: policy
+        claim: If you find a lower price on an identical item after purchase, contact Lowe's by chat or 1-877-465-6937 for validation. The Lowest Price Guarantee compares item price plus shipping or delivery cost, the item must be available from the competitor to ship to your location, and only the purchasing customer can request it.
+        issues: [billing_error, refund_request]
+        source: https://www.lowes.com/l/help/returns-policy
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Lowe's help pages load with JavaScript; plain HTTP fetches return 403.
+  - Refund verification may require the customer's photo ID in store.

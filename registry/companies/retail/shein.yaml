@@ -1,0 +1,101 @@
+id: shein
+name: SHEIN
+aliases: [shein, shein.com, us.shein.com, shein us services]
+sector: retail
+parent: Roadget Business Pte. Ltd.
+website: https://us.shein.com
+regulators: [ftc]
+notes: >-
+  The U.S. site and app are provided by SHEIN US Services, LLC. Third-party marketplace sellers
+  on SHEIN may have their own return windows. After the U.S. ended the de minimis exemption in
+  2025, SHEIN raised U.S. prices. SHEIN pages render mostly by script; the mobile site
+  (m.shein.com/us) shows the policy text. No customer service phone number was found.
+
+channels:
+  - id: return-policy
+    type: portal
+    label: SHEIN return policy (start returns from My Orders)
+    value: https://us.shein.com/Return-Policy-a-281.html
+    purposes: [refund_request, damaged_item]
+    access: login
+    notes: To return, sign in, open My Orders, Order Details, Return Item, choose items, reason, return method and refund method.
+    source: https://m.shein.com/us/Return-Policy-a-281.html
+    last_verified: 2026-10-12
+  - id: dispute-mail
+    type: mail
+    label: SHEIN informal dispute notice and arbitration requests (registered agent)
+    value: "Paracorp, 2140 S. DuPont Hwy, Camden, DE 19934"
+    purposes: [refund_request, poor_service]
+    notes: The notice must include your name, phone number, mailing address, email, a description of the dispute, and your counsel's details if any. The terms also list an email address for notices, but the page hides it.
+    source: https://m.shein.com/us/Terms-and-Conditions-a-399.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: return-policy, note: "Contact Customer Service from the order in the app or site."}
+  - {rung: supervisor}
+  - {rung: written_complaint, channel: dispute-mail}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: refund_request
+    summary: Most items can be returned within 30 days from delivery; the first return per order is free.
+    evidence: [order number, return QR code or label, drop-off receipt]
+    steps:
+      - do: Check that the item is returnable (bodysuits, lingerie, underwear, jewelry, cosmetics, clearance and other final-sale items are not).
+      - do: Start the return from My Orders, choose the drop-off method and the refund method.
+        channel: return-policy
+      - do: Keep the drop-off receipt until the refund posts.
+      - do: If SHEIN does not refund, send the informal dispute notice and dispute the charge with your card issuer.
+        channel: dispute-mail
+    facts:
+      - kind: deadline
+        claim: Most SHEIN items may be returned within 30 days from the delivery date; third-party seller items may have a different window shown on the product page.
+        issues: [refund_request]
+        source: https://m.shein.com/us/Return-Policy-a-281.html
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: The first return from an order is free; a second or later return from the same order has a $6.99 fee deducted from the refund. The original shipping fee is not refunded.
+        issues: [refund_request]
+        source: https://m.shein.com/us/Return-Policy-a-281.html
+        last_verified: 2026-10-12
+      - kind: process
+        claim: SHEIN estimates about 5-7 days for return shipping, 5-7 days for inspection, about 1 day to issue the refund, and 1-10 business days for the bank.
+        issues: [refund_request]
+        source: https://m.shein.com/us/Return-Policy-a-281.html
+        last_verified: 2026-10-12
+  - issue: damaged_item
+    summary: Contact Customer Service within 90 days of the order date for faulty or damaged items; electronics have a 30-day path.
+    evidence: [photos of the item and packaging, order number]
+    steps:
+      - do: Photograph the item and packaging.
+      - do: Contact Customer Service from the order within 90 days of the order date.
+        channel: return-policy
+      - do: For electronics that arrive damaged or fail within 30 days of delivery, contact SHEIN at once and return the item with original packaging, manuals and parts, postmarked within 30 days of delivery.
+    facts:
+      - kind: deadline
+        claim: For faulty or damaged items, contact SHEIN Customer Service within 90 days from the order date.
+        issues: [damaged_item]
+        source: https://m.shein.com/us/Return-Policy-a-281.html
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Electronics that arrive damaged, will not start, or malfunction within 30 days of delivery must be returned postmarked within 30 days of delivery, with original packaging, manuals and parts.
+        issues: [damaged_item, warranty_claim]
+        source: https://m.shein.com/us/Return-Policy-a-281.html
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: SHEIN's U.S. terms (effective September 3, 2026) require a notice of intent to hold an informal dispute resolution conference; if the dispute is not resolved within 60 days after SHEIN receives the notice, either side may start JAMS arbitration.
+    source: https://m.shein.com/us/Terms-and-Conditions-a-399.html
+    last_verified: 2026-10-12
+  - kind: deadline
+    claim: You may opt out of SHEIN's arbitration agreement within 30 days after you first become subject to it; the terms specify email only for the opt-out.
+    source: https://m.shein.com/us/Terms-and-Conditions-a-399.html
+    last_verified: 2026-10-12
+
+known_blockers:
+  - SHEIN returns and customer service contact need the account holder's sign-in.
+  - us.shein.com pages render by script; an agent may see only the page title.
+  - The email address for dispute notices and opt-outs is hidden on the terms page.

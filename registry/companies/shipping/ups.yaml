@@ -1,0 +1,208 @@
+id: ups
+name: UPS (United Parcel Service)
+aliases: [ups, united parcel service, the ups store, ups my choice]
+sector: shipping
+website: https://www.ups.com
+regulators: [ftc]
+notes: >-
+  UPS parcel carrier. Lost, damaged and missing C.O.D. claims are filed online on ups.com; recipients
+  and third-party shippers can file as a guest. The UPS Tariff/Terms and Conditions of Service and the
+  "Claims and Legal Actions: Individual Binding Arbitration" document are PDFs on assets.ups.com that
+  download instead of opening in the browser, so the general declared value default and the arbitration
+  notice terms are not recorded here. The UPS Store Pack & Ship Guarantee is a separate program for
+  items packed by The UPS Store.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: UPS Customer Service
+    value: +1-800-742-5877
+    purposes: [lost_package, damaged_item, late_delivery, poor_service]
+    hours: Monday-Friday 7 AM - 11 PM ET, Saturday 8 AM - 8 PM ET
+    notes: UPS lists it for non-urgent requests.
+    source: https://www.ups.com/us/en/support/contact-us
+    last_verified: 2026-10-12
+  - id: help-center
+    type: chat
+    label: UPS Help and Support Center with the UPS Assistant (AI virtual assistant)
+    value: https://www.ups.com/us/en/support/contact-us
+    purposes: [lost_package, damaged_item, late_delivery]
+    notes: The assistant is AI-generated and chats are recorded. Signing in to a shipper account shows more support options.
+    source: https://www.ups.com/us/en/support/contact-us
+    last_verified: 2026-10-12
+  - id: claims-page
+    type: portal
+    label: File a UPS Claim (overview, deadlines, FAQ)
+    value: https://www.ups.com/us/en/support/file-a-claim
+    purposes: [lost_package, damaged_item]
+    source: https://www.ups.com/us/en/support/file-a-claim
+    last_verified: 2026-10-12
+  - id: guest-claim-form
+    type: web_form
+    label: File a claim as a guest (recipients and third-party shippers)
+    value: https://www.ups.com/guestclaims/create?loc=en_US
+    purposes: [lost_package, damaged_item]
+    access: open
+    notes: Needs the tracking number. UPS says filing as a guest is faster for recipients and third-party shippers.
+    source: https://www.ups.com/us/en/support/file-a-claim
+    last_verified: 2026-10-12
+  - id: claims-dashboard
+    type: portal
+    label: Start a claim from the UPS Claims Dashboard (signed in)
+    value: https://www.ups.com/claims/create?loc=en_US
+    purposes: [lost_package, damaged_item]
+    access: login
+    notes: Supporting paperwork is uploaded here; UPS no longer accepts claim paperwork by fax or USPS.
+    source: https://www.ups.com/us/en/support/file-a-claim
+    last_verified: 2026-10-12
+  - id: claim-documents
+    type: portal
+    label: Supporting documents required for UPS claims
+    value: https://www.ups.com/us/en/support/file-a-claim/supporting-documents
+    purposes: [lost_package, damaged_item]
+    source: https://www.ups.com/us/en/support/file-a-claim/supporting-documents
+    last_verified: 2026-10-12
+  - id: service-guarantee
+    type: portal
+    label: UPS Service Guarantee status (which services are guaranteed)
+    value: https://www.ups.com/us/en/support/shipping-support/legal-terms-conditions/ups-service-guarantee
+    purposes: [late_delivery]
+    source: https://www.ups.com/us/en/support/shipping-support/legal-terms-conditions/ups-service-guarantee
+    last_verified: 2026-10-12
+  - id: my-choice
+    type: portal
+    label: UPS My Choice (delivery alerts, photos, delivery changes)
+    value: https://www.ups.com/us/en/track/ups-my-choice
+    purposes: [lost_package, late_delivery]
+    access: login
+    notes: Free Basic membership; Premium is $19.99 per year. Sign-up at https://wwwapps.ups.com/doapp/signupmychoice?loc=en_US
+    source: https://www.ups.com/us/en/track/ups-my-choice
+    last_verified: 2026-10-12
+  - id: ups-store-pack-ship-claim
+    type: web_form
+    label: The UPS Store Pack & Ship Guarantee claim (store-packed UPS shipments only)
+    value: https://online.upscapital.com/tccp
+    purposes: [lost_package, damaged_item]
+    notes: >-
+      Covers items packed by The UPS Store and shipped with UPS. Not for customer-packed packages, UPS.com or
+      account shipments, UPS Freight or USPS shipments. You can also return to the same store with the receipt
+      and claim details.
+    source: https://www.theupsstore.com/about/pack-ship-guarantee/index
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: guest-claim-form, note: "Claim with UPS within 60 days of the scheduled delivery. Recipients can file as a guest unless the shipper restricts it; then the shipper must file."}
+  - {rung: payment_dispute, note: "Dispute with the seller who shipped the item."}
+
+playbooks:
+  - issue: lost_package
+    summary: Search the delivery area, then open a missing-package claim within 30 days of the expected delivery date (60 days is the outer limit). If you bought the item, ask the seller too.
+    evidence: [tracking number, delivery photo if any, invoice or receipt showing value, detailed merchandise description]
+    steps:
+      - do: Check exterior doors, porches, back patios and garages, and ask anyone who may have picked it up, such as a neighbor. Check the delivery photo in UPS My Choice if you have it.
+        channel: my-choice
+      - do: If you bought the item, ask the seller to file the claim or resend. The shipper may have blocked recipients from filing.
+      - do: Open a missing-package claim, as a guest if you are the recipient. UPS encourages doing this within 30 days of the expected delivery date.
+        channel: guest-claim-form
+      - do: Upload invoices and a specific description (brand, size, color, quantity, serial numbers) in the Claims Dashboard.
+        channel: claims-dashboard
+      - do: If neither UPS nor the seller pays, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: Start a claim within 60 days of the scheduled delivery for packages that have been lost or damaged, or if a collect on delivery (C.O.D.) payment was not received.
+        issues: [lost_package, damaged_item]
+        source: https://www.ups.com/us/en/support/file-a-claim
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: If a package shows delivered but cannot be found, UPS encourages opening a loss investigation within 30 days of the expected delivery date.
+        issues: [lost_package]
+        source: https://www.ups.com/us/en/support/contact-us
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Packages the customer chose to have the driver release (signature release, or release to an apartment building through My Choice) are not eligible for lost claims.
+        issues: [lost_package]
+        source: https://www.ups.com/us/en/support/file-a-claim
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: For Ground Saver packages, claims are no longer accepted once the scan showing the package was handed to the Post Office is recorded.
+        issues: [lost_package, damaged_item]
+        source: https://www.ups.com/us/en/support/file-a-claim
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If the shipper has a restriction on its account, recipients and third parties cannot begin the claim process and must ask the shipper.
+        issues: [lost_package, damaged_item]
+        source: https://www.ups.com/us/en/support/file-a-claim
+        last_verified: 2026-10-12
+
+  - issue: damaged_item
+    summary: Keep the item and all packaging, photograph it, and open a damage claim within 30 days of receipt (60 days from scheduled delivery is the outer limit).
+    evidence: [tracking number, photos of the item and the box, the item and packaging, invoice or receipt, merchandise description]
+    steps:
+      - do: Keep the contents and the packaging. Photograph the damage and the box before discarding anything.
+      - do: Open a damage claim, as a guest if you are the recipient. UPS encourages doing this within 30 days of receiving the package.
+        channel: guest-claim-form
+      - do: Upload photos and invoices. UPS may ask for a physical inspection at a UPS-approved location.
+        channel: claims-dashboard
+      - do: If The UPS Store packed and shipped the item, use the Pack & Ship Guarantee claim instead or go back to the store.
+        channel: ups-store-pack-ship-claim
+      - do: If you bought the item, also ask the seller for a replacement or refund.
+    facts:
+      - kind: deadline
+        claim: If a package was delivered damaged, UPS encourages starting a damage claim within 30 days of receiving the package.
+        issues: [damaged_item]
+        source: https://www.ups.com/us/en/support/contact-us
+        last_verified: 2026-10-12
+      - kind: process
+        claim: All claims need supporting documentation, such as an invoice showing value. Damage claims require photo documentation, and a physical inspection at a UPS-approved location may be needed. Without enough documentation a claim can be delayed or denied.
+        issues: [damaged_item, lost_package]
+        source: https://www.ups.com/us/en/support/file-a-claim/supporting-documents
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Since July 31, 2022, claim paperwork cannot be submitted by fax or USPS; it must be uploaded in the Claims Dashboard. UPS pays claims by electronic funds transfer.
+        issues: [damaged_item, lost_package]
+        source: https://www.ups.com/us/en/support/file-a-claim/supporting-documents
+        last_verified: 2026-10-12
+      - kind: limit
+        claim: Under The UPS Store Pack & Ship Guarantee, an item's value is covered up to $100 for UPS shipments unless a higher value was declared and Declared Value was bought. The guarantee also refunds packing and shipping costs (not Declared Value charges).
+        issues: [damaged_item, lost_package]
+        source: https://www.theupsstore.com/about/pack-ship-guarantee/index
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Pack & Ship Guarantee excludes customer-packed packages and shipments packed in free carrier-supplied materials.
+        issues: [damaged_item, lost_package]
+        source: https://www.theupsstore.com/about/pack-ship-guarantee/index
+        last_verified: 2026-10-12
+
+  - issue: late_delivery
+    summary: A refund for lateness is possible only for UPS air and international services whose Service Guarantee is active; it is suspended for UPS Ground and all other services.
+    evidence: [tracking history, service level on the label or receipt, scheduled delivery date and time]
+    steps:
+      - do: Check the service level on the label or receipt. Compare it with the list of services whose guarantee is active.
+        channel: service-guarantee
+      - do: If the service is guaranteed and arrived late, ask customer service (or the shipper who paid) for a refund of the shipping charge.
+        channel: customer-service-phone
+      - do: If you bought the item and paid for faster shipping that the seller did not deliver, ask the seller for the shipping charge back.
+    facts:
+      - kind: policy
+        claim: The UPS Service Guarantee is active for UPS Next Day Air Early, Next Day Air, Next Day Air Saver and 2nd Day Air A.M. (domestic) and for UPS Worldwide Express Plus, Express, Express NA1, Express Saver, Saver, Express Freight Midday and Express Freight. It remains suspended for all other UPS shipments and services.
+        issues: [late_delivery]
+        source: https://www.ups.com/us/en/support/shipping-support/legal-terms-conditions/ups-service-guarantee
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Until further notice, the guaranteed delivery time for UPS Next Day Air Saver is extended to end of day (11:59 p.m. on the guaranteed day), and residential Next Day Air with a typical 10:30 AM commitment is extended to 12:00 PM.
+        issues: [late_delivery]
+        source: https://www.ups.com/us/en/support/shipping-support/legal-terms-conditions/ups-service-guarantee
+        last_verified: 2026-10-12
+
+facts:
+  - kind: fee
+    claim: UPS My Choice Basic is free and includes delivery notifications, delivery photos and estimated delivery times. Premium costs $19.99 per year and makes delivery changes free; Basic members pay per package (for example $9.99 to change the delivery date).
+    issues: [lost_package, late_delivery]
+    source: https://www.ups.com/us/en/track/ups-my-choice
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The UPS Tariff/Terms and Conditions of Service and the UPS arbitration terms are PDFs that download instead of opening; the default liability limit and arbitration notice method are not recorded.
+  - If the shipper restricts its account, the recipient cannot file a claim; the shipper must file it.
+  - Uploading claim documents and receiving payment by EFT need the claimant's own UPS sign-in or bank details.

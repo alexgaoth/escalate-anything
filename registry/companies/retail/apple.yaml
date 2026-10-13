@@ -1,0 +1,175 @@
+id: apple
+name: Apple
+aliases: [apple store, apple online store, app store, itunes, applecare, apple account, apple id, apple.com/bill]
+sector: retail
+also_sectors: [subscription]
+parent: Apple Inc.
+website: https://www.apple.com
+account_url: https://account.apple.com
+regulators: [ftc]
+notes: >-
+  Two separate refund paths. Hardware bought from Apple (Apple Store or apple.com) follows the
+  Sales and Refund Policy. App Store, Apple Media Services and subscription charges billed by
+  Apple (statement descriptor apple.com/bill) are refunded through reportaproblem.apple.com.
+  Products bought from another retailer go back to that retailer.
+
+channels:
+  - id: apple-support-phone
+    type: phone
+    label: Apple Support (United States), including AppleCare
+    value: +1-800-275-2273
+    purposes: [warranty_claim, unauthorized_charge, cancel_service, account_access]
+    notes: Apple says the numbers may work only when dialed inside the country and are subject to change.
+    source: https://support.apple.com/en-us/106932
+    last_verified: 2026-10-12
+  - id: apple-store-phone
+    type: phone
+    label: Apple Online Store sales, order status and price adjustments (1-800-MY-APPLE)
+    value: +1-800-692-7753
+    purposes: [refund_request, damaged_item, lost_package]
+    source: https://www.apple.com/contact/
+    last_verified: 2026-10-12
+  - id: get-support
+    type: chat
+    label: Get Support (chat, call back or repair booking by product or topic)
+    value: https://getsupport.apple.com
+    purposes: [warranty_claim, refund_request, damaged_item, lost_package, account_access]
+    notes: "Purchases and sales support (order status, Trade In, AppleCare): https://getsupport.apple.com/?caller=cups&PGF=PGF63006&category_id=SC0339"
+    source: https://support.apple.com/en-us/contact
+    last_verified: 2026-10-12
+  - id: report-a-problem
+    type: portal
+    label: Report a Problem (refunds for App Store, iTunes, Apple Books and Apple subscriptions)
+    value: https://reportaproblem.apple.com
+    purposes: [refund_request, unauthorized_charge, cancel_service]
+    access: login
+    source: https://support.apple.com/en-us/118223
+    last_verified: 2026-10-12
+  - id: subscriptions
+    type: portal
+    label: Apple Account subscriptions (cancel)
+    value: https://account.apple.com/account/manage/section/subscriptions
+    purposes: [cancel_service]
+    access: login
+    notes: On iPhone, Settings, your name, Subscriptions. On Mac, App Store, your name, Subscriptions.
+    source: https://support.apple.com/en-us/118218
+    last_verified: 2026-10-12
+  - id: returns-and-refunds
+    type: portal
+    label: Apple Store returns and refunds
+    value: https://www.apple.com/shop/help/returns_refund
+    purposes: [refund_request, damaged_item]
+    source: https://www.apple.com/shop/help/returns_refund
+    last_verified: 2026-10-12
+  - id: corporate-mail
+    type: mail
+    label: Apple corporate address
+    value: Apple, One Apple Park Way, Cupertino, CA 95014
+    purposes: [poor_service]
+    source: https://www.apple.com/contact/
+    last_verified: 2026-10-12
+  - id: corporate-phone
+    type: phone
+    label: Apple corporate main line
+    value: +1-408-996-1010
+    source: https://www.apple.com/contact/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: get-support}
+  - {rung: supervisor, channel: apple-support-phone}
+  - {rung: written_complaint, channel: corporate-mail}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: refund_request
+    summary: Hardware from Apple has a 14-day return window; App Store and subscription charges are refunded through Report a Problem.
+    evidence: [order number or receipt, date you received the product, Apple receipt email for digital purchases]
+    steps:
+      - do: For hardware, return it within 14 days of receipt with the receipt, in original condition with all parts and packaging, at an Apple Store. The Returns & Refunds page explains returns of online orders.
+        channel: returns-and-refunds
+      - do: For an app, in-app purchase or subscription billed by Apple, sign in to reportaproblem.apple.com, choose "I'd like to", then "Request a refund", pick a reason and the item, and submit.
+        channel: report-a-problem
+      - do: Wait 24 to 48 hours for a decision on a Report a Problem request.
+      - do: If Apple refuses or does not pay, call Apple, then dispute the charge with your card issuer.
+        channel: apple-support-phone
+    facts:
+      - kind: deadline
+        claim: Apple accepts returns of products bought from Apple within 14 days of the date you receive the product, with a receipt and the product in original condition.
+        issues: [refund_request, damaged_item]
+        source: https://www.apple.com/shop/open/salespolicies
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Approved returns or exchanges are issued within 10 business days; cash or cash-equivalent returns over $750 are refunded by check mailed within 10 business days.
+        issues: [refund_request]
+        source: https://www.apple.com/shop/open/salespolicies
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: If Apple reduces its price within 14 calendar days of the date you receive the product, you can ask an Apple Store or 1-800-MY-APPLE for a refund or credit of the difference; limited-time sales events such as Black Friday are excluded, and the limit is 10 units.
+        issues: [refund_request]
+        source: https://www.apple.com/shop/open/salespolicies
+        last_verified: 2026-10-12
+      - kind: process
+        claim: After a Report a Problem refund request, Apple says to wait 24 to 48 hours for an update.
+        issues: [refund_request]
+        source: https://support.apple.com/en-us/118223
+        last_verified: 2026-10-12
+  - issue: cancel_service
+    summary: Cancel Apple-billed subscriptions in Apple Account settings; cancel AppleCare in AppleCare & Warranty or Subscriptions.
+    evidence: [Apple receipt email, subscription name, cancellation confirmation or expiration notice]
+    steps:
+      - do: On iPhone open Settings, tap your name, then Subscriptions, select the subscription and tap Cancel Subscription. On the web sign in at account.apple.com.
+        channel: subscriptions
+      - do: If no Cancel button appears, or an expiration message is shown in red, the subscription is already cancelled.
+      - do: If there is no Apple receipt, the subscription is billed by another company (for example a carrier). Contact that company.
+      - do: To get money back for a recent renewal, request a refund through Report a Problem.
+        channel: report-a-problem
+      - do: For AppleCare billed monthly or yearly, cancel in Settings, General, AppleCare & Warranty, or in Subscriptions. For a plan paid upfront through a carrier or reseller in the last 30 days, contact the seller.
+        channel: subscriptions
+    facts:
+      - kind: deadline
+        claim: To avoid renewal after a free trial, cancel at least 24 hours before the trial ends.
+        issues: [cancel_service]
+        source: https://support.apple.com/en-us/118428
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: When an AppleCare plan is replaced by an upgrade, the refund is based on the percentage of unexpired coverage; plans paid upfront are refunded as an Apple Gift Card.
+        issues: [cancel_service]
+        source: https://support.apple.com/en-us/118218
+        last_verified: 2026-10-12
+  - issue: warranty_claim
+    summary: Book service or a claim through Apple Support; Theft and Loss claims start with Apple and finish with the insurer.
+    evidence: [serial number, AppleCare agreement number, proof of purchase, description of the fault]
+    steps:
+      - do: Check coverage at checkcoverage.apple.com and note the agreement number.
+      - do: Book a repair or start a claim through Get Support or by phone.
+        channel: get-support
+      - do: For AppleCare+ Theft and Loss on iPhone, mark the device as lost in Find My, start the claim online with Apple, and finish it on the insurer's website. Do not remove the device from your account until the claim is approved.
+        channel: get-support
+    facts:
+      - kind: process
+        claim: In the U.S., Theft and Loss claims for AppleCare plans bought before September 15, 2020 go to Assurant, and for plans bought on or after that date to AIG.
+        issues: [warranty_claim]
+        source: https://support.apple.com/en-us/108053
+        last_verified: 2026-10-12
+  - issue: unauthorized_charge
+    summary: Look up apple.com/bill charges in Report a Problem before you call it fraud.
+    evidence: [statement line with apple.com/bill, amount and date, Apple receipt emails]
+    steps:
+      - do: Sign in at reportaproblem.apple.com and search for the amount. Apple may group several purchases into one charge. Ask Family Sharing members if they bought it.
+        channel: report-a-problem
+      - do: If the charge is a purchase you did not make, request a refund there and cancel any recurring subscription.
+        channel: report-a-problem
+      - do: If someone else may use your Apple Account, change the password. If the card itself is compromised, ask the card issuer for a new card and a dispute.
+    facts:
+      - kind: policy
+        claim: A charge from apple.com/bill can be for apps, subscriptions, music, movies or other Apple purchases, and Apple might group several purchases into one bill.
+        issues: [unauthorized_charge, billing_error]
+        source: https://support.apple.com/en-us/120164
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Report a Problem, subscription cancellation and AppleCare lookups need the Apple Account holder's sign-in.
+  - Apple Support phone numbers may work only when dialed from inside the United States.

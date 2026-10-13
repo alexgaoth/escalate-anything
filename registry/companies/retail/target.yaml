@@ -1,0 +1,148 @@
+id: target
+name: Target
+aliases: [target.com, target corporation, target circle, target circle 360, target plus]
+sector: retail
+parent: Target Corporation
+website: https://www.target.com
+account_url: https://www.target.com/account
+regulators: [ftc]
+notes: >-
+  Target Plus items are sold by partner sellers on Target.com and can have a 30-day window.
+  Target Circle 360 is a paid membership; its cancellation path was not confirmed and is not
+  recorded here.
+
+channels:
+  - id: guest-services-phone
+    type: phone
+    label: Target.com Guest Services (orders, price match, damaged or missing items)
+    value: +1-800-591-3869
+    purposes: [refund_request, lost_package, damaged_item, billing_error]
+    source: https://www.target.com/help/articles/policies-guidelines/price-match-guarantee
+    last_verified: 2026-10-12
+  - id: guest-relations-phone
+    type: phone
+    label: Target guest service and Guest Relations (Target.com orders, store experience, Target Circle Card)
+    value: +1-800-440-0680
+    purposes: [refund_request, poor_service, billing_error]
+    source: https://corporate.target.com/about/contact-us
+    last_verified: 2026-10-12
+  - id: contact-us
+    type: portal
+    label: Target Help contact options by topic
+    value: https://www.target.com/help/contact-us
+    purposes: [refund_request, lost_package, damaged_item, unauthorized_charge, poor_service]
+    source: https://www.target.com/help/contact-us
+    last_verified: 2026-10-12
+  - id: returns
+    type: portal
+    label: Start a return (Target.com and in-store purchases in your account)
+    value: https://www.target.com/returns
+    purposes: [refund_request, damaged_item]
+    access: login
+    source: https://www.target.com/help/articles/returns-exchanges/returns
+    last_verified: 2026-10-12
+  - id: gift-card-phone
+    type: phone
+    label: Target GiftCard (including reporting suspicious contact)
+    value: +1-800-544-2943
+    purposes: [unauthorized_charge]
+    source: https://corporate.target.com/about/contact-us
+    last_verified: 2026-10-12
+  - id: circle-mastercard-phone
+    type: phone
+    label: Target Circle Mastercard (including reporting suspicious contact)
+    value: +1-800-424-6888
+    purposes: [unauthorized_charge, billing_error]
+    source: https://corporate.target.com/about/contact-us
+    last_verified: 2026-10-12
+  - id: circle-debit-phone
+    type: phone
+    label: Target Circle Debit Card (including reporting suspicious contact)
+    value: +1-888-729-7331
+    purposes: [unauthorized_charge, billing_error]
+    source: https://corporate.target.com/about/contact-us
+    last_verified: 2026-10-12
+  - id: law-department-notice
+    type: mail
+    label: Informal dispute notice (required before arbitration; certified mail)
+    value: "Target Law Department, 1000 Nicollet Mall, TPS-3155, Minneapolis, MN 55403"
+    purposes: [refund_request, poor_service]
+    notes: Send by certified mail with return receipt. Include transaction and account details, contact information, a description of the dispute, the relief sought with a calculation, and your personal signature.
+    source: https://www.target.com/c/terms-conditions/-/N-4sr7l
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: guest-services-phone}
+  - {rung: supervisor, channel: guest-relations-phone}
+  - {rung: written_complaint, channel: law-department-notice}
+  - {rung: payment_dispute}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: public, regulator: bbb}
+
+playbooks:
+  - issue: refund_request
+    summary: Most unopened items have 90 days; electronics 30 days; Apple, Beats and phones 14 days; Target Owned Brands one year.
+    evidence: [receipt or order number, payment card, item in new condition]
+    steps:
+      - do: Check the window for the item's category. For Target.com orders the window starts when you receive the items.
+      - do: Start the return online or take the item to a store with the receipt or order number.
+        channel: returns
+      - do: If the refund does not post in the expected time, call Target.com Guest Services.
+        channel: guest-services-phone
+      - do: If Target refuses a refund you are owed, dispute the charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: Most unopened items sold by Target in new condition and returned within 90 days receive a refund or exchange.
+        issues: [refund_request]
+        source: https://www.target.com/help/articles/returns-exchanges/returns
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Most electronics and entertainment items (excluding Apple and Beats) have a 30-day window; Apple and Beats products, including mobile phones, have 14 days; Target Owned Brand items can be returned within one year with a receipt.
+        issues: [refund_request, damaged_item]
+        source: https://www.target.com/help/article/000061982
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Target Circle Card holders and Target Circle 360 members get an extra 30 days to return nearly all items bought with their Target Circle Card.
+        issues: [refund_request]
+        source: https://www.target.com/help/articles/returns-exchanges/returns
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Target Circle Card refunds typically post within 2 days after approval and third-party credit card refunds within 5 days; items mailed to the Online Return Center take 7 to 10 more business days on average for approval.
+        issues: [refund_request]
+        source: https://www.target.com/help/articles/returns-exchanges/returns
+        last_verified: 2026-10-12
+      - kind: fee
+        claim: A restocking charge of up to $35 may apply to opened mobile phones.
+        issues: [refund_request]
+        source: https://www.target.com/help/article/000061982
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Target adjusts to its own lower price (Target.com, Target store, or Target Circle deal) at purchase or within 14 days after purchase; it does not match competitors.
+        issues: [refund_request]
+        source: https://www.target.com/help/articles/policies-guidelines/price-match-guarantee
+        last_verified: 2026-10-12
+  - issue: damaged_item
+    summary: Call Target.com Guest Services for damaged, defective or missing items delivered to you.
+    evidence: [photos of the item and packaging, order number]
+    steps:
+      - do: Photograph the item and the packaging.
+      - do: Call Target.com Guest Services and ask for a replacement or refund.
+        channel: guest-services-phone
+      - do: For an item past the return window, use the manufacturer warranty or, for Target Owned Brands, the one-year return.
+  - issue: lost_package
+    summary: Report a Target.com package that did not arrive to Guest Services.
+    evidence: [order number, tracking history]
+    steps:
+      - do: Check the order status and tracking in your account.
+      - do: Call Target.com Guest Services and ask for a replacement or refund.
+        channel: guest-services-phone
+      - do: If Target does not refund or resend, dispute the charge with your card issuer.
+
+facts:
+  - kind: process
+    claim: Target's terms (last updated September 10, 2026) require a signed written notice to the Target Law Department and 60 days of good-faith negotiation before arbitration; JAMS administers arbitration and either side may use small claims court.
+    source: https://www.target.com/c/terms-conditions/-/N-4sr7l
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Online returns and order history need the guest's Target.com sign-in.
