@@ -1,0 +1,128 @@
+id: nationwide
+name: Nationwide
+aliases: [nationwide insurance, nationwide mutual, nationwide mutual insurance company, harleysville, harleysville insurance]
+sector: insurance_property
+website: https://www.nationwide.com
+account_url: https://www.nationwide.com/my-account-login
+regulators: []
+
+channels:
+  - id: claims-phone
+    type: phone
+    label: File a claim or reach the claims professional (auto and property)
+    value: +1-800-421-3535
+    hours: Anytime
+    purposes: [claim_denial, claim_delay]
+    access: open
+    source: https://www.nationwide.com/personal/contact/call-us/
+    last_verified: 2026-10-12
+  - id: customer-service-phone
+    type: phone
+    label: Auto and property insurance service
+    value: +1-877-669-6877
+    purposes: [bill_increase, billing_error, cancel_service, poor_service]
+    notes: The same number is listed for sales, 9 a.m.-8 p.m. ET weekdays.
+    source: https://www.nationwide.com/personal/contact/call-us/
+    last_verified: 2026-10-12
+  - id: customer-relations-phone
+    type: phone
+    label: Office of Customer Relations
+    value: +1-888-999-2018
+    hours: 8 a.m.-6 p.m. ET weekdays
+    purposes: [claim_denial, claim_delay, billing_error, poor_service]
+    source: https://www.nationwide.com/personal/about-us/customer-advocate/
+    last_verified: 2026-10-12
+  - id: customer-relations-email
+    type: email
+    label: Office of Customer Relations email
+    value: OCR@nationwide.com
+    purposes: [claim_denial, claim_delay, billing_error, poor_service]
+    notes: Customer Relations helps resolve concerns about a policy, a statement or a claim in any area of Nationwide.
+    source: https://www.nationwide.com/personal/about-us/customer-advocate/
+    last_verified: 2026-10-12
+  - id: harleysville-personal-phone
+    type: phone
+    label: Harleysville Personal Lines Service Center
+    value: +1-888-772-6837
+    hours: 8 a.m.-5 p.m. ET weekdays
+    source: https://www.nationwide.com/personal/contact/call-us/
+    last_verified: 2026-10-12
+  - id: claims-online
+    type: web_form
+    label: File an auto claim online
+    value: https://claimsselfservice.nationwide.com/claims/index.html#/file-claim
+    source: https://www.nationwide.com/personal/contact/
+    last_verified: 2026-10-12
+  - id: property-claims-online
+    type: web_form
+    label: File a homeowners, condo or renters claim online
+    value: https://claimsservicing.nationwide.com/fileclaim/info/property-intro
+    notes: Have the policy number, claim type (wind, water, fire, theft) and a description of the damage.
+    source: https://www.nationwide.com/personal/insurance/claims/property-claims/
+    last_verified: 2026-10-12
+  - id: claim-status
+    type: portal
+    label: Check the status of an auto, homeowners or renters claim
+    value: https://claimsselfservice.nationwide.com/claims/index.html#/express-login
+    purposes: [claim_delay, claim_denial]
+    access: login
+    source: https://www.nationwide.com/personal/insurance/claims/
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: claims-phone, note: "Or the assigned claims associate."}
+  - {rung: supervisor, note: "Ask for the claims associate's manager."}
+  - {rung: written_complaint, channel: customer-relations-email, note: "Office of Customer Relations. Ask for the denial and the policy language it relies on, in writing."}
+  - {rung: state_agency, agency_kind: insurance_department}
+  - {rung: arbitration, note: "Many policies have an appraisal clause for disputes about the amount of a loss. Check the policy."}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: claim_denial
+    summary: Ask the claims associate for the reason in writing, then take it to the Office of Customer Relations and the state.
+    evidence: [claim number, policy number, denial letter, estimates and payment summaries from the portal, photos, receipts]
+    steps:
+      - do: Log in and review the estimates and payment summaries. Ask the claims associate for the reason and the policy language.
+        channel: claim-status
+      - do: Call the claims line and ask for a review by the associate's manager.
+        channel: claims-phone
+      - do: Email the Office of Customer Relations with the claim number, the decision and your evidence.
+        channel: customer-relations-email
+      - do: If you disagree only about the amount, check the policy for an appraisal provision.
+      - do: File a complaint with your state insurance department.
+  - issue: claim_delay
+    summary: Find the claims associate online or by phone, then escalate to Customer Relations.
+    evidence: [claim number, dates of each contact, documents sent]
+    steps:
+      - do: Log in and open Claims under the policy to get the name and phone number of the claims professional. Upload missing photos and documents.
+        channel: claim-status
+      - do: Call the claims line if you cannot find the associate.
+        channel: claims-phone
+      - do: Contact the Office of Customer Relations if the claim still does not move.
+        channel: customer-relations-phone
+      - do: File a complaint with your state insurance department.
+    facts:
+      - kind: contact
+        claim: To get the name and phone number of the professional handling your claim, log in and click Claims under the policy, or call 1-800-421-3535.
+        issues: [claim_delay]
+        source: https://www.nationwide.com/personal/insurance/claims/faq/
+        last_verified: 2026-10-12
+  - issue: bill_increase
+    summary: Ask service or the agent what changed and what discounts apply.
+    evidence: [prior declarations page, renewal declarations page, recent claims and accidents]
+    steps:
+      - do: Compare the old and new declarations pages and note any claim or accident in the term.
+      - do: Ask service why the premium changed and which discounts or deductible options apply.
+        channel: customer-service-phone
+    facts:
+      - kind: policy
+        claim: Nationwide states that in most states you likely won't see your premium go up if someone else is to blame for an accident; in no-fault states an increase is possible, based on driving history, severity and fault.
+        issues: [bill_increase]
+        source: https://www.nationwide.com/personal/insurance/claims/faq/
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Claim status, estimates and the claims associate's contact details need sign-in.
+  - The contact pages list two different roadside numbers; confirm on the ID card or in the app.
+
+notes: Harleysville and Private Client policies have separate service lines on the call-us page. Business claims use 1-800-421-3535 as well.

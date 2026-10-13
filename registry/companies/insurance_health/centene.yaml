@@ -1,0 +1,359 @@
+id: centene
+name: Centene (Ambetter, Wellcare, Health Net)
+aliases: [centene corporation, ambetter, ambetter health, ambetter from sunshine health, ambetter from superior healthplan, wellcare, wellcare health plans, health net, sunshine health, superior healthplan, peach state health plan, buckeye health plan, meridian]
+sector: insurance_health
+website: https://www.centene.com
+account_url: https://member.ambetterhealth.com/sso/login
+regulators: [dol-ebsa, cms-no-surprises]
+
+channels:
+  - id: plan-directory
+    type: web_form
+    label: Centene health plan member services directory (Ambetter by state and other Centene plans)
+    value: https://www.centene.com/contact.html
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill, poor_service]
+    access: open
+    notes: Centene corporate does not handle member questions. Members contact their own health plan.
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-state-contacts
+    type: web_form
+    label: Ambetter contact pages by state
+    value: https://www.ambetterhealth.com/en/contact-us/
+    purposes: [claim_denial, claim_delay, billing_error]
+    source: https://www.ambetterhealth.com/en/contact-us/
+    last_verified: 2026-10-12
+  - id: ambetter-member-portal
+    type: portal
+    label: Ambetter member login (view claims)
+    value: https://member.ambetterhealth.com/sso/login
+    purposes: [claim_delay, claim_denial, billing_error]
+    access: login
+    source: https://www.ambetterhealth.com/en/fl/resources/
+    last_verified: 2026-10-12
+  - id: ambetter-fl-appeals-mail
+    type: mail
+    label: Ambetter Health (Florida, Sunshine Health) grievances and appeals
+    value: Ambetter Health Appeal Department, P.O. Box 459087, Fort Lauderdale, FL 33345-9087
+    purposes: [claim_denial, poor_service]
+    notes: "Phone 1-877-687-1169; TTY 1-877-941-9230; fax 1-866-719-5373 (appeals) or 1-866-550-3248 (grievance/complaint). Florida plans only."
+    source: https://www.ambetterhealth.com/content/dam/centene/Sunshine/Ambetter/PDFs/FL_MbrGrivanceAppelConcern.pdf
+    last_verified: 2026-10-12
+  - id: ambetter-fl-appeal-form
+    type: web_form
+    label: Ambetter Florida grievance, appeal, concern or recommendation form (PDF)
+    value: https://ambetter.sunshinehealth.com/content/dam/centene/Sunshine/Ambetter/PDFs/FL_MbrGrivanceAppelConcern.pdf
+    purposes: [claim_denial, poor_service]
+    source: https://www.ambetterhealth.com/en/fl/resources/handbooks-forms/
+    last_verified: 2026-10-12
+  - id: ambetter-forms-fl
+    type: web_form
+    label: Ambetter Florida forms (grievance and appeal, member claim reimbursement)
+    value: https://www.ambetterhealth.com/en/fl/resources/handbooks-forms/
+    purposes: [claim_denial, claim_delay]
+    notes: Other states have the same page under their own state path.
+    source: https://www.ambetterhealth.com/en/fl/resources/handbooks-forms/
+    last_verified: 2026-10-12
+  - id: ambetter-tx-mail
+    type: mail
+    label: Ambetter from Superior HealthPlan (Texas) general mailing address
+    value: Ambetter from Superior HealthPlan, 5900 E. Ben White Blvd., Austin, TX 78741
+    source: https://www.ambetterhealth.com/en/tx/contact-us/
+    last_verified: 2026-10-12
+  - id: wellcare-phone
+    type: phone
+    label: Wellcare (Medicare) member services
+    value: +1-833-444-9088
+    purposes: [claim_denial, claim_delay, billing_error]
+    notes: Wellcare also tells members to call the number on the back of the member ID card or pick their state on its contact page.
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: wellcare-contact
+    type: web_form
+    label: Wellcare contact page (state member services numbers)
+    value: https://www.wellcare.com/en/contact-us
+    source: https://www.wellcare.com/en/contact-us
+    last_verified: 2026-10-12
+  - id: wellcare-mail
+    type: mail
+    label: Wellcare Health Plans general mailing address
+    value: Wellcare Health Plans, P.O. Box 31370, Tampa, FL 33631
+    source: https://www.wellcare.com/en/contact-us
+    last_verified: 2026-10-12
+  - id: health-net-ca-phone
+    type: phone
+    label: Health Net (California) member services
+    value: +1-800-522-0088
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-al-phone
+    type: phone
+    label: Ambetter member services, Alabama
+    value: +1-800-442-1623
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-az-phone
+    type: phone
+    label: Ambetter member services, Arizona
+    value: +1-888-926-5057
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-ar-phone
+    type: phone
+    label: Ambetter member services, Arkansas
+    value: +1-877-617-0390
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-ca-phone
+    type: phone
+    label: Ambetter member services, California
+    value: +1-844-463-8188
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-fl-phone
+    type: phone
+    label: Ambetter member services, Florida
+    value: +1-877-687-1169
+    hours: 8am-8pm EST
+    notes: Relay Florida 1-800-955-8770.
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.ambetterhealth.com/en/fl/contact-us/
+    last_verified: 2026-10-12
+  - id: ambetter-ga-phone
+    type: phone
+    label: Ambetter member services, Georgia
+    value: +1-877-687-1180
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-il-phone
+    type: phone
+    label: Ambetter member services, Illinois
+    value: +1-855-745-5507
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-in-phone
+    type: phone
+    label: Ambetter member services, Indiana
+    value: +1-877-687-1182
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-ia-phone
+    type: phone
+    label: Ambetter member services, Iowa
+    value: +1-833-919-3213
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-ks-phone
+    type: phone
+    label: Ambetter member services, Kansas
+    value: +1-844-518-9505
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-ky-phone
+    type: phone
+    label: Ambetter member services, Kentucky
+    value: +1-833-705-2175
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-la-phone
+    type: phone
+    label: Ambetter member services, Louisiana
+    value: +1-833-635-0450
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-mi-phone
+    type: phone
+    label: Ambetter member services, Michigan
+    value: +1-833-993-2426
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-ms-phone
+    type: phone
+    label: Ambetter member services, Mississippi
+    value: +1-877-687-1187
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-mo-phone
+    type: phone
+    label: Ambetter member services, Missouri
+    value: +1-855-650-3789
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-ne-phone
+    type: phone
+    label: Ambetter member services, Nebraska
+    value: +1-833-890-0329
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-nv-phone
+    type: phone
+    label: Ambetter member services, Nevada
+    value: +1-866-263-8134
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-nh-phone
+    type: phone
+    label: Ambetter member services, New Hampshire
+    value: +1-844-265-1278
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-nj-phone
+    type: phone
+    label: Ambetter member services, New Jersey
+    value: +1-844-606-1926
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-nm-phone
+    type: phone
+    label: Ambetter member services, New Mexico
+    value: +1-833-945-2029
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-ny-phone
+    type: phone
+    label: Ambetter member services, New York
+    value: +1-888-343-3547
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-nc-phone
+    type: phone
+    label: Ambetter member services, North Carolina
+    value: +1-833-863-1310
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-oh-phone
+    type: phone
+    label: Ambetter member services, Ohio
+    value: +1-877-687-1189
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-ok-phone
+    type: phone
+    label: Ambetter member services, Oklahoma
+    value: +1-833-492-0679
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-pa-phone
+    type: phone
+    label: Ambetter member services, Pennsylvania
+    value: +1-833-510-4727
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-sc-phone
+    type: phone
+    label: Ambetter member services, South Carolina
+    value: +1-833-270-5443
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-tn-phone
+    type: phone
+    label: Ambetter member services, Tennessee
+    value: +1-833-709-4735
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+  - id: ambetter-tx-phone
+    type: phone
+    label: Ambetter member services, Texas
+    value: +1-877-687-1196
+    hours: 8am-8pm CST
+    notes: Relay Texas/TTY 1-800-735-2989.
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.ambetterhealth.com/en/tx/contact-us/
+    last_verified: 2026-10-12
+  - id: ambetter-wa-phone
+    type: phone
+    label: Ambetter member services, Washington
+    value: +1-877-687-1197
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: plan-directory, note: "Call the member services number of your own plan (on the back of the member ID card)."}
+  - {rung: written_complaint, channel: ambetter-fl-appeals-mail, note: "Internal appeal or grievance with the state plan. The Florida address is shown; other states use the address on the denial letter or the state forms page."}
+  - {rung: state_agency, agency_kind: insurance_department, note: "External review for marketplace plans; complaint to the state."}
+  - {rung: regulator, regulator: dol-ebsa, note: "Employer self-funded (ERISA) plans."}
+  - {rung: regulator, regulator: cms-no-surprises, note: "Surprise bills under the No Surprises Act."}
+
+playbooks:
+  - issue: claim_denial
+    summary: Appeal to your Ambetter state plan within 180 days of the denial notice, then ask for external review.
+    evidence: [denial letter (Notice of Action) with tracking number, member ID card, medical records, provider letter of medical necessity]
+    steps:
+      - do: Call your state Ambetter member services number. Ask for the reason and the appeal address for your state.
+        channel: plan-directory
+      - do: Complete the state grievance and appeal form, or write a letter with the same information, including the tracking number from the upper left corner of the denial letter. In Florida, mail or fax it to the Appeal Department.
+        channel: ambetter-fl-appeals-mail
+      - do: After the final internal denial, ask for external review through your state insurance department.
+      - do: Wellcare (Medicare) members can also file a complaint with Medicare after using the plan's process.
+        channel: wellcare-contact
+    facts:
+      - kind: deadline
+        claim: For Ambetter Health in Florida, you must file an appeal within 180 calendar days of the date of the Notice of Action letter, and a grievance within 365 calendar days of the date of the event.
+        issues: [claim_denial]
+        source: https://www.ambetterhealth.com/content/dam/centene/Sunshine/Ambetter/PDFs/FL_MbrGrivanceAppelConcern.pdf
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Ambetter Florida accepts either its grievance and appeal form or a letter with the same information, mailed to the Appeal Department; it lists separate fax numbers for appeals and for grievances.
+        issues: [claim_denial]
+        source: https://www.ambetterhealth.com/content/dam/centene/Sunshine/Ambetter/PDFs/FL_MbrGrivanceAppelConcern.pdf
+        last_verified: 2026-10-12
+  - issue: billing_error
+    summary: Check the claim in the member portal, call your plan, then file a grievance.
+    evidence: [provider bill, EOB, member ID card]
+    steps:
+      - do: Compare the provider bill with the claim in the Ambetter member portal.
+        channel: ambetter-member-portal
+      - do: Call your plan's member services and ask for a correction or reprocessing.
+        channel: plan-directory
+      - do: If it is not fixed, file a grievance with the state plan.
+        channel: ambetter-fl-appeal-form
+  - issue: surprise_medical_bill
+    summary: Compare the bill with the EOB, tell the plan and the provider, then contact the CMS help desk.
+    evidence: [the bill, EOB, member ID card]
+    steps:
+      - do: Compare the bill with the EOB. Note whether it was emergency care or care at an in-network facility.
+        channel: ambetter-member-portal
+      - do: Tell your plan and the provider the bill may be a surprise bill.
+        channel: plan-directory
+      - do: Contact the CMS No Surprises Help Desk.
+        regulator: cms-no-surprises
+
+facts:
+  - kind: contact
+    claim: Centene tells members to contact their health plan directly, not corporate headquarters, for questions about benefits, eligibility or authorizations.
+    source: https://www.centene.com/contact.html
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Centene runs separate state plans; contact details, forms and appeal addresses differ by state and brand.
+  - Claims view needs a member portal login.
+  - Grievance forms are PDFs that must be mailed or faxed.
+
+notes: Centene Corporation (St. Louis) runs marketplace plans under the Ambetter brand in 29 states, Medicare plans under Wellcare, and state Medicaid plans under local names (for example Sunshine Health, Superior HealthPlan, Peach State, Buckeye, Meridian, Health Net in California). Medicare and Medicaid plans have their own appeal rules.

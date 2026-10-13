@@ -1,0 +1,158 @@
+id: state-farm
+name: State Farm
+aliases: [state farm insurance, statefarm, state farm mutual, state farm auto insurance, state farm home insurance]
+sector: insurance_property
+website: https://www.statefarm.com
+account_url: https://auth.proofing.statefarm.com/login-ui/login
+regulators: []
+
+channels:
+  - id: claims-phone
+    type: phone
+    label: Auto, home and property claims (800-SF-CLAIM)
+    value: +1-800-732-5246
+    hours: 24/7
+    purposes: [claim_denial, claim_delay]
+    access: open
+    notes: Also the help number on the claim tracking page.
+    source: https://www.statefarm.com/claims/home-and-property
+    last_verified: 2026-10-12
+  - id: customer-service-phone
+    type: phone
+    label: Comments or questions (800-STATE-FARM)
+    value: +1-800-782-8332
+    purposes: [bill_increase, billing_error, poor_service, cancel_service]
+    source: https://www.statefarm.com/customer-care/contact-us
+    last_verified: 2026-10-12
+  - id: phone-24-7
+    type: phone
+    label: 24/7 phone line
+    value: +1-800-440-0998
+    hours: 24/7
+    source: https://www.statefarm.com/customer-care/contact-us
+    last_verified: 2026-10-12
+  - id: glass-claims-phone
+    type: phone
+    label: Auto glass only claims
+    value: +1-888-624-4410
+    source: https://www.statefarm.com/customer-care/contact-us
+    last_verified: 2026-10-12
+  - id: roadside-phone
+    type: phone
+    label: Emergency road service
+    value: +1-877-627-5757
+    hours: 24/7
+    source: https://www.statefarm.com/customer-care/contact-us
+    last_verified: 2026-10-12
+  - id: tty
+    type: phone
+    label: Relay service for deaf, hard of hearing or non-voice callers
+    value: "711"
+    source: https://www.statefarm.com/customer-care/contact-us
+    last_verified: 2026-10-12
+  - id: claims-online
+    type: web_form
+    label: Start a claim online
+    value: https://reportloss.claims.statefarm.com/start-claim
+    purposes: [claim_delay]
+    source: https://www.statefarm.com/claims
+    last_verified: 2026-10-12
+  - id: claim-status
+    type: portal
+    label: Track a claim and message the claim handler
+    value: https://www.statefarm.com/claims/check-existing-claim
+    purposes: [claim_delay, claim_denial]
+    access: login
+    notes: Customers and people claiming against a State Farm customer must log in or create an account. Have the claim number ready.
+    source: https://www.statefarm.com/claims/check-existing-claim
+    last_verified: 2026-10-12
+  - id: contact-form
+    type: web_form
+    label: Comments or questions form
+    value: https://apps.statefarm.com/CustomerForms/GeneralContactUsForm.htm
+    purposes: [poor_service, claim_denial, claim_delay]
+    notes: Linked from the contact page as the channel for comments or questions. State Farm does not publish a separate complaint form.
+    source: https://www.statefarm.com/customer-care/contact-us
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: claims-phone, note: "Or the local State Farm agent or claim associate."}
+  - {rung: supervisor, note: "Ask for the claim handler's team manager."}
+  - {rung: written_complaint, channel: contact-form, note: "Ask for the denial and the policy language it relies on, in writing."}
+  - {rung: state_agency, agency_kind: insurance_department}
+  - {rung: arbitration, note: "Appraisal for disputes about the amount of a loss, where the policy has an appraisal provision. Check the policy booklet."}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: claim_denial
+    summary: Get the written denial with the policy language, dispute it with the claim handler, then go to the state insurance department.
+    evidence: [claim number, denial letter, policy booklet and declarations page, photos, repair estimates, receipts]
+    steps:
+      - do: Read the denial letter. State Farm sends a letter that names the policy language it relied on.
+      - do: Call the claim handler or 800-SF-CLAIM. Ask for a reconsideration and give any new evidence.
+        channel: claims-phone
+      - do: Send the dispute in writing through the claim portal message feature, and keep a copy.
+        channel: claim-status
+      - do: If the dispute is only about the amount of the loss, check the policy for an appraisal provision and make a written demand for appraisal.
+      - do: File a complaint with your state insurance department. Attach the denial letter and your timeline.
+    facts:
+      - kind: process
+        claim: For a home or property claim, if coverage does not apply, State Farm sends a written letter that explains the specific policy language responsible for the denial.
+        issues: [claim_denial]
+        source: https://www.statefarm.com/claims/home-and-property
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: In Washington, the State Farm Personal Car Policy 9847C (notice dated 06/2025) lets either the covered vehicle owner or State Farm make a written demand for appraisal of a physical damage loss. Each party pays its own appraiser and the umpire's expenses are shared equally.
+        issues: [claim_denial]
+        source: https://www.statefarm.com/content/dam/sf-library/en-us/pca-endorsement/auto/153-7582.pdf
+        last_verified: 2026-10-12
+  - issue: claim_delay
+    summary: Use the claim portal to see the status and message the handler, then escalate by phone and to the state.
+    evidence: [claim number, dates of each contact, documents sent]
+    steps:
+      - do: Log in to the claim tracker. Check the status and ask the claim handler in writing what is still needed.
+        channel: claim-status
+      - do: Call 800-SF-CLAIM and ask for the claim handler's manager if there is no answer.
+        channel: claims-phone
+      - do: File a complaint with your state insurance department if the claim still does not move.
+    facts:
+      - kind: process
+        claim: After a home or property claim is filed, State Farm assigns a claim handler or team. You can message the handler after you log in online or in the app.
+        issues: [claim_delay]
+        source: https://www.statefarm.com/claims/home-and-property
+        last_verified: 2026-10-12
+  - issue: bill_increase
+    summary: Compare the renewal with the prior term, then ask the agent to review discounts, deductibles and coverage.
+    evidence: [prior declarations page, renewal declarations page, driving record or claims history]
+    steps:
+      - do: Compare the old and new declarations pages. Find whether coverage, deductibles, drivers, vehicles or a general rate change caused the increase.
+      - do: Ask the local agent or call 800-STATE-FARM to review safe-driving and bundling discounts and a higher deductible.
+        channel: customer-service-phone
+      - do: Get quotes from other insurers before renewal if the price stays too high.
+    facts:
+      - kind: policy
+        claim: State Farm lists age, location, driving record, claims history, annual mileage, vehicle type and policy limits and deductibles as factors in car insurance premiums. It states that higher deductibles may help lower the premium.
+        issues: [bill_increase]
+        source: https://www.statefarm.com/simple-insights/auto-and-vehicles/what-affects-car-insurance-premiums
+        last_verified: 2026-10-12
+
+facts:
+  - kind: process
+    claim: State Farm asks you to file a home claim as soon as possible after you find damage. It does not state a fixed deadline on the claims page.
+    issues: [claim_delay]
+    source: https://www.statefarm.com/claims/home-and-property
+    last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: Policy booklets and endorsements can be read without logging in at the State Farm policy library (statefarm.com/policy-library), as named in State Farm's 2025 Washington auto policy notice.
+    issues: [claim_denial]
+    source: https://www.statefarm.com/content/dam/sf-library/en-us/pca-endorsement/auto/153-7582.pdf
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Claim tracking and messaging the claim handler need sign-in.
+  - State Farm does not publish a dedicated complaint form or complaint mailing address; the general comments form is a JavaScript page.
+  - Policy changes often go through the local State Farm agent.
+
+notes: Sells through local State Farm agents. Health, life, banking (U.S. Bank) and loan products have separate numbers on the contact page.

@@ -1,0 +1,117 @@
+id: humana
+name: Humana
+aliases: [humana inc, myhumana, humana medicare]
+sector: insurance_health
+website: https://www.humana.com
+account_url: https://account.humana.com
+regulators: [dol-ebsa, cms-no-surprises]
+
+channels:
+  - id: medicare-member-phone
+    type: phone
+    label: Medicare plans
+    value: +1-800-457-4708
+    hours: Mon-Fri 8 a.m.-8 p.m. local time
+    purposes: [claim_denial, claim_delay, billing_error, poor_service, surprise_medical_bill]
+    notes: TTY 711. Members should use the number on the back of the member ID card when they have it.
+    source: https://www.humana.com/contact-us
+    last_verified: 2026-10-12
+  - id: employer-member-phone
+    type: phone
+    label: Employer group plan members without the ID card
+    value: +1-866-427-7478
+    purposes: [claim_denial, claim_delay, billing_error]
+    notes: Humana asks employer group members to call the number on the back of the ID card first.
+    source: https://www.humana.com/contact-us
+    last_verified: 2026-10-12
+  - id: employer-group-phone
+    type: phone
+    label: Employer group (small and large business)
+    value: +1-800-232-2006
+    hours: Mon-Fri 7 a.m.-7 p.m. Central
+    source: https://www.humana.com/contact-us
+    last_verified: 2026-10-12
+  - id: dental-vision-phone
+    type: phone
+    label: Individual dental and vision plans
+    value: +1-877-877-1051
+    hours: Mon-Fri 8 a.m.-9 p.m. Eastern
+    source: https://www.humana.com/contact-us
+    last_verified: 2026-10-12
+  - id: claim-status
+    type: portal
+    label: View my claims (MyHumana)
+    value: https://my2.humana.com/claims
+    purposes: [claim_delay, claim_denial, billing_error]
+    access: login
+    source: https://www.humana.com/help
+    last_verified: 2026-10-12
+  - id: chat
+    type: chat
+    label: Online chat after signing in to MyHumana
+    value: https://account.humana.com
+    access: login
+    source: https://www.humana.com/contact-us
+    last_verified: 2026-10-12
+  - id: medicaid-help
+    type: web_form
+    label: Medicaid help and support options
+    value: https://www.humana.com/medicaid/help
+    source: https://www.humana.com/contact-us
+    last_verified: 2026-10-12
+  - id: social
+    type: social
+    label: Humana help on X (Twitter)
+    value: https://twitter.com/HumanaHelp
+    source: https://www.humana.com/contact-us
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: medicare-member-phone, note: "Use the number on the back of the member ID card."}
+  - {rung: written_complaint, note: "Internal appeal or grievance. Follow the instructions and address in the denial notice and the plan's Evidence of Coverage."}
+  - {rung: state_agency, agency_kind: insurance_department, note: "External review for fully insured plans; complaint to the state."}
+  - {rung: regulator, regulator: dol-ebsa, note: "Employer self-funded (ERISA) plans."}
+  - {rung: regulator, regulator: cms-no-surprises, note: "Surprise bills under the No Surprises Act."}
+
+playbooks:
+  - issue: claim_denial
+    summary: Get the denial notice and reason, file the appeal the notice describes, then use external review or the state.
+    evidence: [denial notice or EOB, member ID card, plan Evidence of Coverage, medical records, provider letter of medical necessity]
+    steps:
+      - do: Check the claim and the EOB in MyHumana.
+        channel: claim-status
+      - do: Call the number on the ID card (Medicare members can use the Medicare line). Ask for the denial reason, the appeal deadline and the appeal address for your plan.
+        channel: medicare-member-phone
+      - do: File the appeal in writing as the denial notice and the Evidence of Coverage describe. Keep proof of the date sent.
+      - do: For employer plans, after the final internal denial ask for external review, or contact the state insurance department (fully insured) or the Department of Labor (self-funded).
+        regulator: dol-ebsa
+  - issue: billing_error
+    summary: Compare the bill with the claim in MyHumana, then call member services.
+    evidence: [provider bill, EOB, member ID card]
+    steps:
+      - do: Compare the provider bill with the claim and EOB in MyHumana.
+        channel: claim-status
+      - do: Call member services about a claim processed wrongly, and ask the provider to rebill to the EOB amount.
+        channel: medicare-member-phone
+  - issue: surprise_medical_bill
+    summary: Check the bill against the EOB, tell Humana and the provider, then contact the CMS help desk.
+    evidence: [the bill, EOB, member ID card]
+    steps:
+      - do: Compare the bill with the EOB. Note whether it was emergency care or care at an in-network facility.
+        channel: claim-status
+      - do: Tell Humana and the provider the bill may be a surprise bill.
+      - do: Contact the CMS No Surprises Help Desk.
+        regulator: cms-no-surprises
+
+facts:
+  - kind: policy
+    claim: Humana's employer page lists group dental, vision, life and disability plans. It does not list employer group medical plans.
+    source: https://www.humana.com/employer
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Humana's public appeals and grievances pages render without text for automated readers; appeal addresses and deadlines are in the denial notice and the plan's Evidence of Coverage.
+  - Claims and chat need a MyHumana login.
+  - Medicaid plans are state-specific; use the Medicaid help page.
+
+notes: Medicare Advantage, Part D and state Medicaid plans have their own appeal rules. Humana's employer offering on its website is group dental, vision, life and disability.

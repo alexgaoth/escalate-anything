@@ -1,0 +1,153 @@
+id: blue-cross-blue-shield
+name: Blue Cross Blue Shield (BCBS Association and FEP Blue)
+aliases: [bcbs, blue cross, blue shield, blue cross blue shield association, bcbsa, fep blue, fepblue, federal employee program, service benefit plan]
+sector: insurance_health
+website: https://www.fepblue.org
+account_url: https://www.fepblue.org/pilot/login
+regulators: [dol-ebsa, cms-no-surprises]
+
+channels:
+  - id: fep-member-phone
+    type: phone
+    label: FEP Blue (Federal Employee Program) National Information Center
+    value: +1-800-411-2583
+    hours: Weekdays 8 a.m.-8 p.m. Eastern Time, excluding holidays
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill]
+    notes: 1-800-411-BLUE. TTY users dial 711. Federal Employee Program members only; other Blue members call the number on their own ID card.
+    source: https://www.fepblue.org/contact-us
+    last_verified: 2026-10-12
+  - id: find-local-plan
+    type: web_form
+    label: FEP Blue contact page (select your state to find the local BCBS company that handles your claims)
+    value: https://www.fepblue.org/contact-us
+    purposes: [claim_denial, claim_delay]
+    access: open
+    source: https://www.fepblue.org/contact-us
+    last_verified: 2026-10-12
+  - id: fep-view-claims
+    type: portal
+    label: FEP Blue view claims and statements
+    value: https://www.fepblue.org/manage-your-health/manage-claims-records/view-claims
+    purposes: [claim_delay, claim_denial, billing_error]
+    access: login
+    source: https://www.fepblue.org/
+    last_verified: 2026-10-12
+  - id: fep-submit-claim
+    type: web_form
+    label: FEP Blue how to submit a claim
+    value: https://www.fepblue.org/manage-your-health/manage-claims-records/how-to-submit-claim
+    purposes: [claim_delay]
+    source: https://www.fepblue.org/
+    last_verified: 2026-10-12
+  - id: fep-dispute-claim
+    type: web_form
+    label: FEP Blue dispute a claim (disputed claims process)
+    value: https://www.fepblue.org/manage-your-health/manage-claims-records/dispute-claim
+    purposes: [claim_denial]
+    access: open
+    notes: Online filing of a medical claim dispute needs a MyBlue account. Written requests go to the Local Plan address on the EOB.
+    source: https://www.fepblue.org/manage-your-health/manage-claims-records/dispute-claim
+    last_verified: 2026-10-12
+  - id: opm-fehb-mail
+    type: mail
+    label: OPM review of a disputed FEHB claim (after the Local Plan reconsideration)
+    value: United States Office of Personnel Management, Health Care and Insurance, Federal Employee Insurance Operations, Health Insurance 1, Room 3425, 1900 E Street, N.W., Washington, DC 20415-3610
+    purposes: [claim_denial]
+    notes: "OPM FEHB 1 phone 202-606-0727, 8 a.m.-5 p.m. ET. PSHB (Postal Service) members write to Postal Service Insurance Operations (PSIO), 1900 E Street, N.W., Room 3443, Washington, DC 20415-3610; phone 202-936-0002."
+    source: https://www.fepblue.org/manage-your-health/manage-claims-records/dispute-claim
+    last_verified: 2026-10-12
+  - id: fep-overseas-phone
+    type: phone
+    label: FEP Blue overseas customer service (FEHB), from the U.S., Puerto Rico and U.S. Virgin Islands
+    value: +1-888-999-9862
+    hours: 5 a.m.-6 p.m. Eastern time
+    source: https://www.fepblue.org/contact-us
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, note: "Call the number on the back of the member ID card. That is your local Blue company, an independent licensee of the Blue Cross Blue Shield Association."}
+  - {rung: written_complaint, channel: fep-dispute-claim, note: "Internal appeal with the local Blue plan. FEP members: written reconsideration request to the Local Plan, then OPM."}
+  - {rung: regulator, channel: opm-fehb-mail, note: "FEP members only: OPM review is the external step for federal employee plans."}
+  - {rung: state_agency, agency_kind: insurance_department, note: "External review for fully insured non-federal plans; complaint to the state."}
+  - {rung: regulator, regulator: dol-ebsa, note: "Employer self-funded (ERISA) plans administered by a Blue plan."}
+  - {rung: regulator, regulator: cms-no-surprises, note: "Surprise bills under the No Surprises Act."}
+
+playbooks:
+  - issue: claim_denial
+    summary: Appeal with your local Blue plan (address on the EOB). FEP members ask the Local Plan to reconsider within 6 months, then ask OPM.
+    evidence: [EOB, denial letter, member ID card, physician letters, bills, medical records, the brochure provisions you rely on]
+    steps:
+      - do: Find which Blue company handles your plan. Use the number on the back of the ID card. FEP members can pick their state on the FEP Blue contact page.
+        channel: find-local-plan
+      - do: Ask the plan for the claim file. FEP members can call customer service or write to the EOB address to review and copy relevant materials free of charge.
+        channel: fep-member-phone
+      - do: FEP members write to the Local Plan within 6 months of the decision. Explain why the decision is wrong and cite the Service Benefit Plan brochure provisions. Other Blue members follow the appeal instructions on their denial letter.
+        channel: fep-dispute-claim
+      - do: FEP members who still disagree write to OPM within 90 days of the letter that upholds the denial.
+        channel: opm-fehb-mail
+      - do: Non-FEP members ask for external review after the final internal denial, through the state insurance department (fully insured plans) or the plan's process; employer self-funded plan members can contact the Department of Labor.
+        regulator: dol-ebsa
+    facts:
+      - kind: deadline
+        claim: For FEP (FEHB and PSHB) post-service claims, write to the Plan within 6 months of its decision. The Plan has 30 days to pay, maintain its denial or ask for more information; requested information is due within 60 days.
+        issues: [claim_denial]
+        source: https://www.fepblue.org/manage-your-health/manage-claims-records/dispute-claim
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: FEP members who still disagree must write to OPM within 90 days of the Plan letter that upholds the denial, or within 120 days of their first letter if the Plan did not answer within 30 days. OPM issues a final decision or status update within 60 days.
+        issues: [claim_denial]
+        source: https://www.fepblue.org/manage-your-health/manage-claims-records/dispute-claim
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: For an urgent FEP pre-service claim, request reconsideration within 6 months of the initial decision; the Plan notifies you of its decision within 72 hours after it receives the request. Verbal or electronic requests may be used for expedited review.
+        issues: [claim_denial]
+        source: https://www.fepblue.org/manage-your-health/manage-claims-records/dispute-claim
+        last_verified: 2026-10-12
+      - kind: process
+        claim: FEP members can review and copy relevant claim materials free of charge, including expert reviews, by calling customer service or writing to the address on the EOB.
+        issues: [claim_denial]
+        source: https://www.fepblue.org/manage-your-health/manage-claims-records/dispute-claim
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: After OPM's decision, an FEP member may sue in Federal court only by December 31 of the third year after the year of the service or denial. This deadline cannot be extended.
+        issues: [claim_denial]
+        source: https://www.fepblue.org/manage-your-health/manage-claims-records/dispute-claim
+        last_verified: 2026-10-12
+  - issue: billing_error
+    summary: Compare the bill with the EOB from your local Blue plan, then ask the plan and the provider to fix it.
+    evidence: [provider bill, EOB, member ID card]
+    steps:
+      - do: Compare the provider bill with the EOB. FEP members can view claims online.
+        channel: fep-view-claims
+      - do: Call the number on the ID card (FEP members can use 1-800-411-BLUE) about a claim processed wrongly. Ask the provider to rebill to the EOB amount.
+        channel: fep-member-phone
+      - do: If it is not fixed, dispute the claim with the plan in writing.
+        channel: fep-dispute-claim
+  - issue: surprise_medical_bill
+    summary: Compare the bill with the EOB, tell the local Blue plan and the provider, then contact the CMS help desk.
+    evidence: [the bill, EOB, member ID card]
+    steps:
+      - do: Compare the bill with the EOB. Note whether it was emergency care or care at an in-network facility.
+      - do: Tell your local Blue plan (number on the ID card) and the provider that the bill may be a surprise bill.
+        channel: fep-member-phone
+      - do: Contact the CMS No Surprises Help Desk.
+        regulator: cms-no-surprises
+
+tips:
+  - kind: official
+    text: The Blue Cross Blue Shield Association does not handle member claims. Each Blue plan is a separate company; Anthem plans, for example, describe themselves as independent licensees of the Blue Cross Blue Shield Association. Contact the plan named on the member ID card.
+    issues: [claim_denial, claim_delay, billing_error]
+    source: https://www.anthembluecross.com/
+    last_verified: 2026-10-12
+  - kind: official
+    text: FEP Blue says questions about claims, prior approval or care management go to your local BCBS company, which you find by selecting your state on the FEP Blue contact page.
+    issues: [claim_denial, claim_delay]
+    source: https://www.fepblue.org/contact-us
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The Association has no member service line for claims. Each local Blue plan has its own numbers, portals and appeal addresses.
+  - FEP online claim disputes need a MyBlue account.
+  - FEP eligibility questions go to the agency payroll office, retirement system or OWCP, not to the Plan.
+
+notes: Blue Cross and Blue Shield plans are independent companies licensed by the Blue Cross Blue Shield Association. Members must use their own local Blue plan (named on the ID card) for claims and appeals. The Federal Employee Program (FEP Blue, the Service Benefit Plan) covers FEHB and Postal Service (PSHB) members; its external step is OPM review, not state external review. Separate registry entries cover Blue plans owned by Elevance Health (Anthem).

@@ -1,0 +1,88 @@
+id: unitedhealthcare
+name: UnitedHealthcare
+aliases: [uhc, united healthcare, united health care, unitedhealth group, myuhc, uhc community plan, aarp medicare plans]
+sector: insurance_health
+parent: UnitedHealth Group
+website: https://www.uhc.com
+account_url: https://www.uhc.com/sign-in
+regulators: [dol-ebsa, cms-no-surprises]
+
+channels:
+  - id: contact-page
+    type: web_form
+    label: Contact UnitedHealthcare (for people without a member ID card)
+    value: https://www.uhc.com/contact-us
+    purposes: [claim_denial, claim_delay, billing_error, poor_service]
+    notes: Linked from the UnitedHealth Group contact page. uhc.com blocked automated readers on 2026-10-12, so its contents were not checked.
+    source: https://www.unitedhealthgroup.com/contact-us.html
+    last_verified: 2026-10-12
+  - id: claim-status
+    type: portal
+    label: Review claims and EOBs (member login)
+    value: https://member.uhc.com/claims-and-accounts/claims
+    purposes: [claim_delay, claim_denial, billing_error, surprise_medical_bill]
+    access: login
+    source: https://www.unitedhealthgroup.com/contact-us.html
+    last_verified: 2026-10-12
+  - id: uhg-phone
+    type: phone
+    label: UnitedHealth Group general line (not member services)
+    value: +1-800-328-5979
+    notes: UnitedHealth Group tells health plan members to call the number on the member ID card.
+    source: https://www.unitedhealthgroup.com/contact-us.html
+    last_verified: 2026-10-12
+  - id: uhg-mail
+    type: mail
+    label: UnitedHealth Group corporate mailing address (not an appeals address)
+    value: UnitedHealth Group, P.O. Box 1459, Minneapolis, MN 55440-1459
+    source: https://www.unitedhealthgroup.com/contact-us.html
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, note: "Call the member services number on the back of the member ID card."}
+  - {rung: written_complaint, note: "Internal appeal or grievance at the address and within the deadline on the denial letter or EOB."}
+  - {rung: state_agency, agency_kind: insurance_department, note: "External review for fully insured plans; complaint to the state."}
+  - {rung: regulator, regulator: dol-ebsa, note: "Employer self-funded (ERISA) plans."}
+  - {rung: regulator, regulator: cms-no-surprises, note: "Surprise bills under the No Surprises Act."}
+
+playbooks:
+  - issue: claim_denial
+    summary: Read the EOB and denial letter, appeal at the address on the letter, then ask for external review.
+    evidence: [denial letter or EOB, member ID card, medical records, provider letter of medical necessity]
+    steps:
+      - do: Log in and download the EOB for the denied claim.
+        channel: claim-status
+      - do: Call the number on the member ID card. Ask for the denial reason, the appeal deadline, the appeal address and a free copy of the documents relevant to the claim.
+      - do: File the written appeal at the address on the denial letter or EOB, before the deadline on that letter. Keep proof of the date sent.
+      - do: After the final internal denial, ask for external review through the state insurance department (fully insured plans) or the plan's process. For employer self-funded plans, contact the Department of Labor if the plan does not follow the rules.
+        regulator: dol-ebsa
+  - issue: billing_error
+    summary: Compare the provider bill with the EOB, then call member services.
+    evidence: [provider bill, EOB, member ID card]
+    steps:
+      - do: Compare the provider bill with the EOB.
+        channel: claim-status
+      - do: Call the number on the member ID card about a claim processed wrongly. Ask the provider to rebill to the EOB amount.
+      - do: If it is not fixed, file an appeal or grievance at the address on the EOB.
+  - issue: surprise_medical_bill
+    summary: Compare the bill with the EOB, tell UnitedHealthcare and the provider, then contact the CMS help desk.
+    evidence: [the bill, EOB, member ID card]
+    steps:
+      - do: Compare the bill with the EOB. Note whether it was emergency care or care at an in-network facility.
+        channel: claim-status
+      - do: Tell UnitedHealthcare (number on the ID card) and the provider that the bill may be a surprise bill.
+      - do: Contact the CMS No Surprises Help Desk.
+        regulator: cms-no-surprises
+
+facts:
+  - kind: contact
+    claim: UnitedHealth Group tells health plan members to call the number on their health plan ID card, and people without an ID card to use the Contact UnitedHealthcare page.
+    source: https://www.unitedhealthgroup.com/contact-us.html
+    last_verified: 2026-10-12
+
+known_blockers:
+  - uhc.com, member.uhc.com and the UnitedHealthcare Medicare and Community Plan sites returned 403 to automated readers on 2026-10-12. Appeal pages, addresses and deadlines could not be read.
+  - Member phone numbers and appeal addresses are plan-specific; use the ID card and the denial letter.
+  - Claims and EOBs need a member login.
+
+notes: UnitedHealthcare is the health benefits business of UnitedHealth Group. The UnitedHealthcare Medicare Solutions and Community Plan (Medicaid) sites redirect to uhc.com; AARP Medicare plan pages tell members to call the number on the back of the member ID card. Medicare and Medicaid plans have their own appeal rules.

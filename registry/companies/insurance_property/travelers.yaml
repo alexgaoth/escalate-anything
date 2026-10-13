@@ -1,0 +1,141 @@
+id: travelers
+name: Travelers
+aliases: [travelers insurance, the travelers companies, travelers personal insurance, mytravelers]
+sector: insurance_property
+website: https://www.travelers.com
+account_url: https://signin.travelers.com/
+regulators: []
+
+channels:
+  - id: claims-phone
+    type: phone
+    label: File a claim or check claim status (individuals)
+    value: +1-800-252-4633
+    hours: "Filing 24 hours a day, 365 days a year; claim status Mon-Fri 8 a.m.-5 p.m. local time"
+    purposes: [claim_denial, claim_delay]
+    access: open
+    notes: Roadside assistance is option 3 in the phone menu.
+    source: https://www.travelers.com/contact-us
+    last_verified: 2026-10-12
+  - id: customer-service-phone
+    type: phone
+    label: Billing and policy service (individuals)
+    value: +1-888-564-5043
+    hours: 24 hours a day, 365 days a year
+    purposes: [bill_increase, billing_error, cancel_service]
+    source: https://www.travelers.com/contact-us
+    last_verified: 2026-10-12
+  - id: customer-advocacy-phone
+    type: phone
+    label: Customer Advocacy
+    value: +1-866-336-2077
+    purposes: [claim_denial, claim_delay, poor_service]
+    source: https://www.travelers.com/contact-us
+    last_verified: 2026-10-12
+  - id: business-claims-phone
+    type: phone
+    label: File a claim or check claim status (business)
+    value: +1-800-238-6225
+    hours: "Filing 24 hours a day, 365 days a year; claim status Mon-Fri 8 a.m.-5 p.m. local time"
+    source: https://www.travelers.com/contact-us
+    last_verified: 2026-10-12
+  - id: claims-online
+    type: web_form
+    label: File a claim online (individuals)
+    value: https://www.travelers.com/claims/file-claim/individual
+    source: https://www.travelers.com/contact-us
+    last_verified: 2026-10-12
+  - id: claim-status
+    type: portal
+    label: Check claim status (auto, general liability, property, workers compensation)
+    value: https://claim.travelers.com/claimstatus/search
+    purposes: [claim_delay, claim_denial]
+    source: https://www.travelers.com/claims/check-your-claim-status
+    last_verified: 2026-10-12
+  - id: claim-upload
+    type: web_form
+    label: Upload claim documents
+    value: https://claim.travelers.com/claimuploadcenter
+    purposes: [claim_delay, claim_denial]
+    source: https://www.travelers.com/contact-us
+    last_verified: 2026-10-12
+  - id: complaint-form
+    type: web_form
+    label: Email form (topics include "Make a Complaint" and "Claim Questions")
+    value: https://www.travelers.com/contact-us/email
+    purposes: [claim_denial, claim_delay, poor_service, billing_error]
+    access: open
+    notes: Required fields are topic, comment, relationship to Travelers, name, email, state, ZIP code and country. No login or CAPTCHA is mentioned.
+    source: https://www.travelers.com/contact-us/email
+    last_verified: 2026-10-12
+  - id: complaint-mail
+    type: mail
+    label: Consumer Affairs (complaints)
+    value: Travelers, Attn. Consumer Affairs, One Tower Square, Hartford, CT 06183
+    purposes: [claim_denial, claim_delay, poor_service]
+    source: https://www.travelers.com/contact-us
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: claims-phone, note: "Or the assigned Claim professional."}
+  - {rung: supervisor, note: "Ask for the Claim professional's manager."}
+  - {rung: written_complaint, channel: complaint-mail, note: "Consumer Affairs. The email form has a Make a Complaint topic. Ask for the denial and the policy language it relies on, in writing."}
+  - {rung: state_agency, agency_kind: insurance_department}
+  - {rung: arbitration, note: "Many policies have an appraisal clause for disputes about the amount of a loss. Check the policy."}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: claim_denial
+    summary: Ask the Claim professional for the reason and valuation, then complain to Consumer Affairs and the state insurance department.
+    evidence: [claim number, denial or settlement letter, estimate and cover sheet, policy and declarations page, photos, receipts]
+    steps:
+      - do: Ask the Claim professional for the reason and the policy language in writing. For a total loss, ask how the value was calculated and which similar vehicles were used.
+        channel: claims-phone
+      - do: Upload your evidence to the claim.
+        channel: claim-upload
+      - do: Send a complaint through the email form (topic "Make a Complaint") or by mail to Consumer Affairs.
+        channel: complaint-form
+      - do: If you disagree only about the amount, check the policy for an appraisal provision.
+      - do: File a complaint with your state insurance department.
+    facts:
+      - kind: process
+        claim: For a total loss, Travelers determines how much the vehicle could have been sold for before it was damaged, using industry tools to find similar vehicles. It tells customers to talk to the Claim professional about the value.
+        issues: [claim_denial]
+        source: https://www.travelers.com/claims/guides/understanding-total-loss
+        last_verified: 2026-10-12
+  - issue: claim_delay
+    summary: Check status online or by phone, upload what is missing, then use Customer Advocacy.
+    evidence: [claim number, dates of each contact, documents sent]
+    steps:
+      - do: Check the claim status online and upload missing documents.
+        channel: claim-status
+      - do: Call the claims line during status hours and ask what is still needed.
+        channel: claims-phone
+      - do: Call Customer Advocacy if the claim still does not move.
+        channel: customer-advocacy-phone
+      - do: File a complaint with your state insurance department.
+    facts:
+      - kind: process
+        claim: After a claim is filed, Travelers sends a communication with the claim number, date of loss and how to contact Travelers, and may request more information during review.
+        issues: [claim_delay]
+        source: https://www.travelers.com/claims/manage-claim/what-to-expect-during-claim
+        last_verified: 2026-10-12
+  - issue: bill_increase
+    summary: Ask policy service or the agent what changed at renewal.
+    evidence: [prior declarations page, renewal declarations page, recent claims]
+    steps:
+      - do: Compare the old and new declarations pages and note any claim in the term.
+      - do: Ask billing and policy service, or the agent, to explain the change and list available discounts.
+        channel: customer-service-phone
+    facts:
+      - kind: policy
+        claim: Travelers' guide on auto claims says it is very likely that your rate will increase at renewal after a claim, and that you are likely to pay a higher rate for three to five years.
+        issues: [bill_increase]
+        source: https://www.travelers.com/claims/guides/will-my-auto-rate-increase-after-filing-claim
+        last_verified: 2026-10-12
+
+known_blockers:
+  - MyTravelers account features need sign-in.
+  - Claim status by phone is only staffed Mon-Fri 8 a.m.-5 p.m. local time.
+
+notes: Business policy service questions go to the agent. Travelers asks people not to send claim messages to employees' personal email accounts.
