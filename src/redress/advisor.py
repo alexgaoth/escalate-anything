@@ -99,19 +99,30 @@ def _regulator_view(reg: Registry, rid: str, today: dt.date, warnings: list[str]
     }
 
 
+# Some states handle consumer protection outside the attorney general (Hawaii: DCCA).
+KIND_FALLBACK = {"attorney_general": "consumer_affairs"}
+
+
 def state_agencies(reg: Registry, state: str, sector: str, kind: str | None = None) -> list[dict]:
     st = reg.states.get(state.lower())
     if not st:
         return []
-    out = []
-    for ag in st["agencies"]:
-        if kind and ag["kind"] != kind:
-            continue
-        covers = ag.get("covers_sectors")
-        if covers and sector not in covers:
-            continue
-        out.append(ag)
-    return out
+
+    def matching(k: str | None) -> list[dict]:
+        out = []
+        for ag in st["agencies"]:
+            if k and ag["kind"] != k:
+                continue
+            covers = ag.get("covers_sectors")
+            if covers and sector not in covers:
+                continue
+            out.append(ag)
+        return out
+
+    found = matching(kind)
+    if not found and kind in KIND_FALLBACK:
+        found = matching(KIND_FALLBACK[kind])
+    return found
 
 
 def find_regulators(reg: Registry, sector: str, state: str | None = None, today: dt.date | None = None) -> dict:
