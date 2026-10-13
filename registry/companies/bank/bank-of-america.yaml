@@ -98,7 +98,7 @@ channels:
   - id: social-x
     type: social
     label: Direct message @BofA_Help on X
-    value: https://x.com/@BofA_Help
+    value: https://x.com/BofA_Help
     purposes: [poor_service]
     hours: Mon-Fri 8 a.m.-9 p.m. ET, Sat 9 a.m.-6 p.m. ET, Sun 8 a.m.-5 p.m. ET
     notes: Never post account numbers publicly.
