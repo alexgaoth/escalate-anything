@@ -203,6 +203,96 @@ def _host_matches(host: str, domains: set[str]) -> str | None:
     return None
 
 
+# The channel types that verify_contact compares, by kind of value.
+PHONE_CHANNEL_TYPES = ("phone", "sms", "fax")
+URL_CHANNEL_TYPES = ("web_form", "chat", "portal", "social", "app", "in_person")
+
+
+# ---- look-alike domains --------------------------------------------------------
+# A brand token is a company's id part, id, name or alias in lower case with only letters and digits,
+# 4 or more characters long. A host that contains a brand token (with its dots and hyphens removed)
+# but is not a domain of any organization in the registry imitates that company.
+
+# Generic words, place names and surnames from company ids and aliases. Each brand keeps a longer token
+# (for example "wellsfargo", "americanairlines", "dukeenergy").
+BRAND_STOPWORDS = frozenset({
+    "airlines", "bank", "card", "cash", "energy", "fiber", "gas", "health", "insurance", "mobile", "online", "pay",
+    "power", "service",
+    "airways", "alabama", "alaska", "ally", "america", "american", "anytime", "best", "blue", "booking", "boost",
+    "budget", "california", "capital", "cellular", "choice", "comed", "communications", "consumer", "consumers",
+    "country", "credit", "cross", "crunch", "delta", "depot", "dish", "dominion", "duke", "edison", "enterprise",
+    "express", "family", "fargo", "farm", "farmers", "federal", "fitness", "frontier", "georgia", "group",
+    "healthcare", "hinge", "home", "hotels", "hour", "internet", "island", "kinetic", "liberty", "lines", "long",
+    "marcus", "match", "meridian", "metro", "mint", "mutual", "national", "navy", "network", "oscar", "peacock",
+    "permanente", "planet", "play", "plus", "prime", "reliant", "sachs", "seamless", "shield", "southern",
+    "southwest", "spirit", "state", "straight", "talk", "travelers", "union", "united", "wells", "western",
+    "westin", "wireless", "wise", "xcel",
+})
+LOOKALIKE_WHY = "Uses the name {name} but is not an official {name} domain (official: {official})"
+LOOKALIKE_ADVICE = "This domain imitates {names}. Do not use it."
+SUSPICIOUS_VERDICTS = ("not_on_file", "belongs_to_other", "lookalike")
+
+
+def brand_tokens(company: dict) -> list[str]:
+    words = [*company["id"].split("-"), company["id"], company.get("name", ""), *company.get("aliases", [])]
+    out: list[str] = []
+    for word in words:
+        token = re.sub(r"[^a-z0-9]", "", str(word).lower())
+        if len(token) >= 4 and token not in BRAND_STOPWORDS and token not in out:
+            out.append(token)
+    return out
+
+
+@dataclass
+class BrandIndex:
+    tokens: list[tuple[str, str]]  # (token, company id), longest token first
+    official: dict[str, list[str]]  # company id -> official_domains plus the website host
+    owner_domains: set[str]  # the domains of every organization in the registry
+    known_hosts: set[str]  # those domains, plus every URL host and email domain on file
+
+
+def brand_index(reg: "Registry") -> BrandIndex:
+    """Built once per loaded registry."""
+    cached = reg.__dict__.get("_brand_index")
+    if cached is not None:
+        return cached
+    tokens = sorted({(t, c["id"]) for c in reg.companies.values() for t in brand_tokens(c)}, key=lambda tc: (-len(tc[0]), tc))
+    official = {c["id"]: sorted(_domains(c.get("website"), c.get("official_domains", []))) for c in reg.companies.values()}
+    owner_domains: set[str] = set()
+    known: set[str] = set()
+    for _kind, _oid, _name, website, domains, channels in _owner_entries(reg):
+        owner_domains |= _domains(website, domains)
+        for ch in channels:
+            value = str(ch.get("value", ""))
+            if ch.get("type") in URL_CHANNEL_TYPES and (u := norm_url(value)):
+                known.add(u[0])
+            elif ch.get("type") == "email" and "@" in value:
+                known.add(value.strip().lower().rsplit("@", 1)[-1])
+    idx = BrandIndex(tokens, official, owner_domains, known | owner_domains)
+    reg.__dict__["_brand_index"] = idx
+    return idx
+
+
+def lookalikes(reg: "Registry", host: str | None) -> list[dict[str, Any]]:
+    """Companies whose brand token is in this host, when the host is not a domain of any organization on file."""
+    host = (host or "").lower().rstrip(".")
+    if not host:
+        return []
+    idx = brand_index(reg)
+    if host in idx.known_hosts or _host_matches(host, idx.owner_domains):
+        return []
+    compact = re.sub(r"[.-]", "", host)
+    hits = [(t, cid) for t, cid in idx.tokens if t in compact]
+    if not hits:
+        return []
+    longest = len(hits[0][0])  # tokens are sorted longest first
+    out: list[dict[str, Any]] = []
+    for token, cid in hits:
+        if len(token) == longest and all(o["company"] != cid for o in out):
+            out.append({"company": cid, "name": reg.companies[cid]["name"], "token": token, "official": idx.official[cid]})
+    return out
+
+
 def verify_contact(reg: "Registry", value: str, company: str | None = None) -> dict[str, Any]:
     kind = classify(value)
     result: dict[str, Any] = {"value": value, "kind": kind, "matches": []}
@@ -219,9 +309,9 @@ def verify_contact(reg: "Registry", value: str, company: str | None = None) -> d
         for ch in channels:
             cv = str(ch.get("value", ""))
             hit = False
-            if phone and ch.get("type") in ("phone", "sms", "fax"):
+            if phone and ch.get("type") in PHONE_CHANNEL_TYPES:
                 hit = norm_phone(cv) == phone
-            elif url and ch.get("type") in ("web_form", "chat", "portal", "social", "app", "in_person"):
+            elif url and ch.get("type") in URL_CHANNEL_TYPES:
                 cu = norm_url(cv)
                 hit = bool(cu) and cu[0] == url[0] and (cu[1] == url[1] or url[1].startswith(cu[1] + "/") or not cu[1])
             elif email_domain and ch.get("type") == "email":
@@ -261,6 +351,10 @@ def verify_contact(reg: "Registry", value: str, company: str | None = None) -> d
             tip = f" Use the channels from get_playbook or the company's own site ({c['website']}) instead."
         result["advice"] = ("This contact is not in the registry. Scammers buy search ads and post fake support numbers; "
                             "do not call, click or pay until you confirm it on the organization's official site." + tip)
+        if look := lookalikes(reg, url[0] if url else email_domain):
+            result["verdict"] = "lookalike"
+            result["lookalike"] = look
+            result["advice"] = LOOKALIKE_ADVICE.format(names=" or ".join(x["name"] for x in look))
     return result
 
 
@@ -287,6 +381,25 @@ RED_FLAGS: list[tuple[str, str, str]] = [
      "Threatens a utility shutoff unless you pay by an unusual method. Utilities send written notices and take normal payments."),
     ("link_lookalike", r"https?://[^\s]*(-support|-help|-refund|-verify|secure-|login-)[^\s]*",
      "Contains a link with words like support, refund, verify or login in the domain. Check the exact domain against the official one."),
+    ("package_fee",
+     r"\bre-?deliver(y|ing)? (fee|charge|payment)\b"
+     r"|\b(package|parcel|shipment|delivery)\b.{0,40}\b(is|was|has been|being) (held|on hold)\b"
+     r"|\b(could not|couldn['’]t|cannot|can['’]t|unable to|failed to|was not|wasn['’]t) (be )?deliver(ed)?\b.{0,120}"
+     r"\b(fee|pay|payment|update (your )?(address|details|information)|confirm (your )?(address|details))\b"
+     r"|\bcustoms (fee|charge|duty|duties)\b",
+     "Says a package is held or could not be delivered and asks for a fee or an address update. Carriers do not text "
+     "links to pay redelivery or customs fees. Track the package on the carrier's own website."),
+    ("unpaid_toll",
+     r"\bunpaid tolls?\b|\btoll (balance|bill|charge|due|fee|invoice|notice|payment|violation)s?\b"
+     r"|\be-?z ?pass\b|\bsun ?pass\b|\bfas ?trak\b",
+     "Says you owe a toll. Toll agencies such as E-ZPass, SunPass and FasTrak do not text links for payment. "
+     "Check your balance on the agency's own website or app."),
+    ("verify_account_link",
+     r"\b(verify|confirm|validate|reactivate|unlock|restore) (your )?(account|identity|login|information|details|billing|payment (method|details))\b.{0,200}https?://"
+     r"|\b(account|card|access)\b.{0,20}\b(has been|have been|is|was) (temporarily )?(limited|restricted|locked|suspended|disabled|on hold)\b.{0,200}https?://"
+     r"|https?://\S+.{0,100}\b(verify|confirm|validate) (your )?(account|identity)\b",
+     "Asks you to verify your account or identity through a link. Do not sign in or give details from a link in a "
+     "message. Open the company's app, or type its address yourself."),
 ]
 
 
@@ -311,7 +424,11 @@ def scam_check(reg: "Registry", text: str, company: str | None = None) -> dict[s
     contacts.update(re.findall(CONTACT_PATTERNS["email"], text))
     contacts.update(m.strip() for m in re.findall(CONTACT_PATTERNS["phone"], text))
     checks = [verify_contact(reg, c.rstrip(".,;"), company) for c in sorted(contacts)]
-    suspicious = [c for c in checks if c["verdict"] in ("not_on_file", "belongs_to_other")]
+    for c in checks:  # every URL host and email domain that imitates a company
+        for look in c.get("lookalike", []):
+            flags.append({"flag": "lookalike_domain", "matched": c["value"],
+                          "why": LOOKALIKE_WHY.format(name=look["name"], official=", ".join(look["official"]))})
+    suspicious = [c for c in checks if c["verdict"] in SUSPICIOUS_VERDICTS]
     level = "high" if flags and (suspicious or len(flags) >= 2) else "medium" if flags or suspicious else "low"
     return {
         "risk": level,

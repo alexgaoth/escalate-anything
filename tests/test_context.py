@@ -57,7 +57,7 @@ def test_official_domain_must_cover_website(tmp_path):
     ("https://www.example.com/baggage/claim?x=1", "example-air", "on_file"),
     ("https://www.example.com/brand-new-page", "example-air", "official_domain"),
     ("phishing@example.com", "example-air", "on_file"),
-    ("https://example-air-refunds.com/claim", "example-air", "not_on_file"),
+    ("https://example-air-refunds.com/claim", "example-air", "lookalike"),
     ("+1-888-555-0199", "example-air", "not_on_file"),
     ("https://www.example.gov/complaint", "example-air", "belongs_to_other"),
 ])
@@ -75,6 +75,90 @@ def test_scam_check_flags_and_contacts(fixture_registry):
     assert r["contacts"][0]["verdict"] == "not_on_file"
     calm = context.scam_check(fixture_registry, "Your bag is on the next flight. Track it at https://www.example.com/baggage/claim")
     assert calm["risk"] == "low"
+
+
+def test_brand_tokens_and_lookalike_verdict(fixture_registry):
+    assert context.brand_tokens(fixture_registry.companies["example-air"]) == ["example", "exampleair", "exampleairlines"]
+    assert context.brand_tokens({"id": "wells-fargo", "name": "Wells Fargo", "aliases": ["wf bank"]}) == ["wellsfargo", "wfbank"]
+    r = context.verify_contact(fixture_registry, "help@example-air.support")
+    assert r["verdict"] == "lookalike"
+    assert r["advice"] == "This domain imitates Example Air. Do not use it."
+    assert r["lookalike"] == [{"company": "example-air", "name": "Example Air", "token": "exampleair", "official": ["example.com"]}]
+    # Official and on-file hosts never match, and neither do hosts of other organizations on file.
+    for host in ["example.com", "www.example.com", "help.example.com", "example.gov"]:
+        assert context.lookalikes(fixture_registry, host) == [], host
+    assert context.verify_contact(fixture_registry, "+1-888-555-0199")["verdict"] == "not_on_file"
+
+
+def test_scam_check_flags_lookalike_domains(fixture_registry):
+    r = context.scam_check(fixture_registry, "Claim your refund at https://example-air-refunds.com/claim today.")
+    [flag] = [f for f in r["red_flags"] if f["flag"] == "lookalike_domain"]
+    assert flag["why"] == "Uses the name Example Air but is not an official Example Air domain (official: example.com)"
+    assert flag["matched"] == "https://example-air-refunds.com/claim"
+    assert r["risk"] == "high"  # one red flag plus a suspicious (look-alike) contact
+
+
+@pytest.mark.parametrize("text,flag", [
+    ("USPS: your package is held at our warehouse", "package_fee"),
+    ("We could not deliver your parcel. Update your address here", "package_fee"),
+    ("Pay the $1.99 redelivery fee", "package_fee"),
+    ("A customs fee of $3 is due", "package_fee"),
+    ("Your toll balance is overdue", "unpaid_toll"),
+    ("SunPass: final reminder", "unpaid_toll"),
+    ("You have an unpaid toll", "unpaid_toll"),
+    ("Please verify your account at https://x.example", "verify_account_link"),
+    ("Your card has been restricted. Restore access: https://x.example", "verify_account_link"),
+])
+def test_new_red_flags(fixture_registry, text, flag):
+    assert flag in {f["flag"] for f in context.scam_check(fixture_registry, text)["red_flags"]}
+
+
+@pytest.mark.parametrize("text", [
+    "Your package was delivered to the front door.",
+    "We could not deliver your package today. We will try again tomorrow.",
+    "Your account settings were updated. Questions? Visit https://www.example.com/help",
+])
+def test_new_red_flags_stay_quiet(fixture_registry, text):
+    assert context.scam_check(fixture_registry, text)["red_flags"] == []
+
+
+@pytest.fixture(scope="module")
+def real_registry():
+    return Registry.load()
+
+
+def test_official_hosts_never_look_alike(real_registry):
+    reg = real_registry
+    for okind, oid, _name, website, official, channels in context._owner_entries(reg):
+        hosts = context._domains(website, official)
+        hosts |= {"www." + h for h in hosts}
+        hosts |= {u[0] for ch in channels if ch.get("type") in context.URL_CHANNEL_TYPES and (u := context.norm_url(str(ch["value"])))}
+        for host in hosts:
+            assert context.lookalikes(reg, host) == [], (oid, host)
+        if okind == "company" and website:
+            assert context.verify_contact(reg, website, oid)["verdict"] != "lookalike", oid
+    for c in reg.companies.values():
+        assert context.brand_tokens(c), f"{c['id']} has no brand token"
+
+
+@pytest.mark.parametrize("value,company", [
+    ("chase-secure-verify.com", "Chase"), ("https://wells-fargo-alerts.net/login", "Wells Fargo"),
+    ("https://usps-redelivery-fee.com", "United States Postal Service"), ("billing@xfinity-billing.help", "Xfinity"),
+    ("https://paypal.com.account-review.info", "PayPal"),
+])
+def test_real_lookalikes(real_registry, value, company):
+    r = context.verify_contact(real_registry, value)
+    assert r["verdict"] == "lookalike" and [x["name"] for x in r["lookalike"]] == [company]
+
+
+@pytest.mark.parametrize("text,risk", [
+    ("USPS: your package is held, pay a $1.99 redelivery fee at https://usps-redelivery-fee.com", "high"),
+    ("Your E-ZPass account has an unpaid toll of $4.15. Pay now at https://ezpass-tollpay.top to avoid a $50 fee", "high"),
+    ("Amazon: your account has been limited. Verify your identity at https://amazon-account-verify.com", "high"),
+    ("Your Amazon order has shipped. Track it at https://www.amazon.com/gp/your-account/order-history", "low"),
+])
+def test_common_text_scams(real_registry, text, risk):
+    assert context.scam_check(real_registry, text)["risk"] == risk
 
 
 def test_get_context_and_playbook_security(fixture_registry):

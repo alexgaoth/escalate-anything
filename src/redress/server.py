@@ -202,15 +202,17 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
     def verify_contact(value: str, company: str | None = None) -> dict[str, Any]:
         """Check whether a phone number, email address or URL really belongs to a company or agency,
         before anyone calls, clicks or pays. Pass company to check against that company. Verdicts:
-        on_file, official_domain, belongs_to_other, not_on_file."""
+        on_file, official_domain, belongs_to_other, lookalike (the domain uses a company's name but is
+        not its domain), not_on_file."""
         return context.verify_contact(reg, value, company)
 
     @mcp.tool(annotations=READ)
     @guard
     def scam_check(text: str, company: str | None = None) -> dict[str, Any]:
         """Check a message, email, text, call script or web page text for common scam red flags (gift
-        cards, crypto, remote access, codes, pay-to-get-refund, pressure) and verify every phone
-        number, email and link in it against the registry."""
+        cards, crypto, remote access, codes, pay-to-get-refund, pressure, package fees, unpaid tolls,
+        account verification links, look-alike domains) and verify every phone number, email and link
+        in it against the registry."""
         return context.scam_check(reg, text, company)
 
     # ---- case log ----------------------------------------------------------------

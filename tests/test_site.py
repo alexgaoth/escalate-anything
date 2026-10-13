@@ -105,6 +105,10 @@ def test_contacts_json_is_keyed_by_normalized_value(tmp_path, fixture_registry):
     assert owners["example-air"]["domains"] == ["example.com"]
     assert owners["us-dot"]["kind"] == "regulator"
     assert ["example air", "example-air"] in contacts["aliases"]
+    brands = contacts["brands"]
+    assert brands["tokens"] == [["exampleairlines", "example-air"], ["exampleair", "example-air"], ["example", "example-air"]]
+    assert {"example.com", "example.gov"} <= set(brands["known_hosts"])
+    assert "bank" in brands["stopwords"]
 
 
 def test_red_flags_json_comes_from_context(tmp_path, fixture_registry):
@@ -113,6 +117,8 @@ def test_red_flags_json_comes_from_context(tmp_path, fixture_registry):
     assert [(f["id"], f["pattern"], f["why"]) for f in rf["flags"]] == [tuple(x) for x in context.RED_FLAGS]
     assert rf["contact_patterns"] == context.CONTACT_PATTERNS
     assert len(rf["next_steps"]) == 3 and rf["note"].startswith("Pattern checks")
+    assert rf["lookalike"]["why"] == context.LOOKALIKE_WHY and rf["lookalike"]["flag"] == "lookalike_domain"
+    assert rf["suspicious_verdicts"] == ["not_on_file", "belongs_to_other", "lookalike"]
 
 
 def test_json_files_parse(tmp_path, fixture_registry):
@@ -251,12 +257,13 @@ def test_js_normalization_matches_python():
 
 
 def _verdict(r: dict) -> tuple:
-    return (r["verdict"], [(m["owner"], m["channel"]) for m in r["matches"]], sorted(d["owner"] for d in r.get("domain_owners", [])))
+    return (r["verdict"], [(m["owner"], m["channel"]) for m in r["matches"]], sorted(d["owner"] for d in r.get("domain_owners", [])),
+            [(x["company"], x["name"], x["token"], x["official"]) for x in r.get("lookalike", [])])
 
 
 def _risk(r: dict) -> tuple:
-    return (r["risk"], [(f["flag"], f["matched"]) for f in r["red_flags"]], [(c["value"], c["verdict"]) for c in r["contacts"]],
-            r["next_steps"], r["note"])
+    return (r["risk"], [(f["flag"], f["matched"], f["why"]) for f in r["red_flags"]],
+            [(c["value"], c["verdict"]) for c in r["contacts"]], r["next_steps"], r["note"])
 
 
 FIXTURE_CONTACTS = [
@@ -284,16 +291,24 @@ def test_js_checks_match_python_on_the_fixture(tmp_path, fixture_registry):
     for (t, c), js in zip(FIXTURE_MESSAGES, out[len(FIXTURE_CONTACTS):]):
         assert _risk(js) == _risk(context.scam_check(fixture_registry, t, c)), t
     assert [r["verdict"] for r in out[:8]] == ["on_file", "on_file", "on_file", "official_domain", "on_file",
-                                               "not_on_file", "not_on_file", "belongs_to_other"]
+                                               "lookalike", "not_on_file", "belongs_to_other"]
 
 
 REAL_CONTACTS = [
     ("1-800-934-6489", "united"), ("1-800-934-6489", "xfinity"), ("1-800-934-6489", None), ("https://www.xfinity.com/support", "comcast"),
     ("https://usps-redelivery-fee.com", "usps"), ("https://www.usps.com/manage/package-intercept.htm", "untied states postal"),
+    ("chase-secure-verify.com", None), ("alerts@wells-fargo-alerts.net", "wells fargo"), ("https://ezpass-tollpay.top", None),
+    ("https://paypal.com.account-review.info/login", "paypal"), ("https://www.amazon.com/gp/your-account/order-history", "amazon"),
 ]
-REAL_MESSAGES = [
-    ("USPS: your package is held, pay a $1.99 redelivery fee at https://usps-redelivery-fee.com", None),
+SCAM_MESSAGES = [  # (text, company, risk that scam_check must give)
+    ("USPS: your package is held, pay a $1.99 redelivery fee at https://usps-redelivery-fee.com", None, "high"),
+    ("Your E-ZPass account has an unpaid toll of $4.15. Pay now at https://ezpass-tollpay.top to avoid a $50 fee", None, "high"),
+    ("Amazon: your account has been limited. Verify your identity at https://amazon-account-verify.com", None, "high"),
+    ("Your Amazon order has shipped. Track it at https://www.amazon.com/gp/your-account/order-history", None, "low"),
+]
+REAL_MESSAGES = [(t, c) for t, c, _ in SCAM_MESSAGES] + [
     ("Xfinity: your service will be disconnected within 24 hours. Pay with a gift card. Call 1-800-934-6489.", "united"),
+    ("Chase fraud alert: confirm your identity at https://chase-secure-verify.com or email help@wellsfargo-alerts.net", "chase"),
 ]
 
 
@@ -313,5 +328,8 @@ def test_js_checks_match_python_on_the_real_registry(tmp_path):
         assert _verdict(js) == _verdict(context.verify_contact(reg, v, c)), (v, c)
         if (v, c) == ("1-800-934-6489", "united"):
             assert js["verdict"] == "belongs_to_other" and js["owners"] == ["comcast-xfinity"]
+    expected = {t: risk for t, _, risk in SCAM_MESSAGES}
     for t, c in REAL_MESSAGES:
-        assert _risk(next(out)) == _risk(context.scam_check(reg, t, c)), t
+        js = next(out)
+        assert _risk(js) == _risk(context.scam_check(reg, t, c)), t
+        assert js["risk"] == expected.get(t, js["risk"]), t

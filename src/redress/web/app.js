@@ -167,6 +167,33 @@
     return hits.slice(0, limit);
   }
 
+  // context.lookalikes: companies whose brand token is in a host that no organization on file uses.
+  const BRANDS = new WeakMap();
+  function lookalikes(C, host) {
+    const h = String(host || "").toLowerCase().replace(/\.+$/, "");
+    if (!h) return [];
+    let idx = BRANDS.get(C);
+    if (!idx) {
+      idx = {
+        known: new Set(C.brands.known_hosts),
+        domains: [...new Set(C.owners.flatMap((o) => o.domains))],
+        companies: new Map(C.owners.filter((o) => o.kind === "company").map((o) => [o.id, o])),
+      };
+      BRANDS.set(C, idx);
+    }
+    if (idx.known.has(h) || idx.domains.some((d) => h === d || h.endsWith("." + d))) return [];
+    const compact = h.replace(/[.-]/g, "");
+    const hits = C.brands.tokens.filter(([token]) => compact.includes(token)); // tokens are sorted longest first
+    const out = [];
+    hits.forEach(([token, cid]) => {
+      if (token.length === hits[0][0].length && !out.some((o) => o.company === cid)) {
+        const o = idx.companies.get(cid);
+        out.push({ company: cid, name: o.name, token, official: o.domains });
+      }
+    });
+    return out;
+  }
+
   function verifyContact(C, value, company) {
     const kind = classify(value);
     const result = { value, kind, matches: [] };
@@ -199,7 +226,11 @@
     if (exact.size && (!targets.length || meets(exact))) result.verdict = "on_file";
     else if (owners.size && (!targets.length || meets(owners))) result.verdict = "official_domain";
     else if (targets.length && owners.size) result.verdict = "belongs_to_other";
-    else result.verdict = "not_on_file";
+    else {
+      result.verdict = "not_on_file";
+      const look = lookalikes(C, url ? url[0] : emailDomain);
+      if (look.length) { result.verdict = "lookalike"; result.lookalike = look; }
+    }
     result.targets = [...new Set(targets)].sort();
     result.owners = [...owners].sort();
     return result;
@@ -218,12 +249,15 @@
       (src.match(new RegExp(R.contact_patterns[k], "g")) || []).forEach((v) => found.add(k === "phone" ? pyStrip(v) : v));
     });
     const checks = [...found].sort().map((v) => verifyContact(C, v.replace(/[.,;]+$/, ""), company));
-    const suspicious = checks.filter((c) => c.verdict === "not_on_file" || c.verdict === "belongs_to_other");
+    const L = R.lookalike;
+    checks.forEach((c) => (c.lookalike || []).forEach((look) => flags.push({ flag: L.flag, matched: c.value,
+      why: L.why.split("{name}").join(look.name).split("{official}").join(look.official.join(", ")) })));
+    const suspicious = checks.filter((c) => R.suspicious_verdicts.includes(c.verdict));
     const risk = flags.length && (suspicious.length || flags.length >= 2) ? "high" : flags.length || suspicious.length ? "medium" : "low";
     return { risk, red_flags: flags, contacts: checks, next_steps: risk !== "low" ? R.next_steps : R.next_steps_low, note: R.note };
   }
 
-  const core = { esc, renderMarkdown, stripFrontMatter, normPhone, normUrl, classify, normName, findCompany, verifyContact, scamCheck };
+  const core = { esc, renderMarkdown, stripFrontMatter, normPhone, normUrl, classify, normName, findCompany, lookalikes, verifyContact, scamCheck };
   if (typeof module === "object" && module && module.exports) { module.exports = core; return; }
 
   // ==== the page ================================================================
@@ -884,6 +918,7 @@ GET ${esc(D.base)}registry.json</code></pre>
     on_file: ["ok", "On file"],
     official_domain: ["warn", "Official domain"],
     belongs_to_other: ["bad", "Different organization"],
+    lookalike: ["bad", "Look-alike"],
     not_on_file: ["warn", "Not on file"],
     unrecognized: ["", "Not recognized"],
   };
@@ -892,7 +927,6 @@ GET ${esc(D.base)}registry.json</code></pre>
     medium: ["warn", "Medium risk", "This message has a warning sign."],
     low: ["ok", "Low risk", "No common red flags found."],
   };
-  const SUSPICIOUS = ["not_on_file", "belongs_to_other"];
   const ownerLink = (kind, id, name) => (kind === "company" && COMPANY[id] ? `<a href="#/c/${esc(id)}">${esc(name)}</a>` : esc(name));
   const companyName = (id) => (COMPANY[id] ? COMPANY[id].name : id);
   // scam_check writes its next steps for agents; say the same thing to a person.
@@ -920,6 +954,10 @@ GET ${esc(D.base)}registry.json</code></pre>
       const notFor = targetNames.length > 2 && company ? `any of the ${targetNames.length} companies that match “${esc(company)}”` : orList(targetNames);
       title = `This ${what} is on file for ${andList(r.owners.map((id) => named[id]))}, not for ${notFor}.`;
       body = "Treat it as suspicious. A message that says it is from one company but gives another organization's contact is a common trick.";
+    } else if (r.verdict === "lookalike") {
+      const host = r.kind === "url" ? (normUrl(r.value) || [""])[0] : pyStrip(r.value).toLowerCase().split("@").pop();
+      title = `The domain <code>${esc(host)}</code> imitates ${orList(r.lookalike.map((l) => ownerLink("company", l.company, l.name)))}. Do not use it.`;
+      body = r.lookalike.map((l) => `It uses the name ${esc(l.name)}, but it is not an official ${esc(l.name)} domain. Official: ${andList(l.official.map((d) => `<code>${esc(d)}</code>`))}.`).join(" ");
     } else if (r.verdict === "not_on_file") {
       title = `This ${what} is not on file.`;
       body = "Scammers buy search ads and post fake support numbers. Do not call, click or pay until you confirm it on the organization's official website.";
@@ -957,7 +995,7 @@ GET ${esc(D.base)}registry.json</code></pre>
     let warn = false;
     if (value) {
       const r = verifyContact(C, value, company || null);
-      warn = SUSPICIOUS.includes(r.verdict);
+      warn = R.suspicious_verdicts.includes(r.verdict);
       parts.push(`<section class="result" aria-labelledby="res-c"><h2 id="res-c">The ${esc(KIND_WORD[r.kind] || "contact")}</h2>
         ${verdictHtml(r, false, company)}${targetsNote(company, r)}</section>`);
     }
@@ -968,7 +1006,7 @@ GET ${esc(D.base)}registry.json</code></pre>
       warn = warn || s.risk !== "low";
       parts.push(`<section class="result" aria-labelledby="res-m"><h2 id="res-m">The message</h2>
         <div class="verdict ${tone}"><p class="verdict-top">${badge(tone, label)}</p><p class="verdict-title">${esc(why)}</p>
-        ${s.red_flags.length ? `<ul class="flags">${s.red_flags.map((f) => `<li><p class="flag-why">${esc(f.why)}</p><p class="flag-quote">“…${esc(f.matched)}…”</p></li>`).join("")}</ul>` : ""}
+        ${s.red_flags.length ? `<ul class="flags">${s.red_flags.map((f) => `<li><p class="flag-why">${esc(f.why)}</p><p class="flag-quote">${f.flag === R.lookalike.flag ? esc(f.matched) : `“…${esc(f.matched)}…”`}</p></li>`).join("")}</ul>` : ""}
         </div>
         ${s.contacts.length ? `<h3>Contacts in the message</h3><ul class="checked-list">${s.contacts.map((r) => verdictHtml(r, true, company)).join("")}</ul>` : ""}
         ${s.contacts.length ? targetsNote(company, s.contacts[0]) : ""}</section>`);
@@ -1015,8 +1053,8 @@ GET ${esc(D.base)}registry.json</code></pre>
           <section class="section box"><h2>How the check works</h2>
             <ul class="blockers plain">
               <li>A number, link or email address is compared with every contact on file for ${fmt(D.stats.companies)} companies, the federal regulators and the state agencies. Each one has a source.</li>
-              <li>A link or email on a company's own domain counts as official, but check the exact address.</li>
-              <li>A message is checked for common scam patterns: gift cards, crypto and wire transfers, remote access, requests for codes or passwords, fees to get a refund, and threats.</li>
+              <li>A link or email on a company's own domain counts as official, but check the exact address. One that uses a company's name on another domain, such as <code>usps-redelivery-fee.com</code>, is a look-alike.</li>
+              <li>A message is checked for common scam patterns: package and toll fees, links to “verify your account”, gift cards, crypto and wire transfers, remote access, requests for codes or passwords, fees to get a refund, and threats.</li>
             </ul>
           </section>
           <section class="section box"><h2>Already paid or shared a code?</h2>

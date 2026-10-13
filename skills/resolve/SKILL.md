@@ -35,7 +35,7 @@ Call `case_open` with a short factual summary and the desired outcome. After eac
 
 ## 4. Make contact
 
-Use the channel from the playbook. Do not search the web for contact details the playbook already gives. If you must use a contact from anywhere else (a search result, an email, a text), call `verify_contact` first and stop if the verdict is `not_on_file` or `belongs_to_other`.
+Use the channel from the playbook. Do not search the web for contact details the playbook already gives. If you must use a contact from anywhere else (a search result, an email, a text), call `verify_contact` first and stop if the verdict is `not_on_file`, `lookalike` or `belongs_to_other`.
 
 - **Written channel (email or web form):** call `draft_brief(case_id)`. Write the message from it and follow its `tone_rules`. Show the draft to the person. After they approve, either create an email draft for them to send, or fill the web form in the browser and stop before the submit button. Submit only after the person confirms.
 - **Web form with `access: login` or `captcha`:** open the page and ask the person to sign in or solve the check. Continue after they say so.

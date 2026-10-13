@@ -16,6 +16,7 @@ Explain the result in plain words:
 - `on_file`: the contact is in the registry, with a source.
 - `official_domain`: the domain is the company's, but this exact address is not on file. Read the address letter by letter.
 - `belongs_to_other`: the contact belongs to a different organization. Treat it as fake.
+- `lookalike`: the domain uses a company's name, but it is not one of that company's domains. Treat it as fake. `lookalike` lists the official domains.
 - `not_on_file`: unknown. Do not use it until it is confirmed on the company's official site.
 
 List every red flag that `scam_check` found, with its reason.

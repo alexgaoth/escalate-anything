@@ -94,11 +94,6 @@ def _doc_meta(doc: context.Doc | None) -> dict[str, str]:
     return {"title": str(meta.get("title") or ""), "last_verified": str(meta.get("last_verified") or "")}
 
 
-# The channel types that verify_contact compares, by kind of value.
-PHONE_TYPES = ("phone", "sms", "fax")
-URL_TYPES = ("web_form", "chat", "portal", "social", "app", "in_person")
-
-
 def contacts_document(reg: Registry, today: dt.date | None = None) -> dict:
     """Every contact that verify_contact can match, keyed by its normalized value, in the order verify_contact checks them."""
     today = today or dt.date.today()
@@ -106,6 +101,7 @@ def contacts_document(reg: Registry, today: dt.date | None = None) -> dict:
     phones: dict[str, list[dict]] = {}
     urls: dict[str, list[dict]] = {}
     emails: dict[str, list[dict]] = {}
+    brands = context.brand_index(reg)
     for kind, oid, name, website, official, channels in context._owner_entries(reg):
         owners.append({"kind": kind, "id": oid, "name": name, "website": website,
                        "domains": sorted(context._domains(website, official))})
@@ -113,9 +109,9 @@ def contacts_document(reg: Registry, today: dt.date | None = None) -> dict:
             entry = {"owner": oid, "name": name, "kind": kind, "channel": ch.get("id"), "type": ch.get("type"),
                      "label": ch.get("label"), "source": ch.get("source"), "last_verified": ch.get("last_verified")}
             value = str(ch.get("value", ""))
-            if ch.get("type") in PHONE_TYPES and (phone := context.norm_phone(value)):
+            if ch.get("type") in context.PHONE_CHANNEL_TYPES and (phone := context.norm_phone(value)):
                 phones.setdefault(phone, []).append(entry)
-            elif ch.get("type") in URL_TYPES and (url := context.norm_url(value)):
+            elif ch.get("type") in context.URL_CHANNEL_TYPES and (url := context.norm_url(value)):
                 urls.setdefault(url[0], []).append({"path": url[1], **entry})
             elif ch.get("type") == "email":
                 emails.setdefault(value.strip().lower(), []).append(entry)
@@ -133,8 +129,16 @@ def contacts_document(reg: Registry, today: dt.date | None = None) -> dict:
             "email": "The full address, trimmed and in lower case. Look it up in `emails`.",
             "domains": "An email address or URL whose host is one of an owner's `domains`, or a subdomain of one, "
                        "belongs to that owner even if the exact address is not on file.",
+            "lookalike": "A host that is not in `brands.known_hosts` and not under any owner's `domains`, but contains "
+                         "a brand token after you remove its dots and hyphens, imitates that company. Use the longest "
+                         "token that matches. A company's official domains are its `domains` in `owners`.",
         },
         "owners": owners,
+        "brands": {
+            "tokens": [list(t) for t in brands.tokens],
+            "stopwords": sorted(context.BRAND_STOPWORDS),
+            "known_hosts": sorted(brands.known_hosts),
+        },
         "aliases": list(reg._alias_index.items()),
         "phones": phones,
         "urls": urls,
@@ -152,9 +156,17 @@ def red_flags_document(reg: Registry) -> dict:
         "about": "Red flags that scam_check looks for in a message. Search the message in lower case. The patterns "
                  "are case-insensitive and '.' also matches a line break. A match is a warning sign, not proof.",
         "flags": [{"id": fid, "pattern": pattern, "why": why} for fid, pattern, why in context.RED_FLAGS],
+        "lookalike": {
+            "flag": "lookalike_domain",
+            "about": "Added after the pattern flags, once for each company that a URL or email domain in the message "
+                     "imitates (see `normalize.lookalike` in contacts.json). The contact's verdict is then `lookalike`.",
+            "why": context.LOOKALIKE_WHY,
+            "advice": context.LOOKALIKE_ADVICE,
+        },
+        "suspicious_verdicts": list(context.SUSPICIOUS_VERDICTS),
         "contact_patterns": dict(context.CONTACT_PATTERNS),
-        "risk": "high: a red flag and a contact that is not on file or belongs to another organization, or two or "
-                "more red flags. medium: one red flag, or one such contact. low: no red flag and no such contact.",
+        "risk": "high: a red flag and a suspicious contact (a verdict in `suspicious_verdicts`), or two or more red "
+                "flags. medium: one red flag, or one suspicious contact. low: no red flag and no suspicious contact.",
         "next_steps": flagged["next_steps"],
         "next_steps_low": calm["next_steps"],
         "note": flagged["note"],
