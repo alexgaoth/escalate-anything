@@ -1,0 +1,278 @@
+id: equifax
+name: Equifax
+aliases: [equifax inc, equifax information services, myequifax]
+sector: credit_bureau
+parent: Equifax Inc.
+website: https://www.equifax.com/personal/
+account_url: https://my.equifax.com/membercenter/#/login
+regulators: [cfpb, ftc]
+notes: >-
+  Equifax Inc. (NYSE: EFX, Atlanta) is the parent. The consumer credit file is held by Equifax Information Services LLC,
+  the name used on dispute, freeze and fraud alert mail. In 2026 Equifax Inc. signed an agreement to acquire
+  Círculo de Crédito (Mexico); this does not change US consumer channels.
+
+channels:
+  - id: dispute-online
+    type: portal
+    label: Online credit report dispute (myEquifax)
+    value: https://www.equifax.com/personal/credit-report-services/credit-dispute/
+    purposes: [credit_report_error, debt_collection]
+    access: login
+    notes: >-
+      The "Submit a dispute" button goes to https://my.equifax.com/consumer-registration/rest/1.0/redirectPartnerTenant?intent=DISPUTE.
+      New users must create a myEquifax account first (age 18 or older). You may need to upload documents such as a
+      driver's license or utility bill. Dispute status is also checked by signing in.
+    source: https://www.equifax.com/personal/credit-report-services/credit-dispute/
+    last_verified: 2026-10-12
+  - id: dispute-mail
+    type: mail
+    label: Credit report dispute by mail
+    value: Equifax Information Services, LLC, P.O. Box 740256, Atlanta, GA 30374-0256
+    purposes: [credit_report_error, debt_collection]
+    access: open
+    notes: >-
+      Include copies of supporting documents. Equifax publishes a dispute form at https://assets.equifax.com/assets/personal/Dispute.pdf.
+      The FTC page lists ZIP 30348 for this box; Equifax's own page shows 30374-0256. Results of a mailed dispute come back by U.S. mail.
+    source: https://www.equifax.com/personal/help/article-list/-/h/a/mail-in-credit-report-dispute/
+    last_verified: 2026-10-12
+  - id: customer-care-phone
+    type: phone
+    label: 1-888-EQUIFAX customer care (disputes, consumer statements, freezes)
+    value: +1-888-378-4329
+    hours: 9:00 am to 9:00 pm ET Monday through Friday; 9:00 am to 6:00 pm ET Saturday and Sunday
+    purposes: [credit_report_error, debt_collection, account_access]
+    notes: >-
+      Equifax's own dispute pages give this number for phone disputes and for adding a consumer statement.
+      The CFPB and FTC list (866) 349-5191 for Equifax disputes; Equifax's site shows that number for requesting additional report copies.
+      Have the dispute confirmation number ready to check a dispute's status.
+    source: https://www.equifax.com/personal/contact-us/
+    last_verified: 2026-10-12
+  - id: freeze-online
+    type: portal
+    label: Place, lift or remove a security freeze online
+    value: https://www.equifax.com/personal/credit-report-services/credit-freeze/
+    purposes: [fraud]
+    access: login
+    notes: Needs a myEquifax account (age 18 or older).
+    source: https://www.equifax.com/personal/help/article-list/-/h/a/place-lift-remove-security-freeze/
+    last_verified: 2026-10-12
+  - id: freeze-phone
+    type: phone
+    label: Security freeze by phone
+    value: +1-888-298-0045
+    purposes: [fraud]
+    access: human_only
+    notes: >-
+      The caller must verify identity. The myEquifax terms page lists a different automated freeze line, 800-685-1111;
+      the freeze page and the freeze help article list (888) 298-0045.
+    source: https://www.equifax.com/personal/credit-report-services/credit-freeze/
+    last_verified: 2026-10-12
+  - id: freeze-mail
+    type: mail
+    label: Security freeze requests by mail
+    value: Equifax Information Services LLC, P.O. Box 105788, Atlanta, GA 30348-5788
+    purposes: [fraud]
+    access: open
+    notes: >-
+      Use the Security Freeze Request Form (https://assets.equifax.com/assets/personal/Security_Freeze_Request_Form.pdf)
+      with copies of identity and address documents.
+    source: https://www.equifax.com/terms/myequifaxterms/
+    last_verified: 2026-10-12
+  - id: fraud-alert-online
+    type: portal
+    label: Place a fraud alert or active duty alert online
+    value: https://www.equifax.com/personal/credit-report-services/credit-fraud-alerts/
+    purposes: [fraud]
+    access: login
+    notes: >-
+      Online placement goes through myEquifax (https://my.equifax.com/consumer-registration/rest/1.0/redirectPartnerTenant?intent=FRAUD_ALERT).
+      Equifax needs an active Equifax credit file to place an alert. A 7-year extended alert needs the Extended Fraud Alert
+      Request Form and a police report or FTC Identity Theft Report.
+    source: https://www.equifax.com/personal/help/article-list/-/h/a/place-fraud-active-duty-alert/
+    last_verified: 2026-10-12
+  - id: fraud-alert-phone
+    type: phone
+    label: Initial fraud alert or active duty alert by phone
+    value: +1-800-525-6285
+    purposes: [fraud]
+    notes: >-
+      The help article and the myEquifax terms page list this number. The fraud alert product page lists an automated line,
+      888-836-6351, which the terms page labels as Customer Care.
+    source: https://www.equifax.com/personal/help/article-list/-/h/a/place-fraud-active-duty-alert/
+    last_verified: 2026-10-12
+  - id: fraud-alert-mail
+    type: mail
+    label: Initial fraud alert or active duty alert by mail
+    value: Equifax Information Services LLC, P.O. Box 105069, Atlanta, GA 30348-5069
+    purposes: [fraud]
+    access: open
+    notes: >-
+      Use the Fraud Alert Request Form (https://assets.equifax.com/assets/personal/Fraud_Alert_Request_Form.pdf).
+      Extended 7-year alerts go to the address on the extended alert form.
+    source: https://www.equifax.com/personal/help/article-list/-/h/a/place-fraud-active-duty-alert/
+    last_verified: 2026-10-12
+  - id: cancel-product-phone
+    type: phone
+    label: Cancel an Equifax product
+    value: +1-866-640-2273
+    hours: 9am-9pm ET Monday-Friday; 9am-6pm ET Saturday and Sunday
+    purposes: [cancel_service]
+    source: https://www.equifax.com/personal/help/article-list/-/h/a/help-contact-equifax/
+    last_verified: 2026-10-12
+  - id: annualcreditreport
+    type: portal
+    label: AnnualCreditReport.com (free reports from all three bureaus)
+    value: https://www.annualcreditreport.com/index.action
+    purposes: [credit_report_error, debt_collection, fraud]
+    access: open
+    notes: The only site authorized under federal law to fill orders for the free reports. It blocks some automated requests.
+    source: https://www.annualcreditreport.com/index.action
+    last_verified: 2026-10-12
+  - id: annualcreditreport-phone
+    type: phone
+    label: Annual Credit Report request line
+    value: +1-877-322-8228
+    purposes: [credit_report_error]
+    source: https://consumer.ftc.gov/articles/free-credit-reports
+    last_verified: 2026-10-12
+  - id: annualcreditreport-mail
+    type: mail
+    label: Annual Credit Report request by mail
+    value: Annual Credit Report Request Service, P.O. Box 105281, Atlanta, GA 30348-5281
+    purposes: [credit_report_error]
+    source: https://consumer.ftc.gov/articles/free-credit-reports
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: written_complaint, channel: dispute-online, note: "Or dispute by mail (dispute-mail). Also dispute with the company that supplied the data."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: credit_report_error
+    summary: Get the report, dispute each wrong item online or by mail with proof, and also dispute it with the lender that reported it.
+    evidence: [Equifax credit report page with the error, proof of the correct information, copy of government ID, proof of current address]
+    steps:
+      - do: Get a free Equifax report from AnnualCreditReport.com and mark each wrong item.
+        channel: annualcreditreport
+      - do: File the dispute online through myEquifax and upload proof. Save the confirmation number.
+        channel: dispute-online
+      - do: If you cannot use myEquifax, mail the dispute form with copies (not originals) of the proof.
+        channel: dispute-mail
+      - do: Dispute the item with the lender or creditor that reported it, too.
+        note: Equifax says this is a good first step, especially for name or address errors.
+      - do: If you disagree with the result, file a new dispute with more documents, or add a consumer statement of 100 words or less.
+        channel: customer-care-phone
+      - do: If Equifax does not fix a verified error, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: Equifax says it will notify you of the results of its dispute investigation within 30 days of the dispute request.
+        issues: [credit_report_error]
+        source: https://www.equifax.com/personal/credit-report-services/credit-dispute/
+        last_verified: 2026-10-12
+      - kind: process
+        claim: If the dispute results do not satisfy you, you can ask Equifax to add a consumer statement of 100 words or less, by mail to P.O. Box 740256 or by phone at 1-888-378-4329.
+        issues: [credit_report_error]
+        source: https://www.equifax.com/personal/help/article-list/-/h/a/steps-dispute-credit-investigation-results/
+        last_verified: 2026-10-12
+      - kind: process
+        claim: The bureau must forward your evidence to the business that reported the information, give you the results in writing, and give you a free copy of the report if the dispute changes it.
+        issues: [credit_report_error]
+        source: https://consumer.ftc.gov/articles/disputing-errors-your-credit-reports
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: If a bureau decides a dispute is frivolous or irrelevant, it must notify you within five business days and explain why.
+        issues: [credit_report_error]
+        source: https://www.consumerfinance.gov/ask-cfpb/how-do-i-dispute-an-error-on-my-credit-report-en-314/
+        last_verified: 2026-10-12
+  - issue: debt_collection
+    summary: Dispute a wrong collection account with Equifax and ask the debt collector in writing for validation.
+    evidence: [collection letter, proof of payment or proof the debt is not yours, Equifax credit report page with the collection]
+    steps:
+      - do: Ask the debt collector in writing for the validation information (creditor name, amount, how to dispute). Keep copies.
+        note: CFPB sample letters cover "I do not owe this debt" and "I need more information about this debt".
+      - do: Dispute the collection account with Equifax online or by mail. Attach proof of payment or proof the debt is not yours.
+        channel: dispute-online
+      - do: If the collector or Equifax does not correct it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: limit
+        claim: A credit reporting company generally can report most negative information for seven years; bankruptcies can stay for up to ten years.
+        issues: [debt_collection]
+        source: https://www.consumerfinance.gov/ask-cfpb/how-long-does-negative-information-remain-on-my-credit-report-en-323/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Debt collectors generally must provide validation information within five days of the initial communication; some requests must be made within 30 days of being contacted.
+        issues: [debt_collection]
+        source: https://www.consumerfinance.gov/ask-cfpb/what-should-i-do-if-a-debt-collector-has-reported-a-debt-on-my-credit-report-that-isnt-mine-en-1695/
+        last_verified: 2026-10-12
+  - issue: fraud
+    summary: For identity theft, place a free fraud alert (one bureau tells the other two) and a free security freeze at each bureau.
+    evidence: [FTC Identity Theft Report or police report (for an extended alert), copy of government ID, proof of address]
+    steps:
+      - do: Place an initial fraud alert online, by phone or by mail. Equifax sends the request to Experian and TransUnion.
+        channel: fraud-alert-online
+      - do: Place a security freeze with Equifax. Repeat at Experian and TransUnion, because a freeze is per bureau.
+        channel: freeze-online
+      - do: For a 7-year extended alert, send the Extended Fraud Alert Request Form with a police report or FTC Identity Theft Report.
+        channel: fraud-alert-mail
+      - do: Dispute accounts you did not open.
+        channel: dispute-online
+    facts:
+      - kind: limit
+        claim: An initial fraud alert or active duty alert lasts one year; identity theft victims with a police or FTC identity theft report can request a seven-year extended fraud alert.
+        issues: [fraud]
+        source: https://www.equifax.com/personal/help/article-list/-/h/a/place-fraud-active-duty-alert/
+        last_verified: 2026-10-12
+      - kind: process
+        claim: When you place an initial alert with one bureau, that bureau sends a request to the other two bureaus to do the same.
+        issues: [fraud]
+        source: https://www.equifax.com/personal/help/article-list/-/h/a/place-fraud-active-duty-alert/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: A bureau must place a freeze within one business day of a phone or online request and lift it within one hour; for a mailed request it has up to three business days.
+        issues: [fraud]
+        source: https://www.consumerfinance.gov/ask-cfpb/what-is-a-credit-freeze-or-security-freeze-on-my-credit-report-en-1341/
+        last_verified: 2026-10-12
+
+facts:
+  - kind: fee
+    claim: Placing, temporarily lifting, or removing a security freeze with Equifax is free.
+    issues: [fraud]
+    source: https://www.equifax.com/personal/credit-report-services/credit-freeze/
+    last_verified: 2026-10-12
+  - kind: fee
+    claim: Fraud alerts, extended fraud alerts and active duty alerts with Equifax are free.
+    issues: [fraud]
+    source: https://www.equifax.com/personal/credit-report-services/credit-fraud-alerts/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: The three bureaus have permanently extended the program that lets you check your credit report from each of them once a week for free at AnnualCreditReport.com.
+    issues: [credit_report_error]
+    source: https://consumer.ftc.gov/articles/free-credit-reports
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: Under various settlements, Equifax makes at least six additional free Equifax credit reports each year available online on annualcreditreport.com until December 31, 2026.
+    issues: [credit_report_error]
+    source: https://www.equifax.com/personal/credit-report-services/multiple-free-credit-reports/
+    last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: Contact the lender or creditor that reported the information directly as a first step, especially for name or address errors.
+    issues: [credit_report_error]
+    source: https://www.equifax.com/personal/help/article-list/-/h/a/correct-dispute-information-credit-reports/
+    last_verified: 2026-10-12
+  - kind: official
+    text: Keep the dispute confirmation number; Equifax needs it to give a status update by phone or mail.
+    issues: [credit_report_error]
+    source: https://www.equifax.com/personal/help/article-list/-/h/a/check-status-credit-report-dispute/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Online disputes, freezes and fraud alerts need a myEquifax account (age 18 or older), which the account holder must create and sign in to.
+  - Disputes may need uploaded identity or address documents, such as a driver's license or utility bill.
+  - The freeze phone line asks the caller to verify identity, so the account holder must call.
+  - A fraud alert needs an active Equifax credit file.

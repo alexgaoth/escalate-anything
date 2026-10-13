@@ -1,0 +1,128 @@
+id: aidvantage
+name: Aidvantage
+aliases: [maximus education llc, aidvantage student loans, aidvantage.studentaid.gov]
+sector: student_loan
+parent: Maximus (Maximus Education, LLC dba Aidvantage)
+website: https://aidvantage.studentaid.gov/
+account_url: https://myaccount.aidvantage.studentaid.gov
+regulators: [ed-fsa, cfpb]
+notes: >-
+  Aidvantage is the trade name of Maximus Education, LLC (site footer: "Maximus Education, LLC dba Aidvantage"). It services
+  Direct Loans and FFELP loans held by the U.S. Department of Education. Aidvantage welcome flyers say borrowers came from
+  Navient (logins kept) and from FedLoan Servicing. No 2025-2026 change to Aidvantage's federal servicing role was
+  confirmed on a source. Aidvantage's web pages load phone numbers and addresses with scripts, so the values here come
+  from PDF flyers on images.aidvantage.studentaid.gov.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Borrower customer service (TDD/TTY users dial 711)
+    value: +1-800-722-1300
+    hours: Monday 8 a.m.-11 p.m. ET; Tuesday through Friday 8 a.m.-8 p.m. ET; Saturday 10 a.m.-2 p.m. ET (as printed on Aidvantage flyers)
+    purposes: [student_loan_servicing, account_access, debt_collection]
+    notes: >-
+      The number is also listed on Edfinancial's list of federal loan servicers. The hours come from Aidvantage PDF flyers
+      that may be older than the current site; confirm before relying on them.
+    source: https://images.aidvantage.studentaid.gov/about/
+    last_verified: 2026-10-12
+  - id: online-account
+    type: portal
+    label: Online account login (upload documents, Help Center)
+    value: https://myaccount.aidvantage.studentaid.gov
+    purposes: [student_loan_servicing, account_access]
+    access: login
+    notes: Aidvantage's military benefits flyer says documentation can be uploaded securely through the online account.
+    source: https://aidvantage.studentaid.gov/
+    last_verified: 2026-10-12
+  - id: military-benefits-phone
+    type: phone
+    label: Military Benefits Team (TDD/TTY users dial 711)
+    value: +1-833-793-2135
+    hours: Monday 8 a.m.-11 p.m. ET; Tuesday through Friday 8 a.m.-8 p.m. ET; Saturday 10 a.m.-2 p.m. ET (as printed on the flyer)
+    purposes: [student_loan_servicing]
+    notes: For SCRA, military deferment, MNIA and other servicemember benefits. Email MilitaryBenefits@Advs.Aidvantage.com; fax 866-266-0178.
+    source: https://images.aidvantage.studentaid.gov/military-benefits/
+    last_verified: 2026-10-12
+  - id: military-benefits-mail
+    type: mail
+    label: Military Benefits Team mailing address (military documentation)
+    value: Aidvantage - Federal Student Aid Loan Servicing, P.O. Box 300001, Greenville, TX 75403-3001
+    purposes: [student_loan_servicing]
+    access: open
+    notes: Published for the Military Benefits Team. It was not confirmed as Aidvantage's general correspondence address.
+    source: https://images.aidvantage.studentaid.gov/military-benefits/
+    last_verified: 2026-10-12
+  - id: fsa-feedback-center
+    type: web_form
+    label: Submit a Complaint (Federal Student Aid Feedback Center)
+    value: https://studentaid.gov/feedback-center/
+    purposes: [student_loan_servicing, debt_collection]
+    notes: Run by Federal Student Aid (U.S. Department of Education), not by Aidvantage. Aidvantage's site links to it as "Submit a Complaint".
+    source: https://aidvantage.studentaid.gov/contact-us
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: online-account, note: "A general correspondence address was not confirmed. Put the request in writing through the online account and keep a copy."}
+  - {rung: regulator, regulator: ed-fsa, channel: fsa-feedback-center}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: student_loan_servicing
+    summary: Ask Aidvantage to correct the error in writing, then complain to Federal Student Aid, then to the CFPB.
+    evidence: [loan account number, payment history, billing statements and letters from Aidvantage, dates and names from calls, copies of forms you sent]
+    steps:
+      - do: Call Aidvantage and describe the error. Write down the date, the representative's name and any reference number.
+        channel: customer-service-phone
+      - do: Send a written request to correct the error, with copies of your proof, through the online account. Keep a copy.
+        channel: online-account
+      - do: If Aidvantage does not fix it, submit a complaint to the Federal Student Aid Feedback Center. Attach your timeline and Aidvantage's replies.
+        channel: fsa-feedback-center
+        regulator: ed-fsa
+        note: >-
+          Aidvantage's site also links state student loan ombudsman offices at
+          https://studentaid.gov/feedback-ombudsman/disputes/state-ombudsman. Edfinancial's and MOHELA's Student Loan
+          Advocates pages list the FSA Ombudsman Group at P.O. Box 1854, Monticello, KY 42633.
+      - do: If the problem continues, file a complaint with the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: Aidvantage says only the government or the Department of Education can set student loan interest rates, control income-driven repayment eligibility, or forgive student loans.
+        issues: [student_loan_servicing]
+        source: https://images.aidvantage.studentaid.gov/about/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: >-
+          After a March 10, 2026 court order on SAVE, federal loan servicers began sending notices on July 1, 2026. Borrowers
+          have 90 days from their servicer's notice to leave SAVE; those who miss it are automatically enrolled in the Standard
+          or the new Tiered Standard plan.
+        issues: [student_loan_servicing]
+        source: https://ticas.org/affordability-2/reconciliation-2025-borrower-faqs/
+        last_verified: 2026-10-12
+  - issue: debt_collection
+    summary: Credit reporting of an Aidvantage loan, or a loan that went into default.
+    evidence: [credit report page with the entry, proof of payment or of a deferment or forbearance at that time, letters from Aidvantage]
+    steps:
+      - do: Ask Aidvantage in writing to correct a wrong late-payment entry. Attach proof. You can also dispute directly with Equifax, Experian and TransUnion.
+        channel: online-account
+      - do: If the loan is in default, it may no longer be with Aidvantage. Contact the Department of Education's Default Resolution Group (see facts) and ask which office now collects it.
+      - do: If the reporting is still wrong, complain to the Federal Student Aid Feedback Center, then to the CFPB.
+        channel: fsa-feedback-center
+        regulator: ed-fsa
+    facts:
+      - kind: contact
+        claim: Edfinancial's list of federal student loan servicers gives the Default Resolution Group at 1-800-621-3115 (myeddebt.ed.gov).
+        issues: [debt_collection]
+        source: https://edfinancial.studentaid.gov/finding-your-student-loans
+        last_verified: 2026-10-12
+      - kind: process
+        claim: On March 19, 2026, the Departments of Education and the Treasury announced that Treasury will assume operational responsibility for collecting defaulted federal student loans, and in later phases will work to support non-defaulted loans.
+        issues: [debt_collection]
+        source: https://home.treasury.gov/news/press-releases/sb0419
+        last_verified: 2026-10-12
+
+known_blockers:
+  - Aidvantage's web pages (contact-us, help center) load contact details with scripts; plain HTTP fetches show no phone numbers or addresses.
+  - The online account needs the borrower's login.
+  - No general correspondence or payment mailing address was confirmed; use the address on the borrower's billing statement.

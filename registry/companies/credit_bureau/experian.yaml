@@ -1,0 +1,266 @@
+id: experian
+name: Experian
+aliases: [experian plc]
+sector: credit_bureau
+parent: Experian plc
+website: https://www.experian.com/
+account_url: https://usa.experian.com/login/index
+regulators: [cfpb, ftc]
+notes: >-
+  Experian plc is listed on the London Stock Exchange (EXPN) with its corporate headquarters in Dublin, Ireland.
+  US consumer credit reports, disputes, freezes and fraud alerts are handled through experian.com. No 2025-2026
+  rename or ownership change was found.
+
+channels:
+  - id: dispute-online
+    type: portal
+    label: Experian Dispute Center (online dispute)
+    value: https://www.experian.com/help/dispute-credit/
+    purposes: [credit_report_error, debt_collection]
+    access: login
+    notes: >-
+      Needs a free Experian account ("Sign up to start a new dispute"); sign-in is at https://usa.experian.com/login/index?br=exp&it=dsp.
+      Documents such as a utility bill or government ID can be uploaded.
+    source: https://www.experian.com/help/dispute-credit/
+    last_verified: 2026-10-12
+  - id: dispute-mail
+    type: mail
+    label: Dispute by mail
+    value: Experian, P.O. Box 4500, Allen, TX 75013
+    purposes: [credit_report_error, debt_collection]
+    access: open
+    notes: >-
+      Include full name with middle initial, date of birth, Social Security number, addresses for the past two years,
+      a copy of a government-issued ID, a recent bill or statement showing the current address, and a description of each
+      disputed item. Send copies, not originals; Experian does not return them.
+    source: https://www.experian.com/help/dispute-credit/
+    last_verified: 2026-10-12
+  - id: consumer-phone
+    type: phone
+    label: 1-888-EXPERIAN (fraud alerts, security freezes, identity theft, free report)
+    value: +1-888-397-3742
+    purposes: [fraud, credit_report_error]
+    notes: >-
+      For phone disputes, Experian says to get your personal credit report first and call the number displayed on that report.
+      The CFPB lists (888) 397-3742 "or the number on your credit report" for Experian disputes.
+    source: https://www.experian.com/help/contact/
+    last_verified: 2026-10-12
+  - id: freeze-online
+    type: portal
+    label: Add, remove or schedule a security freeze online
+    value: https://www.experian.com/help/credit-freeze/
+    purposes: [fraud]
+    access: login
+    notes: Needs a free Experian account. A PIN is no longer needed to manage an Experian freeze.
+    source: https://www.experian.com/help/credit-freeze/
+    last_verified: 2026-10-12
+  - id: freeze-mail
+    type: mail
+    label: Security freeze by mail
+    value: Experian Security Freeze, P.O. Box 9554, Allen, TX 75013
+    purposes: [fraud]
+    access: open
+    notes: >-
+      Include full name, Social Security number, addresses for the past two years, date of birth, and copies of a
+      government-issued ID and a utility bill or bank statement.
+    source: https://www.experian.com/help/credit-freeze/
+    last_verified: 2026-10-12
+  - id: fraud-alert-online
+    type: portal
+    label: Add a fraud alert online
+    value: https://www.experian.com/help/fraud-alert/
+    purposes: [fraud]
+    access: login
+    notes: Needs a free Experian account ("Sign up to add a fraud alert"). Sign-in is at https://usa.experian.com/login/index?br=exp&it=fra.
+    source: https://www.experian.com/help/fraud-alert/
+    last_verified: 2026-10-12
+  - id: fraud-alert-mail
+    type: mail
+    label: Fraud alert by mail
+    value: Experian, P.O. Box 9554, Allen, TX 75013
+    purposes: [fraud]
+    access: open
+    notes: >-
+      Include full name, Social Security number, addresses for the past two years, date of birth, a government ID, and a
+      utility bill or bank statement. An extended alert needs an identity theft report, such as an FTC or police report.
+    source: https://www.experian.com/fraud/center.html
+    last_verified: 2026-10-12
+  - id: membership-phone
+    type: phone
+    label: Experian membership customer service
+    value: +1-866-617-1894
+    hours: Mon-Fri 8am-8pm CT; Sat-Sun 8am-6pm CT
+    purposes: [cancel_service, account_access, billing_error]
+    source: https://www.experian.com/help/contact/
+    last_verified: 2026-10-12
+  - id: membership-mail
+    type: mail
+    label: Customer care by mail (memberships)
+    value: experian.com, Attn. Customer Care, PO Box 2390, Allen, TX 75013
+    purposes: [cancel_service, billing_error]
+    source: https://www.experian.com/help/contact/
+    last_verified: 2026-10-12
+  - id: virtual-assistant-chat
+    type: chat
+    label: EVA virtual assistant chat (signed in)
+    value: https://usa.experian.com/login/index?br=exp&refUrl=%2Fmfe%2Fsupport%2Fhelp-center
+    hours: 24/7
+    purposes: [account_access, cancel_service]
+    access: login
+    source: https://www.experian.com/help/contact/
+    last_verified: 2026-10-12
+  - id: annualcreditreport
+    type: portal
+    label: AnnualCreditReport.com (free reports from all three bureaus)
+    value: https://www.annualcreditreport.com/index.action
+    purposes: [credit_report_error, debt_collection, fraud]
+    access: open
+    notes: The only site authorized under federal law to fill orders for the free reports. It blocks some automated requests.
+    source: https://www.annualcreditreport.com/index.action
+    last_verified: 2026-10-12
+  - id: annualcreditreport-phone
+    type: phone
+    label: Annual Credit Report request line (877 FACTACT)
+    value: +1-877-322-8228
+    purposes: [credit_report_error]
+    source: https://www.experian.com/help/contact/
+    last_verified: 2026-10-12
+  - id: annualcreditreport-mail
+    type: mail
+    label: Annual Credit Report request by mail
+    value: Annual Credit Report Request Service, P.O. Box 105281, Atlanta, GA 30348-5281
+    purposes: [credit_report_error]
+    source: https://consumer.ftc.gov/articles/free-credit-reports
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: written_complaint, channel: dispute-online, note: "Or dispute by mail (dispute-mail). Also dispute with the company that supplied the data."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: credit_report_error
+    summary: Get the report, dispute each wrong item in the Experian Dispute Center or by mail with proof, and also dispute it with the company that reported it.
+    evidence: [Experian credit report page with the error, proof of the correct information, copy of government ID, recent bill or statement showing current address]
+    steps:
+      - do: Get a free Experian report from AnnualCreditReport.com and mark each wrong item.
+        channel: annualcreditreport
+      - do: Start the dispute in the Experian Dispute Center and upload proof.
+        channel: dispute-online
+      - do: If you cannot use the online center, mail the dispute with copies (not originals) of ID, proof of address and proof of the error.
+        channel: dispute-mail
+      - do: For a phone dispute, call the number shown on your Experian credit report.
+        channel: consumer-phone
+      - do: Dispute the item with the company that reported it, too.
+      - do: If Experian does not fix a verified error, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: Experian says a dispute should generally be resolved within 30 days with its online dispute.
+        issues: [credit_report_error]
+        source: https://www.experian.com/help/dispute-credit/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Experian says most disputes are resolved within 30 days, but if the bureau asks for additional information after the investigation begins, it may take up to 45 days.
+        issues: [credit_report_error]
+        source: https://www.experian.com/blogs/ask-experian/credit-education/faqs/instructions-for-disputing-by-mail/
+        last_verified: 2026-10-12
+      - kind: process
+        claim: The bureau must forward your evidence to the business that reported the information, give you the results in writing, and give you a free copy of the report if the dispute changes it.
+        issues: [credit_report_error]
+        source: https://consumer.ftc.gov/articles/disputing-errors-your-credit-reports
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: If a bureau decides a dispute is frivolous or irrelevant, it must notify you within five business days and explain why.
+        issues: [credit_report_error]
+        source: https://www.consumerfinance.gov/ask-cfpb/how-do-i-dispute-an-error-on-my-credit-report-en-314/
+        last_verified: 2026-10-12
+  - issue: debt_collection
+    summary: Dispute a wrong collection account with Experian and ask the debt collector in writing for validation.
+    evidence: [collection letter, proof of payment or proof the debt is not yours, Experian credit report page with the collection]
+    steps:
+      - do: Ask the debt collector in writing for the validation information (creditor name, amount, how to dispute). Keep copies.
+        note: CFPB sample letters cover "I do not owe this debt" and "I need more information about this debt".
+      - do: Dispute the collection account with Experian online or by mail. Attach proof of payment or proof the debt is not yours.
+        channel: dispute-online
+      - do: If the collector or Experian does not correct it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: limit
+        claim: A credit reporting company generally can report most negative information for seven years; bankruptcies can stay for up to ten years.
+        issues: [debt_collection]
+        source: https://www.consumerfinance.gov/ask-cfpb/how-long-does-negative-information-remain-on-my-credit-report-en-323/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Debt collectors generally must provide validation information within five days of the initial communication; some requests must be made within 30 days of being contacted.
+        issues: [debt_collection]
+        source: https://www.consumerfinance.gov/ask-cfpb/what-should-i-do-if-a-debt-collector-has-reported-a-debt-on-my-credit-report-that-isnt-mine-en-1695/
+        last_verified: 2026-10-12
+  - issue: fraud
+    summary: For identity theft, place a free fraud alert (it applies at all three bureaus) and a free security freeze at each bureau.
+    evidence: [FTC Identity Theft Report or police report (for an extended alert), copy of government ID, utility bill or bank statement]
+    steps:
+      - do: Add a fraud alert online, by phone or by mail. It is applied at all three bureaus.
+        channel: fraud-alert-online
+      - do: Add a security freeze with Experian. Repeat at Equifax and TransUnion, because a freeze is per bureau.
+        channel: freeze-online
+      - do: For a 7-year extended alert, send an identity theft report (FTC or police report).
+        channel: fraud-alert-mail
+      - do: Dispute accounts you did not open.
+        channel: dispute-online
+    facts:
+      - kind: limit
+        claim: An initial or active duty fraud alert lasts 1 year and an extended fraud alert lasts 7 years.
+        issues: [fraud]
+        source: https://www.experian.com/help/fraud-alert/
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Requesting a fraud alert at any one of the credit bureaus automatically applies alerts at all three bureaus; to remove an alert you must contact each bureau.
+        issues: [fraud]
+        source: https://www.experian.com/fraud/center.html
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Experian says an online freeze or unfreeze happens in real time, and a mailed freeze or unfreeze request takes up to 3 days after Experian receives it.
+        issues: [fraud]
+        source: https://www.experian.com/help/credit-freeze/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: A bureau must place a freeze within one business day of a phone or online request and lift it within one hour; for a mailed request it has up to three business days.
+        issues: [fraud]
+        source: https://www.consumerfinance.gov/ask-cfpb/what-is-a-credit-freeze-or-security-freeze-on-my-credit-report-en-1341/
+        last_verified: 2026-10-12
+
+facts:
+  - kind: fee
+    claim: Experian security freezes are free ("Manage your freeze for free").
+    issues: [fraud]
+    source: https://www.experian.com/help/credit-freeze/
+    last_verified: 2026-10-12
+  - kind: fee
+    claim: Placing a fraud alert with Experian is free, with no credit card required.
+    issues: [fraud]
+    source: https://www.experian.com/help/fraud-alert/
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: The three bureaus have permanently extended the program that lets you check your credit report from each of them once a week for free at AnnualCreditReport.com.
+    issues: [credit_report_error]
+    source: https://consumer.ftc.gov/articles/free-credit-reports
+    last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: Send photocopies, not originals, with a mailed dispute; Experian cannot return documents from a mailed dispute.
+    issues: [credit_report_error]
+    source: https://www.experian.com/disputes/main.html
+    last_verified: 2026-10-12
+  - kind: official
+    text: Experian prefers that a caller has a copy of the personal credit report first and calls the number displayed on it.
+    issues: [credit_report_error]
+    source: https://www.experian.com/help/contact/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - Online disputes, freezes and fraud alerts need a free Experian account that the account holder creates and signs in to.
+  - Phone disputes go to the number printed on the consumer's own Experian report, so the consumer needs the report first.
+  - Mailed requests need copies of a government ID, a proof-of-address document and the Social Security number.

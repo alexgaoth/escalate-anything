@@ -1,0 +1,193 @@
+id: transunion
+name: TransUnion
+aliases: [trans union, transunion llc]
+sector: credit_bureau
+website: https://www.transunion.com/
+regulators: [cfpb, ftc]
+notes: >-
+  TransUnion is the publicly traded parent; the consumer credit file and dispute center are run by TransUnion LLC.
+  In July 2025 TransUnion notified about 4.4 million people of a breach of a third-party application. In 2025-2026
+  TransUnion bought Monevo (UK) and moved to take majority control of Trans Union de Mexico; these do not change US
+  consumer channels. transunion.com and service.transunion.com returned HTTP 403 to automated fetches on 2026-10-12,
+  so the values below come from CFPB and FTC pages.
+
+channels:
+  - id: dispute-online
+    type: portal
+    label: Online credit report dispute
+    value: https://dispute.transunion.com/
+    purposes: [credit_report_error, debt_collection]
+    access: login
+    notes: Redirects to the TransUnion sign-in page (https://service.transunion.com/dss/login.page?dest=dispute); the consumer must sign in or create an account.
+    source: https://www.consumerfinance.gov/ask-cfpb/how-do-i-dispute-an-error-on-my-credit-report-en-314/
+    last_verified: 2026-10-12
+  - id: dispute-mail
+    type: mail
+    label: Credit report dispute by mail
+    value: TransUnion LLC Consumer Dispute Center, P.O. Box 2000, Chester, PA 19016
+    purposes: [credit_report_error, debt_collection]
+    access: open
+    notes: >-
+      Send a letter that explains what is wrong and why, with copies (not originals) of proof. The FTC suggests certified
+      mail with a return receipt. TransUnion's own mail instructions are at https://www.transunion.com/customer-support/dispute-by-mail.
+    source: https://consumer.ftc.gov/articles/disputing-errors-your-credit-reports
+    last_verified: 2026-10-12
+  - id: consumer-phone
+    type: phone
+    label: TransUnion consumer line (phone disputes, security freeze)
+    value: +1-800-916-8800
+    hours: Monday-Friday 8 a.m.-11 p.m. ET; Saturday and Sunday 8 a.m.-5 p.m. ET
+    purposes: [credit_report_error, debt_collection, fraud]
+    notes: >-
+      The CFPB lists this number to dispute by phone, to freeze a report, and as the direct company contact. For reports
+      in Spanish, choose option 2.
+    source: https://www.consumerfinance.gov/ask-cfpb/how-do-i-dispute-an-error-on-my-credit-report-en-314/
+    last_verified: 2026-10-12
+  - id: freeze-online
+    type: portal
+    label: Security freeze
+    value: https://www.transunion.com/credit-freeze
+    purposes: [fraud]
+    notes: Listed by the CFPB as TransUnion's freeze page. Whether an account is needed could not be confirmed.
+    source: https://www.consumerfinance.gov/consumer-tools/credit-reports-and-scores/consumer-reporting-companies/companies-list/trans-union/
+    last_verified: 2026-10-12
+  - id: credit-help
+    type: portal
+    label: TransUnion credit help (fraud alerts)
+    value: https://www.transunion.com/credit-help
+    purposes: [fraud]
+    notes: The FTC links this page for TransUnion credit help and fraud alerts. A fraud alert placed at Equifax or Experian is also passed to TransUnion.
+    source: https://consumer.ftc.gov/articles/what-know-about-credit-freezes-fraud-alerts
+    last_verified: 2026-10-12
+  - id: annualcreditreport
+    type: portal
+    label: AnnualCreditReport.com (free reports from all three bureaus)
+    value: https://www.annualcreditreport.com/index.action
+    purposes: [credit_report_error, debt_collection, fraud]
+    access: open
+    notes: The only site authorized under federal law to fill orders for the free reports. It blocks some automated requests.
+    source: https://www.annualcreditreport.com/index.action
+    last_verified: 2026-10-12
+  - id: annualcreditreport-phone
+    type: phone
+    label: Annual Credit Report request line
+    value: +1-877-322-8228
+    purposes: [credit_report_error]
+    source: https://www.consumerfinance.gov/consumer-tools/credit-reports-and-scores/consumer-reporting-companies/companies-list/trans-union/
+    last_verified: 2026-10-12
+  - id: annualcreditreport-mail
+    type: mail
+    label: Annual Credit Report request by mail
+    value: Annual Credit Report Request Service, P.O. Box 105281, Atlanta, GA 30348-5281
+    purposes: [credit_report_error]
+    source: https://consumer.ftc.gov/articles/free-credit-reports
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: written_complaint, channel: dispute-online, note: "Or dispute by mail (dispute-mail). Also dispute with the company that supplied the data."}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: attorney_general}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: credit_report_error
+    summary: Get the report, dispute each wrong item online, by phone or by mail with proof, and also dispute it with the company that reported it.
+    evidence: [TransUnion credit report page with the error, proof of the correct information, copy of government ID, proof of current address]
+    steps:
+      - do: Get a free TransUnion report from AnnualCreditReport.com and mark each wrong item.
+        channel: annualcreditreport
+      - do: File the dispute online and upload proof.
+        channel: dispute-online
+      - do: Or send a dispute letter that explains what is wrong and why, with copies of proof, by certified mail with a return receipt.
+        channel: dispute-mail
+      - do: Or dispute by phone.
+        channel: consumer-phone
+      - do: Dispute the item with the company that reported it, too.
+      - do: If TransUnion does not fix a verified error, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: The credit bureau has 30 days to investigate a dispute, however it is filed.
+        issues: [credit_report_error]
+        source: https://consumer.ftc.gov/articles/disputing-errors-your-credit-reports
+        last_verified: 2026-10-12
+      - kind: process
+        claim: The bureau must forward your evidence to the business that reported the information, give you the results in writing, and give you a free copy of the report if the dispute changes it.
+        issues: [credit_report_error]
+        source: https://consumer.ftc.gov/articles/disputing-errors-your-credit-reports
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: If a bureau decides a dispute is frivolous or irrelevant, it must notify you within five business days and explain why.
+        issues: [credit_report_error]
+        source: https://www.consumerfinance.gov/ask-cfpb/how-do-i-dispute-an-error-on-my-credit-report-en-314/
+        last_verified: 2026-10-12
+  - issue: debt_collection
+    summary: Dispute a wrong collection account with TransUnion and ask the debt collector in writing for validation.
+    evidence: [collection letter, proof of payment or proof the debt is not yours, TransUnion credit report page with the collection]
+    steps:
+      - do: Ask the debt collector in writing for the validation information (creditor name, amount, how to dispute). Keep copies.
+        note: CFPB sample letters cover "I do not owe this debt" and "I need more information about this debt".
+      - do: Dispute the collection account with TransUnion online or by mail. Attach proof of payment or proof the debt is not yours.
+        channel: dispute-online
+      - do: If the collector or TransUnion does not correct it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: limit
+        claim: A credit reporting company generally can report most negative information for seven years; bankruptcies can stay for up to ten years.
+        issues: [debt_collection]
+        source: https://www.consumerfinance.gov/ask-cfpb/how-long-does-negative-information-remain-on-my-credit-report-en-323/
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Debt collectors generally must provide validation information within five days of the initial communication; some requests must be made within 30 days of being contacted.
+        issues: [debt_collection]
+        source: https://www.consumerfinance.gov/ask-cfpb/what-should-i-do-if-a-debt-collector-has-reported-a-debt-on-my-credit-report-that-isnt-mine-en-1695/
+        last_verified: 2026-10-12
+  - issue: fraud
+    summary: For identity theft, place a free fraud alert (one bureau tells the other two) and a free security freeze at each bureau.
+    evidence: [FTC Identity Theft Report or police report (for an extended alert), copy of government ID, proof of address]
+    steps:
+      - do: Place a fraud alert. One placed at Equifax or Experian also reaches TransUnion.
+        channel: credit-help
+      - do: Place a security freeze with TransUnion online or by phone. Repeat at Equifax and Experian, because a freeze is per bureau.
+        channel: freeze-online
+      - do: Dispute accounts you did not open.
+        channel: dispute-online
+    facts:
+      - kind: limit
+        claim: An initial fraud alert lasts one year and can be renewed; an extended fraud alert lasts seven years; an active duty alert lasts one year.
+        issues: [fraud]
+        source: https://consumer.ftc.gov/articles/what-know-about-credit-freezes-fraud-alerts
+        last_verified: 2026-10-12
+      - kind: process
+        claim: The credit bureau you contact must tell the other two to place an initial fraud alert on your credit report.
+        issues: [fraud]
+        source: https://consumer.ftc.gov/articles/what-know-about-credit-freezes-fraud-alerts
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: A bureau must place a freeze within one business day of a phone or online request and lift it within one hour; for a mailed request it has up to three business days.
+        issues: [fraud]
+        source: https://www.consumerfinance.gov/ask-cfpb/what-is-a-credit-freeze-or-security-freeze-on-my-credit-report-en-1341/
+        last_verified: 2026-10-12
+
+facts:
+  - kind: fee
+    claim: There is no cost to place or lift a credit freeze, and a freeze lasts until you lift it.
+    issues: [fraud]
+    source: https://consumer.ftc.gov/articles/what-know-about-credit-freezes-fraud-alerts
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: The three bureaus have permanently extended the program that lets you check your credit report from each of them once a week for free at AnnualCreditReport.com.
+    issues: [credit_report_error]
+    source: https://consumer.ftc.gov/articles/free-credit-reports
+    last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: The CFPB recommends sending a dispute to the company that reported the information by certified mail; the furnisher generally must respond within 30 days.
+    issues: [credit_report_error]
+    source: https://www.consumerfinance.gov/ask-cfpb/how-do-i-dispute-an-error-on-my-credit-report-en-314/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The online dispute redirects to a TransUnion sign-in page; the account holder must sign in or create an account.
+  - transunion.com and service.transunion.com blocked automated page fetches (HTTP 403) on 2026-10-12.

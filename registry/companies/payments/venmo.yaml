@@ -1,0 +1,179 @@
+id: venmo
+name: Venmo
+aliases: [venmo purchase protection, venmo debit card]
+sector: payments
+parent: PayPal Holdings, Inc. (services provided by PayPal, Inc.)
+website: https://venmo.com
+regulators: [cfpb, ftc]
+notes: >-
+  Venmo is a service of PayPal, Inc.; written error notices and legal notices go to PayPal's Omaha P.O. box.
+  The current Venmo User Agreement is effective August 24, 2026. Venmo Credit Card disputes go to the issuer,
+  Synchrony Bank, not to Venmo.
+
+channels:
+  - id: support-phone
+    type: phone
+    label: Venmo General Support
+    value: +1-855-812-4430
+    hours: Every day 8 AM to 8 PM CT
+    purposes: [unauthorized_charge, transaction_dispute, frozen_funds, account_access, fraud]
+    access: human_only
+    source: https://help.venmo.com/cs/contact-us
+    last_verified: 2026-10-12
+  - id: in-app-chat
+    type: app
+    label: Chat with Venmo Support in the app (Me > Settings > Get Help > Chat With Us)
+    value: Venmo app > Me > Settings > Get Help > Chat With Us
+    hours: 8 AM to 7:45 PM CT
+    purposes: [unauthorized_charge, transaction_dispute, frozen_funds, fraud, account_access]
+    access: login
+    notes: Ask for a live agent. Have the date, amount and the other user's username ready.
+    source: https://help.venmo.com/cs/contact-us
+    last_verified: 2026-10-12
+  - id: in-app-dispute
+    type: app
+    label: Dispute a transaction in the app (Me > transaction > Need Help?)
+    value: Venmo app > Me tab > select the transaction > Need Help?
+    purposes: [unauthorized_charge, transaction_dispute]
+    access: login
+    notes: >-
+      Most Venmo transactions can be disputed here. Venmo Debit Card transactions and online purchases cannot be
+      disputed or reported as unauthorized in the app; contact Support instead.
+    source: https://help.venmo.com/cs/articles/opening-a-dispute-vhel113
+    last_verified: 2026-10-12
+  - id: virtual-assistant
+    type: chat
+    label: Venmo virtual assistant and contact options
+    value: https://help.venmo.com/cs/contact-us
+    hours: 24/7 (virtual assistant)
+    source: https://help.venmo.com/cs/contact-us
+    last_verified: 2026-10-12
+  - id: contact-form
+    type: web_form
+    label: Venmo Help Center request form
+    value: https://help.venmo.com/hc/en-us/requests/new
+    purposes: [unauthorized_charge, transaction_dispute, frozen_funds]
+    notes: The User Agreement lists this form for errors, unauthorized transactions and Purchase Protection disputes.
+    source: https://venmo.com/legal/us-user-agreement/
+    last_verified: 2026-10-12
+  - id: error-resolution-mail
+    type: mail
+    label: Written notice of errors or unauthorized transactions
+    value: "PayPal, Inc., Attn: Venmo Error Resolution Department, P.O. Box 45950, Omaha, NE 68145-0950"
+    purposes: [unauthorized_charge, billing_error]
+    source: https://venmo.com/legal/us-user-agreement/
+    last_verified: 2026-10-12
+  - id: debit-card-phone
+    type: phone
+    label: Venmo Debit Card (deactivate card, unauthorized card charges)
+    value: +1-855-204-4090
+    hours: "Card deactivation 24 hours a day; live agents for disputes 9 AM to 5 PM CT Mon-Fri"
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    source: https://help.venmo.com/hc/en-us/articles/360001264187-What-do-I-do-if-there-s-an-unauthorized-charge-on-my-Venmo-Debit-Card-
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: in-app-chat}
+  - {rung: frontline, channel: support-phone}
+  - {rung: written_complaint, channel: error-resolution-mail}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: financial_regulator}
+  - {rung: arbitration, note: "The Venmo User Agreement requires individual arbitration; opt-out by written notice within 30 days of first accepting it."}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Tell Venmo at once through in-app chat or a dispute; send written notice for other errors within 60 days of the statement.
+    evidence: [date and amount of the transaction, the other user's username, Venmo statement]
+    steps:
+      - do: Contact Venmo Support right away through in-app chat and ask for an agent.
+        channel: in-app-chat
+      - do: Open a dispute on the transaction in the app (Me > transaction > Need Help?). Reset the password if prompted.
+        channel: in-app-dispute
+      - do: For a Venmo Debit Card charge, lock the card in the Cards tab, or call the debit card line if you cannot open the app.
+        channel: debit-card-phone
+      - do: For a Venmo Credit Card charge, contact the issuer, Synchrony Bank, using the number on the back of the card.
+      - do: Put the error in writing to the Venmo Error Resolution Department and keep a copy.
+        channel: error-resolution-mail
+      - do: If Venmo does not fix it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: If the Venmo statement shows transfers you did not make, Venmo says to tell it at once.
+        issues: [unauthorized_charge, fraud]
+        source: https://help.venmo.com/cs/articles/dispute-filing-timeframes-vhel359
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Other errors must be disputed within 60 days after Venmo provides the account statement on which the problem first appeared.
+        issues: [unauthorized_charge, billing_error]
+        source: https://help.venmo.com/cs/articles/dispute-filing-timeframes-vhel359
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Venmo determines whether an error occurred within 10 Business Days after it hears from you, and may take up to 45 days to investigate if it needs more time.
+        issues: [unauthorized_charge, billing_error]
+        source: https://venmo.com/legal/us-user-agreement/
+        last_verified: 2026-10-12
+
+  - issue: transaction_dispute
+    summary: Use Venmo Purchase Protection for goods-and-services payments within 180 days of the purchase.
+    evidence: [transaction marked as goods and services or paid to a business profile, listing or order, messages with the seller, tracking]
+    steps:
+      - do: Check that the payment was to a business profile or marked as for goods and services. Personal payments are not covered.
+      - do: Open a dispute within 180 days through in-app chat, the contact form or by phone.
+        channel: in-app-dispute
+      - do: If Venmo decides against you and you have new information, ask for an appeal.
+      - do: If Venmo does not resolve it, complain to the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: Under Venmo Purchase Protection, open a dispute within 180 days of the date the purchase was made.
+        issues: [transaction_dispute]
+        source: https://venmo.com/legal/us-user-agreement/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Purchase Protection covers certain qualifying payments made to a business profile or marked as for goods and services.
+        issues: [transaction_dispute]
+        source: https://venmo.com/legal/us-user-agreement/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: For a card-funded purchase you must choose between Venmo Purchase Protection and a dispute with your card issuer; you cannot do both at the same time.
+        issues: [transaction_dispute]
+        source: https://venmo.com/legal/us-user-agreement/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Venmo's Purchase Protection decision is final, but you may be able to appeal with new or compelling information or if you believe there was an error in the decision.
+        issues: [transaction_dispute]
+        source: https://venmo.com/legal/us-user-agreement/
+        last_verified: 2026-10-12
+
+  - issue: frozen_funds
+    summary: Ask Venmo Support in writing why money is held and when it will be released; holds can last up to 180 days.
+    evidence: [hold or limitation notice, transaction IDs, documents Venmo requested]
+    steps:
+      - do: Ask Venmo Support for the reason for the hold and the release date. Use chat or the request form so you have a record.
+        channel: contact-form
+      - do: Send any verification documents Venmo asks for.
+      - do: If the money is not released, complain to the CFPB and your state financial regulator.
+        regulator: cfpb
+    facts:
+      - kind: limit
+        claim: Risk-based holds may remain in place for up to 180 days from the date the transaction was made.
+        issues: [frozen_funds]
+        source: https://venmo.com/legal/us-user-agreement/
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: Venmo Credit Card transactions must be disputed with Synchrony Bank, not in the Venmo app.
+    issues: [transaction_dispute, unauthorized_charge]
+    source: https://help.venmo.com/cs/articles/opening-a-dispute-vhel113
+    last_verified: 2026-10-12
+  - kind: policy
+    claim: The Venmo User Agreement includes individual arbitration, a class action waiver and a jury trial waiver. You can opt out by written notice postmarked no later than 30 days after you first accept the agreement.
+    source: https://venmo.com/legal/us-user-agreement/
+    last_verified: 2026-10-12
+
+known_blockers:
+  - In-app chat and in-app disputes need the account holder signed in to the Venmo app.
+  - Venmo Debit Card transactions and online purchases cannot be disputed in the app; they need Support.
+  - Payments to friends that are not marked as goods and services are not covered by Purchase Protection.

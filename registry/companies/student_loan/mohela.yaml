@@ -1,0 +1,173 @@
+id: mohela
+name: MOHELA
+aliases: [missouri higher education loan authority, higher education loan authority of the state of missouri, mohela.studentaid.gov]
+sector: student_loan
+parent: Higher Education Loan Authority of the State of Missouri
+website: https://mohela.studentaid.gov/
+account_url: https://mohela.studentaid.gov/DL/secure/account/Login.aspx
+regulators: [ed-fsa, cfpb]
+notes: >-
+  MOHELA (the Missouri Higher Education Loan Authority) was established by the Missouri General Assembly in 1981 and is an
+  official servicer of Federal Student Aid. The U.S. Department of Education (FSA) owns the loans; MOHELA handles billing,
+  questions and payments. The PSLF program is managed by the Department of Education, not MOHELA. No 2025-2026 change to
+  MOHELA's federal servicing role was confirmed on a source.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Direct Loan servicing customer service (toll free)
+    value: +1-888-866-4352
+    hours: Monday 8 a.m.-9 p.m. ET; Tuesday and Wednesday 8 a.m.-8 p.m. ET; Thursday and Friday 8 a.m.-6 p.m. ET
+    purposes: [student_loan_servicing, account_access, debt_collection]
+    notes: >-
+      TTY users dial 711. Payments and automated account information are available 24/7. Income-driven repayment
+      plans, including RAP, cannot be set up by phone (see facts).
+    source: https://mohela.studentaid.gov/DL/common/contactUs.aspx
+    last_verified: 2026-10-12
+  - id: international-phone
+    type: phone
+    label: Direct Loan servicing customer service (international callers)
+    value: +1-636-532-0600
+    hours: Monday 8 a.m.-9 p.m. ET; Tuesday and Wednesday 8 a.m.-8 p.m. ET; Thursday and Friday 8 a.m.-6 p.m. ET
+    purposes: [student_loan_servicing]
+    source: https://mohela.studentaid.gov/DL/common/contactUs.aspx
+    last_verified: 2026-10-12
+  - id: secure-message
+    type: web_form
+    label: Securely Message Us (select state of residence, then follow the prompts)
+    value: https://mohela.studentaid.gov/DL/common/contactUs.aspx
+    purposes: [student_loan_servicing]
+    notes: The form is on the Contact Us page. It was not tested; it may ask for account details.
+    source: https://mohela.studentaid.gov/DL/common/contactUs.aspx
+    last_verified: 2026-10-12
+  - id: online-account
+    type: portal
+    label: Online account login (upload documents, view loans)
+    value: https://mohela.studentaid.gov/DL/secure/account/Login.aspx
+    purposes: [student_loan_servicing, account_access, debt_collection]
+    access: login
+    notes: >-
+      MOHELA says uploading through the online account is the fastest way to send documents. For a credit reporting
+      adjustment request, go to Upload in the menu and select Miscellaneous as the document type.
+    source: https://mohela.studentaid.gov/DL/common/contactUs.aspx
+    last_verified: 2026-10-12
+  - id: correspondence-mail
+    type: mail
+    label: Letters and documents (not payments)
+    value: MOHELA, 633 Spirit Drive, Chesterfield, MO 63005-1243
+    purposes: [student_loan_servicing, debt_collection]
+    access: open
+    notes: MOHELA says not to send payments to this address. Its credit page also gives this address for credit reporting adjustment requests.
+    source: https://mohela.studentaid.gov/DL/common/contactUs.aspx
+    last_verified: 2026-10-12
+  - id: payments-mail
+    type: mail
+    label: Payments by mail
+    value: Department of Education - MOHELA, PO Box 790453, St. Louis, MO 63179-0453
+    access: open
+    notes: Payments only. Do not send letters or documents to this address.
+    source: https://mohela.studentaid.gov/DL/common/contactUs.aspx
+    last_verified: 2026-10-12
+  - id: fsa-feedback-center
+    type: web_form
+    label: Submit a Complaint (Federal Student Aid Feedback Center)
+    value: https://studentaid.gov/feedback-center/
+    purposes: [student_loan_servicing, debt_collection]
+    notes: >-
+      Run by Federal Student Aid (U.S. Department of Education), not by MOHELA. MOHELA's site links to it as "Submit a Complaint".
+    source: https://mohela.studentaid.gov/DL/common/publicInfo/StudentLoanAdvocates.aspx
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: correspondence-mail, note: "Or use the secure message form or an upload through the online account. Keep copies."}
+  - {rung: regulator, regulator: ed-fsa, channel: fsa-feedback-center}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: student_loan_servicing
+    summary: Ask MOHELA to correct the error in writing, then complain to Federal Student Aid, then to the CFPB.
+    evidence: [loan account number, payment history, billing statements and letters from MOHELA, dates and names from calls, copies of forms you sent]
+    steps:
+      - do: Call MOHELA and describe the error. Write down the date, the representative's name and any reference number.
+        channel: customer-service-phone
+      - do: Send a written request to correct the error, with copies of your proof. Upload it through the online account or mail it to the letters address. Keep a copy.
+        channel: correspondence-mail
+      - do: For a repayment plan problem, apply for or change income-driven plans (including RAP) at StudentAid.gov/idr, not by phone.
+      - do: If MOHELA does not fix it, submit a complaint to the Federal Student Aid Feedback Center. Attach your timeline and MOHELA's replies.
+        channel: fsa-feedback-center
+        regulator: ed-fsa
+        note: >-
+          MOHELA's Student Loan Advocates page lists the FSA Ombudsman Group at P.O. Box 1854, Monticello, KY 42633, and links
+          state student loan ombudsman offices at https://studentaid.gov/feedback-ombudsman/disputes/state-ombudsman.
+          Some state agencies (DC, MA, NV, VA, WA) help only borrowers who live in that state.
+      - do: If the problem continues, file a complaint with the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: policy
+        claim: On March 10, 2026, a court order ended the Saving on a Valuable Education (SAVE) Plan. Affected borrowers must select a new repayment plan after they receive a notice from MOHELA.
+        issues: [student_loan_servicing]
+        source: https://mohela.studentaid.gov/
+        last_verified: 2026-10-12
+      - kind: process
+        claim: MOHELA states that income-driven repayment plans, including the Repayment Assistance Plan (RAP), can only be signed up for at StudentAid.gov/idr, not by phone.
+        issues: [student_loan_servicing]
+        source: https://mohela.studentaid.gov/
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: The Repayment Assistance Plan (RAP) and the Tiered Standard Plan became available on July 1, 2026.
+        issues: [student_loan_servicing]
+        source: https://mohela.studentaid.gov/DL/common/about.aspx
+        last_verified: 2026-10-12
+  - issue: debt_collection
+    summary: Credit reporting of a late MOHELA loan, or a loan that went into default.
+    evidence: [credit report page with the entry, proof of payment or of an eligible deferment or forbearance at that time, letters from MOHELA]
+    steps:
+      - do: Check whether the loan was 90 or more days past due at the end of the month that was reported. MOHELA reports delinquency from that point.
+      - do: If you qualified for an eligible deferment or forbearance when the negative reporting occurred, send an adjustment request with documents through the online account (Upload, Miscellaneous) or by mail.
+        channel: online-account
+        note: MOHELA does not grant "goodwill" credit deletions (see facts). You may also dispute directly with Equifax, Experian and TransUnion.
+      - do: If the loan is in default, it may no longer be with MOHELA. Contact the Department of Education's Default Resolution Group (see facts) and ask which office now collects it.
+      - do: If the reporting is still wrong, complain to the Federal Student Aid Feedback Center, then to the CFPB.
+        channel: fsa-feedback-center
+        regulator: ed-fsa
+    facts:
+      - kind: policy
+        claim: MOHELA begins to report a loan delinquent once it is 90 days or more past due on the last date of the month.
+        issues: [debt_collection]
+        source: https://mohela.studentaid.gov/credit
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: MOHELA is not authorized to complete "goodwill requests" for credit updates, per the directive of Federal Student Aid.
+        issues: [debt_collection]
+        source: https://mohela.studentaid.gov/DL/common/contactUs.aspx
+        last_verified: 2026-10-12
+      - kind: contact
+        claim: Edfinancial's list of federal student loan servicers gives the Default Resolution Group at 1-800-621-3115 (myeddebt.ed.gov).
+        issues: [debt_collection]
+        source: https://edfinancial.studentaid.gov/finding-your-student-loans
+        last_verified: 2026-10-12
+      - kind: process
+        claim: On March 19, 2026, the Departments of Education and the Treasury announced that Treasury will assume operational responsibility for collecting defaulted federal student loans, and in later phases will work to support non-defaulted loans.
+        issues: [debt_collection]
+        source: https://home.treasury.gov/news/press-releases/sb0419
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: From July 1, 2026, the interest rate reduction for borrowers enrolled in auto pay is 1% (up from 0.25%), through June 30, 2028. Enrollment must be completed by 11:59 p.m. ET on December 31, 2026.
+    source: https://mohela.studentaid.gov/
+    last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: Upload documents through the online account for the fastest processing, instead of mail or fax.
+    issues: [student_loan_servicing]
+    source: https://mohela.studentaid.gov/DL/common/contactUs.aspx
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The online account and document upload need the borrower's login.
+  - MOHELA's site warns of longer hold times due to high call volume.
+  - MOHELA's contact page shows two different international fax numbers (636-787-2790 and 636-787-4038); fax is not listed here.

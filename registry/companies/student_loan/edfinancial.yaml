@@ -1,0 +1,168 @@
+id: edfinancial
+name: Edfinancial Services
+aliases: [edfinancial, ed financial, edfinancial.studentaid.gov]
+sector: student_loan
+website: https://edfinancial.studentaid.gov/
+account_url: https://myaccount.edfinancial.studentaid.gov/
+regulators: [ed-fsa, cfpb]
+notes: >-
+  Edfinancial Services is headquartered in Knoxville, Tennessee (NMLS Company ID 1509247) and services federal student
+  loans for Federal Student Aid, U.S. Department of Education. Its site does not name a parent company. No 2025-2026
+  change to Edfinancial's federal servicing role was confirmed on a source.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: General inquiries and phone payments (toll free)
+    value: +1-855-337-6884
+    hours: Monday 8:00 a.m.-9:00 p.m. ET; Tuesday and Wednesday 8:00 a.m.-8:00 p.m. ET; Thursday and Friday 8:00 a.m.-6:00 p.m. ET
+    purposes: [student_loan_servicing, account_access, debt_collection]
+    source: https://edfinancial.studentaid.gov/contact
+    last_verified: 2026-10-12
+  - id: servicemember-phone
+    type: phone
+    label: Servicemember Liaison (toll free)
+    value: +1-800-337-6884
+    purposes: [student_loan_servicing]
+    notes: >-
+      The contact page lists 1-800-337-6884 or 1-855-337-6884 for the Servicemember Liaison, with no hours. The Ways to
+      Pay page also gives 800-337-6884 for phone payments. Military email: military@edfinancial.studentaid.gov.
+    source: https://edfinancial.studentaid.gov/contact
+    last_verified: 2026-10-12
+  - id: online-account
+    type: portal
+    label: Online account login (secure document upload)
+    value: https://myaccount.edfinancial.studentaid.gov/
+    purposes: [student_loan_servicing, account_access]
+    access: login
+    source: https://edfinancial.studentaid.gov/contact
+    last_verified: 2026-10-12
+  - id: secure-message
+    type: web_form
+    label: Secure email message (select a topic on the Contact page)
+    value: https://edfinancial.studentaid.gov/contact
+    purposes: [student_loan_servicing]
+    notes: The topic selector is on the Contact page. It was not tested; it may ask for account details.
+    source: https://edfinancial.studentaid.gov/contact
+    last_verified: 2026-10-12
+  - id: correspondence-mail
+    type: mail
+    label: Forms, documentation and letters
+    value: Edfinancial Services, P.O. Box 36008, Knoxville, TN 37930-6008
+    purposes: [student_loan_servicing]
+    access: open
+    source: https://edfinancial.studentaid.gov/contact
+    last_verified: 2026-10-12
+  - id: payments-mail
+    type: mail
+    label: Payments by mail
+    value: US Department of Education, P.O. Box 790322, St. Louis, MO 63179-0322
+    access: open
+    notes: >-
+      The page says to send all payments with your new account number to this address, and that the payment address
+      can differ by loan program; check your billing statement or online account. Put your name, account number and
+      payment amount on the check or money order.
+    source: https://edfinancial.studentaid.gov/waystopay
+    last_verified: 2026-10-12
+  - id: credit-dispute-mail
+    type: mail
+    label: Credit reporting disputes
+    value: "Attention: Credit Disputes, P.O. Box 30159, Knoxville, TN 37930-0159"
+    purposes: [debt_collection]
+    access: open
+    notes: Include a copy of the credit report with the disputed items marked, supporting documents and a cover letter that asks for the update.
+    source: https://edfinancial.studentaid.gov/Credit-Reporting
+    last_verified: 2026-10-12
+  - id: debt-relief-scam-email
+    type: email
+    label: Customer Resolutions Unit (forward documents from third-party debt relief companies)
+    value: CustomerResolutionsUnit@edfinancial.studentaid.gov
+    notes: For reporting a third-party debt relief company. Include the company name or phone numbers that contacted you.
+    source: https://edfinancial.studentaid.gov/contact
+    last_verified: 2026-10-12
+  - id: fsa-feedback-center
+    type: web_form
+    label: Federal Student Aid (FSA) complaint system (Feedback Center)
+    value: https://studentaid.gov/feedback-center/
+    purposes: [student_loan_servicing, debt_collection]
+    notes: Run by Federal Student Aid (U.S. Department of Education), not by Edfinancial. Edfinancial's Contact and Student Loan Advocates pages link to it.
+    source: https://edfinancial.studentaid.gov/contact
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: correspondence-mail, note: "Or a secure message or upload through the online account. Keep copies."}
+  - {rung: regulator, regulator: ed-fsa, channel: fsa-feedback-center}
+  - {rung: regulator, regulator: cfpb}
+  - {rung: state_agency, agency_kind: attorney_general}
+
+playbooks:
+  - issue: student_loan_servicing
+    summary: Ask Edfinancial to correct the error in writing, then complain to Federal Student Aid, then to the CFPB.
+    evidence: [loan account number, payment history, billing statements and letters from Edfinancial, dates and names from calls, copies of forms you sent]
+    steps:
+      - do: Call Edfinancial and describe the error. Write down the date, the representative's name and any reference number.
+        channel: customer-service-phone
+      - do: Send a written request to correct the error, with copies of your proof. Use the secure message, an upload through the online account, or the letters address. Keep a copy.
+        channel: correspondence-mail
+      - do: If Edfinancial does not fix it, submit a complaint to the Federal Student Aid Feedback Center. Attach your timeline and Edfinancial's replies.
+        channel: fsa-feedback-center
+        regulator: ed-fsa
+        note: >-
+          Edfinancial's Student Loan Advocates page lists the FSA Ombudsman Group at P.O. Box 1854, Monticello, KY 42633, and
+          links state student loan ombudsman offices at https://studentaid.gov/feedback-ombudsman/disputes/state-ombudsman.
+          Some state agencies (DC, MA, NV, VA, WA) help only borrowers who live in that state.
+      - do: If the problem continues, file a complaint with the CFPB.
+        regulator: cfpb
+    facts:
+      - kind: deadline
+        claim: >-
+          A court order ended the SAVE Plan on March 10, 2026. Edfinancial says it will notify borrowers enrolled in SAVE
+          between July 1st and August 15th, and they will have 90 days to choose a different plan.
+        issues: [student_loan_servicing]
+        source: https://edfinancial.studentaid.gov/
+        last_verified: 2026-10-12
+  - issue: debt_collection
+    summary: Credit reporting of an Edfinancial loan, or a loan that went into default.
+    evidence: [credit report with the disputed items highlighted or circled, supporting documents, cover letter that explains the issue]
+    steps:
+      - do: Mail a credit dispute to Edfinancial with the marked credit report, supporting documents and a cover letter that asks for the update.
+        channel: credit-dispute-mail
+        note: You can also file the dispute directly with Equifax, Experian and TransUnion.
+      - do: Allow up to 30 days for the review, then check your credit reports. The bureaus can take another 45-60 days to update.
+      - do: If the loan is in default, it may no longer be with Edfinancial. Contact the Department of Education's Default Resolution Group (see facts) and ask which office now collects it.
+      - do: If the reporting is still wrong, complain to the Federal Student Aid Feedback Center, then to the CFPB.
+        channel: fsa-feedback-center
+        regulator: ed-fsa
+    facts:
+      - kind: deadline
+        claim: Edfinancial says mailed credit disputes and disputes filed with the credit reporting agencies may take up to 30 days to review; after Edfinancial finds an update is needed, the agencies may take 45-60 days to update their records.
+        issues: [debt_collection]
+        source: https://edfinancial.studentaid.gov/Credit-Reporting
+        last_verified: 2026-10-12
+      - kind: contact
+        claim: Edfinancial's list of federal student loan servicers gives the Default Resolution Group at 1-800-621-3115 (myeddebt.ed.gov).
+        issues: [debt_collection]
+        source: https://edfinancial.studentaid.gov/finding-your-student-loans
+        last_verified: 2026-10-12
+      - kind: process
+        claim: On March 19, 2026, the Departments of Education and the Treasury announced that Treasury will assume operational responsibility for collecting defaulted federal student loans, and in later phases will work to support non-defaulted loans.
+        issues: [debt_collection]
+        source: https://home.treasury.gov/news/press-releases/sb0419
+        last_verified: 2026-10-12
+
+facts:
+  - kind: policy
+    claim: From July 1, 2026, the auto pay interest rate reduction is 1% (up from 0.25%). Borrowers with eligible loans get it by enrolling in Auto Pay by December 31st, 2026.
+    source: https://edfinancial.studentaid.gov/
+    last_verified: 2026-10-12
+
+tips:
+  - kind: official
+    text: Mail payments several days before the due date, and put your name, account number and payment amount on the check.
+    source: https://edfinancial.studentaid.gov/waystopay
+    last_verified: 2026-10-12
+
+known_blockers:
+  - The online account, secure upload and payment tools need the borrower's login.
+  - Edfinancial's home page still shows an outdated note that IDR and PSLF count adjustments would be done by July 1, 2024.
