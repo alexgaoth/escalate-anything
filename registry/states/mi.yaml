@@ -13,4 +13,95 @@ agencies:
         notes: A postal mail address is given after submission.
         source: https://secure.ag.state.mi.us/complaints/consumer.aspx
         last_verified: 2026-10-12
-    notes: michigan.gov blocks automated fetches, so the Attorney General's consumer hotline and the MPSC and DIFS entries could not be confirmed.
+    notes: michigan.gov blocks automated fetches; the Attorney General's consumer hotline was not confirmed.
+  - id: mi-puc
+    kind: utility_commission
+    name: Michigan Public Service Commission (MPSC), Customer Assistance
+    covers_sectors: [utility, internet_tv]
+    website: https://www.michigan.gov/mpsc/consumer/complaints
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File an informal complaint online
+        value: https://www.michigan.gov/mpsc/consumer/complaints
+        notes: Online complaints are shared with the utility, including your personal information. For an anonymous complaint, call or mail.
+        source: https://www.michigan.gov/mpsc/consumer/complaints
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Inquiries and complaints
+        value: +1-800-292-9555
+        hours: Monday through Friday, 8:30 a.m. to 4:30 p.m. (excluding State holidays)
+        source: https://www.michigan.gov/mpsc/about/contact-us
+        last_verified: 2026-10-12
+      - id: phone-out-of-state
+        type: phone
+        label: Inquiries and complaints (from outside Michigan)
+        value: +1-517-284-8100
+        source: https://www.michigan.gov/mpsc/about/contact-us
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Customer Assistance by mail
+        value: MPSC Customer Assistance, P.O. Box 30221, Lansing, MI 48909
+        source: https://www.michigan.gov/mpsc/consumer/complaints
+        last_verified: 2026-10-12
+    notes: Contact the utility or provider first. The MPSC complaint line also takes video/cable service issues, and there is a separate video/cable formal complaint form. Values confirmed from official search snippets; michigan.gov blocks automated page fetches.
+  - id: mi-insurance
+    kind: insurance_department
+    name: Michigan Department of Insurance and Financial Services (DIFS), Office of Consumer Services
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.michigan.gov/difs/consumers
+    channels:
+      - id: complaint-form
+        type: portal
+        label: DIFS complaint portal
+        value: https://www.michigan.gov/DIFScomplaints
+        source: https://www.michigan.gov/difs/consumers/insurance/health-insurance/individual/filing
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: DIFS consumer line (toll-free)
+        value: +1-877-999-6442
+        hours: Monday through Friday, 8 a.m. to 5 p.m.
+        source: https://www.michigan.gov/difs/consumers/insurance/health-insurance/individual/filing
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: DIFS complaints
+        value: DIFScomplaints@michigan.gov
+        source: https://www.michigan.gov/difs/consumers/insurance/health-insurance/individual/filing
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Office of Consumer Services by mail
+        value: DIFS Office of Consumer Services, PO Box 30220, Lansing, MI 48909
+        source: https://www.michigan.gov/difs/consumers/insurance/health-insurance/individual/filing
+        last_verified: 2026-10-12
+    notes: Try to settle the dispute with the insurer first. DIFS authority covers contracts issued in Michigan. Values confirmed from official search snippets.
+  - id: mi-financial
+    kind: financial_regulator
+    name: Michigan Department of Insurance and Financial Services (DIFS), Office of Consumer Services
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://www.michigan.gov/difs/consumers
+    channels:
+      - id: complaint-form
+        type: portal
+        label: DIFS complaint portal
+        value: https://www.michigan.gov/DIFScomplaints
+        source: https://www.michigan.gov/difs/consumers/insurance/health-insurance/individual/filing
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: DIFS consumer line (toll-free)
+        value: +1-877-999-6442
+        hours: Monday through Friday, 8 a.m. to 5 p.m.
+        source: https://www.michigan.gov/difs/consumers/insurance/health-insurance/individual/filing
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: DIFS complaints
+        value: DIFScomplaints@michigan.gov
+        source: https://www.michigan.gov/difs/consumers/insurance/health-insurance/individual/filing
+        last_verified: 2026-10-12
+    notes: Same agency as mi-insurance; DIFS regulates insurance and financial services. Try to settle the dispute with the financial provider first. Values confirmed from official search snippets.

@@ -20,3 +20,74 @@ agencies:
         value: +1-800-222-4444
         source: https://stopfraudcolorado.gov/
         last_verified: 2026-10-12
+  - id: co-puc
+    kind: utility_commission
+    name: Colorado Public Utilities Commission, Consumer Affairs
+    covers_sectors: [utility]
+    website: https://puc.colorado.gov/about-the-puc/contact-the-puc
+    channels:
+      - id: consumer-affairs-phone
+        type: phone
+        label: Consumer Assistance (Denver area)
+        value: +1-303-894-2070
+        source: https://puc.colorado.gov/about-the-puc/contact-the-puc
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Assistance (outside the Denver area)
+        value: +1-800-456-0858
+        source: https://puc.colorado.gov/about-the-puc/contact-the-puc
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Affairs complaints
+        value: dora_puc_complaints@state.co.us
+        source: https://puc.colorado.gov/about-the-puc/contact-the-puc
+        last_verified: 2026-10-12
+    notes: Consumer Assistance handles utility issues, billing disputes, service problems and complaints; an online form is under "File a Complaint/Comment" on the PUC site (URL not confirmed). Telecom issues use the general line 303-894-2000 and DORA_PUC_Telecom@state.co.us; the pages do not say whether wireless or internet billing complaints are accepted. Values confirmed from official search snippets; colorado.gov blocks automated page fetches.
+  - id: co-insurance
+    kind: insurance_department
+    name: Colorado Division of Insurance, Consumer Services
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://doi.colorado.gov/for-consumers/file-a-complaint
+    channels:
+      - id: consumer-affairs-phone
+        type: phone
+        label: Consumer Services Team
+        value: +1-303-894-7490
+        hours: Monday through Friday, 8:00 a.m. to 5:00 p.m.
+        source: https://doi.colorado.gov/for-consumers/file-a-complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Services (toll-free outside the Denver metro area)
+        value: +1-800-930-3745
+        source: https://doi.colorado.gov/for-consumers/file-a-complaint
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Services email
+        value: DORA_Insurance@state.co.us
+        source: https://doi.colorado.gov/for-consumers/file-a-complaint
+        last_verified: 2026-10-12
+    notes: Online complaints go through the Division's Consumer Portal, which needs an account (email and password); the portal URL was not confirmed. A printable Complaint Form / Request for Assistance can be mailed. Values confirmed from official search snippets.
+  - id: co-financial
+    kind: financial_regulator
+    name: Colorado Division of Banking
+    covers_sectors: [bank, payments]
+    website: https://banking.colorado.gov/consumers/file-a-complaint
+    channels:
+      - id: email
+        type: email
+        label: Complaint form by email
+        value: DORA_BankingWebsite@state.co.us
+        notes: Download and complete the fillable PDF form https://banking.colorado.gov/sites/banking/files/Complaint%20Form_English_PDF%20Fillable.pdf; it cannot be completed online.
+        source: https://banking.colorado.gov/consumers/file-a-complaint
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Division of Banking
+        value: +1-303-894-7575
+        source: https://banking.colorado.gov/consumers/file-a-complaint
+        last_verified: 2026-10-12
+    notes: Handles only Colorado state-chartered commercial banks, state-chartered trust companies and Colorado-licensed money transmitters. National banks go to the OCC; credit unions go to the Division of Financial Services. Values confirmed from official search snippets.

@@ -1,0 +1,122 @@
+id: nh
+name: New Hampshire
+agencies:
+  - id: nh-ag
+    kind: attorney_general
+    name: New Hampshire Department of Justice, Consumer Protection and Antitrust Bureau
+    website: https://www.doj.nh.gov/citizens/consumer-protection-antitrust-bureau/consumer-protection-hotline
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaints (online form)
+        value: https://www.doj.nh.gov/citizens/consumer-protection-antitrust-bureau/consumer-complaints
+        source: https://www.doj.nh.gov/citizens/consumer-protection-antitrust-bureau/consumer-protection-hotline
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Protection Hotline, toll-free
+        value: +1-888-468-4454
+        source: https://www.doj.nh.gov/citizens/consumer-protection-antitrust-bureau/consumer-protection-hotline
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Consumer Protection Hotline, direct line
+        value: +1-603-271-3641
+        hours: Weekdays 8:00 a.m.-5:00 p.m.
+        source: https://www.doj.nh.gov/citizens/consumer-protection-antitrust-bureau/consumer-protection-hotline
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Protection Bureau email
+        value: DOJ-CPB@doj.nh.gov
+        source: https://www.doj.nh.gov/citizens/consumer-protection-antitrust-bureau/consumer-protection-hotline
+        last_verified: 2026-10-12
+  - id: nh-puc
+    kind: utility_commission
+    name: New Hampshire Department of Energy, Consumer Services Division
+    covers_sectors: [utility]
+    website: https://www.energy.nh.gov/consumers/file-complaint
+    notes: The Department of Energy (not the Public Utilities Commission) takes utility consumer complaints about electric, natural gas, water, sewer and telephone providers. For telephone service it may still be able to help resolve a complaint with the provider. The page seen does not mention wireless, internet or cable TV.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint
+        value: https://www.energy.nh.gov/consumers/file-complaint
+        notes: Contact the utility first so it can resolve the matter directly.
+        source: https://www.energy.nh.gov/consumers/file-complaint
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Consumer Services Division, toll-free
+        value: +1-800-852-3793
+        hours: Mon-Fri 8:00 a.m.-4:30 p.m.
+        source: https://www.energy.nh.gov/consumers/file-complaint
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Services email
+        value: consumerservices@energy.nh.gov
+        source: https://www.energy.nh.gov/consumers/file-complaint
+        last_verified: 2026-10-12
+  - id: nh-insurance
+    kind: insurance_department
+    name: New Hampshire Insurance Department, Consumer Services Division
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.insurance.nh.gov/
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Filing a complaint (online or printable consumer complaint form)
+        value: https://www.insurance.nh.gov/consumers/filing-complaint
+        notes: When filing for someone else, also submit the Release of Information Form.
+        source: https://www.insurance.nh.gov/consumers/filing-complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Hotline, toll-free
+        value: +1-800-852-3416
+        source: https://www.insurance.nh.gov/consumers/filing-complaint
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Consumer Services
+        value: +1-603-271-2261
+        source: https://www.insurance.nh.gov/consumers/filing-complaint
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Services email
+        value: consumerservices@ins.nh.gov
+        source: https://www.insurance.nh.gov/consumers/filing-complaint
+        last_verified: 2026-10-12
+    facts:
+      - kind: process
+        claim: External review is available for a fully insured health or dental plan after the insurer's internal appeal process ends in a final denial. It costs the patient nothing.
+        issues: [claim_denial]
+        source: https://www.insurance.nh.gov/consumers/health-insurance/independent-external-review
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: A standard external review must be submitted to the Insurance Department within 180 days of the insurance company's final denial.
+        issues: [claim_denial]
+        source: https://www.insurance.nh.gov/consumers/health-insurance/independent-external-review
+        last_verified: 2026-10-12
+  - id: nh-financial
+    kind: financial_regulator
+    name: New Hampshire Banking Department
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://www.banking.nh.gov/consumer-assistance/consumer-complaints
+    notes: Handles complaints against state-chartered banks and consumer credit licensees.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer complaints (Word or PDF form; email or mail)
+        value: https://www.banking.nh.gov/consumer-assistance/consumer-complaints
+        notes: Send the completed form by email to legal@banking.nh.gov or by mail to 53 Regional Drive, Suite 200, Concord, NH 03301.
+        source: https://www.banking.nh.gov/consumer-assistance/consumer-complaints
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: Questions about the complaint form
+        value: +1-603-271-1090
+        source: https://www.banking.nh.gov/sites/g/files/ehbemt621/files/inline-documents/complaint-form.pdf
+        last_verified: 2026-10-12

@@ -75,3 +75,28 @@ agencies:
         source: https://finance.mo.gov/consumer-complaints
         last_verified: 2026-10-12
     notes: Takes complaints about state-regulated banks, mortgage brokers and lenders. Nationally chartered banks go to the OCC. Credit unions and insurance are handled by the Department of Commerce and Insurance. Missouri does not regulate collection agencies.
+  - id: mo-insurance
+    kind: insurance_department
+    name: Missouri Department of Commerce and Insurance (DCI), Division of Consumer Affairs
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://insurance.mo.gov/what-do-if-you-have-complaint
+    channels:
+      - id: hotline
+        type: phone
+        label: Insurance Consumer Hotline
+        value: +1-800-726-7390
+        source: https://insurance.mo.gov/what-do-if-you-have-complaint
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Department of Commerce and Insurance
+        value: +1-573-751-2640
+        source: https://insurance.mo.gov/what-do-if-you-have-complaint
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Affairs email
+        value: ConsumerAffairs@insurance.mo.gov
+        source: https://insurance.mo.gov/what-do-if-you-have-complaint
+        last_verified: 2026-10-12
+    notes: Discuss the problem with the agent or company first. DCI acts only on possible violations of Missouri law. Complaints can also be filed online at insurance.mo.gov (form URL not confirmed). Employer self-insured and union plans are forwarded to the federal government. Values confirmed from official search snippets; insurance.mo.gov rate-limits automated fetches.

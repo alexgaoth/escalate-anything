@@ -1,0 +1,124 @@
+id: ma
+name: Massachusetts
+agencies:
+  - id: ma-ag
+    kind: attorney_general
+    name: Massachusetts Attorney General, Consumer Advocacy and Response Division (CARD)
+    website: https://www.mass.gov/how-to/file-a-consumer-complaint
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Online consumer complaint form
+        value: https://www.mass.gov/ago/consumercomplaint
+        notes: A printable form can be mailed to the Consumer Advocacy and Response Division, One Ashburton Place, 18th Floor, Boston, MA 02108.
+        source: https://www.mass.gov/how-to/file-a-consumer-complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Hotline
+        value: +1-617-727-8400
+        hours: 8 AM to 4 PM, Monday through Friday
+        source: https://www.mass.gov/how-to/file-a-consumer-complaint
+        last_verified: 2026-10-12
+      - id: health-care-helpline
+        type: phone
+        label: Health Care Division helpline (health insurance claims, medical bills)
+        value: +1-617-963-2100
+        source: https://www.mass.gov/info-details/consumer-services-at-the-attorney-generals-office
+        last_verified: 2026-10-12
+    notes: Values confirmed from official mass.gov search snippets; mass.gov blocks automated page fetches. Do not file a second complaint about the same issue; call the hotline instead.
+  - id: ma-puc
+    kind: utility_commission
+    name: Massachusetts Department of Public Utilities (DPU), Consumer Division
+    covers_sectors: [utility]
+    website: https://www.mass.gov/how-to/file-a-complaint-involving-a-gas-electric-or-water-company
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: DPU consumer complaint form
+        value: https://www.mass.gov/forms/massachusetts-department-of-public-utilities-consumer-complaint-form
+        notes: Do not use the online form if service is shut off or another issue is urgent; call the Consumer Division instead.
+        source: https://www.mass.gov/how-to/file-a-complaint-involving-a-gas-electric-or-water-company
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Consumer Division
+        value: +1-617-737-2836
+        source: https://www.mass.gov/how-to/file-a-complaint-involving-a-gas-electric-or-water-company
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Division (toll-free)
+        value: +1-877-886-5066
+        source: https://www.mass.gov/how-to/file-a-complaint-involving-a-gas-electric-or-water-company
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Division complaints
+        value: DPUConsumer.Complaints@mass.gov
+        source: https://www.mass.gov/how-to/file-a-complaint-involving-a-gas-electric-or-water-company
+        last_verified: 2026-10-12
+    notes: Try the company first. The DPU accepts complaints only from Massachusetts residents and business owners, about gas, electric and investor-owned water companies, including competitive electricity suppliers. Values confirmed from official mass.gov search snippets.
+  - id: ma-insurance
+    kind: insurance_department
+    name: Massachusetts Division of Insurance, Consumer Service Unit
+    covers_sectors: [insurance_property, insurance_health]
+    website: https://www.mass.gov/how-to/filing-an-insurance-complaint
+    channels:
+      - id: consumer-affairs-phone
+        type: phone
+        label: Consumer Service Unit
+        value: +1-617-521-7794
+        hours: Monday to Friday, 8:45 am to 5:00 pm
+        source: https://www.mass.gov/info-details/how-to-contact-the-division-of-insurance
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Division of Insurance (toll-free, all units)
+        value: +1-877-563-4467
+        source: https://www.mass.gov/info-details/how-to-contact-the-division-of-insurance
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer Service Unit complaints
+        value: CSSComplaints@mass.gov
+        source: https://www.mass.gov/how-to/filing-an-insurance-complaint
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Complaint form by mail
+        value: Division of Insurance, Consumer Services Unit, 1 Federal Street, Suite 700, Boston, MA 02110
+        source: https://www.mass.gov/how-to/filing-an-insurance-complaint
+        last_verified: 2026-10-12
+    notes: Complaints can also be filed online from the filing page; the online form URL was not confirmed. Values confirmed from official mass.gov search snippets.
+  - id: ma-financial
+    kind: financial_regulator
+    name: Massachusetts Division of Banks, Consumer Assistance Unit
+    covers_sectors: [bank, credit_union, payments, student_loan]
+    website: https://www.mass.gov/how-to/file-a-complaint-with-the-division-of-banks
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: File a complaint with the Division of Banks (links to the online form)
+        value: https://www.mass.gov/how-to/file-a-complaint-with-the-division-of-banks
+        source: https://www.mass.gov/how-to/file-a-complaint-with-the-division-of-banks
+        last_verified: 2026-10-12
+      - id: consumer-affairs-phone
+        type: phone
+        label: Consumer Assistance Unit
+        value: +1-617-956-1501
+        source: https://www.mass.gov/lists/division-of-banks-agency-unit-contact-details
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Division of Banks (toll-free)
+        value: +1-800-495-2265
+        source: https://www.mass.gov/lists/division-of-banks-agency-unit-contact-details
+        last_verified: 2026-10-12
+      - id: email
+        type: email
+        label: Consumer assistance email
+        value: dobconsumer.assistance@mass.gov
+        source: https://www.mass.gov/how-to/file-a-complaint-with-the-division-of-banks
+        last_verified: 2026-10-12
+    notes: Takes complaints about banks, credit unions and financial products or services in Massachusetts. Businesses not licensed by the Division go to the AG's CARD. No in-person service. Values confirmed from official mass.gov search snippets.

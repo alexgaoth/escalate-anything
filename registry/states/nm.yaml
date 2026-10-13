@@ -1,6 +1,26 @@
 id: nm
 name: New Mexico
 agencies:
+  - id: nm-ag
+    kind: attorney_general
+    name: New Mexico Department of Justice, Consumer Protection Division
+    website: https://nmdoj.gov/get-help/submit-a-complaint/
+    notes: The Consumer Protection Division represents only the State's interests, not individuals, but offers free mediation of disputes. Try to settle with the business first.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Electronic Complaint and Tip Submission (ECS)
+        value: https://secure.nmdoj.gov/ecs
+        access: captcha
+        notes: A CAPTCHA starts the wizard. The entry must be finished within 48 hours and is not submitted until the final acknowledgment step. Not for people who already have an attorney. A paper form (English and Spanish) is also offered.
+        source: https://nmdoj.gov/get-help/submit-a-complaint/
+        last_verified: 2026-10-12
+      - id: main-phone
+        type: phone
+        label: New Mexico Department of Justice main line
+        value: +1-505-490-4060
+        source: https://nmdoj.gov/contact-us/
+        last_verified: 2026-10-12
   - id: nm-puc
     kind: utility_commission
     name: New Mexico Public Regulation Commission, Consumer Relations Division

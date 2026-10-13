@@ -1,6 +1,57 @@
 id: tx
 name: Texas
 agencies:
+  - id: tx-ag
+    kind: attorney_general
+    name: Office of the Attorney General of Texas, Consumer Protection Division
+    website: https://www.texasattorneygeneral.gov/consumer-protection
+    notes: The office reviews complaints for informational purposes and does not resolve individual complaints or act as a private attorney. Complaints and attachments are public and can be obtained through open records requests.
+    channels:
+      - id: complaint-form
+        type: portal
+        label: Consumer Complaint Portal
+        value: https://consumerprotection.texasattorneygeneral.gov/consumercomplaintportal/s/
+        notes: The portal cannot save an in-progress complaint; finish it in one session. Separate forms exist for general, privacy and AI complaints.
+        source: https://www.texasattorneygeneral.gov/consumer-protection/file-consumer-complaint
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Protection Hotline, toll-free
+        value: +1-800-621-0508
+        source: https://www.texasattorneygeneral.gov/contact-us
+        last_verified: 2026-10-12
+  - id: tx-puc
+    kind: utility_commission
+    name: Public Utility Commission of Texas, Consumer Protection Division
+    covers_sectors: [utility]
+    website: https://www.puc.texas.gov/agency/about/consumer-protection/
+    notes: The PUCT handles complaints about retail electric providers (REPs), electric utilities and telephone utilities, and is authorized to resolve disputes between a retail customer and a retail electric provider. It has no authority over wireless (cell phone) service, internet or VoIP service; for cable TV it can only forward the complaint to the company. Municipal utilities are governed locally, and for electric cooperatives the PUCT only forwards complaints.
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Electric complaint form (retail electric providers and utilities)
+        value: https://www.puc.texas.gov/Complaints/Index
+        notes: Contact the electric service provider first and let it investigate; then file with the PUCT Consumer Protection Division.
+        source: https://www.puc.texas.gov/Complaints/Index
+        last_verified: 2026-10-12
+      - id: consumer-affairs
+        type: phone
+        label: Consumer Protection, toll-free in Texas
+        value: +1-888-782-8477
+        notes: Other callers use +1-512-936-7120.
+        source: https://www.puc.texas.gov/agency/about/consumer-protection/
+        last_verified: 2026-10-12
+      - id: consumer-affairs-local
+        type: phone
+        label: Consumer Protection, Austin
+        value: +1-512-936-7120
+        source: https://www.puc.texas.gov/agency/about/consumer-protection/
+        last_verified: 2026-10-12
+    facts:
+      - kind: policy
+        claim: The PUCT does not regulate wireless telecommunications service (pager and cellular phone); the FCC oversees wireless, long distance and cable television service.
+        source: https://www.puc.texas.gov/consumer-help/utilitiesnot/
+        last_verified: 2026-10-12
   - id: tx-insurance
     kind: insurance_department
     name: Texas Department of Insurance

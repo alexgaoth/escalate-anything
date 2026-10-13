@@ -71,3 +71,34 @@ agencies:
         source: https://osbckansas.gov/consumers/file-a-complaint/
         last_verified: 2026-10-12
     notes: To begin a complaint, call the main office; there is no online form. OSBC regulates Kansas state-chartered banks and money transmitters. Kansas-chartered credit unions are regulated by the Kansas Department of Credit Unions.
+  - id: ks-ag
+    kind: attorney_general
+    name: Kansas Attorney General, Consumer Protection Division
+    website: https://www.ag.ks.gov/file-a-complaint/consumer-protection
+    channels:
+      - id: complaint-form
+        type: web_form
+        label: Consumer Investigation Request (online complaint)
+        value: https://ag.ks.gov/file-a-complaint/consumer
+        source: https://www.ag.ks.gov/file-a-complaint/consumer-protection
+        last_verified: 2026-10-12
+      - id: hotline
+        type: phone
+        label: Consumer Protection Hotline (toll-free)
+        value: +1-800-432-2310
+        hours: 8:00 AM - 5:00 PM, except official state holidays
+        source: https://www.ag.ks.gov/file-a-complaint/consumer-protection
+        last_verified: 2026-10-12
+      - id: phone
+        type: phone
+        label: Consumer Protection Division
+        value: +1-785-296-3751
+        source: https://www.ag.ks.gov/file-a-complaint/consumer-protection
+        last_verified: 2026-10-12
+      - id: mail
+        type: mail
+        label: Consumer Protection Division by mail
+        value: Kansas Attorney General, Consumer Protection Division, 120 SW 10th Ave, 2nd Floor, Topeka, KS 66612-1597
+        source: https://www.ag.ks.gov/file-a-complaint/consumer-protection
+        last_verified: 2026-10-12
+    notes: Values confirmed from official search snippets; ag.ks.gov blocks automated page fetches. The AG offers mediation for filed complaints.
