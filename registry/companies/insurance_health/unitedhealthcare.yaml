@@ -8,12 +8,59 @@ account_url: https://www.uhc.com/sign-in
 regulators: [dol-ebsa, cms-no-surprises]
 
 channels:
+  - id: member-services-phone
+    type: phone
+    label: Members with a plan through work (employer plans)
+    value: +1-866-801-4409
+    purposes: [claim_denial, claim_delay, billing_error, surprise_medical_bill, poor_service]
+    notes: TTY 711. The number on the back of the member ID card takes precedence. Individual and family, Medicare and Community Plan members use plan- and state-specific numbers on the contact page.
+    source: https://www.uhc.com/contact-us
+    last_verified: 2026-10-12
+  - id: appeals-form
+    type: web_form
+    label: Member appeal, grievance or ERISA document request form (online)
+    value: https://memberforms.uhc.com/Memberappealsandgrievances.html
+    purposes: [claim_denial, billing_error, poor_service]
+    access: open
+    notes: Covers Empire Plan, UHC West, Oxford and all other employer and individual plans; not for behavioral health, dental or vision except individual and family plans. One form per claim or authorization. Needs email and phone verification. Uploads up to 25 MB.
+    source: https://memberforms.uhc.com/Memberappealsandgrievances.html
+    last_verified: 2026-10-12
+  - id: appeals-mail
+    type: mail
+    label: Written appeals (employer and individual plans that use the standard address)
+    value: UnitedHealthcare Member Inquiry/Appeals, P.O. Box 740816, Atlanta, GA 30374-0816
+    purposes: [claim_denial, billing_error]
+    notes: Some plans (for example the Empire Plan) use other addresses. Check the denial letter or EOB first. You don't need to send EOBs.
+    source: https://member.uhc.com/myuhc/content/campaigns/myuhc-2-0/medical-appeals-grievances/address-rights-information/appeals-custom-address/jcr:content/par.html
+    last_verified: 2026-10-12
+  - id: appeals-page
+    type: web_form
+    label: Your appeal and grievance rights (member site)
+    value: https://member.uhc.com/myuhc/claims/appeal-grievance-rights
+    purposes: [claim_denial]
+    source: https://member.uhc.com/myuhc/claims/appeal-grievance-rights
+    last_verified: 2026-10-12
+  - id: medicare-appeals-page
+    type: web_form
+    label: Medicare Advantage appeals and grievances
+    value: https://www.uhc.com/medicare/resources/ma-pdp-information-forms/medicare-appeal.html
+    purposes: [claim_denial, poor_service]
+    source: https://www.uhc.com/medicare/resources/ma-pdp-information-forms/medicare-appeal.html
+    last_verified: 2026-10-12
+  - id: medicare-appeals-mail
+    type: mail
+    label: Medicare Advantage appeals and grievances department (address in 2024 Evidence of Coverage documents)
+    value: UnitedHealthcare Appeals and Grievances Department, P.O. Box 6106, MS CA124-0157, Cypress, CA 90630-0016
+    purposes: [claim_denial]
+    notes: "Listed in several 2024 AARP Medicare Advantage and UHC Medicare Advantage Evidence of Coverage documents; confirm in your plan's current EOC. Expedited appeal fax 1-866-373-1081. Part D appeals: P.O. Box 6106, MS CA124-0197, Cypress, CA 90630-0016; fax 1-866-308-6294 (standard) or 1-866-308-6296 (expedited)."
+    source: https://www.uhc.com/medicare/alphadog/AAMN24LP0126254_000
+    last_verified: 2026-10-12
   - id: contact-page
     type: web_form
-    label: Contact UnitedHealthcare (for people without a member ID card)
+    label: Contact UnitedHealthcare (numbers by plan type and state)
     value: https://www.uhc.com/contact-us
     purposes: [claim_denial, claim_delay, billing_error, poor_service]
-    notes: Linked from the UnitedHealth Group contact page. uhc.com blocked automated readers on 2026-10-12, so its contents were not checked.
+    notes: Linked from the UnitedHealth Group contact page for people without a member ID card.
     source: https://www.unitedhealthgroup.com/contact-us.html
     last_verified: 2026-10-12
   - id: claim-status
@@ -39,23 +86,43 @@ channels:
     last_verified: 2026-10-12
 
 escalation:
-  - {rung: frontline, note: "Call the member services number on the back of the member ID card."}
-  - {rung: written_complaint, note: "Internal appeal or grievance at the address and within the deadline on the denial letter or EOB."}
+  - {rung: frontline, channel: member-services-phone, note: "Call the member services number on the back of the member ID card."}
+  - {rung: written_complaint, channel: appeals-form, note: "Internal appeal or grievance online, or by mail to the address on the denial letter or EOB."}
   - {rung: state_agency, agency_kind: insurance_department, note: "External review for fully insured plans; complaint to the state."}
   - {rung: regulator, regulator: dol-ebsa, note: "Employer self-funded (ERISA) plans."}
   - {rung: regulator, regulator: cms-no-surprises, note: "Surprise bills under the No Surprises Act."}
 
 playbooks:
   - issue: claim_denial
-    summary: Read the EOB and denial letter, appeal at the address on the letter, then ask for external review.
-    evidence: [denial letter or EOB, member ID card, medical records, provider letter of medical necessity]
+    summary: Appeal within 180 days of the denial (most plans) online or by mail, then ask for external review. Medicare Advantage members have 65 days.
+    evidence: [denial letter or EOB, member ID card, medical records, provider letter of medical necessity, receipts]
     steps:
       - do: Log in and download the EOB for the denied claim.
         channel: claim-status
       - do: Call the number on the member ID card. Ask for the denial reason, the appeal deadline, the appeal address and a free copy of the documents relevant to the claim.
-      - do: File the written appeal at the address on the denial letter or EOB, before the deadline on that letter. Keep proof of the date sent.
+        channel: member-services-phone
+      - do: File the appeal with the online form (one form per claim), or mail it to the address on the denial letter or EOB. Attach receipts and records; EOBs are not needed.
+        channel: appeals-form
+      - do: Medicare Advantage members file within 65 days at the Medicare appeals page or the address in the plan's Evidence of Coverage. Ask for an expedited appeal if waiting could seriously harm health.
+        channel: medicare-appeals-page
       - do: After the final internal denial, ask for external review through the state insurance department (fully insured plans) or the plan's process. For employer self-funded plans, contact the Department of Labor if the plan does not follow the rules.
         regulator: dol-ebsa
+    facts:
+      - kind: deadline
+        claim: UnitedHealthcare says most plans allow 180 days from receipt of the claim denial to submit an appeal; check your plan document for your appeal rights.
+        issues: [claim_denial]
+        source: https://member.uhc.com/myuhc/content/campaigns/myuhc-2-0/medical-appeals-grievances/address-rights-information/appeals-custom-address/jcr:content/par.html
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: For UnitedHealthcare of California plans, a grievance may be submitted within 180 calendar days following the incident; UnitedHealthcare acknowledges it within 5 calendar days, answers within 30 calendar days for a standard review, and decides urgent problems within 3 calendar days.
+        issues: [claim_denial, poor_service]
+        source: https://memberforms.uhc.com/Memberappealsandgrievances.html
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: For UnitedHealthcare Medicare Advantage plans, you may file an appeal within 65 calendar days of the date of the notice of the initial organization determination, and a grievance within 60 calendar days of the circumstance. Expedited Part C pre-service appeals are decided within 72 hours.
+        issues: [claim_denial]
+        source: https://www.uhc.com/medicare/resources/ma-pdp-information-forms/medicare-appeal.html
+        last_verified: 2026-10-12
   - issue: billing_error
     summary: Compare the provider bill with the EOB, then call member services.
     evidence: [provider bill, EOB, member ID card]
@@ -63,7 +130,8 @@ playbooks:
       - do: Compare the provider bill with the EOB.
         channel: claim-status
       - do: Call the number on the member ID card about a claim processed wrongly. Ask the provider to rebill to the EOB amount.
-      - do: If it is not fixed, file an appeal or grievance at the address on the EOB.
+      - do: If it is not fixed, file an appeal or grievance with the online form.
+        channel: appeals-form
   - issue: surprise_medical_bill
     summary: Compare the bill with the EOB, tell UnitedHealthcare and the provider, then contact the CMS help desk.
     evidence: [the bill, EOB, member ID card]
@@ -81,8 +149,9 @@ facts:
     last_verified: 2026-10-12
 
 known_blockers:
-  - uhc.com, member.uhc.com and the UnitedHealthcare Medicare and Community Plan sites returned 403 to automated readers on 2026-10-12. Appeal pages, addresses and deadlines could not be read.
-  - Member phone numbers and appeal addresses are plan-specific; use the ID card and the denial letter.
+  - uhc.com and member.uhc.com return 403 to automated page readers; most values come from official-domain search results. The online appeal form (memberforms.uhc.com) is readable.
+  - Member phone numbers and appeal addresses are plan-specific; use the ID card and the denial letter. The Medicare appeal address comes from 2024 plan documents.
+  - The online appeal form needs email and phone verification codes, which an agent cannot receive without the member.
   - Claims and EOBs need a member login.
 
 notes: UnitedHealthcare is the health benefits business of UnitedHealth Group. The UnitedHealthcare Medicare Solutions and Community Plan (Medicaid) sites redirect to uhc.com; AARP Medicare plan pages tell members to call the number on the back of the member ID card. Medicare and Medicaid plans have their own appeal rules.

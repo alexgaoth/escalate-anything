@@ -1,0 +1,132 @@
+id: allstate
+name: Allstate
+aliases: [allstate insurance, allstate insurance company, the allstate corporation, 1-800-allstate]
+sector: insurance_property
+website: https://www.allstate.com
+regulators: []
+
+channels:
+  - id: claims-phone
+    type: phone
+    label: Claims (1-800-ALLSTATE), auto, property and boat
+    value: +1-800-255-7828
+    purposes: [claim_denial, claim_delay]
+    access: open
+    notes: Non-customers can also call this number to file a claim, or create a guest account to track an existing claim.
+    source: https://www.allstate.com/help-support/claims
+    last_verified: 2026-10-12
+  - id: customer-service-phone
+    type: phone
+    label: Call center (coverage, policy and billing questions)
+    value: +1-800-726-6033
+    hours: 24/7
+    purposes: [bill_increase, billing_error, cancel_service, poor_service]
+    notes: Help in English and Spanish.
+    source: https://www.allstate.com/help-support/contact/call-center
+    last_verified: 2026-10-12
+  - id: catastrophe-claims-phone
+    type: phone
+    label: Catastrophe claim status (1-800-54-STORM)
+    value: +1-800-547-8676
+    hours: Regular business hours
+    purposes: [claim_delay]
+    notes: Have the claim or policy number ready.
+    source: https://www.allstate.com/resources/allstate/attachments/tools-and-resources/cat-auto-claims-brochure.pdf
+    last_verified: 2026-10-12
+  - id: billing-phone
+    type: phone
+    label: Pay by phone
+    value: +1-800-901-1732
+    purposes: [billing_error]
+    source: https://www.allstate.com/help-support/billing-payments/faqs
+    last_verified: 2026-10-12
+  - id: missed-payment-phone
+    type: phone
+    label: Help with a missed or late payment
+    value: +1-866-998-8388
+    purposes: [billing_error, cancel_service]
+    source: https://www.allstate.com/help-support/billing-payments/faqs
+    last_verified: 2026-10-12
+  - id: claims-online
+    type: portal
+    label: File or track a claim (My Account, MyClaim or the Allstate app)
+    value: https://www.allstate.com/claims/file-track
+    purposes: [claim_delay, claim_denial]
+    access: login
+    notes: Messages to the claims contact go through MyClaim. Non-customers can use a guest account.
+    source: https://www.allstate.com/claims/file-track
+    last_verified: 2026-10-12
+  - id: contact-page
+    type: web_form
+    label: Contact Allstate (email, chat, find an agent)
+    value: https://www.allstate.com/help-support/contact
+    purposes: [poor_service, claim_denial, claim_delay, billing_error]
+    notes: Allstate publishes no separate complaint form; email and chat are on this page.
+    source: https://www.allstate.com/help-support/contact
+    last_verified: 2026-10-12
+  - id: corporate-mail
+    type: mail
+    label: Allstate corporate mailing address
+    value: Allstate, 3100 Sanders Road, Northbrook, IL 60062
+    purposes: [claim_denial, poor_service]
+    source: https://www.allstate.com/help-support/contact
+    last_verified: 2026-10-12
+
+escalation:
+  - {rung: frontline, channel: claims-phone, note: "Or the assigned claim representative through MyClaim."}
+  - {rung: supervisor, note: "Ask for the claim representative's manager."}
+  - {rung: written_complaint, channel: contact-page, note: "Email, or a letter to the Northbrook address. Ask for the denial and the policy language it relies on, in writing."}
+  - {rung: state_agency, agency_kind: insurance_department}
+  - {rung: arbitration, note: "Allstate auto policy form ACR65 gives both sides a right to demand an appraisal of the loss. Check your own policy form."}
+  - {rung: small_claims}
+
+playbooks:
+  - issue: claim_denial
+    summary: Raise the disagreement with the claim representative, then demand appraisal for an amount dispute, then complain to the state.
+    evidence: [claim number, denial or estimate, policy and declarations page, photos, contractor or shop estimates, receipts]
+    steps:
+      - do: Contact the claim representative with your concerns and your own estimate. Ask for the reason and the policy language in writing.
+        channel: claims-online
+      - do: Call the claims line and ask for the representative's manager if the answer does not change.
+        channel: claims-phone
+      - do: If you disagree only about the amount of the loss, demand an appraisal in writing under the policy's appraisal provision.
+      - do: File a complaint with your state insurance department.
+    facts:
+      - kind: process
+        claim: Allstate's claims FAQ says that if you don't agree with your claim representative's estimate, contact the representative with your concerns and they will work with you to find a fair solution.
+        issues: [claim_denial]
+        source: https://www.allstate.com/help-support/claims/faqs
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Allstate auto policy form ACR65 says both you and Allstate have a right to demand an appraisal of the loss. Each side appoints and pays its own appraiser, other appraisal expenses are shared equally, and a written agreement by any two of the two appraisers and the umpire sets the amount of the loss.
+        issues: [claim_denial]
+        source: https://delivery.contenthub.allstate.com/api/public/content/38851f2b3df1434da7b70f636ab3b40b?v=332a3763
+        last_verified: 2026-10-12
+      - kind: policy
+        claim: Allstate's claims FAQ describes depreciation as a deduction from the settlement amount based on the item's age, condition and current market value.
+        issues: [claim_denial]
+        source: https://www.allstate.com/help-support/claims/faqs
+        last_verified: 2026-10-12
+  - issue: claim_delay
+    summary: Track the claim and message the claims contact in MyClaim, then call the claims line, then the state.
+    evidence: [claim number, dates of each contact, documents sent]
+    steps:
+      - do: Track the claim and message the claims contact in MyClaim or the app.
+        channel: claims-online
+      - do: Call 1-800-ALLSTATE. For a catastrophe claim, call 1-800-54-STORM during business hours.
+        channel: claims-phone
+      - do: File a complaint with your state insurance department if the claim still does not move.
+  - issue: bill_increase
+    summary: Ask the call center or agent what changed and which discounts or deductibles apply.
+    evidence: [prior declarations page, renewal declarations page]
+    steps:
+      - do: Compare the old and new declarations pages.
+      - do: Call the call center or your agent. Ask what changed and what discounts or deductible changes are available.
+        channel: customer-service-phone
+
+known_blockers:
+  - allstate.com timed out for automated page readers on 2026-10-12; values come from official-domain search results and an Allstate policy PDF.
+  - MyClaim messages and claim tracking need sign-in or a guest account.
+  - No dedicated complaint form or complaint address.
+
+notes: Allstate auto policy form ACR65 names Northbrook, Illinois as the home office. Identity theft and fraud claims use 855-821-2331; business insurance support uses 833-250-9900.

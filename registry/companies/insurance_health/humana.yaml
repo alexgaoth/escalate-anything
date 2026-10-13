@@ -53,6 +53,51 @@ channels:
     access: login
     source: https://www.humana.com/contact-us
     last_verified: 2026-10-12
+  - id: appeals-online
+    type: web_form
+    label: Online appeal or grievance form (Medicare Part C and Part D)
+    value: https://resolutions.humana.com/grievances-appeals-forms/member-info
+    purposes: [claim_denial, poor_service]
+    source: https://www.humana.com/member/exceptions-and-appeals
+    last_verified: 2026-10-12
+  - id: appeals-page
+    type: web_form
+    label: Grievances, appeals and exceptions
+    value: https://www.humana.com/member/exceptions-and-appeals
+    purposes: [claim_denial, poor_service]
+    access: open
+    source: https://www.humana.com/member/exceptions-and-appeals
+    last_verified: 2026-10-12
+  - id: appeals-mail
+    type: mail
+    label: Humana Grievance and Appeals Department (Medicare appeal or grievance form)
+    value: Humana Grievance and Appeals Department, P.O. Box 14165, Lexington, KY 40512-4165
+    purposes: [claim_denial, poor_service]
+    notes: "Fax 888-556-2128. The same P.O. box is listed for the Humana Expedited Appeals Unit."
+    source: https://assets.humana.com/is/content/humana/G-A_Form_Clean_2024pdf
+    last_verified: 2026-10-12
+  - id: appeal-form-pdf
+    type: web_form
+    label: Appeal or grievance form (PDF, mail or fax)
+    value: https://assets.humana.com/is/content/humana/G-A_Form_Clean_2024pdf
+    purposes: [claim_denial, poor_service]
+    source: https://assets.humana.com/is/content/humana/G-A_Form_Clean_2024pdf
+    last_verified: 2026-10-12
+  - id: expedited-appeals-phone
+    type: phone
+    label: Expedited appeals (Medicare)
+    value: +1-800-867-6601
+    purposes: [claim_denial]
+    notes: For standard oral filings, call the Customer Care number on the back of the ID card. TTY 711.
+    source: https://www.humana.com/member/exceptions-and-appeals
+    last_verified: 2026-10-12
+  - id: employer-appeals-mail
+    type: mail
+    label: Humana Grievances and Appeals (employer plans)
+    value: Humana Grievances and Appeals, P.O. Box 14546, Lexington, KY 40512-4546
+    purposes: [claim_denial, poor_service]
+    source: https://www.humana.com/member/exceptions-and-appeals
+    last_verified: 2026-10-12
   - id: medicaid-help
     type: web_form
     label: Medicaid help and support options
@@ -68,23 +113,41 @@ channels:
 
 escalation:
   - {rung: frontline, channel: medicare-member-phone, note: "Use the number on the back of the member ID card."}
-  - {rung: written_complaint, note: "Internal appeal or grievance. Follow the instructions and address in the denial notice and the plan's Evidence of Coverage."}
+  - {rung: written_complaint, channel: appeals-online, note: "Internal appeal or grievance online, or by mail or fax with the appeal or grievance form. Employer plans use their own P.O. box."}
   - {rung: state_agency, agency_kind: insurance_department, note: "External review for fully insured plans; complaint to the state."}
   - {rung: regulator, regulator: dol-ebsa, note: "Employer self-funded (ERISA) plans."}
   - {rung: regulator, regulator: cms-no-surprises, note: "Surprise bills under the No Surprises Act."}
 
 playbooks:
   - issue: claim_denial
-    summary: Get the denial notice and reason, file the appeal the notice describes, then use external review or the state.
-    evidence: [denial notice or EOB, member ID card, plan Evidence of Coverage, medical records, provider letter of medical necessity]
+    summary: Appeal within 65 days of the Medicare denial notice, online, by mail or fax, or by phone for expedited cases.
+    evidence: [denial notice or EOB, member ID card, claim number, medical records, provider letter of medical necessity, receipts]
     steps:
       - do: Check the claim and the EOB in MyHumana.
         channel: claim-status
-      - do: Call the number on the ID card (Medicare members can use the Medicare line). Ask for the denial reason, the appeal deadline and the appeal address for your plan.
-        channel: medicare-member-phone
-      - do: File the appeal in writing as the denial notice and the Evidence of Coverage describe. Keep proof of the date sent.
-      - do: For employer plans, after the final internal denial ask for external review, or contact the state insurance department (fully insured) or the Department of Labor (self-funded).
-        regulator: dol-ebsa
+      - do: File the appeal online, or mail or fax the appeal or grievance form with receipts, records or a letter from your doctor.
+        channel: appeals-online
+      - do: For a service not yet received where waiting could seriously harm health, ask for an expedited appeal with a statement from the provider, or call the expedited appeals line.
+        channel: expedited-appeals-phone
+      - do: Employer plan members mail the appeal to the employer plans P.O. box, or file orally through the number on the ID card. After the final internal denial, ask for external review or contact the state insurance department (fully insured) or the Department of Labor (self-funded).
+        channel: employer-appeals-mail
+      - do: Medicare members who still disagree follow the further Medicare appeal levels in the Evidence of Coverage.
+    facts:
+      - kind: deadline
+        claim: For Humana Medicare Advantage (Part C), you have 65 days from the date of the Notice of Denial of Medical Coverage (or Payment) to appeal. For Part D, you have 65 days from the Notice of Denial of Medicare Prescription Drug Coverage to request a redetermination.
+        issues: [claim_denial]
+        source: https://www.humana.com/member/exceptions-and-appeals
+        last_verified: 2026-10-12
+      - kind: process
+        claim: Humana decides Part C pre-service appeals within 30 calendar days, Part C post-service appeals within 60 calendar days, and Part D appeals within 7 calendar days.
+        issues: [claim_denial]
+        source: https://www.humana.com/member/exceptions-and-appeals
+        last_verified: 2026-10-12
+      - kind: deadline
+        claim: Humana's appeal or grievance form offers an expedited decision within 72 hours for services not yet received, when the provider supplies a statement that waiting could seriously harm the member's life, health or ability to regain maximum function.
+        issues: [claim_denial]
+        source: https://assets.humana.com/is/content/humana/G-A_Form_Clean_2024pdf
+        last_verified: 2026-10-12
   - issue: billing_error
     summary: Compare the bill with the claim in MyHumana, then call member services.
     evidence: [provider bill, EOB, member ID card]
@@ -110,7 +173,6 @@ facts:
     last_verified: 2026-10-12
 
 known_blockers:
-  - Humana's public appeals and grievances pages render without text for automated readers; appeal addresses and deadlines are in the denial notice and the plan's Evidence of Coverage.
   - Claims and chat need a MyHumana login.
   - Medicaid plans are state-specific; use the Medicaid help page.
 
