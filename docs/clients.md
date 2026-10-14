@@ -66,7 +66,7 @@ People can use the CLI:
 
 ```bash
 uvx escalate-anything playbook xfinity bill_increase --state CA
-uvx escalate-anything verify "+1-888-555-0199" --company united
+uvx escalate-anything lookup chase
 ```
 
 Paths and formats were checked against each app's documentation on 2026-10-12. Apps change these often; please open an issue if one is out of date.
