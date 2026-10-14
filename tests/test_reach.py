@@ -52,3 +52,20 @@ def test_cli_playbook_and_lookup(capsys, monkeypatch):
     assert cli.main(["lookup", "example"]) == 0
     assert "example-air" in capsys.readouterr().out
     assert cli.main(["playbook", "nobody", "billing_error"]) == 1
+
+
+def test_manifest_versions_match_package():
+    """Every manifest that directories read must carry the package version."""
+    from pathlib import Path
+
+    from escalate_anything import __version__
+
+    root = Path(__file__).resolve().parents[1]
+    server = json.loads((root / "server.json").read_text())
+    versions = {
+        "plugin.json": json.loads((root / ".claude-plugin" / "plugin.json").read_text())["version"],
+        "server.json": server["version"],
+        "server.json package": server["packages"][0]["version"],
+        "gemini-extension.json": json.loads((root / "gemini-extension.json").read_text())["version"],
+    }
+    assert all(v == __version__ for v in versions.values()), versions
