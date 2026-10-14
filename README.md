@@ -31,7 +31,7 @@ Bill went up? Bag lost? Refund denied? Your agent knows who to contact, what to 
 
 ---
 
-Tell your agent what went wrong. Escalate Anything gives it the company's real playbook: the exact form, phone line and deadline, the evidence to collect, the rules that apply, and the escalation ladder up to the regulator in your state. Before your agent calls a number it found online, Escalate Anything checks whether it really belongs to that company.
+Tell your agent what went wrong. Escalate Anything gives it the company's real playbook: the exact form, phone line and deadline, the evidence to collect, the rules that apply, and the escalation ladder up to the regulator in your state. Your agent keeps a case log, follows up on time, and drafts each message for you to approve.
 
 Every value links to the page it came from, with the date it was checked. A weekly routine re-checks the data, and your installed copy updates itself.
 
@@ -44,8 +44,6 @@ With [uv](https://docs.astral.sh/uv/) installed, run:
 ```bash
 uvx escalate-anything setup
 ```
-
-<sub>Before the first PyPI release, use `uvx --from git+https://github.com/alexgaoth/escalate-anything escalate-anything setup`.</sub>
 
 It finds your AI apps (Claude Desktop, Claude Code, Cursor, VS Code, Windsurf, Zed, Gemini CLI, Codex, LM Studio and [more](docs/clients.md)), shows the changes, and asks before writing. Each config is backed up first. Restart your app afterward.
 
@@ -172,6 +170,8 @@ Not yet. Companies, rules and regulators are US-only. Contributions for other co
 </details>
 
 ## Star history
+
+If Escalate Anything got you a refund or a fix, a star helps the next person find it.
 
 <a href="https://star-history.com/#alexgaoth/escalate-anything&Date">
   <picture>
