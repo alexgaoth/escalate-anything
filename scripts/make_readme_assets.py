@@ -1,6 +1,11 @@
 """Regenerate the README images from real data and real CLI output.
 
     uv run python scripts/make_readme_assets.py
+
+Then render the social card to PNG (link previews and the GitHub social preview):
+
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --hide-scrollbars \\
+      --window-size=1200,630 --screenshot=src/escalate_anything/web/og.png docs/assets/social-card.svg
 """
 
 from __future__ import annotations
@@ -39,13 +44,59 @@ def banner(stats: dict, dark: bool) -> str:
         parts.append(f'<rect x="{x}" y="214" rx="15" width="{w:.0f}" height="30" fill="{chip_bg}" stroke="{sub}" stroke-opacity="0.35"/>'
                      f'<text x="{x + w / 2:.0f}" y="234" text-anchor="middle" font-family="{SANS}" font-size="14" fill="{chip_fg}">{escape(c)}</text>')
         x += w + 10
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-label="Escalate Anything: get it fixed, don't get scammed">
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-label="Escalate Anything: get the upper hand on any big company when they wrong you">
 <rect width="1200" height="280" fill="{bg}"/>
 <rect x="64" y="58" width="8" height="64" rx="2" fill="{accent}"/>
 <text x="88" y="112" font-family="{SANS}" font-size="64" font-weight="700" letter-spacing="-1.5" fill="{fg}">Escalate Anything</text>
-<text x="66" y="160" font-family="{SANS}" font-size="26" font-weight="600" fill="{fg}">Get it fixed. Don&#8217;t get scammed.</text>
-<text x="66" y="190" font-family="{SANS}" font-size="19" fill="{sub}">Verified contacts, playbooks and escalation paths for US companies, for you and your AI agent.</text>
+<text x="66" y="160" font-family="{SANS}" font-size="26" font-weight="600" fill="{fg}">Get the upper hand on any big company when they wrong you.</text>
+<text x="66" y="190" font-family="{SANS}" font-size="19" fill="{sub}">Big companies count on you giving up. This repo will make your agent hunt them down.</text>
 {"".join(parts)}
+</svg>
+'''
+
+
+def social_card(stats: dict) -> str:
+    """1200x630 card for link previews (og.png) and the GitHub social preview."""
+    bg, fg, sub, chip_bg, accent = "#0d1117", "#f0f3f6", "#9aa4b2", "#161b22", "#3fb950"
+    chips = [
+        f"{stats['companies']} US companies",
+        f"{stats['playbooks']} playbooks",
+        f"{stats['channels']:,} contacts",
+        "every fact sourced",
+        "works in 13 AI apps",
+    ]
+    x, parts = 72, []
+    for c in chips:
+        w = 28 + len(c) * 10.4
+        parts.append(f'<rect x="{x}" y="528" rx="20" width="{w:.0f}" height="40" fill="{chip_bg}" stroke="{sub}" stroke-opacity="0.35"/>'
+                     f'<text x="{x + w / 2:.0f}" y="554" text-anchor="middle" font-family="{SANS}" font-size="18" fill="#d0d7de">{escape(c)}</text>')
+        x += w + 12
+    # Escalation ladder on the right: each rung is a step up when the one below stalls.
+    steps = ["Support line", "Supervisor / retention", "Executive office", "Regulator: DOT, FCC, CFPB"]
+    rungs = []
+    for i, label in enumerate(steps):
+        y = 432 - i * 88
+        top = i == len(steps) - 1
+        rungs.append(f'<rect x="790" y="{y}" width="338" height="56" rx="10" fill="{"#0f2a18" if top else chip_bg}" '
+                     f'stroke="{accent if top else sub}" stroke-opacity="{1 if top else 0.35}"/>'
+                     f'<text x="812" y="{y + 35}" font-family="{SANS}" font-size="19" font-weight="{600 if top else 400}" '
+                     f'fill="{fg if top else "#d0d7de"}">{i + 1}  {escape(label)}</text>')
+        if i:
+            rungs.append(f'<path d="M959 {y + 82} L959 {y + 62} M951 {y + 70} L959 {y + 62} L967 {y + 70}" '
+                         f'stroke="{accent}" stroke-width="2.5" fill="none" stroke-linecap="round"/>')
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Escalate Anything: get the upper hand on any big company when they wrong you">
+<rect width="1200" height="630" fill="{bg}"/>
+<rect x="72" y="84" width="10" height="84" rx="3" fill="{accent}"/>
+<text x="102" y="152" font-family="{SANS}" font-size="84" font-weight="700" letter-spacing="-2" fill="{fg}">Escalate Anything</text>
+<text x="74" y="236" font-family="{SANS}" font-size="36" font-weight="600" fill="{fg}">Get the upper hand on any big company</text>
+<text x="74" y="282" font-family="{SANS}" font-size="36" font-weight="600" fill="{fg}">when they wrong you.</text>
+<text x="74" y="346" font-family="{SANS}" font-size="27" fill="{sub}">Big companies count on you giving up.</text>
+<text x="74" y="384" font-family="{SANS}" font-size="27" fill="{accent}">This repo will make your agent hunt them down.</text>
+<rect x="72" y="428" width="470" height="60" rx="10" fill="{chip_bg}" stroke="{sub}" stroke-opacity="0.35"/>
+<text x="96" y="467" font-family="{MONO}" font-size="24" fill="#7ee787">$</text>
+<text x="122" y="467" font-family="{MONO}" font-size="24" fill="#e6edf3">uvx escalate-anything setup</text>
+{"".join(parts)}
+{"".join(rungs)}
 </svg>
 '''
 
@@ -90,6 +141,7 @@ def main() -> None:
     stats = Registry.load().stats()
     (OUT / "banner-light.svg").write_text(banner(stats, dark=False))
     (OUT / "banner-dark.svg").write_text(banner(stats, dark=True))
+    (OUT / "social-card.svg").write_text(social_card(stats))
     (OUT / "demo-playbook.svg").write_text(terminal(
         "escalate playbook united-airlines delayed_baggage --state IL",
         run("playbook", "united-airlines", "delayed_baggage", "--state", "IL"), max_lines=26))

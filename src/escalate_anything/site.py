@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import datetime as dt
 import json
+import shutil
 from pathlib import Path
 from typing import Any
 
@@ -55,6 +56,8 @@ def build_site(out_dir: Path, reg: Registry, base_url: str = BASE_URL, today: dt
             (out / sub / f"{key}.md").write_text(doc.path.read_text(encoding="utf-8"), encoding="utf-8")
 
     (out / "llms.txt").write_text(llms_txt(reg, base_url), encoding="utf-8")
+    if (WEB_DIR / "og.png").exists():
+        shutil.copyfile(WEB_DIR / "og.png", out / "og.png")
     (out / "badges").mkdir(exist_ok=True)
     for name, data in badges(reg, today).items():
         _write_json(out / "badges" / f"{name}.json", data)
