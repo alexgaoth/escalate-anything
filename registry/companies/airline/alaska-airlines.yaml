@@ -55,6 +55,7 @@ playbooks:
       - do: Ask for a refund of the affected segments to the original form of payment through the help center or trip page.
         channel: help-center
       - do: If the cancellation was within Alaska's control, ask for a meal (3+ hours) and, if overnight 100+ miles from home, a hotel and ground transportation.
+        note: "From October 19, 2026, ten causes are no longer in DOT's 'Air Carrier' (controllable) category, among them unscheduled maintenance that cannot be deferred, a medical emergency and removal of an unruly passenger (rule dot-delay-cause-categories). Ask the agent for the cause. For these causes, do not promise a meal, hotel or other amenity; the airline may refuse or give it voluntarily. Refund rights do not depend on the cause."
       - do: If the refund is refused or late, send a written complaint, then file with the U.S. DOT.
         channel: customer-care-form
       - do: Dispute the charge with the card issuer if the refund is still not paid.
@@ -80,6 +81,7 @@ playbooks:
     evidence: [confirmation code, scheduled and actual times, cause given by Alaska, hotel and transport receipts]
     steps:
       - do: Ask an agent for the meal (delay over 3 hours) and, for an overnight delay within Alaska's control, a hotel voucher and ground transportation.
+        note: "From October 19, 2026, ten causes are no longer in DOT's 'Air Carrier' (controllable) category, among them unscheduled maintenance that cannot be deferred, a medical emergency and removal of an unruly passenger (rule dot-delay-cause-categories). Ask the agent for the cause. For these causes, do not promise a meal, hotel or other amenity; the airline may refuse or give it voluntarily. Refund rights do not depend on the cause."
       - do: If no voucher hotel is available, book a reasonable hotel, keep receipts and claim reimbursement in writing.
         channel: customer-care-form
       - do: Note that accepting a travel credit instead waives these amenities.

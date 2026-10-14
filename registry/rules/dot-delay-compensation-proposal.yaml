@@ -39,8 +39,9 @@ points:
 status_note: >-
   Withdrawn on November 17, 2025 (90 FR 51230, FR Doc. 2025-20042). The 2024 document was an ANPRM with
   comments due February 10, 2025; it never reached a proposed or final rule. What remains: airlines' voluntary
-  customer service plan commitments (rules/dot-airline-commitments), refund rights when a flight is cancelled
-  or significantly changed (rules/dot-refunds-rule), and the Montreal Convention delay liability for
-  international trips (rules/montreal-convention-baggage).
+  customer service plan commitments (rules/dot-airline-commitments), which from October 19, 2026 cover fewer
+  disruptions because ten event types are no longer "Air Carrier" causes (rules/dot-delay-cause-categories);
+  refund rights when a flight is cancelled or significantly changed, whatever the cause (rules/dot-refunds-rule);
+  and the Montreal Convention delay liability for international trips (rules/montreal-convention-baggage).
 source: https://www.federalregister.gov/documents/2025/11/17/2025-20042/airline-passenger-rights-withdrawal
 last_verified: 2026-10-12
