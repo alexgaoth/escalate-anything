@@ -147,7 +147,7 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
 
     # ---- registry lookups ---------------------------------------------------
 
-    @mcp.tool(annotations=READ)
+    @mcp.tool(title="Find a company", annotations=READ)
     @guard
     def find_company(query: str = "", sector: str | None = None) -> dict[str, Any]:
         """Find companies by name, brand or alias (e.g. 'xfinity', 'united', 'chase').
@@ -160,7 +160,7 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
             hits = [c for c in hits if sector in reg.sector_of(c)]
         return {"matches": [advisor.company_summary(reg, c) for c in hits], "sectors": sorted(reg.sectors)}
 
-    @mcp.tool(annotations=READ)
+    @mcp.tool(title="Get company details", annotations=READ)
     @guard
     def get_company(company: str) -> dict[str, Any]:
         """Full record for one company: every channel, facts, tips, known blockers and playbooks,
@@ -168,13 +168,13 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
         c = advisor.resolve_company(reg, company)
         return {**c, "credibility": advisor._credibility(reg, c)}
 
-    @mcp.tool(annotations=READ)
+    @mcp.tool(title="List issue types", annotations=READ)
     @guard
     def list_issues(sector: str | None = None) -> dict[str, Any]:
         """Issue ids that a playbook can be built for, optionally only one sector."""
         return {"issues": advisor.sector_issues(reg, sector)}
 
-    @mcp.tool(annotations=READ)
+    @mcp.tool(title="Get the playbook for an issue", annotations=READ)
     @guard
     def get_playbook(company: str, issue: str, state: str | None = None) -> dict[str, Any]:
         """Steps, channels (deep links, phones), evidence, deadlines, verified facts, applicable rules
@@ -182,26 +182,26 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
         to resolve state agencies. Rule points are limited to this issue; get_rules gives full text."""
         return advisor.get_playbook(reg, company, issue, state)
 
-    @mcp.tool(annotations=READ)
+    @mcp.tool(title="Get the next escalation step", annotations=READ)
     @guard
     def get_escalation(company: str, state: str | None = None) -> dict[str, Any]:
         """The escalation ladder for a company, lowest rung first, with concrete contacts for each rung."""
         return advisor.get_escalation(reg, company, state)
 
-    @mcp.tool(annotations=READ)
+    @mcp.tool(title="Find regulators", annotations=READ)
     @guard
     def find_regulators(sector: str, state: str | None = None) -> dict[str, Any]:
         """Federal regulators and state agencies that take complaints for a sector."""
         return advisor.find_regulators(reg, sector, state)
 
-    @mcp.tool(annotations=READ)
+    @mcp.tool(title="Get consumer rules", annotations=READ)
     @guard
     def get_rules(sector: str | None = None, issue: str | None = None, state: str | None = None) -> dict[str, Any]:
         """Laws and regulations for a sector and issue. Rules that were vacated, stayed or withdrawn
         are listed separately under not_in_force and must not be cited as current law."""
         return advisor.rules_for(reg, sector, issue, state)
 
-    @mcp.tool(annotations=READ)
+    @mcp.tool(title="Get how a company handles complaints", annotations=READ)
     @guard
     def get_context(company: str | None = None, sector: str | None = None) -> dict[str, Any]:
         """How a company handles complaints in practice: a cited dossier (what works, traps, complaint
@@ -211,7 +211,7 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
 
     # ---- scam red flags (a side tool) ------------------------------------------------
 
-    @mcp.tool(annotations=READ)
+    @mcp.tool(title="Check a message for scam red flags", annotations=READ)
     @guard
     def scam_check(text: str, company: str | None = None) -> dict[str, Any]:
         """Check a message, email, text or call script for common scam red flags: gift cards, crypto,
@@ -221,7 +221,7 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
 
     # ---- case log ----------------------------------------------------------------
 
-    @mcp.tool(annotations=WRITE)
+    @mcp.tool(title="Open a case", annotations=WRITE)
     @guard
     def case_open(company: str, issue: str, summary: str, desired_outcome: str | None = None,
                   amount: float | None = None, state: str | None = None,
@@ -232,7 +232,7 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
             raise NotFound(f"Unknown issue '{issue}'. Use list_issues.")
         return db.open_case(company_id(company), issue, summary, desired_outcome, amount, state, account_hint)
 
-    @mcp.tool(annotations=WRITE)
+    @mcp.tool(title="Log a contact on a case", annotations=WRITE)
     @guard
     def case_log(case_id: int, kind: str, text: str, occurred_on: str | None = None, rung: str | None = None,
                  channel: str | None = None, reference: str | None = None, rep_name: str | None = None,
@@ -243,7 +243,7 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
         Set follow_up_on to the date to check back if nothing happens."""
         return db.log_event(case_id, kind, text, occurred_on, rung, channel, reference, rep_name, promised, follow_up_on)
 
-    @mcp.tool(annotations=READ)
+    @mcp.tool(title="Get a case", annotations=READ)
     @guard
     def case_get(case_id: int) -> dict[str, Any]:
         """A case with its timeline, promises, reference numbers, pending follow-up and the next
@@ -254,13 +254,13 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
             case["next_rung"] = advisor.next_rung(esc["ladder"], case["rungs_used"])
         return case
 
-    @mcp.tool(annotations=READ)
+    @mcp.tool(title="List cases", annotations=READ)
     @guard
     def case_list(status: str | None = "open") -> dict[str, Any]:
         """Cases in the local log. status: open, closed, or null for all."""
         return {"cases": db.list_cases(status)}
 
-    @mcp.tool(annotations=WRITE)
+    @mcp.tool(title="Close a case", annotations=WRITE)
     @guard
     def case_close(case_id: int, outcome: str, amount_recovered: float | None = None,
                    what_worked: str | None = None) -> dict[str, Any]:
@@ -268,13 +268,13 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
         argument that worked, so later cases can reuse it."""
         return db.close_case(case_id, outcome, amount_recovered, what_worked)
 
-    @mcp.tool(annotations=READ)
+    @mcp.tool(title="List follow-ups due", annotations=READ)
     @guard
     def followups_due(on_or_before: str | None = None) -> dict[str, Any]:
         """Open cases whose follow-up date has come and that had no activity since."""
         return {"due": db.followups_due(on_or_before)}
 
-    @mcp.tool(annotations=READ)
+    @mcp.tool(title="Draft a complaint brief", annotations=READ)
     @guard
     def draft_brief(case_id: int, rung: str | None = None) -> dict[str, Any]:
         """Everything needed to write the next message on a case: recipient channel, timeline,
@@ -307,7 +307,7 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
 
     # ---- bills ---------------------------------------------------------------------
 
-    @mcp.tool(annotations=WRITE)
+    @mcp.tool(title="Record a bill", annotations=WRITE)
     @guard
     def bill_record(company: str, period_end: str, amount: float, plan: str | None = None,
                     promo_end: str | None = None, note: str | None = None) -> dict[str, Any]:
@@ -315,7 +315,7 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
         promo_end is the date a promotional price ends, if the bill shows it."""
         return db.record_bill(company_id(company), period_end, amount, plan, promo_end, note)
 
-    @mcp.tool(annotations=READ)
+    @mcp.tool(title="Check a bill for increases", annotations=READ)
     @guard
     def bill_check(company: str | None = None, threshold_pct: float = 10.0) -> dict[str, Any]:
         """Find bills that went up versus the median of the previous three, and promotions that end
@@ -326,7 +326,7 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
 
     # ---- feedback -------------------------------------------------------------------
 
-    @mcp.tool(annotations=WRITE)
+    @mcp.tool(title="Report a wrong contact or fact", annotations=WRITE)
     @guard
     def report_registry_problem(entity: str, problem: str, location: str | None = None) -> dict[str, Any]:
         """Record a wrong or dead URL, phone number or fact in the registry, so a person can fix the

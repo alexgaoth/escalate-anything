@@ -2,7 +2,15 @@
   "mcpServers": {
     "escalate-anything": {
       "command": "uv",
-      "args": ["run", "--quiet", "--directory", "${CLAUDE_PLUGIN_ROOT}", "escalate", "serve"]
+      "args": [
+        "run",
+        "--frozen",
+        "--quiet",
+        "--directory",
+        "${CLAUDE_PLUGIN_ROOT}",
+        "escalate",
+        "serve"
+      ]
     }
   }
 }

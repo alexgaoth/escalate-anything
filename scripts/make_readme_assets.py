@@ -6,6 +6,8 @@ Then render the social card to PNG (link previews and the GitHub social preview)
 
     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --hide-scrollbars \\
       --window-size=1200,630 --screenshot=src/escalate_anything/web/og.png docs/assets/social-card.svg
+
+and the logo the same way (--window-size=400,400, docs/assets/logo.svg -> docs/assets/logo.png).
 """
 
 from __future__ import annotations
@@ -101,6 +103,22 @@ def social_card(stats: dict) -> str:
 '''
 
 
+def logo() -> str:
+    """400x400 square logo: an escalation ladder, top rung highlighted."""
+    rungs = "".join(
+        f'<rect x="{96 + i * 0}" y="{268 - i * 74}" width="{208}" height="48" rx="10" '
+        f'fill="{"#3fb950" if i == 2 else "#30363d"}"/>'
+        for i in range(3))
+    arrow = ('<path d="M200 70 L200 20 M176 44 L200 20 L224 44" stroke="#3fb950" stroke-width="14" '
+             'fill="none" stroke-linecap="round" stroke-linejoin="round"/>')
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" role="img" aria-label="Escalate Anything logo">
+<rect width="400" height="400" rx="72" fill="#0d1117"/>
+{rungs}
+<g transform="translate(0 52)">{arrow}</g>
+</svg>
+'''
+
+
 def terminal(command: str, output: str, max_lines: int, width: int = 920) -> str:
     import textwrap
 
@@ -142,6 +160,7 @@ def main() -> None:
     (OUT / "banner-light.svg").write_text(banner(stats, dark=False))
     (OUT / "banner-dark.svg").write_text(banner(stats, dark=True))
     (OUT / "social-card.svg").write_text(social_card(stats))
+    (OUT / "logo.svg").write_text(logo())
     (OUT / "demo-playbook.svg").write_text(terminal(
         "escalate playbook united-airlines delayed_baggage --state IL",
         run("playbook", "united-airlines", "delayed_baggage", "--state", "IL"), max_lines=26))

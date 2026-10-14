@@ -1,0 +1,13 @@
+{
+  "name": "escalate-anything",
+  "version": "0.2.1",
+  "description": "Get the upper hand on any big US company when they wrong you: contacts, playbooks and escalation paths for your agent.",
+  "mcpServers": {
+    "escalate-anything": {
+      "command": "uvx",
+      "args": [
+        "escalate-anything"
+      ]
+    }
+  }
+}

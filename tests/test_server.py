@@ -28,6 +28,7 @@ async def test_tools_are_listed_with_annotations(server):
     assert {"find_company", "get_playbook", "case_open", "draft_brief", "bill_check"} <= set(tools)
     assert tools["get_playbook"].annotations.read_only_hint is True
     assert tools["case_log"].annotations.read_only_hint is False
+    assert all(t.title for t in tools.values()), [n for n, t in tools.items() if not t.title]
 
 
 @pytest.mark.anyio
