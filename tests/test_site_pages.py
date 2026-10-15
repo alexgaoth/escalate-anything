@@ -65,7 +65,7 @@ def test_united_delayed_bag_page(real_site):
     assert 'href="../../../c/united-airlines/#dossier"' in html
     assert "/issues/new?template=data-correction.yml&amp;company=united-airlines" in html
     assert "Not legal advice" in html and "CC BY 4.0" in html
-    assert '<link rel="canonical" href="https://intro.alexgaoth.com/escalate-anything/c/united-airlines/delayed-baggage/">' in html
+    assert '<link rel="canonical" href="https://escalate.alexgaoth.com/c/united-airlines/delayed-baggage/">' in html
 
 
 def test_titles_descriptions_and_canonicals(real_site):
