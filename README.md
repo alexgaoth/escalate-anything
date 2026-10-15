@@ -9,17 +9,17 @@
 
 Bill went up? Bag lost? Refund denied? Your agent knows who to contact, what to say, and when to escalate.
 
-[![companies](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fintro.alexgaoth.com%2Fescalate-anything%2Fbadges%2Fcompanies.json)](https://intro.alexgaoth.com/escalate-anything/)
-[![data verified](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fintro.alexgaoth.com%2Fescalate-anything%2Fbadges%2Fverified.json)](docs/maintenance.md)
-[![dossiers](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fintro.alexgaoth.com%2Fescalate-anything%2Fbadges%2Fdossiers.json)](https://intro.alexgaoth.com/escalate-anything/#/guides)
+[![companies](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fescalate.alexgaoth.com%2Fbadges%2Fcompanies.json)](https://escalate.alexgaoth.com/)
+[![data verified](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fescalate.alexgaoth.com%2Fbadges%2Fverified.json)](docs/maintenance.md)
+[![dossiers](https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fescalate.alexgaoth.com%2Fbadges%2Fdossiers.json)](https://escalate.alexgaoth.com/#/guides)
 [![PyPI](https://img.shields.io/pypi/v/escalate-anything?style=flat-square&color=3775A9)](https://pypi.org/project/escalate-anything/)
 [![tests](https://img.shields.io/github/actions/workflow/status/alexgaoth/escalate-anything/pr-gate.yml?branch=main&style=flat-square&label=tests)](https://github.com/alexgaoth/escalate-anything/actions/workflows/pr-gate.yml)
 [![MCP](https://img.shields.io/badge/MCP-server-5c4ee5?style=flat-square)](docs/clients.md)
 [![license](https://img.shields.io/badge/code_MIT·data_CC_BY_4.0-f4c430?style=flat-square)](LICENSE)
 
-**[Website](https://intro.alexgaoth.com/escalate-anything/) · [Guides](https://intro.alexgaoth.com/escalate-anything/#/guides)**
+**[Website](https://escalate.alexgaoth.com/) · [Guides](https://escalate.alexgaoth.com/#/guides)**
 
-Every playbook has its own page, for example [United Airlines: delayed bag](https://intro.alexgaoth.com/escalate-anything/c/united-airlines/delayed-baggage/).
+Every playbook has its own page, for example [United Airlines: delayed bag](https://escalate.alexgaoth.com/c/united-airlines/delayed-baggage/).
 
 [Quick start](#quick-start) · [How it works](#how-escalate-anything-works) · [What you can fix](#what-you-can-fix) · [Walkthroughs](#walkthroughs) · [Fresh and credible](#fresh-and-credible) · [FAQ](#faq)
 
@@ -69,7 +69,7 @@ uvx escalate-anything playbook united-airlines delayed_baggage --state IL
 uvx escalate-anything lookup "spectrum"
 ```
 
-No install at all? Browse every company's playbooks on the website: **[intro.alexgaoth.com/escalate-anything](https://intro.alexgaoth.com/escalate-anything/)**.
+No install at all? Browse every company's playbooks on the website: **[escalate.alexgaoth.com](https://escalate.alexgaoth.com/)**.
 
 ## How Escalate Anything works
 
@@ -102,7 +102,7 @@ Escalate Anything never sends, submits or pays anything. Your agent drafts; you 
 | 🛒 Shopping & subscriptions | Returns, missing packages, price adjustments, cancellations, free-trial charges, auto-renewals | Amazon, Walmart, Apple, Netflix, SiriusXM, Adobe, Norton, Peloton, Planet Fitness |
 | 🏛️ Regulators | The right federal agency and **your state's** attorney general, utility commission and insurance department | All 50 states and DC |
 
-[Browse all companies →](https://intro.alexgaoth.com/escalate-anything/)
+[Browse all companies →](https://escalate.alexgaoth.com/)
 
 ## Walkthroughs
 
@@ -114,7 +114,7 @@ The playbook in the image above, from United's own pages: report within **24 hou
 
 The Xfinity playbook checks whether a promotion ended or the 5-Year Price Guarantee was broken, then gives the retention line, the dispute window from the subscriber agreement, and the FCC complaint as the next rung.
 
-Also included, as a side feature: each company's scam warnings (what it says it will never ask for, scams that use its name, where to report them), a [scam guide](https://intro.alexgaoth.com/escalate-anything/#/guides/scams), and `scam_check` for a quick red-flag read of a suspicious message.
+Also included, as a side feature: each company's scam warnings (what it says it will never ask for, scams that use its name, where to report them), a [scam guide](https://escalate.alexgaoth.com/#/guides/scams), and `scam_check` for a quick red-flag read of a suspicious message.
 
 Got a result with Escalate Anything? **[Share what worked](https://github.com/alexgaoth/escalate-anything/issues/new?template=share-your-case.yml)**: good cases become tactics for the next person.
 
@@ -138,7 +138,7 @@ How it works: [docs/maintenance.md](docs/maintenance.md).
 <details>
 <summary><strong>Which agents can use Escalate Anything?</strong></summary>
 
-Any app that supports MCP: `uvx escalate-anything setup` configures the [supported apps](docs/clients.md). ChatGPT and claude.ai need a remote URL; run the read-only server with the included Dockerfile. Agents without MCP can read the website's JSON and [`llms.txt`](https://intro.alexgaoth.com/escalate-anything/llms.txt).
+Any app that supports MCP: `uvx escalate-anything setup` configures the [supported apps](docs/clients.md). ChatGPT and claude.ai need a remote URL; run the read-only server with the included Dockerfile. Agents without MCP can read the website's JSON and [`llms.txt`](https://escalate.alexgaoth.com/llms.txt).
 </details>
 
 <details>

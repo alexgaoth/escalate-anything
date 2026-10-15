@@ -58,10 +58,10 @@ The read-only server has every lookup, `get_context` and `scam_check`. It has no
 ## No MCP at all
 
 Agents that can fetch URLs, such as browser agents, can read the static site:
-- `https://intro.alexgaoth.com/escalate-anything/registry.json`: everything
-- `https://intro.alexgaoth.com/escalate-anything/companies/<id>.json`: one company with its playbooks
-- `https://intro.alexgaoth.com/escalate-anything/llms.txt`: an index for language models
-- `https://intro.alexgaoth.com/escalate-anything/c/<id>/<issue-slug>/`: one playbook as a plain HTML page (the issue id with `_` changed to `-`); all pages are in `sitemap.xml`
+- `https://escalate.alexgaoth.com/registry.json`: everything
+- `https://escalate.alexgaoth.com/companies/<id>.json`: one company with its playbooks
+- `https://escalate.alexgaoth.com/llms.txt`: an index for language models
+- `https://escalate.alexgaoth.com/c/<id>/<issue-slug>/`: one playbook as a plain HTML page (the issue id with `_` changed to `-`); all pages are in `sitemap.xml`
 
 People can use the CLI:
 

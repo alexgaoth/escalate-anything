@@ -109,12 +109,12 @@ def test_llms_txt_lists_the_company(tmp_path, fixture_registry):
     build_site(tmp_path, fixture_registry)
     text = (tmp_path / "llms.txt").read_text()
     assert text.startswith("# Escalate Anything\n\n> ")
-    assert "- [Example Air](https://intro.alexgaoth.com/escalate-anything/companies/example-air.json)" in text
+    assert "- [Example Air](https://escalate.alexgaoth.com/companies/example-air.json)" in text
     assert "approves every message" in text
-    assert "[California](https://intro.alexgaoth.com/escalate-anything/states/ca.json)" in text
+    assert "[California](https://escalate.alexgaoth.com/states/ca.json)" in text
     assert "`security` field" in text
-    assert "- [Common scams](https://intro.alexgaoth.com/escalate-anything/guides/scams.md)" in text
-    assert "[dossier](https://intro.alexgaoth.com/escalate-anything/dossiers/example-air.md)" in text
+    assert "- [Common scams](https://escalate.alexgaoth.com/guides/scams.md)" in text
+    assert "[dossier](https://escalate.alexgaoth.com/dossiers/example-air.md)" in text
 
 
 def test_index_html_is_self_contained(tmp_path, fixture_registry):

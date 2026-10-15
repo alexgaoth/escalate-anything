@@ -36,7 +36,7 @@ from .advisor import company_summary, get_escalation, get_playbook
 from .pages import build_pages, company_path, guide_path, issue_path, playbook_path
 from .registry import Registry
 
-BASE_URL = "https://intro.alexgaoth.com/escalate-anything/"
+BASE_URL = "https://escalate.alexgaoth.com/"
 REPO_URL = "https://github.com/alexgaoth/escalate-anything"
 WEB_DIR = Path(__file__).with_name("web")
 
