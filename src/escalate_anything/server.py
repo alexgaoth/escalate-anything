@@ -380,6 +380,24 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
             return prompt
         mcp.add_prompt(Prompt.from_function(make(skill["body"]), name=skill["name"], description=skill["description"]))
 
+    # Plain HTTP routes for hosted deployments (ignored on stdio): a health check for the host,
+    # and a short answer for people who open the endpoint URL in a browser.
+    @mcp.custom_route("/health", methods=["GET"])
+    async def health(request):
+        from starlette.responses import JSONResponse
+
+        return JSONResponse({"status": "ok", "companies": len(reg.companies)})
+
+    @mcp.custom_route("/", methods=["GET"])
+    async def home(request):
+        from starlette.responses import PlainTextResponse
+
+        return PlainTextResponse(
+            "Escalate Anything MCP server (read-only).\n"
+            "Add this URL with /mcp at the end to an MCP client, e.g. a custom connector.\n"
+            "Docs: https://github.com/alexgaoth/escalate-anything\n"
+        )
+
     return mcp
 
 

@@ -4,5 +4,5 @@ services:
     name: escalate-anything
     runtime: docker
     plan: free
-    healthCheckPath: /mcp
+    healthCheckPath: /health
     autoDeploy: true
