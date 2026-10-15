@@ -41,3 +41,10 @@ Pull requests opened with the default `GITHUB_TOKEN` do not trigger other workfl
 ## 4. Installed copies update themselves
 
 `uvx escalate-anything` ships a snapshot of the registry. Once a week, when the server starts, it downloads the latest `registry/` from GitHub in the background, validates it with the installed code, and switches to it only if it passes. Run it by hand with `escalate update`. Turn it off with `ESCALATE_OFFLINE=1`. It downloads a public archive and sends nothing about you. Source checkouts use `git pull` instead.
+
+## 5. Releasing a new version
+
+1. Bump the version in `pyproject.toml`, `src/escalate_anything/__init__.py`, `src/escalate_anything/server.py`, `.claude-plugin/plugin.json`, `server.json` (both fields) and `gemini-extension.json`, then run `uv lock`. A test fails if one of them is missed.
+2. Merge, then push a tag `vX.Y.Z` on `main`.
+3. `release.yml` builds the package and publishes it to PyPI (Trusted Publishing).
+4. `mcp-registry.yml` then waits until PyPI serves the version and publishes `server.json` to the official MCP Registry with GitHub OIDC. No token is stored. To republish by hand, run the workflow from the Actions tab.
