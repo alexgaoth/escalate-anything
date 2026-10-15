@@ -12,6 +12,14 @@ Output (served by GitHub Pages):
     guides/<key>.md         sector guides and the scam guide, copied from the registry
     llms.txt                how an agent should use the data, with every company URL
     .nojekyll
+
+and the static, indexable HTML pages from pages.py:
+
+    c/<id>/                 company page
+    c/<id>/<issue-slug>/    one page per playbook (issue id with "_" changed to "-")
+    issues/<issue-slug>/    issue hub with every company playbook for the issue
+    guides/<key>/           guide rendered from Markdown
+    assets/pages.css, sitemap.xml, robots.txt
 """
 
 from __future__ import annotations
@@ -25,6 +33,7 @@ from typing import Any
 from . import context
 from .credibility import company_credibility
 from .advisor import company_summary, get_escalation, get_playbook
+from .pages import build_pages, company_path, guide_path, issue_path, playbook_path
 from .registry import Registry
 
 BASE_URL = "https://intro.alexgaoth.com/escalate-anything/"
@@ -43,8 +52,9 @@ def build_site(out_dir: Path, reg: Registry, base_url: str = BASE_URL, today: dt
     _write_json(out / "registry.json", reg.export())
 
     companies = sorted(reg.companies.values(), key=lambda c: c["name"].lower())
-    for c in companies:
-        _write_json(out / "companies" / f"{c['id']}.json", company_document(reg, c, base_url, today))
+    company_docs = {c["id"]: company_document(reg, c, base_url, today) for c in companies}
+    for cid, doc in company_docs.items():
+        _write_json(out / "companies" / f"{cid}.json", doc)
     _write_json(out / "companies.json", [company_summary(reg, c) for c in companies])
 
     _write_json(out / "issues.json", issues_document(reg))
@@ -63,8 +73,9 @@ def build_site(out_dir: Path, reg: Registry, base_url: str = BASE_URL, today: dt
         _write_json(out / "badges" / f"{name}.json", data)
     (out / "index.html").write_text(index_html(reg, base_url, today), encoding="utf-8")
     (out / ".nojekyll").write_text("", encoding="utf-8")
+    pages = build_pages(out, reg, company_docs, base_url, REPO_URL, today)
     return {"companies": len(companies), "states": len(reg.states), "issues": len(reg.issues),
-            "dossiers": len(reg.dossiers), "guides": len(reg.guides)}
+            "dossiers": len(reg.dossiers), "guides": len(reg.guides), **pages}
 
 
 # ---- JSON documents ----------------------------------------------------------
@@ -78,6 +89,7 @@ def company_document(reg: Registry, c: dict, base_url: str = BASE_URL, today: dt
     return {
         "id": c["id"],
         "page": f"{base_url}#/c/{c['id']}",
+        "html": base_url + company_path(c["id"]),
         "generated": today.isoformat(),
         "company": c,
         "playbooks": {pb["issue"]: get_playbook(reg, c["id"], pb["issue"], None, today) for pb in c.get("playbooks", [])},
@@ -232,21 +244,32 @@ def llms_txt(reg: Registry, base_url: str = BASE_URL) -> str:
         f"- [Issues]({base_url}issues.json): issue vocabulary, generic steps, evidence, and the companies with a playbook",
         f"- [Whole registry]({base_url}registry.json): sectors, issues, regulators, states, rules and companies in one file",
         f"- [MCP server and skills]({REPO_URL}): `escalate serve` adds a case log, draft briefs and bill tracking",
+        f"- [Sitemap]({base_url}sitemap.xml): every HTML page. Each company, playbook, issue and guide has a plain HTML "
+        f"page to cite or show a person: {base_url}c/<company-id>/, {base_url}c/<company-id>/<issue-slug>/ "
+        f"(the issue id with `_` changed to `-`, for example {base_url}{playbook_path('united-airlines', 'delayed_baggage')}), "
+        f"{base_url}issues/<issue-slug>/ and {base_url}guides/<key>/",
         "",
     ]
     if reg.guides:
         lines += ["## Guides", "", "Markdown. Every bullet cites its source.", ""]
         for key, doc in sorted(reg.guides.items(), key=lambda kv: (kv[0] != "scams", kv[0])):
             title = _doc_meta(doc)["title"] or key
-            lines.append(f"- [{title}]({base_url}guides/{key}.md)")
+            lines.append(f"- [{title}]({base_url}guides/{key}.md) ([HTML]({base_url}{guide_path(key)}))")
         lines.append("")
+    by_issue = _companies_by_issue(reg)
+    lines += ["## Issues", "", "HTML pages with the generic steps and every company playbook for the issue.", ""]
+    for iid, i in reg.issues.items():
+        n = len(by_issue.get(iid, []))
+        lines.append(f"- [{i['name']}]({base_url}{issue_path(iid)}): `{iid}`, {n} company playbook{'' if n == 1 else 's'}")
+    lines.append("")
     lines += ["## Companies", ""]
     if reg.dossiers:
         lines += ["A company with a dossier (how complaints actually go, Markdown) has a `dossier` link.", ""]
     for c in sorted(reg.companies.values(), key=lambda c: c["name"].lower()):
         issues = ", ".join(pb["issue"] for pb in c.get("playbooks", [])) or "no playbooks yet"
         dossier = f"; [dossier]({base_url}dossiers/{c['id']}.md)" if c["id"] in reg.dossiers else ""
-        lines.append(f"- [{c['name']}]({base_url}companies/{c['id']}.json): {sector_names.get(c['sector'], c['sector'])}; playbooks: {issues}{dossier}")
+        lines.append(f"- [{c['name']}]({base_url}companies/{c['id']}.json): {sector_names.get(c['sector'], c['sector'])}; "
+                     f"playbooks: {issues}{dossier}; [HTML]({base_url}{company_path(c['id'])})")
     lines += ["", "## States", ""]
     for code, st in sorted(reg.states.items(), key=lambda kv: kv[1]["name"]):
         kinds = ", ".join(sorted({ag["kind"] for ag in st.get("agencies", [])}))
@@ -264,7 +287,7 @@ def index_html(reg: Registry, base_url: str = BASE_URL, today: dt.date | None = 
     # "<" never appears in JSON outside strings, so this escape keeps </script> out of the blob.
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
     noscript = "\n".join(
-        f'<li><a href="companies/{c["id"]}.json">{_html(c["name"])}</a></li>' for c in data["companies"]
+        f'<li><a href="{company_path(c["id"])}">{_html(c["name"])}</a></li>' for c in data["companies"]
     )
     html = (WEB_DIR / "index.html").read_text(encoding="utf-8")
     # Template tokens first, then the inlined assets, then the data, so no inserted text is rewritten.

@@ -46,7 +46,8 @@ def _fixture_copy(tmp_path, name="registry"):
 
 def test_build_writes_every_file(tmp_path, fixture_registry):
     counts = build_site(tmp_path, fixture_registry)
-    assert counts == {"companies": 1, "states": 1, "issues": len(fixture_registry.issues), "dossiers": 1, "guides": 2}
+    assert counts == {"companies": 1, "states": 1, "issues": len(fixture_registry.issues), "dossiers": 1, "guides": 2,
+                      "playbook_pages": 1, "company_pages": 1, "issue_pages": len(fixture_registry.issues), "guide_pages": 2}
     for rel in ["index.html", "registry.json", "companies.json", "companies/example-air.json",
                 "issues.json", "states/ca.json", "llms.txt", ".nojekyll",
                 "dossiers/example-air.md", "guides/airline.md", "guides/scams.md"]:

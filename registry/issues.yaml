@@ -510,7 +510,7 @@ issues:
     description: The company or host charged you for damage you dispute.
     evidence: [your photos at pickup and return, rental agreement, the damage claim]
     steps:
-      - Ask for the evidence in writing: photos, repair invoice and the vehicle or room history.
+      - "Ask for the evidence in writing: photos, repair invoice and the vehicle or room history."
       - Tell your credit card benefit provider or insurer about the claim.
       - Dispute the charge with your card issuer if the company does not give evidence.
 

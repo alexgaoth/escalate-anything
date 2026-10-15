@@ -19,6 +19,8 @@ Bill went up? Bag lost? Refund denied? Your agent knows who to contact, what to 
 
 **[Website](https://intro.alexgaoth.com/escalate-anything/) · [Guides](https://intro.alexgaoth.com/escalate-anything/#/guides)**
 
+Every playbook has its own page, for example [United Airlines: delayed bag](https://intro.alexgaoth.com/escalate-anything/c/united-airlines/delayed-baggage/).
+
 [Quick start](#quick-start) · [How it works](#how-escalate-anything-works) · [What you can fix](#what-you-can-fix) · [Walkthroughs](#walkthroughs) · [Fresh and credible](#fresh-and-credible) · [FAQ](#faq)
 
 <code>uvx escalate-anything setup</code>
