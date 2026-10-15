@@ -209,7 +209,9 @@ issues:
     steps:
       - Decide whether to accept rebooking or ask for a refund. Accepting travel can change your refund rights.
       - If you want money back, ask for a refund to the original form of payment, not a travel credit.
-      - Ask for meals or hotel if the cause was within the airline's control.
+      - Ask the airline for the cause. Ask for meals or hotel if the cause was within the airline's control. From October 19, 2026,
+        ten causes such as unscheduled maintenance that cannot be deferred, medical emergencies and removal of an unruly
+        passenger no longer count as airline-caused for DOT (rule dot-delay-cause-categories). The refund right does not depend on the cause.
       - If the airline does not pay, file a complaint with the U.S. DOT and dispute the charge with your card issuer.
 
   - id: flight_delay
@@ -218,7 +220,9 @@ issues:
     description: The flight was delayed for a long time.
     evidence: [confirmation number, scheduled and actual times, cause given by the airline, receipts for meals and hotel]
     steps:
-      - Ask the airline what it provides for this delay and cause. Save receipts for costs.
+      - Ask the airline what it provides for this delay and cause. Save receipts for costs. From October 19, 2026, ten causes
+        such as unscheduled maintenance that cannot be deferred, medical emergencies and removal of an unruly passenger no
+        longer count as airline-caused for DOT (rule dot-delay-cause-categories), so do not promise meals or hotel for them.
       - Submit receipts through the airline's reimbursement channel.
       - If a long delay is a significant change, ask for a refund instead of travel.
 

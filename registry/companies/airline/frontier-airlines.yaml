@@ -114,20 +114,22 @@ playbooks:
         last_verified: 2026-10-12
 
   - issue: flight_delay
-    summary: Ask for a meal voucher at 3 hours; ask for a refund instead of travel if the delay is more than 3 hours domestic.
+    summary: For a delay within Frontier's control, ask for a meal voucher at 3 hours; ask for a refund instead of travel if the delay is more than 3 hours domestic.
     evidence: [confirmation code, scheduled and actual times, cause given by Frontier, receipts]
     steps:
-      - do: At the airport, ask for a meal voucher once the delay reaches 3 hours.
+      - do: At the airport, ask for a meal voucher once a delay within Frontier's control reaches 3 hours.
+        note: "From October 19, 2026, ten causes are no longer in DOT's 'Air Carrier' (controllable) category, among them unscheduled maintenance that cannot be deferred, a medical emergency and removal of an unruly passenger (rule dot-delay-cause-categories). Ask the agent for the cause. Frontier's own plan still lists 'mechanical issues' as a controllable situation, so quote the plan for a mechanical delay, but do not promise the voucher: DOT may not enforce it for maintenance that cannot be deferred. Refund rights do not depend on the cause."
       - do: If you no longer want to travel, request a refund of the unused portion.
         channel: rebooking-refund-portal
       - do: If Frontier refuses, send a written complaint, then file with the U.S. DOT.
         channel: customer-care-form
     facts:
       - kind: compensation
-        claim: Frontier's Customer Service Plan says "Frontier will provide meal vouchers for flight delays of 3 hours or more", including cancellations where the Frontier rebooking departs 3 or more hours after the original departure. The plan does not list hotel or ground transportation.
+        claim: Frontier's Customer Service Plan says "Frontier will provide meal vouchers for flight delays of 3 hours or more", including cancellations where the Frontier rebooking departs 3 or more hours after the original departure. This applies to "Controllable Situations", which the plan defines as disruptions "considered within Frontier's control (such as delayed baggage or flight delays and cancellations caused by some types of aircraft damage, mechanical issues, etc.)". It names weather, Air Traffic Control and bird strikes as uncontrollable. The plan does not list hotel or ground transportation.
         issues: [flight_delay, flight_cancellation]
+        verified_via: browser
         source: https://www.flyfrontier.com/legal/customer-service-plan/
-        last_verified: 2026-10-12
+        last_verified: 2026-10-14
 
   - issue: delayed_baggage
     summary: Report within 4 hours of arrival at the Baggage Service Office, then track and claim through the NetTracer portal.
