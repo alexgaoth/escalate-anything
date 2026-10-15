@@ -87,3 +87,16 @@ def test_live_registry_reloads_changed_files(tmp_path):
     time.sleep(0.01)
     path.write_text(path.read_text().replace("sector: airline", "sector: spaceline"))
     assert live.companies["example-air"]["sector"] == "airline"
+
+
+def test_http_routes_for_hosting():
+    """A hosted deployment needs a health check and a readable answer at the root URL."""
+    from starlette.testclient import TestClient
+
+    app = build_server(read_only=True).streamable_http_app()
+    with TestClient(app) as client:
+        health = client.get("/health")
+        assert health.status_code == 200 and health.json()["status"] == "ok"
+        assert health.json()["companies"] > 0
+        root = client.get("/")
+        assert root.status_code == 200 and "/mcp" in root.text
