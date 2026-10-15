@@ -252,7 +252,11 @@ def cmd_cases(args: argparse.Namespace) -> int:
     from .store import Store
 
     db = Store()
-    if args.id:
+    if args.id and args.story:
+        from .wins import case_story
+
+        print(case_story(db.get_case(args.id), Registry.load()), end="")
+    elif args.id:
         print(json.dumps(db.get_case(args.id), indent=2))
     else:
         for c in db.list_cases(None if args.all else "open"):
@@ -365,6 +369,7 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("cases", help="list cases in the local log")
     p.add_argument("id", nargs="?", type=int)
     p.add_argument("--all", action="store_true")
+    p.add_argument("--story", action="store_true", help="print a shareable write-up of case ID (no references or names)")
     p.set_defaults(func=cmd_cases)
 
     p = sub.add_parser("feedback", help="list registry problems reported by agents")

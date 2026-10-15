@@ -171,6 +171,10 @@ No. Escalate Anything summarizes public pages from companies and government agen
 Not yet. Companies, rules and regulators are US-only. Contributions for other countries are welcome.
 </details>
 
+## Wins
+
+Got a company to fix something? [Share a win](https://github.com/alexgaoth/escalate-anything/issues/new?template=share-your-case.yml) and see [what worked for others](docs/wins.md). `uvx escalate-anything cases <id> --story` turns your case log into a write-up without reference numbers or names.
+
 ## Star history
 
 If Escalate Anything got you a refund or a fix, a star helps the next person find it.

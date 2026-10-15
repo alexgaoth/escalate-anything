@@ -1,8 +1,13 @@
-name: Share what worked
-description: Tell others how you got a company to fix a problem. Good cases become tactics in the company's dossier.
-title: "[case] <company>: <problem> → <outcome>"
+name: Share a win (or what worked)
+description: Tell others how you got a company to fix a problem. Good cases become tactics in the company's dossier and can be featured in docs/wins.md.
+title: "[win] <company>: <problem> → <outcome>"
 labels: [case]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        Tip: if your agent kept a case log, `uvx escalate-anything cases <id> --story` prints a write-up without reference numbers, names or account details. Paste it below.
+        Please leave out account numbers, reference numbers and personal details.
   - type: input
     id: company
     attributes:
@@ -19,16 +24,54 @@ body:
     id: worked
     attributes:
       label: What worked?
-      description: The channel, the department, what you said or cited, and how long it took. Please leave out account numbers and personal details.
+      description: The channel, the department, what you said or cited, and how long it took.
     validations:
       required: true
+  - type: dropdown
+    id: rung
+    attributes:
+      label: Which step finally worked?
+      options:
+        - Frontline support
+        - Supervisor or retention
+        - Written complaint
+        - Executive office
+        - Federal regulator (DOT, FCC, CFPB, FTC…)
+        - State agency (attorney general, utility or insurance regulator)
+        - Card dispute or chargeback
+        - Arbitration or small claims
+        - Other
   - type: input
     id: outcome
     attributes:
       label: Outcome
-      placeholder: "$180 refunded after 12 days"
+      placeholder: "$180 refunded"
+  - type: input
+    id: amount
+    attributes:
+      label: Amount recovered or saved (USD, optional)
+      placeholder: "180"
+  - type: input
+    id: days
+    attributes:
+      label: How many days did it take? (optional)
+      placeholder: "12"
   - type: input
     id: when
     attributes:
       label: When did this happen?
       placeholder: 2026-09
+  - type: dropdown
+    id: used
+    attributes:
+      label: Did you use Escalate Anything?
+      options:
+        - "Yes, with an AI agent"
+        - "Yes, the website or CLI"
+        - "No"
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Sharing
+      options:
+        - label: You may quote this case, without my name, in docs/wins.md and on the website.

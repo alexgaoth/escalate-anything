@@ -55,6 +55,8 @@ The ladder usually goes: frontline → written complaint → executive → regul
 
 When it is resolved, call `case_close` with the outcome, the amount recovered and `what_worked`.
 
+Then ask whether the person wants to share what worked, so others can use it. If yes, give them the write-up from `uvx escalate-anything cases <id> --story` (it leaves out reference numbers, names and account details) and the link to the Share a win form: https://github.com/alexgaoth/escalate-anything/issues/new?template=share-your-case.yml . The person reads it and posts it themselves.
+
 ## Rules
 
 - Cite only facts and in-force rules from the tools, with their sources. Never cite anything listed under `not_in_force` or `do_not_cite`.

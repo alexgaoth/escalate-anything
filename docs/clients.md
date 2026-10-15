@@ -12,7 +12,7 @@ uvx escalate-anything install --all
 
 `escalate install` merges into each app's config file, backs the file up first (`*.bak-escalate-<time>`), and never rewrites files that can hold comments or YAML. For those, it prints the snippet to paste. `escalate uninstall <app>` removes it again. Add `--dry-run` to preview.
 
-Every app below runs the same command: `uvx escalate-anything`. Until the first PyPI release, use `uvx --from git+https://github.com/alexgaoth/escalate-anything escalate-anything` instead.
+Every app below runs the same command: `uvx escalate-anything`.
 
 ## One-click
 
