@@ -448,6 +448,7 @@ GET ${esc(D.base)}registry.json</code></pre>
         ${isUrl(rec.account_url) ? `<a class="btn" href="${esc(rec.account_url)}">Sign in to your account <span class="ext" aria-hidden="true"></span></a>` : ""}
         <button type="button" class="btn" data-scroll="contacts">All contacts</button>
         <a class="btn" href="companies/${esc(c.id)}.json">JSON data</a>
+        <a class="btn" href="c/${esc(c.id)}/">Open as a page</a>
       </div>` : "";
     const jump = c.issues.length ? `<div class="jump"><p class="label" id="jump-l">Get help with</p>
         <ul class="chips" aria-labelledby="jump-l">${c.issues.map((i) => `<li><a class="chip" href="#/c/${esc(c.id)}/${esc(i)}">${esc(issueName(i))}</a></li>`).join("")}</ul></div>` : "";
@@ -492,7 +493,7 @@ GET ${esc(D.base)}registry.json</code></pre>
         ${rules.length ? `<h3>Rules that may apply</h3><ul class="rules">${rules.map(ruleHtml).join("")}</ul>` : ""}
         ${off.length ? `<h3>Rules not in force</h3><ul class="rules">${off.map(ruleHtml).join("")}</ul>` : ""}
         ${warn.length ? `<div class="box warn" style="margin-top:16px"><ul class="blockers">${warn.map((w) => `<li>${esc(w)}</li>`).join("")}</ul></div>` : ""}
-        <div class="pb-actions"><button type="button" class="linklike" data-copylink="${esc(issue)}">Copy link to this playbook</button></div>
+        <div class="pb-actions"><a class="linklike" href="c/${esc(c.id)}/${esc(issue.replace(/_/g, "-"))}/">Open as a page</a><button type="button" class="linklike" data-copylink="${esc(issue)}">Copy link to this playbook</button></div>
       </div>
     </details>`;
   }

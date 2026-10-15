@@ -57,7 +57,8 @@ def cmd_site(args: argparse.Namespace) -> int:
         return 1
     out = Path(args.output)
     counts = build_site(out, reg, base_url=args.base_url)
-    print(f"wrote {out}/ ({counts['companies']} companies, {counts['states']} states)", file=sys.stderr)
+    html = sum(v for k, v in counts.items() if k.endswith("_pages"))
+    print(f"wrote {out}/ ({counts['companies']} companies, {counts['states']} states, {html} HTML pages)", file=sys.stderr)
     return 0
 
 

@@ -218,7 +218,7 @@ main, main.wrap { min-height: 70vh; padding-bottom: 64px; outline: none; }
 .pb-sum { display: block; color: var(--muted); font-size: .9375rem; margin-top: 3px; }
 .pb-body { padding: 4px 16px 18px; border-top: 1px solid var(--border); }
 .pb-body h3 { font-size: .9375rem; font-weight: 650; margin: 20px 0 8px; }
-.pb-actions { display: flex; justify-content: flex-end; margin-top: 16px; }
+.pb-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px 18px; margin-top: 16px; }
 .linklike { background: none; border: 0; padding: 0; color: var(--accent); cursor: pointer; text-decoration: underline; text-underline-offset: 2px; font-size: .875rem; }
 
 .evidence { list-style: none; display: grid; gap: 4px 20px; }
