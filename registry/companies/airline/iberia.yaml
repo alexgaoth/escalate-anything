@@ -1,0 +1,439 @@
+id: iberia
+name: Iberia
+aliases: [iberia airlines, iberia lineas aereas de espana, iberia lae sa operadora, iberia.com]
+sector: airline
+parent: International Airlines Group (IAG)
+website: https://www.iberia.com/gb/
+account_url: https://www.iberia.com/gb/manage-my-booking/
+countries: [eu, es, gb, ch]
+regulators: [eu-air-passenger-nebs, eu-ecc-net, de-bfj-luftverkehr, es-aesa]
+
+channels:
+  - id: customer-service-phone-uk
+    type: phone
+    label: Customer service, bookings and baggage, United Kingdom
+    value: +44-20-3003-2109
+    hours: Monday to Sunday 00:00-24:00 (English and Spanish)
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, delayed_baggage, lost_baggage, accessibility]
+    notes: >-
+      The UK office page lists this one number for Bookings, the Iberia Baggage Services Centre, Iberia On Business
+      and "Ask us". The page prints it as "+44 0 20 3003 2109". The special assistance page says to request
+      assistance at least 48 hours before departure, and gives this number.
+    verified_via: browser
+    source: https://www.iberia.com/gb/contact/
+    last_verified: 2026-11-19
+  - id: customer-service-phone-spain
+    type: phone
+    label: Customer service and bookings, Spain (local line)
+    value: +34-913-33-67-01
+    hours: Monday to Sunday 00:00-24:00 (English and Spanish)
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request]
+    notes: >-
+      The Spain office page calls this a "local telephone without additional charges". The free number 900 111 500
+      works only within Spain. The customer services page prints the local line as "+34 91 333 6701".
+    verified_via: browser
+    source: https://www.iberia.com/es/contact/
+    last_verified: 2026-11-19
+  - id: baggage-phone-spain
+    type: phone
+    label: Iberia Baggage Services Centre, Spain (local line)
+    value: +34-913-33-67-02
+    hours: Monday to Sunday 00:00-24:00 (English and Spanish)
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    notes: The free number 900 111 342 works only within Spain. From the UK, the baggage centre uses the UK number +44-20-3003-2109.
+    verified_via: browser
+    source: https://www.iberia.com/es/contact/
+    last_verified: 2026-11-19
+  - id: whatsapp-assistant
+    type: chat
+    label: Iberia virtual assistant on WhatsApp (+34 676 676 004)
+    value: https://api.whatsapp.com/send?phone=34676676004
+    purposes: [flight_cancellation, flight_delay, refund_request]
+    notes: >-
+      A virtual assistant in Spanish; you can write in English and it replies in English, but links go to the Spanish
+      site. The delays and cancellations FAQ says you can write "Request refund" to start a refund for a cancelled
+      flight.
+    verified_via: browser
+    source: https://www.iberia.com/gb/faqs/delayed-or-cancelled-flights/
+    last_verified: 2026-11-19
+  - id: flight-disruption-claims
+    type: web_form
+    label: Claims for flight cancellations, delays, missed connections, denied boarding and schedule changes
+    value: https://www.iberia.com/gb/claims/flight-disruptions/
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, ancillary_fee_refund]
+    access: open
+    notes: >-
+      Hub page with one form for each reason. Each form asks first for the booking code and ticket number. You get a
+      confirmation email with a reference number. Iberia handles claims in Spanish, Catalan, Portuguese, English,
+      French, German, Italian, Chinese and Japanese. You can claim for someone else with their authorisation.
+    verified_via: browser
+    source: https://www.iberia.com/gb/claims-receipts/
+    last_verified: 2026-11-19
+  - id: cancelled-flight-form
+    type: web_form
+    label: Cancelled flight claim and refund form
+    value: https://www.iberia.com/gb/claims/cancelled-flight/
+    purposes: [flight_cancellation, refund_request, ancillary_fee_refund]
+    access: open
+    notes: >-
+      Three steps (booking details, passenger rights, check details). Needs the booking code and ticket number. The FAQ
+      says to use this form for a refund if you did not accept the alternative Iberia proposed, and to list unused
+      extras (seats, bags) in the comments.
+    verified_via: browser
+    source: https://www.iberia.com/gb/claims/flight-disruptions/
+    last_verified: 2026-11-19
+  - id: delayed-flight-form
+    type: web_form
+    label: Delayed flight claim form
+    value: https://www.iberia.com/gb/claims/delayed-flight/
+    purposes: [flight_delay, refund_request]
+    access: open
+    notes: Needs the booking code and ticket number. A separate form covers missed connections (https://www.iberia.com/gb/claims/connecting-flight/).
+    verified_via: browser
+    source: https://www.iberia.com/gb/claims/flight-disruptions/
+    last_verified: 2026-11-19
+  - id: denied-boarding-form
+    type: web_form
+    label: Denied boarding claim form
+    value: https://www.iberia.com/gb/claims/flight-denied/
+    purposes: [denied_boarding, refund_request]
+    access: open
+    notes: Needs the booking code and ticket number.
+    verified_via: browser
+    source: https://www.iberia.com/gb/claims/flight-disruptions/
+    last_verified: 2026-11-19
+  - id: complaints-form
+    type: web_form
+    label: Complaints form (service, seat change, baggage, in-flight entertainment and Wi-Fi, meals; delayed bag expenses)
+    value: https://www.iberia.com/gb/customer-relations/
+    purposes: [poor_service, delayed_baggage, damaged_baggage, lost_baggage, ancillary_fee_refund, accessibility]
+    access: open
+    notes: >-
+      Claim types offered are Assistance, Personal assistance, Seat change, Baggage, In-flight Entertainment/Wi-Fi and
+      Cuisine Service. Needs the booking code and ticket number. The claims page links its "Delayed baggage" shortcut
+      here, and the baggage page sends damage found after leaving the airport here. The same page has a status check
+      that asks for the reference, surname and an ID document number.
+    verified_via: browser
+    source: https://www.iberia.com/gb/claims-receipts/
+    last_verified: 2026-11-19
+  - id: claim-status
+    type: portal
+    label: Check the status of a claim
+    value: https://www.iberia.com/gb/claims/check-claim-status/
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, poor_service]
+    verified_via: browser
+    source: https://www.iberia.com/gb/claims-receipts/
+    last_verified: 2026-11-19
+  - id: manage-booking-refund
+    type: portal
+    label: Manage your booking (rebook, refund as voucher or cash, add special assistance)
+    value: https://www.iberia.com/gb/manage-my-booking/
+    purposes: [flight_cancellation, flight_delay, refund_request, travel_credit, accessibility]
+    notes: >-
+      Sign in with surname and booking code. Online changes and refunds work only for bookings made on iberia.com or
+      the app, for all passengers, fewer than 9 people, before check-in and more than 2 hours before departure;
+      other cases are by phone. Refund status can be tracked at https://www.iberia.com/gb/refund-tracking/.
+    verified_via: browser
+    source: https://www.iberia.com/gb/changes-and-refunds/
+    last_verified: 2026-11-19
+  - id: online-pir-and-tracker
+    type: portal
+    label: Open a delayed bag report (PIR) online, update it and track the bag
+    value: https://inci.iberia.com/QSP/client/my-bags-info
+    purposes: [delayed_baggage, lost_baggage]
+    notes: >-
+      For flights operated by the Iberia Group (Iberia, Iberia Express, Iberia Regional Air Nostrum). Open the PIR
+      before you leave the baggage reclaim area, at the desk, online or with the QR codes at the desk. The PIR code
+      has 5 letters and 5 numbers (for example MADIB12345). You can paste an Apple AirTag share link into the PIR.
+    verified_via: browser
+    source: https://www.iberia.com/gb/baggage/tracing/
+    last_verified: 2026-11-19
+  - id: damaged-bag-replacement
+    type: web_form
+    label: Damaged suitcase replacement after a PIR (run by Europ Assistance for Iberia)
+    value: https://equipajes.europ.es/iberia/pir
+    purposes: [damaged_baggage]
+    notes: >-
+      Iberia's "Manage replacement" link for bags and suitcases after a damage PIR at the airport. For other types of
+      baggage, contact the Iberia Baggage Service Centre. This site is not on iberia.com.
+    verified_via: browser
+    source: https://www.iberia.com/gb/baggage/tracing/
+    last_verified: 2026-11-19
+  - id: personal-data-request
+    type: web_form
+    label: Personal data request form (access, update, objection, erasure, portability)
+    value: https://www.iberia.com/gb/management-of-personal-data/
+    purposes: [privacy_request]
+    access: open
+    verified_via: browser
+    source: https://www.iberia.com/gb/management-of-personal-data/
+    last_verified: 2026-11-19
+  - id: general-email
+    type: email
+    label: General email in the legal notice
+    value: info@iberia.es
+    purposes: [poor_service]
+    notes: >-
+      Listed in the legal notice with the postal address Apdo. Correos 62033, 28080 Madrid (only valid as a postal
+      address). The help pages send claims to the online forms instead.
+    verified_via: browser
+    source: https://www.iberia.com/gb/legal-information/
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone-uk}
+  - {rung: written_complaint, channel: flight-disruption-claims}
+  - {rung: regulator, regulator: eu-air-passenger-nebs, note: "National Enforcement Body of the country where the incident happened (departure airport; for flights into the EU on an EU carrier, the arrival airport). See regulators/eu-air-passenger-nebs."}
+  - {rung: regulator, regulator: de-bfj-luftverkehr, note: "Iberia is not on the Schlichtungsstelle Reise & Verkehr member list, so a claim where German courts have jurisdiction (for example a flight from or to Germany) goes to the federal conciliation body at the Bundesamt für Justiz. Claim from the airline first and wait two months; claims of EUR 10.01 to 5,000; the proposal binds neither side."}
+  - {rung: regulator, regulator: es-aesa, note: "For a flight that departed from Spain, or flew to Spain from outside the EU on an EU airline, from 2 June 2023: AESA's dispute resolution is mandatory for every airline and its decision binds the airline (not the passenger). Claim from the airline first; if it does not answer within one month or you reject the answer, file with AESA within one year of that claim. Not for baggage."}
+  - {rung: regulator, regulator: eu-ecc-net, note: "Free help from the European Consumer Centre in your country when the airline is based in another EU country, Iceland or Norway."}
+  - {rung: payment_dispute, note: "Card chargeback for a refund the airline owes but has not paid."}
+  - {rung: small_claims, note: "European Small Claims Procedure for cross-border claims up to EUR 5,000 (rules/eu-small-claims-procedure); otherwise the national court. Time limits for EU261 claims are set by national law."}
+
+playbooks:
+  - issue: flight_cancellation
+    summary: Choose rebooking, a voucher or a cash refund in Manage your booking; if you did not accept the alternative, claim the refund and any compensation with the cancelled flight form.
+    evidence: [booking code, ticket number, cancellation email, receipts for meals or hotel, boarding passes]
+    steps:
+      - do: Do not accept the voucher if you want money back. In Manage your booking, choose rebooking, another flight, or a refund as a voucher (instant) or as cash to the original payment method.
+        channel: manage-booking-refund
+      - do: If you did not accept the alternative flight, or online management does not work, submit the cancelled flight form with the booking code and ticket number. List unused extras (seats, bags) in the comments.
+        channel: cancelled-flight-form
+      - do: If you booked through a travel agency, contact the agency for rebooking or a refund.
+      - do: Track the claim with the reference number from the confirmation email.
+        channel: claim-status
+      - do: If Iberia does not reply or refuses, complain to the National Enforcement Body for the departure airport.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: compensation
+        claim: >-
+          Iberia's passenger rights page says that, unless the cancellation is due to extraordinary circumstances or you
+          were told early enough, compensation is 250 euros for flights under 1,500 km, 400 euros for intra-Community
+          flights over 1,500 km and other flights of 1,500 to 3,500 km, and 600 euros for other flights. It is halved
+          (125, 200 or 300 euros) when the re-routing offered arrives no more than 2, 3 or 4 hours late.
+        issues: [flight_cancellation]
+        verified_via: browser
+        source: https://www.iberia.com/gb/passengers-rights/
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: >-
+          For a refund requested through the form, Iberia says you will get a first response within 10 days, and after
+          the refund is processed it may take up to 30 days to reach your account, depending on the bank.
+        issues: [flight_cancellation, refund_request]
+        verified_via: browser
+        source: https://www.iberia.com/gb/faqs/delayed-or-cancelled-flights/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Iberia's passenger rights page offers reimbursement within 7 days of the unused part of the journey, or re-routing, plus meals, two calls or emails, and a hotel with transport when an overnight stay is needed.
+        issues: [flight_cancellation, refund_request]
+        verified_via: browser
+        source: https://www.iberia.com/gb/passengers-rights/
+        last_verified: 2026-11-19
+
+  - issue: flight_delay
+    summary: Ask for meals and, if needed, a hotel at the airport; after 5 hours you may cancel for a refund; claim with the delayed flight form.
+    evidence: [booking code, ticket number, scheduled and actual times, cause given by Iberia, receipts]
+    steps:
+      - do: At the airport, ask the check-in desk or the Customer Service point in the boarding area for meals, two calls or emails, and a hotel if you must stay overnight. Keep receipts for anything you buy.
+      - do: If the delay is more than 5 hours and you no longer want to travel, request a refund in Manage your booking.
+        channel: manage-booking-refund
+      - do: Submit the delayed flight claim form for expenses, compensation or the refund (missed connections have a separate form).
+        channel: delayed-flight-form
+      - do: If Iberia does not reply or refuses, complain to the National Enforcement Body for the departure airport.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: policy
+        claim: >-
+          Iberia's passenger rights page says it offers meals and refreshments, two calls or emails, and a hotel with
+          transport if needed when it expects a delay of 2 hours or more (flights up to 1,500 km), 3 hours or more
+          (intra-Community flights over 1,500 km and other flights of 1,500-3,500 km) or 4 hours or more (all other
+          flights). When the delay is more than five hours you may choose reimbursement within 7 days.
+        issues: [flight_delay]
+        verified_via: browser
+        source: https://www.iberia.com/gb/passengers-rights/
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: The claims page says Iberia aims to reply within 7 business days, and up to 21 days for more complex claims. The reply comes by email.
+        issues: [flight_delay, flight_cancellation, denied_boarding]
+        verified_via: browser
+        source: https://www.iberia.com/gb/claims-receipts/
+        last_verified: 2026-11-19
+
+  - issue: denied_boarding
+    summary: Deal with airport staff for rebooking; if you do not fly, claim a refund and denied boarding compensation with the form.
+    evidence: [boarding pass, booking code, ticket number, check-in time, written reason from the airport staff]
+    steps:
+      - do: Ask the airport staff to rebook you. Iberia says its Customer Service Centre cannot move you to another flight in this case.
+      - do: If you decide not to fly, or you were not compensated, submit the denied boarding form with the booking code and ticket number.
+        channel: denied-boarding-form
+      - do: If Iberia does not pay, complain to the National Enforcement Body for the departure airport.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: compensation
+        claim: >-
+          Iberia's passenger rights page lists denied boarding compensation of 250 EUR (flights under 1,500 km), 400 EUR
+          (intra-Community flights over 1,500 km and others of 1,500-3,500 km) and 600 EUR (other flights), or an MCO
+          voucher, reduced by 50% when the alternative flight arrives no more than 2, 3 or 4 hours late. Vouchers
+          need the passenger's signed agreement.
+        issues: [denied_boarding]
+        verified_via: browser
+        source: https://www.iberia.com/gb/passengers-rights/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: The denied boarding FAQ says there is no solution if you chose not to board, for health, safety or behaviour reasons, if you lacked travel documents, refused security checks or reached the gate too late, or if your ticket was not available to the public.
+        issues: [denied_boarding]
+        verified_via: browser
+        source: https://www.iberia.com/gb/faqs/delayed-or-cancelled-flights/
+        last_verified: 2026-11-19
+
+  - issue: delayed_baggage
+    summary: Open a PIR before leaving baggage reclaim, track it online, and claim essential purchases with receipts within 21 days.
+    evidence: [PIR code (5 letters and 5 numbers), bag tag, ticket, boarding pass, receipts that state the purpose of each purchase]
+    steps:
+      - do: Before you leave the baggage reclaim area, open a Property Irregularity Report (PIR) at the Customer Service desk, online or with the QR code at the desk. Keep the PIR code.
+        channel: online-pir-and-tracker
+      - do: Track the bag and update the delivery address with the PIR code.
+        channel: online-pir-and-tracker
+      - do: If the bag has not arrived 72 hours after your flight, contact the Iberia Baggage Services Centre.
+        channel: customer-service-phone-uk
+      - do: Claim essential items (toiletries, medication) with the PIR number, flight and passenger details, a description of the expenses and the receipts.
+        channel: complaints-form
+      - do: If Iberia does not pay, ask the European Consumer Centre in your country for help.
+        regulator: eu-ecc-net
+    facts:
+      - kind: deadline
+        claim: Iberia's passenger rights page gives 21 days to lodge a compensation claim for delayed baggage, counted under the Montreal Convention from the date the baggage was placed at your disposal, and two years to start a court action.
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://www.iberia.com/gb/passengers-rights/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Iberia says delayed baggage compensation, if applicable, is paid after its Customer Service Centre assesses the invoices for essential items, and receipts must specify the purpose of the purchase. It applies only if you are away from your place of residence.
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://www.iberia.com/gb/baggage/tracing/
+        last_verified: 2026-11-19
+
+  - issue: lost_baggage
+    summary: If the bag is still missing after 72 hours, contact the Baggage Services Centre with the contents; claim within 21 days, up to 1,519 SDR.
+    evidence: [PIR code, bag tag, list of contents with values, receipts, ticket and boarding pass]
+    steps:
+      - do: Make sure a PIR was opened and you have its code.
+        channel: online-pir-and-tracker
+      - do: After 72 hours without the bag, contact the Iberia Baggage Services Centre and give details of the contents.
+        channel: customer-service-phone-uk
+      - do: File the baggage claim with the contents list and receipts.
+        channel: complaints-form
+      - do: If you have travel insurance, ask Iberia for a report for the insurer.
+      - do: If Iberia does not pay, ask the European Consumer Centre in your country for help.
+        regulator: eu-ecc-net
+    facts:
+      - kind: limit
+        claim: Iberia's passenger rights page limits compensation for misplaced baggage to 1,519 special drawing rights per passenger without a prior value declaration, and deducts any amount already paid for the delay.
+        issues: [lost_baggage]
+        verified_via: browser
+        source: https://www.iberia.com/gb/passengers-rights/
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: The same page gives 21 days to lodge a compensation claim for misplaced baggage and two years to start a court action.
+        issues: [lost_baggage]
+        verified_via: browser
+        source: https://www.iberia.com/gb/passengers-rights/
+        last_verified: 2026-11-19
+
+  - issue: damaged_baggage
+    summary: Open a PIR at the baggage reclaim desk before leaving; then arrange a replacement online, or use the complaints form if you found the damage later. Claim within 7 days.
+    evidence: [PIR code, photos of the damage, bag tag, boarding pass]
+    steps:
+      - do: Before leaving the airport, open a damage PIR at the Customer Service desk in the baggage reclaim area.
+      - do: For a damaged suitcase or bag, arrange the replacement through Iberia's "Manage replacement" link.
+        channel: damaged-bag-replacement
+      - do: If you found the damage after leaving the airport, or after a delayed bag was delivered, fill in the complaints form.
+        channel: complaints-form
+      - do: For other types of baggage, contact the Iberia Baggage Services Centre.
+        channel: baggage-phone-spain
+    facts:
+      - kind: deadline
+        claim: Iberia's passenger rights page gives 7 days to lodge a claim for damaged baggage, quoting the Montreal Convention (from the date the baggage was placed at your disposal).
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://www.iberia.com/gb/passengers-rights/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: For damaged baggage Iberia offers, in this order, repair, replacement with a similar item, or up to 1,519 special drawing rights per passenger. The baggage page says normal wear and tear is not covered.
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://www.iberia.com/gb/passengers-rights/
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: >-
+      Iberia's Spain-market passenger rights page says that for claims under Law 7/2017 and Order TMA/201/2022, if you
+      are not satisfied with Iberia's answer or get none within one month, you may go to AESA for alternative dispute
+      resolution under Regulations 261/2004 and 1107/2006. This excludes baggage claims and damages beyond the fixed
+      compensation. AESA does not admit claims made more than one year after the claim to Iberia, and its decision is
+      binding on Iberia.
+    issues: [flight_cancellation, flight_delay, denied_boarding, accessibility]
+    verified_via: browser
+    source: https://www.iberia.com/es/passengers-rights/
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: For a cancellation or delay, Iberia offers a refund as a voucher that you receive instantly, or as cash to the original payment method, which takes longer. Tickets bought with Avios are refunded to the Iberia Club account.
+    issues: [flight_cancellation, flight_delay, travel_credit, refund_request]
+    verified_via: browser
+    source: https://www.iberia.com/gb/faqs/delayed-or-cancelled-flights/
+    last_verified: 2026-11-19
+  - kind: process
+    claim: You can file a claim on behalf of someone else if you have their authorisation, entering the details of the flight and the affected passenger.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    verified_via: browser
+    source: https://www.iberia.com/gb/claims-receipts/
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: The customer services FAQ says Iberia is committed to responding within 10 days, and that a financial compensation payment may take up to 30 days to reach your account after it is ordered.
+    issues: [flight_cancellation, flight_delay, denied_boarding, refund_request]
+    verified_via: browser
+    source: https://www.iberia.com/gb/customer-services/
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: For extras on a voluntary change, Iberia refunds them as a voucher; when you get a refund for the flight, extras bought from Iberia are refunded with the ticket to the original payment method. "Flexibility à la carte" is non-refundable.
+    issues: [ancillary_fee_refund]
+    verified_via: browser
+    source: https://www.iberia.com/gb/changes-and-refunds/
+    last_verified: 2026-11-19
+
+known_blockers:
+  - Every claim form asks first for the booking code and the ticket number. Status checks ask for the reference, surname and an ID document number.
+  - Online changes and refunds in Manage your booking need the surname and booking code and work only for direct bookings with fewer than 9 people; other cases are by phone.
+  - Bookings made through a travel agency must be refunded or changed through the agency.
+  - The site blocks automated fetches (HTTP 403); pages load in a normal browser.
+
+notes: >-
+  Checked in the built-in browser on 2026-11-19 (iberia.com returns 403 to direct fetches). Conflicts: reply times
+  differ between pages (7 business days and up to 21 days on the claims page; 10 days on the customer services and
+  delays FAQ pages; 7 days in the Service Commitment). The passenger rights page promises reimbursement within 7 days,
+  while the refund FAQ says money may take up to 30 days to reach the account. The UK passenger rights page names the
+  CAA's PACT for flights to or from the UK and still links the EU ODR platform. The Spain-market English page
+  (iberia.com/es/passengers-rights/) states the AESA ADR route (see facts); the legal notice names AESA as the
+  supervisory body. Iberia's pages do not mention compensation for long delays, only assistance and refunds. Iberia
+  Express and Iberia Regional Air Nostrum flights use the same baggage service, but they were not added as aliases.
+  No Iberia page found that warns of fake social media accounts.
+
+official_domains: [iberia.com, iberia.es]
+security:
+  never_asks:
+    - kind: policy
+      claim: Iberia says it would never send an email asking you to give your personal information or passwords.
+      verified_via: browser
+      source: https://www.iberia.com/gb/security-recommendations/
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: >-
+        Iberia warns of phishing emails that copy its site to obtain passwords and card details, and says to delete any
+        notice about a booking you did not make or whose booking reference does not match the one Iberia gave you. If
+        you entered details on a fake site, change your Iberia password at once.
+      verified_via: browser
+      source: https://www.iberia.com/gb/security-recommendations/
+      last_verified: 2026-11-19

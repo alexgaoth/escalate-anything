@@ -1,0 +1,658 @@
+id: eu-ecc-net
+name: European Consumer Centres Network (ECC-Net)
+short_name: ECC-Net
+country: eu
+level: supranational
+covers_sectors: [airline, travel_agency, lodging, car_rental, ground_transport, cruise, retail]
+covers_issues:
+  - flight_cancellation
+  - flight_delay
+  - denied_boarding
+  - delayed_baggage
+  - lost_baggage
+  - damaged_baggage
+  - accessibility
+  - refund_request
+  - reservation_problem
+  - damage_claim
+  - damaged_item
+  - warranty_claim
+website: https://commission.europa.eu/topics/consumers/consumer-rights-and-complaints/resolve-your-consumer-complaint/european-consumer-centres-network-ecc-net_en
+when_to_use: >-
+  Free help when you live in an EU country, Iceland or Norway and have a consumer complaint against a
+  trader based in a different one of those countries (a cross-border complaint), for example an airline,
+  hotel, car rental company, travel agency or web shop. Complain to the trader in writing first and give it
+  time to answer. Then contact the European Consumer Centre (ECC) in the country where YOU live, not the
+  trader's country. ECCs also take complaints against traders in the United Kingdom, but the UK left
+  ECC-Net, so UK residents go to the UK International Consumer Centre. ECC-Net cannot help with traders in
+  Switzerland or other non-EU countries, with domestic complaints, or with fraud and financial products.
+  ECCs mediate; they cannot force a trader to pay.
+
+channels:
+  - id: ecc-net-commission
+    type: portal
+    label: European Commission ECC-Net page, with a link to the centre in each country
+    value: https://commission.europa.eu/topics/consumers/consumer-rights-and-complaints/resolve-your-consumer-complaint/european-consumer-centres-network-ecc-net_en
+    notes: >-
+      Says "You must contact ECC Net in the country where you live." The country links go to each
+      centre's home page; some of them are old addresses that redirect (for example Hungary and Spain).
+      The ECC-Net directory (channel ecc-net-directory) links straight to each centre's complaint or
+      contact page.
+    source: https://commission.europa.eu/topics/consumers/consumer-rights-and-complaints/resolve-your-consumer-complaint/european-consumer-centres-network-ecc-net_en
+    last_verified: 2026-11-19
+  - id: ecc-net-directory
+    type: portal
+    label: ECC-Net directory "Contact your local ECC" (one card per centre, linked to its complaint or contact page)
+    value: https://www.eccnet.eu/contact-your-local-ecc
+    notes: >-
+      Lists 31 offices for the 29 centres (Austria and Italy have two offices each). The page says to
+      click your local ECC's card and submit the enquiry on that national ECC's website, and that replies
+      can take a while because ECCs receive more cases than usual. The UK is not listed "because it left
+      the EU in 2020".
+    source: https://www.eccnet.eu/contact-your-local-ecc
+    last_verified: 2026-11-19
+
+  - id: ecc-at
+    type: web_form
+    label: "Austria: Europäisches Verbraucherzentrum Österreich (ECC Austria) complaint form"
+    value: https://portal.vki.at/EVZ/NewComplaint?Locale=en-GB&Org=VKI
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: open
+    notes: >-
+      English input screen of the online form run by VKI, the host of ECC Austria. The same form takes
+      questions and complaints; choose "Complaint" at step 3. Step 7 asks for your correspondence with the
+      company as one PDF file. Instructions for each step are on the source page.
+    source: https://europakonsument.at/en/complaint-form
+    last_verified: 2026-11-19
+
+  - id: ecc-be
+    type: web_form
+    label: "Belgium: European Consumer Centre Belgium (ECC Belgium) complaint form"
+    value: https://webforms.eccnet.eu/en/belgium/complaint
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: open
+    notes: >-
+      For consumers who live in Belgium, against a trader in another EU country, Iceland, Norway or the UK.
+      Contact the trader in writing first and wait a reasonable time. Send one complete complaint with the
+      full proof of purchase, proof of payment and the main correspondence (one PDF or Word file); no ZIP
+      files. ECC Belgium asks for your IBAN and BIC only when a refund is involved. No other body (ombudsman,
+      court, lawyer, payment provider) may handle the case at the same time. Response time can be up to
+      three months.
+    source: https://www.eccbe.eu/en/solve-your-problem/looking-for-legal-support/
+    last_verified: 2026-11-19
+  - id: ecc-be-phone
+    type: phone
+    label: "Belgium: ECC Belgium phone line"
+    value: +32-2-277-99-00
+    hours: "Monday to Friday, 9:00 to 12:30"
+    notes: If you already sent a written request, give your reference number (ECCBE-XXXXXX).
+    source: https://www.eccbe.eu/en/contact-en/
+    last_verified: 2026-11-19
+
+  - id: ecc-bg
+    type: web_form
+    label: "Bulgaria: European Consumer Centre Bulgaria (ECC Bulgaria) complaint form"
+    value: https://www.ecc.bg/en/complaint
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: open
+    notes: For residents of Bulgaria. Where possible, notify the trader of the problem first (email, letter).
+    source: https://www.ecc.bg/en/submit-complaint
+    last_verified: 2026-11-19
+  - id: ecc-bg-phone
+    type: phone
+    label: "Bulgaria: ECC Bulgaria office phone"
+    value: +359-2-986-76-72
+    hours: "Every working day, 9:00 to 13:00 and 13:30 to 17:30 (office opening hours)"
+    source: https://www.ecc.bg/en/kontakti
+    last_verified: 2026-11-19
+
+  - id: ecc-hr
+    type: email
+    label: "Croatia: Europski potrošački centar Hrvatska (ECC Croatia) email"
+    value: ecc-croatia@mingo.hr
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    notes: >-
+      The contact page (in Croatian) shows only this email address and the office at the Ministry of
+      Economy, Ulica grada Vukovara 78, 10000 Zagreb; hours for clients 9:00 to 15:00. No online complaint
+      form was found.
+    source: https://www.ecc-croatia.hr/kontakt/
+    last_verified: 2026-11-19
+
+  - id: ecc-cy
+    type: web_form
+    label: "Cyprus: European Consumer Centre Cyprus (ECC Cyprus) complaint form"
+    value: https://webforms.eccnet.eu/en/cyprus/complaint
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: open
+    notes: Proof of prior written contact with the trader by email is a prerequisite.
+    source: https://ecccyprus.gov.cy/en/our-services/complaint-form/
+    last_verified: 2026-11-19
+
+  - id: ecc-cz
+    type: web_form
+    label: "Czechia: European Consumer Centre Czech Republic (ECC Czech Republic) complaint form"
+    value: https://webforms.eccnet.eu/en/czech-republic/complaint
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: open
+    notes: >-
+      For Czech residents. Attach the documents about the claim, your explanation of the problem and your
+      communication with the trader.
+    source: https://evropskyspotrebitel.gov.cz/how-to-submit-your-complaint/
+    last_verified: 2026-11-19
+  - id: ecc-cz-phone
+    type: phone
+    label: "Czechia: ECC Czech Republic phone consultation"
+    value: +420-222-703-404
+    hours: "Monday and Wednesday"
+    source: https://evropskyspotrebitel.gov.cz/contacts/
+    last_verified: 2026-11-19
+
+  - id: ecc-dk
+    type: web_form
+    label: "Denmark: European Consumer Centre Denmark (Forbrugereuropa) complaint form"
+    value: https://www.eccwebforms.eu/denmark/complaint
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: open
+    notes: For use after you tried to solve the problem with the trader and could not reach an agreement.
+    source: https://consumereurope.dk/contacts-us
+    last_verified: 2026-11-19
+  - id: ecc-dk-phone
+    type: phone
+    label: "Denmark: European Consumer Centre Denmark hotline"
+    value: +45-41-71-52-00
+    hours: "Weekdays, 10:00 to 12:00"
+    source: https://consumereurope.dk/contacts-us
+    last_verified: 2026-11-19
+
+  - id: ecc-ee
+    type: web_form
+    label: "Estonia: European Consumer Centre of Estonia (ECC Estonia) complaint form"
+    value: https://consumer.ee/en/filing-a-complaint/
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: captcha
+    notes: >-
+      The form is on the page; the page loads reCAPTCHA. For residents of Estonia. Complain to the trader
+      in writing first; attach the complaint, the trader's answer and proof of payment or booking.
+    source: https://consumer.ee/en/filing-a-complaint/
+    last_verified: 2026-11-19
+  - id: ecc-ee-phone
+    type: phone
+    label: "Estonia: ECC Estonia consumer advice line"
+    value: +372-620-1707
+    source: https://consumer.ee/en/about-us/contact-us/
+    last_verified: 2026-11-19
+
+  - id: ecc-fi
+    type: web_form
+    label: "Finland: European Consumer Centre Finland (ECC Finland) complaint form"
+    value: https://eccwebforms.eu/finland/complaint
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: open
+    notes: >-
+      "Complaint about a trader" form. ECC Finland says case handling times are longer than usual and
+      recommends its telephone service for urgent matters.
+    source: https://www.ecc.fi/en/our-services/
+    last_verified: 2026-11-19
+  - id: ecc-fi-phone
+    type: phone
+    label: "Finland: ECC Finland telephone service"
+    value: +358-9-5110-1205
+    hours: "Monday and Wednesday 10:00 to 12:00, Tuesday 12:00 to 14:00"
+    notes: Charged at domestic call rates.
+    source: https://www.ecc.fi/en/information-on-european-consumer-centre-finland/contact-information/
+    last_verified: 2026-11-19
+
+  - id: ecc-fr
+    type: web_form
+    label: "France: Centre Européen des Consommateurs France (ECC France) complaint form"
+    value: https://www.eccwebforms.eu/france/complaint
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: open
+    notes: >-
+      "I need help with a complaint" form, for residents of France against a trader in another EU country,
+      Iceland or Norway. Before using it, write to the trader (keep a copy) and wait 3 weeks for an answer.
+      Send a clear chronological summary; files of unsorted screenshots are not processed. ECC France
+      gives the response time as 3 to 4 months. The ECC-Net directory gives its address as Kehl, Germany
+      (an office shared with ECC Germany).
+    source: https://www.europe-consommateurs.eu/en/questions-complaints/online-forms/
+    last_verified: 2026-11-19
+
+  - id: ecc-de
+    type: web_form
+    label: "Germany: Europäisches Verbraucherzentrum Deutschland (ECC Germany) complaint form"
+    value: https://www.eccwebforms.eu/germany/complaint
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: open
+    notes: >-
+      "I need help with a complaint" form, for residents of Germany against a company in another EU
+      country, Iceland, Norway or the UK. Rules (on https://www.evz.de/en/question-complaint/): written
+      proof that you complained to the company, then at least four weeks for its answer; booking or order
+      confirmation and all correspondence, as PDF files (no ZIP files); a completed, hand-signed power of
+      attorney at the end of the form. Average time to a first answer is 4 months. Office: Bahnhofsplatz 3,
+      77694 Kehl, open Tuesday to Thursday; the contact page shows no phone number.
+    source: https://www.evz.de/en/question-complaint/forms/
+    last_verified: 2026-11-19
+
+  - id: ecc-gr
+    type: web_form
+    label: "Greece: European Consumer Centre of Greece (ECCG) complaint form"
+    value: https://webforms.eccnet.eu/en/greece/complaint
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: open
+    notes: >-
+      The site's link labels are mixed up: the "Contact form" link opens this complaint form, and the
+      "Submit complaint" link opens the question form. A Greek version is at
+      https://webforms.eccnet.eu/el/greece/complaint.
+    source: https://www.eccgreece.gr/contact
+    last_verified: 2026-11-19
+  - id: ecc-gr-phone
+    type: phone
+    label: "Greece: ECC Greece phone"
+    value: +30-210-646-0814
+    source: https://www.eccgreece.gr/contact
+    last_verified: 2026-11-19
+
+  - id: ecc-hu
+    type: email
+    label: "Hungary: Európai Fogyasztói Központ (ECC Hungary) email for written complaints"
+    value: info@magyarefk.hu
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    notes: >-
+      The Hungarian site says to send the complaint in writing to the contacts on this page after the
+      attempt to settle with the trader failed. Postal address 1536 Budapest Pf. 324. ECC Hungary is part of
+      the National Authority for Trade and Consumer Protection (NKFH).
+    source: https://www.magyarefk.hu/hu/elerhetosegek.html
+    last_verified: 2026-11-19
+  - id: ecc-hu-phone
+    type: phone
+    label: "Hungary: ECC Hungary phone"
+    value: +36-1-896-77-47
+    hours: "Monday and Wednesday 9:00 to 14:00, Friday 10:00 to 13:00"
+    source: https://www.magyarefk.hu/hu/elerhetosegek.html
+    last_verified: 2026-11-19
+
+  - id: ecc-is
+    type: web_form
+    label: "Iceland: ECC Ísland (European Consumer Centre Iceland) complaint form"
+    value: https://www.ecc.is/en/hafdu-samband/
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: captcha
+    notes: >-
+      The form ("Senda inn kvörtun vegna seljanda") is on the page, in Icelandic, and the page loads
+      reCAPTCHA. For residents of Iceland. It asks whether you already complained to the company in writing
+      without result and says two weeks is a normal time to give the seller to answer.
+    source: https://www.ecc.is/en/hafdu-samband/
+    last_verified: 2026-11-19
+  - id: ecc-is-phone
+    type: phone
+    label: "Iceland: ECC Iceland phone"
+    value: +354-545-1200
+    hours: "Monday to Thursday 10:00 to 15:00 (closed 12:00 to 12:30), Friday 10:00 to 12:00"
+    source: https://www.ecc.is/en/hafdu-samband/
+    last_verified: 2026-11-19
+
+  - id: ecc-ie
+    type: web_form
+    label: "Ireland: European Consumer Centre Ireland (ECC Ireland) complaint form"
+    value: https://www.eccireland.ie/submit-a-complaint/
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: captcha
+    notes: >-
+      The form is on the page; the page loads reCAPTCHA. The business must have its registered office in
+      another EU country, Iceland, Norway or the UK. You must already have complained to the business in
+      writing (ECC Ireland has letter templates at https://www.eccireland.ie/templates/). ECC Ireland
+      cannot help with Irish businesses, scams or financial services.
+    source: https://www.eccireland.ie/contact-us/
+    last_verified: 2026-11-19
+
+  - id: ecc-it
+    type: web_form
+    label: "Italy: ECC-Net Italia (European Consumer Centre Italy) complaint form"
+    value: https://webforms.eccnet.eu/en/italy/complaint
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: open
+    notes: >-
+      For residents of Italy. Complain to the trader first, preferably in writing, and attach that
+      complaint. A checklist of documents is at https://ecc-netitalia.it/en/supporting-documents/. ECC
+      Italy has two offices, Rome and Bolzano; both use this form.
+    source: https://ecc-netitalia.it/en/submit-a-complaint/
+    last_verified: 2026-11-19
+  - id: ecc-it-phone
+    type: phone
+    label: "Italy: ECC Italy, Rome office phone consultation"
+    value: +39-06-4423-8090
+    hours: "Monday and Wednesday 13:30 to 17:30; Tuesday, Thursday and Friday 8:30 to 12:30"
+    notes: Second Rome number +39 06 44170285. Bolzano office +39 0471 980939.
+    source: https://ecc-netitalia.it/en/contacts/
+    last_verified: 2026-11-19
+
+  - id: ecc-lv
+    type: web_form
+    label: "Latvia: European Consumer Centre Latvia (ECC Latvia) complaint form"
+    value: https://webforms.eccnet.eu/en/latvia/complaint
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: open
+    source: https://www.ecclatvia.lv/en/contacts-2
+    last_verified: 2026-11-19
+  - id: ecc-lv-phone
+    type: phone
+    label: "Latvia: ECC Latvia phone"
+    value: +371-6738-8625
+    hours: "Office hours Monday to Thursday 8:15 to 17:00, Friday 8:15 to 15:45"
+    source: https://www.ecclatvia.lv/en/contacts-2
+    last_verified: 2026-11-19
+
+  - id: ecc-lu
+    type: web_form
+    label: "Luxembourg: European Consumer Centre Luxembourg (ECC Luxembourg) complaint form"
+    value: https://eccwebforms.eu/luxembourg/complaint
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: open
+    source: https://www.cecluxembourg.lu/en/contact-and-opening-hours/
+    last_verified: 2026-11-19
+  - id: ecc-lu-phone
+    type: phone
+    label: "Luxembourg: ECC Luxembourg jurists by phone"
+    value: +352-26-84-64-1
+    hours: "Monday, Wednesday and Friday 9:00 to 12:00; Tuesday and Thursday 9:00 to 16:00"
+    source: https://www.cecluxembourg.lu/en/contact-and-opening-hours/
+    last_verified: 2026-11-19
+
+  - id: ecc-mt
+    type: web_form
+    label: "Malta: European Consumer Centre Malta (ECC Malta) complaint form"
+    value: https://forms.office.com/r/4X4zYNABV9
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: open
+    notes: A Microsoft Forms form, linked as "Submit Complaint" from the ECC Malta contact page.
+    source: https://eccnetmalta.gov.mt/contact-us/
+    last_verified: 2026-11-19
+  - id: ecc-mt-phone
+    type: phone
+    label: "Malta: ECC Malta phone"
+    value: +356-2395-2360
+    source: https://eccnetmalta.gov.mt/contact-us/
+    last_verified: 2026-11-19
+
+  - id: ecc-nl
+    type: web_form
+    label: "Netherlands: ECC Netherlands (Europees Consumentencentrum Nederland) complaint form"
+    value: https://www.eccnederland.nl/en/contact-us
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: captcha
+    notes: >-
+      The form is on the page; the page loads reCAPTCHA. For residents of the Netherlands against a trader
+      in another EU country, Norway, Iceland or the UK. Complain to the trader in writing first (letter,
+      email or text message); ECC Netherlands asks for copies of that correspondence.
+    source: https://www.eccnederland.nl/en/contact-us
+    last_verified: 2026-11-19
+  - id: ecc-nl-phone
+    type: phone
+    label: "Netherlands: ECC Netherlands phone"
+    value: +31-30-232-6440
+    hours: "Shown as 'Mo/Fr 9 – 12 AM' (Dutch page: 'ma/vr 09:00 - 12:00')"
+    source: https://www.eccnederland.nl/en/contact-us
+    last_verified: 2026-11-19
+
+  - id: ecc-no
+    type: web_form
+    label: "Norway: Forbrukereuropa (European Consumer Centre Norway) complaint form"
+    value: https://webforms.eccnet.eu/en/norway/complaint
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: open
+    notes: >-
+      For residents of Norway, about a purchase or travel in another EU country, Iceland or the UK. Contact
+      the seller in writing first.
+    source: https://www.forbrukereuropa.no/en/contact-us/
+    last_verified: 2026-11-19
+  - id: ecc-no-phone
+    type: phone
+    label: "Norway: Forbrukereuropa phone for quick questions"
+    value: +47-990-99-138
+    hours: "Monday to Thursday, 10:00 to 14:00"
+    notes: Shown on the page as "990 99 138" and as "99 099 138" (same digits).
+    source: https://www.forbrukereuropa.no/en/contact-us/
+    last_verified: 2026-11-19
+
+  - id: ecc-pl
+    type: email
+    label: "Poland: Europejskie Centrum Konsumenckie (ECC Poland) complaint email"
+    value: ECCNET-PL@ec.europa.eu
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    notes: >-
+      ECC Poland takes complaints by email, not by web form. Send one email with the description and at most
+      4 attachments (PDF, Word, JPG or Excel; 10 MB in total): full order or booking confirmation, all
+      correspondence with the trader, proof of payment, and your claim with an amount. You must have finished
+      the trader's complaint procedure first. Do not change the email subject in replies. Waiting time is
+      about 50 days. Instructions in Polish on the source page.
+    source: https://konsument.gov.pl/skarga-do-eck/
+    last_verified: 2026-11-19
+  - id: ecc-pl-phone
+    type: phone
+    label: "Poland: ECC Poland consumer hotline"
+    value: +48-22-55-60-600
+    hours: "Monday to Friday, 10:00 to 13:00"
+    notes: Call this number to check that your complaint was registered, instead of sending another email.
+    source: https://konsument.gov.pl/contact-ecc-poland/
+    last_verified: 2026-11-19
+
+  - id: ecc-pt
+    type: portal
+    label: "Portugal: Centro Europeu do Consumidor Portugal (ECC Portugal) complaint portal"
+    value: https://webgate.ec.europa.eu/eccnet2/contact/servicedesk/customer/portal/27/create/110
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: login
+    notes: >-
+      Needs an EU Login account. The form opens in English; change the language in the profile menu. For
+      residents of Portugal against a trader in another EU country, Iceland, Norway or the UK (not
+      Switzerland). Attach PDFs: proof of purchase with the terms, invoice or receipt, your complaint to the
+      trader and any answer. ECC Portugal does not handle fraud, unauthorised transactions or insolvent
+      companies.
+    verified_via: browser
+    source: https://www.consumidor.gov.pt/centro-europeu-consumidor-portugal3/apresentar-uma-reclamacao
+    last_verified: 2026-11-19
+
+  - id: ecc-sk
+    type: web_form
+    label: "Slovakia: Európske spotrebiteľské centrum (ECC Slovakia) complaint form"
+    value: https://www.europskyspotrebitel.sk/esc/complaint
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: captcha
+    notes: >-
+      In Slovak; the page loads reCAPTCHA. It asks whether the trader is in another EU country, Norway,
+      Iceland or the UK, and whether you already complained to the trader by email or letter.
+    source: https://www.europskyspotrebitel.sk/esc/complaint
+    last_verified: 2026-11-19
+  - id: ecc-sk-phone
+    type: phone
+    label: "Slovakia: ECC Slovakia phone"
+    value: +421-905-528-477
+    source: https://www.europskyspotrebitel.sk/
+    last_verified: 2026-11-19
+
+  - id: ecc-si
+    type: web_form
+    label: "Slovenia: Evropski potrošniški center (ECC Slovenia) complaint form"
+    value: https://webforms.eccnet.eu/en/slovenia/complaint
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: open
+    notes: '"I have a complaint" form, for a problem with a trader in another EU country, Iceland, Norway or the UK.'
+    source: https://www.epc.si/en/news-single/ecc-slovenia-introduces-new-online-forms-consumer-enquiries-and-complaints
+    last_verified: 2026-11-19
+
+  - id: ecc-es
+    type: web_form
+    label: "Spain: Centro Europeo del Consumidor en España (ECC Spain) complaint form"
+    value: https://portal-cec.consumo.gob.es/en/consultas-y-reclamaciones/enviar-reclamacion
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: open
+    notes: >-
+      For residents of Spain against a company in another EU country, Iceland or Norway (the Spanish version
+      of the form also names the UK). Attach your
+      written claim to the company, proof of purchase or booking, proof of payment and the correspondence
+      in date order. You get an automatic receipt with a file number (ECCES-XXX); ECC Spain tries to say
+      within 30 days whether it can handle the case. A backup form on the ECC-Net portal needs an EU Login
+      account.
+    source: https://portal-cec.consumo.gob.es/en/consultas-y-reclamaciones/enviar-reclamacion
+    last_verified: 2026-11-19
+  - id: ecc-es-phone
+    type: phone
+    label: "Spain: ECC Spain phone"
+    value: +34-91-822-45-55
+    hours: "Tuesday and Thursday, 9:00 to 14:00"
+    source: https://portal-cec.consumo.gob.es/en/conocenos/contacto
+    last_verified: 2026-11-19
+
+  - id: ecc-se
+    type: web_form
+    label: "Sweden: Konsument Europa (ECC Sweden), reached through Konsumentverket's consumer guidance form"
+    value: https://www.konsumentverket.se/kontakta-oss/kontakta-konsumentverkets-vagledare/
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, reservation_problem, damage_claim, damaged_item]
+    access: captcha
+    notes: >-
+      Konsument Europa has no complaint form of its own. Its site (konsumenteuropa.se/for-konsumenter) says
+      you reach its legal advisers through Konsumentverket's guidance, and this Konsumentverket page says
+      (in Swedish) that its advisers also connect you to Konsument Europa for purchases from another EU
+      country, the UK, Iceland or Norway. The question form is on the page (email, subject, message); the
+      page loads reCAPTCHA.
+    source: https://www.konsumentverket.se/kontakta-oss/kontakta-konsumentverkets-vagledare/
+    last_verified: 2026-11-19
+  - id: ecc-se-phone
+    type: phone
+    label: "Sweden: Konsumentverket consumer guidance phone (route to Konsument Europa)"
+    value: +46-771-525-525
+    hours: "9:00 to 12:00 on weekdays that are not public holidays"
+    notes: The page warns that the phone queue is often long.
+    source: https://www.konsumentverket.se/kontakta-oss/kontakta-konsumentverkets-vagledare/
+    last_verified: 2026-11-19
+
+facts:
+  - kind: fee
+    claim: >-
+      ECC-Net gives free, confidential expert advice on consumer rights and free help with cross-border
+      consumer complaints.
+    source: https://www.eccnet.eu/ecc-network/our-services
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      ECC-Net covers the 27 EU member states plus Norway and Iceland. The consumer and the trader must be in
+      different countries. The United Kingdom is no longer a member of ECC-Net, but the network still takes
+      up complaints against traders based in the UK. UK residents with a cross-border complaint go to the UK
+      International Consumer Centre (UKICC).
+    source: https://www.eccnet.eu/ecc-network/our-services
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      ECC-Net cannot mediate when the trader is based in Switzerland, China, the United States or another
+      non-EU country (Norway, Iceland and the UK excepted). ECC Netherlands and ECC Portugal also name
+      Switzerland as a country they cannot help with.
+    source: https://www.eccbe.eu/en/solve-your-problem/looking-for-legal-support/
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      First file a complaint with the trader and make sure it is registered and acknowledged. If you cannot
+      resolve the dispute with the trader, submit a complaint to the European Consumer Centre in your country
+      of residence. If the case is outside ECC-Net's remit, the ECC can advise on legal and out-of-court
+      options.
+    source: https://www.eccnet.eu/ecc-network/our-services/our-work
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Your ECC makes a legal assessment of the complaint and asks for evidence. If it finds the case
+      justified, it forwards it to the ECC in the trader's country, which contacts the trader directly to
+      seek a solution. If the trader does not resolve the complaint, the ECC tells the consumer about
+      alternative dispute resolution (ADR) options. ECC Hungary says claims for non-material damage must go
+      to a civil court.
+    source: https://nkfh.gov.hu/en/european-consumer-centre
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      ECC Germany says it is neither an arbitration body nor a public authority. It has no enforcement
+      powers, cannot force a company to act or impose sanctions, and does not investigate; the result
+      depends on the company's willingness to cooperate. ECC-Net says the same for the whole network ("we do
+      not have enforcement powers").
+    source: https://www.evz.de/en/question-complaint/
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      ECC-Net cannot help with consumer-to-consumer or business-to-business transactions, or when the
+      business refuses to cooperate, the consumer has already started legal action, the business cannot be
+      located or identified, the business is involved in fraud, or the purchase is a financial or investment
+      product (gambling, investment funds, cryptocurrencies, stock markets).
+    source: https://www.eccnet.eu/ecc-network/our-services
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      An ECC's involvement does not interrupt the limitation period for a court claim. If the deadline is
+      near, ECC Germany says to contact a lawyer or use a European court procedure (European Small Claims
+      Procedure or European Payment Order). ECC Belgium and ECC Portugal say the same.
+    source: https://www.evz.de/en/question-complaint/
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      ECC Germany acts only after you complained to the company in writing (with a copy) and gave it at
+      least four weeks to answer. ECC France asks you to wait 3 weeks for the trader's answer.
+    source: https://www.evz.de/en/question-complaint/
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The EU Online Dispute Resolution (ODR) platform is closed. Regulation (EU) 2024/3228 repealed the ODR
+      Regulation (EU) No 524/2013 with effect from 20 July 2025; new complaints to the platform stopped on
+      20 March 2025, and all case data was to be deleted by 20 July 2025. A trader's terms or website that
+      still point to the ODR platform (ec.europa.eu/consumers/odr) are out of date; use the trader's ADR body
+      or the ECC instead.
+    verified_via: browser
+    source: https://eur-lex.europa.eu/eli/reg/2024/3228/oj/eng
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The old ODR platform address now redirects to a Commission page that says the ODR platform is
+      discontinued as of 20 July 2025 and points to the Commission's list of national consumer dispute
+      resolution (ADR) bodies at https://consumer-redress.ec.europa.eu/dispute-resolution-bodies.
+    source: https://consumer-redress.ec.europa.eu/site-relocation_en
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      ECC-Net's air passenger guidance says Regulation (EC) No 261/2004 applies to flights within the EU
+      (EU or non-EU airline), flights into the EU from outside on an EU airline, and flights from the EU to a
+      non-EU country (any airline). Outbound and return flights count as two separate flights. Only the
+      operating air carrier is responsible, and in a wet lease the airline that hires the aircraft and crew
+      is the operating carrier.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    source: https://www.eccnet.eu/consumer-rights/what-are-my-consumer-rights/travel-and-passenger-rights/air-passenger-rights
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      ECC-Net's air passenger guidance on the Montreal Convention says to report baggage problems at once
+      and at the latest: damaged baggage, claim against the airline within 7 days; delayed baggage, report
+      within 21 days; lost baggage, claim within 2 years. Keep receipts for emergency purchases.
+    issues: [damaged_baggage, delayed_baggage, lost_baggage]
+    source: https://www.eccnet.eu/consumer-rights/what-are-my-consumer-rights/travel-and-passenger-rights/air-passenger-rights
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The reform of Regulation (EC) No 261/2004 that ECC-Net reported on 8 July 2026 was adopted as Regulation (EU)
+      2026/2202 of 16 September 2026 (OJ L, 2 October 2026). Under its Article 3 it applies from 23 October 2027;
+      until then the 2004 rules apply. See rules/eu261 for the details.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R2202
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      ECC-Net warns of scammers who pose as ECC-Net staff (for example a "Chief Inspector of the European
+      Consumer Rights Centre") and offer to recover lost money. ECC-Net does not recover lost funds, never
+      contacts consumers to ask for payments or personal details, and never charges for help.
+    source: https://www.eccnet.eu/news/scam-fraudulent-consumer-protection-representatives-impersonating-ecc-net
+    last_verified: 2026-11-19
+
+notes: >-
+  ECC-Net has 29 centres (one in each EU country, plus Norway and Iceland), co-funded by the European
+  Commission and national governments; the network site is https://www.eccnet.eu. Most centres use one of two
+  shared form platforms (webforms.eccnet.eu or eccwebforms.eu); Portugal uses the ECC-Net service desk behind
+  EU Login. Many centres warn of response times of several months. Not verified on 2026-11-19: Romania
+  (eccromania.ro served a "Verifying your browser" bot check) and Lithuania (ecc.lt returned HTTP 403), so
+  they have no channel here; use the ECC-Net directory for them. Sweden routes ECC cases through
+  Konsumentverket. For UK residents the UK International Consumer Centre is at https://www.ukecc.net/.
+  Checked by loading the Commission, eccnet.eu and national centre pages on 2026-11-19 (Portugal and the
+  EUR-Lex text in a browser; Norway and the konsumenteuropa.se pages by a plain fetch that curl could not
+  repeat).

@@ -1,0 +1,327 @@
+id: wizz-air
+name: Wizz Air
+aliases: [wizzair, wizz air hungary ltd, wizz air hungary, wizz air malta limited, wizz air malta, wizz air uk ltd, wizz air uk, wizzair.com]
+sector: airline
+parent: Wizz Air Holdings Plc
+website: https://www.wizzair.com/en-gb
+account_url: https://www.wizzair.com/en-gb/profile
+countries: [eu, hu, gb]
+regulators: [eu-air-passenger-nebs, eu-ecc-net, de-sruv, es-aesa]
+
+channels:
+  - id: amelia-chat
+    type: chat
+    label: Chat with Amelia (virtual assistant, 24/7)
+    value: https://www.wizzair.com/en-gb/help-centre/contact-us
+    purposes: [flight_cancellation, flight_delay, refund_request, delayed_baggage, accessibility]
+    notes: >-
+      The "Start chat" button on the contact page opens the virtual assistant for booking, flight status, baggage and
+      WIZZ services questions. For refunds after a cancellation or flight change, the page says to type "Refund". Call
+      centre and live chat agents cannot give the status of a refund in progress. The special assistance page also lists
+      Live Chat as a way to request assistance.
+    verified_via: browser
+    source: https://www.wizzair.com/en-gb/help-centre/contact-us
+    last_verified: 2026-11-19
+  - id: call-centre-hungary
+    type: phone
+    label: Call centre, Hungary (English available)
+    value: +36-1-677-7505
+    hours: Monday to Sunday 00:00-24:00 (local time)
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, accessibility]
+    notes: >-
+      Shown as "+3616777505" after choosing country Hungary and language English in "Speak with an agent" on the
+      contact page; price "local rates". A Call Centre Transaction Fee of €15.00 per passenger, not refundable, applies
+      to any transaction that is also available online (buying a ticket or a service, or changing a booking). Group
+      booking enquiries: 4 AM-9 PM UTC, English only, option 0 in the language menu.
+    verified_via: browser
+    source: https://www.wizzair.com/en-gb/help-centre/contact-us
+    last_verified: 2026-11-19
+  - id: call-centre-uk
+    type: phone
+    label: Call centre, United Kingdom (English)
+    value: +44-333-300-0233
+    hours: Monday to Sunday 00:00-24:00 (local time)
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, accessibility]
+    notes: >-
+      Shown as "+443333000233" after choosing country United Kingdom and language English on the contact page; price
+      "local rates". The €15.00 per passenger Call Centre Transaction Fee applies to transactions that are also
+      available online.
+    verified_via: browser
+    source: https://www.wizzair.com/en-gb/help-centre/contact-us
+    last_verified: 2026-11-19
+  - id: claim-form
+    type: web_form
+    label: Claim form (compensation, expenses, refunds, bag delay, loss and damage, complaints)
+    value: https://www.wizzair.com/en-gb/information-and-services/compliments-and-complaints
+    purposes: [flight_delay, flight_cancellation, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, poor_service, accessibility]
+    access: login
+    notes: >-
+      The page says "To submit a message or delete your account please log in". Choose the category that matches the
+      request (for example "Bag delay", "Bag loss", "Bag damage", or the EC261 category). Wizz Air aims to process
+      claims within 30 days and warns that duplicate claims are merged and not processed; if more than 30 days pass,
+      check spam and reply to the first claim email. The claim status is in the WIZZ Account under "Your Claims".
+    verified_via: browser
+    source: https://www.wizzair.com/en-gb/help-centre/contact-us
+    last_verified: 2026-11-19
+  - id: wizz-account
+    type: portal
+    label: WIZZ Account (rebook, WIZZ credits or refund after a cancellation or long delay; claim status)
+    value: https://www.wizzair.com/en-gb/profile
+    purposes: [flight_cancellation, flight_delay, refund_request, travel_credit]
+    access: login
+    notes: Log in with the account used to make the booking and open the booking to see the options. The selection is available up to 3 hours before the original departure time.
+    verified_via: browser
+    source: https://www.wizzair.com/en-gb/help-centre/delay-cancellation-and-refund/cancelled-flight/cancelled-flight-what-to-do
+    last_verified: 2026-11-19
+  - id: credit-conversion-form
+    type: web_form
+    label: WIZZ credit conversion request (turn WIZZ credits from a disrupted flight into cash)
+    value: https://www.wizzair.com/en-gb/wizz-credit-conversion-request
+    purposes: [refund_request, travel_credit, flight_cancellation]
+    access: login
+    notes: >-
+      For the booking owner. The refund goes to the bank account or the original payment method; amounts paid with
+      WIZZ credits or a voucher are refunded as WIZZ credits, and a booking paid fully with credits or a voucher is not
+      eligible.
+    verified_via: browser
+    source: https://www.wizzair.com/en-gb/wizz-credit-conversion-request
+    last_verified: 2026-11-19
+  - id: bag-report-tracker
+    type: portal
+    label: WorldTracer Self Service (report a delayed or lost bag, track it)
+    value: https://mybag.aero/baggage/#/pax/wizzair/en-gb/main-menu
+    purposes: [delayed_baggage, lost_baggage]
+    access: open
+    notes: Create the Property Irregularity Report (PIR) yourself if you did not do it at the airport, or check tracing status with the PIR code from the airport letter.
+    verified_via: browser
+    source: https://www.wizzair.com/en-gb/help-centre/damaged-or-lost-bags-and-items/damaged-delayed-and-lost-bags/reporting-procedure
+    last_verified: 2026-11-19
+  - id: special-assistance-email
+    type: email
+    label: Special assistance requests
+    value: specialassistance@wizzair.com
+    purposes: [accessibility]
+    notes: >-
+      Wizz Air says this address is only for reporting the need for special assistance; complaints and other requests
+      sent there are not addressed. Exception: the special assistance FAQ says a passenger with impaired vision who
+      cannot use the website claim form can send the complaint text to this address using voice-to-text. Tell Wizz Air
+      at least 48 hours before departure.
+    verified_via: browser
+    source: https://www.wizzair.com/en-gb/information-and-services/travel-information/special-assistance
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: call-centre-hungary}
+  - {rung: written_complaint, channel: claim-form}
+  - {rung: regulator, regulator: eu-air-passenger-nebs, note: "National Enforcement Body of the country where the incident happened (departure airport; for flights into the EU on an EU carrier, the arrival airport). See regulators/eu-air-passenger-nebs. Wizz Air's own pages say to contact the NEB for your place of departure."}
+  - {rung: regulator, regulator: de-sruv, note: "The Schlichtungsstelle Reise & Verkehr member list (Stand: 19. Oktober 2026) names 'Wizz Air' without a legal entity. Free conciliation for flights to or from Germany or for a passenger in Germany, after you have complained to Wizz Air first. See regulators/de-sruv."}
+  - {rung: regulator, regulator: es-aesa, note: "For a flight that departed from Spain, or flew to Spain from outside the EU on an EU airline, from 2 June 2023: AESA's dispute resolution is mandatory for every airline and its decision binds the airline (not the passenger). Claim from the airline first; if it does not answer within one month or you reject the answer, file with AESA within one year of that claim. Not for baggage."}
+  - {rung: regulator, regulator: eu-ecc-net, note: "Free help from the European Consumer Centre in your country when the airline is based in another EU country, Iceland or Norway."}
+  - {rung: payment_dispute, note: "Card chargeback for a refund the airline owes but has not paid."}
+  - {rung: small_claims, note: "European Small Claims Procedure for cross-border claims up to EUR 5,000 (rules/eu-small-claims-procedure); otherwise the national court. Time limits for EU261 claims are set by national law."}
+
+playbooks:
+  - issue: flight_delay
+    summary: For an arrival delay of more than 3 hours, claim EC261 compensation and expenses on the claim form; if the delay is 5 hours or more or overnight, choose a free rebooking, WIZZ credits or a refund in your WIZZ Account.
+    evidence: [confirmation code, flight number and date, scheduled and actual arrival times, VAT invoices for meals, hotel and transport, boarding pass, bank details]
+    steps:
+      - do: At the airport, ask the ground handling agents for refreshment or meal vouchers and two free calls or emails once the delay reaches 2 hours (under 1,500 km), 3 hours (over 1,500 km), 4 hours (over 3,500 km) or 5 hours (any distance).
+      - do: If the departure moves to the next day, ask the ground handling agents for a hotel and transport; if you pay yourself, keep the VAT invoices.
+      - do: If the delay is 5 hours or more or overnight, choose in your WIZZ Account to keep the flight, rebook free of charge, take WIZZ credits, or get a refund.
+        channel: wizz-account
+      - do: Submit a claim for compensation (arrival more than 3 hours late) and for your expenses. Wizz Air says it replies within 30 days.
+        channel: claim-form
+      - do: If Wizz Air rejects or ignores the claim, complain to the National Enforcement Body for your place of departure.
+        regulator: eu-air-passenger-nebs
+      - do: For flights to or from Germany, you can ask Schlichtungsstelle Reise & Verkehr for free conciliation.
+        regulator: de-sruv
+    facts:
+      - kind: compensation
+        claim: Wizz Air's EC261 page says passengers whose flight arrives more than three hours late are entitled to compensation under Article 7 of the Regulation unless the delay was caused by extraordinary circumstances that could not have been avoided even if all reasonable measures had been taken.
+        issues: [flight_delay]
+        verified_via: browser
+        source: https://www.wizzair.com/en-gb/help-centre/my-wizz-account/claims-and-compensation/ec261-regulation
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: For a delay of 5 hours or more or an overnight delay, Wizz Air offers a free rebooking onto a Wizz Air flight on the same or a comparable route on any of the 14 days before or 30 days after the original date (subject to seats), a full fare refund in WIZZ credits, or a refund of the total fare to the original form of payment.
+        issues: [flight_delay, refund_request, travel_credit]
+        verified_via: browser
+        source: https://www.wizzair.com/en-gb/help-centre/delay-cancellation-and-refund/delayed-and-rescheduled-flight/delayed-flight/over-five-hours-and-overnight-delays
+        last_verified: 2026-11-19
+
+  - issue: flight_cancellation
+    summary: In your WIZZ Account choose an alternative flight, a free rebooking, WIZZ credits (available within 48 hours) or a refund to the original payment method; claim compensation and expenses on the claim form.
+    evidence: [confirmation code, cancellation email, flight number and date, VAT invoices and tickets for hotel, meals and alternative transport, bank details]
+    steps:
+      - do: Open the booking in your WIZZ Account (or use the link in the cancellation email) and choose the alternative flight, a free rebooking within 14 days before to 30 days after the original date, WIZZ credits, or a refund. The choice is available up to 3 hours before the original departure.
+        channel: wizz-account
+      - do: If you took WIZZ credits and want cash, use the credit conversion request.
+        channel: credit-conversion-form
+      - do: If there is no Wizz Air flight on the same or next day that suits you, contact the ground handling agents first, then arrange comparable alternative transport and keep invoices and tickets.
+      - do: Submit a claim for compensation and for hotel, meal and transport costs. Claims about a refund or credit conversion can be filed once the self-service window closes, starting 29 days after the scheduled departure.
+        channel: claim-form
+      - do: If you booked through a travel agency, ask the agency to act, or get the booking details from it and then contact Wizz Air.
+        channel: amelia-chat
+      - do: If Wizz Air does not pay, complain to the National Enforcement Body for your place of departure, then dispute the card payment.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: compensation
+        claim: Wizz Air's EC261 page says it pays €250 for flights up to 1,500 km, €400 for intra-EU/EEA flights of 1,501-3,500 km and €600 for non-intra-EU/EEA flights over 3,500 km, reduced by 50% if the replacement flight arrives within 2, 3 or 4 hours of the original arrival depending on distance. No compensation is paid if you were told 2 weeks before departure, or later but offered an alternative within the Regulation's time limits, or if the cause was extraordinary circumstances.
+        issues: [flight_cancellation]
+        verified_via: browser
+        source: https://www.wizzair.com/en-gb/help-centre/my-wizz-account/claims-and-compensation/ec261-regulation
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Wizz Air says WIZZ credit refunds after a cancellation or delay are available within 48 hours; refunds requested through a claim form are processed within 30 days, and a card or bank transfer refund may take up to 30 days to arrive.
+        issues: [flight_cancellation, refund_request, travel_credit]
+        verified_via: browser
+        source: https://www.wizzair.com/en-gb/help-centre/delay-cancellation-and-refund/refund/refund-processing-time-and-status
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If a cancelled flight's new departure is not on the original date, Wizz Air arranges a hotel and transport to and from it, or reimburses a reasonable amount; keep the VAT invoices. Alternative transport you arrange yourself must be comparable, and costs not considered reasonable are not reimbursed.
+        issues: [flight_cancellation]
+        verified_via: browser
+        source: https://www.wizzair.com/en-gb/help-centre/delay-cancellation-and-refund/cancelled-flight/passenger-rights
+        last_verified: 2026-11-19
+
+  - issue: denied_boarding
+    summary: If denied boarding against your will, you get re-routing or a refund, care while waiting, and EC261 compensation of €250, €400 or €600 depending on distance.
+    evidence: [confirmation code, boarding pass, written denied-boarding confirmation, arrival time of the new flight, receipts]
+    steps:
+      - do: At the airport, choose re-routing, a refund of the unused parts, or WIZZ credits with the ground handling representatives, and ask for meal vouchers, calls and a hotel if the new flight is the next day.
+      - do: Submit a claim for compensation and any expenses.
+        channel: claim-form
+      - do: If Wizz Air does not pay, complain to the National Enforcement Body for your place of departure.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: compensation
+        claim: Wizz Air's denied boarding page says it pays €250 for flights up to 1,500 km, €400 for 1,500-3,500 km and €600 over 3,500 km, each reduced by 50% if the arrival delay does not exceed 2, 3 or 4 hours respectively, and provides meal vouchers, two calls or emails, and a hotel with transport if the new flight is the next day.
+        issues: [denied_boarding]
+        verified_via: browser
+        source: https://www.wizzair.com/en-gb/help-centre/delay-cancellation-and-refund/denied-boarding
+        last_verified: 2026-11-19
+
+  - issue: delayed_baggage
+    summary: Get a Property Irregularity Report (PIR) at the airport or on WorldTracer, then claim essential items under "Bag delay" with receipts.
+    evidence: [PIR copy, baggage tag, boarding pass, receipts for essential items, bank details]
+    steps:
+      - do: Before leaving the airport, go to the Baggage Claim, Lost Luggage or Lost & Found desk and fill in a PIR with as much detail as possible. Or create the report yourself on WorldTracer Self Service.
+        channel: bag-report-tracker
+      - do: Track the bag with the PIR code; Wizz Air notifies you by SMS or email and delivers the bag to the address in the PIR.
+        channel: bag-report-tracker
+      - do: If you bought essential hygiene products and clothes while away from home, submit a claim under "Bag delay" with all receipts, the PIR copy, the baggage tag and the boarding pass. Only essential items at reasonable cost are reimbursed.
+        channel: claim-form
+      - do: If the bag is not found within 21 days, claim it as lost (see lost_baggage).
+        channel: claim-form
+    facts:
+      - kind: policy
+        claim: Wizz Air reimburses essential hygiene products and a change of clothes bought because of a bag delay at a destination away from home, claimed under "Bag delay" with all receipts, the PIR, the baggage tag and the boarding pass; only essential items within reasonable cost are reimbursed.
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://www.wizzair.com/en-gb/help-centre/damaged-or-lost-bags-and-items/damaged-delayed-and-lost-bags/reporting-procedure
+        last_verified: 2026-11-19
+
+  - issue: lost_baggage
+    summary: A bag not found within 21 days of the report is treated as lost; claim under "Bag loss" with the PIR, tag, boarding pass and bank details.
+    evidence: [PIR copy with the bag's value stated, baggage tag, boarding pass, bank details, contents list]
+    steps:
+      - do: Make sure the bag was reported at the arrival airport or on WorldTracer, and that the PIR states the bag's value.
+        channel: bag-report-tracker
+      - do: After 21 days, submit a claim under "Bag loss" with the PIR copy, baggage tag, boarding pass and bank details.
+        channel: claim-form
+      - do: If Wizz Air rejects or ignores the claim, complain to the European Consumer Centre in your country.
+        regulator: eu-ecc-net
+    facts:
+      - kind: deadline
+        claim: Wizz Air says that if baggage is not found within 21 days of reporting it at the destination airport or on WorldTracer Self Service, Wizz Air is liable for loss; claim compensation under the "Bag loss" category.
+        issues: [lost_baggage]
+        verified_via: browser
+        source: https://www.wizzair.com/en-gb/help-centre/damaged-or-lost-bags-and-items/damaged-delayed-and-lost-bags/reporting-procedure
+        last_verified: 2026-11-19
+
+  - issue: damaged_baggage
+    summary: Get a PIR at the airport (within 7 days if the damage was not visible on arrival), repair the bag and keep the receipt, then claim under "Bag damage".
+    evidence: [PIR copy with brand, model, value and age of the bag, repair receipt or written confirmation that it is beyond repair, baggage tag, boarding pass, bank details]
+    steps:
+      - do: At the arrival airport, fill in a PIR at the Baggage Claim, Lost Luggage or Lost & Found desk with the bag's brand, model, value and age.
+      - do: If you notice the damage only after leaving the airport, report it at the airport within 7 days of arrival. If a delayed bag is delivered damaged, report in writing within 21 days of delivery.
+      - do: Repair the bag and get a receipt, or get written confirmation from the repair shop that it is beyond repair, with the bag's type and value.
+      - do: Submit a claim under "Bag damage" with the PIR copy, repair receipt, baggage tag, boarding pass and bank details.
+        channel: claim-form
+    facts:
+      - kind: deadline
+        claim: Wizz Air says that if damage or pilferage could not be recognised on arrival, you can report it at the airport within seven days of arrival; if the bag did not arrive with your flight and was delivered damaged or pilfered, you can report in writing within 21 days after delivery.
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://www.wizzair.com/en-gb/help-centre/damaged-or-lost-bags-and-items/damaged-delayed-and-lost-bags/reporting-procedure
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Wizz Air is not liable for minor damage to the exterior of baggage (such as scratches, soils, staining, dents) from normal wear and tear; it covers the repair cost shown on the repair receipt as per applicable regulation.
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://www.wizzair.com/en-gb/help-centre/damaged-or-lost-bags-and-items/damaged-delayed-and-lost-bags/reporting-procedure
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: Wizz Air says other passengers on the same booking may claim EC261 compensation for you with proof of your authorisation. It will not process a claim from any other third party unless you first claimed directly with Wizz Air, and the third party must prove it is legally authorised. Compensation paid to a third party acting for you is final for that flight.
+    issues: [flight_delay, flight_cancellation, denied_boarding]
+    verified_via: browser
+    source: https://www.wizzair.com/en-gb/help-centre/my-wizz-account/claims-and-compensation/ec261-regulation
+    last_verified: 2026-11-19
+  - kind: fee
+    claim: If you assign your EC261 claim to a third party, Wizz Air deducts an Assignment Administration Fee of 50 EUR from the compensation, citing the Hungarian Civil Code 6:200. Representation or assignment documents must be private documents with full probative force under Hungarian Code of Civil Procedure 325 (for example handwritten and signed, signed before two witnesses, notarised, countersigned by an attorney, or signed with a qualified electronic signature).
+    issues: [flight_delay, flight_cancellation, denied_boarding]
+    verified_via: browser
+    source: https://www.wizzair.com/en-gb/help-centre/my-wizz-account/claims-and-compensation/ec261-regulation
+    last_verified: 2026-11-19
+  - kind: fee
+    claim: The call centre charges a Call Centre Transaction Fee of €15.00 per passenger, not refundable, for any transaction that is also available online.
+    verified_via: browser
+    source: https://www.wizzair.com/en-gb/help-centre/contact-us
+    last_verified: 2026-11-19
+  - kind: process
+    claim: If a refund has not arrived 10 days after it was requested, Wizz Air suggests checking whether the booking was made through a travel agency (the money may have gone to the agency), whether the amount was added to your WIZZ Account as WIZZ credits, and asking your bank whether the amount was blocked or revoked.
+    issues: [refund_request]
+    verified_via: browser
+    source: https://www.wizzair.com/en-gb/help-centre/contact-us
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: After the death of an immediate family member up to 30 days before departure, you can request a refund by submitting a claim and must provide a death certificate within 7 days of submitting the claim form.
+    issues: [refund_request]
+    verified_via: browser
+    source: https://www.wizzair.com/en-gb/help-centre/delay-cancellation-and-refund/refund/refund-policy-and-eligibility
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Wizz Air group airlines are Wizz Air Hungary Ltd. (Budapest, Hungary), Wizz Air Malta Limited (Luqa, Malta), Wizz Air UK Ltd. (Luton, UK) and Wizz Air Abu Dhabi L.L.C.; the parent is Wizz Air Holdings Plc (Jersey). Each airline has its own General Conditions of Carriage, and Wizz Air says the GCC is governed by Hungarian law.
+    verified_via: browser
+    source: https://www.wizzair.com/en-gb/information-and-services/about-us/company-information
+    last_verified: 2026-11-19
+
+known_blockers:
+  - The claim form, the WIZZ Account and the WIZZ credit conversion request all need a WIZZ Account login.
+  - Phone numbers appear only after choosing a country and a language in "Speak with an agent" on the contact page.
+  - The call centre charges €15 per passenger for transactions that can be done online.
+  - For bookings made through a travel agency, Wizz Air asks for the confirmation code, the booking email and phone, and the last four digits and expiry date of the card used; hand this step to the person.
+  - Representation or assignment documents for third-party claims must meet Hungarian formal requirements (handwritten, witnessed, notarised, attorney-countersigned or qualified e-signature).
+
+notes: >-
+  Checked on 2026-11-19 in a browser; wizzair.com refuses plain fetches (HTTP 405). Some help pages were read through
+  in-page fetches of the server-rendered HTML. Phone numbers were read after choosing United Kingdom / English and
+  Hungary / English in the contact page selector (cookie banner declined). The General Conditions of Carriage are PDFs
+  per airline (Wizz Air Hungary effective 1 March 2023, Wizz Air Malta 19 May 2025, Wizz Air UK 15 May 2023) and were not
+  read, so no GCC deadlines or liability limits are recorded. The Israel compensation email on the contact page is cut
+  off ("iasl@wizzair.") and is not recorded. The company information page lists info@wizzair.com under the company
+  address, but customer requests are directed to the claim form, so it is not listed as a channel. Claim management
+  companies and lawyers have a separate portal (https://claim.wizzair.com/Claims.Companies.IdentityProvider). No
+  passenger-facing scam or fake-account warning was found on wizzair.com; the only warning found is the careers site's
+  fake job-offer notice. Countries: Wizz Air Hungary (hu), Wizz Air UK (gb); Wizz Air Malta is covered by eu.
+
+official_domains: [wizzair.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: The Wizz Air careers site says the group has received multiple alerts about fraudulent messages claiming to be job offers from Wizz Air. Its recruitment team writes only from noreply@myhr.wizzair.com, personal firstname.lastname@wizzair.com addresses, or group recruitment addresses at wizzair.com, and never offers a job based only on a CV without a full selection process.
+      verified_via: browser
+      source: https://careers.wizzair.com/
+      last_verified: 2026-11-19

@@ -1,0 +1,480 @@
+id: aer-lingus
+name: Aer Lingus
+aliases: [aer lingus limited, aer lingus (uk) limited, aer lingus uk, aerlingus, aerlingus.com, aer lingus regional]
+sector: airline
+parent: International Airlines Group (IAG)
+website: https://www.aerlingus.com
+account_url: https://www.aerlingus.com/app/user-profile/my-trips
+countries: [eu, ie, gb, ch]
+regulators: [eu-air-passenger-nebs, eu-ecc-net, de-bfj-luftverkehr, es-aesa]
+
+channels:
+  - id: customer-service-phone-ireland
+    type: phone
+    label: Customer service, when in Ireland
+    value: +353-1-761-7834
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, poor_service]
+    notes: >-
+      The page prints "(01) 761 7834" for calls within Ireland and gives no hours. The cancellations page says to
+      contact customer service if you cannot rebook online, have a connecting flight, or booked another way.
+    verified_via: browser
+    source: https://www.aerlingus.com/support/customer-care/contact-us/
+    last_verified: 2026-11-19
+  - id: customer-service-phone-uk
+    type: phone
+    label: Customer service, when in the United Kingdom
+    value: +44-333-004-5000
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, poor_service]
+    notes: >-
+      No hours given. The same page lists numbers for Austria, Belgium, France, Germany (+49 800 7244574), Italy,
+      Luxembourg, Netherlands, Portugal, Spain (+34 918 362265; customer services freephone +34 900 031071),
+      Switzerland (+41 44 52 46 766), the USA (+1 516 622 4222) and Canada (+1 800 474 7424).
+    verified_via: browser
+    source: https://www.aerlingus.com/support/customer-care/contact-us/
+    last_verified: 2026-11-19
+  - id: chat
+    type: chat
+    label: Chat with Erin (chat bot 24/7; ask Erin for a live agent to change a booking)
+    value: https://www.aerlingus.com/support/customer-care/contact-us/
+    hours: 24/7
+    purposes: [flight_cancellation, flight_delay, refund_request]
+    notes: >-
+      The "Chat now" button is on the Contact us page. The bot answers general queries; live chat agents handle
+      booking changes such as bags, seats and name changes. The Stay Safe Online page says the official WhatsApp chat
+      is under "Chat with us" on this page.
+    verified_via: browser
+    source: https://www.aerlingus.com/support/customer-care/contact-us/
+    last_verified: 2026-11-19
+  - id: eu261-compensation-form
+    type: web_form
+    label: Flight Disruption Compensation Claim Form (EU261)
+    value: https://www.aerlingus.com/app/support/forms/flight-disruption-compensation-form
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    access: open
+    notes: >-
+      Starts with booking reference and family name, entered exactly as on the booking. Needs details of all flights
+      claimed for, name and contact details, bank account details, and a letter of authorisation if claiming for
+      someone else. Do not submit a second claim if one is already open.
+    verified_via: browser
+    source: https://www.aerlingus.com/legal/regulation/
+    last_verified: 2026-11-19
+  - id: eu261-expenses-form
+    type: web_form
+    label: Flight Disruption Expenses Claim Form (meals, hotel, transport)
+    value: https://www.aerlingus.com/app/support/forms/flight-disruption-expenses-form
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    access: open
+    notes: >-
+      For flights operated by Aer Lingus or Emerald Airlines. Needs the booking reference, flight details, contact and
+      bank details, a letter of authorisation if claiming for someone else, and itemised receipts (date and time,
+      vendor, items, total and currency). Credit card receipts alone and screenshots of bank or payment apps are not
+      accepted.
+    verified_via: browser
+    source: https://www.aerlingus.com/legal/regulation/
+    last_verified: 2026-11-19
+  - id: cash-refund-form
+    type: web_form
+    label: Cash Refund Request (unused bookings, including flights Aer Lingus cancelled)
+    value: https://www.aerlingus.com/app/support/forms/cash-refund-form
+    purposes: [flight_cancellation, refund_request, ancillary_fee_refund]
+    access: open
+    notes: >-
+      Covers fare, taxes and charges if eligible, and may cover seat or bag fees depending on the fare; not third-party
+      payments such as car hire. The form says a refund administration fee may apply. Refunds go to the card or payment
+      method used for the booking. The requests page warns that a flight refund request cancels the booking.
+    verified_via: browser
+    source: https://www.aerlingus.com/support/disrupted-flights/cancellations-and-schedule-changes/
+    last_verified: 2026-11-19
+  - id: voucher-refund-form
+    type: web_form
+    label: Voucher Refund Request (refund as a voucher redeemable within 5 years)
+    value: https://www.aerlingus.com/app/support/forms/voucher-refund-form
+    purposes: [flight_cancellation, travel_credit]
+    access: open
+    notes: >-
+      The voucher may cover fare, taxes and charges and some seat or bag fees. Aer Credit Card and Chase Companion
+      fares are not eligible for vouchers. The cancellations page links an older address
+      (https://www.aerlingus.com/support/forms/voucher-refund-request-form/); the requests page links this one.
+    verified_via: browser
+    source: https://www.aerlingus.com/support/customer-care/requests-and-enquiries/
+    last_verified: 2026-11-19
+  - id: extras-refund-form
+    type: web_form
+    label: Extras Refund Request (bags, seats, upgrades, lounge access)
+    value: https://www.aerlingus.com/app/support/forms/extras-refund-request-form
+    purposes: [ancillary_fee_refund]
+    access: open
+    notes: Refunds only extras. For the fare after a cancellation or disruption, use the cash or voucher refund form.
+    verified_via: browser
+    source: https://www.aerlingus.com/support/customer-care/requests-and-enquiries/
+    last_verified: 2026-11-19
+  - id: complaints-form
+    type: web_form
+    label: Complaints form
+    value: https://www.aerlingus.com/app/support/forms/complaints-form
+    purposes: [poor_service, accessibility]
+    access: open
+    notes: >-
+      Issue types are Accessibility, AerClub, Airport Experience, Baggage, Booking, Flight Disruption and In-Flight.
+      The form says it cannot accept claims, refund requests or other service requests; use the EU261, refund and
+      baggage forms for those.
+    verified_via: browser
+    source: https://www.aerlingus.com/support/customer-care/contact-us/
+    last_verified: 2026-11-19
+  - id: requests-and-enquiries
+    type: portal
+    label: All request forms (refunds, EU261 claims, baggage claims, documents, special assistance)
+    value: https://www.aerlingus.com/support/customer-care/requests-and-enquiries/
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, ancillary_fee_refund, delayed_baggage, damaged_baggage, accessibility]
+    verified_via: page
+    source: https://www.aerlingus.com/support/customer-care/requests-and-enquiries/
+    last_verified: 2026-11-19
+  - id: report-delayed-bag
+    type: web_form
+    label: ReportMyBag form (report a delayed bag)
+    value: https://reportmybag.aerlingus.com/
+    purposes: [delayed_baggage, lost_baggage]
+    notes: >-
+      Report at the airport (agents or kiosks in the arrivals hall) or with this form, once only. Needs the bag tag
+      number (for example EI654321 or 3053 123456). You then get a Delayed Baggage Reference Number by email.
+    verified_via: browser
+    source: https://www.aerlingus.com/support/customer-care/missing-baggage/
+    last_verified: 2026-11-19
+  - id: worldtracer
+    type: portal
+    label: WorldTracer (trace a delayed bag, add contents and AirTag link, update address; report damage after leaving the airport)
+    value: https://mybag.aero/aerlingus/managemybag
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    notes: >-
+      Needs the Delayed Baggage Reference Number. The damaged baggage page uses the WorldTracer Passenger Self Service
+      link https://mybag.aero/baggage/#/pax/aerlingus/en-gb/main-menu for damage not reported on arrival.
+    verified_via: browser
+    source: https://www.aerlingus.com/support/customer-care/missing-baggage/
+    last_verified: 2026-11-19
+  - id: bag-tracing-phone
+    type: phone
+    label: Bag Tracing team (Ireland, UK and Continental Europe)
+    value: +353-1-761-7838
+    purposes: [delayed_baggage, lost_baggage]
+    notes: >-
+      The contact page says to call your local baggage office if a bag is delayed more than 5 days. Ireland callers
+      dial (01) 761 7838. USA and Canada (855) 567 8224 (+1-855-567-8224) or (310) 881-3405. No hours given.
+    verified_via: browser
+    source: https://www.aerlingus.com/support/customer-care/missing-baggage/
+    last_verified: 2026-11-19
+  - id: bag-tracing-email
+    type: email
+    label: Central baggage tracing (send the Bag Contents form)
+    value: central.baggage-tracing@aerlingus.com
+    purposes: [delayed_baggage, lost_baggage]
+    notes: Email the completed Bag Contents form (https://www.aerlingus.com/media/pdfs/Aer-Lingus-Baggage-Tracing-Questionnaire.pdf) if you do not update contents in WorldTracer.
+    verified_via: browser
+    source: https://www.aerlingus.com/support/customer-care/missing-baggage/
+    last_verified: 2026-11-19
+  - id: baggage-claim-form
+    type: web_form
+    label: Baggage Claims form (delayed bag expenses, lost bag, damaged bag)
+    value: https://www.aerlingus.com/app/support/forms/baggage-claim-form
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    access: open
+    notes: >-
+      For passengers without travel insurance, or bags delayed more than 21 days. Needs the booking reference, the
+      Delayed or Damaged Baggage Reference Number, receipts and bank details. One claim type per submission; up to 10
+      receipts (PDF, PNG or JPG) as separate files; for damage, the bag make and type and up to 3 photos.
+    verified_via: browser
+    source: https://www.aerlingus.com/support/customer-care/missing-baggage/
+    last_verified: 2026-11-19
+  - id: insurance-document-request
+    type: web_form
+    label: Request a receipt, proof of travel or insurance document (evidence for a travel insurance claim)
+    value: https://www.aerlingus.com/app/support/forms/request-document-form
+    purposes: [delayed_baggage, lost_baggage]
+    notes: Needs the booking reference and the Delayed Baggage Reference Number.
+    verified_via: browser
+    source: https://www.aerlingus.com/support/customer-care/missing-baggage/
+    last_verified: 2026-11-19
+  - id: special-assistance-form
+    type: web_form
+    label: Special Assistance Request form (wheelchair, own mobility device, medical device, cognitive disability)
+    value: https://www.aerlingus.com/app/support/forms/special-assistance-form
+    purposes: [accessibility]
+    access: open
+    notes: Submit online no later than 48 hours before departure. Some conditions need the Medical Information form signed by a doctor, uploaded with this form.
+    verified_via: browser
+    source: https://www.aerlingus.com/support/special-assistance/
+    last_verified: 2026-11-19
+  - id: special-assistance-phone
+    type: phone
+    label: Special assistance line (calls from outside Ireland)
+    value: +353-1-761-7839
+    purposes: [accessibility]
+    notes: From within Ireland dial 01 761 7839. The special assistance page says to call for requests within three business days of departure; oxygen can be requested at any time.
+    verified_via: browser
+    source: https://www.aerlingus.com/support/customer-care/contact-us/
+    last_verified: 2026-11-19
+  - id: privacy-email
+    type: email
+    label: Data protection (privacy statement)
+    value: privacy@aerlingus.com
+    purposes: [privacy_request]
+    verified_via: browser
+    source: https://www.aerlingus.com/legal/privacy-statement/
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone-ireland}
+  - {rung: written_complaint, channel: eu261-compensation-form}
+  - {rung: regulator, regulator: eu-air-passenger-nebs, note: "National Enforcement Body of the country where the incident happened (departure airport; for flights into the EU on an EU carrier, the arrival airport). See regulators/eu-air-passenger-nebs."}
+  - {rung: regulator, regulator: de-bfj-luftverkehr, note: "Aer Lingus is not on the Schlichtungsstelle Reise & Verkehr member list, so a claim where German courts have jurisdiction (for example a flight from or to Germany) goes to the federal conciliation body at the Bundesamt für Justiz. Claim from the airline first and wait two months; claims of EUR 10.01 to 5,000; the proposal binds neither side."}
+  - {rung: regulator, regulator: es-aesa, note: "For a flight that departed from Spain, or flew to Spain from outside the EU on an EU airline, from 2 June 2023: AESA's dispute resolution is mandatory for every airline and its decision binds the airline (not the passenger). Claim from the airline first; if it does not answer within one month or you reject the answer, file with AESA within one year of that claim. Not for baggage."}
+  - {rung: regulator, regulator: eu-ecc-net, note: "Free help from the European Consumer Centre in your country when the airline is based in another EU country, Iceland or Norway."}
+  - {rung: payment_dispute, note: "Card chargeback for a refund the airline owes but has not paid."}
+  - {rung: small_claims, note: "European Small Claims Procedure for cross-border claims up to EUR 5,000 (rules/eu-small-claims-procedure); otherwise the national court. Time limits for EU261 claims are set by national law."}
+
+playbooks:
+  - issue: flight_cancellation
+    summary: Rebook, or ask for a cash refund (not a voucher) if you want money back; then claim EU261 compensation and expenses on the separate forms.
+    evidence: [booking reference, cancellation email or SMS, itemised receipts, bank details, letter of authorisation if claiming for others]
+    steps:
+      - do: Check the email or SMS Aer Lingus sends with your options. To change flights yourself, use Manage Trip (not possible online with a connecting flight).
+      - do: If you want money back, submit the cash refund form, not the voucher form.
+        channel: cash-refund-form
+      - do: If you have a connecting flight or booked another way, contact customer service. Third-party bookings go through the agent or partner airline.
+        channel: customer-service-phone-ireland
+      - do: Claim EU261 compensation if the cancellation was within Aer Lingus's control.
+        channel: eu261-compensation-form
+      - do: Claim meals, hotel and transport you paid for, with itemised receipts.
+        channel: eu261-expenses-form
+      - do: If Aer Lingus does not reply or refuses, complain to the National Enforcement Body for the departure airport.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: policy
+        claim: >-
+          Aer Lingus's flight cancellation notice offers a choice of reimbursement within seven days (cash, bank
+          transfer, bank orders or cheques) of the unused part of the ticket, or re-routing at the earliest opportunity
+          or at a later date, plus meals, two calls or emails, and a hotel with transport when re-routing is the next day
+          or later.
+        issues: [flight_cancellation, refund_request]
+        verified_via: document
+        source: https://www.aerlingus.com/media/pdfs/LEGALCANCELLATION.pdf
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: >-
+          The same notice gives compensation of EUR 250 (1,500 km or less), EUR 400 (intra-Community flights over
+          1,500 km and other flights of 1,500-3,500 km) and EUR 600 (other flights), unless you were told early enough or
+          extraordinary circumstances apply; it may be reduced by 50% when the re-routed flight arrives within 2, 3 or 4
+          hours of the original time.
+        issues: [flight_cancellation]
+        verified_via: document
+        source: https://www.aerlingus.com/media/pdfs/LEGALCANCELLATION.pdf
+        last_verified: 2026-11-19
+
+  - issue: flight_delay
+    summary: An arrival delay of more than 3 hours for reasons within the airline's control may qualify for EU261 compensation; claim expenses separately with itemised receipts.
+    evidence: [booking reference, scheduled and actual arrival times, itemised receipts, bank details]
+    steps:
+      - do: At the airport, ask Aer Lingus staff for meals and, if needed, a hotel. At Dublin Airport, connecting passengers follow the green signs to the Flight Connections desk.
+      - do: Claim compensation if you arrived more than 3 hours late for reasons within Aer Lingus's control.
+        channel: eu261-compensation-form
+      - do: Claim reasonable transport, 3-star hotel and meal costs (no alcohol) with itemised receipts.
+        channel: eu261-expenses-form
+      - do: If Aer Lingus does not reply or refuses, complain to the National Enforcement Body for the departure airport.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: policy
+        claim: Aer Lingus's EU261 page says you may be eligible for compensation or expenses if you are denied boarding, or your flight is cancelled or delayed more than 3 hours on arrival, for reasons within control of the airline.
+        issues: [flight_delay, flight_cancellation, denied_boarding]
+        verified_via: browser
+        source: https://www.aerlingus.com/legal/regulation/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: >-
+          The expenses form covers standard-class or shared transport, 3-star (or similar) hotels when an overnight
+          stay is needed, and reasonable meals and drinks (no alcohol) if not provided by Aer Lingus. It does not cover
+          airport parking, car hire, missed activities, pre-booked accommodation, lost income or travel between a
+          different departure point or destination and the original one.
+        issues: [flight_delay, flight_cancellation, denied_boarding]
+        verified_via: browser
+        source: https://www.aerlingus.com/app/support/forms/flight-disruption-expenses-form
+        last_verified: 2026-11-19
+
+  - issue: denied_boarding
+    summary: If denied boarding for reasons within Aer Lingus's control, claim compensation and expenses on the EU261 forms.
+    evidence: [boarding pass or check-in proof, booking reference, new arrival time, receipts]
+    steps:
+      - do: Ask the airport staff for re-routing or a refund, and for meals and a hotel if needed.
+      - do: Claim compensation.
+        channel: eu261-compensation-form
+      - do: Claim expenses with itemised receipts.
+        channel: eu261-expenses-form
+      - do: If Aer Lingus does not pay, complain to the National Enforcement Body for the departure airport.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: compensation
+        claim: EU Regulation 261/2004 sets denied boarding compensation at EUR 250 for flights of 1,500 km or less, EUR 400 for intra-Community flights over 1,500 km and other flights of 1,500-3,500 km, and EUR 600 for all other flights.
+        issues: [denied_boarding]
+        source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+        last_verified: 2026-11-19
+
+  - issue: delayed_baggage
+    summary: Report the bag at the airport or with ReportMyBag as soon as possible (Aer Lingus says within 7 days of travel), trace it in WorldTracer, and claim essential purchases with receipts.
+    evidence: [bag tag number, Delayed Baggage Reference Number, booking reference, itemised receipts, bank details]
+    steps:
+      - do: Report the delayed bag to Aer Lingus agents or the arrivals-hall kiosk, or once only through ReportMyBag. Keep the Delayed Baggage Reference Number from the email.
+        channel: report-delayed-bag
+      - do: If the bag has not arrived within 24 hours, add the contents and any AirTag link in WorldTracer, and update your delivery address.
+        channel: worldtracer
+      - do: Check status in WorldTracer, or call the Bag Tracing team.
+        channel: bag-tracing-phone
+      - do: If you have travel insurance, claim with the insurer and ask Aer Lingus for supporting documents.
+        channel: insurance-document-request
+      - do: If you have no travel insurance, claim essential expenses with the Baggage Claim Form and itemised receipts.
+        channel: baggage-claim-form
+      - do: If Aer Lingus does not pay, ask the European Consumer Centre in your country for help.
+        regulator: eu-ecc-net
+    facts:
+      - kind: compensation
+        claim: >-
+          Aer Lingus says it assesses reasonable essential expenses for a delayed bag on average per day at about
+          EUR 100 (day 1), EUR 50 (days 2-3), EUR 40 (days 4-8) and EUR 20 (days 8-21), or the local-currency
+          equivalent. These are guidance only, not a daily cap; claims are handled individually up to its maximum
+          liability.
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://www.aerlingus.com/support/customer-care/missing-baggage/
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: The delayed baggage page asks you to report a delayed bag as soon as possible and within 7 days of travel, and says you must report as soon as possible to claim essential expenses.
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://www.aerlingus.com/support/customer-care/missing-baggage/
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: The conditions of carriage say a claim for delay of checked baggage must be notified in writing within twenty-one (21) days from the date the baggage was placed at your disposal.
+        issues: [delayed_baggage]
+        verified_via: document
+        source: https://www.aerlingus.com/media/pdfs/Aer-Lingus-General-Conditions-of-Carriage.pdf
+        last_verified: 2026-11-19
+
+  - issue: lost_baggage
+    summary: A bag still missing after 21 days is treated as lost; claim with the Baggage Claim Form, up to about EUR 1,900 (1,519 SDR).
+    evidence: [Delayed Baggage Reference Number, booking reference, contents list, receipts, bank details]
+    steps:
+      - do: Make sure the bag was reported and you have the Delayed Baggage Reference Number.
+        channel: report-delayed-bag
+      - do: After 21 days, submit the Baggage Claim Form listing the contents with supporting receipts.
+        channel: baggage-claim-form
+      - do: Ask the Bag Tracing team about the search if needed.
+        channel: bag-tracing-phone
+      - do: If Aer Lingus does not pay, ask the European Consumer Centre in your country for help.
+        regulator: eu-ecc-net
+    facts:
+      - kind: limit
+        claim: >-
+          Aer Lingus says a bag delayed beyond 21 days is considered lost, and it will settle up to its maximum
+          liability, the euro equivalent of 1,519 Special Drawing Rights (about EUR 1,900 as of December 2024),
+          taking the age and condition of items into account. Essential-expense payments already made are deducted.
+        issues: [lost_baggage]
+        verified_via: browser
+        source: https://www.aerlingus.com/support/customer-care/missing-baggage/
+        last_verified: 2026-11-19
+
+  - issue: damaged_baggage
+    summary: Report damage at the airport information desk on arrival; otherwise report in WorldTracer within 7 days (the claim form says 5), then claim with the Baggage Claim Form.
+    evidence: [Damaged Baggage Reference Number or bag tag number, booking reference, up to 3 photos, bag make and type, receipts for a replacement]
+    steps:
+      - do: Report the damage at the information desk when you arrive.
+      - do: If you did not report it at the airport, report it through WorldTracer Passenger Self Service. Do it within 5 days to meet the shorter deadline on the claim form.
+        channel: worldtracer
+      - do: If you have travel insurance, claim with the insurer first. Otherwise submit the Baggage Claim Form with photos and receipts.
+        channel: baggage-claim-form
+      - do: If Aer Lingus does not pay, ask the European Consumer Centre in your country for help.
+        regulator: eu-ecc-net
+    facts:
+      - kind: deadline
+        claim: The conditions of carriage say damage to checked baggage must be notified in writing as soon as you discover it and at the latest within seven days of receipt, and any right to damages ends if no action is brought within two years.
+        issues: [damaged_baggage]
+        verified_via: document
+        source: https://www.aerlingus.com/media/pdfs/Aer-Lingus-General-Conditions-of-Carriage.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Aer Lingus does not cover minor exterior damage (scratches, stains, soiling, dents) from normal wear and tear, water damage to non-waterproof bags, or damage to cabin bags unless caused by its negligence.
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://www.aerlingus.com/support/customer-care/damaged-baggage/
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: >-
+      Article 17 of the conditions of carriage says you must submit an EU261 compensation claim directly to Aer Lingus
+      and allow 28 days (or less if the law says so) for a reply before you engage a third party. Assigning the claim is
+      excluded where the law allows, and Aer Lingus will not deal with a third-party company that skipped this step or
+      cannot prove its authority. Payment goes to the booking card or a passenger's bank account.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    verified_via: document
+    source: https://www.aerlingus.com/media/pdfs/Aer-Lingus-General-Conditions-of-Carriage.pdf
+    last_verified: 2026-11-19
+  - kind: contact
+    claim: >-
+      Aer Lingus's cancellation notice says the Irish Aviation Authority is the national enforcement body in Ireland for
+      Regulation 261/2004 (The Times Building, 11-12 D'Olier Street, Dublin 2 D02 T449; tel. +353 1 603 1100; email
+      apr@iaa.ie; www.iaa.ie).
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    verified_via: document
+    source: https://www.aerlingus.com/media/pdfs/LEGALCANCELLATION.pdf
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Aer Lingus's complaints page says it is not subscribed to an approved ADR scheme, so neither the EU ODR platform nor any approved ADR provider can accept a complaint about it.
+    issues: [poor_service, flight_cancellation, flight_delay]
+    verified_via: browser
+    source: https://www.aerlingus.com/legal/complaints/
+    last_verified: 2026-11-19
+  - kind: fee
+    claim: The cash and voucher refund forms both say a refund administration fee may apply, and that Aer Lingus emails you after review to say whether you will get a refund.
+    issues: [refund_request, flight_cancellation]
+    verified_via: browser
+    source: https://www.aerlingus.com/app/support/forms/cash-refund-form
+    last_verified: 2026-11-19
+
+known_blockers:
+  - Every claim and refund form starts with the booking reference and family name exactly as on the booking. Claims ask for bank details and, for someone else, a letter of authorisation.
+  - Baggage claims need the Delayed or Damaged Baggage Reference Number from ReportMyBag or WorldTracer.
+  - Third-party bookings (travel agents, other airlines) must go through the agent or airline.
+  - aerlingus.com uses an Imperva bot check that blocks automated fetches; pages and PDFs load in a normal browser or with curl.
+
+notes: >-
+  Contact and requests pages were first read with a direct fetch, then all pages were checked in the built-in browser
+  on 2026-11-19; the conditions of carriage (last updated 8 December 2021) and the cancellation notice PDFs were
+  downloaded and read. Regulator: the cancellation notice names the Irish Aviation Authority as Ireland's NEB (with
+  address, phone and email apr@iaa.ie), not the Commission for Aviation Regulation; no Aer Lingus page found mentions
+  the CAR. Conflicts: the damaged baggage page and conditions of carriage give 7 days to report damage, but the
+  Baggage Claims form says 5 days; the delayed baggage page says report within 7 days of travel, while the conditions
+  of carriage give 21 days to notify a delay. The legal complaints page says to make "a complaint or claim" on the
+  Complaints form, but the form says it cannot accept claims or refund requests. The refund forms mention a possible
+  administration fee, which EU261 does not provide for when the airline cancels. Phone hours are not published.
+
+official_domains: [aerlingus.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Aer Lingus will never ask for your personal information, password or payment details via social media or unsolicited phone calls, and will never ask you to download an app to process a refund.
+      verified_via: browser
+      source: https://www.aerlingus.com/support/technology/stay-safe-online/
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: Aer Lingus reports an increase in scams and impersonation of its social media accounts and of aerlingus.com. It says its only official website is aerlingus.com and to use only its official social media accounts (Facebook, X, YouTube, TikTok, Instagram).
+      verified_via: browser
+      source: https://www.aerlingus.com/support/technology/stay-safe-online/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Aer Lingus warns that callers may fake caller ID to pose as its call centre agents; verify by calling its official customer service numbers. Do not engage with scam accounts on WhatsApp.
+      verified_via: browser
+      source: https://www.aerlingus.com/support/technology/stay-safe-online/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: If you gave bank or card details to a scammer, Aer Lingus says to contact your bank or card issuer immediately and report it to the police (An Garda Síochána for Irish residents).
+      verified_via: browser
+      source: https://www.aerlingus.com/support/technology/stay-safe-online/
+      last_verified: 2026-11-19

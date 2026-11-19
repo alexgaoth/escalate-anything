@@ -1,0 +1,389 @@
+id: vueling
+name: Vueling
+aliases: [vueling airlines, vueling airlines s.a., vueling airlines sa, vueling.com]
+sector: airline
+parent: International Airlines Group (IAG)
+website: https://www.vueling.com/en
+account_url: https://tickets.vueling.com/vueling-club/login?culture=en-GB
+countries: [eu, es, gb, ch, "no", is]
+regulators: [eu-air-passenger-nebs, eu-ecc-net, de-bfj-luftverkehr, es-aesa]
+
+channels:
+  - id: customer-service-phone-uk
+    type: phone
+    label: Customer service, United Kingdom
+    value: +44-20-3514-3971
+    hours: Personalised service Monday to Sunday, 7am-10pm Spanish time
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, delayed_baggage, lost_baggage, damaged_baggage]
+    notes: The page prints the number as "02035143971". The denied boarding article says to request the refund by calling the Customer Services Centre.
+    verified_via: browser
+    source: https://help.vueling.com/hc/en-gb/articles/19916107516177-Contact-All-our-phone-numbers
+    last_verified: 2026-11-19
+  - id: customer-service-phone-spain
+    type: phone
+    label: Customer service, Spain
+    value: +34-931-225-400
+    hours: Personalised service Monday to Sunday, 7am-10pm Spanish time
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, delayed_baggage, lost_baggage, damaged_baggage]
+    notes: The page lists Spain as "900645000 - 931225400"; 900 numbers are Spanish freephone numbers and may not work from abroad.
+    verified_via: browser
+    source: https://help.vueling.com/hc/en-gb/articles/19916107516177-Contact-All-our-phone-numbers
+    last_verified: 2026-11-19
+  - id: customer-service-phone-international
+    type: phone
+    label: Customer service, rest of the world
+    value: +34-931-518-158
+    hours: Personalised service Monday to Sunday, 7am-10pm Spanish time
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request]
+    notes: >-
+      Other national lines on the same page include Germany 01806909090 (EUR 0.20 per call, mobile EUR 0.60 per call),
+      Italy 199206621 (premium rate, EUR 0.248/min from a landline plus set-up fee) and Switzerland 0900000340
+      (CHF 0.78/min).
+    verified_via: browser
+    source: https://help.vueling.com/hc/en-gb/articles/19916107516177-Contact-All-our-phone-numbers
+    last_verified: 2026-11-19
+  - id: help-centre
+    type: portal
+    label: Help Centre with links to every virtual assistant (claims, refunds, baggage, complaints)
+    value: https://help.vueling.com/hc/en-gb
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, delayed_baggage, lost_baggage, damaged_baggage, poor_service, accessibility]
+    verified_via: browser
+    source: https://help.vueling.com/hc/en-gb
+    last_verified: 2026-11-19
+  - id: compensation-chat
+    type: chat
+    label: Request compensation for cancellation, delay, denied boarding, schedule change or missed connection (virtual assistant)
+    value: https://www.vueling.com/en/customer-services/assistants/compensation
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    access: open
+    notes: >-
+      An AI chat agent, not a form. It first asks for the booking code plus either the booking email address or the
+      airport and date of the flight. The phone page says compensation can also be requested in the chats.
+    verified_via: browser
+    source: https://help.vueling.com/hc/en-gb
+    last_verified: 2026-11-19
+  - id: expense-claim-chat
+    type: chat
+    label: Reimbursement of expenses (virtual assistant)
+    value: https://www.vueling.com/en/customer-services/assistants/expense-claim
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage]
+    access: open
+    notes: The delayed bag article links here ("Claim expenses") for basic necessities bought while a bag is delayed.
+    verified_via: browser
+    source: https://help.vueling.com/hc/en-gb/articles/19798799296273-Delayed-or-lost-bag-claim
+    last_verified: 2026-11-19
+  - id: refund-justified-reasons-chat
+    type: chat
+    label: Request a refund for justified reasons (virtual assistant)
+    value: https://www.vueling.com/en/customer-services/assistants/refund-justified-reasons
+    purposes: [refund_request, flight_cancellation, flight_delay]
+    access: open
+    notes: >-
+      Meant for illness, surgery, pregnancy, death, court summons and similar reasons. The cancelled flights and delay
+      articles also link here as the "Customer Service Centre" for a refund after a cancellation or a delay of more
+      than 5 hours.
+    verified_via: browser
+    source: https://help.vueling.com/hc/en-gb/articles/23136450765841-Cancelled-flights
+    last_verified: 2026-11-19
+  - id: refund-unused-services-chat
+    type: chat
+    label: Refund for a service not used, and airport taxes on an unused ticket (virtual assistant)
+    value: https://www.vueling.com/en/customer-services/assistants/refund-unused-services
+    purposes: [ancillary_fee_refund, refund_request]
+    access: open
+    verified_via: browser
+    source: https://help.vueling.com/hc/en-gb/articles/19798817855889-I-want-to-cancel-my-flight
+    last_verified: 2026-11-19
+  - id: complaints-chat
+    type: chat
+    label: File a complaint (virtual assistant)
+    value: https://www.vueling.com/en/customer-services/assistants/complaints
+    purposes: [poor_service]
+    access: open
+    notes: >-
+      The help article says this chat is only for comments about things you did not like; for a query, claim or
+      anything that needs a reply, use the relevant section (compensation, refund, baggage). The older link in that
+      article (contact/management?helpCenterFlow=Complaint) now redirects to the general enquiry assistant.
+    verified_via: browser
+    source: https://help.vueling.com/hc/en-gb/articles/19854095362449-File-a-complaint
+    last_verified: 2026-11-19
+  - id: case-status-chat
+    type: chat
+    label: Check the status of a claim or case (virtual assistant)
+    value: https://www.vueling.com/en/customer-services/assistants/case-status
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, delayed_baggage, lost_baggage, damaged_baggage]
+    access: open
+    notes: Needs the case number.
+    verified_via: browser
+    source: https://help.vueling.com/hc/en-gb
+    last_verified: 2026-11-19
+  - id: luggage-incident-chat
+    type: chat
+    label: Manage a luggage incident, damaged bag options and lost bag compensation (virtual assistant)
+    value: https://www.vueling.com/en/customer-services/assistants/general-enquiry
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    access: open
+    notes: >-
+      The delayed or lost bag article links here for compensation after 21 days, and the damaged bag article links
+      here to manage options after a PIR. The phone page also links a separate baggage assistant at
+      https://www.vueling.com/en/customer-services/assistants/baggage-incident.
+    verified_via: browser
+    source: https://help.vueling.com/hc/en-gb/articles/19798799296273-Delayed-or-lost-bag-claim
+    last_verified: 2026-11-19
+  - id: bag-tracker
+    type: portal
+    label: Locate a delayed bag, add contents or an AirTag link, change the delivery address (mybag.aero)
+    value: https://mybag.aero/baggage/#/pax/vueling/en-gb/delayed/manage-bag
+    purposes: [delayed_baggage, lost_baggage]
+    notes: Needs the PIR reference. The site is mybag.aero, not vueling.com; Vueling's help article links to it for "Change details" and "Locate my luggage".
+    verified_via: browser
+    source: https://help.vueling.com/hc/en-gb/articles/19798799296273-Delayed-or-lost-bag-claim
+    last_verified: 2026-11-19
+  - id: reduced-mobility-request
+    type: chat
+    label: Request assistance for persons with reduced mobility (virtual assistant)
+    value: https://www.vueling.com/en/customer-services/assistants/reduced-mobility-assistance
+    purposes: [accessibility]
+    access: open
+    notes: Vueling recommends requesting assistance at least 48 hours before departure. You can also add it during booking on the website.
+    verified_via: browser
+    source: https://help.vueling.com/hc/en-gb/articles/19798820075537-Passengers-with-reduced-mobility-and-special-needs
+    last_verified: 2026-11-19
+  - id: special-assistance-phone-uk
+    type: phone
+    label: Special assistance line, United Kingdom (only for people with special needs)
+    value: +44-20-4571-0521
+    purposes: [accessibility]
+    notes: Spain 931222230 (+34-931-222-230); rest of the world +34931222251 (+34-931-222-251); France +33185148077; Italy +390694802424. Also used for free adapted seats for the passenger and one companion.
+    verified_via: browser
+    source: https://help.vueling.com/hc/en-gb/articles/19798820075537-Passengers-with-reduced-mobility-and-special-needs
+    last_verified: 2026-11-19
+  - id: data-protection-email
+    type: email
+    label: Data Protection Officer
+    value: data.protection@vueling.com
+    purposes: [privacy_request]
+    notes: Postal address in the policy is Data Protection Officer, Vueling Airlines, S.A., Viladecans Business Park, Edif. Brasil, Carrer de Catalunya 83, 08840 Viladecans (Barcelona).
+    verified_via: browser
+    source: https://www.vueling.com/en/legal/privacy-policy
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone-uk}
+  - {rung: written_complaint, channel: compensation-chat}
+  - {rung: regulator, regulator: eu-air-passenger-nebs, note: "National Enforcement Body of the country where the incident happened (departure airport; for flights into the EU on an EU carrier, the arrival airport). See regulators/eu-air-passenger-nebs."}
+  - {rung: regulator, regulator: de-bfj-luftverkehr, note: "Vueling is not on the Schlichtungsstelle Reise & Verkehr member list, so a claim where German courts have jurisdiction (for example a flight from or to Germany) goes to the federal conciliation body at the Bundesamt für Justiz. Claim from the airline first and wait two months; claims of EUR 10.01 to 5,000; the proposal binds neither side."}
+  - {rung: regulator, regulator: es-aesa, note: "For a flight that departed from Spain, or flew to Spain from outside the EU on an EU airline, from 2 June 2023: AESA's dispute resolution is mandatory for every airline and its decision binds the airline (not the passenger). Claim from the airline first; if it does not answer within one month or you reject the answer, file with AESA within one year of that claim. Not for baggage. Vueling's English conditions of carriage say it is not subscribed to an ADR scheme; AESA's procedure applies to all airlines under Orden TMA/201/2022."}
+  - {rung: regulator, regulator: eu-ecc-net, note: "Free help from the European Consumer Centre in your country when the airline is based in another EU country, Iceland or Norway."}
+  - {rung: payment_dispute, note: "Card chargeback for a refund the airline owes but has not paid."}
+  - {rung: small_claims, note: "European Small Claims Procedure for cross-border claims up to EUR 5,000 (rules/eu-small-claims-procedure); otherwise the national court. Time limits for EU261 claims are set by national law."}
+
+playbooks:
+  - issue: flight_cancellation
+    summary: Choose a full refund (within 7 days) or re-routing in My trips or the emailed link, then request compensation through the compensation assistant.
+    evidence: [booking code, booking email address, cancellation email, receipts for meals or hotel]
+    steps:
+      - do: Follow the steps in the cancellation email, or open the booking in My trips, to choose a refund or re-routing. A Flight Credit is instant, but you may ask for a refund to the original payment method instead.
+      - do: If the online options do not work, ask for the refund through the assistant the cancellation article links to, or by phone.
+        channel: refund-justified-reasons-chat
+      - do: Request compensation through the compensation assistant (have the booking code and booking email ready).
+        channel: compensation-chat
+      - do: Claim meals, hotel or transport you paid for yourself.
+        channel: expense-claim-chat
+      - do: If Vueling does not reply or refuses, complain to the National Enforcement Body for the departure airport.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: policy
+        claim: Vueling's cancelled flights article offers, in all cases of cancellation, a full ticket price refund within max 7 days of application via the booked payment method, or re-routing as soon as possible or at a later date, plus assistance.
+        issues: [flight_cancellation, refund_request]
+        verified_via: browser
+        source: https://help.vueling.com/hc/en-gb/articles/23136450765841-Cancelled-flights
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: The same article lists compensation of 250 for flights up to 1500 km, 400 for flights of 1500-3500 km outside the EU or over 1500 km within the EU, and 600 for flights over 3500 km outside the EU, unless the cancellation is due to extraordinary circumstances such as weather or air traffic restrictions.
+        issues: [flight_cancellation]
+        verified_via: browser
+        source: https://help.vueling.com/hc/en-gb/articles/23136450765841-Cancelled-flights
+        last_verified: 2026-11-19
+
+  - issue: flight_delay
+    summary: After 2 hours ask ground staff for meals; after 5 hours you can get a refund; arriving 3 or more hours late gives compensation unless extraordinary circumstances apply.
+    evidence: [booking code, booking email address, scheduled and actual arrival times, receipts]
+    steps:
+      - do: Ask the ground staff for meal and drink vouchers, two calls or emails, and a hotel with transport if you must stay overnight.
+      - do: If the delay is over 5 hours and you do not want to travel, ask for a refund of the unused journey.
+        channel: refund-justified-reasons-chat
+      - do: If you arrived 3 or more hours late, request compensation.
+        channel: compensation-chat
+      - do: Claim expenses you paid yourself, with receipts.
+        channel: expense-claim-chat
+      - do: If Vueling does not reply or refuses, complain to the National Enforcement Body for the departure airport.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: compensation
+        claim: Vueling's delay article says that if you reach your destination 3 or more hours late you may request compensation of 250 EUR (up to 1500 km), 400 EUR (1501-3500 km) or 600 EUR (more than 3500 km), except if the delay is caused by extraordinary circumstances like the weather.
+        issues: [flight_delay]
+        verified_via: browser
+        source: https://help.vueling.com/hc/en-gb/articles/24476547783569-Delay-in-my-flight
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: For a delay over 2 hours Vueling's ground staff offer meal and drink tickets, 2 calls, emails or faxes, and accommodation with transport if an overnight stay is needed. Over 5 hours you may have the unused journey refunded within 7 days of Vueling receiving your claim.
+        issues: [flight_delay, refund_request]
+        verified_via: browser
+        source: https://help.vueling.com/hc/en-gb/articles/24476547783569-Delay-in-my-flight
+        last_verified: 2026-11-19
+
+  - issue: denied_boarding
+    summary: If bumped from an overbooked flight, take re-routing or a refund within 7 calendar days, and request compensation through Customer Services.
+    evidence: [boarding pass or check-in proof, booking code, time you reached the desk, new arrival time]
+    steps:
+      - do: Follow the airport staff's instructions; ask for meal tickets, two calls and a hotel if you must stay overnight.
+      - do: Choose re-routing, or a refund of the unused journey (Vueling says to call Customer Services for the refund).
+        channel: customer-service-phone-uk
+      - do: Request denied boarding compensation.
+        channel: compensation-chat
+      - do: If Vueling does not pay, complain to the National Enforcement Body for the departure airport.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: compensation
+        claim: >-
+          Vueling's overbooking article lists compensation by flight length and arrival delay: under 1500 km, 125 EUR
+          (less than 2 hours late) or 250 EUR (more than 2 hours); 1500-3500 km, 200 EUR (less than 3 hours) or 400 EUR
+          (more than 3 hours); over 3500 km, 300 EUR (less than 4 hours) or 600 EUR (more than 4 hours).
+        issues: [denied_boarding]
+        verified_via: browser
+        source: https://help.vueling.com/hc/en-gb/articles/19798807463057-Denied-Boarding-Overbooking
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: The same article says there is no compensation or assistance when there is due reason to deny boarding, such as lack of travel documents or not appearing at the stated times or at least 45 minutes before departure. Vueling recommends checking in early to get a seat.
+        issues: [denied_boarding]
+        verified_via: browser
+        source: https://help.vueling.com/hc/en-gb/articles/19798807463057-Denied-Boarding-Overbooking
+        last_verified: 2026-11-19
+
+  - issue: delayed_baggage
+    summary: Get a PIR at Vueling's Lost and Found Office within 24 hours of arrival, track the bag online, and claim basic necessities within 21 days of getting the bag back.
+    evidence: [PIR reference code, bag tag, purchase receipts, boarding pass]
+    steps:
+      - do: Before you leave the baggage claim area, go to Vueling's Lost and Found Office and get a Property Irregularity Report (PIR). You have 24 hours after the flight arrives. Keep the reference code.
+      - do: Track the bag, add contents, an AirTag link or a photo, and update the delivery address.
+        channel: bag-tracker
+      - do: After the bag is delivered (and at least 24 hours after the PIR), claim basic necessities with the PIR code, bag tag and receipts, within 21 days of getting the bag back.
+        channel: expense-claim-chat
+      - do: If the bag is not found within 21 days, see lost_baggage.
+        channel: luggage-incident-chat
+      - do: If Vueling does not pay, ask the European Consumer Centre in your country for help.
+        regulator: eu-ecc-net
+    facts:
+      - kind: deadline
+        claim: Vueling's bag article says you can claim basic necessities (change of clothes, hygiene products, mobile charger) only when 24 hours have passed since the PIR and the bag has been delivered, and you must claim within 21 days of getting the bag back. Receipts are required.
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://help.vueling.com/hc/en-gb/articles/19798799296273-Delayed-or-lost-bag-claim
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Vueling's conditions of carriage say you must inform the carrier in writing as soon as possible and in any case within 21 days for delayed luggage (7 days for damaged), counted from when the baggage is handed over; any court action for damages must be brought within two years of the flight.
+        issues: [delayed_baggage, damaged_baggage]
+        verified_via: browser
+        source: https://www.vueling.com/en/customer-services/conditions-of-carriage
+        last_verified: 2026-11-19
+
+  - issue: lost_baggage
+    summary: A bag not traced after 21 days can be claimed as lost through the luggage assistant, with the PIR code and bag tag.
+    evidence: [PIR reference code, bag tag, list of contents, receipts]
+    steps:
+      - do: Make sure you have a PIR from the Lost and Found Office (within 24 hours of arrival).
+      - do: Keep the PIR updated with contents and tracking data.
+        channel: bag-tracker
+      - do: From 21 calendar days after the PIR was opened, request compensation with the PIR code and bag tag.
+        channel: luggage-incident-chat
+      - do: If Vueling does not pay, ask the European Consumer Centre in your country for help.
+        regulator: eu-ecc-net
+    facts:
+      - kind: deadline
+        claim: Vueling says compensation for lost luggage can be claimed as of 21 calendar days from when the PIR is opened, and recommends doing it as soon as possible. Its liability is set by the Montreal Convention of 28 May 1999.
+        issues: [lost_baggage]
+        verified_via: browser
+        source: https://help.vueling.com/hc/en-gb/articles/19798799296273-Delayed-or-lost-bag-claim
+        last_verified: 2026-11-19
+      - kind: process
+        claim: For a lost wheelchair, Vueling asks for the boarding pass, an ID document, a signed settlement slip and the invoice in addition to the PIR and bag tag.
+        issues: [lost_baggage, accessibility]
+        verified_via: browser
+        source: https://help.vueling.com/hc/en-gb/articles/19798799296273-Delayed-or-lost-bag-claim
+        last_verified: 2026-11-19
+
+  - issue: damaged_baggage
+    summary: Show the damage at Vueling's Lost and Found Office before leaving and get a PIR; claim within 7 calendar days.
+    evidence: [PIR reference number, photos of the damage, bag tag]
+    steps:
+      - do: Before leaving the baggage claim area, go to Vueling's Lost and Found Office. An agent checks the damage and, if applicable, gives you a PIR with a reference number.
+      - do: With the PIR open, manage your options through the luggage assistant within 7 calendar days.
+        channel: luggage-incident-chat
+      - do: If Vueling does not pay, ask the European Consumer Centre in your country for help.
+        regulator: eu-ecc-net
+    facts:
+      - kind: deadline
+        claim: Vueling's damaged bag article says you have up to 7 calendar days from receipt of the luggage and the opening of the PIR to claim damages, and that some damage is not covered because it may come from normal handling.
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://help.vueling.com/hc/en-gb/articles/19798809791121-Damaged-bag
+        last_verified: 2026-11-19
+
+facts:
+  - kind: policy
+    claim: If Vueling confirms you are entitled to compensation, you may choose a compensation voucher instead of money. It is valid 18 months from issue, is not personal, and can be used for any booking; currently only on a mobile device.
+    issues: [travel_credit, flight_cancellation, flight_delay, denied_boarding]
+    verified_via: browser
+    source: https://help.vueling.com/hc/en-gb/articles/45126017103377-Compensation-voucher
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Flight Credit from a cancelled booking is valid for 18 months from issue, can be used for yourself or someone else, and cannot be combined across bookings. Bookings paid with Avios get the Avios back instead.
+    issues: [travel_credit, refund_request]
+    verified_via: browser
+    source: https://help.vueling.com/hc/en-gb/articles/19798818911505-Flight-Credit
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Vueling says Fly Pro, Fly and Fly Light tickets are non-refundable and can be cancelled only in the grace period up to 2 hours after booking, but you can still claim back airport taxes if you do not fly.
+    issues: [refund_request]
+    verified_via: browser
+    source: https://help.vueling.com/hc/en-gb/articles/19798817855889-I-want-to-cancel-my-flight
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: For a non-refundable ticket you did not use, Vueling's conditions of carriage say taxes and government or airport charges are refunded within 30 days of the request. You must apply directly; Vueling will not process a refund application from a third party.
+    issues: [refund_request, ancillary_fee_refund]
+    verified_via: browser
+    source: https://www.vueling.com/en/customer-services/conditions-of-carriage
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Vueling's conditions of carriage say it is not currently subscribed to an Alternative Dispute Resolution scheme, so the EU Online Dispute Resolution platform cannot accept a Vueling complaint, and point UK passengers to the CAA's Passenger Advice and Complaints Team.
+    issues: [flight_cancellation, flight_delay, denied_boarding, poor_service]
+    verified_via: browser
+    source: https://www.vueling.com/en/customer-services/conditions-of-carriage
+    last_verified: 2026-11-19
+
+known_blockers:
+  - Claims, refunds, complaints and baggage requests go through AI chat assistants, not forms. Each first asks for the booking code plus the booking email or the airport and date of the flight.
+  - The status check needs the case number; bag tracking needs the PIR reference.
+  - vueling.com and help.vueling.com block automated fetches (HTTP 403); pages load in a normal browser.
+
+notes: >-
+  Checked in the built-in browser on 2026-11-19; help articles were read through the Zendesk help centre API on
+  help.vueling.com, and the passenger rights PDF text was extracted from the file. AESA or ADR: no Vueling page found
+  that mentions AESA or Spain's air passenger ADR. The English conditions of carriage say Vueling is not subscribed to
+  an ADR scheme (this conflicts with the mandatory AESA ADR in Spain); the Spanish conditions only mention the EU ODR
+  platform. The English passenger rights PDF (static.vueling.com, passenger-rights-en.pdf; file metadata shows it was
+  last modified 2025-07-29) names the CAA's PACT as the enforcement body and links the European Commission NEB list. The cancelled flights
+  and delay articles send refund requests to the "refund for justified reasons" assistant, which is labelled for
+  illness and similar reasons. The site footer shows Contactus@vueling.com, but no help page mentions it, so it is not
+  listed as a channel. Countries no and is come from the help centre's Oslo, Tromso and Reykjavik airport pages.
+  The only scam warning found is the phishing note in the privacy policy.
+
+official_domains: [vueling.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: Vueling's privacy policy warns of phishing, where unsolicited emails ask recipients to enter or confirm bank details or passwords on a cloned or fake website.
+      verified_via: browser
+      source: https://www.vueling.com/en/legal/privacy-policy
+      last_verified: 2026-11-19

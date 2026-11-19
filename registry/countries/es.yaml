@@ -1,0 +1,8 @@
+id: es
+name: Spain
+kind: country
+currency: EUR
+status: in_progress
+maintainers: []
+notes: >-
+  Created by the EU air-passenger pack so that company and regulator files can name this country. EU-wide rules apply through countries/eu.yaml. National data: regulators/es-aesa (NEB and binding air passenger ADR).

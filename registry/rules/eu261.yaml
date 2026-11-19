@@ -1,0 +1,289 @@
+id: eu261
+title: EU air passenger rights - Regulation (EC) No 261/2004 (denied boarding, cancellation, long delay)
+citation: Regulation (EC) No 261/2004 of 11 February 2004 (OJ L 46, 17.2.2004), as interpreted by the Court of Justice of the EU; amended by Regulation (EU) 2026/2202, which applies from 23 October 2027
+jurisdiction: eu
+status: in_effect
+applies_to:
+  sectors: [airline, travel_agency]
+  issues: [flight_cancellation, flight_delay, denied_boarding, refund_request, travel_credit, delayed_baggage, lost_baggage, damaged_baggage]
+summary: >-
+  Covers flights departing from an airport in the EU (any airline) and flights from outside the EU into the EU on an
+  EU airline; Your Europe says the rules also apply to flights to and from Iceland, Norway and Switzerland. When
+  boarding is denied against the passenger's will, a flight is cancelled at short notice, or (per the Court of
+  Justice) the passenger reaches the final destination 3 hours or more late, the operating airline owes fixed
+  compensation of EUR 250, 400 or 600 by distance, unless it proves extraordinary circumstances that could not have
+  been avoided with all reasonable measures. Separately, it must offer a refund within 7 days or rerouting, and care
+  (meals, refreshments, hotel, transport, two calls or emails) while the passenger waits. Complain to the airline
+  first, then to the National Enforcement Body of the country where the incident happened. Time limits to sue are set
+  by national law. The current text applies until 22 October 2027; amendments adopted in 2026 apply from 23 October 2027.
+points:
+  - kind: policy
+    claim: >-
+      Article 3(1): the Regulation applies to passengers departing from an airport in a Member State, and to passengers
+      departing from an airport in a third country to an airport in a Member State if the operating air carrier is a
+      Community (EU) carrier, unless they received benefits or compensation and assistance in that third country.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Your Europe says "EU" includes Guadeloupe, French Guiana, Martinique, Mayotte, Réunion, Saint Barthélemy,
+      Saint-Martin, the Azores, Madeira and the Canary Islands, but not the Faeroe Islands, and that EU rules also apply to
+      flights to and from Iceland, Norway and Switzerland.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    source: https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_en.htm
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Article 3(2)-(3): the passenger needs a confirmed reservation and must present themselves for check-in at the time
+      the airline indicated in writing or, if no time was given, not later than 45 minutes before the published departure
+      time (not required for a cancellation). The Regulation does not cover passengers travelling free of charge or at a
+      reduced fare not available to the public, but does cover frequent flyer and other commercial programme tickets.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Article 7(1): compensation is EUR 250 for flights of 1500 km or less; EUR 400 for intra-Community flights of more than
+      1500 km and all other flights between 1500 and 3500 km; EUR 600 for all other flights. The distance is to the last
+      destination at which the passenger arrives late, measured by the great circle route.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Article 7(2): if the passenger is rerouted and arrives no more than 2 hours (1500 km or less), 3 hours (intra-EU over
+      1500 km and other flights 1500-3500 km) or 4 hours (all other flights) after the original scheduled arrival, the
+      airline may cut the compensation by 50% (to EUR 125, 200 or 300).
+    issues: [flight_cancellation, denied_boarding]
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Article 7(3): compensation is paid in cash, by electronic bank transfer, bank orders or bank cheques, or in travel
+      vouchers and/or other services only with the passenger's signed agreement. The same means apply to refunds under
+      Article 8(1)(a).
+    issues: [flight_cancellation, flight_delay, denied_boarding, travel_credit, refund_request]
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Article 4: when a flight is overbooked the airline must first call for volunteers. If it denies boarding to
+      passengers against their will, it must immediately compensate them under Article 7 and assist them under Articles 8
+      (refund or rerouting) and 9 (care).
+    issues: [denied_boarding]
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Article 5(1)(c): after a cancellation no compensation is due if the passenger was told at least two weeks before the
+      scheduled departure; or between two weeks and seven days before and offered rerouting departing no more than 2 hours
+      earlier and arriving less than 4 hours later; or less than seven days before and offered rerouting departing no more
+      than 1 hour earlier and arriving less than 2 hours later. Article 5(4): the airline must prove whether and when the
+      passenger was told.
+    issues: [flight_cancellation]
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Article 5(3): the airline does not owe compensation for a cancellation if it can prove that it was caused by
+      extraordinary circumstances which could not have been avoided even if all reasonable measures had been taken. The
+      right to a refund or rerouting and to care still applies.
+    issues: [flight_cancellation, flight_delay]
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Court of Justice, Wallentin-Hermann (C-549/07, 22 December 2008): a technical problem in an aircraft that leads to
+      a cancellation is not an extraordinary circumstance, unless it stems from events which, by their nature or origin,
+      are not inherent in the normal exercise of the airline's activity and are beyond its actual control.
+    issues: [flight_cancellation, flight_delay]
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:62007CJ0549
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Court of Justice, Airhelp v SAS (C-28/20, 23 March 2021): a lawful strike called by a trade union of the operating
+      airline's own staff, followed by staff essential to operate the flight, is not an extraordinary circumstance.
+    issues: [flight_cancellation, flight_delay]
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:62020CJ0028
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Court of Justice, Sturgeon (joined cases C-402/07 and C-432/07, 19 November 2009): passengers whose flights are
+      delayed may rely on the Article 7 compensation where they reach their final destination three hours or more after
+      the scheduled arrival time, unless the airline proves extraordinary circumstances. A delayed flight operated
+      according to the airline's original planning is not a cancellation, however long the delay.
+    issues: [flight_delay]
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:62007CJ0402
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Court of Justice, Nelson (joined cases C-581/10 and C-629/10, 23 October 2012, Grand Chamber): confirmed that
+      passengers are entitled to compensation where they reach their final destination three hours or more after the
+      scheduled arrival time, unless the delay was caused by extraordinary circumstances.
+    issues: [flight_delay]
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:62010CJ0581
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Court of Justice, Folkerts (C-11/11, 26 February 2013): on directly connecting flights, compensation is due when the
+      passenger arrives at the final destination at least three hours late, even if the departure delay was below the
+      Article 6 thresholds.
+    issues: [flight_delay]
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:62011CJ0011
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Court of Justice, Germanwings (C-452/13, 4 September 2014): the "arrival time" used to measure the delay is the time
+      at which at least one of the aircraft doors is opened, not the touchdown time.
+    issues: [flight_delay]
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:62013CJ0452
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Your Europe: a missed connection on a single reservation gives compensation if the passenger arrives more than 3
+      hours late at the final destination, whether the connecting flight is operated by an EU or non-EU airline (for
+      journeys from the EU). For journeys from outside the EU into the EU, only flights operated by EU airlines count.
+      No compensation if the connection was missed because of delays at security checks or not respecting boarding time.
+    issues: [flight_delay]
+    source: https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_en.htm
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Article 6(1): when the airline expects a departure delay of 2 hours or more (1500 km or less), 3 hours or more
+      (intra-EU over 1500 km and other flights 1500-3500 km) or 4 hours or more (all other flights), it must offer meals,
+      refreshments and two calls or emails; hotel and transport when departure is at least the next day; and, when the
+      delay is at least five hours, the Article 8(1)(a) option of a refund (and a return flight where relevant).
+    issues: [flight_delay, refund_request]
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Article 8(1): passengers must be offered the choice between (a) reimbursement within seven days of the full cost of
+      the ticket for the parts not made (and parts already made if the flight no longer serves any purpose), with a return
+      flight to the first point of departure where relevant; (b) rerouting to the final destination at the earliest
+      opportunity; or (c) rerouting at a later date at the passenger's convenience, subject to seat availability.
+    issues: [flight_cancellation, denied_boarding, refund_request]
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Article 9: care is free of charge: meals and refreshments in reasonable relation to the waiting time; hotel
+      accommodation when one or more nights' stay (or an extra stay) becomes necessary; transport between the airport and
+      the accommodation; and two telephone calls, telex or fax messages, or e-mails. Your Europe says that if care is not
+      offered, the airline should reimburse necessary, reasonable and appropriate expenses; keep all receipts.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Your Europe: after a downgrade the airline must reimburse 30% of the ticket price for flights of 1500 km or less, 50%
+      for intra-EU flights over 1500 km and other flights of 1500-3500 km, and 75% for all other flights; for a multi-flight
+      ticket only the downgraded flight counts. The reimbursement should be paid within 7 days.
+    issues: [refund_request]
+    source: https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_en.htm
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Article 15: the airline cannot limit or waive these obligations in its contract of carriage. A passenger who accepted
+      less than the Regulation provides because of a restrictive clause or because they were not correctly informed can
+      still go to the competent courts or bodies for additional compensation.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Your Europe: always complain to the airline first, using its complaint form. If the airline does not reply within 2
+      months, or the reply is unsatisfactory, complain to the national authority (National Enforcement Body) in the country
+      where the incident took place; it gives a non-binding legal opinion. Out-of-court dispute resolution (ADR) is
+      available only to EU residents. The European Consumer Centre in your country can help with a cross-border complaint.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    source: https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_en.htm
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Article 16(1)-(2): each Member State designates an enforcement body for flights from airports on its territory and
+      flights from a third country to those airports; a passenger may complain to it about an alleged infringement at an
+      airport on its territory or on a flight from a third country to that territory.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Your Europe: the claim can go to court under the European Small Claims Procedure. For flights operated by an EU
+      airline, the claim can be filed at the place of arrival or departure (also for connecting flights on one reservation),
+      or in the country where the airline is registered; for a non-EU airline, in the EU country where the flight arrived,
+      departed or connected.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    source: https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_en.htm
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Court of Justice, Moré v KLM (C-139/11, 22 November 2012): the time limits for bringing an action for compensation
+      under Articles 5 and 7 are set by each Member State's rules on the limitation of actions. The current Regulation has
+      no EU-wide claim deadline; check the national limitation period of the country where you sue.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:62011CJ0139
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Your Europe: the operating airline is responsible, even if the ticket was bought from another airline; outbound and
+      return flights are separate flights even on one booking; under a wet lease the airline that hires the aircraft and
+      crew is the operating airline.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    source: https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_en.htm
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Lost, damaged or delayed checked baggage is not covered by Regulation 261/2004. Your Europe says the airline is
+      liable up to approximately EUR 1,300 and that the written claim is due within 7 days (damage) or within 21 days of
+      receiving a delayed bag. See rules/montreal-convention-baggage for the exact SDR limit and deadlines.
+    issues: [delayed_baggage, lost_baggage, damaged_baggage]
+    source: https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_en.htm
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Amendment (applies from 23 October 2027, not before): Regulation (EU) 2026/2202 keeps EUR 250/400/600 and the
+      compensation threshold of an arrival delay exceeding three hours (Articles 6(4) and 7(1)); allows a 50% cut of the
+      EUR 600 band when the arrival is no more than four hours late; requires compensation claims within nine months of
+      the departure date and an answer or payment within 30 calendar days (Article 7(9)); requires payment by bank
+      transfer unless the passenger explicitly agrees otherwise (Article 7(7)); and adds a non-exhaustive Annex list of
+      extraordinary circumstances.
+    issues: [flight_delay, flight_cancellation, denied_boarding]
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R2202
+    last_verified: 2026-11-19
+status_note: >-
+  In force: the 2004 text applies today. Reform status as of 2026-11-19: the reform (procedure 2013/0072(COD)) is
+  finished. Council position at first reading 29 September 2025; Parliament second reading 21 January 2026; Council
+  rejected Parliament's amendments 24 March 2026; Conciliation Committee agreed a joint text 15 June 2026; Parliament
+  approved it at third reading 7 July 2026 and the Council on 13 July 2026; signed 16 September 2026; published as
+  Regulation (EU) 2026/2202 in OJ L of 2 October 2026 (sources: Parliament Legislative Observatory
+  https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2013/0072(COD), and the Regulation on EUR-Lex
+  https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R2202). Article 3 of 2026/2202: it enters into force
+  on the twentieth day after publication (22 October 2026) and applies from 23 October 2027. Until then the 2004 text
+  and the Court of Justice case law above apply. On 23 October 2027 this file must be updated (or the amendment added as
+  a separate rule): the 3-hour threshold and EUR 250/400/600 stay, but there will be a nine-month claim deadline, a
+  30-day answer deadline, a list of extraordinary circumstances, three-hour self-rerouting, and new complaint-handling
+  rules (Article 15a). Article texts were read on EUR-Lex in the built-in browser (verified_via browser).
+source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+last_verified: 2026-11-19

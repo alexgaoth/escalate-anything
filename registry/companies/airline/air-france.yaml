@@ -1,0 +1,380 @@
+id: air-france
+name: Air France
+aliases: [société air france, societe air france, airfrance, airfrance.co.uk, airfrance.fr]
+sector: airline
+parent: Air France-KLM
+website: https://wwws.airfrance.co.uk
+account_url: https://wwws.airfrance.co.uk/trip
+countries: [eu, fr, gb]
+regulators: [eu-air-passenger-nebs, eu-ecc-net, de-sruv, fr-mtv, es-aesa]
+
+channels:
+  - id: service-line-uk
+    type: phone
+    label: Air France Service Line, United Kingdom
+    value: +44-20-7660-0337
+    hours: Monday to Friday 9:00 AM to 5:30 PM London time (complaint and compensation topics); the refund topic shows Monday to Friday 8:00 AM to 8:00 PM and weekends 9:00 AM to 5:30 PM
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, ancillary_fee_refund, poor_service]
+    notes: >-
+      The page prints it as "+44 20 766 00 337", "National standard rates to: United Kingdom", in English and French.
+      The hours shown depend on the contact topic you select. The refund topic warns of higher booking and service
+      fees by phone.
+    verified_via: browser
+    source: https://wwws.airfrance.co.uk/contact/topic/refund-compensation/subtopic/complaint
+    last_verified: 2026-11-19
+  - id: service-line-france
+    type: phone
+    label: Air France Service Line, France
+    value: +33-9-69-39-36-54
+    hours: Monday to Friday 9:00 AM to 6:00 PM Paris time (compensation topic)
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request]
+    notes: >-
+      The page prints it as "+33 9 69 39 36 54", "National standard rates to: France", in French and English.
+    verified_via: browser
+    source: https://wwws.airfrance.fr/en/contact/topic/flight-disruption/subtopic/compensation
+    last_verified: 2026-11-19
+  - id: whatsapp
+    type: social
+    label: WhatsApp, Messenger or Apple Messages (24/7)
+    value: https://wa.me/33699385720
+    hours: 24/7
+    purposes: [flight_cancellation, flight_delay, delayed_baggage, lost_baggage, accessibility]
+    notes: >-
+      WhatsApp number +33 6 99 38 57 20, in English and French. The same contact panels link Messenger
+      (https://www.messenger.com/t/10150136746870526) and Apple Messages.
+    verified_via: browser
+    source: https://wwws.airfrance.co.uk/contact/topic/refund-compensation/subtopic/complaint
+    last_verified: 2026-11-19
+  - id: chat
+    type: chat
+    label: Web chat (button on the contact pages)
+    value: https://wwws.airfrance.co.uk/contact
+    hours: 24/7
+    purposes: [flight_cancellation, flight_delay, refund_request]
+    notes: Choose a topic on the contact page; the "Need further assistance?" panel has a chat button, "available 24/7 from your computer".
+    verified_via: browser
+    source: https://wwws.airfrance.co.uk/contact/topic/flight-disruption/subtopic/compensation
+    last_verified: 2026-11-19
+  - id: claim-form
+    type: web_form
+    label: Claim form (EU261 compensation, disruption expenses, baggage claims, complaints)
+    value: https://wwws.airfrance.co.uk/claim
+    purposes: [flight_delay, flight_cancellation, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, poor_service, accessibility]
+    access: open
+    notes: >-
+      Sign in, or find the booking with the booking reference, first name and last name. Covers Air France, KLM and
+      Delta flights. Track, edit or add documents at https://wwws.airfrance.co.uk/claim/track-a-claim; do not file a
+      new form for a request that already has a reference number. The contact page warns that response times may be
+      longer than usual because of high demand.
+    verified_via: browser
+    source: https://wwws.airfrance.co.uk/information/legal/reclamation
+    last_verified: 2026-11-19
+  - id: refund-form
+    type: web_form
+    label: Request or track a refund (ticket, extra options, travel voucher)
+    value: https://wwws.airfrance.co.uk/refund
+    purposes: [flight_cancellation, flight_delay, refund_request, ancillary_fee_refund, travel_credit]
+    access: open
+    notes: Needs the booking reference and last name. Tickets bought through a travel agency or another airline are refunded by them first.
+    verified_via: browser
+    source: https://wwws.airfrance.co.uk/contact/topic/refund-compensation/subtopic/refund
+    last_verified: 2026-11-19
+  - id: special-refund-form
+    type: web_form
+    label: Refund form for special cases (part of the passengers, visa denial, denied boarding, downgrade, death, paid service not delivered)
+    value: https://refunds.klm.com/AirfranceRPS
+    purposes: [refund_request, denied_boarding, ancillary_fee_refund]
+    notes: Linked from the Air France refund contact topic. The form is on a KLM domain. Not opened.
+    verified_via: browser
+    source: https://wwws.airfrance.co.uk/contact/topic/refund-compensation/subtopic/refund
+    last_verified: 2026-11-19
+  - id: missing-baggage-report
+    type: web_form
+    label: Declare missing baggage online
+    value: https://wwws.airfrance.co.uk/missing-baggage-claim
+    purposes: [delayed_baggage, lost_baggage]
+    access: open
+    notes: >-
+      Within 7 days of arrival. Sign in or enter the booking details, and have the baggage receipt number. Some arrival
+      airports do not allow online declaration; then use the Air France KLM baggage office before leaving the airport.
+      You can also declare in the Air France app.
+    verified_via: browser
+    source: https://wwws.airfrance.co.uk/information/bagages/bagage-manquant-airfrance
+    last_verified: 2026-11-19
+  - id: baggage-tracker
+    type: portal
+    label: Track a missing baggage claim
+    value: https://wwws.airfrance.co.uk/missing-baggage-claim/track-a-claim
+    purposes: [delayed_baggage, lost_baggage]
+    access: open
+    notes: Uses the claim number from the online form or from the airport agent. An AirTag location can be shared at https://wwws.airfrance.co.uk/missing-baggage-claim/airtag.
+    verified_via: browser
+    source: https://wwws.airfrance.co.uk/information/bagages/bagage-manquant-airfrance
+    last_verified: 2026-11-19
+  - id: worldtracer
+    type: portal
+    label: WorldTracer baggage search (Air France)
+    value: https://wtrweb.worldtracer.aero/WorldTracerWeb/pax.do?airlineCode=AF&siteLanguage=FR
+    purposes: [delayed_baggage, lost_baggage]
+    notes: Linked from the missing baggage page. If the bag is not found within 72 hours, the inventory and claim form is available after identification in the online baggage search tool.
+    verified_via: browser
+    source: https://wwws.airfrance.co.uk/information/bagages/bagage-manquant-airfrance
+    last_verified: 2026-11-19
+  - id: saphir-phone-uk
+    type: phone
+    label: Saphir assistance service line, United Kingdom (passengers with disabilities)
+    value: +44-20-7660-2878
+    hours: Monday to Friday 10:00 AM to 7:30 PM London time
+    purposes: [accessibility]
+    notes: >-
+      The page prints it as "+44 20 76 60 28 78", "National standard rates to: United Kingdom", English.
+    verified_via: browser
+    source: https://wwws.airfrance.co.uk/contact/topic/special-assistance/subtopic/request-special-assistance
+    last_verified: 2026-11-19
+  - id: saphir-email
+    type: email
+    label: Saphir assistance service email (English)
+    value: mail.saphir.en@airfrance.fr
+    purposes: [accessibility]
+    verified_via: browser
+    source: https://wwws.airfrance.co.uk/contact/topic/special-assistance/subtopic/request-special-assistance
+    last_verified: 2026-11-19
+  - id: saphir-form
+    type: web_form
+    label: Saphir assistance request form (new non-wheelchair requests)
+    value: https://wwws.airfrance.co.uk/contact/saphir
+    purposes: [accessibility]
+    notes: >-
+      Submit at least 2 working days before the first flight, only if you cannot reach Air France by phone or social
+      media. Wheelchairs are requested in My Bookings. Do not send it again for a request already made.
+    verified_via: browser
+    source: https://wwws.airfrance.co.uk/contact/topic/special-assistance/subtopic/request-special-assistance
+    last_verified: 2026-11-19
+  - id: privacy-form
+    type: web_form
+    label: Data protection rights form
+    value: https://wwws.airfrance.co.uk/contact/privacy-form
+    purposes: [privacy_request]
+    notes: The privacy policy says Air France has a Data Protection Officer but gives no email address; it points to this form.
+    verified_via: browser
+    source: https://wwws.airfrance.co.uk/information/legal/edito-psc
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: service-line-uk}
+  - {rung: written_complaint, channel: claim-form}
+  - {rung: regulator, regulator: eu-air-passenger-nebs, note: "National Enforcement Body of the country where the incident happened (departure airport; for flights into the EU on an EU carrier, the arrival airport). See regulators/eu-air-passenger-nebs."}
+  - {rung: regulator, regulator: de-sruv, note: "Air France is on the Schlichtungsstelle Reise & Verkehr member list (Stand: 19. Oktober 2026) as 'Air France'. Free conciliation in Germany, for example for a flight to or from Germany, after you have complained to Air France first. See regulators/de-sruv."}
+  - {rung: regulator, regulator: fr-mtv, note: "Listed as 'AIR FRANCE' among the airline members of Médiation Tourisme et Voyage (member list read 2026-11-19). After a written complaint with a negative answer or no answer within 60 days; apply within 12 months of the first written complaint. Free; the opinion binds neither side."}
+  - {rung: regulator, regulator: es-aesa, note: "For a flight that departed from Spain, or flew to Spain from outside the EU on an EU airline, from 2 June 2023: AESA's dispute resolution is mandatory for every airline and its decision binds the airline (not the passenger). Claim from the airline first; if it does not answer within one month or you reject the answer, file with AESA within one year of that claim. Not for baggage."}
+  - {rung: regulator, regulator: eu-ecc-net, note: "Free help from the European Consumer Centre in your country when the airline is based in another EU country, Iceland or Norway."}
+  - {rung: payment_dispute, note: "Card chargeback for a refund the airline owes but has not paid."}
+  - {rung: small_claims, note: "European Small Claims Procedure for cross-border claims up to EUR 5,000 (rules/eu-small-claims-procedure); otherwise the national court. Time limits for EU261 claims are set by national law."}
+
+playbooks:
+  - issue: flight_delay
+    summary: If you arrived 3 hours or more late, claim EU261 compensation on the claim form, and choose cash or a larger non-refundable voucher. Claim expenses on the same form.
+    evidence: [booking reference, ticket number, boarding passes, scheduled and actual arrival times, receipts for meals, hotel and transport, bank details in your name]
+    steps:
+      - do: At the airport, from a 2-hour delay, ask for meals and refreshments, and a hotel if an overnight stay becomes necessary. Keep all receipts.
+      - do: If the delay is at least 5 hours and you do not want to travel, request a refund of the unused segments.
+        channel: refund-form
+      - do: Submit the claim form for compensation and for unexpected costs. Compensation cannot be paid at the airport. Choose cash if you do not want a non-refundable voucher.
+        channel: claim-form
+      - do: Make the claim yourself first. Air France handles a third party's claim only after the passenger has used its form and waited 28 days.
+      - do: If Air France rejects the claim or does not reply, complain to the National Enforcement Body.
+        regulator: eu-air-passenger-nebs
+      - do: For a flight to or from Germany, ask for free conciliation.
+        regulator: de-sruv
+      - do: If you live in another EU country, Iceland or Norway, ask your European Consumer Centre for help.
+        regulator: eu-ecc-net
+    facts:
+      - kind: compensation
+        claim: Air France's passenger rights page says that if you arrive at your final destination 3 hours or more after the scheduled time, you are entitled to compensation unless the delay was caused by extraordinary circumstances. You can choose a non-refundable transportation credit voucher of EUR 350, 500 or 800, or cash of EUR 250, 400 or 600, by distance; for flights of 3,500 km and more, the amount may be reduced by 50% if the flight landed 3 to 4 hours late.
+        issues: [flight_delay]
+        verified_via: browser
+        source: https://wwws.airfrance.co.uk/information/legal/assistance-et-indemnisation
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Air France's compensation contact topic lists three criteria for lump-sum compensation (cancellation or arrival more than 3 hours late, not caused by circumstances such as extreme weather, sudden political instability or third-party strikes, and travel to or from an EU country) and says to keep invoices for unexpected costs such as taxis and hotels.
+        issues: [flight_delay, flight_cancellation]
+        verified_via: browser
+        source: https://wwws.airfrance.co.uk/contact/topic/flight-disruption/subtopic/compensation
+        last_verified: 2026-11-19
+
+  - issue: flight_cancellation
+    summary: Choose rebooking or a refund of the unused segments; claim EU261 compensation (cash or voucher) through the claim form.
+    evidence: [booking reference, ticket number, cancellation notice and the date you received it, new itinerary, receipts, bank details in your name]
+    steps:
+      - do: Choose rerouting as soon as possible, rerouting at a later date, or a refund. Ask for meals, and a hotel if a stay becomes necessary.
+      - do: For a refund, use the refund form, or My Bookings. Travel agency bookings go to the agency first.
+        channel: refund-form
+      - do: Claim compensation and expenses on the claim form. Compensation is not paid at the airport.
+        channel: claim-form
+      - do: If the refund form does not work, call the Service Line.
+        channel: service-line-uk
+      - do: If Air France rejects the claim or does not reply, complain to the National Enforcement Body.
+        regulator: eu-air-passenger-nebs
+      - do: If the refund is not paid, dispute the card charge with your card issuer.
+    facts:
+      - kind: compensation
+        claim: Air France's passenger rights page says cancellation compensation is a non-refundable transportation credit voucher of EUR 350, 500 or 800, or cash of EUR 250, 400 or 600, by distance, unless the cancellation was caused by extraordinary circumstances or you were told at least 2 weeks before departure (or later with a rerouting within the stated time limits). It cannot be paid at the airport.
+        issues: [flight_cancellation]
+        verified_via: browser
+        source: https://wwws.airfrance.co.uk/information/legal/assistance-et-indemnisation
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: EU Regulation 261/2004 (Article 8) requires the refund of the ticket within seven days when the passenger chooses reimbursement after a cancellation.
+        issues: [flight_cancellation, refund_request]
+        source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+        last_verified: 2026-11-19
+
+  - issue: denied_boarding
+    summary: If you are bumped against your will, Air France pays compensation at the airport (cash or voucher) and offers a refund or rerouting.
+    evidence: [boarding pass, booking reference, ticket number, written denied boarding notice, arrival time of the new flight]
+    steps:
+      - do: Volunteers get compensation in transportation credit vouchers on agreed terms. If you are denied boarding involuntarily, ask for the compensation at the airport and choose cash or voucher.
+      - do: If you were not paid, submit the claim form.
+        channel: claim-form
+      - do: If you do not travel and want a refund after denied boarding, use the special-case refund form.
+        channel: special-refund-form
+      - do: If Air France still does not pay, complain to the National Enforcement Body.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: compensation
+        claim: Air France's passenger rights page says denied boarding compensation is issued at the airport, as a non-refundable transportation credit voucher of EUR 350, 500 or 800 or cash of EUR 250, 400 or 600 by distance, reduced by 50% if the alternative flight arrives within 2, 3 or 4 hours of the original arrival time. No compensation is due if boarding was denied for health, safety or security reasons or inadequate travel documents.
+        issues: [denied_boarding]
+        verified_via: browser
+        source: https://wwws.airfrance.co.uk/information/legal/assistance-et-indemnisation
+        last_verified: 2026-11-19
+
+  - issue: delayed_baggage
+    summary: Declare the bag at the airport (PIR) or online within 7 days of arrival, then claim basic necessities within 21 days of getting the bag back.
+    evidence: [baggage receipt (tag) number, claim number or PIR, booking reference, boarding pass, receipts for essential purchases]
+    steps:
+      - do: Before you leave the airport, go to the Air France KLM baggage office and fill out a Property Irregularity Report (PIR). Keep the claim number.
+      - do: Or declare the bag online, or in the Air France app, within 7 days of arrival, with the baggage receipt number.
+        channel: missing-baggage-report
+      - do: Track the claim and update your details with the claim number. You can share an AirTag location.
+        channel: baggage-tracker
+      - do: Within 21 days of receiving the bag, submit a reimbursement request for basic necessities (toiletries, essential clothing) with proof of purchase.
+        channel: claim-form
+      - do: If you need help, use WhatsApp or Messenger.
+        channel: whatsapp
+      - do: If Air France does not answer, ask the European Consumer Centre in your country for help.
+        regulator: eu-ecc-net
+    facts:
+      - kind: deadline
+        claim: Air France's baggage page says to declare missing baggage online within 7 days of arrival or at the AIR FRANCE KLM baggage office before leaving the airport, and that you have 21 days from the date you receive your baggage to submit a reimbursement request for basic necessities through the online claim form.
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://wwws.airfrance.co.uk/information/bagages/bagage-manquant-airfrance
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: The General Conditions of Carriage (Article 20.1) require a written complaint as soon as possible and at the latest within seven (7) days for damage or destruction, and twenty-one (21) days for delay, from the date the baggage was made available; otherwise all action is inadmissible except for fraud. An action for damages must be filed within two years.
+        issues: [delayed_baggage, damaged_baggage, lost_baggage]
+        verified_via: browser
+        source: https://wwws.airfrance.co.uk/information/legal/edito-cg-airfrance
+        last_verified: 2026-11-19
+
+  - issue: lost_baggage
+    summary: If the bag is not found within 72 hours, complete the inventory and claim form; if it is not found within 21 days, the inventory is the basis of compensation.
+    evidence: [claim number, baggage receipt number, detailed contents list with the value of each item, receipts or proof of purchase]
+    steps:
+      - do: Make sure the bag was declared (PIR at the airport or online within 7 days) and keep the claim number.
+        channel: missing-baggage-report
+      - do: If the bag is not found within 72 hours, complete the inventory and claim form in the online baggage search tool, with the value of each item.
+        channel: worldtracer
+      - do: Check the claim status, or ask for help by WhatsApp or Messenger.
+        channel: baggage-tracker
+      - do: If Air France does not answer, ask the European Consumer Centre in your country for help.
+        regulator: eu-ecc-net
+    facts:
+      - kind: limit
+        claim: Air France says that if your baggage is not found within 21 days of your request, the items you inventoried are the basis of your compensation, on presentation of receipts and within the Montreal Convention liability limits, expressed in Special Drawing Rights. A higher value can be declared, for extra cost, at check-in.
+        issues: [lost_baggage]
+        verified_via: browser
+        source: https://wwws.airfrance.co.uk/information/bagages/bagage-manquant-airfrance
+        last_verified: 2026-11-19
+
+  - issue: damaged_baggage
+    summary: Report damage at the Air France baggage office before leaving, or online within 7 days of receiving the bag; get written approval before any repair.
+    evidence: [boarding pass or ticket, baggage tag, claim number, professional repair estimate or statement that the bag cannot be repaired, photos, original documents]
+    steps:
+      - do: At the arrival airport, report the damage at the Air France baggage office. You get a baggage irregularity report, repair information and a claim number.
+      - do: If you have left the airport, submit the compensation request online within 7 days of receiving the bag, with your boarding pass or ticket, baggage tag and a professional repair estimate or statement of inability to repair.
+        channel: claim-form
+      - do: Do not repair or replace the bag before Air France authorizes it in writing.
+      - do: For an item missing from the bag, report it at the baggage office or online within 7 days. For arrivals in metropolitan France, Guadeloupe, Guyana, Martinique, Reunion Island or French Polynesia, an online preliminary police complaint (pre-plainte-en-ligne.gouv.fr) is available; elsewhere Air France recommends reporting it to the local police.
+        channel: claim-form
+    facts:
+      - kind: deadline
+        claim: Air France says you have 7 days from the day you received your baggage to submit a compensation request for damage, and that you must receive written authorization from Air France before any exchange or repair, or the costs are yours. A request for a missing item after 7 days is not compensated.
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://wwws.airfrance.co.uk/information/bagages/bagage-manquant-airfrance
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: General Conditions of Carriage Article 12.3 says Air France handles EU261 compensation claims made by a third party (other than a legal guardian or another passenger on the same booking) only if the passenger first made the claim directly through the form on the Air France website and gave Air France 28 days to reply. Article 12.5 says any assignment of the passenger's right to compensation, damages or refund is deemed null and void, subject to applicable law, and Article 12.6 says compensation is paid by wire transfer to the passenger's or legal guardian's bank account.
+    issues: [flight_delay, flight_cancellation, denied_boarding]
+    verified_via: browser
+    source: https://wwws.airfrance.co.uk/information/legal/edito-cg-airfrance
+    last_verified: 2026-11-19
+  - kind: fee
+    claim: General Conditions of Carriage Article 14.1 says booking fees, service fees and payment fees are non-refundable, whatever the ticket conditions; with a non-refundable ticket you can still request a refund of unused airport taxes, but not carrier-imposed surcharges.
+    issues: [refund_request]
+    verified_via: browser
+    source: https://wwws.airfrance.co.uk/information/legal/edito-cg-airfrance
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Air France's passenger rights page says that to claim compensation without paying fees to a third party, the European Commission advises passengers to contact the airline directly, and that all reimbursement and compensation requests must go to the carrier that operated or was to operate the flight.
+    issues: [flight_delay, flight_cancellation, denied_boarding]
+    verified_via: browser
+    source: https://wwws.airfrance.co.uk/information/legal/assistance-et-indemnisation
+    last_verified: 2026-11-19
+  - kind: contact
+    claim: Air France's UK complaint contact topic says that if you already made a claim and are unsatisfied with the response, you can contact AviationADR through its website (https://www.cdrl.org.uk/) or by email at aviation@cdrl.org.uk.
+    issues: [flight_delay, flight_cancellation, poor_service]
+    verified_via: browser
+    source: https://wwws.airfrance.co.uk/contact/topic/refund-compensation/subtopic/complaint
+    last_verified: 2026-11-19
+
+official_domains: [airfrance.co.uk, airfrance.fr, airfranceklm.com, service-airfrance.com, infos-airfrance.com, info-airfrance.com, ticket-airfrance.com, account-airfrance.com, enews-airfrance.com, connect-passengers.com, websupportairfrance.com, flyingblue.com, info-flyingblue.com, static-af.com, klm.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Air France says its commercial emails (promotions, offers, new destinations) will never ask you to provide personal details in response, and that genuine trip emails always contain information you recognize, such as your booking reference or Flying Blue number.
+      verified_via: browser
+      source: https://wwws.airfrance.co.uk/information/legal/edito-phishing
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: Air France warns of fraudulent emails, WhatsApp messages and websites that appear to come from Air France and try to obtain bank details or ID documents. Warning signs include offers of free tickets, "your vouchers are about to expire", pressure to fill out a refund form or make a payment, and senders on Gmail, Yahoo or Hotmail addresses.
+      verified_via: browser
+      source: https://wwws.airfrance.co.uk/information/legal/edito-phishing
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Air France advises against searching for its phone number online, because you may land on a fake website with a fraudulent call center, and warns of fraudulent websites reached through social networks with fake offers. Use only its official websites.
+      verified_via: browser
+      source: https://wwws.airfrance.co.uk/information/legal/edito-phishing
+      last_verified: 2026-11-19
+
+known_blockers:
+  - The claim, refund and missing baggage forms need the booking reference and the passenger's name (or a sign-in). The missing baggage form also needs the baggage receipt number; the trackers need the claim number.
+  - Air France handles a third party's EU261 claim only after the passenger has filed it directly on the Air France form and waited 28 days (Conditions of Carriage Article 12.3).
+  - Air France's website terms prohibit robots, screen scraping and automated extraction for commercial use, and use of the websites for commercial purposes by intermediaries acting on behalf of third parties; violations can lead to IP blocking.
+  - Some arrival airports do not allow online missing baggage declarations; the page lists them.
+  - Plain HTTP fetches of airfrance.co.uk timed out; the pages load in a browser.
+
+notes: >-
+  Checked on 2026-11-19 by loading wwws.airfrance.co.uk and wwws.airfrance.fr/en in a browser (plain fetches timed
+  out). Phones are printed with unusual grouping ("+44 20 766 00 337", "+44 20 76 60 28 78", "+33 9 69 39 36 54") and
+  converted here; all say national standard rates. The UK Service Line shows different hours on different contact
+  topics (Mon-Fri 09:00-17:30 on complaint and compensation topics; Mon-Fri 08:00-20:00 and weekends 09:00-17:30 on the
+  refund topic). The "Delayed or missing baggage" contact topic shows no UK baggage phone. The General Conditions of
+  Carriage were updated December 28, 2024; the passenger rights page was updated September 2024. The privacy policy
+  names a DPO but gives no email; it points to the privacy form. klm.com is listed in official_domains because Air
+  France's own refund topic links refunds.klm.com. Air France's privacy page gives KLM's privacy email as
+  KLMPrivacyOffice@klm.com, which differs from KLM's own page.

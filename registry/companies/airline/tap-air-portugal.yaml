@@ -1,0 +1,347 @@
+id: tap-air-portugal
+name: TAP Air Portugal
+aliases: [tap portugal, tap air, flytap, transportes aereos portugueses, "transportes aéreos portugueses, s.a."]
+sector: airline
+website: https://www.flytap.com/en-gb
+countries: [eu, pt, gb, ch]
+regulators: [eu-air-passenger-nebs, eu-ecc-net, de-sruv, fr-mtv, es-aesa]
+
+channels:
+  - id: contact-center-portugal
+    type: phone
+    label: Contact Center, Portugal (Lisbon)
+    value: +351-211-234-400
+    hours: Monday to Sunday, 24 hours
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, delayed_baggage, lost_baggage, damaged_baggage, accessibility]
+    notes: >-
+      The page prints it as +351 211 234 400 and says it is a call to a national landline; the cost depends on your
+      operator's tariff. The special needs page gives the same number for assistance questions. TAP charges a refund
+      service fee of EUR 40 / USD 50 / CAD 60 per ticket for refund requests made through the Contact Center or a TAP
+      sales desk (stated for voluntary refunds); the online refund form avoids it.
+    verified_via: browser
+    source: https://www.flytap.com/en-pt/help
+    last_verified: 2026-11-19
+  - id: contact-center-uk
+    type: phone
+    label: Contact Center, United Kingdom
+    value: +44-345-350-0100
+    hours: Monday to Sunday, 8 am to midnight (Portugal mainland time)
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, delayed_baggage, lost_baggage, damaged_baggage]
+    notes: The UK help page prints it as "+44 345 350 010 0" (0345 350 0100 from the UK). The page gives no call cost.
+    verified_via: browser
+    source: https://www.flytap.com/en-gb/help
+    last_verified: 2026-11-19
+  - id: complaints-form
+    type: web_form
+    label: Complaints form (EU261 compensation, disruption expenses, baggage claims, other complaints)
+    value: https://www.flytap.com/en-gb/help/requests-complaints/complaints
+    purposes: [flight_delay, flight_cancellation, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request, ancillary_fee_refund, poor_service]
+    access: open
+    notes: >-
+      Choose "Make a new complaint" or "Verify complaint status" (email and complaint number). Motives are On board,
+      Flight delay, Baggage, Flight cancellation, Check-in, On boarding, Ticket refund, TAP Miles&Go and SeatBoost. It
+      asks for operating airline, flight number and date, origin, destination, class, booking code, ticket number and
+      comments (up to 4,000 characters). Files PNG, JPG, JPEG, GIF, PDF, DOCX, XLS or XLSX up to 2MB. The delays page
+      sends both compensation claims and expense refunds here. No CAPTCHA was visible, but the page loads a Cloudflare
+      bot-check script.
+    verified_via: browser
+    source: https://www.flytap.com/en-gb/help/requests-complaints/complaints
+    last_verified: 2026-11-19
+  - id: refund-form
+    type: web_form
+    label: Online refund request and refund status
+    value: https://myb.flytap.com/refunds
+    purposes: [flight_cancellation, flight_delay, refund_request]
+    access: open
+    notes: >-
+      Search by booking reference and last name, or by ticket or refund ID. The page warns that once you submit an
+      online refund request, your booking is cancelled. Only for tickets bought directly from TAP; travel agency
+      bookings go to the agency first. Miles refunds must be requested through the Contact Center.
+    verified_via: browser
+    source: https://www.flytap.com/en-gb/help/tap-refunds
+    last_verified: 2026-11-19
+  - id: lost-baggage-report
+    type: web_form
+    label: Lost & Found online form (report a missing bag within 72 hours)
+    value: https://ssp.tap.pt/SSP_UI/
+    purposes: [delayed_baggage, lost_baggage]
+    access: open
+    notes: >-
+      Needs the booking reference and last name. Up to five bags per form. Only for flights operated by TAP Air
+      Portugal and TAP Express, and only within 72 hours of landing. Not available for arrivals in Brazil (except Sao
+      Paulo Guarulhos), Italy or the United Kingdom; report those at the airport or through the Contact Center.
+    verified_via: browser
+    source: https://www.flytap.com/en-gb/information/baggage/problems-baggage
+    last_verified: 2026-11-19
+  - id: bag-tracker
+    type: portal
+    label: Baggage locator (WorldTracer self-service)
+    value: https://mybag.aero/tapairportugal/en
+    purposes: [delayed_baggage, lost_baggage]
+    access: open
+    notes: >-
+      Uses the PIR number from the lost baggage report. You can add or change your address, contact details and
+      delivery destination. The ssp.tap.pt page links the older WorldTracer address https://wtrweb.worldtracer.aero/
+      instead.
+    verified_via: browser
+    source: https://www.flytap.com/en-gb/information/baggage/problems-baggage
+    last_verified: 2026-11-19
+  - id: lost-and-found-phone-portugal
+    type: phone
+    label: Lost & Found, Lisbon
+    value: +351-211-234-406
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    notes: Printed as +351 211 234 406; call to a national landline, cost depends on your operator. No hours are given.
+    verified_via: browser
+    source: https://www.flytap.com/en-pt/help
+    last_verified: 2026-11-19
+  - id: assistance-request-form
+    type: web_form
+    label: Assistance request for passengers with special needs
+    value: https://www.flytap.com/en-gb/information/special-needs/assistance-request
+    purposes: [accessibility]
+    access: open
+    notes: >-
+      Needs the booking code and last surname; signing in is optional. Submit it up to 48 hours before travel. For
+      codeshare or connecting flights, or if the form fails, call the Contact Center.
+    verified_via: browser
+    source: https://www.flytap.com/en-gb/information/special-needs/assistance-request
+    last_verified: 2026-11-19
+  - id: complaints-book-portugal
+    type: web_form
+    label: Livro de Reclamações (Portugal's electronic complaints book)
+    value: https://www.livroreclamacoes.pt/Inicio/
+    purposes: [poor_service]
+    access: open
+    notes: Linked as "Complaints Book" in the footer of TAP's Portugal site. It is not on the UK site.
+    verified_via: browser
+    source: https://www.flytap.com/en-pt/help
+    last_verified: 2026-11-19
+  - id: dpo-email
+    type: email
+    label: Data Protection Officer
+    value: dpo@tap.pt
+    purposes: [privacy_request]
+    notes: Point 12 of the Privacy Policy. The controller is Transportes Aéreos Portugueses, S.A.
+    verified_via: browser
+    source: https://www.flytap.com/en-gb/legal-info/privacy
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: contact-center-portugal}
+  - {rung: written_complaint, channel: complaints-form}
+  - {rung: regulator, regulator: eu-air-passenger-nebs, note: "National Enforcement Body of the country where the incident happened (departure airport; for flights into the EU on an EU carrier, the arrival airport). See regulators/eu-air-passenger-nebs."}
+  - {rung: regulator, regulator: de-sruv, note: "TAP is on the Schlichtungsstelle Reise & Verkehr member list (Stand: 19. Oktober 2026) as 'TAP Portugal'. Free conciliation in Germany, for example for a flight to or from Germany, after you have complained to TAP first. See regulators/de-sruv."}
+  - {rung: regulator, regulator: fr-mtv, note: "Listed as 'TAP AIR PORTUGAL' among the airline members of Médiation Tourisme et Voyage (member list read 2026-11-19). After a written complaint with a negative answer or no answer within 60 days; apply within 12 months of the first written complaint. Free; the opinion binds neither side."}
+  - {rung: regulator, regulator: es-aesa, note: "For a flight that departed from Spain, or flew to Spain from outside the EU on an EU airline, from 2 June 2023: AESA's dispute resolution is mandatory for every airline and its decision binds the airline (not the passenger). Claim from the airline first; if it does not answer within one month or you reject the answer, file with AESA within one year of that claim. Not for baggage."}
+  - {rung: regulator, regulator: eu-ecc-net, note: "Free help from the European Consumer Centre in your country when the airline is based in another EU country, Iceland or Norway."}
+  - {rung: payment_dispute, note: "Card chargeback for a refund the airline owes but has not paid."}
+  - {rung: small_claims, note: "European Small Claims Procedure for cross-border claims up to EUR 5,000 (rules/eu-small-claims-procedure); otherwise the national court. Time limits for EU261 claims are set by national law."}
+
+playbooks:
+  - issue: flight_delay
+    summary: For an arrival delay of more than 3 hours, claim EU261 compensation and expenses on the complaints form; if the delay is more than 5 hours and you do not travel, request a full refund.
+    evidence: [booking code, ticket numbers of all passengers, flight number and date, origin and destination, scheduled and actual arrival times, expense invoices, bank details in your name]
+    steps:
+      - do: At the airport, ask for meals and drinks while you wait, and a hotel if you must stay overnight. Keep all receipts.
+      - do: Use the delay and cancellation platform link that TAP sends by email or SMS to accept or change the alternative flight, cancel and request a refund, or request a declaration of irregularity. If you did not get the link, use Manage your Booking or call the Contact Center.
+        channel: contact-center-portugal
+      - do: Submit the complaints form (motive Flight delay) to request compensation and the refund of expenses. Attach invoices and a bank receipt with your account details and name.
+        channel: complaints-form
+      - do: If the delay is more than 5 hours and you decide not to travel, request a full refund of the unflown flights online.
+        channel: refund-form
+      - do: If TAP rejects the claim or does not answer, complain to the National Enforcement Body.
+        regulator: eu-air-passenger-nebs
+      - do: For a flight to or from Germany, you can ask the German conciliation body for free conciliation.
+        regulator: de-sruv
+      - do: If you live in another EU country, Iceland or Norway, ask your European Consumer Centre for help.
+        regulator: eu-ecc-net
+    facts:
+      - kind: compensation
+        claim: TAP's delays page says that for a cancellation or a delay of more than 3h at the arrival airport, not caused by extraordinary circumstances or with adequate prior notice, you request compensation through the complaints form of between 125 EUR and 250 EUR (flights up to 1,500 km), between 200 EUR and 400 EUR (intra-community flights over 1,500 km and other flights of 1,500 to 3,500 km), and between 300 EUR and 600 EUR (flights over 3,500 km).
+        issues: [flight_delay, flight_cancellation]
+        verified_via: browser
+        source: https://www.flytap.com/en-gb/help/delays-cancellations
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: TAP reimburses accommodation (if no accommodation was provided), meals and drinks (if no vouchers were offered), transport between the airport and the hotel, and two phone calls or internet costs, only if they occur while waiting for the alternative flight. It does not reimburse travel to or from a different airport, car rental, parking, expenses after arrival at the destination, or accommodation if the cancellation occurs in your area of residence.
+        issues: [flight_delay, flight_cancellation]
+        verified_via: browser
+        source: https://www.flytap.com/en-gb/help/delays-cancellations
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: TAP's Conditions of Carriage delay notice says that when the delay is at least five hours and the passenger decides not to travel, TAP offers a refund within seven days of the ticket price for the unflown segments, in cash, bank transfer or cheque, or in trip vouchers only with the passenger's written consent.
+        issues: [flight_delay, refund_request]
+        verified_via: browser
+        source: https://www.flytap.com/en-gb/legal-info/conditions-of-carriage
+        last_verified: 2026-11-19
+
+  - issue: flight_cancellation
+    summary: Choose rebooking or a full refund to the original payment method; claim EU261 compensation and expenses through the complaints form.
+    evidence: [booking code, ticket numbers, cancellation email or SMS, flight number and date, expense invoices, bank details in your name]
+    steps:
+      - do: TAP moves you automatically to the next flight with seats. To change it, or to cancel and take a refund, use the link in TAP's email or SMS, Manage your Booking, or the Contact Center.
+        channel: contact-center-portugal
+      - do: If you do not want to travel, request the refund online. This cancels the booking. Travel agency bookings go to the agency first.
+        channel: refund-form
+      - do: Request EU261 compensation and the refund of expenses on the complaints form (motive Flight cancellation).
+        channel: complaints-form
+      - do: If TAP rejects the claim or does not answer, complain to the National Enforcement Body.
+        regulator: eu-air-passenger-nebs
+      - do: For a flight to or from Germany, ask for free conciliation.
+        regulator: de-sruv
+      - do: If the refund is not paid, dispute the card charge with your card issuer.
+    facts:
+      - kind: policy
+        claim: TAP's refunds page says that after a cancellation or a delay over 5h, if you are not travelling on an alternative flight, you can reschedule free of charge or request a refund to the same payment method, and the ticket is refunded in full for routes not flown.
+        issues: [flight_cancellation, flight_delay, refund_request]
+        verified_via: browser
+        source: https://www.flytap.com/en-gb/help/tap-refunds
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: The Conditions of Carriage say any voucher or MCO that TAP issues for refunds or payments may only be used for trips or services provided directly by TAP.
+        issues: [flight_cancellation, travel_credit]
+        verified_via: browser
+        source: https://www.flytap.com/en-gb/legal-info/conditions-of-carriage
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: EU Regulation 261/2004 (Article 8) requires the refund of the ticket within seven days when the passenger chooses reimbursement after a cancellation.
+        issues: [flight_cancellation, refund_request]
+        source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+        last_verified: 2026-11-19
+
+  - issue: denied_boarding
+    summary: If TAP bumps you against your will, it must compensate you at once (EUR 250, 400 or 600 by distance) and offer a refund or rerouting.
+    evidence: [boarding pass, booking code, ticket number, any written denied boarding notice, arrival time of the new flight]
+    steps:
+      - do: Do not sign a volunteer form unless you accept the offered benefits. Ask the agent for the compensation and a written statement.
+      - do: If TAP does not pay at the airport, submit the complaints form (motive On boarding).
+        channel: complaints-form
+      - do: If TAP still does not pay, complain to the National Enforcement Body.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: compensation
+        claim: TAP's Denied Boarding Notice says that if there are not enough volunteers and TAP denies boarding against the passenger's will, it will immediately pay 250 euros (flights up to 1,500 km), 400 euros (intra-Community flights over 1,500 km and other flights of 1,500 to 3,500 km) or 600 euros (other flights), reduced by 50% if the alternative flight arrives within two, three or four hours of the original arrival time.
+        issues: [denied_boarding]
+        verified_via: browser
+        source: https://www.flytap.com/en-gb/legal-info/conditions-of-carriage
+        last_verified: 2026-11-19
+
+  - issue: delayed_baggage
+    summary: Report the missing bag within 72 hours of landing (at the airport or online) and keep the PIR; claim expenses within 21 days through the complaints form.
+    evidence: [PIR number (five letters and five numbers), baggage tag, booking code, ticket number, receipts for essential purchases]
+    steps:
+      - do: Before you leave the baggage hall, report the bag at the Lost & Found desk. Frankfurt, Luxembourg, Amsterdam, Paris and Brussels have no TAP counter; use the online form.
+      - do: Or report it online within 72 hours of landing (not for arrivals in the UK, Italy or Brazil except Sao Paulo Guarulhos).
+        channel: lost-baggage-report
+      - do: Follow the search and update your delivery address in the baggage locator with your PIR.
+        channel: bag-tracker
+      - do: If TAP sends an SMS or email asking for a description of the bag and its contents, fill it in within 5 days.
+      - do: Claim reimbursement of expenses on the complaints form (motive Baggage) within 21 days.
+        channel: complaints-form
+      - do: If TAP does not answer, ask the European Consumer Centre in your country for help.
+        regulator: eu-ecc-net
+    facts:
+      - kind: deadline
+        claim: TAP's baggage page says you must fill out a lost baggage report within 72h of landing, and that after opening a PIR for delayed baggage, a claim for reimbursement of expenses or compensation must be submitted within the 21-day period provided for under the Montreal Convention.
+        issues: [delayed_baggage, lost_baggage]
+        verified_via: browser
+        source: https://www.flytap.com/en-gb/information/baggage/problems-baggage
+        last_verified: 2026-11-19
+      - kind: process
+        claim: If TAP cannot locate the bag within 72h of opening the PIR, it sends an SMS and/or email within a maximum of 4 days asking for a description of the bag and its contents; this form must be filled in within 5 days of receiving the email. To receive any compensation, the passenger must comply with these requirements and deadlines.
+        issues: [delayed_baggage, lost_baggage]
+        verified_via: browser
+        source: https://www.flytap.com/en-gb/information/baggage/problems-baggage
+        last_verified: 2026-11-19
+
+  - issue: lost_baggage
+    summary: Keep the PIR, answer TAP's description request within 5 days, then contact TAP to start the compensation process.
+    evidence: [PIR number, baggage tag, booking code, list of contents with values, purchase receipts]
+    steps:
+      - do: Make sure the bag was reported within 72 hours of landing and you have the PIR.
+        channel: lost-baggage-report
+      - do: Fill in the bag description and contents form that TAP sends, within 5 days of receiving it.
+      - do: If the bag is not found within a reasonable time, contact TAP to start the compensation process, for example on the complaints form (motive Baggage) with a contents list and receipts.
+        channel: complaints-form
+      - do: If you cannot use the form, call the Contact Center.
+        channel: contact-center-portugal
+      - do: If TAP does not answer, ask the European Consumer Centre in your country for help.
+        regulator: eu-ecc-net
+    facts:
+      - kind: limit
+        claim: TAP says compensation for baggage it cannot locate within a reasonable time is paid under the liability provisions of its Conditions of Carriage, that its liability for lost or delayed baggage is limited, and that any lost baggage process requires analysis.
+        issues: [lost_baggage, delayed_baggage]
+        verified_via: browser
+        source: https://www.flytap.com/en-gb/information/baggage/problems-baggage
+        last_verified: 2026-11-19
+
+  - issue: damaged_baggage
+    summary: Report the damage at the Lost & Found desk before leaving the airport and keep the PIR; then contact TAP if the desk cannot resolve it.
+    evidence: [PIR document, photos of the damage, baggage tag, booking code, repair estimate or receipts]
+    steps:
+      - do: Check the bag before you leave the airport. Report damage or missing items immediately at the Lost & Found desk and keep the PIR document until the issue is resolved.
+      - do: If the desk cannot resolve it, submit the complaints form (motive Baggage).
+        channel: complaints-form
+      - do: Or call the Contact Center.
+        channel: contact-center-portugal
+    facts:
+      - kind: policy
+        claim: TAP does not accept responsibility for minor damage from normal handling, such as scratches and scrapes, small signs of dirt, small cuts or dents, zipper pull damage, loss of removable accessories, damage caused by excess contents, or items not accepted for carriage.
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://www.flytap.com/en-gb/information/baggage/problems-baggage
+        last_verified: 2026-11-19
+
+facts:
+  - kind: fee
+    claim: TAP's refunds page says refund requests made through the Contact Center or TAP sales desks are subject to a refund service fee of EUR 40 / USD 50 / CAD 60 per ticket (stated for voluntary refunds). Online refunds are only for tickets bought directly from TAP.
+    issues: [refund_request]
+    verified_via: browser
+    source: https://www.flytap.com/en-gb/help/tap-refunds
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: TAP's help centre says all fares are refundable within the first 24h after purchase without fare penalties, and with no service fee if the request is made online; this does not apply when the passenger does not show up for a flight departing within the first 24h after purchase.
+    issues: [refund_request]
+    verified_via: browser
+    source: https://www.flytap.com/en-gb/help
+    last_verified: 2026-11-19
+  - kind: process
+    claim: TAP's delay and cancellation platform, linked from its email or SMS, lets you accept or change the alternative flight, request a refund of extras not provided on the new flight, change to another airport in the same city, cancel and request a ticket refund, or request a declaration of irregularity.
+    issues: [flight_cancellation, flight_delay, ancillary_fee_refund]
+    verified_via: browser
+    source: https://www.flytap.com/en-gb/help/delays-cancellations
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: TAP says its commercial relationship with Optiontown ended on 21 July 2026; Optiontown may no longer sell TAP travel passes, and TAP will not accept passes, vouchers or benefits not validly issued and fully paid before that date or sold without TAP's authorization.
+    issues: [travel_credit]
+    verified_via: browser
+    source: https://www.flytap.com/en-gb/alerts-and-informations
+    last_verified: 2026-11-19
+
+official_domains: [flytap.com, tap.pt]
+security:
+  known_scams:
+    - kind: policy
+      claim: TAP warns that some customers receive fraudulent emails saying they are entitled to compensation for a delayed flight, with a link to a fraud scheme. TAP advises deleting the message without clicking the link.
+      verified_via: browser
+      source: https://www.flytap.com/en-gb/alerts-and-informations
+      last_verified: 2026-11-19
+
+known_blockers:
+  - The online refund form needs the booking reference and last name (or ticket or refund ID), and submitting it cancels the whole booking.
+  - The delay and cancellation management platform is reached only through the link TAP sends by email or SMS.
+  - The online lost baggage report needs the booking reference and last name, works only within 72 hours of landing and only for TAP-operated flights, and is not available for arrivals in the UK, Italy or Brazil (except Sao Paulo Guarulhos).
+  - The complaints form accepts attachments up to 2MB. flytap.com pages run a Cloudflare bot-check script, and a plain fetch of flytap.com/en-gb redirected to booking.flytap.com/lite.
+  - Travel agency bookings must be refunded through the agency first.
+
+notes: >-
+  Checked on 2026-11-19 by loading flytap.com, myb.flytap.com, ssp.tap.pt and mybag.aero in a browser (a plain fetch
+  was redirected). Phones come from the Contact section of the en-pt and en-gb help pages; the en-ch site shows no
+  phone in that section. The UK number is printed "+44 345 350 010 0". The General Conditions of Carriage PDF (Nov
+  2025) could not be read, so baggage limits in SDR and any third-party claim rules are not recorded. Pages differ in
+  wording: the delays page gives compensation as ranges ("between 125 EUR and 250 EUR"), the Conditions of Carriage
+  give fixed 250/400/600 euros with a possible 50% reduction. The baggage page's "submit the corresponding claim" link
+  (/help/requests-claims/claim) redirects to the complaints form. The flytap.com baggage page links the mybag.aero
+  tracker; ssp.tap.pt links wtrweb.worldtracer.aero. TAP's Conditions of Carriage page also links the EU list of
+  National Enforcement Bodies.

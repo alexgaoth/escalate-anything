@@ -1,0 +1,118 @@
+id: fr-mtv
+name: Médiation Tourisme et Voyage
+short_name: MTV
+country: fr
+level: ombudsman
+covers_sectors: [airline, travel_agency, lodging, ground_transport, cruise]
+covers_issues:
+  - flight_cancellation
+  - flight_delay
+  - denied_boarding
+  - delayed_baggage
+  - lost_baggage
+  - damaged_baggage
+  - ancillary_fee_refund
+  - travel_credit
+  - accessibility
+  - refund_request
+  - reservation_problem
+website: https://mtv.travel/
+when_to_use: >-
+  France's consumer mediator for travel, tourism and transport. Use it only if the company is an MTV member, after you
+  complained to the company in writing and got a negative answer or no answer within 60 days. Apply within 12 months of
+  your first written complaint, and not if you have started court action or gone to another mediator. Among the 12 big
+  EU airlines, Air France, easyJet (Easyjet Airline Company Limited), KLM, Ryanair (also listed as Ryanair – Malta Air)
+  and TAP Air Portugal are members; Lufthansa, Wizz Air, Vueling, Iberia, Eurowings, Aer Lingus and SAS are not. For a
+  cross-border dispute with an EU company that is not a member, MTV points to the European Consumer Centre. Free for
+  the consumer. The mediator's opinion is due within 90 days and does not bind either side; you or the company can
+  refuse it.
+
+channels:
+  - id: online-application
+    type: web_form
+    label: File a mediation request (Déposer une saisine)
+    value: https://mtv.travel/demande-saisine/
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, ancillary_fee_refund, travel_credit, accessibility, refund_request, reservation_problem]
+    access: open
+    notes: >-
+      In French. First search the member list on the page for the company, then answer five yes/no eligibility questions
+      (written complaint sent; complaint less than 12 months old; negative answer or no answer after 60 days; no court
+      action; no other mediator). If eligible, the page sends you to the online form at https://formulaire.mtv.travel/, or
+      offers a Word form to send by post. Attachments may total at most 15 MB. A lawyer is not needed; a mandated
+      representative (association, legal-expenses insurer or lawyer) may file for you.
+    source: https://mtv.travel/demande-saisine/
+    last_verified: 2026-11-19
+  - id: mail
+    type: mail
+    label: Postal mediation request
+    value: MTV – Médiation Tourisme Voyage, Service dépôt des saisines, CS 30958, 75383 Paris Cedex 08, France
+    notes: >-
+      Address printed on the postal form (formulaire de saisine, .docx) linked from the request page. The form says you
+      must attach at least the contract, order form or invoice, a copy of your complaint to the company, your exchanges
+      with the company, and any document needed to examine the request (receipts, reports, photos), or the request is not
+      admissible.
+    verified_via: document
+    source: https://mtv.travel/wp-content/uploads/2026/04/formulaire-de-saisine-du-mediateur-tourisme-et-voyage.docx
+    last_verified: 2026-11-19
+  - id: email-existing-case
+    type: email
+    label: Email for an existing case
+    value: info@mtv.travel
+    notes: >-
+      The contact page says to write to this address about an existing case, with your full name and MTV file number. New
+      requests go through the request page. The site lists no phone number.
+    source: https://mtv.travel/contact/
+    last_verified: 2026-11-19
+
+facts:
+  - kind: policy
+    claim: >-
+      The member list, filtered to "Compagnies aériennes" (73 entries on 2026-11-19), includes AIR FRANCE, EASYJET AIRLINE
+      COMPANY LIMITED (SF), KLM ROYAL DUTCH AIRLINES, RYANAIR, RYANAIR – MALTA AIR and TAP AIR PORTUGAL. A name search of
+      the whole list finds no entry for Lufthansa, Wizz Air, Vueling, Iberia, Eurowings, Aer Lingus or Scandinavian
+      Airlines (SAS).
+    source: https://mtv.travel/adherents/?_secteur=compagnie-aerienne
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Conditions: you first tried to resolve the dispute with the company; the company is an MTV member; you apply within
+      12 months of the first complaint; you have not started court action. You can apply after a negative answer or no
+      answer within 60 days.
+    source: https://mtv.travel/faq/
+    last_verified: 2026-11-19
+  - kind: fee
+    claim: The mediation procedure is free for the consumer.
+    source: https://mtv.travel/faq/
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      The mediator gives an opinion within 90 days after the case is confirmed admissible, except in complex or unusual
+      cases.
+    source: https://mtv.travel/faq/
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      The mediator's opinions are not binding ("ne sont pas coercitifs"). Either party may refuse the opinion and use other
+      remedies.
+    source: https://mtv.travel/faq/
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      MTV handles only companies that have joined its charter. For a cross-border dispute with an EU operator that is not a
+      member, the FAQ points to the European Consumer Centre (CEC).
+    source: https://mtv.travel/faq/
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      MTV was created in July 2011 and started work on 1 January 2012. Opinions are given in law and in equity. It is a
+      member of the Club des Médiateurs de Services au Public and helped create the TRAVELNET network of travel mediators.
+    source: https://mtv.travel/decouvrir-la-mediation/
+    last_verified: 2026-11-19
+
+notes: >-
+  The member list on https://mtv.travel/adherents/ loads 20 entries at a time. It was read on 2026-11-19 through the
+  page's own search (sector "Compagnies aériennes" and name searches for each airline); 6,939 members in all. The member
+  list also includes travel agencies and tour operators, hotels, and land and sea transport (for example FLIXBUS FRANCE
+  SARL, MSC CRUISES SA and COSTA CROSIERE S.P.A.). The site header has an EN switch, but no separate English pages were
+  found; the request form and FAQ are in French. Legal basis given by MTV: Code de la consommation, Directive 2013/11/EU and
+  Regulation 524/2013.

@@ -1,0 +1,8 @@
+id: de
+name: Germany
+kind: country
+currency: EUR
+status: in_progress
+maintainers: []
+notes: >-
+  Created by the EU air-passenger pack so that company and regulator files can name this country. EU-wide rules apply through countries/eu.yaml. National data: regulators/de-sruv and de-bfj-luftverkehr (air passenger conciliation).

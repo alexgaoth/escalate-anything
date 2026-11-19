@@ -129,7 +129,7 @@ How it works: [docs/maintenance.md](docs/maintenance.md).
 
 ## Countries
 
-🇺🇸 United States: complete · 🇬🇧 United Kingdom and 🇪🇺 European Union: in progress · **[add your country](docs/add-a-country.md)**: tell us how complaints work where you live, and we will build it with you.
+🇺🇸 United States: complete · 🇪🇺 European Union: EU261 flight compensation and 12 airlines · 🇬🇧 United Kingdom: phone, broadband and energy (14 companies) · **[add your country](docs/add-a-country.md)**: tell us how complaints work where you live, and we will build it with you.
 
 ## Contribute
 

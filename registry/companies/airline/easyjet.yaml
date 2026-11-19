@@ -1,0 +1,465 @@
+id: easyjet
+name: easyJet
+aliases: [easyjet airline company limited, easyjet uk limited, easyjet europe airline gmbh, easyjet europe, easyjet switzerland s.a., easyjet switzerland, easyjet.com]
+sector: airline
+parent: easyJet plc
+website: https://www.easyjet.com/en
+account_url: https://www.easyjet.com/en/manage/my-bookings
+countries: [eu, at, gb, ch]
+regulators: [eu-air-passenger-nebs, eu-ecc-net, de-sruv, fr-mtv, es-aesa]
+
+channels:
+  - id: live-chat
+    type: chat
+    label: Live chat (24/7)
+    value: https://www.easyjet.com/en/help-centre/contact/chat
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, ancillary_fee_refund, travel_credit, poor_service]
+    notes: >-
+      The contact page says chat is the quickest way to reach easyJet and the live chat team is available 24/7. The chat
+      opens as a page widget. The "Refunds and Claims" help card sends refund and claim questions to the chat's virtual
+      advisor (https://www.easyjet.com/en/help-centre/contact/chat?content=claimRefund). The contact form page links the
+      chat as https://www.easyjet.com/chat/en.
+    verified_via: browser
+    source: https://www.easyjet.com/en/help-centre/contact/contact-us
+    last_verified: 2026-11-19
+  - id: customer-service-phone-uk
+    type: phone
+    label: Customer service, calls from the United Kingdom
+    value: +44-330-551-5151
+    hours: Monday to Sunday 08:00-20:00 (local time)
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, poor_service]
+    notes: >-
+      The page prints "+44 (0) 330 5515151" under "Calling from United Kingdom" and says calls are charged at the
+      standard local rate and may be included in your call plan; it does not say whether the line works from abroad. A
+      service fee applies to products and services added to a booking by phone; chat avoids it. The same page lists other
+      lines, printed as: France +33 (0) 9 77407770, Italy +39 02 32068889, Spain +34 900827352 (toll free in Spain),
+      Portugal +351 21 1222210, Netherlands +31 (0) 20 7946405 (Monday-Friday 09:00-17:00), and lines for Croatia,
+      Denmark, Greece and Israel. All except the Netherlands are open Monday-Sunday 08:00-20:00 local time.
+    verified_via: browser
+    source: https://www.easyjet.com/en/help-centre/contact/contact-numbers
+    last_verified: 2026-11-19
+  - id: customer-service-phone-austria
+    type: phone
+    label: Customer service, calls from Austria (easyJet Europe home market)
+    value: +43-1-253-3025
+    hours: Monday to Sunday 08:00-20:00 (local time)
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, poor_service]
+    notes: Printed as "+43 (0) 1 2533025". Standard local rate; charges from mobiles may vary.
+    verified_via: browser
+    source: https://www.easyjet.com/en/help-centre/contact/contact-numbers
+    last_verified: 2026-11-19
+  - id: customer-service-phone-switzerland
+    type: phone
+    label: Customer service, calls from Switzerland
+    value: +41-22-592-6600
+    hours: Monday to Sunday 08:00-20:00 (local time)
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, poor_service]
+    notes: Printed as "+41 (0) 22 5926600". Standard local rate; charges from mobiles may vary.
+    verified_via: browser
+    source: https://www.easyjet.com/en/help-centre/contact/contact-numbers
+    last_verified: 2026-11-19
+  - id: customer-service-phone-germany
+    type: phone
+    label: Customer service, calls from Germany
+    value: +49-30-726-297-510
+    hours: Monday to Sunday 08:00-20:00 (local time)
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, poor_service]
+    notes: Printed as "+49 (0) 30 726297510". Standard local rate; charges from mobiles may vary.
+    verified_via: browser
+    source: https://www.easyjet.com/en/help-centre/contact/contact-numbers
+    last_verified: 2026-11-19
+  - id: eu261-claim-form
+    type: web_form
+    label: EC261 compensation claim form (delay, cancellation, denied boarding)
+    value: https://www.easyjet.com/claim/en/eu261
+    purposes: [flight_delay, flight_cancellation, denied_boarding]
+    access: captcha
+    notes: >-
+      The contact page links https://www.easyjet.com/en/claim/EU261, which redirects here. Needs the booking reference
+      (starts with E or K), the flight number digits (flights start with EZY, EJU or EZS), the original flight date, the
+      reason (delayed, cancelled, denied boarding, voluntarily offloaded; choose delayed for a diverted flight), the
+      claimant's address, an email and mobile number that must match the booking, and UK-style bank details (sort code
+      and account number) for an account in the claimant's name. Only the lead passenger can claim for other passengers
+      on the booking. Supporting documents are optional (pdf, html, gif, bmp, png, jpg; under 5 MB). A reCAPTCHA is on
+      the confirmation step. Submitting it does not refund an unused ticket.
+    verified_via: browser
+    source: https://www.easyjet.com/en/help-centre/contact/contact-us
+    last_verified: 2026-11-19
+  - id: expense-claim-form
+    type: web_form
+    label: Expense claim form (hotel, meals, transport after a delay, cancellation or diversion)
+    value: https://www.easyjet.com/claim/en/welfare
+    purposes: [flight_delay, flight_cancellation, denied_boarding]
+    access: captcha
+    notes: >-
+      The contact page links https://www.easyjet.com/en/claim/welfare, which redirects here. Same booking, contact and
+      bank details as the compensation form, plus one receipt upload per expense (amount and currency must match the
+      receipt). easyJet does not pay pre- or post-travel costs such as hotels at your destination, airport parking or
+      transport from the destination airport. A reCAPTCHA is on the confirmation step.
+    verified_via: browser
+    source: https://www.easyjet.com/en/help/boarding-and-flying/delays-and-cancellations
+    last_verified: 2026-11-19
+  - id: manage-bookings
+    type: portal
+    label: Manage Bookings (rebook, voucher or refund for a cancelled flight)
+    value: https://www.easyjet.com/en/manage/my-bookings
+    purposes: [flight_cancellation, refund_request, travel_credit]
+    access: login
+    notes: >-
+      After a cancellation, choose a free transfer to another flight, a voucher for the full booking value, or a refund
+      here or in the app. Sign in with the account details, or with the booking reference and last name. At the airport
+      without internet access, ground crew can help.
+    verified_via: browser
+    source: https://www.easyjet.com/en/help/boarding-and-flying/delays-and-cancellations
+    last_verified: 2026-11-19
+  - id: contact-form
+    type: web_form
+    label: easyJet Airline Contact Form (written complaints and other requests)
+    value: https://www.easyjet.com/en/help-centre/contact/contact-us-form
+    purposes: [poor_service, refund_request, ancillary_fee_refund, flight_cancellation, flight_delay]
+    access: captcha
+    notes: >-
+      Choose a topic in the "Your question" drop-down; attachments up to 10 MB (pdf, html, gif, bmp, jpg, png). Asks
+      for the booking reference, booker name, booking email and phone. easyJet aims to reply to general questions within
+      14 days and to complex ones within 28 days. The notice of rights page says to make complaints through this form.
+      The Government tax (APD) refund option cancels the flights on the booking. reCAPTCHA before submit.
+    verified_via: browser
+    source: https://www.easyjet.com/en/help-centre/contact/contact-us-form
+    last_verified: 2026-11-19
+  - id: delayed-bag-report
+    type: portal
+    label: Baggage Portal (WorldTracer) - report a delayed bag
+    value: https://mybag.aero/baggage/#/pax/easyjet/en-gb/main-menu
+    purposes: [delayed_baggage, lost_baggage]
+    access: open
+    notes: Report within 24 hours of the flight arriving if airport staff cannot find the bag. The portal also lists airport baggage contact details.
+    verified_via: browser
+    source: https://www.easyjet.com/en/help/baggage/damaged-delayed-or-lost-luggage
+    last_verified: 2026-11-19
+  - id: bag-tracker
+    type: portal
+    label: Delayed bag status (WorldTracer)
+    value: https://mybag.aero/baggage/#/pax/easyjet/en-gb/delayed/manage-bag
+    purposes: [delayed_baggage, lost_baggage]
+    notes: Check the status of a reported bag.
+    verified_via: browser
+    source: https://www.easyjet.com/en/help/baggage/damaged-delayed-or-lost-luggage
+    last_verified: 2026-11-19
+  - id: delayed-bag-tracing-chat
+    type: chat
+    label: Delayed Baggage Tracing Team chat (bags delayed more than 5 days)
+    value: https://easyjet.1stflight.co.uk/
+    hours: Monday to Friday 08:30-20:00 (UK time)
+    purposes: [delayed_baggage, lost_baggage]
+    notes: Run with easyJet's specialist partner First Flight. For bags delayed more than 5 days.
+    verified_via: browser
+    source: https://www.easyjet.com/en/help/baggage/damaged-delayed-or-lost-luggage
+    last_verified: 2026-11-19
+  - id: baggage-services-contacts
+    type: portal
+    label: Baggage tracing contact details by airport
+    value: https://www.easyjet.com/en/baggage-tracing-contact-details
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    notes: Select country and airport to see the baggage services team for that airport. Also for items left on board.
+    verified_via: browser
+    source: https://www.easyjet.com/en/help/baggage/damaged-delayed-or-lost-luggage
+    last_verified: 2026-11-19
+  - id: luggage-claims-form
+    type: web_form
+    label: Luggage claims form (essential items for a delayed bag, lost bag compensation)
+    value: https://easyjet.airlineluggageclaims.com/
+    purposes: [delayed_baggage, lost_baggage]
+    notes: Linked from easyJet's baggage page and Terms and Conditions. Submit receipts for essential items within 21 days of the flight; claim lost bag compensation here after 45 days.
+    verified_via: browser
+    source: https://www.easyjet.com/en/help/baggage/damaged-delayed-or-lost-luggage
+    last_verified: 2026-11-19
+  - id: damaged-bag-report
+    type: web_form
+    label: Damaged bag report and claim registration
+    value: https://damagedluggage.com/
+    purposes: [damaged_baggage]
+    notes: Linked from easyJet's baggage page. Report and register the claim within 7 days of the flight, even if you already reported the damage at the airport. Photos taken after leaving the airport may not be accepted.
+    verified_via: browser
+    source: https://www.easyjet.com/en/help/baggage/damaged-delayed-or-lost-luggage
+    last_verified: 2026-11-19
+  - id: special-assistance-phone-uk
+    type: phone
+    label: Special assistance team, United Kingdom
+    value: +44-800-260-6686
+    hours: Daily 08:00-20:00 (local time)
+    purposes: [accessibility]
+    notes: >-
+      Printed as "+44 800 2606686". Only for assistance through the airport and on the plane. The page says calls are
+      free from landlines and some mobile operators may charge. Other lines as printed: France +33 800 949393, Germany
+      +49 800 0000077, Italy +39 800 922239, Netherlands +31 20 7960992 (09:00-17:00), Portugal +351 800 780088, Spain
+      +34 900 801 801, Switzerland +41 22 5910402. British Sign Language users can call through SignLive (Convo Now).
+      Complaints about assistance at EU or UK airports go to the airport, not easyJet.
+    verified_via: browser
+    source: https://www.easyjet.com/en/help/boarding-and-flying/special-assistance/contact-us
+    last_verified: 2026-11-19
+  - id: data-rights-form
+    type: web_form
+    label: Data Rights Request Form
+    value: https://www.easyjet.com/en/help-centre/contact/request-data-form
+    purposes: [privacy_request]
+    notes: Asks for a copy of photo ID. Requests for another person need easyJet's form of consent.
+    verified_via: browser
+    source: https://www.easyjet.com/en/help-centre/contact/contact-us
+    last_verified: 2026-11-19
+  - id: data-protection-email
+    type: email
+    label: Data Protection Officer and Data Protection team
+    value: data.protection@easyjet.com
+    purposes: [privacy_request]
+    notes: easyJet may ask you to verify your identity. UK residents can complain to the ICO; EU residents to their national data protection authority.
+    verified_via: browser
+    source: https://www.easyjet.com/en/policy/privacy-notice/contacting-our-dpo
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: live-chat}
+  - {rung: written_complaint, channel: eu261-claim-form, note: "Compensation claims under EC261 / UK261 go through this form; expenses through expense-claim-form."}
+  - {rung: written_complaint, channel: contact-form, note: "The notice of rights page sends complaints to the Contact Form."}
+  - {rung: regulator, regulator: eu-air-passenger-nebs, note: "National Enforcement Body of the country where the incident happened (departure airport; for flights into the EU on an EU carrier, the arrival airport). See regulators/eu-air-passenger-nebs."}
+  - {rung: regulator, regulator: de-sruv, note: "The Schlichtungsstelle Reise & Verkehr member list (Stand: 19. Oktober 2026) names 'Easyjet Airline Company Ltd.' Free conciliation for flights to or from Germany or for a passenger in Germany, after you have complained to easyJet first. The list does not name easyJet UK Limited, easyJet Europe Airline GmbH or easyJet Switzerland S.A. separately. See regulators/de-sruv."}
+  - {rung: regulator, regulator: fr-mtv, note: "Listed as 'EASYJET AIRLINE COMPANY LIMITED (SF)' among the airline members of Médiation Tourisme et Voyage (member list read 2026-11-19). After a written complaint with a negative answer or no answer within 60 days; apply within 12 months of the first written complaint. Free; the opinion binds neither side."}
+  - {rung: regulator, regulator: es-aesa, note: "For a flight that departed from Spain, or flew to Spain from outside the EU on an EU airline, from 2 June 2023: AESA's dispute resolution is mandatory for every airline and its decision binds the airline (not the passenger). Claim from the airline first; if it does not answer within one month or you reject the answer, file with AESA within one year of that claim. Not for baggage."}
+  - {rung: regulator, regulator: eu-ecc-net, note: "Free help from the European Consumer Centre in your country when the airline is based in another EU country, Iceland or Norway."}
+  - {rung: payment_dispute, note: "Card chargeback for a refund the airline owes but has not paid."}
+  - {rung: small_claims, note: "European Small Claims Procedure for cross-border claims up to EUR 5,000 (rules/eu-small-claims-procedure); otherwise the national court. Time limits for EU261 claims are set by national law."}
+
+playbooks:
+  - issue: flight_delay
+    summary: If you arrive more than 3 hours late, claim EC261 compensation on the claim form; claim care costs you paid yourself on the expense form. If the delay is longer than 5 hours you may cancel for a full refund.
+    evidence: [booking reference (starts with E or K), flight number (EZY, EJU or EZS), scheduled and actual arrival times, itemised receipts or invoices on headed paper, bank account in the claimant's name]
+    steps:
+      - do: At the airport, ask for the refreshment voucher (after a 2-hour delay on flights up to 1,500 km, 3 hours on longer flights). If no voucher is given, keep receipts.
+      - do: If the delay runs overnight, wait at the airport for ground crew to give hotel and transport details. A hotel you book yourself when easyJet could have provided one is not reimbursed.
+      - do: If the delay is longer than 5 hours and you no longer want to fly, ask ground crew or customer service to cancel for a full refund or move to a later date.
+        channel: live-chat
+      - do: Claim compensation if the arrival delay was more than 3 hours and the cause was not an extraordinary circumstance.
+        channel: eu261-claim-form
+      - do: Claim reasonable expenses (standard-class transport, 3-star hotel, food and drink without alcohol) with itemised receipts.
+        channel: expense-claim-form
+      - do: If easyJet rejects the claim or does not answer, complain in writing.
+        channel: contact-form
+      - do: Then complain to the National Enforcement Body for the departure airport.
+        regulator: eu-air-passenger-nebs
+      - do: For flights to or from Germany, you can ask Schlichtungsstelle Reise & Verkehr for free conciliation.
+        regulator: de-sruv
+    facts:
+      - kind: compensation
+        claim: easyJet's notice of rights says a passenger who arrives at least 3 hours after the scheduled arrival may be entitled to £220 / €250 (1,500 km or less), £350 / €400 (within Europe over 1,500 km, and other flights of 1,500-3,500 km) or £520 / €600 (other flights of 3,500 km or more), except where the cause is extraordinary circumstances. The amount is reduced by 50% if the re-routed flight arrives within 2, 3 or 4 hours of the original arrival, depending on distance.
+        issues: [flight_delay, flight_cancellation, denied_boarding]
+        verified_via: browser
+        source: https://www.easyjet.com/en/terms-and-conditions/notice-of-rights-for-flight-delays-and-cancellations
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: easyJet gives a refreshment voucher worth £6 or €9 after a 2-hour delay on flights up to 1,500 km and a 3-hour delay on flights over 1,500 km, or reimburses up to the same amount against receipts. If an overnight hotel cannot provide food, easyJet reimburses up to £25 per person per day (EUR/CHF equivalent).
+        issues: [flight_delay]
+        verified_via: browser
+        source: https://www.easyjet.com/en/help/boarding-and-flying/delays-and-cancellations
+        last_verified: 2026-11-19
+      - kind: process
+        claim: All expense claims must be supported by valid itemised receipts or invoices on headed paper. The delays page says credit card receipts are not accepted as proof of payment; the expense form says cardholder copies are accepted as supporting documents for receipts.
+        issues: [flight_delay, flight_cancellation]
+        verified_via: browser
+        source: https://www.easyjet.com/en/help/boarding-and-flying/delays-and-cancellations
+        last_verified: 2026-11-19
+
+  - issue: flight_cancellation
+    summary: In Manage Bookings, choose a free transfer, a 12-month voucher or a full refund (processed within 7 days). Compensation is possible if easyJet cancelled within 14 days of departure for a reason it is responsible for.
+    evidence: [booking reference, cancellation email, flight number and date, receipts for hotel, meals and alternative transport, bank account in the claimant's name]
+    steps:
+      - do: Sign in to Manage Bookings and choose a free transfer, a voucher or a refund. If you take a voucher or refund, you cannot claim accommodation or expenses.
+        channel: manage-bookings
+      - do: If the next flight is the following day, request a hotel room in Manage Bookings after you transfer. For a wheelchair-accessible room, contact customer services.
+        channel: live-chat
+      - do: If easyJet cannot fly you within 24 hours, you may travel by another airline, train, bus or hire car under comparable conditions and claim reasonable costs with itemised receipts. You cannot claim both a refund and re-routing.
+        channel: expense-claim-form
+      - do: Claim compensation if the cancellation was within 14 days of departure.
+        channel: eu261-claim-form
+      - do: If the refund is not paid, complain in writing, then to the National Enforcement Body, then dispute the card payment.
+        channel: contact-form
+      - do: Complain to the National Enforcement Body for the departure airport.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: policy
+        claim: After a cancellation easyJet offers a refund of the full booking value, paid to the account used for the booking; it says it processes refund requests within 7 days and the money may take a few extra days to reach the bank account. A voucher for the full booking value is valid for 12 months from issue.
+        issues: [flight_cancellation, refund_request, travel_credit]
+        verified_via: browser
+        source: https://www.easyjet.com/en/help/boarding-and-flying/delays-and-cancellations
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: The notice of rights says no compensation is due if you were told of the cancellation at least 2 weeks before departure; or 2 weeks to 7 days before and offered re-routing departing no more than 2 hours early and arriving less than 4 hours late; or less than 7 days before and offered re-routing departing no more than 1 hour early and arriving less than 2 hours late; or if the cause was extraordinary circumstances.
+        issues: [flight_cancellation]
+        verified_via: browser
+        source: https://www.easyjet.com/en/terms-and-conditions/notice-of-rights-for-flight-delays-and-cancellations
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: easyJet will try to get you an easyJet flight to your final destination within 24 hours of the original flight; if none is available you may take another airline, train, bus or hire car under comparable transport conditions (for example economy or standard fare) and claim reasonable costs.
+        issues: [flight_cancellation]
+        verified_via: browser
+        source: https://www.easyjet.com/en/help/boarding-and-flying/delays-and-cancellations
+        last_verified: 2026-11-19
+
+  - issue: denied_boarding
+    summary: Speak to ground crew at the airport; easyJet pays reasonable transfers, hotel and food until the next seat, and EC261 compensation is due if you were denied boarding against your will.
+    evidence: [booking reference, boarding pass, written confirmation from ground crew, receipts, arrival time of the new flight]
+    steps:
+      - do: Ask ground crew for alternative travel, compensation information, or a refund or voucher if you choose not to travel.
+      - do: Claim compensation, choosing "Denied Boarding" (or "Voluntarily Offloaded" if you volunteered).
+        channel: eu261-claim-form
+      - do: Claim expenses you paid while waiting.
+        channel: expense-claim-form
+      - do: If easyJet does not pay, complain to the National Enforcement Body for the departure airport.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: policy
+        claim: easyJet's delays page says a passenger denied boarding is paid reasonable ground transfers, accommodation and food and drink in line with its expenses policy until the next seat is available, and is entitled to compensation under EC261. On overbooked flights easyJet first asks for volunteers at Bag Drop or the gate.
+        issues: [denied_boarding]
+        verified_via: browser
+        source: https://www.easyjet.com/en/help/boarding-and-flying/delays-and-cancellations
+        last_verified: 2026-11-19
+
+  - issue: delayed_baggage
+    summary: Report the bag on the Baggage Portal within 24 hours of arrival, then claim essential items (up to £75 per person) within 21 days of the flight.
+    evidence: [bag tag, WorldTracer file reference, boarding pass, booking reference, dated receipts for essential items]
+    steps:
+      - do: If airport staff cannot find the bag, report it on the Baggage Portal within 24 hours of the flight arriving.
+        channel: delayed-bag-report
+      - do: Check the bag status online. easyJet says more than 90% of delayed bags are found within five days.
+        channel: bag-tracker
+      - do: Buy only essential items (toiletries, basic clothing, over-the-counter medicine) and keep receipts; submit them within 21 days of the flight.
+        channel: luggage-claims-form
+      - do: If the bag is delayed more than 5 days, chat with the Delayed Baggage Tracing Team.
+        channel: delayed-bag-tracing-chat
+      - do: If the bag is not found after 45 days, claim it as lost (see lost_baggage).
+        channel: luggage-claims-form
+    facts:
+      - kind: deadline
+        claim: easyJet's baggage page says to report a delayed bag on the Baggage Portal within 24 hours of the flight arriving, and to submit receipts for essential items (up to £75 per person) within 21 days of the flight. A claim is only valid if you were away from home and have receipts for all purchases.
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://www.easyjet.com/en/help/baggage/damaged-delayed-or-lost-luggage
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: easyJet's Terms and Conditions say that if baggage is delayed for more than 24 hours on an outbound flight you can spend up to £25 per day per person on essential items for a maximum of three days, claimed in writing on the online form within 21 days of the flight; a claim for delay of baggage must be made in writing within 21 days from when the baggage was made available to you.
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://www.easyjet.com/en/help-centre/policy-terms-and-conditions/terms-and-conditions
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: easyJet cannot deliver delayed bags in Egypt or Morocco (collect at the airport), or to mainland Spain for bags that arrived in Gibraltar.
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://www.easyjet.com/en/help/baggage/damaged-delayed-or-lost-luggage
+        last_verified: 2026-11-19
+
+  - issue: lost_baggage
+    summary: A bag not found 45 days after it was reported is treated as lost; claim compensation online with receipts.
+    evidence: [WorldTracer file reference, bag tag, contents list with values, proof of purchase receipts, booking reference]
+    steps:
+      - do: Make sure the bag was reported as delayed on the Baggage Portal within 24 hours of arrival.
+        channel: delayed-bag-report
+      - do: Between 6 and 45 days, the tracing team keeps searching; check status or chat with the team.
+        channel: delayed-bag-tracing-chat
+      - do: After 45 days, claim compensation online with receipts for the contents.
+        channel: luggage-claims-form
+      - do: If easyJet rejects or ignores the claim, complain in writing.
+        channel: contact-form
+    facts:
+      - kind: policy
+        claim: easyJet considers a bag lost if it is not found after 45 days; the amount paid depends on the contents and the receipts you have as proof of purchase. easyJet keeps the details and tells you if the bag is found later.
+        issues: [lost_baggage]
+        verified_via: browser
+        source: https://www.easyjet.com/en/help/baggage/damaged-delayed-or-lost-luggage
+        last_verified: 2026-11-19
+
+  - issue: damaged_baggage
+    summary: Photograph the damage before leaving the airport and report and register the claim online within 7 days of the flight.
+    evidence: [photos of the damage taken at the airport, airport damage report if made, bag tag, boarding pass, booking reference]
+    steps:
+      - do: Take photos of the damage before you leave the airport and report it to staff if you can.
+      - do: Report the damage and register the claim on the damaged luggage page within 7 days of the flight, even if you reported it at the airport.
+        channel: damaged-bag-report
+      - do: For damaged items inside the bag, contact your travel insurer.
+      - do: If easyJet rejects the claim, complain in writing.
+        channel: contact-form
+    facts:
+      - kind: deadline
+        claim: easyJet's baggage page says to complete the damage report and claim registration within 7 days of the flight; its Terms and Conditions say a claim for damage must be made in writing as soon as you discover it and at the latest within seven days, with supporting documentation such as photographs.
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://www.easyjet.com/en/help/baggage/damaged-delayed-or-lost-luggage
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: easyJet is not responsible for superficial or external damage such as scuffs and scratches, damage due to overpacking, damage from water, rain or snow, or damage to fragile or perishable items inside the bag. Non-UK residents are offered a replacement bag instead of a repair.
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://www.easyjet.com/en/help/baggage/damaged-delayed-or-lost-luggage
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: easyJet's Terms and Conditions say passengers must submit EC261 / UK261 compensation claims directly to easyJet and allow 28 days (or less if the law requires) to respond before engaging a third party. easyJet will not process a third-party claim unless it includes documentation showing the third party's authority to act for the passenger. Compensation is paid only to a bank account held by a passenger on the booking.
+    issues: [flight_delay, flight_cancellation, denied_boarding]
+    verified_via: browser
+    source: https://www.easyjet.com/en/help-centre/policy-terms-and-conditions/terms-and-conditions
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: easyJet's Terms and Conditions say the limitation period for APR 2019 and EU261 claims is set by the law of the court where the case is heard; in England and Wales it is six years from the date of the flight. Court actions under the Montreal or Warsaw Convention must be brought within two years.
+    issues: [flight_delay, flight_cancellation, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage]
+    verified_via: browser
+    source: https://www.easyjet.com/en/help-centre/policy-terms-and-conditions/terms-and-conditions
+    last_verified: 2026-11-19
+  - kind: process
+    claim: If easyJet cannot resolve a complaint, you may refer it to AviationADR (approved by the UK Civil Aviation Authority) within 12 months of easyJet's final response; easyJet also points to the European Commission's online dispute form, but the EU Online Dispute Resolution platform was discontinued on 20 July 2025 (see regulators/eu-ecc-net).
+    issues: [poor_service, flight_delay, flight_cancellation]
+    verified_via: browser
+    source: https://www.easyjet.com/en/terms-and-conditions/notice-of-rights-for-flight-delays-and-cancellations
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: easyJet fares and fees are non-refundable, except that cancelling in full within 24 hours of booking gives a full refund minus the cancellation fee. Requests for a refund of government taxes on an unused flight must be submitted within six calendar months of the scheduled departure date.
+    issues: [refund_request, ancillary_fee_refund]
+    verified_via: browser
+    source: https://www.easyjet.com/en/help/booking-and-check-in/cancelling-your-flight
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Flights numbered EZY are normally operated by easyJet UK Limited (London Luton Airport, UK), EJU by easyJet Europe Airline GmbH (Vienna, Austria) and EZS by easyJet Switzerland S.A. (Geneva, Switzerland).
+    verified_via: browser
+    source: https://www.easyjet.com/en/help-centre/policy-terms-and-conditions/terms-and-conditions
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: If you booked an alternative-airline flight through Manage Bookings during disruption and had to pay for hold luggage again, easyJet asks you to send a refund request to Customer Services with the alternative booking and the receipt.
+    issues: [ancillary_fee_refund, flight_cancellation]
+    verified_via: browser
+    source: https://www.easyjet.com/en/help/boarding-and-flying/delays-and-cancellations
+    last_verified: 2026-11-19
+
+known_blockers:
+  - The EC261 compensation form, the expense form and the contact form have a reCAPTCHA.
+  - Claim forms need the booking reference, flight number and date, and an email and phone number that match the booking; payment goes only to a bank account in the claimant's name.
+  - Rebooking, vouchers and refunds after a cancellation are done in Manage Bookings, which needs sign-in (account, or booking reference and last name).
+  - Live chat is a page widget, not a static form.
+
+notes: >-
+  Checked on 2026-11-19 in a browser (easyjet.com blocks plain fetches with HTTP 403). The EU261 and expense form URLs on
+  the contact page (/en/claim/EU261, /en/claim/welfare) redirect to /claim/en/eu261 and /claim/en/welfare. Countries:
+  easyJet UK Limited (gb), easyJet Europe Airline GmbH (Austria, the EU carrier) and easyJet Switzerland S.A. (ch); the
+  claim form's airport list also includes Norwegian and Icelandic airports, but no/is were not added. Conflicts: the delays
+  page says credit card receipts are not accepted, while the expense form accepts cardholder copies as supporting
+  documents; the baggage page gives essential items as "up to £75 per person" for a delay of 24 hours or more, while the
+  Terms and Conditions give "up to £25 per day per person" for a maximum of three days and only for an outbound flight.
+  The "track my refund" link on the delays page (/en/track-my-refund-request-hub) returned Access Denied, so it is not
+  listed. No scam or fake-account warning was found on easyjet.com, so security.known_scams is empty; the claim forms
+  themselves say not to enter credit card details. easyJet also names AviationADR (UK) for unresolved complaints.
+
+official_domains: [easyjet.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: easyJet's compensation and expense claim forms say "Please do not enter any credit card details"; payment is made by bank transfer to the claimant's own account.
+      verified_via: browser
+      source: https://www.easyjet.com/claim/en/eu261
+      last_verified: 2026-11-19
