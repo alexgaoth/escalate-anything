@@ -1,7 +1,7 @@
 id: ny-automatic-renewal-law
 title: New York Automatic Renewal Law
 citation: N.Y. Gen. Bus. Law § 527-a
-jurisdiction: ny
+jurisdiction: us-ny
 status: in_effect
 applies_to:
   issues: [cancel_service, bill_increase, unauthorized_charge]

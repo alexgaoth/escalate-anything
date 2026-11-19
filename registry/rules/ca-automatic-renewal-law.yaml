@@ -1,7 +1,7 @@
 id: ca-automatic-renewal-law
 title: California Automatic Renewal Law
 citation: Cal. Bus. & Prof. Code § 17602
-jurisdiction: ca
+jurisdiction: us-ca
 status: in_effect
 applies_to:
   issues: [cancel_service, bill_increase]

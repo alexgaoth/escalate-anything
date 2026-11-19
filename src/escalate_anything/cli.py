@@ -84,6 +84,10 @@ def cmd_lookup(args: argparse.Namespace) -> int:
     hits = reg.find_company(args.query, limit=10) if args.query else sorted(reg.companies.values(), key=lambda c: c["id"])
     if args.sector:
         hits = [c for c in hits if args.sector in reg.sector_of(c)]
+    if args.country:
+        from .advisor import serves
+
+        hits = [c for c in hits if serves(reg, c, args.country)]
     for c in hits:
         issues = ", ".join(pb["issue"] for pb in c.get("playbooks", [])) or "generic playbooks only"
         print(f"{c['id']:<28} {c['name']}  [{c['sector']}]\n{'':<28} playbooks: {issues}")
@@ -100,7 +104,7 @@ def cmd_playbook(args: argparse.Namespace) -> int:
     if not c:
         return 1
     try:
-        pb = get_playbook(reg, c["id"], args.issue, args.state)
+        pb = get_playbook(reg, c["id"], args.issue, args.state, country=args.country)
     except NotFound as e:
         print(e, file=sys.stderr)
         return 1
@@ -307,12 +311,14 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("lookup", help="find companies by name or alias")
     p.add_argument("query", nargs="?", default="")
     p.add_argument("--sector")
+    p.add_argument("--country", help="two-letter country code (us, gb, de, ...)")
     p.set_defaults(func=cmd_lookup)
 
     p = sub.add_parser("playbook", help="print the playbook for a company and issue")
     p.add_argument("company")
     p.add_argument("issue")
-    p.add_argument("--state", help="two-letter state code, to resolve state agencies")
+    p.add_argument("--state", help="two-letter US state code, to resolve state agencies")
+    p.add_argument("--country", help="where the problem happened (us, gb, de, ...); selects the rules, e.g. EU261 or UK261")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_playbook)
 

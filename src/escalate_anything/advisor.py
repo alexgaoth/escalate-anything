@@ -28,6 +28,42 @@ class NotFound(LookupError):
     pass
 
 
+# ---- countries -----------------------------------------------------------------
+
+
+def company_countries(c: dict) -> list[str]:
+    """Where a company serves customers. Files written before countries existed are US companies."""
+    return c.get("countries") or ["us"]
+
+
+def regulator_country(r: dict) -> str:
+    return r.get("country", "us")
+
+
+def default_country(c: dict) -> str:
+    return company_countries(c)[0]
+
+
+def jurisdictions(reg: Registry, country: str | None, state: str | None = None) -> set[str]:
+    """Jurisdiction ids whose rules apply to a person in `country` (and US `state`): the country itself,
+    the blocs it belongs to (for example eu for de), international rules, and the state."""
+    cc = (country or "us").lower()
+    out = {"international", cc}
+    if cc == "us":
+        out.add("us-federal")
+    for bloc in reg.countries.values():
+        if bloc.get("kind") == "bloc" and cc in (bloc["id"], *bloc.get("members", []), *bloc.get("associated", [])):
+            out.add(bloc["id"])
+    if state:
+        out.add(f"{cc}-{state.lower()}")
+    return out
+
+
+def serves(reg: Registry, c: dict, country: str) -> bool:
+    """True when the company serves `country`, directly or through a bloc it is listed for."""
+    return bool(set(company_countries(c)) & jurisdictions(reg, country))
+
+
 def resolve_company(reg: Registry, company: str) -> dict:
     if company in reg.companies:
         return reg.companies[company]
@@ -51,6 +87,7 @@ def company_summary(reg: Registry, c: dict) -> dict:
         "id": c["id"],
         "name": c["name"],
         "sector": c["sector"],
+        "countries": company_countries(c),
         "also_sectors": c.get("also_sectors", []),
         "aliases": c.get("aliases", []),
         "website": c["website"],
@@ -97,6 +134,7 @@ def _regulator_view(reg: Registry, rid: str, today: dt.date, warnings: list[str]
         "id": rid,
         "name": r["name"],
         "level": r["level"],
+        "country": regulator_country(r),
         "when_to_use": r["when_to_use"],
         "channels": [_mark(ch, today, warnings, f"{rid} channel '{ch['id']}'") for ch in r["channels"]],
         "facts": [_mark(f, today, warnings, f"{rid} fact") for f in r.get("facts", [])],
@@ -130,14 +168,29 @@ def state_agencies(reg: Registry, state: str, sector: str, kind: str | None = No
     return found
 
 
-def find_regulators(reg: Registry, sector: str, state: str | None = None, today: dt.date | None = None) -> dict:
+def find_regulators(reg: Registry, sector: str, state: str | None = None, today: dt.date | None = None,
+                    country: str | None = None) -> dict:
     today = today or dt.date.today()
     if sector not in reg.sectors:
         raise NotFound(f"Unknown sector '{sector}'. Known: {', '.join(reg.sectors)}")
     s = reg.sectors[sector]
+    cc = (country or "us").lower()
     warnings: list[str] = []
+    if cc != "us":
+        # Outside the US: national regulators, ombudsmen and bloc-level bodies (EU) that cover the sector.
+        scope = jurisdictions(reg, cc) - {"international"}
+        found = [rid for rid, r in sorted(reg.regulators.items())
+                 if regulator_country(r) in scope and sector in r.get("covers_sectors", [])]
+        return {
+            "sector": sector,
+            "country": cc,
+            "regulators": [_regulator_view(reg, rid, today, warnings) for rid in found]
+            or f"No regulators on file for '{cc}' and sector '{sector}' yet. See docs/add-a-country.md.",
+            "warnings": warnings,
+        }
     result: dict[str, Any] = {
         "sector": sector,
+        "country": "us",
         "federal": [_regulator_view(reg, rid, today, warnings) for rid in s.get("federal_regulators", [])],
     }
     if state:
@@ -154,11 +207,12 @@ def find_regulators(reg: Registry, sector: str, state: str | None = None, today:
 
 
 def rules_for(reg: Registry, sector: str | None, issue: str | None, state: str | None = None,
-              only_issue_points: bool = False) -> dict:
+              only_issue_points: bool = False, country: str | None = None) -> dict:
     in_force, not_in_force = [], []
+    scope = jurisdictions(reg, country, state)
     for r in reg.rules.values():
         juris = r["jurisdiction"]
-        if juris not in ("us-federal", "international") and juris != (state or "").lower():
+        if juris not in scope:
             continue
         applies = r.get("applies_to", {})
         if sector and applies.get("sectors") and sector not in applies["sectors"]:
@@ -238,9 +292,11 @@ def _fits(rung: str, ch: dict) -> bool:
 # ---- playbook ----------------------------------------------------------------
 
 
-def get_playbook(reg: Registry, company: str, issue: str, state: str | None = None, today: dt.date | None = None) -> dict:
+def get_playbook(reg: Registry, company: str, issue: str, state: str | None = None, today: dt.date | None = None,
+                 country: str | None = None) -> dict:
     today = today or dt.date.today()
     c = resolve_company(reg, company)
+    country = (country or default_country(c)).lower()
     if issue not in reg.issues:
         raise NotFound(f"Unknown issue '{issue}'. Use list_issues(sector='{c['sector']}').")
     generic = reg.issues[issue]
@@ -287,7 +343,8 @@ def get_playbook(reg: Registry, company: str, issue: str, state: str | None = No
         "steps": steps,
         "channels": relevant_channels,
         "facts": facts,
-        "rules": rules_for(reg, c["sector"], issue, state, only_issue_points=True),
+        "country": country,
+        "rules": rules_for(reg, c["sector"], issue, state, only_issue_points=True, country=country),
         "tips": tips,
         "escalation": escalation_ladder(reg, c, state, today, warnings),
         "known_blockers": c.get("known_blockers", []),

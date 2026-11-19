@@ -127,6 +127,10 @@ Got a result with Escalate Anything? **[Share what worked](https://github.com/al
 
 How it works: [docs/maintenance.md](docs/maintenance.md).
 
+## Countries
+
+🇺🇸 United States: complete · 🇬🇧 United Kingdom and 🇪🇺 European Union: in progress · **[add your country](docs/add-a-country.md)**: tell us how complaints work where you live, and we will build it with you.
+
 ## Contribute
 
 - **A number or link is wrong?** [Report it](https://github.com/alexgaoth/escalate-anything/issues/new?template=data-correction.yml). A maintainer labels it, and the routine checks it against the official page and opens the fix.
@@ -168,7 +172,7 @@ No. Escalate Anything summarizes public pages from companies and government agen
 <details>
 <summary><strong>Does it work outside the US?</strong></summary>
 
-Not yet. Companies, rules and regulators are US-only. Contributions for other countries are welcome.
+The US is complete. The UK and the EU (starting with EU261 flight compensation) are in progress, and the data model takes any country. Agents pass `country` (for example `gb` or `de`) so the right rules and regulators apply. [Add your country](docs/add-a-country.md).
 </details>
 
 ## Wins

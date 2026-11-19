@@ -27,7 +27,7 @@ def data_root() -> Path:
 
 SCHEMA_PATH = data_root() / "schema" / "registry.schema.json"
 
-PHONE_RE = re.compile(r"^(\+1-\d{3}-\d{3}-\d{4}( ext\. \d+)?|\*?#?\d{3,6})$")
+PHONE_RE = re.compile(r"^(\+1-\d{3}-\d{3}-\d{4}( ext\. \d+)?|\+[2-9]\d{0,2}[ -]\d[\d -]{4,16}\d( ext\. \d+)?|\*?#?\d{3,6})$")
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[a-z]{2,}$", re.IGNORECASE)
 URL_TYPES = {"web_form", "chat", "portal", "social"}
 
@@ -81,6 +81,7 @@ class Registry:
     regulators: dict[str, dict] = field(default_factory=dict)
     states: dict[str, dict] = field(default_factory=dict)
     rules: dict[str, dict] = field(default_factory=dict)
+    countries: dict[str, dict] = field(default_factory=dict)
     files: dict[str, Path] = field(default_factory=dict)  # "company:<id>" -> path
     dossiers: dict[str, Any] = field(default_factory=dict)  # company id -> context.Doc
     guides: dict[str, Any] = field(default_factory=dict)  # sector id or topic -> context.Doc
@@ -93,7 +94,7 @@ class Registry:
     def load(cls, root: Path | None = None) -> "Registry":
         reg = cls(root=Path(root) if root else registry_dir())
         reg._load_vocab()
-        for kind, sub in (("company", "companies"), ("regulator", "regulators"), ("state", "states"), ("rule", "rules")):
+        for kind, sub in (("company", "companies"), ("regulator", "regulators"), ("state", "states"), ("rule", "rules"), ("country", "countries")):
             for path in sorted((reg.root / sub).rglob("*.yaml")):
                 reg._load_entry(kind, path)
         reg._build_alias_index()
@@ -116,6 +117,10 @@ class Registry:
         issues = load_yaml(self.root / "issues.yaml")
         self.issues = {i["id"]: i for i in issues["issues"]}
 
+    def _store(self, kind: str) -> dict[str, dict]:
+        return {"company": self.companies, "regulator": self.regulators, "state": self.states, "rule": self.rules,
+                "country": self.countries}[kind]
+
     def _load_entry(self, kind: str, path: Path) -> None:
         try:
             data = load_yaml(path)
@@ -125,7 +130,7 @@ class Registry:
         if not isinstance(data, dict) or "id" not in data:
             self.problems.append(Problem(self._rel(path), "", "file must be a mapping with an 'id'"))
             return
-        store = {"company": self.companies, "regulator": self.regulators, "state": self.states, "rule": self.rules}[kind]
+        store = self._store(kind)
         if data["id"] in store:
             first = self._rel(self.files[kind + ":" + data["id"]])
             self.problems.append(Problem(self._rel(path), "id", f"duplicate {kind} id '{data['id']}' (also in {first})"))
@@ -180,7 +185,7 @@ class Registry:
             if only is not None and path.resolve() not in only:
                 continue
             kind, eid = key.split(":", 1)
-            data = {"company": self.companies, "regulator": self.regulators, "state": self.states, "rule": self.rules}[kind][eid]
+            data = self._store(kind)[eid]
             rel = self._rel(path)
             sub = dict(schema)
             sub["$ref"] = f"#/$defs/{kind}"
@@ -215,6 +220,11 @@ class Registry:
         def check_regulator(where: str, rid: str) -> None:
             if rid not in self.regulator_names:
                 bad(where, f"unknown regulator '{rid}' (add it to registry/sectors.yaml first)")
+
+        def check_country(where: str, code: str) -> None:
+            # us is the default for files written before countries existed, so it needs no file.
+            if code not in self.countries and code != "us":
+                bad(where, f"unknown country '{code}' (add registry/countries/{code}.yaml first)")
 
         def check_date(where: str, value: Any) -> None:
             if isinstance(value, str) and re.match(r"^\d{4}-\d{2}-\d{2}$", value):
@@ -251,6 +261,8 @@ class Registry:
                 check_date(f"{where}[{i}]", f.get("last_verified"))
 
         if kind == "company":
+            for code in data.get("countries", []):
+                check_country("countries", code)
             for s in [data.get("sector"), *data.get("also_sectors", [])]:
                 if s:
                     check_sector("sector", s)
@@ -290,6 +302,8 @@ class Registry:
                 for iid in t.get("issues", []):
                     check_issue(f"tips[{i}].issues", iid)
         elif kind == "regulator":
+            if data.get("country"):
+                check_country("country", data["country"])
             if data.get("id") not in self.regulator_names:
                 bad("id", f"regulator '{data.get('id')}' is not listed in registry/sectors.yaml")
             for s in data.get("covers_sectors", []):
@@ -313,11 +327,19 @@ class Registry:
                 check_facts(f"{where}.facts", ag.get("facts", []))
             check_facts("facts", data.get("facts", []))
         elif kind == "rule":
+            juris = str(data.get("jurisdiction", ""))
+            if juris != "international":
+                check_country("jurisdiction", juris.split("-")[0])
             for s in data.get("applies_to", {}).get("sectors", []):
                 check_sector("applies_to.sectors", s)
             for iid in data.get("applies_to", {}).get("issues", []):
                 check_issue("applies_to.issues", iid)
             check_facts("points", data.get("points", []))
+            check_date("", data.get("last_verified"))
+        elif kind == "country":
+            for code in [*data.get("members", []), *data.get("associated", [])]:
+                if not re.match(r"^[a-z]{2}$", code):
+                    bad("members", f"'{code}' is not a two-letter country code")
             check_date("", data.get("last_verified"))
         return out
 
@@ -327,7 +349,7 @@ class Registry:
         """Yield (file, where, item) for every item that has a source and last_verified."""
         for key, path in self.files.items():
             kind, eid = key.split(":", 1)
-            data = {"company": self.companies, "regulator": self.regulators, "state": self.states, "rule": self.rules}[kind][eid]
+            data = self._store(kind)[eid]
             yield from _walk_sourced(self._rel(path), "", data)
 
     def stale(self, days: int, today: dt.date | None = None) -> list[tuple[str, str, str]]:

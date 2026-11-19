@@ -20,22 +20,79 @@
       "description": "One way to reach an organization. 'value' is a URL, phone number, email address or postal address, depending on 'type'.",
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "type", "label", "value", "source", "last_verified"],
+      "required": [
+        "id",
+        "type",
+        "label",
+        "value",
+        "source",
+        "last_verified"
+      ],
       "properties": {
-        "id": {"$ref": "#/$defs/id"},
-        "type": {"enum": ["phone", "sms", "fax", "chat", "web_form", "email", "mail", "social", "app", "in_person", "portal"]},
-        "label": {"type": "string", "minLength": 3},
-        "value": {"type": "string", "minLength": 3},
-        "purposes": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true},
-        "hours": {"type": "string"},
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "type": {
+          "enum": [
+            "phone",
+            "sms",
+            "fax",
+            "chat",
+            "web_form",
+            "email",
+            "mail",
+            "social",
+            "app",
+            "in_person",
+            "portal"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "minLength": 3
+        },
+        "value": {
+          "type": "string",
+          "minLength": 3
+        },
+        "purposes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_underscore"
+          },
+          "uniqueItems": true
+        },
+        "hours": {
+          "type": "string"
+        },
         "access": {
           "description": "open: anyone can use it. login: the account holder must sign in first. captcha: a CAPTCHA or bot check blocks agents. human_only: the company accepts only the account holder in person or by voice.",
-          "enum": ["open", "login", "captcha", "human_only"]
+          "enum": [
+            "open",
+            "login",
+            "captcha",
+            "human_only"
+          ]
         },
-        "notes": {"type": "string"},
-        "verified_via": {"description": "How the value was seen: the live page, a browser, a document (PDF), a search-result snippet, or an archive copy.", "enum": ["page", "browser", "document", "search_snippet", "archive"]},
-        "source": {"$ref": "#/$defs/url"},
-        "last_verified": {"$ref": "#/$defs/date"}
+        "notes": {
+          "type": "string"
+        },
+        "verified_via": {
+          "description": "How the value was seen: the live page, a browser, a document (PDF), a search-result snippet, or an archive copy.",
+          "enum": [
+            "page",
+            "browser",
+            "document",
+            "search_snippet",
+            "archive"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/url"
+        },
+        "last_verified": {
+          "$ref": "#/$defs/date"
+        }
       }
     },
     "id_underscore": {
@@ -46,64 +103,190 @@
       "description": "One checkable claim with the page that supports it.",
       "type": "object",
       "additionalProperties": false,
-      "required": ["claim", "source", "last_verified"],
+      "required": [
+        "claim",
+        "source",
+        "last_verified"
+      ],
       "properties": {
-        "id": {"$ref": "#/$defs/id"},
-        "kind": {"enum": ["deadline", "policy", "compensation", "process", "limit", "contact", "fee"]},
-        "claim": {"type": "string", "minLength": 10},
-        "issues": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true},
-        "verified_via": {"description": "How the value was seen: the live page, a browser, a document (PDF), a search-result snippet, or an archive copy.", "enum": ["page", "browser", "document", "search_snippet", "archive"]},
-        "source": {"$ref": "#/$defs/url"},
-        "last_verified": {"$ref": "#/$defs/date"}
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "enum": [
+            "deadline",
+            "policy",
+            "compensation",
+            "process",
+            "limit",
+            "contact",
+            "fee"
+          ]
+        },
+        "claim": {
+          "type": "string",
+          "minLength": 10
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_underscore"
+          },
+          "uniqueItems": true
+        },
+        "verified_via": {
+          "description": "How the value was seen: the live page, a browser, a document (PDF), a search-result snippet, or an archive copy.",
+          "enum": [
+            "page",
+            "browser",
+            "document",
+            "search_snippet",
+            "archive"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/url"
+        },
+        "last_verified": {
+          "$ref": "#/$defs/date"
+        }
       }
     },
     "step": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["do"],
+      "required": [
+        "do"
+      ],
       "properties": {
-        "do": {"type": "string", "minLength": 5},
-        "channel": {"$ref": "#/$defs/id"},
-        "regulator": {"$ref": "#/$defs/id"},
-        "note": {"type": "string"}
+        "do": {
+          "type": "string",
+          "minLength": 5
+        },
+        "channel": {
+          "$ref": "#/$defs/id"
+        },
+        "regulator": {
+          "$ref": "#/$defs/id"
+        },
+        "note": {
+          "type": "string"
+        }
       }
     },
     "playbook": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["issue", "steps"],
+      "required": [
+        "issue",
+        "steps"
+      ],
       "properties": {
-        "issue": {"$ref": "#/$defs/id_underscore"},
-        "summary": {"type": "string"},
-        "evidence": {"type": "array", "items": {"type": "string"}},
-        "steps": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/step"}},
-        "facts": {"type": "array", "items": {"$ref": "#/$defs/fact"}}
+        "issue": {
+          "$ref": "#/$defs/id_underscore"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/step"
+          }
+        },
+        "facts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        }
       }
     },
     "rung": {
       "description": "One level of an escalation ladder, lowest first.",
       "type": "object",
       "additionalProperties": false,
-      "required": ["rung"],
+      "required": [
+        "rung"
+      ],
       "properties": {
-        "rung": {"enum": ["frontline", "supervisor", "retention", "written_complaint", "executive", "regulator", "state_agency", "payment_dispute", "arbitration", "small_claims", "public"]},
-        "channel": {"$ref": "#/$defs/id"},
-        "regulator": {"$ref": "#/$defs/id"},
-        "agency_kind": {"$ref": "#/$defs/agency_kind"},
-        "note": {"type": "string"}
+        "rung": {
+          "enum": [
+            "frontline",
+            "supervisor",
+            "retention",
+            "written_complaint",
+            "executive",
+            "regulator",
+            "state_agency",
+            "payment_dispute",
+            "arbitration",
+            "small_claims",
+            "public"
+          ]
+        },
+        "channel": {
+          "$ref": "#/$defs/id"
+        },
+        "regulator": {
+          "$ref": "#/$defs/id"
+        },
+        "agency_kind": {
+          "$ref": "#/$defs/agency_kind"
+        },
+        "note": {
+          "type": "string"
+        }
       }
     },
     "tip": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["text", "kind"],
+      "required": [
+        "text",
+        "kind"
+      ],
       "properties": {
-        "text": {"type": "string", "minLength": 10},
-        "kind": {"enum": ["official", "community"]},
-        "issues": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true},
-        "verified_via": {"description": "How the value was seen: the live page, a browser, a document (PDF), a search-result snippet, or an archive copy.", "enum": ["page", "browser", "document", "search_snippet", "archive"]},
-        "source": {"$ref": "#/$defs/url"},
-        "last_verified": {"$ref": "#/$defs/date"}
+        "text": {
+          "type": "string",
+          "minLength": 10
+        },
+        "kind": {
+          "enum": [
+            "official",
+            "community"
+          ]
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_underscore"
+          },
+          "uniqueItems": true
+        },
+        "verified_via": {
+          "description": "How the value was seen: the live page, a browser, a document (PDF), a search-result snippet, or an archive copy.",
+          "enum": [
+            "page",
+            "browser",
+            "document",
+            "search_snippet",
+            "archive"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/url"
+        },
+        "last_verified": {
+          "$ref": "#/$defs/date"
+        }
       }
     },
     "security": {
@@ -111,111 +294,460 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "never_asks": {"type": "array", "items": {"$ref": "#/$defs/fact"}},
-        "known_scams": {"type": "array", "items": {"$ref": "#/$defs/fact"}},
-        "report_phishing": {"type": "array", "items": {"$ref": "#/$defs/channel"}}
+        "never_asks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "known_scams": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "report_phishing": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/channel"
+          }
+        }
       }
     },
     "agency_kind": {
-      "enum": ["attorney_general", "utility_commission", "insurance_department", "financial_regulator", "consumer_affairs"]
+      "enum": [
+        "attorney_general",
+        "utility_commission",
+        "insurance_department",
+        "financial_regulator",
+        "consumer_affairs"
+      ]
     },
     "company": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "name", "sector", "website", "channels"],
+      "required": [
+        "id",
+        "name",
+        "sector",
+        "website",
+        "channels"
+      ],
       "properties": {
-        "id": {"$ref": "#/$defs/id"},
-        "name": {"type": "string"},
-        "aliases": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
-        "sector": {"$ref": "#/$defs/id_underscore"},
-        "also_sectors": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true},
-        "parent": {"type": "string"},
-        "website": {"$ref": "#/$defs/url"},
-        "account_url": {"$ref": "#/$defs/url"},
-        "regulators": {"type": "array", "items": {"$ref": "#/$defs/id"}, "uniqueItems": true},
-        "channels": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/channel"}},
-        "escalation": {"type": "array", "items": {"$ref": "#/$defs/rung"}},
-        "playbooks": {"type": "array", "items": {"$ref": "#/$defs/playbook"}},
-        "facts": {"type": "array", "items": {"$ref": "#/$defs/fact"}},
-        "tips": {"type": "array", "items": {"$ref": "#/$defs/tip"}},
-        "known_blockers": {"type": "array", "items": {"type": "string"}},
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "type": "string"
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "sector": {
+          "$ref": "#/$defs/id_underscore"
+        },
+        "also_sectors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_underscore"
+          },
+          "uniqueItems": true
+        },
+        "parent": {
+          "type": "string"
+        },
+        "website": {
+          "$ref": "#/$defs/url"
+        },
+        "account_url": {
+          "$ref": "#/$defs/url"
+        },
+        "regulators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "uniqueItems": true
+        },
+        "channels": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/channel"
+          }
+        },
+        "escalation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/rung"
+          }
+        },
+        "playbooks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/playbook"
+          }
+        },
+        "facts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "tips": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tip"
+          }
+        },
+        "known_blockers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "official_domains": {
           "description": "Domains the company owns and uses for customer contact (web, email). Sources on these domains count as official in the credibility grade.",
-          "type": "array", "uniqueItems": true,
-          "items": {"type": "string", "pattern": "^[a-z0-9-]+(\\.[a-z0-9-]+)*\\.[a-z]{2,}$"}
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+(\\.[a-z0-9-]+)*\\.[a-z]{2,}$"
+          }
         },
-        "security": {"$ref": "#/$defs/security"},
-        "notes": {"type": "string"}
+        "security": {
+          "$ref": "#/$defs/security"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "countries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/country_code"
+          },
+          "minItems": 1,
+          "uniqueItems": true,
+          "description": "Where the company serves customers. Default when missing: [us]. Use eu when EU law applies across the bloc."
+        }
       }
     },
     "regulator": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "name", "level", "covers_sectors", "website", "when_to_use", "channels"],
+      "required": [
+        "id",
+        "name",
+        "level",
+        "covers_sectors",
+        "website",
+        "when_to_use",
+        "channels"
+      ],
       "properties": {
-        "id": {"$ref": "#/$defs/id"},
-        "name": {"type": "string"},
-        "short_name": {"type": "string"},
-        "level": {"enum": ["federal", "nonprofit"]},
-        "covers_sectors": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true},
-        "covers_issues": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true},
-        "website": {"$ref": "#/$defs/url"},
-        "when_to_use": {"type": "string", "minLength": 20},
-        "channels": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/channel"}},
-        "facts": {"type": "array", "items": {"$ref": "#/$defs/fact"}},
-        "notes": {"type": "string"}
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "type": "string"
+        },
+        "short_name": {
+          "type": "string"
+        },
+        "level": {
+          "enum": [
+            "federal",
+            "nonprofit",
+            "national",
+            "supranational",
+            "ombudsman"
+          ]
+        },
+        "covers_sectors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_underscore"
+          },
+          "uniqueItems": true
+        },
+        "covers_issues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_underscore"
+          },
+          "uniqueItems": true
+        },
+        "website": {
+          "$ref": "#/$defs/url"
+        },
+        "when_to_use": {
+          "type": "string",
+          "minLength": 20
+        },
+        "channels": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/channel"
+          }
+        },
+        "facts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "notes": {
+          "type": "string"
+        },
+        "country": {
+          "$ref": "#/$defs/country_code",
+          "description": "Default when missing: us."
+        }
       }
     },
     "agency": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "kind", "name", "channels"],
+      "required": [
+        "id",
+        "kind",
+        "name",
+        "channels"
+      ],
       "properties": {
-        "id": {"$ref": "#/$defs/id"},
-        "kind": {"$ref": "#/$defs/agency_kind"},
-        "name": {"type": "string"},
-        "covers_sectors": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true},
-        "website": {"$ref": "#/$defs/url"},
-        "channels": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/channel"}},
-        "facts": {"type": "array", "items": {"$ref": "#/$defs/fact"}},
-        "notes": {"type": "string"}
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "$ref": "#/$defs/agency_kind"
+        },
+        "name": {
+          "type": "string"
+        },
+        "covers_sectors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_underscore"
+          },
+          "uniqueItems": true
+        },
+        "website": {
+          "$ref": "#/$defs/url"
+        },
+        "channels": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/channel"
+          }
+        },
+        "facts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
       }
     },
     "state": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "name", "agencies"],
+      "required": [
+        "id",
+        "name",
+        "agencies"
+      ],
       "properties": {
-        "id": {"type": "string", "pattern": "^[a-z]{2}$"},
-        "name": {"type": "string"},
-        "agencies": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/agency"}},
-        "facts": {"type": "array", "items": {"$ref": "#/$defs/fact"}}
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z]{2}$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "agencies": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/agency"
+          }
+        },
+        "facts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        }
       }
     },
     "rule": {
       "description": "A law or regulation that gives consumers a right. 'status' records whether it is in force; several recent rules were vacated, repealed or withdrawn.",
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "title", "jurisdiction", "status", "applies_to", "summary", "points", "source", "last_verified"],
+      "required": [
+        "id",
+        "title",
+        "jurisdiction",
+        "status",
+        "applies_to",
+        "summary",
+        "points",
+        "source",
+        "last_verified"
+      ],
       "properties": {
-        "id": {"$ref": "#/$defs/id"},
-        "title": {"type": "string"},
-        "citation": {"type": "string"},
-        "jurisdiction": {"type": "string", "pattern": "^(us-federal|international|[a-z]{2})$"},
-        "status": {"enum": ["in_effect", "partially_in_effect", "stayed", "vacated", "repealed", "proposed", "withdrawn", "superseded"]},
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "type": "string"
+        },
+        "citation": {
+          "type": "string"
+        },
+        "jurisdiction": {
+          "type": "string",
+          "pattern": "^(international|[a-z]{2}|[a-z]{2}-federal|[a-z]{2}-[a-z0-9]{1,3})$",
+          "description": "international, a country or bloc code (gb, eu), us-federal, or country-subdivision (us-ca, us-ny)."
+        },
+        "status": {
+          "enum": [
+            "in_effect",
+            "partially_in_effect",
+            "stayed",
+            "vacated",
+            "repealed",
+            "proposed",
+            "withdrawn",
+            "superseded"
+          ]
+        },
         "applies_to": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "sectors": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true},
-            "issues": {"type": "array", "items": {"$ref": "#/$defs/id_underscore"}, "uniqueItems": true}
+            "sectors": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/id_underscore"
+              },
+              "uniqueItems": true
+            },
+            "issues": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/id_underscore"
+              },
+              "uniqueItems": true
+            }
           }
         },
-        "summary": {"type": "string", "minLength": 20},
-        "points": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/fact"}},
-        "status_note": {"type": "string"},
-        "source": {"$ref": "#/$defs/url"},
-        "last_verified": {"$ref": "#/$defs/date"}
+        "summary": {
+          "type": "string",
+          "minLength": 20
+        },
+        "points": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "status_note": {
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/url"
+        },
+        "last_verified": {
+          "$ref": "#/$defs/date"
+        }
+      }
+    },
+    "country_code": {
+      "type": "string",
+      "pattern": "^[a-z]{2}$",
+      "description": "ISO 3166-1 alpha-2 code in lowercase (gb for the UK), or eu for the European Union"
+    },
+    "country": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "kind",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/country_code"
+        },
+        "name": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "country",
+            "bloc"
+          ]
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/country_code"
+          },
+          "description": "For a bloc: member countries."
+        },
+        "associated": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/country_code"
+          },
+          "description": "For a bloc: countries where some of its rules also apply."
+        },
+        "languages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "currency": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "complete",
+            "in_progress",
+            "wanted"
+          ]
+        },
+        "maintainers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "GitHub handles of people who keep this country's data current."
+        },
+        "how_complaints_work": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/url"
+        },
+        "last_verified": {
+          "$ref": "#/$defs/date"
+        }
       }
     }
   }
