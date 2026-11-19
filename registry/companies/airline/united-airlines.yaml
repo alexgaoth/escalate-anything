@@ -164,6 +164,7 @@ playbooks:
       - do: Cancel the reservation in My trips, or submit the refund form, including any bag and seat fees.
         channel: refund-form
       - do: For hotel, meal or other expenses caused by the cancellation, submit the Customer Care form.
+        note: "From October 19, 2026, ten causes are no longer in DOT's 'Air Carrier' (controllable) category, among them unscheduled maintenance that cannot be deferred, a medical emergency and removal of an unruly passenger (rule dot-delay-cause-categories). Ask the agent for the cause. For these causes, do not promise a meal, hotel or other amenity; the airline may refuse or give it voluntarily. Refund rights do not depend on the cause."
         channel: customer-care-form
       - do: If the form fails, call customer service.
         channel: customer-service-phone
@@ -191,6 +192,7 @@ playbooks:
     evidence: [confirmation number, scheduled and actual times, cause given by United, receipts]
     steps:
       - do: Ask the agent for food and beverage vouchers. If you decline offered vouchers, United will not reimburse food you buy yourself.
+        note: "From October 19, 2026, ten causes are no longer in DOT's 'Air Carrier' (controllable) category, among them unscheduled maintenance that cannot be deferred, a medical emergency and removal of an unruly passenger (rule dot-delay-cause-categories). Ask the agent for the cause. For these causes, do not promise a meal, hotel or other amenity; the airline may refuse or give it voluntarily. Refund rights do not depend on the cause."
       - do: Request reimbursement of expenses caused by the delay through the Customer Care form.
         channel: customer-care-form
       - do: If the delay becomes a significant change and you do not travel, request a refund.

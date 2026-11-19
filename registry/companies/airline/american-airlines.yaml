@@ -143,6 +143,7 @@ playbooks:
       - do: Submit a refund request for each ticket number, including separate seat and bag tickets.
         channel: refund-form
       - do: If the disruption was within American's control, request reimbursement of hotel, transportation and meal costs from Customer Relations.
+        note: "From October 19, 2026, ten causes are no longer in DOT's 'Air Carrier' (controllable) category, among them unscheduled maintenance that cannot be deferred, a medical emergency and removal of an unruly passenger (rule dot-delay-cause-categories). Ask the agent for the cause. For these causes, do not promise a meal, hotel or other amenity; the airline may refuse or give it voluntarily. Refund rights do not depend on the cause."
         channel: customer-relations-form
       - do: If the refund is not paid, file a complaint with the U.S. DOT, then dispute the charge with the card issuer.
         regulator: us-dot
@@ -168,6 +169,7 @@ playbooks:
     evidence: [confirmation code, scheduled and actual times, cause given by American, receipts]
     steps:
       - do: Ask for the food and beverage credit once the delay reaches 3 hours after scheduled departure.
+        note: "From October 19, 2026, ten causes are no longer in DOT's 'Air Carrier' (controllable) category, among them unscheduled maintenance that cannot be deferred, a medical emergency and removal of an unruly passenger (rule dot-delay-cause-categories). Ask the agent for the cause. For these causes, do not promise a meal, hotel or other amenity; the airline may refuse or give it voluntarily. Refund rights do not depend on the cause."
       - do: If delayed overnight away from home, ask for a hotel voucher; if none is available, keep receipts for reimbursement.
       - do: Send receipts to Customer Relations for reimbursement.
         channel: customer-relations-form

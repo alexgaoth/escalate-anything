@@ -69,6 +69,7 @@ playbooks:
       - do: If a rescheduled flight was turned into a credit voucher, call Customer Care to redeem it for a refund.
         channel: customer-service-phone
       - do: For a controllable cancellation, ask for a meal voucher (3+ hours) and a hotel or reimbursement of reasonable overnight costs.
+        note: "From October 19, 2026, ten causes are no longer in DOT's 'Air Carrier' (controllable) category, among them unscheduled maintenance that cannot be deferred, a medical emergency and removal of an unruly passenger (rule dot-delay-cause-categories). Ask the agent for the cause. For these causes, do not promise a meal, hotel or other amenity; the airline may refuse or give it voluntarily. Refund rights do not depend on the cause."
       - do: If the refund is not paid within 7 business days, send a written request, then file with the U.S. DOT and dispute the charge.
         channel: customer-care-form
     facts:
@@ -98,6 +99,7 @@ playbooks:
     evidence: [confirmation number, scheduled and actual times, cause given by Allegiant, receipts]
     steps:
       - do: Ask the agent for a meal voucher once the controllable delay reaches 3 hours, and for a hotel if stranded overnight.
+        note: "From October 19, 2026, ten causes are no longer in DOT's 'Air Carrier' (controllable) category, among them unscheduled maintenance that cannot be deferred, a medical emergency and removal of an unruly passenger (rule dot-delay-cause-categories). Ask the agent for the cause. For these causes, do not promise a meal, hotel or other amenity; the airline may refuse or give it voluntarily. Refund rights do not depend on the cause."
       - do: Submit receipts for reasonable hotel and ground transportation costs.
         channel: customer-care-form
     facts:

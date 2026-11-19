@@ -11,8 +11,10 @@ summary: >-
   payment) when they cancel or significantly change a flight and the passenger does not accept the
   alternative. Refunds are due within 7 business days (credit card) or 20 calendar days (other payment).
   Airlines must also refund checked bag fees for significantly delayed bags and fees for paid extras that
-  were not provided. Until July 7, 2027, DOT does not enforce the rule in one narrow case: a flight that is
-  only renumbered, with no significant change or delay.
+  were not provided. The refund is owed whatever the cause of the cancellation or change, so the October 19, 2026
+  change to delay cause categories (rule dot-delay-cause-categories) does not affect it. Until July 7, 2027, DOT
+  does not enforce the rule in one narrow case: a flight that is only renumbered, the passenger is rebooked on it,
+  and it operates without a significant change or delay. That is a pause in enforcement, not a change to the rule.
 points:
   - kind: policy
     claim: >-
@@ -109,14 +111,37 @@ points:
       delayed, the refund requirements remain fully enforceable.
     issues: [flight_cancellation]
     source: https://www.federalregister.gov/documents/2026/07/07/2026-13675/airline-refunds-and-other-consumer-protections
-    last_verified: 2026-10-12
+    last_verified: 2026-10-14
+  - kind: policy
+    claim: >-
+      The renumbering pause is enforcement discretion, not a change to the regulation. DOT says that under current
+      regulations a flight given a different flight number than the one active at purchase "is considered a
+      'cancelled flight'", and the pause applies to the refund and notification requirements in 14 CFR parts 260
+      and 399 for flights that are "merely renumbered". DOT calls it "temporary and strictly limited". It "does
+      not alter any other consumer protections", including free rebooking when a change to a smaller aircraft
+      means a passenger's wheelchair or scooter can no longer be accommodated.
+    issues: [flight_cancellation, refund_request]
+    source: https://www.federalregister.gov/documents/2026/07/07/2026-13675/airline-refunds-and-other-consumer-protections
+    last_verified: 2026-10-14
+  - kind: policy
+    claim: >-
+      DOT says that if an airline cancels or significantly changes a flight, "regardless of the reason", it must
+      give a prompt refund to a ticketed passenger, including one with a non-refundable ticket, who chooses not to
+      accept the alternative offered, and that the airlines' delay and cancellation commitments "do not impact
+      your entitlement to a refund".
+    issues: [flight_cancellation, flight_delay, refund_request]
+    verified_via: browser
+    source: https://www.transportation.gov/airconsumer/airline-cancellation-delay-dashboard
+    last_verified: 2026-10-14
 status_note: >-
   In force. 14 CFR part 260 (refunds) and part 262 (communicable-disease travel credits) were published April 26,
   2024 (89 FR 32760), effective June 25, 2024, and amended August 12, 2024 (89 FR 65534) to conform to the FAA
   Reauthorization Act of 2024. The eCFR shows the text current as of October 2026. Narrow enforcement
   discretion: DOT notices of December 5, 2025 (90 FR 55999) and July 7, 2026 (91 FR 41556) pause enforcement,
   until July 7, 2027, only for renumbered flights with no significant change or delay, while DOT works on a
-  rulemaking ("Refund III", docket DOT-OST-2025-2285) to redefine "cancelled flight". No proposed rule for
-  Refund III had been published in the Federal Register as of 2026-10-12. All other requirements are enforced.
+  rulemaking ("Refund III", docket DOT-OST-2025-2285, RIN 2105-AF36) to redefine "cancelled flight". No proposed
+  rule for Refund III was found in the Federal Register on 2026-10-14. All other requirements are enforced. The
+  cause-category rule effective October 19, 2026 (91 FR 56588, rules/dot-delay-cause-categories) amends only
+  14 CFR 234.4 reporting and does not amend part 260.
 source: https://www.ecfr.gov/current/title-14/chapter-II/subchapter-A/part-260
 last_verified: 2026-10-12

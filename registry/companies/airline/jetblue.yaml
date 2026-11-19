@@ -70,6 +70,7 @@ playbooks:
       - do: Cancel online or contact JetBlue before the flight departs; otherwise use chat.
         channel: chat
       - do: For a controllable cancellation, ask for the $12 meal voucher (3+ hour arrival delay) and a hotel if stranded overnight.
+        note: "From October 19, 2026, ten causes are no longer in DOT's 'Air Carrier' (controllable) category, among them unscheduled maintenance that cannot be deferred, a medical emergency and removal of an unruly passenger (rule dot-delay-cause-categories). Ask the agent for the cause. For these causes, do not promise a meal, hotel or other amenity; the airline may refuse or give it voluntarily. Refund rights do not depend on the cause."
       - do: If the refund does not arrive, complain in writing, then file with the U.S. DOT and dispute the charge with the card issuer.
         channel: customer-care-form
     facts:
@@ -99,6 +100,7 @@ playbooks:
     evidence: [confirmation code, scheduled and actual times, cause given by JetBlue, hotel and transport receipts]
     steps:
       - do: Check the email on the reservation for the digital meal voucher.
+        note: "From October 19, 2026, ten causes are no longer in DOT's 'Air Carrier' (controllable) category, among them unscheduled maintenance that cannot be deferred, a medical emergency and removal of an unruly passenger (rule dot-delay-cause-categories). Ask the agent for the cause. For these causes, do not promise a meal, hotel or other amenity; the airline may refuse or give it voluntarily. Refund rights do not depend on the cause."
       - do: If stranded overnight and no contracted hotel is offered, book a reasonable hotel and submit receipts within 10 days.
         channel: customer-care-form
       - do: If the delay is 3+ hours domestic (6+ international) and you no longer want to fly, cancel before departure for a refund.

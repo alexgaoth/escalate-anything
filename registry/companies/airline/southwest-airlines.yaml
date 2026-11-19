@@ -61,6 +61,7 @@ playbooks:
       - do: Submit the Non-refundable Ticket Refund Request, citing the Southwest-initiated cancellation.
         channel: refund-form
       - do: If the cancellation was within Southwest's control and you waited 3+ hours or needed a hotel, request reimbursement or a LUV Voucher.
+        note: "From October 19, 2026, ten causes are no longer in DOT's 'Air Carrier' (controllable) category, among them unscheduled maintenance that cannot be deferred, a medical emergency and removal of an unruly passenger (rule dot-delay-cause-categories). Ask the agent for the cause. For these causes, do not promise a meal, hotel or other amenity; the airline may refuse or give it voluntarily. Refund rights do not depend on the cause."
         channel: reimbursement-form
       - do: If the refund is not paid, complain in writing, then file with the U.S. DOT and dispute the charge with the card issuer.
         channel: customer-care-form
@@ -86,6 +87,7 @@ playbooks:
     evidence: [confirmation number, scheduled and actual times, cause given by Southwest, receipts]
     steps:
       - do: At the airport, ask for a food voucher and, if no same-day flight is available, a hotel and ground transportation.
+        note: "From October 19, 2026, ten causes are no longer in DOT's 'Air Carrier' (controllable) category, among them unscheduled maintenance that cannot be deferred, a medical emergency and removal of an unruly passenger (rule dot-delay-cause-categories). Ask the agent for the cause. For these causes, do not promise a meal, hotel or other amenity; the airline may refuse or give it voluntarily. Refund rights do not depend on the cause."
       - do: Submit receipts or ask for a LUV Voucher through the reimbursement form within one year of the flight.
         channel: reimbursement-form
       - do: If the delay is a significant change and you do not travel, request a refund.

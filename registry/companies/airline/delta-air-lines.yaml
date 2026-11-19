@@ -94,6 +94,7 @@ playbooks:
       - do: Submit the refund request for the unflown portion plus prepaid seat and checked bag fees.
         channel: refund-form
       - do: If the cause was within Delta's control and you paid for meals or a hotel, submit receipts for reimbursement.
+        note: "From October 19, 2026, ten causes are no longer in DOT's 'Air Carrier' (controllable) category, among them unscheduled maintenance that cannot be deferred, a medical emergency and removal of an unruly passenger (rule dot-delay-cause-categories). Ask the agent for the cause. For these causes, do not promise a meal, hotel or other amenity; the airline may refuse or give it voluntarily. Refund rights do not depend on the cause."
         channel: reimbursement-form
       - do: Check refund status by phone if it has not arrived after the stated processing time.
         channel: refund-status-phone
@@ -126,6 +127,7 @@ playbooks:
     evidence: [confirmation number, scheduled and actual times, cause given by Delta, receipts]
     steps:
       - do: At the airport, ask an agent for meal vouchers (3+ hour wait) and, if stuck overnight, a hotel and ground transportation.
+        note: "From October 19, 2026, ten causes are no longer in DOT's 'Air Carrier' (controllable) category, among them unscheduled maintenance that cannot be deferred, a medical emergency and removal of an unruly passenger (rule dot-delay-cause-categories). Ask the agent for the cause. For these causes, do not promise a meal, hotel or other amenity; the airline may refuse or give it voluntarily. Refund rights do not depend on the cause."
       - do: If you paid yourself, submit receipts for reimbursement.
         channel: reimbursement-form
       - do: If the delay is a significant change (3+ hours domestic, 6+ hours international) and you no longer want to travel, request a refund.
