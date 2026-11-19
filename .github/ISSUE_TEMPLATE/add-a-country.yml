@@ -1,0 +1,46 @@
+name: Add a country
+description: Help Escalate Anything work where you live. Start by telling us how complaints work there.
+title: "[country] <country name>"
+labels: [country, coverage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you. Read [docs/add-a-country.md](https://github.com/alexgaoth/escalate-anything/blob/main/docs/add-a-country.md) for how a country is put together.
+        You do not need to write YAML to start: links to official pages are the most useful thing.
+  - type: input
+    id: country
+    attributes:
+      label: Country
+      placeholder: Germany (de)
+    validations:
+      required: true
+  - type: textarea
+    id: path
+    attributes:
+      label: How do complaints usually work there?
+      description: Company first? How long to wait? Which ombudsman or regulator next? Small claims? Link official pages.
+    validations:
+      required: true
+  - type: textarea
+    id: bodies
+    attributes:
+      label: Regulators, ombudsmen and dispute schemes
+      description: Name and official link for each (airlines, telecoms, energy, banks, insurance).
+  - type: textarea
+    id: rules
+    attributes:
+      label: Consumer rules people should know
+      description: The law and an official link, e.g. refund rights, cancellation, compensation amounts.
+  - type: textarea
+    id: companies
+    attributes:
+      label: Companies people complain about most
+      placeholder: The biggest airline, phone, internet, energy and bank companies.
+  - type: checkboxes
+    id: help
+    attributes:
+      label: How can you help?
+      options:
+        - label: I can open pull requests with data for this country.
+        - label: I can review pull requests for this country (be listed as a maintainer).

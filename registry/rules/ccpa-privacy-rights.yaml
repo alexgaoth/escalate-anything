@@ -1,7 +1,7 @@
 id: ccpa-privacy-rights
 title: California Consumer Privacy Act rights (know, delete, correct, opt out)
 citation: Cal. Civ. Code § 1798.100 et seq.
-jurisdiction: ca
+jurisdiction: us-ca
 status: in_effect
 applies_to:
   issues: [privacy_request]

@@ -19,12 +19,14 @@ from .registry import Registry, data_root
 from .store import Store, StoreError
 
 INSTRUCTIONS = """\
-Escalate Anything helps the person resolve a problem with a large US company: billing errors, refunds,
+Escalate Anything helps the person resolve a problem with a large company: billing errors, refunds,
 cancellations, airline bags and cancellations, insurance denials, bank disputes and more.
 
 Workflow:
-1. find_company, then get_playbook(company, issue, state). The playbook has deep links, phone
+1. find_company, then get_playbook(company, issue, state, country). The playbook has deep links, phone
    numbers, evidence to collect, deadlines, verified facts with sources, and the escalation ladder.
+   Coverage is by country (find_company returns `countries`): the US is complete; other countries are
+   added over time. Pass `country` (where the problem happened, e.g. gb or de) so the right rules apply.
    get_context(company) explains how the company handles complaints in practice.
 2. case_open to start a log. After every contact, case_log what happened: reference numbers,
    representative names, promises and a follow_up_on date.
@@ -149,16 +151,20 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
 
     @mcp.tool(title="Find a company", annotations=READ)
     @guard
-    def find_company(query: str = "", sector: str | None = None) -> dict[str, Any]:
-        """Find companies by name, brand or alias (e.g. 'xfinity', 'united', 'chase').
-        With an empty query, list every company, optionally only one sector."""
+    def find_company(query: str = "", sector: str | None = None, country: str | None = None) -> dict[str, Any]:
+        """Find companies by name, brand or alias (e.g. 'xfinity', 'united', 'ryanair').
+        With an empty query, list every company, optionally only one sector. country: two-letter code
+        (us, gb, de, ...) to list only companies that serve that country."""
         if query:
             hits = reg.find_company(query, limit=8)
         else:
             hits = sorted(reg.companies.values(), key=lambda c: c["id"])
         if sector:
             hits = [c for c in hits if sector in reg.sector_of(c)]
-        return {"matches": [advisor.company_summary(reg, c) for c in hits], "sectors": sorted(reg.sectors)}
+        if country:
+            hits = [c for c in hits if advisor.serves(reg, c, country)]
+        return {"matches": [advisor.company_summary(reg, c) for c in hits], "sectors": sorted(reg.sectors),
+                "countries": sorted(reg.countries)}
 
     @mcp.tool(title="Get company details", annotations=READ)
     @guard
@@ -176,11 +182,13 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
 
     @mcp.tool(title="Get the playbook for an issue", annotations=READ)
     @guard
-    def get_playbook(company: str, issue: str, state: str | None = None) -> dict[str, Any]:
+    def get_playbook(company: str, issue: str, state: str | None = None, country: str | None = None) -> dict[str, Any]:
         """Steps, channels (deep links, phones), evidence, deadlines, verified facts, applicable rules
-        and the escalation ladder for one company and issue. Pass the person's two-letter state code
-        to resolve state agencies. Rule points are limited to this issue; get_rules gives full text."""
-        return advisor.get_playbook(reg, company, issue, state)
+        and the escalation ladder for one company and issue. country: two-letter code of where the problem
+        happened (us, gb, de, ...; default: the company's home market) selects the rules, e.g. EU261 or UK261.
+        state: US two-letter state code, to resolve state agencies. Rule points are limited to this issue;
+        get_rules gives full text."""
+        return advisor.get_playbook(reg, company, issue, state, country=country)
 
     @mcp.tool(title="Get the next escalation step", annotations=READ)
     @guard
@@ -190,16 +198,20 @@ def build_server(registry: Registry | None = None, store: Store | None = None, r
 
     @mcp.tool(title="Find regulators", annotations=READ)
     @guard
-    def find_regulators(sector: str, state: str | None = None) -> dict[str, Any]:
-        """Federal regulators and state agencies that take complaints for a sector."""
-        return advisor.find_regulators(reg, sector, state)
+    def find_regulators(sector: str, state: str | None = None, country: str | None = None) -> dict[str, Any]:
+        """Regulators and ombudsmen that take complaints for a sector. Default country us: federal
+        regulators plus state agencies for `state`. Other countries (gb, de, ...): national regulators,
+        ombudsmen and EU-level bodies on file."""
+        return advisor.find_regulators(reg, sector, state, country=country)
 
     @mcp.tool(title="Get consumer rules", annotations=READ)
     @guard
-    def get_rules(sector: str | None = None, issue: str | None = None, state: str | None = None) -> dict[str, Any]:
-        """Laws and regulations for a sector and issue. Rules that were vacated, stayed or withdrawn
-        are listed separately under not_in_force and must not be cited as current law."""
-        return advisor.rules_for(reg, sector, issue, state)
+    def get_rules(sector: str | None = None, issue: str | None = None, state: str | None = None,
+                  country: str | None = None) -> dict[str, Any]:
+        """Laws and regulations for a sector and issue in a country (default us; gb, de, ... include
+        EU-wide rules for EU members). Rules that were vacated, stayed or withdrawn are listed separately
+        under not_in_force and must not be cited as current law."""
+        return advisor.rules_for(reg, sector, issue, state, country=country)
 
     @mcp.tool(title="Get how a company handles complaints", annotations=READ)
     @guard

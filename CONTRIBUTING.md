@@ -10,6 +10,10 @@ Thank you. Every correct phone number, form link or deadline saves someone an af
 
 Got a refund, a credit or a fix? [Share your case](https://github.com/alexgaoth/escalate-anything/issues/new?template=share-your-case.yml): the company, the problem, the channel or argument that worked, and how long it took. Good cases become "Reported by customers" tactics in the company's dossier, linked to your issue.
 
+## Add your country
+
+The data model works for any country. See [docs/add-a-country.md](docs/add-a-country.md) and open an [Add a country](https://github.com/alexgaoth/escalate-anything/issues/new?template=add-a-country.yml) issue.
+
 ## Edit the data yourself
 
 The registry is plain YAML and Markdown in [`registry/`](registry):

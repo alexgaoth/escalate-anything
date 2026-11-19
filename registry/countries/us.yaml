@@ -1,0 +1,12 @@
+id: us
+name: United States
+kind: country
+languages: [en, es]
+currency: USD
+status: complete
+maintainers: [alexgaoth]
+how_complaints_work: >-
+  Contact the company first and keep a written record. If it does not fix the problem, escalate inside the company
+  (supervisor, retention, written complaint, executive office), then to the federal regulator for the sector (DOT, FCC,
+  CFPB, FTC and others) and the state attorney general or utility, insurance or banking regulator. Card disputes and
+  small claims court are the last rungs.
