@@ -1,0 +1,367 @@
+id: sas
+name: SAS Scandinavian Airlines
+aliases: [scandinavian airlines, scandinavian airlines system, scandinavian airlines system denmark-norway-sweden, flysas, flysas.com, sas airlines]
+sector: airline
+parent: SAS AB
+website: https://www.flysas.com/en
+account_url: https://www.flysas.com/en/my-trips
+countries: [eu, dk, se, "no", gb, ch]
+regulators: [eu-air-passenger-nebs, eu-ecc-net, de-sruv, es-aesa]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: SAS Customer Service
+    value: +46-8-797-30-10
+    hours: Monday to Friday 09.00-19.00 CET; Saturday 09.00-17.00 CET; Sunday 09.00-18.00 CET
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, delayed_baggage]
+    notes: >-
+      Shown as "+4687973010" in the "Call us" card of the SAS AI Assistant, opened from "Give us a call" on the contact
+      page. The same number showed on the international (en), UK (gb-en) and Denmark (dk-en) editions. SAS calls phone
+      the option with the longest wait time. A separate EuroBonus Gold/Diamond hotline exists and is not recorded here.
+    verified_via: browser
+    source: https://www.flysas.com/en/support-information/contact
+    last_verified: 2026-11-19
+  - id: chat
+    type: chat
+    label: SAS AI Assistant and live chat with an agent
+    value: https://www.flysas.com/en/support-information/contact
+    hours: AI Assistant 24/7
+    purposes: [flight_cancellation, flight_delay, refund_request]
+    notes: Press "Chat with us" on the contact page. The AI Assistant handles common issues 24/7 and hands over to a live agent if it cannot help. SAS calls chat the medium wait time option.
+    verified_via: browser
+    source: https://www.flysas.com/en/support-information/contact
+    last_verified: 2026-11-19
+  - id: claims-form
+    type: web_form
+    label: Claims form (EU261 compensation, disruption expenses, delayed or damaged baggage, other claims)
+    value: https://www.flysas.com/en/support-information/claims
+    purposes: [flight_delay, flight_cancellation, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, poor_service]
+    access: open
+    notes: >-
+      One form for four claim types: "Flight disruption expenses", "EU261 compensation", "Delayed/damaged baggage" and
+      "Other claims". The EU passenger rights page says compensation cannot be paid at the airport and must be claimed
+      from SAS Customer Service with the online form, and calls it the form for feedback and complaints.
+    verified_via: browser
+    source: https://www.flysas.com/en/support-information/claims
+    last_verified: 2026-11-19
+  - id: customer-care-email
+    type: email
+    label: SAS Customer Care (complaints)
+    value: customercare@sas.se
+    purposes: [poor_service, flight_delay, flight_cancellation, denied_boarding]
+    notes: The EU passenger rights page says you can also send your complaint to this address. The link on the page is broken (it points to /en/mailto:customercare@sas.se), so type the address.
+    verified_via: browser
+    source: https://www.flysas.com/en/legal-info/eu-passenger-rights
+    last_verified: 2026-11-19
+  - id: customer-care-mail
+    type: mail
+    label: SAS Customer Care by post (past flights and non-urgent requests)
+    value: Customer Care, 195 87 Stockholm, Sweden
+    purposes: [poor_service, flight_delay, flight_cancellation, denied_boarding]
+    notes: The claims page also gives Norway (Customer Care, Roald Amundsens vei 1, 2060 Gardermoen) and Denmark (Customer Care, Amager Strandvei 392, 2770 Kastrup).
+    verified_via: browser
+    source: https://www.flysas.com/en/support-information/claims
+    last_verified: 2026-11-19
+  - id: my-trips
+    type: portal
+    label: My trips (rebook, cancel and request a ticket refund)
+    value: https://www.flysas.com/en/my-trips
+    purposes: [flight_cancellation, refund_request]
+    access: open
+    notes: Enter the booking reference and last name, or log in to an SAS account. To get a refund for a cancelled flight, cancel before the unused flight departs.
+    verified_via: browser
+    source: https://www.flysas.com/en/travel-info/flight-information/canceled-flights
+    last_verified: 2026-11-19
+  - id: agent-refund-form
+    type: web_form
+    label: Refund request for tickets booked through a travel agent
+    value: https://www.flysas.com/en/support-information/agent-refund
+    purposes: [flight_cancellation, refund_request]
+    notes: Contact the travel agent first; if that is not possible, apply to SAS directly, unless you booked through a US travel agent. Bookings through SAS Holidays go to SAS Holidays Customer Service.
+    verified_via: browser
+    source: https://www.flysas.com/en/travel-info/flight-information/canceled-flights
+    last_verified: 2026-11-19
+  - id: denied-boarding-form
+    type: web_form
+    label: Downgraded or denied boarding compensation form
+    value: https://www.flysas.com/en/support-information/downgraded-denied-boarding
+    purposes: [denied_boarding]
+    access: open
+    notes: For passengers who received a compensation card at the airport. Needs the booking reference and the Compensation Card ID (10 or 14 digits).
+    verified_via: browser
+    source: https://www.flysas.com/en/support-information/downgraded-denied-boarding
+    last_verified: 2026-11-19
+  - id: my-cases
+    type: portal
+    label: My cases (status of an open case with SAS Customer Service)
+    value: https://www.flysas.com/en/support-information/my-cases
+    purposes: [flight_delay, flight_cancellation, delayed_baggage, poor_service]
+    notes: Listed as the case portal for tracking ongoing cases. Not opened; what it requires is not verified.
+    verified_via: browser
+    source: https://www.flysas.com/en/support-information
+    last_verified: 2026-11-19
+  - id: baggage-report-online
+    type: web_form
+    label: Report delayed or damaged baggage online (mybag.aero, linked by SAS)
+    value: https://mybag.aero/baggage/#/pax/sas/en-gb/main-menu
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    notes: External site linked from SAS's baggage pages. Online reports are possible within 72 hours of the flight's arrival. You receive a PIR number (10 characters, for example ARNSK12345).
+    verified_via: browser
+    source: https://www.flysas.com/en/travel-info/baggage/delayed-lost
+    last_verified: 2026-11-19
+  - id: arrival-service
+    type: portal
+    label: SAS arrival service contact (baggage reports after 72 hours)
+    value: https://mybag.aero/baggage/#/pax/sas/en-gb/contact-airline
+    purposes: [delayed_baggage, damaged_baggage]
+    notes: SAS links this page for calling the arrival service when more than 72 hours have passed since arrival; call within 7 days. The phone numbers are on the linked page and were not recorded.
+    verified_via: browser
+    source: https://www.flysas.com/en/travel-info/baggage/delayed-lost
+    last_verified: 2026-11-19
+  - id: bag-tracker
+    type: portal
+    label: Check status of delayed baggage (mybag.aero)
+    value: https://mybag.aero/sas
+    purposes: [delayed_baggage, lost_baggage]
+    notes: Needs the PIR number.
+    verified_via: browser
+    source: https://www.flysas.com/en/travel-info/baggage/delayed-lost
+    last_verified: 2026-11-19
+  - id: damaged-bag-repair
+    type: web_form
+    label: Repair or replace a damaged bag (Dolfi1920, linked by SAS)
+    value: https://www.dolfi1920.de/
+    purposes: [damaged_baggage]
+    notes: For residents of Norway, Switzerland, the UK or the EU. Others, missing items, and cases outside these categories use the SAS claims form. Needs the PIR number.
+    verified_via: browser
+    source: https://www.flysas.com/en/travel-info/baggage/damaged
+    last_verified: 2026-11-19
+  - id: request-assistance
+    type: web_form
+    label: Request assistance (hearing or visual impairment, wheelchair, cognitive impairment, service dog)
+    value: https://www.flysas.com/en/support-information/request-assistance
+    purposes: [accessibility]
+    access: open
+    notes: Also for passengers on a partner flight. SAS recommends sending the request at least 48 hours before departure. You must tell check-in staff that you have arrived.
+    verified_via: browser
+    source: https://www.flysas.com/en/support-information/request-assistance
+    last_verified: 2026-11-19
+  - id: data-protection-email
+    type: email
+    label: SAS Data Protection Officer
+    value: dataprotectionofficer@sas.se
+    purposes: [privacy_request]
+    notes: You can also complain to the Swedish Data Protection Authority or the data protection authority of your country.
+    verified_via: browser
+    source: https://www.flysas.com/en/legal-info/privacy-policy
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: claims-form}
+  - {rung: regulator, regulator: eu-air-passenger-nebs, note: "National Enforcement Body of the country where the incident happened (departure airport; for flights into the EU on an EU carrier, the arrival airport). SAS's page lists Trafikstyrelsen (Denmark), Luftfartstilsynet (Norway) and Konsumentverket/KO (Sweden). See regulators/eu-air-passenger-nebs."}
+  - {rung: regulator, regulator: de-sruv, note: "Scandinavian Airlines is on the Schlichtungsstelle Reise & Verkehr member list (Stand: 19. Oktober 2026). Free conciliation in Germany, for example for a flight to or from Germany, after you have complained to SAS first. SAS's own passenger rights page does not name it; it refers to the approved ADR bodies in EU member states. See regulators/de-sruv."}
+  - {rung: regulator, regulator: es-aesa, note: "For a flight that departed from Spain, or flew to Spain from outside the EU on an EU airline, from 2 June 2023: AESA's dispute resolution is mandatory for every airline and its decision binds the airline (not the passenger). Claim from the airline first; if it does not answer within one month or you reject the answer, file with AESA within one year of that claim. Not for baggage."}
+  - {rung: regulator, regulator: eu-ecc-net, note: "Free help from the European Consumer Centre in your country when the airline is based in another EU country, Iceland or Norway."}
+  - {rung: payment_dispute, note: "Card chargeback for a refund the airline owes but has not paid."}
+  - {rung: small_claims, note: "European Small Claims Procedure for cross-border claims up to EUR 5,000 (rules/eu-small-claims-procedure); otherwise the national court. Time limits for EU261 claims are set by national law."}
+
+playbooks:
+  - issue: flight_delay
+    summary: After 2 hours, buy reasonable meals and keep receipts; if you arrived 3 hours or more late, claim EU261 compensation and expenses on the SAS claims form.
+    evidence: [booking reference, boarding passes, scheduled and actual arrival times, receipts for meals, hotel, transport and phone calls]
+    steps:
+      - do: If the delay is more than 2 hours, buy reasonable meals and non-alcoholic drinks and keep the receipts.
+      - do: If the flight moves to the next day and ground staff cannot find a hotel, book a reasonably priced hotel yourself and keep receipts for the hotel and transport.
+      - do: Claim the expenses ("Flight disruption expenses") and the compensation ("EU261 compensation") on the claims form. Compensation cannot be paid at the airport.
+        channel: claims-form
+      - do: If SAS does not answer, call SAS Customer Service or check the case in My cases.
+        channel: customer-service-phone
+      - do: If SAS refuses or does not answer, complain to the National Enforcement Body of the country where the delay happened.
+        regulator: eu-air-passenger-nebs
+      - do: For a flight to or from Germany, you can also apply to the German conciliation body.
+        regulator: de-sruv
+    facts:
+      - kind: policy
+        claim: If your flight is delayed by more than 2 hours, SAS says you are entitled to reasonable meals and non-alcoholic drinks based on the waiting time, a reasonably priced hotel and transport if you need to stay overnight, and the cost of 2 phone calls. Keep all receipts.
+        issues: [flight_delay]
+        verified_via: browser
+        source: https://www.flysas.com/en/travel-info/flight-information/delayed-flights
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If the delay is more than 5 hours and you decide not to travel, you are entitled to a full refund of the unused ticket; if you cancel and request a refund, you are not eligible for meals, drinks or accommodation for the delay. Consequential costs such as lost work income or prepaid events are generally not reimbursed.
+        issues: [flight_delay, refund_request]
+        verified_via: browser
+        source: https://www.flysas.com/en/travel-info/flight-information/delayed-flights
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: If you are delayed by 3 hours or more on arrival you may be entitled to compensation of EUR 250, 400 or 600 depending on distance, which cannot be paid at the airport; claim it from SAS Customer Service with the online form.
+        issues: [flight_delay]
+        verified_via: browser
+        source: https://www.flysas.com/en/legal-info/eu-passenger-rights
+        last_verified: 2026-11-19
+
+  - issue: flight_cancellation
+    summary: Accept the new flight, rebook free in My trips, or cancel before the unused flight departs for a full refund within 7 days; claim compensation and expenses on the claims form.
+    evidence: [booking reference, cancellation notice, receipts for hotel, transport and alternative travel]
+    steps:
+      - do: Choose one option - accept the proposed flight, rebook free of charge in My trips, or cancel for a refund. Groups, pets, wheelchairs, unaccompanied minors and itineraries with other airlines must rebook through SAS Customer Service or the travel agent.
+        channel: my-trips
+      - do: To get the refund, cancel in My trips before the first unused flight departs.
+        channel: my-trips
+      - do: If you booked through a travel agent, ask the agent; if that is not possible, use the SAS agent refund form (not for US travel agents).
+        channel: agent-refund-form
+      - do: Claim EU261 compensation and expenses on the claims form.
+        channel: claims-form
+      - do: If the refund is not paid, complain to the National Enforcement Body, then use a card chargeback.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: deadline
+        claim: If your flight is cancelled and you decide not to travel, you are entitled to a full refund of the unused ticket within 7 days, even if only part of the journey is affected, as long as the flights are in the same booking. Cancel before the first unused flight departs under My trips.
+        issues: [flight_cancellation, refund_request]
+        verified_via: browser
+        source: https://www.flysas.com/en/travel-info/flight-information/canceled-flights
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If you make your own travel arrangements because SAS cannot offer you a flight at the earliest opportunity, SAS says you are entitled to compensation for the alternative transport or flight on another airline. Keep all receipts.
+        issues: [flight_cancellation]
+        verified_via: browser
+        source: https://www.flysas.com/en/travel-info/flight-information/canceled-flights
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: SAS says you may be entitled to EU261 compensation if the flight is delayed or cancelled less than 14 days before departure and no suitable rerouting is offered, and not if the cause was extraordinary circumstances such as severe weather, air traffic control restrictions or security issues.
+        issues: [flight_cancellation, flight_delay]
+        verified_via: browser
+        source: https://www.flysas.com/en/travel-info/flight-information/canceled-flights
+        last_verified: 2026-11-19
+
+  - issue: denied_boarding
+    summary: If you are denied boarding against your will, SAS offers compensation at the airport with a compensation card; claim it online with the card ID.
+    evidence: [booking reference, compensation card ID, boarding pass, arrival time of the new flight]
+    steps:
+      - do: At the airport, choose re-routing or a refund within 7 days, ask for meals and a hotel if needed, and get the compensation card.
+      - do: Claim the compensation online with the booking reference and Compensation Card ID.
+        channel: denied-boarding-form
+      - do: If you got no card or SAS does not pay, claim on the claims form or email Customer Care.
+        channel: claims-form
+      - do: If SAS still does not pay, complain to the National Enforcement Body of the country of departure.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: compensation
+        claim: If you are denied boarding against your will, compensation is offered at the airport - EUR 250 for flights of 1,500 km or less, EUR 400 for flights within the EU of more than 1,500 km and all other flights of 1,500 to 3,500 km, and EUR 600 for others - reduced by 50% if the alternative flight arrives within 2, 3 or 4 hours of the original time.
+        issues: [denied_boarding]
+        verified_via: browser
+        source: https://www.flysas.com/en/legal-info/eu-passenger-rights
+        last_verified: 2026-11-19
+
+  - issue: delayed_baggage
+    summary: Report the bag at the airport or online within 72 hours (by phone to the arrival service within 7 days after that); if it is delayed more than 24 hours away from home, claim essentials within 21 days of getting the bag.
+    evidence: [PIR number (for example ARNSK12345), bag tag, boarding pass, booking reference, receipts]
+    steps:
+      - do: Report the missing bag at the airport, or online within 72 hours of arrival. Keep the PIR number.
+        channel: baggage-report-online
+      - do: If more than 72 hours have passed, call the SAS arrival service within 7 days.
+        channel: arrival-service
+      - do: Track the bag with the PIR number.
+        channel: bag-tracker
+      - do: If the bag is delayed more than 24 hours while you are away from home, buy reasonable essentials, keep receipts and claim them ("Delayed/damaged baggage") within 21 days of receiving the bag.
+        channel: claims-form
+    facts:
+      - kind: deadline
+        claim: You can file a delayed baggage report online within 72 hours of the flight's arrival; after 72 hours, call the arrival service within 7 days.
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://www.flysas.com/en/travel-info/baggage/delayed-lost
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: If your bag is delayed for more than 24 hours while you are away from home, you may be reimbursed for reasonable expenses such as toiletries. Keep receipts and file the claim within 21 days of receiving the bag. Essentials are not reimbursed if the bag is delayed on your trip home.
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://www.flysas.com/en/travel-info/baggage/delayed-lost
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If the bag was delayed or lost on a flight operated by another airline, contact that airline, even if you travelled on an SAS ticket or were rerouted.
+        issues: [delayed_baggage, lost_baggage]
+        verified_via: browser
+        source: https://www.flysas.com/en/travel-info/baggage/delayed-lost
+        last_verified: 2026-11-19
+
+  - issue: lost_baggage
+    summary: A bag not found within 21 days counts as lost; claim its value (up to the Montreal Convention limit) on the claims form with the PIR number and receipts.
+    evidence: [PIR number, bag tag, booking reference, list of contents with values, receipts]
+    steps:
+      - do: Make sure the bag was reported as delayed and you have the PIR number.
+        channel: baggage-report-online
+      - do: After 21 days, file the claim on the claims form with the PIR number, flight details and receipts.
+        channel: claims-form
+      - do: If SAS does not answer, email Customer Care, then contact the National Enforcement Body or the European Consumer Centre.
+        channel: customer-care-email
+    facts:
+      - kind: limit
+        claim: If your bag is not found within 21 days it is considered lost, and you may be entitled to compensation for its value up to the maximum liability set by the Montreal Convention.
+        issues: [lost_baggage]
+        verified_via: browser
+        source: https://www.flysas.com/en/travel-info/baggage/delayed-lost
+        last_verified: 2026-11-19
+
+  - issue: damaged_baggage
+    summary: Report damage at the airport (online within 72 hours, by phone within 7 days) and file the claim within 7 days of receiving the bag; EU, UK, Norway and Switzerland residents claim repair or replacement through Dolfi1920.
+    evidence: [PIR number, photos of the damaged bag and bag tags, boarding pass, booking reference]
+    steps:
+      - do: Report the damage at the airport and get a PIR number. If the baggage desk is closed, take photos of the bag, the bag tags and the closed desk.
+      - do: If you left the airport, report online within 72 hours of arrival, or call the arrival service within 7 days.
+        channel: baggage-report-online
+      - do: If you live in the EU, UK, Norway or Switzerland, file the repair or replacement claim with Dolfi1920 within 7 days of receiving the bag.
+        channel: damaged-bag-repair
+      - do: If you live elsewhere, items are missing from the bag, or the item is special baggage (stroller, sports equipment, instrument, wheelchair), file the claim on the SAS claims form within 7 days.
+        channel: claims-form
+    facts:
+      - kind: deadline
+        claim: SAS needs both a PIR number and a submitted claim within 7 days of receiving the bag to process a damaged baggage case.
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://www.flysas.com/en/travel-info/baggage/damaged
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If you are a resident of Norway, Switzerland, the UK or the EU, SAS will repair or replace your damaged bag; residents of other countries can file a claim for compensation.
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://www.flysas.com/en/travel-info/baggage/damaged
+        last_verified: 2026-11-19
+
+facts:
+  - kind: policy
+    claim: SAS says third parties usually charge a significant fee to help with a claim, so it is more beneficial to claim directly with SAS, and that claims must go to the airline that operated or was to operate the flight.
+    issues: [flight_delay, flight_cancellation, denied_boarding]
+    verified_via: browser
+    source: https://www.flysas.com/en/legal-info/eu-passenger-rights
+    last_verified: 2026-11-19
+  - kind: process
+    claim: If you are unhappy with SAS's final response to a complaint, SAS says you can refer it to any approved Alternative Dispute Resolution provider in the EU member states.
+    issues: [poor_service, flight_delay, flight_cancellation]
+    verified_via: browser
+    source: https://www.flysas.com/en/legal-info/eu-passenger-rights
+    last_verified: 2026-11-19
+
+official_domains: [flysas.com, sas.se, sas.dk, sas.no, sasgroup.net]
+
+known_blockers:
+  - flysas.com returns HTTP 403 to automated fetches; pages load only in a full browser.
+  - The phone number is shown only inside the SAS AI Assistant chat window after pressing "Call us".
+  - The claims form is a multi-step script form; baggage claims need the PIR number.
+  - The denied boarding form needs the Compensation Card ID given at the airport.
+  - Refunds for cancelled flights require cancelling in My trips before the unused flight departs; travel agent and SAS Holidays bookings go through the agent or SAS Holidays.
+
+notes: >-
+  Checked on 2026-11-19 in a browser on the flysas.com international English site (/en), with the UK (gb-en) and
+  Denmark (dk-en) editions for the phone number; WebFetch and curl got HTTP 403. The old URL /en/contact-us returns
+  404; the contact page is /en/support-information/contact. The phone number appeared only in the AI Assistant card,
+  not as page text. The EU passenger rights page's email link for customercare@sas.se is malformed. SAS's own pages do
+  not mention the Schlichtungsstelle Reise & Verkehr; de-sruv is listed from the lead's member list. No scam, phishing
+  or fake-account warning was found on flysas.com or sasgroup.net (an older FAQ about emails asking for bank details
+  now redirects to the help page), so there is no security section. sas.se, sas.dk and sas.no come from the
+  sasgroup.net customer contact page and the customercare@sas.se address. The countries list includes the UK and
+  Switzerland because the damaged baggage page names residents of Norway, Switzerland, the UK and the EU. The
+  ownership and alliance status (the site footer lists SkyTeam) was not checked further, as it does not change the
+  contacts.

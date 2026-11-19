@@ -1,0 +1,579 @@
+id: eu-air-passenger-nebs
+name: National Enforcement Bodies for EU air passenger rights (Regulation (EC) No 261/2004)
+short_name: NEBs
+country: eu
+level: national
+covers_sectors: [airline]
+covers_issues: [flight_cancellation, flight_delay, denied_boarding, accessibility]
+website: https://transport.ec.europa.eu/transport-themes/passenger-rights/national-enforcement-bodies-neb_en
+when_to_use: >-
+  Use after the airline rejected an EU261 claim (denied boarding, cancellation or long delay) or did not answer it.
+  Complain to the airline first; Your Europe says to wait 2 months for a reply, and several NEBs set their own wait
+  (from 4 weeks to 2 months, see each channel). Pick the NEB of the country where the incident took place: in
+  practice the country of the departure airport, and for a flight from outside the EU, Iceland, Norway or Switzerland
+  on an EU airline, the country of arrival. Most NEBs only enforce the rules and fine airlines: they give a
+  non-binding opinion or none, and do not make the airline pay you. Spain (AESA, flights from 2 June 2023) is the
+  main exception: its decision binds the airline. Separate ADR (conciliation) bodies and the courts can award money;
+  baggage problems are usually not an NEB matter.
+
+channels:
+  - id: neb-at
+    type: web_form
+    label: "Austria: Agentur für Passagier- und Fahrgastrechte (apf) flight conciliation form"
+    value: https://en.apf.gv.at/beschwerdeformular-flug
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      English and German. apf runs a conciliation (Schlichtung) procedure. You must first complain to the airline in
+      writing; apply if it rejects the claim or does not answer satisfactorily within six weeks. Attach at least the
+      booking confirmation, the correspondence with the airline and invoices for assistance costs.
+    source: https://en.apf.gv.at/beschwerdeformular-flug
+    last_verified: 2026-11-19
+  - id: neb-be
+    type: web_form
+    label: "Belgium: FPS Mobility and Transport, Belgian Civil Aviation Authority (BCAA) passenger rights complaint form"
+    value: https://servicerequest.mobilit.fgov.be/p/question/en/LV_PAXR
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      English version (the Commission list also gives Dutch and French). Use it after the airline rejected the
+      complaint, did not answer, or you disagree with its answer. The BCAA enforces only: it can fine airlines but does
+      not act in place of the airline on compensation or refunds, and cannot tell you about its investigation. The form
+      can take 30 seconds to load. Incomplete forms or illegible documents are dropped without notice. Examination can
+      take up to six months.
+    verified_via: browser
+    source: https://mobilit.belgium.be/en/aviation/passengers/passengers-right
+    last_verified: 2026-11-19
+  - id: neb-bg
+    type: web_form
+    label: "Bulgaria: Directorate General Civil Aviation Administration (DG CAA) EU complaint form"
+    value: https://www.caa.bg/en/category/282/19247
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    access: captcha
+    notes: >-
+      English online form (Bulgarian PDF form also offered), one file upload up to 20 MB, CAPTCHA before submit. The
+      complaint page says to raise the issue with the airline first and that DG CAA reviews complaints within 4 to 6
+      weeks.
+    source: https://www.caa.bg/en/category/282/2806
+    last_verified: 2026-11-19
+  - id: neb-hr
+    type: email
+    label: "Croatia: Croatian Civil Aviation Agency (CCAA) passenger rights email"
+    value: passenger.rights@ccaa.hr
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      The passenger rights contact address. Send the CCAA complaint form (from
+      https://www.ccaa.hr/en/i-want-to-submit-a-complaint-99501) signed by all adult passengers, with the ticket, proof
+      you contacted the airline and receipts. Airline first; wait 30 days for its reply. Croatian or English only (or
+      with a translation). Free. The CCAA tries an amicable settlement, then may issue a final opinion that is not
+      legally binding.
+    verified_via: browser
+    source: https://www.ccaa.hr/en/procedure-44709
+    last_verified: 2026-11-19
+  - id: neb-cy
+    type: email
+    label: "Cyprus: Department of Civil Aviation passenger rights email"
+    value: passengerrights@dca.mcw.gov.cy
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      Email the EU passenger complaint form (English PDF on the page), the original booking and all correspondence
+      with the airline. Complain to the airline in writing first and give it 8 weeks to reply. A final opinion can take
+      three to nine months.
+    source: http://www.mcw.gov.cy/mcw/dca/dca.nsf/DMLconsumer_en/DMLconsumer_en?OpenDocument
+    last_verified: 2026-11-19
+  - id: neb-cz
+    type: web_form
+    label: "Czechia: Civil Aviation Authority (CAA) air passenger complaint form"
+    value: https://kompenzace.caa.gov.cz/?lang=en
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      Czech and English. Complain to the airline first; use the form if it does not answer within 2 months or the answer
+      is unsatisfactory. The CAA asks the airline for a statement and tells you the outcome. Covers flights from Czech
+      airports, and flights from third countries to Czech airports on EU carriers; not baggage. The page links
+      kompenzace.caa.cz, which redirects (301) to this address.
+    source: https://www.caa.gov.cz/en/passengers/denied-boarding-delay-or-cancellation-of-flight/air-passenger-complaint-form/
+    last_verified: 2026-11-19
+  - id: neb-dk
+    type: web_form
+    label: "Denmark: Danish Civil Aviation and Railway Authority complaint guide and form"
+    value: https://www.en.flypassager.dk/your-guide-to-filing-a-complaint-about-your-flight
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      English page; "Submit complaint here" opens the form on Borger.dk. Complain to the airline first; it has up to 6
+      weeks to answer. Free. Standard processing time 9 to 12 months, longer for cases that need legal assessment.
+    verified_via: browser
+    source: https://www.en.flypassager.dk/your-guide-to-filing-a-complaint-about-your-flight
+    last_verified: 2026-11-19
+  - id: neb-ee
+    type: email
+    label: "Estonia: Consumer Protection and Technical Regulatory Authority (TTJA) email"
+    value: info@ttja.ee
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      From the Commission list. The TTJA air passenger page gives no complaint form or address for NEB complaints.
+      TTJA only gives a non-binding opinion (see facts).
+    verified_via: document
+    source: https://transport.ec.europa.eu/document/download/d7b5dd33-4083-4faa-8132-b6dc8b3a1c07_en?filename=2004_261_national_enforcement_bodies.pdf
+    last_verified: 2026-11-19
+  - id: neb-fi
+    type: portal
+    label: "Finland: Consumer Disputes Board (Kuluttajariitalautakunta) e-service"
+    value: https://asiointi.kuluttajariita.fi/kuluttaja/
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      For private consumers. Decisions are recommendations and cannot be enforced. Complaints are normally in Finnish or
+      Swedish, but EU261 air complaints may be filed and processed in English. Also by email kril@oikeus.fi or post (PL
+      306, 00531 Helsinki). Business travellers go to Traficom instead (see facts).
+    source: https://www.kuluttajariita.fi/en/index/yhteystiedot.html
+    last_verified: 2026-11-19
+  - id: neb-fr
+    type: web_form
+    label: "France: Direction générale de l'aviation civile (DGAC) air passenger report form"
+    value: https://droits-passagers-aeriens.aviation-civile.gouv.fr/public/signalement?new-signalement=true
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      The form is in French. Report types: delay, cancellation, denied boarding, upgrade or downgrade. Attach legible
+      documents, preferably PDF (booking, boarding passes, the airline's written statement, correspondence with the
+      airline, invoices); a report with poor-quality documents is not processed. The page does not say whether the
+      DGAC decides individual claims.
+    source: https://droits-passagers-aeriens.aviation-civile.gouv.fr/public/signalement?new-signalement=true
+    last_verified: 2026-11-19
+  - id: neb-de
+    type: web_form
+    label: "Germany: Luftfahrt-Bundesamt (LBA) passenger rights complaint form"
+    value: https://formular.lba.de/lip/action/invoke.do?id=fluggastanzeige_en
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      English form (German version on the German page). Include your correspondence with the airline. The LBA uses
+      complaints as evidence for administrative offence proceedings; it does not enforce your claim (see facts).
+    source: https://www.lba.de/EN/AirPassengersRights/_functions_Kacheln_neu/Kachel_5/Complaint_Forms_node.html
+    last_verified: 2026-11-19
+  - id: neb-gr
+    type: email
+    label: "Greece: Hellenic Civil Aviation Authority (HCAA) Air Passenger Rights Division email"
+    value: apr@hcaa.gov.gr
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      Email the EU complaint form, ticket, boarding pass, receipts and your correspondence with the airline (with the
+      date you first contacted it). No online form. English and Greek forms are on the page.
+    verified_via: browser
+    source: https://hcaa.gov.gr/en/ypoboli-kataggelias-stin-apa
+    last_verified: 2026-11-19
+  - id: neb-hu
+    type: email
+    label: "Hungary: Government Office of the Capital City Budapest, Consumer Protection Department email"
+    value: fogyasztovedelem@bfkh.gov.hu
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      From the Commission list; not found on the office's own site. The list names this office for passenger
+      complaints. The CAA of Hungary (Ministry of Construction and Transport) does general enforcement and does not
+      handle individual claims.
+    verified_via: document
+    source: https://transport.ec.europa.eu/document/download/d7b5dd33-4083-4faa-8132-b6dc8b3a1c07_en?filename=2004_261_national_enforcement_bodies.pdf
+    last_verified: 2026-11-19
+  - id: neb-ie
+    type: portal
+    label: "Ireland: Irish Aviation Authority (IAA) complaint form on the MySRS customer portal"
+    value: https://www.iaa.ie/mysrs-signup
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    access: login
+    notes: >-
+      Register on MySRS, then complete the online complaint form. The IAA advises raising the matter with the airline
+      first. The Commission list also gives apr@iaa.ie.
+    verified_via: browser
+    source: https://www.iaa.ie/consumer-protection/air-passenger-rights
+    last_verified: 2026-11-19
+  - id: neb-ie-phone
+    type: phone
+    label: "Ireland: Irish Aviation Authority (IAA) air passenger rights assistance line"
+    value: +353-1-6031100
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: Printed as "+353 1 6031100" for anyone who needs assistance. Complaints go through MySRS.
+    verified_via: browser
+    source: https://www.iaa.ie/consumer-protection/air-passenger-rights
+    last_verified: 2026-11-19
+  - id: neb-it
+    type: portal
+    label: "Italy: Ente Nazionale per l'Aviazione Civile (ENAC) passenger rights portal"
+    value: https://carta-diritti.enac.gov.it/en
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    access: login
+    notes: >-
+      English and Italian. Register or log in to submit a complaint. ENAC complaints are for sanctions only, not for
+      reimbursement or compensation (see facts).
+    source: https://carta-diritti.enac.gov.it/en
+    last_verified: 2026-11-19
+  - id: neb-lv
+    type: email
+    label: "Latvia: Consumer Rights Protection Centre (CRPC, PTAC) email"
+    value: pasts@ptac.gov.lv
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      General contact address on the CRPC page; no online form. Send the air passenger complaint form (PDF, Latvian or
+      English) with your claim to the airline, its reply, ticket and boarding pass. Contact the airline first. The CRPC
+      does not decide whether the claim must be paid; for that, go to court.
+    source: https://www.ptac.gov.lv/en/air-passenger-rights
+    last_verified: 2026-11-19
+  - id: neb-lt
+    type: email
+    label: "Lithuania: Lithuanian Transport Safety Administration (LTSA) email"
+    value: ltsa@ltsa.lt
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      From the Commission list. The LTSA site showed a bot check to both the fetcher and the browser, so the address
+      and any complaint form were not checked there.
+    verified_via: document
+    source: https://transport.ec.europa.eu/document/download/d7b5dd33-4083-4faa-8132-b6dc8b3a1c07_en?filename=2004_261_national_enforcement_bodies.pdf
+    last_verified: 2026-11-19
+  - id: neb-lu
+    type: web_form
+    label: "Luxembourg: Direction de la protection des consommateurs (DPC) passenger rights complaint form on Guichet.lu"
+    value: https://guichet.public.lu/en/citoyens/support/auth-form.html?serviceType=DPC_COMPLAINT_NEB&xlang=en
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    access: open
+    notes: >-
+      English (French and German pages exist). You can log in to MyGuichet.lu or "continue without identification".
+      Complain to the airline first; go to the DPC if it does not answer, or answers unsatisfactorily, within 2 months.
+    source: https://guichet.public.lu/en/citoyens/transport/droits-voyageurs/annulation-dommages-retard/droit-passagers-aeriens.html
+    last_verified: 2026-11-19
+  - id: neb-lu-email
+    type: email
+    label: "Luxembourg: Direction de la protection des consommateurs (DPC) passenger complaints email"
+    value: passagers@mpc.etat.lu
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    source: https://guichet.public.lu/en/citoyens/transport/droits-voyageurs/annulation-dommages-retard/droit-passagers-aeriens.html
+    last_verified: 2026-11-19
+  - id: neb-mt
+    type: email
+    label: "Malta: Malta Competition and Consumer Affairs Authority (MCCAA) air passenger rights email"
+    value: airpassengerrights.mccaa@mccaa.org.mt
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      Complain to the airline first with the booking reference, any reference number and your ID or passport number;
+      email the MCCAA if there is no reply within six weeks. The Commission list gives airpassengerrights@mccaa.org.mt
+      and two mccaa.org.mt links that now return 404; this address is from the MCCAA's own page.
+    verified_via: browser
+    source: https://mccaa.org.mt/consumer-handbook/?mccaa_section=1669
+    last_verified: 2026-11-19
+  - id: neb-nl
+    type: web_form
+    label: "Netherlands: Human Environment and Transport Inspectorate (ILT, CAA NL) passenger rights complaint form"
+    value: https://e-loket.ilent.nl/formulier/en-GB/DefaultEnvironment/MLu_005.aspx
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      English form (Dutch version exists). Submit your complaint or claim to the airline first. CAA NL does not handle
+      individual compensation requests; it can act against airlines, for example with a fine.
+    source: https://english.ilent.nl/topics/aviation/passengers-and-residents-near-airports/passenger-rights
+    last_verified: 2026-11-19
+  - id: neb-pl
+    type: web_form
+    label: "Poland: Passengers' Rights Ombudsman at the Civil Aviation Authority (ULC) interactive application form"
+    value: https://pasazerlotniczy.ulc.gov.pl/en/submit-an-application/interactive-form
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      English and Polish. An ADR (out-of-court) procedure. Try to settle with the airline first and attach the
+      correspondence, or proof that 30 days passed since your complaint to the carrier. Apply within one year of the
+      flight date. Also by post or ePUAP. Sanctions are a separate matter for the President of the Civil Aviation
+      Authority (Commission list: kopp@ulc.gov.pl).
+    verified_via: browser
+    source: https://pasazerlotniczy.ulc.gov.pl/en/submit-an-application
+    last_verified: 2026-11-19
+  - id: neb-pt
+    type: web_form
+    label: "Portugal: Autoridade Nacional da Aviação Civil (ANAC) complaint form"
+    value: https://formdigital.anac.pt/?fid=607CA847-9BC7-41E0-9F59-03BC71F791CB
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      Portuguese or English. Complain to the operating airline first; ANAC acts if the airline does not reply within
+      six weeks of receipt or the reply is unsatisfactory. ANAC does not decide compensation; use the courts or ADR.
+      Only for denied boarding, downgrading, cancellation or long delay. Documents can also be posted to ANAC, Rua B,
+      Edifício 4, Aeroporto Humberto Delgado, 1749-034 Lisboa.
+    source: https://www.anac.pt/vPT/Passageiros/DireitosPassageiro/comoapresentarumaqueixa/Paginas/Comoapresentarumareclamacao.aspx
+    last_verified: 2026-11-19
+  - id: neb-ro
+    type: portal
+    label: "Romania: National Authority for Consumer Protection (ANPC) e-services complaint portal"
+    value: https://eservicii.anpc.ro/
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      Page in Romanian. ANPC's air transport page says to file on the e-services portal, in person at a county consumer
+      protection office, or by post, and offers the EU complaint form (Romanian and English PDFs). Baggage (Montreal
+      Convention) is referred to ECC Romania. A different authority enforces Regulation 1107/2006 (see facts).
+    verified_via: browser
+    source: https://www.anpc.ro/transport-aerian
+    last_verified: 2026-11-19
+  - id: neb-sk
+    type: email
+    label: "Slovakia: Slovak Trade Inspection (SOI) email for complaints"
+    value: podnety@soi.sk
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      Page in Slovak. Complain to the airline first; go to SOI if it does not answer within 8 weeks or the answer is
+      unsatisfactory. SOI investigates with the airline and the airport; the law sets no time limit for this. File within
+      two years of the incident. Post: Slovenská obchodná inšpekcia, Ústredný inšpektorát, Bajkalská 21/A, 827 99
+      Bratislava 27. The Commission list gives oos@soi.sk.
+    source: https://www.soi.sk/sk/prava-cestujucich/prava-cestujucich-v-leteckej-doprave.soi
+    last_verified: 2026-11-19
+  - id: neb-si
+    type: email
+    label: "Slovenia: Civil Aviation Agency (CAA) email for EU complaint forms"
+    value: info@caa.si
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      Email the EU complaint form (English PDF on the page) with evidence. Complain to the airline first; send it to
+      the CAA if there is no reply within 8 weeks or you are dissatisfied. Baggage, schedule changes more than 14 days
+      ahead and ticketing go to the airline and then the European Consumer Centres.
+    source: https://www.caa.si/en/complaint-form.html
+    last_verified: 2026-11-19
+  - id: neb-es
+    type: portal
+    label: "Spain: Agencia Estatal de Seguridad Aérea (AESA) passenger complaint procedure (binding ADR, flights from 2 June 2023)"
+    value: https://sede.seguridadaerea.gob.es/sede-aesa/catalogo-de-procedimientos/reclamaciones-por-cancelaciones-retrasos-denegaciones-de-embarque-y-pmr
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      In Spanish (some English forms are linked). The decision binds the airline, not you. Complain to the airline
+      first; go to AESA if it does not answer within one month, and within one year of your airline complaint. Online
+      filing needs electronic ID (not Cl@ve PIN); without it, use "Nueva Solicitud sin identificación electrónica", then
+      print, sign and deliver it within 10 days. Baggage is excluded. Flights up to 1 June 2023 use a separate,
+      information-only procedure. Details in registry id es-aesa.
+    source: https://sede.seguridadaerea.gob.es/sede-aesa/catalogo-de-procedimientos/reclamaciones-por-cancelaciones-retrasos-denegaciones-de-embarque-y-pmr
+    last_verified: 2026-11-19
+  - id: neb-se
+    type: web_form
+    label: "Sweden: Swedish Consumer Agency (Konsumentverket) report form"
+    value: https://anmalan.konsumentverket.se/flow/anmalning-start
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      In Swedish. A report (anmälan); air travel is in scope, but you get no personal help after it. To have an
+      individual dispute decided, go to the National Board for Consumer Disputes (ARN, https://arn.se/konsument/): it
+      recommends a solution, filing costs 150 kronor and handling takes about 6 months.
+    verified_via: browser
+    source: https://www.konsumentverket.se/om-oss/anmala-till-konsumentverket/
+    last_verified: 2026-11-19
+  - id: neb-is
+    type: web_form
+    label: "Iceland: Icelandic Transport Authority (Samgöngustofa) air travel complaint"
+    value: https://island.is/en/complain-air-travel
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      Use "Send a complaint" on the page. Apply after the airline rejected your claim. Icelandic or English; decisions
+      are published in Icelandic only. The authority asks the airline for comment, then issues a ruling. Normal
+      processing 3 to 6 months. Limitation period 4 years from the flight date.
+    verified_via: browser
+    source: https://island.is/en/complain-air-travel
+    last_verified: 2026-11-19
+  - id: neb-no
+    type: portal
+    label: "Norway: Transportklagenemnda (Norsk ReiselivsForum) complaint portal"
+    value: https://reiselivsforum.digiforms.no/minside
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    access: login
+    notes: >-
+      A dispute resolution board. Log in to "Min side" to file. Complain to the airline in writing first. It cannot
+      handle EU261 compensation for an incident in another EU/EEA country; that goes to that country's body. The site
+      is in Norwegian with an English version. Current address Nedre Vollgate 9, 0158 Oslo (the Commission list gives
+      Øvre Slottsgate 18-20).
+    verified_via: browser
+    source: https://www.reiselivsforum.no/web/klageinformasjon/fly/
+    last_verified: 2026-11-19
+  - id: neb-ch
+    type: web_form
+    label: "Switzerland: Federal Office of Civil Aviation (FOCA) passenger rights online form"
+    value: https://www.bazl.admin.ch/en/pax-online-form
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: >-
+      English page with the embedded form (the Commission list gives German, French and Italian versions too). FOCA can
+      sanction airlines but cannot enforce compensation (see facts). Contact on the page: +41 58 465 95 96,
+      passengerrights@bazl.admin.ch.
+    verified_via: browser
+    source: https://www.bazl.admin.ch/en/pax-online-form
+    last_verified: 2026-11-19
+
+facts:
+  - kind: policy
+    claim: >-
+      Article 16(1): "Each Member State shall designate a body responsible for the enforcement of this Regulation as
+      regards flights from airports situated on its territory and flights from a third country to such airports."
+      Article 16(2) lets each passenger complain to any designated body "about an alleged infringement of this
+      Regulation at any airport situated on the territory of a Member State or concerning any flight from a third
+      country to an airport situated on that territory."
+    verified_via: browser
+    source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      The Commission's NEB page says passengers should "contact the body in the country where the incident took
+      place."
+    source: https://transport.ec.europa.eu/transport-themes/passenger-rights/national-enforcement-bodies-neb_en
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Your Europe says to always send the complaint to the airline first. "If you don't receive a reply from the airline
+      within 2 months or if you are not satisfied with the reply, you can lodge a complaint with the relevant national
+      authority [...] in the country where the incident took place, within a reasonable timeframe." The national
+      authority "should provide you with a non-binding legal opinion on how to proceed with your claim."
+    verified_via: browser
+    source: https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_en.htm
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Your Europe says you can also use out-of-court procedures or an alternative dispute resolution entity, but
+      "Access to alternative dispute resolution procedures is only available to EU residents." A local European
+      Consumer Centre can also help.
+    verified_via: browser
+    source: https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_en.htm
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      The Irish NEB states the rule in practice: the appropriate body is the one in the EU Member State (or Iceland,
+      Norway or Switzerland) "from where the disrupted flight was due to depart". On a Dublin-Malaga return trip, a
+      disrupted outbound flight goes to the IAA and a disrupted return flight to Spain's AESA. For flights departing
+      from outside those countries, "the destination of the flight determines which authority you should contact",
+      and only if the flight is operated by a Community-licensed carrier.
+    verified_via: browser
+    source: https://www.iaa.ie/consumer-protection/air-passenger-rights
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Ireland: "The Irish Aviation Authority (IAA) is the National Enforcement Body for EC 261/2004." Complaints go
+      through the IAA's MySRS customer portal.
+    verified_via: browser
+    source: https://www.iaa.ie/consumer-protection/air-passenger-rights
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Spain: Orden TMA/201/2022 of 14 March 2022 (BOE 17 March 2022) regulates AESA's alternative dispute resolution
+      procedure for air passengers. Article 18.1: "La decisión del Director de la Agencia es vinculante para la compañía
+      aérea"; it does not bind the passenger (Article 18.2). Article 6 requires a prior complaint to the airline, which
+      must answer within one month. Article 3(f) excludes claims for destruction, loss, damage or delay of checked
+      baggage.
+    source: https://www.boe.es/buscar/act.php?id=BOE-A-2022-4201
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Spain: Orden TMA/469/2023 of 17 April 2023 accredits AESA as the ADR entity for air transport. AESA's e-office
+      lists two complaint procedures: "resolución alternativa de litigios" for flights from 2 June 2023, and an
+      information-only procedure ("vía informativa") for flights up to 1 June 2023. File with AESA within one year of
+      your complaint to the airline.
+    source: https://sede.seguridadaerea.gob.es/sede-aesa/catalogo-de-procedimientos/reclamaciones-por-cancelaciones-retrasos-denegaciones-de-embarque-y-pmr
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Germany: the LBA "cannot enforce civil law claims of individual passengers against the airline concerned" and
+      does not provide compensation or reimbursement services. Complain to the airline first. If its reply is
+      unsatisfactory, the LBA recommends conciliation (free in principle for consumers) or the competent court. A
+      three-year limitation period applies in Germany.
+    source: https://www.lba.de/EN/AirPassengersRights/_functions_Kacheln_neu/Kachel_6/Complaint_Procedure_node.html
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Germany: air conciliation is done by Schlichtungsstelle Reise & Verkehr e.V. (private law); the Schlichtungsstelle
+      Luftverkehr at the Bundesamt für Justiz takes cases where the airline refuses the private scheme. You must first
+      contact the airline without success. The conciliation proposal binds only when all parties accept it.
+    source: https://www.lba.de/EN/AirPassengersRights/_functions_Kacheln_neu/Kachel_4/Conciliation_Node.html
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Italy: complaints to ENAC "must be submitted exclusively" through https://carta-diritti.enac.gov.it/en. They serve
+      to sanction and monitor; the procedure "is not meant to obtain reimbursement or compensation". For compensation or
+      a ticket refund, use the Transport Regulatory Authority's (ART) dispute settlement service on the ConciliaWeb
+      platform (https://www.autorita-trasporti.it/conciliaweb/).
+    verified_via: document
+    source: https://transport.ec.europa.eu/document/download/d7b5dd33-4083-4faa-8132-b6dc8b3a1c07_en?filename=2004_261_national_enforcement_bodies.pdf
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Estonia: complain to the airline first; if it does not answer within six weeks or you are not satisfied, contact
+      the competent NEB with the ticket or booking confirmation, your complaint to the airline and any reply. TTJA asks
+      the airline for its position and may then issue its own opinion, which "is not legally binding". For airlines
+      established in Estonia, the Consumer Disputes Committee is an ADR option (https://komisjon.ee/et/avalduse-esitamine).
+    verified_via: browser
+    source: https://ttja.ee/en/private-client/consumer-rights/trade-services/travel-services
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Greece: the HCAA is the NEB for flights departing from Greek airports and for flights from non-EU airports to
+      Greece on an EU airline. It will not process a complaint unless you show you contacted the airline first. If it
+      finds a violation it asks the airline to respond within six weeks, then sends two reminders (two weeks, then
+      seven days).
+    source: https://hcaa.gov.gr/en/diadikasia-ypobolis-kataggelias
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Switzerland: "FOCA is unable to enforce compensation payments"; in case of an infringement FOCA could sanction the
+      airline, and you can still bring a civil claim in court. Contact the operating airline first.
+    source: https://www.bazl.admin.ch/en/airpassengerrights
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Norway: Transportklagenemnda takes a case after you tried to settle with the airline. If the airline gave neither
+      an interim nor a final reply within four weeks of your complaint you may file; after an interim reply, you may
+      file eight weeks after your complaint.
+    verified_via: browser
+    source: https://www.reiselivsforum.no/web/slik_klager_du/fly/
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Finland splits the NEB role: the Consumer Disputes Board handles complaints from private consumers; Traficom
+      supervises the rights of non-consumers (business travellers) and the Consumer Ombudsman (Finnish Competition and
+      Consumer Authority) supervises consumers' collective interests, neither handling individual cases. Hungary and
+      Poland also split complaint handling and enforcement between two bodies.
+    verified_via: document
+    source: https://transport.ec.europa.eu/document/download/d7b5dd33-4083-4faa-8132-b6dc8b3a1c07_en?filename=2004_261_national_enforcement_bodies.pdf
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Baggage is outside the EU261 complaint procedure at several NEBs. Portugal's ANAC form is only for denied
+      boarding, downgrading, cancellation or long delay, and it sends baggage complaints (after the airline) to the
+      European Consumer Centres.
+    source: https://www.anac.pt/vPT/Passageiros/DireitosPassageiro/comoapresentarumaqueixa/Paginas/Comoapresentarumareclamacao.aspx
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The Czech CAA's EU261 complaint form covers cancellation, delay, denied boarding, downgrading and lack of care,
+      and does not cover luggage.
+    source: https://www.caa.gov.cz/en/passengers/denied-boarding-delay-or-cancellation-of-flight/air-passenger-complaint-form/
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The Commission keeps a separate NEB list for Regulation (EC) No 1107/2006 (disabled passengers and passengers
+      with reduced mobility), dated 5 December 2025. Use it for accessibility complaints; the body can differ from the
+      EU261 body.
+    issues: [accessibility]
+    source: https://transport.ec.europa.eu/transport-themes/passenger-rights/national-enforcement-bodies-neb_en
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Romania: ANPC enforces EU261, while the National Authority for the Protection of the Rights of Persons with
+      Disabilities enforces Regulation 1107/2006 (except Article 8).
+    issues: [accessibility]
+    verified_via: browser
+    source: https://www.anpc.ro/transport-aerian
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Belgium's BCAA page (changed 10 November 2026) says the revision of Regulation 261/2004 was agreed politically
+      by the European Parliament and the Council on 15 June 2026 and formally approved in July 2026. It enters into
+      force 20 days after publication in the Official Journal, with a transition period. "At present, the rules
+      currently in force remain fully applicable."
+    verified_via: browser
+    source: https://mobilit.belgium.be/en/aviation/passengers/passengers-right
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Belgium: legal action on a passenger contract, including EU261 claims, must be brought within two years of the
+      flight (Article X.49 of the Economic Law Code). The BCAA complaint is a separate procedure; you need not use it
+      before going to court.
+    verified_via: browser
+    source: https://mobilit.belgium.be/en/aviation/passengers/passengers-right
+    last_verified: 2026-11-19
+
+notes: >-
+  Built from the Commission's list "National enforcement bodies under regulation (EC) No 261/2004" (PDF, "Updated: 13
+  October 2026"; linked from the Commission NEB page with that date). The list says each Member State is responsible for
+  its own entries. It covers the EU 27, Iceland and Norway (EEA) and Switzerland (equivalent rules under the
+  EU-Switzerland air transport agreement). Each channel was checked on the body's own site on 2026-11-19, except Estonia,
+  Hungary and Lithuania, where the value comes only from the list. Ireland: the list names the Irish Aviation Authority
+  (apr@iaa.ie), and the former Commission for Aviation Regulation site (aviationreg.ie) redirects to iaa.ie; older
+  documents name the Commission for Aviation Regulation as Ireland's NEB. Several list entries are out of date: Malta's links
+  return 404 and its email differs, Czechia moved to caa.gov.cz, the Netherlands English page moved, Slovakia's English
+  link is an internal file path, and Norway's address changed. Channel id neb-gr uses ISO code GR (the EU's own code for
+  Greece is EL).

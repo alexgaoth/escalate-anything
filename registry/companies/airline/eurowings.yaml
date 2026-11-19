@@ -1,0 +1,336 @@
+id: eurowings
+name: Eurowings
+aliases: [eurowings gmbh, eurowings.com]
+sector: airline
+parent: Lufthansa Group
+website: https://www.eurowings.com/en.html
+account_url: https://www.eurowings.com/en/my-trip/manage-booking.html
+countries: [eu, de, gb]
+regulators: [eu-air-passenger-nebs, eu-ecc-net, de-sruv, es-aesa]
+
+channels:
+  - id: call-centre
+    type: phone
+    label: Eurowings Call Centre
+    value: +49-221-599-882-22
+    hours: Daily 6:00 a.m. to midnight (CET)
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request]
+    notes: >-
+      The contact page prints "+49 (0)221 599 882 22" and links tel:+4922159988222. It is the only call centre number on
+      the English (international) contact page. The passenger rights page says the call centre cannot see or influence
+      how long a claim takes to process.
+    verified_via: browser
+    source: https://www.eurowings.com/en/information/about-us/company/contact-customer-service.html
+    last_verified: 2026-11-19
+  - id: contact-form
+    type: web_form
+    label: Contact form (complaints, refunds, special assistance, baggage, data protection and other requests)
+    value: https://www.eurowings.com/en/information/about-us/company/contact-customer-service.html
+    purposes: [poor_service, refund_request, flight_delay, flight_cancellation, accessibility, privacy_request]
+    access: open
+    notes: >-
+      The form is on the contact page. Choose a topic (for example "Request a refund", "Special assistance", "Damaged /
+      lost baggage", "Check compensation eligibility", "Data protection requests" or "Other requests") and a category.
+      The passenger rights page links here to submit receipts for expenses caused by a delay or cancellation, and calls
+      it the way to submit a complaint directly to Eurowings.
+    verified_via: browser
+    source: https://www.eurowings.com/en/information/about-us/company/contact-customer-service.html
+    last_verified: 2026-11-19
+  - id: compensation-form
+    type: web_form
+    label: EU261 compensation claim (online service for the right to compensation)
+    value: https://www.eurowings.com/en/4u/online-service-for-the-right-to-compensation.html
+    purposes: [flight_delay, flight_cancellation, denied_boarding]
+    access: open
+    notes: >-
+      Submit only when the flight is at least 2 days in the past; the flight is entered into the system within 2
+      working days. Asks for the flight number and date, the six-character booking code (from Eurowings or the tour
+      operator), first and last name and email, then bank details (account holder, IBAN, BIC). The page lists "No
+      commission / deductions to third parties" as an advantage.
+    verified_via: browser
+    source: https://www.eurowings.com/en/faq/flight-disruptions/claims-and-compensation.html
+    last_verified: 2026-11-19
+  - id: manage-booking
+    type: portal
+    label: Manage booking (rebook, flight voucher or ticket refund)
+    value: https://www.eurowings.com/en/my-trip/manage-booking.html
+    purposes: [flight_cancellation, refund_request, travel_credit]
+    notes: >-
+      The passenger rights page says to claim a refund of a cancelled flight's ticket directly within your booking. The
+      flight voucher request is at https://www.eurowings.com/en/my-trip/edititinerary.html. The Eurowings app offers the
+      same options (My trips > Add booked trip, with the booking code or tour operator number and surname).
+    verified_via: browser
+    source: https://www.eurowings.com/en/information/news-help/delays-cancellations-air-passenger-rights.html
+    last_verified: 2026-11-19
+  - id: baggage-self-service
+    type: web_form
+    label: Baggage Self-Service, report delayed baggage online (mybag.aero, linked by Eurowings)
+    value: https://mybag.aero/eurowings/create/en
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    notes: >-
+      External site linked from Eurowings' baggage FAQ. You receive a confirmation with a PIR number (for example
+      CGNEW12345). The Baggage Self-Service main menu is https://mybag.aero/eurowings/en; the FAQ says loss or damage can
+      be reported there or at the Eurowings baggage tracing desk immediately after arrival.
+    verified_via: browser
+    source: https://www.eurowings.com/en/faq/baggage/missing-baggage.html
+    last_verified: 2026-11-19
+  - id: bag-tracker
+    type: portal
+    label: Track a delayed bag and update delivery details (WorldTracer, mybag.aero)
+    value: https://mybag.aero/eurowings/managemybag/en
+    purposes: [delayed_baggage, lost_baggage]
+    notes: Needs the PIR number. Eurowings says bags are searched with the WorldTracer system and the call centre sees the same information.
+    verified_via: browser
+    source: https://www.eurowings.com/en/faq/baggage/missing-baggage.html
+    last_verified: 2026-11-19
+  - id: baggage-email
+    type: email
+    label: Eurowings baggage service (lost bag compensation, expense receipts, missing items, insurance letters)
+    value: baggage@eurowings.com
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    notes: >-
+      The FAQ links this address for receipts for essential items (within 21 days of arrival), compensation for a bag
+      not found after 21 days (include the myBag reference number), written reports of missing items (within seven
+      days), and letters for your own insurer.
+    verified_via: browser
+    source: https://www.eurowings.com/en/faq/baggage/missing-baggage.html
+    last_verified: 2026-11-19
+  - id: special-assistance-form
+    type: web_form
+    label: Special assistance questionnaire (PDF; send to customer service)
+    value: https://www.eurowings.com/content/dam/eurowings/downloads/EN/Medical_Assistance/questionnaire-special-needs_Eurowings_EN2.pdf
+    purposes: [accessibility]
+    notes: >-
+      The accessible travel page says to state assistance needs when booking or at the latest 48 hours before
+      departure, complete this form and send it by email to customer service (the page links the contact form). To use
+      a CPAP or oxygen device in flight, send the form at least 72 hours before departure.
+    verified_via: browser
+    source: https://www.eurowings.com/en/information/on-board/accessible-travel.html
+    last_verified: 2026-11-19
+  - id: data-protection-email
+    type: email
+    label: Eurowings data protection contact
+    value: datenschutz@eurowings.com
+    purposes: [privacy_request]
+    notes: The Lufthansa Group data protection officer is also responsible for Eurowings (datenschutz@dlh.de). Objections to direct marketing go to Datenschutz-ew@eurowings.com. The supervisory authority is the North Rhine-Westphalia data protection commissioner.
+    verified_via: browser
+    source: https://www.eurowings.com/en/legal-information/privacy-policy.html
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: call-centre}
+  - {rung: written_complaint, channel: compensation-form}
+  - {rung: regulator, regulator: eu-air-passenger-nebs, note: "National Enforcement Body of the country where the incident happened (departure airport; for flights into the EU on an EU carrier, the arrival airport). See regulators/eu-air-passenger-nebs."}
+  - {rung: regulator, regulator: de-sruv, note: "Eurowings GmbH is on the Schlichtungsstelle Reise & Verkehr member list (Stand: 19. Oktober 2026). Eurowings' passenger rights page names the conciliation body for journeys made for personal reasons, and says you can contact an arbitration service after waiting at least 2 months for a response. See regulators/de-sruv."}
+  - {rung: regulator, regulator: es-aesa, note: "For a flight that departed from Spain, or flew to Spain from outside the EU on an EU airline, from 2 June 2023: AESA's dispute resolution is mandatory for every airline and its decision binds the airline (not the passenger). Claim from the airline first; if it does not answer within one month or you reject the answer, file with AESA within one year of that claim. Not for baggage."}
+  - {rung: regulator, regulator: eu-ecc-net, note: "Free help from the European Consumer Centre in your country when the airline is based in another EU country, Iceland or Norway."}
+  - {rung: payment_dispute, note: "Card chargeback for a refund the airline owes but has not paid."}
+  - {rung: small_claims, note: "European Small Claims Procedure for cross-border claims up to EUR 5,000 (rules/eu-small-claims-procedure); otherwise the national court. Time limits for EU261 claims are set by national law."}
+
+playbooks:
+  - issue: flight_delay
+    summary: Get the meal voucher and keep receipts; if you arrived at least 3 hours late, claim EUR 250-600 on the online compensation form once the flight is 2 days in the past.
+    evidence: [booking code, flight number and date, boarding passes, scheduled and actual arrival times, receipts for food, hotel, transport and calls, bank details (IBAN and BIC)]
+    steps:
+      - do: Ask the ground staff for the meal voucher (short-haul after at least 2 hours; medium and long-haul after at least 3 or 4 hours). At some stations the boarding pass works as the voucher.
+      - do: If you cannot fly until the next day, use the hotel link Eurowings emails you (Value Group portal) or ask the ticket desk. If you must book yourself, keep receipts.
+      - do: Submit receipts for food, hotel, transport and calls through the contact form.
+        channel: contact-form
+      - do: At least 2 days after the flight, claim compensation on the online compensation form.
+        channel: compensation-form
+      - do: After waiting at least 2 months for a response, apply to the German conciliation body (personal journeys).
+        regulator: de-sruv
+      - do: Or complain to the National Enforcement Body of the country where the delay happened.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: policy
+        claim: Eurowings gives meal vouchers on short-haul routes for delays of at least two hours, and on medium and long-haul flights for delays of at least three or four hours respectively. If there is no catering on site, it reimburses food up to EUR 30 per person per day against proof of purchase, and two telephone calls (faxes or emails).
+        issues: [flight_delay, flight_cancellation]
+        verified_via: browser
+        source: https://www.eurowings.com/en/information/news-help/delays-cancellations-air-passenger-rights.html
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: If Eurowings cannot provide a hotel for logistical reasons and you arrange your own, it reimburses the documented cost up to a mid-range hotel (up to EUR 150 per person), plus public transport, or a taxi when public transport cannot reasonably be used.
+        issues: [flight_delay, flight_cancellation]
+        verified_via: browser
+        source: https://www.eurowings.com/en/faq/flight-disruptions.html
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: If your flight is delayed by at least 3 hours at the final destination, you are entitled to compensation of EUR 250-600 per person, unless the delay is due to extraordinary circumstances or you were informed of the change at least 2 weeks before departure. A delay of at least 5 hours gives a right to a refund of the ticket for parts of the journey not made.
+        issues: [flight_delay, refund_request]
+        verified_via: browser
+        source: https://www.eurowings.com/en/information/news-help/delays-cancellations-air-passenger-rights.html
+        last_verified: 2026-11-19
+
+  - issue: flight_cancellation
+    summary: Rebook free of charge, take a flight voucher, or request a refund in your booking or the app; claim EUR 250-600 compensation separately unless you were told at least 2 weeks ahead.
+    evidence: [booking code, cancellation email or SMS, boarding passes, receipts for food, hotel and transport]
+    steps:
+      - do: Check the email or app for the alternative flight Eurowings found, or rebook yourself free of charge.
+        channel: manage-booking
+      - do: If you do not want to travel, request the refund (or a flight voucher) in your booking or the Eurowings app.
+        channel: manage-booking
+      - do: If you booked through a tour operator or travel agent, contact them; Eurowings' self-services may be limited.
+      - do: Claim compensation on the online compensation form, and send expense receipts through the contact form.
+        channel: compensation-form
+      - do: If the refund is not paid, call the call centre, then complain to the National Enforcement Body and use a card chargeback.
+        channel: call-centre
+      - do: Complain to the National Enforcement Body of the country of departure.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: policy
+        claim: If your flight is cancelled less than 72 hours before departure, Eurowings automatically looks for an alternative flight and you can also rebook free of charge, request a flight voucher or apply for a refund. If it is cancelled more than 72 hours before departure, you can book the same route on a different day, request a flight voucher or apply for a refund.
+        issues: [flight_cancellation, travel_credit, refund_request]
+        verified_via: browser
+        source: https://www.eurowings.com/en/information/news-help/delays-cancellations-air-passenger-rights.html
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: For cancelled domestic flights you can exchange the ticket for a Deutsche Bahn rail voucher, but after the exchange you can no longer cancel the flight ticket and claim a refund of the fare.
+        issues: [flight_cancellation, refund_request]
+        verified_via: browser
+        source: https://www.eurowings.com/en/faq/flight-disruptions.html
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Regulation (EC) No 261/2004 (Article 8) gives a passenger whose flight is cancelled the choice of re-routing or reimbursement of the full ticket cost within seven days.
+        issues: [flight_cancellation, refund_request]
+        source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+        last_verified: 2026-11-19
+
+  - issue: denied_boarding
+    summary: If you are denied boarding, choose re-routing with care or a refund, and claim EUR 250-600 compensation on the online form.
+    evidence: [booking code, boarding pass, flight number and date, arrival time of the new flight]
+    steps:
+      - do: At the airport, choose re-routing (with meals and hotel if needed) or a refund of the ticket.
+      - do: Claim compensation on the online compensation form.
+        channel: compensation-form
+      - do: After waiting at least 2 months for a response, apply to the German conciliation body (personal journeys) or the National Enforcement Body.
+        regulator: de-sruv
+    facts:
+      - kind: compensation
+        claim: In the event of denied boarding you can choose between re-routing including care and reimbursement of the ticket, and you qualify for compensation of EUR 250-600 per person, based on route length and arrival time.
+        issues: [denied_boarding]
+        verified_via: browser
+        source: https://www.eurowings.com/en/information/news-help/delays-cancellations-air-passenger-rights.html
+        last_verified: 2026-11-19
+
+  - issue: delayed_baggage
+    summary: Report the bag at the Eurowings baggage desk or online before leaving, keep the PIR number, and email receipts for essentials (up to EUR 30 a day, 3 days) within 21 days.
+    evidence: [PIR number (for example CGNEW12345), bag tag, boarding pass, booking code, dated receipts]
+    steps:
+      - do: Wait until all bags are delivered, then report the missing bag at the Eurowings baggage office or online. Keep the PIR number, boarding pass and bag tag.
+        channel: baggage-self-service
+      - do: Track the search and update your delivery address with the PIR number.
+        channel: bag-tracker
+      - do: If the bag is not delivered the same day (and you are not at your home destination), buy only essentials and email the receipts within 21 days of arrival.
+        channel: baggage-email
+      - do: If the bag is not found after 21 days, claim for a lost bag (see lost_baggage).
+        channel: baggage-email
+    facts:
+      - kind: limit
+        claim: If Eurowings cannot deliver your bag the same day after arrival at your destination (excluding home destination), it contributes to necessary expenses such as clothes or pharmacy items, up to EUR 30 per person per day for a maximum of three days (up to EUR 90 per person in total). Submit the receipts within 21 days of arrival.
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://www.eurowings.com/en/faq/baggage/missing-baggage.html
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Eurowings' table of statutory reporting deadlines gives no later than 7 days after claiming the baggage for damage and partial loss, no later than 21 days for compensation of delayed baggage, and within two years for total loss. A later written report shifts the burden of proof to you; the postmark or email receipt date counts.
+        issues: [delayed_baggage, damaged_baggage, lost_baggage]
+        verified_via: browser
+        source: https://www.eurowings.com/en/faq/baggage/damaged-baggage.html
+        last_verified: 2026-11-19
+      - kind: process
+        claim: For the first five days after a bag is reported missing, the airport where you reported it is exclusively responsible for the search.
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://www.eurowings.com/en/faq/baggage/missing-baggage.html
+        last_verified: 2026-11-19
+
+  - issue: lost_baggage
+    summary: A bag not found after 21 days counts as lost; email baggage@eurowings.com with the myBag reference number and receipts. Total loss claims are due within two years.
+    evidence: [PIR number, bag tag, booking code, list of contents with values, receipts]
+    steps:
+      - do: Make sure the bag was reported as missing and you have the PIR number.
+        channel: baggage-self-service
+      - do: After 21 days, email the claim with the myBag reference number and proof of the contents' value.
+        channel: baggage-email
+      - do: If Eurowings does not answer within 2 months, apply to the German conciliation body (personal journeys).
+        regulator: de-sruv
+    facts:
+      - kind: policy
+        claim: If your bag cannot be found after 21 days, Eurowings assumes it is lost and you are entitled to compensation. The amount depends on the contents and the receipts you can produce. Send an email to baggage@eurowings.com with your reference number from the myBag portal.
+        issues: [lost_baggage]
+        verified_via: browser
+        source: https://www.eurowings.com/en/faq/baggage/missing-baggage.html
+        last_verified: 2026-11-19
+
+  - issue: damaged_baggage
+    summary: Report damage at the Eurowings baggage tracing desk before leaving the airport; a later written report is possible within 7 days but you must then prove the damage happened in flight.
+    evidence: [bag tag, boarding passes, booking code, receipt or invoice for the bag, photos of the damage, PIR number]
+    steps:
+      - do: Report the damage at the Eurowings baggage tracing desk before you leave the airport. Bring the bag tag, boarding pass, booking code and the receipt for the bag.
+      - do: If you could not report at the airport, report it online through the Baggage Self-Service as soon as possible. A later written report is accepted within 7 days of receiving the bag, but you must then prove the damage happened during the flight.
+        channel: baggage-self-service
+      - do: For items missing from the bag, send a written report within seven days.
+        channel: baggage-email
+      - do: If Eurowings does not answer within 2 months, apply to the German conciliation body (personal journeys).
+        regulator: de-sruv
+    facts:
+      - kind: deadline
+        claim: Damage must be reported within the legally required period of 7 days after receiving the baggage. A later written report is possible within that time, but the burden of proof is reversed and you must show the damage occurred during air carriage.
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://www.eurowings.com/en/faq/baggage/damaged-baggage.html
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Eurowings is not liable for normal wear and tear such as scratches, dents or stains, or for damage to bags that are overpacked, overweight or not properly packed; items excluded from liability are listed in the General Conditions of Carriage, Article 15.3.
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://www.eurowings.com/en/information/baggage/damaged-or-missing-baggage.html
+        last_verified: 2026-11-19
+
+facts:
+  - kind: policy
+    claim: For a codeshare flight, the claim is always directed to the airline that actually operated the flight.
+    issues: [flight_delay, flight_cancellation, denied_boarding]
+    verified_via: browser
+    source: https://www.eurowings.com/en/information/news-help/delays-cancellations-air-passenger-rights.html
+    last_verified: 2026-11-19
+  - kind: process
+    claim: Eurowings says response times may be longer in the peak holiday season, that its call centre cannot see or influence processing time, and that after at least 2 months of waiting for a response you can contact an arbitration service.
+    issues: [flight_delay, flight_cancellation, poor_service]
+    verified_via: browser
+    source: https://www.eurowings.com/en/faq/flight-disruptions/claims-and-compensation.html
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: The baggage rules on Eurowings' page apply only to flights operated by Eurowings or its wet lease partners; for flights operated by codeshare partners, the operating airline's rules apply.
+    issues: [delayed_baggage, lost_baggage, damaged_baggage]
+    verified_via: browser
+    source: https://www.eurowings.com/en/information/baggage/damaged-or-missing-baggage.html
+    last_verified: 2026-11-19
+
+official_domains: [eurowings.com]
+
+security:
+  known_scams:
+    - kind: policy
+      claim: Lufthansa Group warned (31 March 2026) that fake websites claiming to give Lufthansa Group contact information appear in search engines to capture personal data or booking information. It names eurowings.com among the official sites, and says to enter customer data only there and to type the address into the browser instead of using search results.
+      verified_via: browser
+      source: https://business.lufthansagroup.com/tr/en/program/experts/news/warning-about-fake-fraudulent-pages-with-alleged-lufthansa-group
+      last_verified: 2026-11-19
+
+known_blockers:
+  - eurowings.com returns HTTP 403 to automated fetches; pages load only in a full browser.
+  - The compensation form opens only 2 days after the flight and needs the booking code, flight number and date, names, email and bank details (IBAN and BIC).
+  - The contact form is a script-driven form on the contact page; the topic and category must be chosen first.
+  - Bookings made through a tour operator or travel agent have limited self-service; contact the tour operator or agent.
+  - Baggage tracking and lost bag claims need the PIR or myBag reference number.
+
+notes: >-
+  Checked on 2026-11-19 in a browser on the eurowings.com English site (/en); WebFetch and curl got HTTP 403. The
+  old contact URL /en/information/service/contact.html returns 404; the current one is
+  /en/information/about-us/company/contact-customer-service.html. /en/information/news-help/flight-refund.html
+  ("Cancellations and refunds") redirects to the passenger rights page. Eurowings publishes no separate UK phone number
+  on the English site; the market sites listed are at, cz, de, es, fr, it, nl and se. UK is in the countries list
+  because the site sells UK routes (for example London Heathrow and Newcastle to Germany). No Eurowings-specific
+  phishing or fake-account warning was found on eurowings.com; the scam warning is Lufthansa Group's, which names
+  eurowings.com. Bag reports and tracking use mybag.aero, an external site linked from Eurowings' pages.

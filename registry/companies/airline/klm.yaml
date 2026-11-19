@@ -1,0 +1,387 @@
+id: klm
+name: KLM Royal Dutch Airlines
+aliases: [klm, koninklijke luchtvaart maatschappij, koninklijke luchtvaart maatschappij n.v., klm.com, klm.nl, klm.co.uk]
+sector: airline
+parent: Air France-KLM
+website: https://www.klm.co.uk
+account_url: https://www.klm.co.uk/trip
+countries: [eu, nl, gb]
+regulators: [eu-air-passenger-nebs, eu-ecc-net, de-sruv, fr-mtv, es-aesa]
+
+channels:
+  - id: service-line-nl
+    type: phone
+    label: KLM Service Line, Netherlands
+    value: +31-20-474-7747
+    hours: Monday to Friday 8:00 AM to 8:00 PM, Saturday 9:00 AM to 5:30 PM, Sunday closed (Amsterdam time)
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, poor_service]
+    notes: >-
+      The page prints it as "+31 20 47 47 747", "National standard rates to: Netherlands", in Dutch and English.
+      KLM's refund page says a fee may be charged if you request a refund by phone.
+    verified_via: browser
+    source: https://www.klm.nl/en/contact/topic/refund-compensation/subtopic/complaint
+    last_verified: 2026-11-19
+  - id: service-line-uk
+    type: phone
+    label: KLM Service Line, United Kingdom
+    value: +44-20-7660-0293
+    hours: Monday to Friday 9:00 AM to 5:30 PM, weekends closed (London time)
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, poor_service]
+    notes: >-
+      The page prints it as "+44 20 76 60 02 93", "National standard rates to: United Kingdom", in English.
+    verified_via: browser
+    source: https://www.klm.co.uk/contact/topic/refund-compensation/subtopic/complaint
+    last_verified: 2026-11-19
+  - id: whatsapp
+    type: social
+    label: WhatsApp, Messenger or Apple Messages (24/7)
+    value: https://api.whatsapp.com/send?phone=31206490787
+    hours: 24/7
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    notes: >-
+      Shown on the delayed baggage contact topic, in English. The same panel links Messenger (https://m.me/KLM) and
+      Apple Messages.
+    verified_via: browser
+    source: https://www.klm.co.uk/contact/topic/baggage/subtopic/baggage-missing-delayed
+    last_verified: 2026-11-19
+  - id: chat
+    type: chat
+    label: Web chat (button on the contact pages)
+    value: https://www.klm.co.uk/contact
+    hours: 24/7
+    purposes: [flight_cancellation, flight_delay, refund_request]
+    notes: Choose a topic on the contact page; the "Need more help?" panel has a chat button, "You can chat with us 24/7 from your computer".
+    verified_via: browser
+    source: https://www.klm.co.uk/contact/topic/refund-compensation/subtopic/complaint
+    last_verified: 2026-11-19
+  - id: claim-form
+    type: web_form
+    label: Claim form (EU261 compensation, disruption expenses, baggage claims, complaints)
+    value: https://www.klm.co.uk/claim
+    purposes: [flight_delay, flight_cancellation, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, poor_service]
+    access: open
+    notes: >-
+      Sign in, or find the booking with the booking code, first name and last name. Track or add missing information
+      at https://www.klm.co.uk/claim/track-a-claim.
+    verified_via: browser
+    source: https://www.klm.co.uk/information/refund-compensation/compensation
+    last_verified: 2026-11-19
+  - id: refund-form
+    type: web_form
+    label: Request or track a refund (ticket, extra options, travel voucher)
+    value: https://www.klm.co.uk/refund
+    purposes: [flight_cancellation, flight_delay, refund_request, ancillary_fee_refund, travel_credit]
+    access: open
+    notes: >-
+      Needs the booking code and last name. All flights in the booking are cancelled as soon as you request a refund.
+      Not for travel agency bookings. Also used to exchange a refundable (cash) voucher for money and to request a
+      refund of the fare difference after a downgrade.
+    verified_via: browser
+    source: https://www.klm.co.uk/information/refund-compensation/cash-refund
+    last_verified: 2026-11-19
+  - id: missing-baggage-report
+    type: web_form
+    label: Report delayed baggage online
+    value: https://www.klm.co.uk/missing-baggage-claim
+    purposes: [delayed_baggage, lost_baggage]
+    access: open
+    notes: >-
+      Have the booking code ready. Not available for arrivals at Aberdeen, Birmingham, Bristol, Cardiff, Edinburgh,
+      Glasgow, Humberside, Inverness, Leeds Bradford, London City, London Heathrow, Manchester, Newcastle, Norwich,
+      Southampton or Teesside; report at the airport baggage desk there.
+    verified_via: browser
+    source: https://www.klm.co.uk/information/baggage/delayed-baggage
+    last_verified: 2026-11-19
+  - id: baggage-tracker
+    type: portal
+    label: Trace delayed baggage
+    value: https://www.klm.co.uk/missing-baggage-claim/track-a-claim
+    purposes: [delayed_baggage, lost_baggage]
+    access: open
+    notes: >-
+      Status is available from 24 hours after the report, with the last name and the file reference number. The FAQ
+      links the WorldTracer page https://wtrweb.worldtracer.aero/WorldTracerWeb/pax.do?airlineCode=KL for status and
+      delivery address changes. AirTag locations can be shared at https://www.klm.co.uk/missing-baggage-claim/airtag.
+    verified_via: browser
+    source: https://www.klm.co.uk/information/baggage/delayed-baggage
+    last_verified: 2026-11-19
+  - id: klm-cares-phone
+    type: phone
+    label: KLM Cares (assistance for passengers with disabilities or medical needs)
+    value: +800-5562-2737
+    hours: Monday to Sunday 6:00 AM to 9:00 PM (Amsterdam time)
+    purposes: [accessibility]
+    notes: >-
+      An international freephone number. The UK contact page prints it as "00 800-55 62 27 37", labelled "Toll-free
+      from Netherlands", in Dutch and English.
+    verified_via: browser
+    source: https://www.klm.co.uk/contact/topic/special-assistance/subtopic/request-special-assistance
+    last_verified: 2026-11-19
+  - id: klm-cares-form
+    type: web_form
+    label: KLM Cares assistance request form
+    value: https://www.klm.co.uk/contact/klm-cares
+    purposes: [accessibility]
+    notes: >-
+      Submit at least 48 hours before the first flight, with the booking code, flight number and flight date (fill
+      unknown fields with "000000"). Only for new requests. Wheelchairs are requested in My Trip.
+    verified_via: browser
+    source: https://www.klm.co.uk/contact/topic/special-assistance/subtopic/request-special-assistance
+    last_verified: 2026-11-19
+  - id: privacy-form
+    type: web_form
+    label: Data subject rights form
+    value: https://www.klm.co.uk/contact/privacy-form
+    purposes: [privacy_request]
+    verified_via: browser
+    source: https://www.klm.co.uk/information/legal/privacy-policy
+    last_verified: 2026-11-19
+  - id: dpo-email
+    type: email
+    label: KLM Data Protection Officer
+    value: DataProtectionOfficer@KLM.com
+    purposes: [privacy_request]
+    verified_via: browser
+    source: https://www.klm.co.uk/information/legal/privacy-policy
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: service-line-nl}
+  - {rung: written_complaint, channel: claim-form}
+  - {rung: regulator, regulator: eu-air-passenger-nebs, note: "National Enforcement Body of the country where the incident happened (departure airport; for flights into the EU on an EU carrier, the arrival airport). See regulators/eu-air-passenger-nebs."}
+  - {rung: regulator, regulator: de-sruv, note: "KLM is on the Schlichtungsstelle Reise & Verkehr member list (Stand: 19. Oktober 2026) as 'KLM Royal Dutch Airlines'. Free conciliation in Germany, for example for a flight to or from Germany, after you have complained to KLM first. See regulators/de-sruv."}
+  - {rung: regulator, regulator: fr-mtv, note: "Listed as 'KLM' among the airline members of Médiation Tourisme et Voyage (member list read 2026-11-19). After a written complaint with a negative answer or no answer within 60 days; apply within 12 months of the first written complaint. Free; the opinion binds neither side."}
+  - {rung: regulator, regulator: es-aesa, note: "For a flight that departed from Spain, or flew to Spain from outside the EU on an EU airline, from 2 June 2023: AESA's dispute resolution is mandatory for every airline and its decision binds the airline (not the passenger). Claim from the airline first; if it does not answer within one month or you reject the answer, file with AESA within one year of that claim. Not for baggage."}
+  - {rung: regulator, regulator: eu-ecc-net, note: "Free help from the European Consumer Centre in your country when the airline is based in another EU country, Iceland or Norway."}
+  - {rung: payment_dispute, note: "Card chargeback for a refund the airline owes but has not paid."}
+  - {rung: small_claims, note: "European Small Claims Procedure for cross-border claims up to EUR 5,000 (rules/eu-small-claims-procedure); otherwise the national court. Time limits for EU261 claims are set by national law."}
+
+playbooks:
+  - issue: flight_delay
+    summary: If you arrived more than 3 hours late on a flight to or from Europe, claim compensation on the claim form; KLM pays it as a travel voucher, cash or non-refundable.
+    evidence: [booking code, ticket number, boarding passes, scheduled and actual arrival times, receipts for meals, hotel and phone calls]
+    steps:
+      - do: At the airport, ask for meals and refreshments, and a hotel if an overnight stay becomes necessary. Keep all receipts.
+      - do: If you decide not to travel because of the delay, request a cash refund of the unused part. Check the conditions first; all flights in the booking are cancelled.
+        channel: refund-form
+      - do: Request compensation and reimbursement of unexpected expenses on the claim form.
+        channel: claim-form
+      - do: If you need help, call the Service Line.
+        channel: service-line-nl
+      - do: If KLM rejects the claim or does not reply, complain to the National Enforcement Body.
+        regulator: eu-air-passenger-nebs
+      - do: For a flight to or from Germany, ask for free conciliation.
+        regulator: de-sruv
+      - do: If you live in another EU country, Iceland or Norway, ask your European Consumer Centre for help.
+        regulator: eu-ecc-net
+    facts:
+      - kind: compensation
+        claim: KLM's compensation page says you may get fixed compensation if the flight was cancelled or you arrived more than 3 hours late, you travelled to or from a European destination, and the cause was not special circumstances such as extreme weather, political instability or third-party strikes. Compensation is a travel voucher of EUR 350 (non-refundable) or EUR 250 (cash) for flights of 1,500 km or less, EUR 500 or EUR 400 for flights within the EU over 1,500 km or outside the EU between 1,500 and 3,500 km, and EUR 800 or EUR 600 for flights outside the EU over 3,500 km; it may be reduced by 50% if you arrived less than 2, 3 or 4 hours late.
+        issues: [flight_delay, flight_cancellation]
+        verified_via: browser
+        source: https://www.klm.co.uk/information/refund-compensation/compensation
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: KLM's refund page says you can always request a cash refund of your KLM flight if you did not take your outbound flight within Europe because it was delayed more than 90 minutes and your return was on the same day, or if a schedule change was at least 3 hours (Europe) or 5 hours (intercontinental), or if a delayed connection made the trip impossible.
+        issues: [flight_delay, refund_request]
+        verified_via: browser
+        source: https://www.klm.co.uk/information/refund-compensation/cash-refund
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: EU Regulation 261/2004 (Article 7(3)) says compensation is paid in cash, by electronic bank transfer, bank order or cheque, or, with the passenger's signed agreement, in travel vouchers and/or other services.
+        issues: [flight_delay, flight_cancellation, denied_boarding]
+        source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+        last_verified: 2026-11-19
+
+  - issue: flight_cancellation
+    summary: If you do not take an alternative flight, request a cash refund online; claim compensation separately on the claim form.
+    evidence: [booking code, ticket number, cancellation notice and the date you received it, new itinerary if any, receipts]
+    steps:
+      - do: Choose rerouting or a refund. Ask for meals, and a hotel if a stay becomes necessary.
+      - do: If you do not take an alternative flight, request a cash refund online. Travel agency bookings go to the agent first.
+        channel: refund-form
+      - do: Request compensation and reimbursement of expenses on the claim form. KLM pays compensation as a travel voucher, either non-refundable or cash; a cash (refundable) voucher can be exchanged for money through the refund page.
+        channel: claim-form
+      - do: If the online forms fail, call the Service Line.
+        channel: service-line-nl
+      - do: If KLM rejects the claim or does not reply, complain to the National Enforcement Body.
+        regulator: eu-air-passenger-nebs
+      - do: If the refund is not paid, dispute the card charge with your card issuer.
+    facts:
+      - kind: deadline
+        claim: KLM's refund page says refund requests are usually processed in two to four weeks, and that all flights in the booking are cancelled as soon as you request a refund.
+        issues: [flight_cancellation, refund_request]
+        verified_via: browser
+        source: https://www.klm.co.uk/information/refund-compensation/cash-refund
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: EU Regulation 261/2004 (Article 8) requires the refund of the ticket within seven days when the passenger chooses reimbursement after a cancellation.
+        issues: [flight_cancellation, refund_request]
+        source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+        last_verified: 2026-11-19
+
+  - issue: denied_boarding
+    summary: If you are bumped against your will, KLM owes EU261 compensation and a choice of refund or rerouting.
+    evidence: [boarding pass, booking code, ticket number, written denied boarding notice, arrival time of the new flight]
+    steps:
+      - do: If you are denied boarding involuntarily, ask the agent for the compensation and for a refund or rerouting.
+      - do: If you were not compensated, submit the claim form.
+        channel: claim-form
+      - do: If KLM still does not pay, complain to the National Enforcement Body.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: compensation
+        claim: KLM's General Conditions of Carriage (Article 13.1) say that if KLM denies boarding to a passenger with a valid ticket who arrived for check-in and boarding on time, it grants the compensation provided by the applicable regulations.
+        issues: [denied_boarding]
+        verified_via: browser
+        source: https://www.klm.co.uk/information/legal/conditions-carriage
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: EU Regulation 261/2004 (Article 7) sets compensation of EUR 250 for flights of 1,500 km or less, EUR 400 for intra-EU flights over 1,500 km and other flights of 1,500 to 3,500 km, and EUR 600 for other flights.
+        issues: [denied_boarding]
+        source: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0261
+        last_verified: 2026-11-19
+
+  - issue: delayed_baggage
+    summary: Report the missing bag at the airport or online and keep the PIR file reference; claim essential purchases within 21 days of getting the bag.
+    evidence: [PIR file reference number, baggage tag, booking code, boarding pass, receipts for toiletries and replacement clothing]
+    steps:
+      - do: Report the bag at the baggage desk before leaving the airport, or online (the page says within 7 days of arrival; the FAQ says 48 hours, so report as early as you can). UK arrival airports must use the desk.
+        channel: missing-baggage-report
+      - do: From 24 hours after the report, follow it with your last name and file reference, and update the delivery address.
+        channel: baggage-tracker
+      - do: Within 21 days of receiving the bag, request compensation for reasonable, essential purchases, with copies of receipts.
+        channel: claim-form
+      - do: If you need help, use WhatsApp or Messenger.
+        channel: whatsapp
+      - do: If KLM does not answer, ask the European Consumer Centre in your country for help.
+        regulator: eu-ecc-net
+    facts:
+      - kind: deadline
+        claim: KLM's baggage compensation page says to submit a request for reasonable, essential purchases made because of a delayed bag within 21 days of receiving your baggage, with copies of receipts. KLM considers the length and purpose of the trip, the climate, how long you were without the bag, and whether the items were immediately necessary.
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://www.klm.co.uk/information/refund-compensation/baggage-compensation
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: KLM's General Conditions of Carriage (Article 20.1) require a written complaint within 7 days from the date of receipt for damaged checked baggage, and within 21 days from the date the baggage was placed at the passenger's disposal for delay; otherwise no action lies against KLM, except for fraud. Article 20.2 sets a two-year limit to bring an action.
+        issues: [delayed_baggage, damaged_baggage, lost_baggage]
+        verified_via: browser
+        source: https://www.klm.co.uk/information/legal/conditions-carriage
+        last_verified: 2026-11-19
+
+  - issue: lost_baggage
+    summary: If the bag is not back within 21 days, contact the KLM Customer Contact Centre to agree the next steps, such as a claim.
+    evidence: [PIR file reference number, baggage tag, booking code, list of contents with values, receipts]
+    steps:
+      - do: Make sure the bag was reported (PIR) and follow it in the tracker.
+        channel: baggage-tracker
+      - do: If the bag has not been found within 21 days, contact KLM to discuss the next steps, such as submitting a claim.
+        channel: service-line-nl
+      - do: Submit the claim with the contents list and receipts.
+        channel: claim-form
+      - do: If KLM does not answer, ask the European Consumer Centre in your country for help.
+        regulator: eu-ecc-net
+    facts:
+      - kind: policy
+        claim: KLM says that if you did not get your suitcase back within 21 days after the arrival of your flight, you should contact KLM, and that one outcome may be a recommendation to contact your insurance company. KLM says it has no set amount for lost baggage.
+        issues: [lost_baggage]
+        verified_via: browser
+        source: https://www.klm.co.uk/information/refund-compensation/baggage-compensation
+        last_verified: 2026-11-19
+
+  - issue: damaged_baggage
+    summary: Report damage at the airport baggage desk, or online within 7 days of receiving the bag.
+    evidence: [damage report from the baggage desk, photos, baggage tag, booking code, repair estimate or receipts]
+    steps:
+      - do: Report serious damage at the baggage desk as soon as possible. You get a report for the claim and, if applicable, repair shop information.
+      - do: If you found the damage after leaving the airport, report it and request compensation online within 7 days of receiving the bag.
+        channel: claim-form
+      - do: If KLM does not answer, ask the European Consumer Centre in your country for help.
+        regulator: eu-ecc-net
+    facts:
+      - kind: deadline
+        claim: KLM says that if you discover damage after leaving the airport, you have 7 days from the day you received the bag to submit a compensation request, and that it is not liable for scratches, marks, minor dents and other signs of normal handling.
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://www.klm.co.uk/information/refund-compensation/baggage-compensation
+        last_verified: 2026-11-19
+
+facts:
+  - kind: policy
+    claim: KLM's compensation page says the voucher number has 13 digits starting with 074, the voucher is valid for 1 year, and it can be used for KLM, Air France, Delta Air Lines or Virgin Atlantic tickets and extra options. A refundable (cash) voucher can be exchanged for cash within one year of receiving it.
+    issues: [travel_credit, flight_delay, flight_cancellation]
+    verified_via: browser
+    source: https://www.klm.co.uk/information/refund-compensation/compensation
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: KLM's passenger rights page says that to claim compensation without paying a handling fee to a third party, the European Commission advises passengers to contact the carrier directly and not submit the claim through a claim agency.
+    issues: [flight_delay, flight_cancellation, denied_boarding]
+    verified_via: browser
+    source: https://www.klm.co.uk/information/legal/passenger-rights
+    last_verified: 2026-11-19
+  - kind: fee
+    claim: KLM's General Conditions of Carriage (Article 14.1) say booking fees, service fees and payment surcharges are non-refundable whatever the ticket conditions; with a non-refundable ticket you can request a refund of unused airport tax, but not carrier-imposed international surcharges.
+    issues: [refund_request]
+    verified_via: browser
+    source: https://www.klm.co.uk/information/legal/conditions-carriage
+    last_verified: 2026-11-19
+  - kind: contact
+    claim: KLM's UK complaint contact topic says that if you already made a request and are unsatisfied with the response, you can contact AviationADR through its website (https://www.cdrl.org.uk/) or by email at aviation@cdrl.org.uk.
+    issues: [flight_delay, flight_cancellation, poor_service]
+    verified_via: browser
+    source: https://www.klm.co.uk/contact/topic/refund-compensation/subtopic/complaint
+    last_verified: 2026-11-19
+
+official_domains: [klm.co.uk, klm.nl, klm.com, klm-info.com, klm-mail.com, klm-email.com, account-klm.com, infos-klm.com, ici-klm.com, airfranceklm.com, connect-passengers.com, static-kl.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: KLM says its commercial emails will never ask for personal details in response and redirect you to the KLM website to complete any action, and that genuine trip emails always contain information you recognize, such as your reservation number or Flying Blue number.
+      verified_via: browser
+      source: https://www.klm.co.uk/information/legal/privacy-and-security
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: KLM advises against searching for the airline's phone number online, because you may land on a fake website with a fraudulent call centre. Use only the official websites.
+      verified_via: browser
+      source: https://www.klm.co.uk/information/legal/privacy-and-security
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: KLM says fake contest emails are not from KLM, for example from reply@blue55.squadrupee.com (links to blue13.squadrupee.com) and from advertentie@deltrk.com (links to trk.lasurk.com or giveaways-web.com).
+      verified_via: browser
+      source: https://www.klm.co.uk/information/legal/privacy-and-security
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: KLM warns of misleading campaigns on social media, including WhatsApp, that offer free or reduced-fare tickets ("Like and Win"), and advises not to take part in campaigns not published on KLM's verified social media accounts.
+      verified_via: browser
+      source: https://www.klm.co.uk/information/legal/privacy-and-security
+      last_verified: 2026-11-19
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Report fake KLM emails (send the original email as an attachment)
+      value: abuse.domains@klm.com
+      notes: KLM says it will not reply to messages sent to this address.
+      verified_via: browser
+      source: https://www.klm.co.uk/information/legal/privacy-and-security
+      last_verified: 2026-11-19
+
+known_blockers:
+  - The claim, refund and baggage forms need the booking code and passenger name (or a sign-in); the tracker needs the PIR file reference number and last name.
+  - A refund request cancels all flights in the booking at once.
+  - Online delayed baggage reports are not available for arrivals at most UK airports (London Heathrow, London City, Manchester, Edinburgh and others); report at the airport baggage desk.
+  - KLM's website terms of use prohibit using robots, screen scraping or other automatic means to retrieve website content for direct or indirect commercial use without KLM's written consent.
+  - Plain HTTP fetches of klm.co.uk timed out; the pages load in a browser.
+
+notes: >-
+  Checked on 2026-11-19 by loading www.klm.co.uk and www.klm.nl/en in a browser (plain fetches timed out). Phones are
+  printed with unusual grouping ("+31 20 47 47 747", "+44 20 76 60 02 93", "00 800-55 62 27 37") and converted here;
+  the KLM Cares number is shown under "KL - United Kingdom" but labelled "Toll-free from Netherlands". Conflict: the
+  delayed baggage page says to report online "within 7 days after your arrival", while its FAQ says "within 48 hours"
+  twice. KLM's compensation page says compensation is paid as a travel voucher (EMD), either non-refundable or cash;
+  the cash type can be exchanged for money. KLM's General Conditions of Carriage (global version updated 15 April 2026)
+  have no third-party claim clause like Air France's Article 12.3. KLM's own privacy page gives
+  DataProtectionOfficer@KLM.com; Air France's privacy page gives KLMPrivacyOffice@klm.com for KLM. KLM's list of
+  genuine sender addresses also contains addresses with a capital I in place of the l in "klm" (for example
+  kIm-mail.com); these look-alike domains are not in official_domains.

@@ -35,6 +35,14 @@ regulators:
   - {id: uk-energy-ombudsman, name: "Energy Ombudsman (Trust Alliance Group, Ofgem-approved ADR scheme)"}
   - {id: uk-citizens-advice, name: "Citizens Advice consumer service"}
 
+  # European Union and member states
+  - {id: eu-air-passenger-nebs, name: "National Enforcement Bodies for EU air passenger rights (Regulation (EC) No 261/2004)"}
+  - {id: eu-ecc-net, name: "European Consumer Centres Network (ECC-Net)"}
+  - {id: de-sruv, name: "Schlichtungsstelle Reise & Verkehr e.V. (Germany; formerly söp)"}
+  - {id: de-bfj-luftverkehr, name: "Schlichtungsstelle Luftverkehr beim Bundesamt für Justiz (Germany)"}
+  - {id: fr-mtv, name: "Médiation Tourisme et Voyage (France)"}
+  - {id: es-aesa, name: "Agencia Estatal de Seguridad Aérea, AESA (Spain)"}
+
 sectors:
   - id: airline
     name: Airlines

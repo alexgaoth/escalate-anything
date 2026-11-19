@@ -1,0 +1,32 @@
+id: eu
+name: European Union
+kind: bloc
+members: [at, be, bg, hr, cy, cz, dk, ee, fi, fr, de, gr, hu, ie, it, lv, lt, lu, mt, nl, pl, pt, ro, sk, si, es, se]
+associated: [is, "no", ch]
+languages: [bg, hr, cs, da, nl, en, et, fi, fr, de, el, hu, ga, it, lv, lt, mt, pl, pt, ro, sk, sl, es, sv]
+currency: EUR (21 of the 27 members use the euro; Czechia, Denmark, Hungary, Poland, Romania and Sweden keep their own currency)
+status: in_progress
+maintainers: []
+how_complaints_work: >-
+  Complain to the company first, in writing, and keep the reference. For air travel, use the airline's EU261 claim or
+  complaint form; Your Europe says to wait up to 2 months for a reply. If the airline refuses or does not answer,
+  complain to the National Enforcement Body (NEB) of the country where the incident happened (regulators/eu-air-passenger-nebs),
+  or to an approved dispute resolution body where one exists (for example Schlichtungsstelle Reise & Verkehr in Germany,
+  Médiation Tourisme et Voyage in France, AESA in Spain, whose decisions bind airlines). When the company is based in
+  another EU country, Iceland or Norway, the European Consumer Centre in your country of residence helps for free
+  (regulators/eu-ecc-net). A card chargeback can recover a refund that is owed. The last rung is court: the European
+  Small Claims Procedure for cross-border claims up to EUR 5,000 (rules/eu-small-claims-procedure), or the national
+  court. Time limits for EU261 claims are set by national law until 23 October 2027.
+notes: >-
+  Members: the 27 EU countries as listed on european-union.europa.eu (ISO code gr for Greece, which the EU writes as EL).
+  Languages: the 24 official EU languages (https://european-union.europa.eu/principles-countries-history/languages_en).
+  Currency: https://european-union.europa.eu/institutions-law-budget/euro/countries-using-euro_en (Bulgaria joined the
+  euro area in 2026). associated: Your Europe says EU air passenger rules (Regulation 261/2004) also apply to flights to
+  and from Iceland, Norway and Switzerland (https://europa.eu/youreurope/citizens/travel/passenger-rights/air/index_en.htm).
+  Liechtenstein is in the EEA but has no airport and was not verified, so it is not listed. Caution: the registry applies
+  every eu rule and eu regulator to associated countries, but not every rule applies there: the European Small Claims
+  Procedure is EU-only (and not in Denmark), and ECC-Net covers Iceland and Norway but not Switzerland. EU outermost
+  regions (Guadeloupe, French Guiana, Martinique, Mayotte, Réunion, Saint-Martin, the Azores, Madeira, the Canary Islands)
+  are in scope of EU261; the Faeroe Islands are not.
+source: https://european-union.europa.eu/principles-countries-history/eu-countries_en
+last_verified: 2026-11-19

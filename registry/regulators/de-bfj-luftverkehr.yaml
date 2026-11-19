@@ -1,0 +1,161 @@
+id: de-bfj-luftverkehr
+name: Schlichtungsstelle Luftverkehr beim Bundesamt für Justiz
+short_name: BfJ Schlichtungsstelle Luftverkehr
+country: de
+level: ombudsman
+covers_sectors: [airline]
+covers_issues:
+  - flight_cancellation
+  - flight_delay
+  - denied_boarding
+  - delayed_baggage
+  - lost_baggage
+  - damaged_baggage
+  - accessibility
+website: https://www.bundesjustizamt.de/DE/Themen/Verbraucherrechte/Schlichtungsstellen/Luftverkehr/Luftverkehr_node.html
+when_to_use: >-
+  Germany's federal fallback conciliation body for air passenger payment claims against an airline that is not a member
+  of a recognised private conciliation body, which in practice means not a member of the Schlichtungsstelle Reise &
+  Verkehr (de-sruv). Of the 12 big EU airlines, Iberia, Vueling and Aer Lingus are not on that member list, so a claim
+  against them goes here; claims against members are forwarded to de-sruv. Use it after you claimed directly from the
+  airline and the airline rejected the claim or did not settle it within two months. You must have booked the flight
+  privately (as a consumer), the claim must be between 10.01 and 5,000 euros, German courts must have jurisdiction, and
+  the claim must not be in court, with another conciliation body or already settled. Free for passengers, except a
+  30-euro fee for an abusive application. The proposal binds no one: both sides may accept or reject it, and you can go
+  to court afterwards. Airlines do not have to take part, and in 2025 a case took about 10 months on average.
+
+channels:
+  - id: application-form
+    type: web_form
+    label: Online conciliation application (Schlichtungsantrag)
+    value: https://formulare.bfj.bund.de/ffw/action/invoke.do?id=Schlichtungsantrag
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, accessibility]
+    access: open
+    notes: >-
+      Linked as "Schlichtungsantrag" from the BfJ contact page. The form runs on the Lucom Interaction Platform and needs
+      JavaScript and session cookies; its header offers Deutsch, English, Nederlands and français. Attach at least the
+      ticket or booking confirmation, your claim to the airline and any reply; for baggage, also the list of damage, the
+      damage report and receipts. To claim for fellow travellers you need a power of attorney from each, and for a minor
+      the consent of everyone with custody. If you get no confirmation within two weeks, phone to check that it arrived.
+    source: https://www.bundesjustizamt.de/DE/Themen/Verbraucherrechte/Schlichtungsstellen/Luftverkehr/Kontakt/Kontakt_node.html
+    last_verified: 2026-11-19
+  - id: hotline
+    type: phone
+    label: Schlichtungsstelle Luftverkehr hotline
+    value: +49-228-99-410-6120
+    notes: >-
+      Printed as "+49 228 99 410-6120" on the contact page; the 2025 activity report prints "+49 228 410 6120". No hours are
+      given. For questions about applying and the procedure. The BfJ asks you not to make status inquiries. Without
+      internet access you can ask for the paper form by phone, post or fax.
+    source: https://www.bundesjustizamt.de/DE/Themen/Verbraucherrechte/Schlichtungsstellen/Luftverkehr/Kontakt/Kontakt_node.html
+    last_verified: 2026-11-19
+  - id: email
+    type: email
+    label: Schlichtungsstelle Luftverkehr email
+    value: luftverkehr@bfj.bund.de
+    source: https://www.bundesjustizamt.de/DE/Themen/Verbraucherrechte/Schlichtungsstellen/Luftverkehr/Kontakt/Kontakt_node.html
+    last_verified: 2026-11-19
+  - id: fax
+    type: fax
+    label: Schlichtungsstelle Luftverkehr fax
+    value: +49-228-410-6121
+    notes: Printed as "+49 228 410-6121". The 2025 activity report says applications arrive by post, fax or electronically.
+    source: https://www.bundesjustizamt.de/DE/Themen/Verbraucherrechte/Schlichtungsstellen/Luftverkehr/Kontakt/Kontakt_node.html
+    last_verified: 2026-11-19
+  - id: mail
+    type: mail
+    label: Postal address
+    value: Bundesamt für Justiz, Schlichtungsstelle Luftverkehr, 53094 Bonn, Germany
+    notes: Without internet access, ask for the paper application form by post, phone or fax.
+    source: https://www.bundesjustizamt.de/DE/Themen/Verbraucherrechte/Schlichtungsstellen/Luftverkehr/Kontakt/Kontakt_node.html
+    last_verified: 2026-11-19
+
+facts:
+  - kind: policy
+    claim: >-
+      Under § 57a LuftVG, passengers can call on the conciliation body at the Bundesamt für Justiz for claims under
+      § 57b (1) against airlines that do not take part in the procedure of a recognised private conciliation body under
+      § 57. The BfJ body is a consumer conciliation body under the VSBG.
+    source: https://www.gesetze-im-internet.de/luftvg/__57a.html
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The BfJ does not publish a list of airlines it handles. Its FAQ says to check the published member list of the
+      Schlichtungsstelle Reise & Verkehr e.V. to see whether conciliation with your airline is possible there. The 2025
+      activity report says the BfJ body handles only airlines that have not joined the Schlichtungsstelle Reise und
+      Verkehr e.V., and it forwarded 86 applications to another conciliation body in 2025.
+    source: https://www.bundesjustizamt.de/DE/Themen/Verbraucherrechte/Schlichtungsstellen/Luftverkehr/Fragen/Fragen_node.html
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      § 57b LuftVG covers consumer payment claims of up to 5,000 euros for denied boarding, delay, downgrading or
+      cancellation; destroyed, damaged, lost or delayed baggage; items the passenger carries; and breaches of duty towards
+      disabled passengers and passengers with reduced mobility. Conciliation is not possible if German courts have no
+      jurisdiction, the claim is in court or was already raised with an air conciliation body, the application is abusive,
+      or the claim is 10 euros or less.
+    source: https://www.gesetze-im-internet.de/luftvg/__57b.html
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      You must first make the claim directly to the airline. A two-month waiting period applies, unless the airline
+      rejects the claim before then. There is no fixed deadline to apply, but filing stops the limitation period only if
+      the application is admissible and is forwarded to the airline.
+    source: https://www.bundesjustizamt.de/DE/Themen/Verbraucherrechte/Schlichtungsstellen/Luftverkehr/Fragen/Fragen_node.html
+    last_verified: 2026-11-19
+  - kind: fee
+    claim: >-
+      As a passenger you generally pay nothing; the airline pays the procedure fee. In exceptional cases, for example if
+      you had already settled with the airline, you can be charged an abuse fee of 30 euros.
+    source: https://www.bundesjustizamt.de/DE/Themen/Verbraucherrechte/Schlichtungsstellen/Luftverkehr/Schlichtungsverfahren/Schlichtungsverfahren_node.html
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      The conciliation proposal is not binding. Both parties are free to accept or reject it. If both accept, there is a
+      binding settlement, but it is not an enforceable title. If either rejects it, you receive a certificate under
+      § 15a EGZPO and can take the claim to court.
+    source: https://www.bundesjustizamt.de/DE/Themen/Verbraucherrechte/Schlichtungsstellen/Luftverkehr/Fragen/Fragen_node.html
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      The language of the procedure is generally German; the parties may agree on another language in an individual
+      case. The 2025 activity report says some passengers and international airlines communicate with the body in English.
+    source: https://www.bundesjustizamt.de/DE/Themen/Verbraucherrechte/Schlichtungsstellen/Luftverkehr/Schlichtungsverfahren/Schlichtungsverfahren_node.html
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      The 2025 activity report says the airline has four weeks to comment after the application is forwarded, the
+      passenger then has two weeks to reply, the body aims to send a proposal within 90 days after the file is complete
+      (not always met in 2025), and both sides then have four weeks to accept. A procedure took about 10 months on
+      average in 2025.
+    verified_via: document
+    source: https://www.bundesjustizamt.de/SharedDocs/Downloads/DE/Luftverkehr/Taetigkeitsbericht_2025.pdf?__blob=publicationFile&v=2
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      In 2025 the body received 5,521 applications against 124 airlines. Airlines took an active part in about one third
+      of the procedures; 1,927 proposals were based only on the passenger's account. Of 2,409 procedures ended after a
+      proposal, 312 ended in agreement and 2,097 without agreement (1,698 accepted only by the passenger).
+    verified_via: document
+    source: https://www.bundesjustizamt.de/SharedDocs/Downloads/DE/Luftverkehr/Taetigkeitsbericht_2025.pdf?__blob=publicationFile&v=2
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      Claims against tour operators under package travel law, against travel intermediaries such as online booking
+      portals or travel agencies, and claims after the passenger cancelled the flight are outside this conciliation.
+    verified_via: document
+    source: https://www.bundesjustizamt.de/SharedDocs/Downloads/DE/Luftverkehr/Taetigkeitsbericht_2025.pdf?__blob=publicationFile&v=2
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Send at least copies of the ticket or booking confirmation, your claim to the airline and any reply. For baggage,
+      add the list of damage, the damage report and receipts. If you do not send requested information within the
+      deadline the conciliator sets, the application is deemed withdrawn (§ 11 LuftSchlichtV).
+    source: https://www.bundesjustizamt.de/DE/Themen/Verbraucherrechte/Schlichtungsstellen/Luftverkehr/Fragen/Fragen_node.html
+    last_verified: 2026-11-19
+
+notes: >-
+  Still active: the BfJ pages load and the 2025 activity report (the tenth) is published. The body started work on
+  1 November 2013 and became a recognised consumer conciliation body on 1 April 2016; online applications started on
+  19 October 2020. The BfJ English site has no English version of this page. Legal basis §§ 57a and 57b LuftVG and the
+  Luftverkehrsschlichtungsverordnung (LuftSchlichtV). Checked by loading bundesjustizamt.de, gesetze-im-internet.de and
+  the Tätigkeitsbericht 2025 PDF on 2026-11-19.

@@ -1,0 +1,441 @@
+id: ryanair
+name: Ryanair
+aliases: [ryanair dac, ryanair uk, malta air, lauda europe, ryanair sun, ryanair.com]
+sector: airline
+parent: Ryanair Holdings plc
+website: https://www.ryanair.com/ie/en
+account_url: https://www.ryanair.com/ie/en/myryanair/home
+countries: [eu, ie, gb]
+regulators: [eu-air-passenger-nebs, eu-ecc-net, de-sruv, fr-mtv, es-aesa]
+
+channels:
+  - id: chat
+    type: chat
+    label: Live chat (Molli chatbot 24/7, agents 7 days a week)
+    value: https://www.ryanair.com/ie/en/lp/chat
+    hours: Chatbot 24/7; agents Monday-Friday 08:00-20:00 GMT, Saturday and Sunday 09:00-18:00 GMT
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, poor_service, delayed_baggage]
+    notes: >-
+      You need the booking number, and the details you give must match the booking exactly. Ryanair says mornings and
+      late afternoons have long waits and suggests 11:00-15:00 GMT. The phone pages send queries made more than 30 days
+      before departure to chat.
+    verified_via: browser
+    source: https://help.ryanair.com/hc/en-ie/articles/12892454290321-Let-s-Chat
+    last_verified: 2026-11-19
+  - id: phone-ireland
+    type: phone
+    label: Customer service, Ireland
+    value: +353-1-691-7177
+    hours: Monday-Friday 08:00-20:00 GMT; Saturday and Sunday 09:00-18:00 GMT
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, poor_service]
+    notes: >-
+      Printed as "+353 1 691 7177"; calls are charged at local call rates and mobiles may cost more. Call from the
+      mobile number used on the booking (update it in myRyanair if needed) and have the booking reference ready.
+      Bookings or changes made through the contact centre cost more if they could have been made online.
+    verified_via: browser
+    source: https://help.ryanair.com/hc/en-ie/articles/12893510195345-Call-Us-Ireland
+    last_verified: 2026-11-19
+  - id: phone-uk
+    type: phone
+    label: Customer service, United Kingdom
+    value: +44-113-868-4151
+    hours: Monday-Friday 08:00-20:00 GMT; Saturday and Sunday 09:00-18:00 GMT
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, poor_service]
+    notes: Printed as "+44 113 868 4151"; charged at local call rates, mobiles may cost more. Same calling conditions as the Ireland line.
+    verified_via: browser
+    source: https://help.ryanair.com/hc/en-gb/articles/16113200464401-Call-Us-UK
+    last_verified: 2026-11-19
+  - id: phone-international
+    type: phone
+    label: Customer service, international line (English, French, Spanish, Polish, Italian)
+    value: +353-1-697-1368
+    hours: English Monday-Friday 08:00-20:00 GMT, Saturday and Sunday 09:00-18:00 GMT; other languages Monday-Friday 08:00-17:00 GMT, Saturday and Sunday 09:00-16:00 GMT
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request, poor_service]
+    notes: Printed as "+35316971368" and "+353 1697 1368". Calls are charged at local or international rates depending on your location. Ryanair's country list sends Malta to this line.
+    verified_via: browser
+    source: https://help.ryanair.com/hc/en-ie/articles/13229005889297-Call-Us-International-English
+    last_verified: 2026-11-19
+  - id: eu261-claim-form
+    type: web_form
+    label: EU261 compensation claim (myRyanair)
+    value: https://www.ryanair.com/ie/en/myryanair/requests/new/eu-261
+    purposes: [flight_delay, flight_cancellation, denied_boarding]
+    access: login
+    notes: >-
+      Redirects to the myRyanair login. The claimant must verify that they are a named passenger on the booking by
+      confirming their travel document; claims for family or friends must be made through their own myRyanair account.
+      A UK-site version of the link (/gb/en/myryanair/requests/new/eu-261) also appears in the help centre.
+    verified_via: browser
+    source: https://help.ryanair.com/hc/en-ie/articles/12889869090705-If-my-flight-has-been-delayed-by-2-hours-or-more-What-are-my-options
+    last_verified: 2026-11-19
+  - id: eu261-expenses-form
+    type: web_form
+    label: EU261 expenses claim (meals, hotel, transport) in myRyanair
+    value: https://www.ryanair.com/ie/en/myryanair/requests/new/eu-261/expenses
+    purposes: [flight_delay, flight_cancellation, denied_boarding]
+    access: login
+    notes: >-
+      Submit itemised receipts for reasonable expenses when Ryanair could not provide care. Compensation and expense
+      requests are submitted and reviewed separately. One help article links the old form
+      https://onlineform.ryanair.com/ie/en/eu-261 for expenses; it now redirects to the myRyanair login.
+    verified_via: browser
+    source: https://help.ryanair.com/hc/en-ie/articles/12889869090705-If-my-flight-has-been-delayed-by-2-hours-or-more-What-are-my-options
+    last_verified: 2026-11-19
+  - id: refund-application-form
+    type: web_form
+    label: Refund Application Form (cancelled flight, or delay over 5 hours and not travelling)
+    value: https://refundclaims.ryanair.com/
+    purposes: [flight_cancellation, flight_delay, refund_request]
+    access: captcha
+    notes: >-
+      No sign-in. Asks for the reason (flight cancelled, or delayed more than 5 hours and you will not travel), the
+      reservation number, the airline code (FR, RK, AL or LW), the affected flight number and date, name and email, and
+      whether to refund all passengers and flights or only some. An "Enter the code shown" check is at the end. Only one
+      online application is accepted per booking.
+    verified_via: browser
+    source: https://help.ryanair.com/hc/en-ie/articles/12889869090705-If-my-flight-has-been-delayed-by-2-hours-or-more-What-are-my-options
+    last_verified: 2026-11-19
+  - id: my-bookings
+    type: portal
+    label: My Bookings (refund, free change or reroute after a cancellation)
+    value: https://www.ryanair.com/ie/en/lp/check-in
+    purposes: [flight_cancellation, refund_request]
+    access: login
+    notes: The cancellation email also has a refund link. If you cannot find the email, open the booking in My Bookings in your myRyanair account.
+    verified_via: browser
+    source: https://help.ryanair.com/hc/en-ie/articles/12896712186385-How-do-I-apply-for-a-refund-in-case-of-a-flight-disruption
+    last_verified: 2026-11-19
+  - id: feedback-form
+    type: web_form
+    label: Queries/Feedback form (complaints)
+    value: https://www.ryanair.com/ie/en/myryanair/feedback
+    purposes: [poor_service, unauthorized_charge, accessibility, refund_request]
+    access: login
+    notes: Redirects to the myRyanair login. Ryanair says it responds within 10 working days. The help centre also sends complaints about airport charges and Assisted Travel here.
+    verified_via: browser
+    source: https://help.ryanair.com/hc/en-ie/articles/12893304387217-Queries-Feedback
+    last_verified: 2026-11-19
+  - id: support-cases
+    type: portal
+    label: My support cases (status of claims, refunds and queries)
+    value: https://www.ryanair.com/ie/en/myryanair/cases
+    purposes: [refund_request, flight_delay, flight_cancellation, delayed_baggage, lost_baggage, damaged_baggage]
+    access: login
+    notes: Shows the status, updates and replies for each case, and lets you respond to Ryanair in the case.
+    verified_via: browser
+    source: https://help.ryanair.com/hc/en-ie/articles/12896502386193-How-can-I-check-the-status-of-my-refund
+    last_verified: 2026-11-19
+  - id: baggage-claim-form
+    type: web_form
+    label: Baggage claim (lost, delayed, damaged checked bags and mobility equipment) in myRyanair
+    value: https://www.ryanair.com/ie/en/myryanair/requests
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage, accessibility]
+    access: login
+    notes: Needs the 10-character file reference from the Property Irregularity Report (PIR) issued at the arrival airport, for example STNFR12345. Claims cannot be processed without a PIR.
+    verified_via: browser
+    source: https://help.ryanair.com/hc/en-ie/articles/12889976112529-How-do-I-claim-for-lost-damaged-delayed-bags
+    last_verified: 2026-11-19
+  - id: bag-tracker
+    type: portal
+    label: Bag tracing (WorldTracer)
+    value: https://mybag.aero/baggage/#/ryanair/en-gb/main-menu
+    purposes: [delayed_baggage, lost_baggage]
+    notes: Track the bag with the 10-character PIR file reference. Reporting at the airport does not count as a claim.
+    verified_via: browser
+    source: https://help.ryanair.com/hc/en-ie/articles/12889968852113-How-do-I-report-my-bags-as-lost-or-damaged
+    last_verified: 2026-11-19
+  - id: assisted-travel-phone
+    type: phone
+    label: Assisted Travel team
+    value: +353-1-691-7985
+    hours: Monday-Friday 09:00-22:00 CET; Saturday 09:00-19:00 CET; Sunday 10:00-19:00 CET
+    purposes: [accessibility]
+    notes: Printed as "+353 1 691 7985"; calls charged at local rate, mobiles may cost more. Assisted Travel chat is free at https://www.ryanair.com/ie/en/lp/chat?dep=sa. Complaints about Assisted Travel go through the Queries/Feedback form.
+    verified_via: browser
+    source: https://help.ryanair.com/hc/en-ie/articles/12889291387921-Assisted-Travel-Queries
+    last_verified: 2026-11-19
+  - id: gov-tax-refund-form
+    type: web_form
+    label: Government tax refund request (unused flight)
+    value: https://www.ryanair.com/ie/en/myryanair/requests/new/gov-tax
+    purposes: [refund_request]
+    access: login
+    notes: Only if government taxes were included in the fare. Apply within one month of the flight's departure date. The General Terms say a government tax refund administration fee applies.
+    verified_via: browser
+    source: https://help.ryanair.com/hc/en-ie/articles/12896217914129-Am-I-entitled-to-a-refund-of-Government-Tax
+    last_verified: 2026-11-19
+  - id: ota-customer-verification
+    type: web_form
+    label: Customer verification for bookings made through an online travel agent
+    value: https://onlineform.ryanair.com/ie/en/customer-verification
+    purposes: [refund_request, flight_cancellation]
+    notes: >-
+      For bookings made through a third-party agent with no commercial relationship with Ryanair. Needs the Ryanair
+      booking reference, the name on the reservation, an ID or passport and a front-facing camera. Standard
+      verification is free; Express verification (GetID facial recognition) costs £/€0.59. After verification Ryanair
+      pays refunds directly to you. One refund article links a different form
+      (https://onlineform.ryanair.com/ie/en/contact-us-ota), which was not checked.
+    verified_via: browser
+    source: https://help.ryanair.com/hc/en-ie/articles/12896664457873-How-long-will-it-take-for-my-refund-to-be-paid
+    last_verified: 2026-11-19
+  - id: data-access-request-form
+    type: web_form
+    label: Data access request form
+    value: https://privacyportal-de.onetrust.com/webform/e12acd0a-fa4e-45df-999a-2d2066658f49/22fc437a-98d6-40a3-adef-5ed53e74d0ce
+    purposes: [privacy_request]
+    notes: Hosted by OneTrust for Ryanair. Needs a copy of photo ID (passport or national ID) and email verification. Ryanair responds within one month, extendable by up to two months for complex requests.
+    verified_via: browser
+    source: https://help.ryanair.com/hc/en-ie/articles/32150656041617-How-Can-I-Access-my-Personal-Data
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: chat}
+  - {rung: written_complaint, channel: eu261-claim-form, note: "Compensation claims; expenses go through eu261-expenses-form."}
+  - {rung: written_complaint, channel: feedback-form, note: "Other complaints; Ryanair says it replies within 10 working days."}
+  - {rung: regulator, regulator: eu-air-passenger-nebs, note: "National Enforcement Body of the country where the incident happened (departure airport; for flights into the EU on an EU carrier, the arrival airport). See regulators/eu-air-passenger-nebs."}
+  - {rung: regulator, regulator: de-sruv, note: "The Schlichtungsstelle Reise & Verkehr member list (Stand: 19. Oktober 2026) names 'Ryanair DAC' and 'Malta Air Limited'. Ryanair's own ADR page also lists SRUV for Germany, all topics. Free conciliation for flights to or from Germany or for a passenger in Germany, after you have complained to Ryanair first. See regulators/de-sruv."}
+  - {rung: regulator, regulator: fr-mtv, note: "Listed as 'RYANAIR (also RYANAIR – MALTA AIR)' among the airline members of Médiation Tourisme et Voyage (member list read 2026-11-19). After a written complaint with a negative answer or no answer within 60 days; apply within 12 months of the first written complaint. Free; the opinion binds neither side."}
+  - {rung: regulator, regulator: es-aesa, note: "For a flight that departed from Spain, or flew to Spain from outside the EU on an EU airline, from 2 June 2023: AESA's dispute resolution is mandatory for every airline and its decision binds the airline (not the passenger). Claim from the airline first; if it does not answer within one month or you reject the answer, file with AESA within one year of that claim. Not for baggage."}
+  - {rung: regulator, regulator: eu-ecc-net, note: "Free help from the European Consumer Centre in your country when the airline is based in another EU country, Iceland or Norway."}
+  - {rung: payment_dispute, note: "Card chargeback for a refund the airline owes but has not paid."}
+  - {rung: small_claims, note: "European Small Claims Procedure for cross-border claims up to EUR 5,000 (rules/eu-small-claims-procedure); otherwise the national court. Time limits for EU261 claims are set by national law."}
+
+playbooks:
+  - issue: flight_delay
+    summary: If you arrive 3 or more hours late, check and claim compensation in myRyanair; claim expenses separately. If the delay is 5 hours or more and you decide not to fly, apply for a refund.
+    evidence: [booking reference, flight number and date, scheduled and actual arrival times, itemised receipts, travel document for identity verification]
+    steps:
+      - do: At the airport, take the assistance offered (meal coupons; hotel and transport if the delay runs to the next day). If care is not offered, keep itemised receipts, and contact Ryanair before arranging transport.
+        channel: chat
+      - do: Claim reasonable receipted expenses.
+        channel: eu261-expenses-form
+      - do: Check eligibility and claim compensation. Ryanair says it can take 24-96 hours to establish why a flight was delayed.
+        channel: eu261-claim-form
+      - do: If the delay is 5 hours or more and you choose not to travel, apply for a refund.
+        channel: refund-application-form
+      - do: If you disagree with the decision, contact the ADR body listed for your country; for Germany this is Schlichtungsstelle Reise & Verkehr.
+        regulator: de-sruv
+      - do: Complain to the National Enforcement Body for the departure airport.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: compensation
+        claim: Ryanair's EU261 page states compensation of €250 for flights of 1,500 km or less, €400 for intra-EU flights over 1,500 km and other flights of 1,500-3,500 km, and €600 for non-internal EU flights over 3,500 km, subject to eligibility criteria.
+        issues: [flight_delay, flight_cancellation, denied_boarding]
+        verified_via: browser
+        source: https://help.ryanair.com/hc/en-ie/articles/12891928880401-Regulation-EU261
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Ryanair says it does not pay compensation when the delay or cancellation is due to extraordinary circumstances (it lists adverse weather, de-icing, lightning strikes, runway or airport closure, strike action, air traffic control, bird strike, foreign object debris, external handling difficulties, security and medical emergencies), when a cancellation was notified more than 14 days before departure, or when the arrival delay is less than 3 hours.
+        issues: [flight_delay, flight_cancellation]
+        verified_via: browser
+        source: https://help.ryanair.com/hc/en-ie/articles/12891028627729-Compensation-will-not-be-paid-for-the-following-reasons
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Assistance at the airport, including meal coupons, starts at an expected delay of 2 hours for flights up to 1,500 km and 3 hours for intra-EU flights over 1,500 km and other flights of 1,500-3,500 km. If Ryanair offered care and you made your own arrangements anyway, additional costs may not be reimbursed.
+        issues: [flight_delay]
+        verified_via: browser
+        source: https://help.ryanair.com/hc/en-ie/articles/12889869090705-If-my-flight-has-been-delayed-by-2-hours-or-more-What-are-my-options
+        last_verified: 2026-11-19
+
+  - issue: flight_cancellation
+    summary: Use the refund link in the cancellation email, My Bookings or the refund form; the refund reaches your Ryanair Wallet within 24 hours and can be moved to your card within 5 working days. Compensation is possible if you were told less than 14 days before departure.
+    evidence: [booking reference, cancellation email, flight number and date, receipts for meals, hotel and transport, travel document for identity verification]
+    steps:
+      - do: Choose a refund, a free change to new times or dates on the same route, or re-routing, using the link in the cancellation email or My Bookings.
+        channel: my-bookings
+      - do: If you cannot use My Bookings, apply for the refund on the refund application form (one application per booking).
+        channel: refund-application-form
+      - do: If no suitable Ryanair flight exists, contact Ryanair before making other arrangements; you may be told to rebook yourself and submit receipts.
+        channel: chat
+      - do: If you were told of the cancellation less than 14 days before departure, check and claim compensation.
+        channel: eu261-claim-form
+      - do: Claim meals, hotel and transport you paid for while waiting to be re-routed.
+        channel: eu261-expenses-form
+      - do: If you booked through an online travel agent, complete customer verification so Ryanair can refund you directly.
+        channel: ota-customer-verification
+      - do: If the refund is not paid, complain to the National Enforcement Body, then dispute the card payment.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: deadline
+        claim: If you booked directly on ryanair.com and are entitled to a refund after a disruption, Ryanair pays it into your Ryanair Wallet within 24 hours; when you choose to transfer it, it reaches the original payment method within 5 working days. Refunds for bookings made through an online travel agent may take longer because Ryanair must verify your details first.
+        issues: [flight_cancellation, refund_request]
+        verified_via: browser
+        source: https://help.ryanair.com/hc/en-ie/articles/12896664457873-How-long-will-it-take-for-my-refund-to-be-paid
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Ryanair's General Terms (clause 10.2) say an involuntary refund equals the fare paid for the flight you cannot take plus the associated taxes, fees and charges.
+        issues: [flight_cancellation, refund_request, ancillary_fee_refund]
+        verified_via: browser
+        source: https://www.ryanair.com/ie/en/useful-info/help-centre/terms-and-conditions
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Ryanair says the care entitlements (meals, two calls or emails, hotel and transport) apply if you choose to be re-routed as soon as possible, and do not apply if you choose re-routing at a later date or a refund.
+        issues: [flight_cancellation, flight_delay]
+        verified_via: browser
+        source: https://help.ryanair.com/hc/en-ie/articles/12892190923665-EU261-Care-Entitlements-and-Passenger-Rights
+        last_verified: 2026-11-19
+
+  - issue: denied_boarding
+    summary: Ask ground staff for your rights information, then claim EU261 compensation and expenses in myRyanair.
+    evidence: [booking reference, boarding pass, written confirmation of denied boarding, receipts, arrival time of the new flight]
+    steps:
+      - do: Ask Ryanair staff at the airport for the information on your rights to assistance and compensation.
+      - do: Claim compensation.
+        channel: eu261-claim-form
+      - do: Claim expenses.
+        channel: eu261-expenses-form
+      - do: If Ryanair does not pay, complain to the National Enforcement Body for the departure airport.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: policy
+        claim: Ryanair's General Terms (clause 9.4) say that if Ryanair does not let you board because a space is no longer available, it will compensate you in line with any relevant law and give you information about your rights to practical help and compensation.
+        issues: [denied_boarding]
+        verified_via: browser
+        source: https://www.ryanair.com/ie/en/useful-info/help-centre/terms-and-conditions
+        last_verified: 2026-11-19
+
+  - issue: delayed_baggage
+    summary: Report the bag at the arrival airport's Lost Property desk to get a PIR, then submit a separate claim in myRyanair within 21 days of the date the bag was given back to you.
+    evidence: [Property Irregularity Report with 10-character file reference, bag tag, boarding pass, receipts]
+    steps:
+      - do: Before leaving the arrival airport, report the bag at the Lost Property desk and get the Property Irregularity Report (PIR).
+      - do: Track the bag with the PIR file reference.
+        channel: bag-tracker
+      - do: Submit a documented claim no later than 21 days from the date the bag was placed at your disposal. Reporting at the airport is not a claim.
+        channel: baggage-claim-form
+      - do: Check the claim status in your support cases.
+        channel: support-cases
+      - do: If you disagree with the assessment, contact the ADR body Ryanair lists for your country (for Germany, Schlichtungsstelle Reise & Verkehr).
+        regulator: de-sruv
+    facts:
+      - kind: deadline
+        claim: Ryanair's help centre says a claim for misplaced baggage must be reported at the arrival airport and a documented claim submitted to Ryanair no later than 21 days from the date the baggage was placed at your disposal (limits set by the Montreal Convention 1999 and Ryanair's baggage regulations).
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://help.ryanair.com/hc/en-ie/articles/12890077647889-When-do-I-need-to-make-a-claim
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Ryanair says damaged and delayed baggage claims are processed within 15 working days, and lost baggage claims within 28 working days or once the full tracing process is complete; it contacts you by post or email.
+        issues: [delayed_baggage, lost_baggage, damaged_baggage]
+        verified_via: browser
+        source: https://help.ryanair.com/hc/en-ie/articles/12890116485137-How-do-I-check-the-status-on-my-bag-claim-and-when-will-it-be-paid
+        last_verified: 2026-11-19
+
+  - issue: lost_baggage
+    summary: Report at the arrival airport, keep the PIR, and claim in myRyanair; Ryanair's liability is limited to 1,519 SDR per piece unless you made a special declaration of value.
+    evidence: [PIR with 10-character file reference, bag tag, boarding pass, contents list with values, receipts]
+    steps:
+      - do: Report the missing bag at the arrival airport's Lost Property desk and get the PIR.
+      - do: Submit the claim with the PIR file reference.
+        channel: baggage-claim-form
+      - do: Follow the claim in your support cases.
+        channel: support-cases
+      - do: If Ryanair rejects or underpays the claim, contact the ADR body Ryanair lists for your country (for Germany, Schlichtungsstelle Reise & Verkehr).
+        regulator: de-sruv
+    facts:
+      - kind: limit
+        claim: Ryanair's General Terms (clause 14.4.4) limit liability for loss of or damage to baggage to 1,519 SDR for each piece of baggage, or up to 2,262 SDR if you made a special declaration of interest before check-in and paid the fee.
+        issues: [lost_baggage, damaged_baggage, delayed_baggage]
+        verified_via: browser
+        source: https://www.ryanair.com/ie/en/useful-info/help-centre/terms-and-conditions
+        last_verified: 2026-11-19
+
+  - issue: damaged_baggage
+    summary: Report the damage at the arrival airport to get a PIR, then claim in myRyanair within 7 days.
+    evidence: [PIR with 10-character file reference, photos of the damage, bag tag, boarding pass, repair estimate or receipt]
+    steps:
+      - do: Report the damage at the Lost Property desk at the arrival airport and get the PIR. This also applies to damaged wheelchairs and mobility equipment.
+      - do: Submit the claim within 7 days.
+        channel: baggage-claim-form
+      - do: If you disagree with the assessment, contact the ADR body Ryanair lists for your country (for Germany, Schlichtungsstelle Reise & Verkehr).
+        regulator: de-sruv
+    facts:
+      - kind: deadline
+        claim: Ryanair's help centre says that once damage is reported at the arrival airport, the claim must be submitted to Ryanair within 7 days from the date of damage. The General Terms (clause 15.1.2) say to write within seven days of getting your baggage.
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://help.ryanair.com/hc/en-ie/articles/12890077647889-When-do-I-need-to-make-a-claim
+        last_verified: 2026-11-19
+
+facts:
+  - kind: policy
+    claim: Ryanair says passengers with valid compensation claims should submit them directly through its compensation form to receive 100% of the entitlement, and that claims management companies may deduct up to 50% in fees.
+    issues: [flight_delay, flight_cancellation, denied_boarding]
+    verified_via: browser
+    source: https://help.ryanair.com/hc/en-ie/articles/12890736320529-Claims-Management-Companies
+    last_verified: 2026-11-19
+  - kind: process
+    claim: Ryanair's General Terms (clause 15.2, effective 25 June 2026) require passengers to submit EU261 claims directly and allow 14 days (or less if the law sets less) before engaging a third party; a third-party claim made earlier is processed only if it includes the passenger's contact and payment details so Ryanair can pay the passenger directly, and other third-party claims need documents proving the third party's authority.
+    issues: [flight_delay, flight_cancellation, denied_boarding]
+    verified_via: browser
+    source: https://www.ryanair.com/ie/en/useful-info/help-centre/terms-and-conditions
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Clause 15.3 of Ryanair's General Terms says assignment of a right to compensation, damages or refund is valid only to other passengers on the booking or travel group, or to a guardian; other assignments to third parties are invalid unless required by law, and the clause does not apply to EU261 claims that comply with clauses 15.2.1-15.2.7.
+    issues: [flight_delay, flight_cancellation, denied_boarding]
+    verified_via: browser
+    source: https://www.ryanair.com/ie/en/useful-info/help-centre/terms-and-conditions
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: Ryanair's General Terms say any right to damages under the Montreal Convention 1999 ends if no claim is made within two years of arrival, scheduled arrival, or the date carriage stopped.
+    issues: [delayed_baggage, lost_baggage, damaged_baggage, flight_delay]
+    verified_via: browser
+    source: https://www.ryanair.com/ie/en/useful-info/help-centre/terms-and-conditions
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Ryanair tickets are generally non-refundable; if the flight operated and you did not travel, no refund is due. Refunds apply when Ryanair cancelled the flight, failed to operate it reasonably according to schedule, or denied boarding; travel credit or a refund may apply after the death of an immediate family member or a passenger on the booking.
+    issues: [refund_request, travel_credit]
+    verified_via: browser
+    source: https://help.ryanair.com/hc/en-ie/articles/12896766243857-Refund-Policy
+    last_verified: 2026-11-19
+  - kind: contact
+    claim: Ryanair's ADR page lists, by country, SRUV (Germany, all topics), Médiation Tourisme Voyage (France, all topics), AESA (Spain, EU261 claims only), the Civil Aviation Authority passenger ombudsman (Poland, EU261 claims only), RAL / Livro de Reclamações (Portugal, all topics) and Aviation ADR (Denmark, Sweden and the UK, all topics).
+    issues: [flight_delay, flight_cancellation, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, poor_service]
+    verified_via: browser
+    source: https://help.ryanair.com/hc/en-ie/articles/28511755011985-ADR-Details
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Flights with the code FR are operated under Ryanair DAC's General Terms, RK under Ryanair UK's, RR under Ryanair Sun (Buzz)'s and AL under Malta Air's. The refund form also accepts Lauda Europe (LW) bookings.
+    verified_via: browser
+    source: https://help.ryanair.com/hc/en-ie/articles/12890911974289
+    last_verified: 2026-11-19
+
+known_blockers:
+  - The EU261 compensation and expenses forms, the baggage claim form, the feedback form and support cases all need a myRyanair login.
+  - EU261 claims need identity verification of a named passenger with a travel document; a claim for another passenger must be made from that passenger's own myRyanair account.
+  - Baggage claims need the 10-character PIR file reference from the arrival airport report.
+  - The refund application form has an "Enter the code shown" check and accepts one application per booking.
+  - Phone agents expect a call from the mobile number on the booking; queries more than 30 days before departure are sent to chat.
+  - Bookings made through a third-party agent must be verified (ID, passport or national ID, front-facing camera) before you can manage them or get a direct refund.
+
+notes: >-
+  Checked on 2026-11-19 in a browser: ryanair.com blocks plain fetches, and the Help Centre (help.ryanair.com) was read
+  through its public article API inside the browser tab. The General Terms page shows "Effective Date: 25 June 2026".
+  Conflicts: the help centre links the expenses claim both as /myryanair/requests/new/eu-261/expenses and as the old
+  onlineform.ryanair.com/ie/en/eu-261 (now a redirect to the myRyanair login); OTA refund verification is linked both as
+  onlineform.ryanair.com/ie/en/customer-verification (checked) and /contact-us-ota (not checked). The damaged-bag
+  deadline is "7 days from the date of damage" in the help centre and "within seven days of getting your baggage" in the
+  General Terms. Liability is stated as 1,519 SDR "for each piece of baggage". Countries: Ryanair DAC (ie) and Ryanair UK
+  (gb); the help centre also has a Norway locale, but Norwegian routes were not checked, so no is not added. No
+  passenger-facing warning about fake social media accounts was found on ryanair.com, help.ryanair.com or
+  corporate.ryanair.com; the security entries come from Ryanair's own help centre and a December 2023 corporate release.
+  Ryanair has no stated allowance for essential items while a bag is delayed.
+
+official_domains: [ryanair.com]
+security:
+  known_scams:
+    - kind: policy
+      claim: Ryanair (8 December 2023) said it introduced free myRyanair account verification to protect customers from "ghost brokering", phishing and other online scams, and from unauthorised online travel agents that use fake customer emails and payment cards so Ryanair cannot contact passengers directly.
+      verified_via: browser
+      source: https://corporate.ryanair.com/news/ryanair-launches-new-customer-account-verification-to-protect-customers-from-internet-scams/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Ryanair advises booking only through the Ryanair app and website, always checking that the website address is www.ryanair.com, and looking for the Ryanair Verified Seal, which appears on all Ryanair-authorised channels.
+      verified_via: browser
+      source: https://help.ryanair.com/hc/en-ie/articles/12893210233361-I-didn-t-realise-I-booked-through-a-third-party-travel-agent-who-has-no-commercial-relationship-with-Ryanair-to-sell-Ryanair-s-flights-how-can-I-prevent-this-from-happening-again
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Ryanair says its own emails asking passengers to verify a booking are legitimate; if a third-party travel agent emails you to verify, complete verification only on the Ryanair website (check the address is www.ryanair.com) or in the Ryanair app.
+      verified_via: browser
+      source: https://help.ryanair.com/hc/en-gb/articles/19989777536529-I-received-an-email-telling-me-I-need-to-verify-my-booking-is-this-from-Ryanair
+      last_verified: 2026-11-19

@@ -1,0 +1,8 @@
+id: pt
+name: Portugal
+kind: country
+currency: EUR
+status: wanted
+maintainers: []
+notes: >-
+  Created by the EU air-passenger pack so that company and regulator files can name this country. EU-wide rules apply through countries/eu.yaml. No national data yet.

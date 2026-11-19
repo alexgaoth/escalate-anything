@@ -7,8 +7,9 @@ If you know how complaints work where you live, you can add your country, one sm
 | Country | Status | Maintainers |
 |---|---|---|
 | 🇺🇸 United States | complete: 279 companies, 51 states and DC, 31 rules | @alexgaoth |
-| 🇪🇺 European Union (EU261 air passenger rights first) | in progress | wanted |
-| 🇬🇧 United Kingdom (travel, banks, telecoms, energy) | in progress | wanted |
+| 🇪🇺 European Union | in progress: EU261 (incl. the 2027 reform), enforcement bodies for all 30 countries, European Consumer Centres, 12 airlines | wanted |
+| 🇬🇧 United Kingdom | in progress: telecoms and energy (14 companies, ombudsmen, 8 rules); travel and banks next | wanted |
+| 🇩🇪 Germany, 🇫🇷 France, 🇪🇸 Spain | in progress: air dispute bodies (SRUV, BfJ, MTV, AESA); national companies wanted | wanted |
 | Your country | [open an issue](https://github.com/alexgaoth/escalate-anything/issues/new?template=add-a-country.yml) | you |
 
 ## How a country is put together

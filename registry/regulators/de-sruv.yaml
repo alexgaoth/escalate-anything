@@ -1,0 +1,167 @@
+id: de-sruv
+name: Schlichtungsstelle Reise & Verkehr e.V.
+short_name: SRUV
+country: de
+level: ombudsman
+covers_sectors: [airline, ground_transport, travel_agency]
+covers_issues:
+  - flight_cancellation
+  - flight_delay
+  - denied_boarding
+  - delayed_baggage
+  - lost_baggage
+  - damaged_baggage
+  - accessibility
+  - refund_request
+website: https://www.schlichtung-reise-und-verkehr.de/en/
+when_to_use: >-
+  Germany's recognised consumer conciliation body for travel and transport (formerly söp). Use it after you
+  complained to the airline (or rail, long-distance bus, ship, package holiday or travel agency company) and the
+  company did not answer within two months for air travel (one month for other companies), or you do not accept its
+  answer. The company must be a member: check the member list. Airline members include Air France, Deutsche Lufthansa,
+  Lufthansa City Airlines, easyJet Airline Company Ltd., Eurowings, KLM, Malta Air, Ryanair DAC, Scandinavian Airlines,
+  TAP Portugal and Wizz Air. Iberia, Vueling and Aer Lingus are not on the list; for an air claim against them, use the
+  Schlichtungsstelle Luftverkehr at the Bundesamt für Justiz (de-bfj-luftverkehr). For air claims, German law also
+  requires that German courts have jurisdiction (for example, a flight from or to Germany) and that the claim is more
+  than 10 euros. The case must not be in court or with another conciliation body, and you must not have assigned the
+  claim to a claims portal. Free for passengers. The recommendation binds neither side unless both accept it; you can
+  still go to court.
+
+channels:
+  - id: application
+    type: web_form
+    label: Conciliation request (online application)
+    value: https://www.schlichtung-reise-und-verkehr.de/en/the-arbitration/your-conciliation-request-schlichtung-reise-und-verkehr/
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, accessibility, refund_request]
+    access: open
+    notes: >-
+      Start from this page. Its "Go directly to the application" button opens the application portal on portal.sruv.de
+      with a session token in the URL that changes, so do not save or share that link. The German page is
+      https://www.schlichtung-reise-und-verkehr.de/die-schlichtung/antrag-stellen/. The page says to complain to the company
+      first and that companies have one month to answer, or two months for air travel. Send only copies of documents; the
+      FAQ says the body accepts no liability for originals.
+    source: https://www.schlichtung-reise-und-verkehr.de/en/the-arbitration/your-conciliation-request-schlichtung-reise-und-verkehr/
+    last_verified: 2026-11-19
+  - id: phone
+    type: phone
+    label: Schlichtungsstelle Reise & Verkehr, telephone
+    value: +49-30-644-9933-0
+    hours: Monday to Thursday 10:00 to 13:00 and 14:00 to 16:00, Friday 10:00 to 14:00 (Berlin time)
+    notes: >-
+      Printed as "+49 30 6 44 99 33 – 0". For questions. The contact page asks callers not to make inquiries about the
+      status of a case, and says to contact the transport company directly about a current travel disruption.
+    source: https://www.schlichtung-reise-und-verkehr.de/en/service/contact/
+    last_verified: 2026-11-19
+  - id: email
+    type: email
+    label: General email
+    value: kontakt@sruv.de
+    notes: >-
+      Listed in the imprint. The FAQ says the easiest way to apply is online, and that you can apply by email or post if
+      online is not possible.
+    source: https://www.schlichtung-reise-und-verkehr.de/en/impressum/
+    last_verified: 2026-11-19
+  - id: mail
+    type: mail
+    label: Postal address
+    value: Schlichtungsstelle Reise & Verkehr e.V., Fasanenstraße 81, 10623 Berlin, Germany
+    notes: The FAQ says you can apply by post if the online application is not possible. Send copies, not originals.
+    source: https://www.schlichtung-reise-und-verkehr.de/en/service/contact/
+    last_verified: 2026-11-19
+
+facts:
+  - kind: policy
+    claim: >-
+      The member list "Stand: 19. Oktober 2026" includes these airlines: Air France, Deutsche Lufthansa AG, Lufthansa
+      City Airlines GmbH, Easyjet Airline Company Ltd., Eurowings GmbH, KLM Royal Dutch Airlines, Malta Air Limited,
+      Ryanair DAC, Scandinavian Airlines, TAP Portugal and Wizz Air. Iberia, Vueling and Aer Lingus are not on it.
+    verified_via: document
+    source: https://www.schlichtung-reise-und-verkehr.de/wp-content/uploads/2024/07/sruv_Mitgliederliste.pdf
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The FAQ says the company must be a member of the conciliation body, the company must have had at least two months
+      to answer your complaint, and the case must not already be in court or in another conciliation procedure.
+    source: https://www.schlichtung-reise-und-verkehr.de/en/the-arbitration/faq/
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Complain to the company first. Companies have one month to answer, or two months for air travel. If you are not
+      satisfied with the answer or get none, you can then submit a conciliation request.
+    source: https://www.schlichtung-reise-und-verkehr.de/en/the-arbitration/your-conciliation-request-schlichtung-reise-und-verkehr/
+    last_verified: 2026-11-19
+  - kind: fee
+    claim: >-
+      The procedure is free of charge for consumers, with no processing or success fees. The companies pay the costs of
+      conciliation. You pay only your own costs, for example for a representative.
+    source: https://www.schlichtung-reise-und-verkehr.de/en/the-arbitration/faq/
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      The rules of procedure (Verfahrensordnung, Stand 11/2024) say the conciliation recommendation is not binding on
+      either party. It becomes a binding contract only if both parties accept it, or if you accept the company's own offer
+      during the procedure. You can go to the ordinary courts at any stage.
+    verified_via: document
+    source: https://www.schlichtung-reise-und-verkehr.de/wp-content/uploads/2026/02/SRUV_Verfahrensordnung.pdf
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      The rules of procedure say no conciliation takes place if the claim is worth more than 30,000 euros, or while the
+      claim is pending before a court or another recognised consumer conciliation body.
+    verified_via: document
+    source: https://www.schlichtung-reise-und-verkehr.de/wp-content/uploads/2026/02/SRUV_Verfahrensordnung.pdf
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      For air travel, § 57b LuftVG covers payment claims of a consumer for denied boarding, delay, downgrading or
+      cancellation, for destroyed, damaged, lost or delayed baggage, for items the passenger carries, and for breaches of
+      duty towards disabled passengers and passengers with reduced mobility. Conciliation is not possible if German courts
+      have no jurisdiction, if the claim is already in court or was already raised with another air conciliation body, if
+      the claim is 10 euros or less, or if the claim was not first made directly to the airline and the airline has not
+      rejected it and two months have not passed.
+    source: https://www.gesetze-im-internet.de/luftvg/__57b.html
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      The rules of procedure say the procedure normally takes at most 90 days after all necessary documents are in. The
+      FAQ says conciliation usually takes up to three months. An inadmissible request is ended within three weeks of
+      receipt.
+    verified_via: document
+    source: https://www.schlichtung-reise-und-verkehr.de/wp-content/uploads/2026/02/SRUV_Verfahrensordnung.pdf
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      The limitation period for the disputed claims, and contractual cut-off periods, are suspended during the whole
+      procedure (§ 204 (1) No. 4a BGB).
+    verified_via: document
+    source: https://www.schlichtung-reise-und-verkehr.de/wp-content/uploads/2026/02/SRUV_Verfahrensordnung.pdf
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      The language of the procedure is German, unless the body and the parties agree on another language.
+    verified_via: document
+    source: https://www.schlichtung-reise-und-verkehr.de/wp-content/uploads/2026/02/SRUV_Verfahrensordnung.pdf
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      You do not need a lawyer, and lawyer costs cannot be claimed in the procedure. If you assigned your claim to a
+      passenger claims portal, you cannot file a request yourself unless the rights are returned to you.
+    source: https://www.schlichtung-reise-und-verkehr.de/en/the-arbitration/faq/
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Steps: you complain to the company; the body forwards your request to the company for a statement; the company may
+      accept your claim in full or make a new offer you can accept or reject; otherwise lawyers review the case and you
+      receive a written conciliation recommendation with reasons. You can withdraw and go to court at any time.
+    source: https://www.schlichtung-reise-und-verkehr.de/en/the-arbitration/the-conciliation-procedure/
+    last_verified: 2026-11-19
+
+notes: >-
+  Formerly söp (Schlichtungsstelle für den öffentlichen Personenverkehr e.V.); the site's name-change page gives the new
+  name and URL but no date. Registered association, Amtsgericht Charlottenburg VR 29041 B. Recognised under the VSBG;
+  for air travel §§ 57 and 57b LuftVG and the LuftSchlichtV also apply (Verfahrensordnung § 1). Airlines that are not
+  members fall to the federal fallback body at the Bundesamt für Justiz (de-bfj-luftverkehr), which forwards cases against
+  members to this body. The member list was read by the lead from the PDF on the body's site; the list file sits in a 2024
+  upload folder but carries "Stand: 19. Oktober 2026". The site also covers rail, long-distance bus, public transport,
+  ship travel and package holidays; whether cruise disputes are covered is not stated, so `cruise` is not listed. Checked
+  by loading schlichtung-reise-und-verkehr.de pages and the Verfahrensordnung PDF on 2026-11-19.

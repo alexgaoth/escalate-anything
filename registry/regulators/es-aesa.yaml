@@ -1,0 +1,170 @@
+id: es-aesa
+name: Agencia Estatal de Seguridad Aérea (AESA), alternative dispute resolution for air passengers
+short_name: AESA
+country: es
+level: national
+covers_sectors: [airline]
+covers_issues:
+  - flight_cancellation
+  - flight_delay
+  - denied_boarding
+  - accessibility
+website: https://www.seguridadaerea.gob.es/en/ambitos/derechos-de-los-pasajeros/inicia-tu-reclamacion-con-aesa
+when_to_use: >-
+  Spain's national enforcement body for EU261, and the accredited alternative dispute resolution (ADR) entity for
+  flights from 2 June 2023. Use it for denied boarding, cancellation, a delay of 3 hours or more, a flight brought forward
+  by more than an hour, a downgrade, or a problem with assistance for a disabled passenger or one with reduced mobility,
+  on a flight that departed from Spain, or that flew to Spain from outside the EU on an EU airline. Claim from the
+  airline first (within five years of the flight). If the airline does not answer within one month, or you do not accept
+  its answer, file with AESA within one year of your claim to the airline. Every airline must take part; there is no
+  membership list. Free. AESA's decision binds the airline (if it does not pay within one month, you can ask a court to
+  enforce the decision) but not you: you can still sue. Not for baggage, service quality, fares, travel agencies or
+  package travel. If you go to court first, AESA does not accept the claim.
+
+channels:
+  - id: e-office
+    type: portal
+    label: AESA e-office, alternative dispute resolution for air transport users (Oficina Virtual)
+    value: https://sede.seguridadaerea.gob.es/oficina/tramites/acceso.do?id=135
+    purposes: [flight_cancellation, flight_delay, denied_boarding, accessibility]
+    access: login
+    notes: >-
+      In Spanish. "Nueva Solicitud Electrónica" needs an electronic signature (digital certificate such as FNMT, DNIe,
+      Cl@ve firma, or e4F keys for foreigners); Cl@ve PIN cannot sign. Without electronic ID, use "Nueva Solicitud
+      Semipresencial": fill in the web form, print the result, sign it by hand, and present it at a registry office
+      (AESA, town halls, post offices and others) within 10 days, or the claim counts as not filed. Only individuals
+      acting for themselves may use the semi-in-person and paper routes; companies, consumer associations and
+      professionals must file electronically. Attach the prior claim to the airline, its reply, the boarding pass or
+      ticket, identity documents of every passenger and representative, authorisations of representation, and receipts.
+      English complaint forms (cancellation, delay, denied boarding and PRM, class change) are linked from the procedure
+      page.
+    source: https://sede.seguridadaerea.gob.es/sede-aesa/catalogo-de-procedimientos/reclamaciones-por-cancelaciones-retrasos-denegaciones-de-embarque-y-pmr
+    last_verified: 2026-11-19
+  - id: mail
+    type: mail
+    label: Paper claim by post or at a public registry
+    value: Agencia Estatal de Seguridad Aérea, División de Derechos de los Pasajeros, Paseo de la Castellana 112, 28046 Madrid, Spain
+    purposes: [flight_cancellation, flight_delay, denied_boarding, accessibility]
+    notes: >-
+      Send the signed documents to this address, or present them at a registry of AESA, other State, regional or local
+      bodies, public universities, a post office or a Spanish diplomatic mission. Individuals acting for themselves only.
+    source: https://sede.seguridadaerea.gob.es/sede-aesa/catalogo-de-procedimientos/reclamaciones-por-cancelaciones-retrasos-denegaciones-de-embarque-y-pmr
+    last_verified: 2026-11-19
+  - id: enquiry-form
+    type: web_form
+    label: AESA enquiry form (Consultas), subject "Derechos de los pasajeros"
+    value: https://www.seguridadaerea.gob.es/es/consultas
+    notes: >-
+      For questions not answered on the procedure page, not for filing a claim. Select "Derechos de los pasajeros" as the
+      subject. The contact page lists no dedicated passenger rights phone number or email.
+    source: https://www.seguridadaerea.gob.es/es/quienes-somos/contactanos
+    last_verified: 2026-11-19
+  - id: reception-phone
+    type: phone
+    label: AESA reception and public service
+    value: +34-91-396-80-00
+    notes: >-
+      Printed as "(+34) 91 396 80 00" under "Recepción y atención al público" at the AESA headquarters, Paseo de la
+      Castellana 112, Madrid. The AESA registry is open Monday to Friday, 9:00 to 14:00. General number, not a passenger
+      claims line.
+    source: https://www.seguridadaerea.gob.es/es/quienes-somos/contactanos
+    last_verified: 2026-11-19
+  - id: e-office-support
+    type: email
+    label: E-office technical support (CAU)
+    value: cau.aesa@seguridadaerea.es
+    notes: >-
+      Only for problems submitting through the e-office: the procedure page says to test your certificate at AESA-TEST
+      first and, if the test passes but you still cannot submit, write to this mailbox with the test result PDF.
+    source: https://sede.seguridadaerea.gob.es/sede-aesa/catalogo-de-procedimientos/reclamaciones-por-cancelaciones-retrasos-denegaciones-de-embarque-y-pmr
+    last_verified: 2026-11-19
+
+facts:
+  - kind: policy
+    claim: >-
+      Legal basis: Ley 7/2017 of 2 November (transposes the consumer ADR Directive 2013/11/EU), whose additional provision
+      two is developed by Orden TMA/201/2022 of 14 March (BOE 17 March 2022), which regulates the ADR procedure for air
+      transport users. Orden TMA/469/2023 of 17 April (BOE 10 May 2023) accredits AESA as the ADR entity for air transport.
+    source: https://www.boe.es/buscar/act.php?id=BOE-A-2022-4201
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Orden TMA/469/2023 of 17 April 2023, published in BOE no. 111 on 10 May 2023, accredits the Agencia Estatal de
+      Seguridad Aérea as an alternative dispute resolution entity for air transport.
+    source: https://www.boe.es/diario_boe/txt.php?id=BOE-A-2023-11093
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Orden TMA/201/2022 applies to incidents after the first day of the month following publication of the accreditation
+      resolution (final provision three). AESA applies the ADR procedure to flights from 2 June 2023 inclusive; for
+      incidents up to 1 June 2023 it uses an informative route that ends in a non-binding report.
+    source: https://www.seguridadaerea.gob.es/es/ambitos/derechos-de-los-pasajeros/competencia-en-derechos-de-los-pasajeros/competencia-de-aesa
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Covered: Regulation (EC) 261/2004 claims (cancellation, delay of 3 hours or more, flight brought forward by more than
+      one hour, unjustified denied boarding, change of class) and Regulation (EC) 1107/2006 claims for disabled passengers
+      and passengers with reduced mobility, for passengers of any nationality departing from an airport in Spain, or from a
+      non-EU airport to Spain on an EU airline.
+    source: https://sede.seguridadaerea.gob.es/sede-aesa/catalogo-de-procedimientos/reclamaciones-por-cancelaciones-retrasos-denegaciones-de-embarque-y-pmr
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Orden TMA/201/2022 article 6: the passenger first claims from the airline within five years of the incident, and the
+      airline must answer within one month at most. If the answer is unsatisfactory or there is none after one month, the
+      passenger can go to AESA.
+    source: https://www.boe.es/buscar/act.php?id=BOE-A-2022-4201
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      The claim to AESA must be filed within one year of the date of the prior claim to the airline; a later claim is
+      inadmissible (Orden TMA/201/2022 article 10.1.d).
+    source: https://sede.seguridadaerea.gob.es/sede-aesa/catalogo-de-procedimientos/reclamaciones-por-cancelaciones-retrasos-denegaciones-de-embarque-y-pmr
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      The Director of AESA must issue a reasoned decision within 90 calendar days from the acknowledgement of receipt of the
+      complete claim, extendable by up to 90 more days for especially complex cases. If no decision is notified in time,
+      the claim is treated as rejected (Orden TMA/201/2022 article 17).
+    source: https://www.boe.es/buscar/act.php?id=BOE-A-2022-4201
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      AESA's decision is binding on the airline. If the airline does not comply within one month, the passenger can ask
+      the competent court to enforce it. The decision is not binding on the passenger, who can still go to court
+      (Orden TMA/201/2022 article 18). Airlines must take part in the procedure; passengers take part voluntarily.
+    source: https://sede.seguridadaerea.gob.es/sede-aesa/catalogo-de-procedimientos/reclamaciones-por-cancelaciones-retrasos-denegaciones-de-embarque-y-pmr
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      Not covered by AESA's ADR: baggage claims (destruction, loss, damage or delay of checked baggage, Orden TMA/201/2022
+      article 3.f), service quality, the contract of carriage and its clauses, damages, fares and charges, commercial
+      practices, travel agencies, package travel and data protection.
+    issues: [delayed_baggage, lost_baggage, damaged_baggage]
+    source: https://sede.seguridadaerea.gob.es/sede-aesa/catalogo-de-procedimientos/reclamaciones-por-cancelaciones-retrasos-denegaciones-de-embarque-y-pmr
+    last_verified: 2026-11-19
+  - kind: fee
+    claim: >-
+      The ADR procedure is free for the passenger: the procedure page lists "Tasas: No" and calls it "totalmente
+      gratuita".
+    source: https://sede.seguridadaerea.gob.es/sede-aesa/catalogo-de-procedimientos/reclamaciones-por-cancelaciones-retrasos-denegaciones-de-embarque-y-pmr
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      The ADR procedure is not required before going to court, and you can withdraw at any time. If you start court
+      proceedings first, AESA will not admit the claim.
+    source: https://sede.seguridadaerea.gob.es/sede-aesa/catalogo-de-procedimientos/reclamaciones-por-cancelaciones-retrasos-denegaciones-de-embarque-y-pmr
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      The procedure page carries a notice that decisions are delayed because of the high number of claims after several
+      incidents affecting delays and cancellations, and that AESA is working to restore the usual processing times.
+    source: https://sede.seguridadaerea.gob.es/sede-aesa/catalogo-de-procedimientos/reclamaciones-por-cancelaciones-retrasos-denegaciones-de-embarque-y-pmr
+    last_verified: 2026-11-19
+
+notes: >-
+  AESA is also Spain's national enforcement body for Regulations 261/2004 and 1107/2006. AESA publishes a model prior
+  claim form for the airline and a quick guide (PAX-RECL-GU01) on its e-office. The English site pages are machine
+  translations (eTranslation); the e-office and procedure pages are in Spanish. One AESA page about the procedure for
+  flights from 2 June 2023 returned a server error on 2026-11-19. Checked by loading seguridadaerea.gob.es,
+  sede.seguridadaerea.gob.es and boe.es pages on 2026-11-19.

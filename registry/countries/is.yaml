@@ -1,0 +1,7 @@
+id: is
+name: Iceland
+kind: country
+status: wanted
+maintainers: []
+notes: >-
+  Not in the EU. Listed in countries/eu.yaml as associated because Your Europe says EU air passenger rules apply to flights to and from this country. ECC-Net has a centre here; the European Small Claims Procedure does not apply.

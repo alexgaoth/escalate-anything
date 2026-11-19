@@ -1,0 +1,443 @@
+id: lufthansa
+name: Lufthansa
+aliases: [deutsche lufthansa ag, deutsche lufthansa, lufthansa german airlines, lufthansa.com, lufthansa city airlines]
+sector: airline
+parent: Lufthansa Group
+website: https://www.lufthansa.com/gb/en
+account_url: https://www.lufthansa.com/deeplink/cockpit?country=gb&language=en
+countries: [eu, de, gb, ch, "no", is]
+regulators: [eu-air-passenger-nebs, eu-ecc-net, de-sruv, es-aesa]
+
+channels:
+  - id: service-centre-uk
+    type: phone
+    label: Lufthansa Service Center, United Kingdom
+    value: +44-20-7660-4036
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request]
+    notes: >-
+      The UK Help & Contact page shows the number only after you select a topic (for example "Rebook a flight"),
+      skip the optional flight details and press "Call Service Center". It prints "+442076604036" and gives no
+      opening hours. The page says to call if the online services could not help. For the topic "Feedback and other
+      enquiries" the page says phone support is not available.
+    verified_via: browser
+    source: https://www.lufthansa.com/gb/en/help-and-contact
+    last_verified: 2026-11-19
+  - id: service-centre-germany
+    type: phone
+    label: Lufthansa Service Center, Germany
+    value: +49-69-86-799-799
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request]
+    notes: >-
+      Shown on the Germany (English) Help & Contact page by the same topic flow as the UK number. It prints
+      "+496986799799" and gives no opening hours.
+    verified_via: browser
+    source: https://www.lufthansa.com/de/en/help-and-contact
+    last_verified: 2026-11-19
+  - id: chat-assistant
+    type: chat
+    label: Chat Assistant Elisa and Live Chat with Service Center agents
+    value: https://www.lufthansa.com/digitalassistant/support/webchat.html
+    hours: Live Chat with agents 24/7
+    purposes: [flight_cancellation, flight_delay, refund_request, delayed_baggage, lost_baggage]
+    access: open
+    notes: >-
+      The refund page links the Chat Assistant for refunds, and the baggage page links it to check a delayed bag
+      report, subscribe to status updates or close a report (reference number and family name needed). The Help &
+      Contact page offers "Live Chat" with Service Center agents 24/7 for topics such as rebooking.
+    verified_via: browser
+    source: https://www.lufthansa.com/gb/en/refund
+    last_verified: 2026-11-19
+  - id: compensation-form
+    type: web_form
+    label: Flight disruption compensation and reimbursement application (EU261 compensation and expenses)
+    value: https://www.lufthansa.com/gb/en/fast-compensation
+    purposes: [flight_delay, flight_cancellation, denied_boarding]
+    access: open
+    notes: >-
+      Linked as "Request compensation" from the Feedback page; it redirects to
+      /gb/en/support/fast-compensation/compensation-flight-disruptions. The first step asks for the booking code
+      (6 characters) or 13-digit ticket number, and first and last name. The flight disruptions page says to send
+      hotel, transport and meal receipts, the boarding pass and bank details (IBAN and BIC) through this form.
+    verified_via: browser
+    source: https://www.lufthansa.com/gb/en/feedback
+    last_verified: 2026-11-19
+  - id: feedback-form
+    type: web_form
+    label: Feedback on a past flight (complaints, questions, existing feedback reports)
+    value: https://www.lufthansa.com/gb/en/feedback-past-flight
+    purposes: [poor_service, flight_delay, flight_cancellation, denied_boarding, accessibility]
+    access: open
+    notes: >-
+      For customers who have started or completed their journey. You can file for yourself, your household, or as a
+      third party with an authorisation from the traveller (a form to download is on the page). Up to 8 passengers
+      and 5 flights. Attachments in pdf, jpeg, jpg or png up to 3.7 MB. Do not send credit card details.
+    verified_via: browser
+    source: https://www.lufthansa.com/gb/en/feedback-past-flight
+    last_verified: 2026-11-19
+  - id: feedback-mail
+    type: mail
+    label: Customer Feedback by post (Germany)
+    value: Lufthansa German Airlines, Customer Feedback, Postfach 710234, 60492 Frankfurt, Germany
+    purposes: [poor_service, flight_delay, flight_cancellation, denied_boarding]
+    notes: The passenger rights page says a claim under EU261 can be sent via the feedback form or by post to these addresses. Other listed offices are in Uniondale, NY (USA) and Shanghai (China).
+    verified_via: browser
+    source: https://www.lufthansa.com/gb/en/addresses-worldwide
+    last_verified: 2026-11-19
+  - id: refund-help-center
+    type: portal
+    label: Refund via Help Center (cancel booking and get a refund)
+    value: https://www.lufthansa.com/xx/en/contact-center?topic=cancelBookingGetRefund
+    purposes: [flight_cancellation, refund_request]
+    notes: Linked as "Refund via Help Center" for changed or cancelled flights. You can also cancel and request a refund under "Flight details" in My bookings.
+    verified_via: browser
+    source: https://www.lufthansa.com/gb/en/flight-disruptions
+    last_verified: 2026-11-19
+  - id: refund-form
+    type: web_form
+    label: Alternative (manual) refund form
+    value: https://www.lufthansa.com/gb/en/book-and-manage/cancellation-and-refund/refund/refund-form
+    purposes: [flight_cancellation, refund_request]
+    access: open
+    notes: >-
+      Use it only if the self-service options (My bookings, Chat Assistant) and the Service Center did not work; the
+      request is processed manually. Asks for the flight booking, applicant and the unused flight or service coupon.
+      Tickets bought from a travel agency or third-party portal must be refunded by that agency.
+    verified_via: browser
+    source: https://www.lufthansa.com/gb/en/refund
+    last_verified: 2026-11-19
+  - id: delayed-bag-report
+    type: web_form
+    label: Report delayed baggage online (mybag.aero, linked by Lufthansa)
+    value: https://mybag.aero/lufthansa/delayed/en
+    purposes: [delayed_baggage, lost_baggage]
+    notes: >-
+      External site linked from Lufthansa's baggage page. Report before you leave the airport. You get a reference
+      (PIR) number by email, for example FRALH12345. A notification by email, text or the app may contain a link to a
+      pre-filled form.
+    verified_via: browser
+    source: https://www.lufthansa.com/gb/en/baggage-irregularities
+    last_verified: 2026-11-19
+  - id: bag-status
+    type: portal
+    label: Baggage status page (track a delayed bag, update delivery address, contents list)
+    value: https://mybag.aero/lufthansa/managemybag/en
+    purposes: [delayed_baggage, lost_baggage]
+    notes: Needs the PIR reference number. The contents list on this page opens automatically five days after the delay report. The Chat Assistant can also show the status.
+    verified_via: browser
+    source: https://www.lufthansa.com/gb/en/baggage-irregularities
+    last_verified: 2026-11-19
+  - id: damaged-bag-report
+    type: web_form
+    label: Report damaged baggage online (mybag.aero, linked by Lufthansa)
+    value: https://mybag.aero/lufthansa/damaged/en
+    purposes: [damaged_baggage]
+    notes: The link says online reporting is available up to three days after your flight. If it is not available, report the damage through the baggage reimbursement form.
+    verified_via: browser
+    source: https://www.lufthansa.com/gb/en/baggage-irregularities
+    last_verified: 2026-11-19
+  - id: baggage-reimbursement-form
+    type: web_form
+    label: Reimbursement for baggage problems (delayed, lost, damaged bag, missing items, mobility device)
+    value: https://www.lufthansa.com/gb/en/baggage-reimbursement
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage, accessibility]
+    access: open
+    notes: Needs the PIR number from the baggage report, the booking details and expense receipts (if available). Also used to report a damaged wheelchair or mobility aid, and damaged baggage when the online report is not available.
+    verified_via: browser
+    source: https://www.lufthansa.com/gb/en/baggage-reimbursement
+    last_verified: 2026-11-19
+  - id: special-assistance-form
+    type: web_form
+    label: Assistance requirements form (passengers with reduced mobility or other needs)
+    value: https://www.lufthansa.com/gb/en/special-needs
+    purposes: [accessibility]
+    notes: In German and English. A completed booking is required.
+    verified_via: browser
+    source: https://www.lufthansa.com/gb/en/accessible-travel
+    last_verified: 2026-11-19
+  - id: special-assistance-phone
+    type: phone
+    label: Assistance requirements when booking by telephone
+    value: +49-800-838-4267
+    purposes: [accessibility]
+    notes: >-
+      The UK page prints "Call 0800 8384267" and its link dials 00498008384267, a German freephone number. It is not
+      verified that this number can be reached from outside Germany.
+    verified_via: browser
+    source: https://www.lufthansa.com/gb/en/accessible-travel
+    last_verified: 2026-11-19
+  - id: medical-operation-center-email
+    type: email
+    label: Lufthansa Medical Operation Center (accessible services and booking questions)
+    value: specialservice@dlh.de
+    hours: Monday to Friday 08:30-20:00; Saturday, Sunday and public holidays 08:30-16:30
+    purposes: [accessibility]
+    notes: The page also gives fax +49 69 69 68 36 77. For travel to and from the USA the Medical Desk USA is +1-516-279-1768 (Monday to Friday 09:00-17:00 EST).
+    verified_via: browser
+    source: https://www.lufthansa.com/gb/en/accessible-travel
+    last_verified: 2026-11-19
+  - id: data-protection-email
+    type: email
+    label: Data protection officer, Deutsche Lufthansa AG
+    value: datenschutz@dlh.de
+    purposes: [privacy_request]
+    notes: Postal address Deutsche Lufthansa AG, Airportring, 60546 Frankfurt. The supervisory authority is the Hessian data protection commissioner (HBDI).
+    verified_via: browser
+    source: https://www.lufthansa.com/gb/en/data-protection-information
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: service-centre-uk}
+  - {rung: written_complaint, channel: compensation-form}
+  - {rung: regulator, regulator: eu-air-passenger-nebs, note: "National Enforcement Body of the country where the incident happened (departure airport; for flights into the EU on an EU carrier, the arrival airport). See regulators/eu-air-passenger-nebs."}
+  - {rung: regulator, regulator: de-sruv, note: "Deutsche Lufthansa AG and Lufthansa City Airlines GmbH are on the Schlichtungsstelle Reise & Verkehr member list (Stand: 19. Oktober 2026). Lufthansa's passenger rights page says private travellers can apply if Lufthansa has not replied within two months, or if they do not agree with how Lufthansa handled the claim, and the matter is not before a court. See regulators/de-sruv."}
+  - {rung: regulator, regulator: es-aesa, note: "For a flight that departed from Spain, or flew to Spain from outside the EU on an EU airline, from 2 June 2023: AESA's dispute resolution is mandatory for every airline and its decision binds the airline (not the passenger). Claim from the airline first; if it does not answer within one month or you reject the answer, file with AESA within one year of that claim. Not for baggage."}
+  - {rung: regulator, regulator: eu-ecc-net, note: "Free help from the European Consumer Centre in your country when the airline is based in another EU country, Iceland or Norway."}
+  - {rung: payment_dispute, note: "Card chargeback for a refund the airline owes but has not paid."}
+  - {rung: small_claims, note: "European Small Claims Procedure for cross-border claims up to EUR 5,000 (rules/eu-small-claims-procedure); otherwise the national court. Time limits for EU261 claims are set by national law."}
+
+playbooks:
+  - issue: flight_delay
+    summary: Use the meal voucher on your boarding pass and keep receipts; if you arrived more than 3 hours late, claim EU261 compensation and expenses on the flight disruption form.
+    evidence: [booking code, 13-digit ticket number, boarding passes, scheduled and actual arrival times, receipts for hotel, transport and meals, bank details (IBAN and BIC)]
+    steps:
+      - do: At the airport, use the meal voucher. For a delay of two hours or more, the voucher is linked to the QR code on the boarding pass of the affected flight.
+      - do: If departure moves to the next day, Lufthansa arranges a hotel. If you book a hotel yourself, keep the hotel, transport and meal receipts.
+      - do: Submit the compensation claim and your receipts, boarding pass and IBAN/BIC through the flight disruption compensation form.
+        channel: compensation-form
+      - do: If you need help with rebooking, use the Live Chat or call the Service Center.
+        channel: service-centre-uk
+      - do: If Lufthansa has not replied within two months, or you disagree with its answer, apply to the German conciliation body (private trips).
+        regulator: de-sruv
+      - do: Or complain to the National Enforcement Body of the country where the delay happened.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: compensation
+        claim: Lufthansa's passenger rights page says you are entitled to compensation if your arrival at your destination is delayed by more than three hours, unless the delay is due to extraordinary circumstances such as poor weather, political instability, strikes, security risks or unexpected flight safety shortcomings.
+        issues: [flight_delay]
+        verified_via: browser
+        source: https://www.lufthansa.com/gb/en/passenger-rights
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: You receive a meal voucher if your flight is delayed by at least two hours, cancelled, or you are denied boarding. Only the boarding pass for the affected flight is valid as the voucher; you do not need to visit the service counter.
+        issues: [flight_delay, flight_cancellation, denied_boarding]
+        verified_via: browser
+        source: https://www.lufthansa.com/gb/en/flight-disruptions
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If your departure is postponed to the next day and you book a hotel yourself, Lufthansa will assume reasonable costs for the overnight stay, transport between airport and hotel, and meals. Send the receipts, boarding pass and bank details (IBAN and BIC) through the compensation form.
+        issues: [flight_delay, flight_cancellation]
+        verified_via: browser
+        source: https://www.lufthansa.com/gb/en/flight-disruptions
+        last_verified: 2026-11-19
+
+  - issue: flight_cancellation
+    summary: Choose rebooking or a refund to the original payment method (My bookings, Help Center or Chat Assistant; the manual form only if those fail), and claim compensation separately.
+    evidence: [booking code, 13-digit ticket number, cancellation notice, receipts for hotel, transport and meals]
+    steps:
+      - do: Check whether Lufthansa rebooked you automatically, or choose another flight free of charge, through the Chat Assistant or My bookings.
+        channel: chat-assistant
+      - do: If you do not want to travel, request the refund in My bookings or through the Help Center.
+        channel: refund-help-center
+      - do: If the self-service options and the Service Center did not work, use the alternative refund form. Do not request the refund twice.
+        channel: refund-form
+      - do: For a ticket bought through a travel agency or tour operator, ask the agency for the refund.
+      - do: Claim EU261 compensation and expenses on the flight disruption form.
+        channel: compensation-form
+      - do: If the refund is not paid, complain to the National Enforcement Body, then use a card chargeback.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: policy
+        claim: The refund page says a complete refund is possible if the flight was cancelled without a replacement, the departure was brought forward by more than an hour or delayed by at least two hours, the arrival is delayed by at least two hours, or the departure changed by more than five hours on the current or next day. Partially used tickets are refunded pro rata.
+        issues: [flight_cancellation, refund_request, flight_delay]
+        verified_via: browser
+        source: https://www.lufthansa.com/gb/en/refund
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If your ticket has not been used, the ticket price including all taxes and fees is refunded to the original method of payment. If you already submitted the refund request by phone or email, do not request it again, as this may delay processing.
+        issues: [flight_cancellation, refund_request]
+        verified_via: browser
+        source: https://www.lufthansa.com/gb/en/flight-disruptions
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: The passenger rights page says that for a cancelled flight you have the same rights as for denied boarding, and that for delays of more than five hours you are entitled, within seven days, to a refund of the ticket price for the part of the journey not taken.
+        issues: [flight_cancellation, flight_delay, refund_request]
+        verified_via: browser
+        source: https://www.lufthansa.com/gb/en/passenger-rights
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If a Lufthansa flight is cancelled and no alternative flight is available, the ticket may be exchanged for a Deutsche Bahn train ticket (Good for Train) on flights within Germany and between Germany and listed cities such as Amsterdam, Brussels, Paris, Zurich, Vienna and Prague.
+        issues: [flight_cancellation]
+        verified_via: browser
+        source: https://www.lufthansa.com/gb/en/flight-disruptions
+        last_verified: 2026-11-19
+
+  - issue: denied_boarding
+    summary: If you are denied boarding against your will, ask for re-routing or a refund and EU261 compensation of EUR 250, 400 or 600 by distance; claim it on the compensation form if it was not paid.
+    evidence: [boarding pass, booking code, ticket number, written confirmation of denied boarding, arrival time of the new flight]
+    steps:
+      - do: At the airport, choose re-routing or a refund, and ask for compensation and the meal voucher.
+      - do: If compensation was not paid at the airport, claim it on the flight disruption compensation form.
+        channel: compensation-form
+      - do: If Lufthansa does not pay or does not reply within two months, apply to the German conciliation body (private trips).
+        regulator: de-sruv
+      - do: Or complain to the National Enforcement Body of the country of departure.
+        regulator: eu-air-passenger-nebs
+    facts:
+      - kind: compensation
+        claim: Lufthansa's passenger rights page gives compensation of EUR 250 for flights up to 1,500 km, EUR 400 for 1,500 to 3,500 km and for flights of more than 1,500 km within Europe, and EUR 600 for more than 3,500 km, paid by cheque or bank transfer or, with your consent, as a gift card. It is 50% lower if the alternative flight arrives no more than 2, 3 or 4 hours late respectively.
+        issues: [denied_boarding, flight_cancellation]
+        verified_via: browser
+        source: https://www.lufthansa.com/gb/en/passenger-rights
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: You are not entitled to this compensation if you are justifiably denied boarding through your own fault, for health or safety reasons, or because of missing or insufficient travel documents.
+        issues: [denied_boarding]
+        verified_via: browser
+        source: https://www.lufthansa.com/gb/en/passenger-rights
+        last_verified: 2026-11-19
+
+  - issue: delayed_baggage
+    summary: Report the bag before you leave the airport (online or at baggage tracing), keep the PIR number, buy only essentials and claim them on the baggage reimbursement form within two years.
+    evidence: [PIR reference number (for example FRALH12345), bag tag, boarding pass, booking code, dated receipts]
+    steps:
+      - do: Before you leave the airport, report the delayed bag online or at the baggage tracing desk. Stay until you have the PIR reference number, and subscribe to status updates.
+        channel: delayed-bag-report
+      - do: Check the status and update your delivery address on the baggage status page or in the Chat Assistant.
+        channel: bag-status
+      - do: Buy only essential items (toiletries, clothes) and keep the receipts. Then claim them on the baggage reimbursement form.
+        channel: baggage-reimbursement-form
+      - do: If the bag is not found within five days, complete the contents list on the baggage status page.
+        channel: bag-status
+      - do: If you cannot get information online, call the number printed on your delayed baggage report confirmation.
+    facts:
+      - kind: policy
+        claim: Items you can continue to use (for example clothes) are reimbursed at 50%, toiletries and single-use items at 100% (exceptions apply to the USA and Canada). You must keep the cost of replacement items as low as possible.
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://www.lufthansa.com/gb/en/baggage-irregularities
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: You can apply for reimbursement of replacement items within two years of your flight, provided you reported the bag as delayed.
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://www.lufthansa.com/gb/en/baggage-irregularities
+        last_verified: 2026-11-19
+      - kind: process
+        claim: If the bag cannot be found within five days of reporting the delay, Lufthansa needs a detailed description of the bag and its contents; the contents list on the baggage status page opens automatically five days after the report.
+        issues: [delayed_baggage, lost_baggage]
+        verified_via: browser
+        source: https://www.lufthansa.com/gb/en/baggage-irregularities
+        last_verified: 2026-11-19
+
+  - issue: lost_baggage
+    summary: A bag delayed more than 21 days counts as lost. Claim compensation on the baggage reimbursement form within two years, after reporting it as delayed and completing the contents list.
+    evidence: [PIR reference number, bag tag, booking code, contents list with values, receipts]
+    steps:
+      - do: Make sure the bag was reported as delayed within the reporting deadlines and you have the PIR number.
+        channel: delayed-bag-report
+      - do: Complete the contents list on the baggage status page.
+        channel: bag-status
+      - do: After 21 days, claim compensation for the lost bag on the baggage reimbursement form, within two years.
+        channel: baggage-reimbursement-form
+      - do: If Lufthansa does not reply within two months or you disagree, apply to the German conciliation body (private trips).
+        regulator: de-sruv
+    facts:
+      - kind: deadline
+        claim: You are entitled to compensation for the loss of a bag if you reported it as delayed within the reporting deadlines, completed the contents list on the baggage status page, and the bag has been delayed for more than 21 days. You must submit the claim within two years.
+        issues: [lost_baggage]
+        verified_via: browser
+        source: https://www.lufthansa.com/gb/en/baggage-irregularities
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Lufthansa's page says the maximum for the complete loss of a bag is set by the Montreal Convention at 1,519 SDR, currently approx. EUR 1,900, subject to exchange rate changes.
+        issues: [lost_baggage, delayed_baggage]
+        verified_via: browser
+        source: https://www.lufthansa.com/gb/en/baggage-irregularities
+        last_verified: 2026-11-19
+
+  - issue: damaged_baggage
+    summary: Report damage at the baggage tracing desk before leaving, or online up to three days after the flight; if you find it later, report within seven days. Dolfi1920 GmbH handles repair, replacement or payment.
+    evidence: [PIR reference number, bag tag, boarding pass, photos of the damage, booking code]
+    steps:
+      - do: Report the damage at the Lufthansa baggage tracing desk (Lost and Found) before you leave the airport, and keep the PIR number.
+      - do: If you are no longer at the airport, report it online (up to three days after your flight).
+        channel: damaged-bag-report
+      - do: If the online service is not available, or for a damaged wheelchair or mobility aid, use the baggage reimbursement form. Report within seven days.
+        channel: baggage-reimbursement-form
+      - do: Wait for Dolfi1920 GmbH, which processes repairs, replacements and payments for Lufthansa, to contact you.
+      - do: For items missing from the bag, report immediately at the airport, or in writing online within seven days.
+        channel: baggage-reimbursement-form
+    facts:
+      - kind: deadline
+        claim: If you do not notice the damage until after you arrive home or at your hotel, Lufthansa's baggage page says to report it within seven days (one passage says of your flight, another says after receiving your checked baggage).
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://www.lufthansa.com/gb/en/baggage-irregularities
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Missing items or contents must be reported immediately on arrival at the baggage tracing desk, the service counter or by the contact form; a later report is accepted only if made in writing online within seven days.
+        issues: [damaged_baggage, lost_baggage]
+        verified_via: browser
+        source: https://www.lufthansa.com/gb/en/baggage-irregularities
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Dolfi1920 GmbH processes all baggage repairs, replacements and payments for damaged baggage on behalf of Lufthansa. Depending on the damage, the bag is repaired or replaced, or you receive its current value.
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://www.lufthansa.com/gb/en/baggage-irregularities
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: To submit a request as a third party on behalf of a traveller, Lufthansa requires an authorisation issued by the customer, uploaded in the Attachments section of the feedback form.
+    issues: [poor_service, flight_delay, flight_cancellation]
+    verified_via: browser
+    source: https://www.lufthansa.com/gb/en/feedback-past-flight
+    last_verified: 2026-11-19
+  - kind: process
+    claim: The feedback page asks you to give your name and address, the 13-digit ticket number (220-XXXXXXXXXX), the six-character booking code, your eight-digit feedback ID for an existing report, and for baggage the PIR reference (for example FRALH12345). Do not send credit card details.
+    issues: [poor_service, delayed_baggage, flight_delay]
+    verified_via: browser
+    source: https://www.lufthansa.com/gb/en/feedback
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: The passenger rights page says that for flights under Regulation (EC) No 261/2004 you must check in by the time indicated or no later than 45 minutes before departure (except for a cancelled flight), and travel on a fare available to the public.
+    issues: [flight_delay, flight_cancellation, denied_boarding]
+    verified_via: browser
+    source: https://www.lufthansa.com/gb/en/passenger-rights
+    last_verified: 2026-11-19
+
+official_domains: [lufthansa.com, dlh.de, miles-and-more.com, lufthansagroup.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Miles & More (the Lufthansa Group loyalty programme) says it never sends emails asking you to enter your user ID, PIN or email access details; such a message did not come from Miles & More. Enter details only on www.miles-and-more.com by typing the address yourself.
+      verified_via: browser
+      source: https://www.miles-and-more.com/row/en/general-information/privacy-statement/security-advice-phishing.html
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: Lufthansa Group warned (31 March 2026) that fake websites claiming to give Lufthansa Group contact information appear in search engines to capture personal data or booking information. Use only the official channels on lufthansa.com and the other group airline sites, enter customer data only there, and type the address into the browser instead of using search results.
+      verified_via: browser
+      source: https://business.lufthansagroup.com/tr/en/program/experts/news/warning-about-fake-fraudulent-pages-with-alleged-lufthansa-group
+      last_verified: 2026-11-19
+
+known_blockers:
+  - lufthansa.com returns HTTP 403 to automated fetches; pages load only in a full browser.
+  - The Help & Contact page shows phone numbers only after a topic is chosen in a multi-step flow; some topics say phone support is not available.
+  - The compensation form needs the booking code or 13-digit ticket number and the passenger names, and asks for IBAN and BIC for payment.
+  - The baggage report, status page and reimbursement form need the PIR reference number; the Chat Assistant needs the reference number and family name.
+  - A third party must upload the traveller's signed authorisation.
+  - Tickets bought through a travel agency or tour operator must be refunded or rebooked through that agency.
+
+notes: >-
+  Checked on 2026-11-19 in a browser on the lufthansa.com UK English site (gb/en); WebFetch and curl got HTTP 403.
+  Phone numbers come from the Help & Contact topic flow (UK and Germany editions); no opening hours are shown. An older
+  page in search results (/us/en/hotlines-worldwide, listing +44 151 237 3300) now returns 404 and was not used. The
+  baggage page is not consistent on damage reports: "within seven days of your flight" in one answer and "no later
+  than seven days after receiving your checked baggage" in another. The refund page offers a complete refund for
+  delays of at least two hours, which is more generous than EU261's five hours. Bag reports and status use mybag.aero,
+  an external site linked from Lufthansa's page. The countries list follows the site's country selector (United
+  Kingdom, Switzerland, Norway and Iceland editions). The scam warning is on business.lufthansagroup.com and names
+  lufthansa.com and eurowings.com among the official sites.
