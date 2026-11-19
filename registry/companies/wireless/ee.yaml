@@ -1,0 +1,577 @@
+id: ee
+name: EE
+aliases: [ee, ee limited, everything everywhere, ee mobile, ee broadband, ee home broadband, ee tv]
+sector: wireless
+also_sectors: [internet_tv]
+countries: [gb]
+parent: BT Group plc
+website: https://ee.co.uk
+regulators: [uk-communications-ombudsman, uk-ofcom]
+
+channels:
+  - id: ee-mobile-150
+    type: phone
+    label: EE customer service from an EE phone (150)
+    value: "150"
+    purposes: [billing_error, bill_increase, cancel_service, number_port_out, service_outage, payment_assistance, poor_service]
+    hours: Monday to Friday 8am-9pm; Saturday and Sunday 8am-8pm (lost or stolen devices 24 hours a day)
+    access: open
+    notes: >-
+      Free from an EE number. EE says its digital call menu is the fastest way to reach it; you can also text HELLO
+      to 150 from an EE mobile. Text relay - 18001 07953 966 150.
+    verified_via: browser
+    source: https://ee.co.uk/help/contact-ee/complaint
+    last_verified: 2026-11-19
+  - id: mobile-any-phone
+    type: phone
+    label: EE mobile customer service and complaints from any other phone (07953 966 150)
+    value: +44-7953-966-150
+    purposes: [billing_error, bill_increase, cancel_service, number_port_out, poor_service, payment_assistance]
+    hours: Monday to Friday 8am-9pm; Saturday and Sunday 8am-8pm
+    notes: >-
+      Listed on the complaints and mobile contact pages. Charges may apply from other networks. The same number,
+      written +44 (0)7953 966 150, is EE's number from abroad. EE's leaving page says to call it for account details
+      after you have left.
+    verified_via: browser
+    source: https://ee.co.uk/help/contact-ee/complaint
+    last_verified: 2026-11-19
+  - id: broadband-phone
+    type: phone
+    label: EE broadband and landline customer service from any other phone (0330 123 1105)
+    value: +44-330-123-1105
+    purposes: [billing_error, bill_increase, cancel_service, service_outage, equipment_return, payment_assistance]
+    hours: Monday to Friday 8am-9pm; Saturday and Sunday 8am-8pm
+    notes: Free from an EE number; charges may apply from other networks. EE's "problems paying your bill" page gives the same number for hub customers.
+    verified_via: browser
+    source: https://ee.co.uk/help/contact-ee/account-billing/broadband-landline
+    last_verified: 2026-11-19
+  - id: complaints-code-freephone
+    type: phone
+    label: EE complaints freephone in the complaints code (0800 079 8586)
+    value: +44-800-079-8586
+    purposes: [billing_error, poor_service, cancel_service]
+    hours: Monday to Friday 8am-9pm; Saturday and Sunday 8am-8pm
+    notes: >-
+      The complaints code (last updated October 2026) gives 0800 079 8586 for mobile customers from a UK landline and
+      for landline and home broadband customers from any phone. EE's leaving page gives it for changing a home phone
+      call plan (option 1). The live contact pages give 07953 966 150 and 0330 123 1105 instead.
+    verified_via: document
+    source: https://ee.co.uk/content/dam/help/terms-and-conditions/regulatory/ee-complaints-code-of-practice-april-2026.pdf
+    last_verified: 2026-11-19
+  - id: complaint-form
+    type: web_form
+    label: EE online complaints form
+    value: https://ee.co.uk/help/contact-ee/complaint/complaint-form
+    purposes: [billing_error, bill_increase, poor_service, cancel_service, service_outage, equipment_return]
+    notes: >-
+      Linked from the "Make a complaint" page, which says EE's current response time is 7 days and that you need not
+      contact EE again if you have already complained. The code says not to put security answers or payment details
+      in the form. The form itself was not opened.
+    verified_via: browser
+    source: https://ee.co.uk/help/contact-ee/complaint
+    last_verified: 2026-11-19
+  - id: complaints-mail
+    type: mail
+    label: EE written complaints (post)
+    value: EE, Sunderland, SR43 4NN
+    purposes: [billing_error, bill_increase, poor_service]
+    notes: >-
+      Include full name, postal address with postcode, account number and/or mobile number, landline number (for
+      home broadband complaints), complaint details and an alternative daytime phone number. The complaints code
+      writes the address as "EE, Sunderland, Tyne & Wear, SR43 4NN".
+    verified_via: browser
+    source: https://ee.co.uk/help/contact-ee/complaint
+    last_verified: 2026-11-19
+  - id: ee-app
+    type: app
+    label: EE app (Android; also on the App Store)
+    value: https://play.google.com/store/apps/details?id=uk.co.ee.myee&hl=en_GB
+    purposes: [billing_error, payment_assistance, cancel_service, number_port_out]
+    access: login
+    notes: EE says help is "better in the app". The app shows plan end dates, personalised offers and billing.
+    verified_via: browser
+    source: https://ee.co.uk/help/contact-ee
+    last_verified: 2026-11-19
+  - id: service-status
+    type: portal
+    label: EE Service Status Checker (log in to check your area and test your broadband)
+    value: https://ee.co.uk/help/service-status
+    purposes: [service_outage]
+    access: login
+    verified_via: browser
+    source: https://ee.co.uk/help/service-status
+    last_verified: 2026-11-19
+  - id: leaving-page
+    type: portal
+    label: What you need to know if you want to leave EE
+    value: https://ee.co.uk/help/profile/leaving-ee/leaving-ee-what-you-need-to-know
+    purposes: [cancel_service, early_termination_fee, number_port_out, equipment_return]
+    access: open
+    verified_via: browser
+    source: https://ee.co.uk/help/profile/leaving-ee/leaving-ee-what-you-need-to-know
+    last_verified: 2026-11-19
+  - id: pac-text
+    type: sms
+    label: Get a PAC to keep your number (text PAC to 65075)
+    value: "65075"
+    purposes: [number_port_out, cancel_service]
+    notes: >-
+      Free. EE sends the PAC by text straight away, with switching information; valid for 30 days. If you have more
+      than one number on the account, use EE online or call. You can also request it on the EE website with a
+      one-time PIN. Texting PAC to 65075 is Ofcom's text-to-switch process for mobiles.
+    verified_via: browser
+    source: https://ee.co.uk/help/profile/leaving-ee/leaving-ee-what-you-need-to-know
+    last_verified: 2026-11-19
+  - id: stac-text
+    type: sms
+    label: Get a STAC to leave without your number (text STAC to 75075)
+    value: "75075"
+    purposes: [cancel_service]
+    notes: Free; sent by text straight away; valid for 30 days.
+    verified_via: browser
+    source: https://ee.co.uk/help/profile/leaving-ee/leaving-ee-what-you-need-to-know
+    last_verified: 2026-11-19
+  - id: etc-info-text
+    type: sms
+    label: Check early termination charges (text INFO to 85075)
+    value: "85075"
+    purposes: [early_termination_fee, cancel_service]
+    verified_via: browser
+    source: https://ee.co.uk/help/profile/leaving-ee/leaving-ee-what-you-need-to-know
+    last_verified: 2026-11-19
+  - id: returns-page
+    type: portal
+    label: Return and recycle your EE Broadband or EE TV products
+    value: https://ee.co.uk/help/orders/return-and-recycle-ee-product
+    purposes: [equipment_return, cancel_service]
+    access: open
+    notes: >-
+      EE emails a QR code and printable label. Take the parcel to a Royal Mail Customer Service Point, Post Office or
+      delivery office, or a Royal Mail parcel locker. Keep the Royal Mail receipt with the tracking number. EE stores
+      accept only mobile phone returns.
+    verified_via: browser
+    source: https://ee.co.uk/help/orders/return-and-recycle-ee-product
+    last_verified: 2026-11-19
+  - id: returns-label-text
+    type: sms
+    label: Request another returns label (text RETURN to 61996)
+    value: "61996"
+    purposes: [equipment_return]
+    verified_via: browser
+    source: https://ee.co.uk/help/orders/return-and-recycle-ee-product
+    last_verified: 2026-11-19
+  - id: payment-help
+    type: portal
+    label: Help if you have problems paying your EE bill
+    value: https://ee.co.uk/help/billing-payments/financial-support/i-cant-pay-my-bill
+    purposes: [payment_assistance, disconnection]
+    access: open
+    verified_via: browser
+    source: https://ee.co.uk/help/billing-payments/financial-support/i-cant-pay-my-bill
+    last_verified: 2026-11-19
+  - id: ee-basics
+    type: portal
+    label: EE Basics mobile social tariff
+    value: https://ee.co.uk/mobile/basics
+    purposes: [payment_assistance, price_negotiation]
+    access: open
+    source: https://ee.co.uk/mobile/basics
+    last_verified: 2026-11-19
+  - id: home-essentials-ee-phone
+    type: phone
+    label: BT Home Essentials broadband social tariff - line for EE customers (0800 079 5122)
+    value: +44-800-079-5122
+    purposes: [payment_assistance, price_negotiation]
+    hours: Monday to Friday 8am-9pm; Saturday and Sunday 8am-8pm
+    notes: Published on BT's Home Essentials page. EE's price page says eligible EE customers can switch to BT Home Essentials at any time at no extra charge.
+    source: https://www.bt.com/broadband/home-essentials
+    last_verified: 2026-11-19
+  - id: price-changes
+    type: portal
+    label: EE annual price changes (prices explained)
+    value: https://ee.co.uk/prices-explained
+    purposes: [bill_increase]
+    access: open
+    source: https://ee.co.uk/prices-explained
+    last_verified: 2026-11-19
+  - id: privacy-request-form
+    type: web_form
+    label: EE data protection complaint - rights request team form (OneTrust)
+    value: https://btprivacy.my.onetrust.com/webform/a0327856-31fc-4f51-b6d3-1c9e883e1ecf/c93b80f8-333b-4150-bf54-cce1e455207f
+    purposes: [privacy_request]
+    verified_via: browser
+    source: https://ee.co.uk/help/contact-ee/complaint
+    last_verified: 2026-11-19
+  - id: ee-community
+    type: social
+    label: EE Community forum
+    value: https://community.ee.co.uk
+    purposes: [billing_error, service_outage, number_port_out]
+    notes: Linked from EE help pages ("Ask questions and share tips with other people, 24 hours a day"). Content not checked.
+    verified_via: browser
+    source: https://ee.co.uk/help/contact-ee/account-billing/mobile-phone
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: ee-mobile-150, note: "Call 150 from an EE phone, 07953 966 150 (mobile) or 0330 123 1105 (broadband) from other phones. The complaints code says to contact customer services first."}
+  - {rung: retention, channel: leaving-page, note: "EE publishes no separate retention number. Its leaving page says to check personalised offers in the EE app or online, or get in touch to discuss options."}
+  - {rung: written_complaint, channel: complaint-form, note: "Online complaints form (EE says its current response time is 7 days) or a letter to EE, Sunderland, SR43 4NN. EE treats a complaint as resolved if it does not hear from you within 28 days of agreeing a resolution. Ask for a deadlock letter if EE can do nothing more."}
+  - {rung: regulator, regulator: uk-communications-ombudsman, note: "EE's complaints code (last updated October 2026) says you can refer an airtime or network complaint to the Communications Ombudsman, free, if EE has not resolved it within six weeks or you are unhappy with EE's response. You must go within six years of first complaining, or within 12 months of a deadlock. Complaints about an EE device finance agreement go to the Financial Ombudsman Service instead."}
+  - {rung: regulator, regulator: uk-ofcom, note: "Ofcom does not resolve individual complaints; report the problem to it for its monitoring."}
+
+playbooks:
+  - issue: billing_error
+    summary: Call or use the online complaints form, get a reference, then go to the Communications Ombudsman after six weeks or a deadlock.
+    evidence: [the bill with the wrong charge, EE account number or mobile number, landline number for broadband, order confirmation or chat transcript with the agreed price, payment record]
+    steps:
+      - do: Call EE (150 from an EE phone) and ask for a correction. Get a reference number.
+        channel: ee-mobile-150
+      - do: If not fixed, complain with the online form or in writing. EE says its current response time is 7 days.
+        channel: complaint-form
+      - do: If EE has not resolved it within six weeks, or you get a deadlock letter, refer it to the Communications Ombudsman. It is free.
+        regulator: uk-communications-ombudsman
+    facts:
+      - kind: process
+        claim: EE's complaints code says to contact customer services first, by phone or in writing (letter or email webform). Phone is the quickest route.
+        issues: [billing_error, poor_service]
+        verified_via: document
+        source: https://ee.co.uk/content/dam/help/terms-and-conditions/regulatory/ee-complaints-code-of-practice-april-2026.pdf
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: EE considers a complaint resolved if it does not hear from you within 28 days of the complaint resolution being agreed; a later complaint is treated as new.
+        issues: [billing_error, poor_service]
+        verified_via: document
+        source: https://ee.co.uk/content/dam/help/terms-and-conditions/regulatory/ee-complaints-code-of-practice-april-2026.pdf
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: EE's pay monthly price guide (charges from 7 October 2026) lists a late payment charge of £7.68 per payment and a payment failure/non-payment charge of £5.00 per failure.
+        issues: [billing_error, payment_assistance]
+        verified_via: document
+        source: https://ee.co.uk/content/dam/help/terms-and-conditions/price-plans/mobile/pay-monthly-price-plans/ee-pay-monthly-standard-and-non-standard-price-guide-11th_October_2026.pdf
+        last_verified: 2026-11-19
+
+  - issue: bill_increase
+    summary: EE's annual rise is a fixed pounds-and-pence amount on 31 March in the minimum term (1 March after it); the amount depends on product and sign-up date.
+    evidence: [order confirmation or contract summary with the start date, EE's price-change email or text, last bill before and first bill after the rise]
+    steps:
+      - do: Find your plan start date in the EE app or online, then find your amount in EE's price table.
+        channel: price-changes
+      - do: If the rise is more than the table says for your plan and date, dispute it as a billing error.
+        channel: ee-mobile-150
+      - do: If EE makes any other change that is not to your benefit, you can end the contract without an early termination charge. Tell EE within 30 days of its notice.
+        channel: complaint-form
+      - do: If you get certain benefits, ask about EE Basics (mobile) or BT Home Essentials (broadband), which EE says have frozen prices.
+        channel: ee-basics
+    facts:
+      - kind: policy
+        claim: EE's annual price increases from 31 March 2026 - SIM Only and airtime plans £1.50 (taken out 10 April 2024 to 30 July 2025) or £2.50 (from 31 July 2025); handset plans £1.50 (10 April to 9 September 2024) or £4 (from 10 September 2024); connected devices and Mobile Broadband £1.50 (from 10 April 2024).
+        issues: [bill_increase]
+        source: https://ee.co.uk/prices-explained
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: EE's annual price increases from 31 March 2026 - Broadband £3 (from 10 April 2024) or £4 (from 6 August 2025); 4G/5G Home Broadband £1.50, £3 or £4 depending on sign-up date; EE TV £2 (from 10 April 2024).
+        issues: [bill_increase]
+        source: https://ee.co.uk/prices-explained
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: EE says the increase "will be applied each 31 March during the minimum term of your plan" and "Once your minimum term has ended, the increase to your plan charge will be applied each 1 March." EE sends an email or text, usually between January and mid-March.
+        issues: [bill_increase]
+        source: https://ee.co.uk/prices-explained
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: EE says it has frozen prices for customers on BT Home Essentials, EE Mobile Basics and pay as you go (PAYG) plans.
+        issues: [bill_increase, payment_assistance]
+        source: https://ee.co.uk/prices-explained
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: EE's mobile price guide says all out of bundle charges increase on 31st March every year by 5%, and the monthly plan price increases by a fixed amount each year that EE tells you when you buy the plan.
+        issues: [bill_increase]
+        verified_via: document
+        source: https://ee.co.uk/content/dam/help/terms-and-conditions/price-plans/mobile/pay-monthly-price-plans/ee-pay-monthly-standard-and-non-standard-price-guide-11th_October_2026.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: EE's Home Network (broadband) terms say a change to the price plan charge from the annual price increase does not give a right to end the agreement without an early termination charge; other changes with a negative effect do. EE tells you at least 30 days before, and you must tell EE within 30 days of the date of its notice.
+        issues: [bill_increase, early_termination_fee, cancel_service]
+        verified_via: document
+        source: https://ee.co.uk/content/dam/help/terms-and-conditions/broadband/home-network/ee-home-network-terms-09-december-2025.pdf
+        last_verified: 2026-11-19
+
+  - issue: cancel_service
+    summary: Mobile - get a PAC or STAC by text, or give 30 days' notice. Broadband - give notice to EE or order from the new provider; return the hub within 30 days.
+    evidence: [plan start and end dates, PAC or STAC and the date you got it, cancellation date and reference, Royal Mail return receipt]
+    steps:
+      - do: Check your plan end date in the EE app or online. Check for early charges by texting INFO to 85075.
+        channel: etc-info-text
+      - do: To switch mobile provider, text PAC to 65075 (keep your number) or STAC to 75075, and give the code to the new provider within 30 days.
+        channel: pac-text
+      - do: To cancel without switching, call EE and give at least 30 days' notice. You can do this up to 45 days before the minimum term ends.
+        channel: ee-mobile-150
+      - do: For broadband, contact EE or place an order with your new provider. Return the hub and TV box within 30 days.
+        channel: returns-page
+      - do: Check the final bill (within 14 days of cancellation or switch). Any credit is refunded automatically about eight days after the final bill date.
+    facts:
+      - kind: deadline
+        claim: For a standard mobile disconnection, EE needs at least 30 days' notice, even if the minimum term has ended, and charges for the 30 days from the cancellation request. You can request cancellation a maximum of 45 days before the end of the minimum term.
+        issues: [cancel_service]
+        verified_via: browser
+        source: https://ee.co.uk/help/profile/leaving-ee/leaving-ee-what-you-need-to-know
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If you do nothing at the end of your plan, EE moves you to a 30-day rolling plan at the same price.
+        issues: [cancel_service, bill_increase, price_negotiation]
+        verified_via: browser
+        source: https://ee.co.uk/help/profile/leaving-ee/end-of-my-plan
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: EE's leaving page says "We need 30 days' notice to cancel your EE broadband." The same page's broadband early-cancellation section says the agreement terminates 14 days from when EE receives the request or from when you order from your new provider.
+        issues: [cancel_service]
+        verified_via: browser
+        source: https://ee.co.uk/help/profile/leaving-ee/leaving-ee-what-you-need-to-know
+        last_verified: 2026-11-19
+      - kind: process
+        claim: EE sends the final bill within 14 days of the number being cancelled or the switch completing. If you are in credit, EE refunds automatically about eight days after the final bill date - to your bank if you pay by Direct Debit, otherwise by cheque.
+        issues: [cancel_service, refund_request]
+        verified_via: browser
+        source: https://ee.co.uk/help/profile/leaving-ee/leaving-ee-what-you-need-to-know
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: EE says it will always tell you when you can leave or cancel a service without paying a charge, including at the end of your contract or if it makes a change that is not to your benefit.
+        issues: [cancel_service, early_termination_fee]
+        verified_via: browser
+        source: https://ee.co.uk/help/profile/leaving-ee/leaving-ee-what-you-need-to-know
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: If you bought a device, SIM or accessory from EE and changed your mind, you can return it within 14 days; if it is faulty, you have 30 days.
+        issues: [cancel_service, refund_request]
+        verified_via: browser
+        source: https://ee.co.uk/help/profile/leaving-ee/leaving-ee-what-you-need-to-know
+        last_verified: 2026-11-19
+
+  - issue: early_termination_fee
+    summary: Mobile - Remaining Contract Charge is the rest of the term minus 4%. Broadband - Early Cancellation Charge removes EE's saved costs. Check by texting INFO to 85075.
+    evidence: [contract start and end dates, monthly price and discounts, the charge on the final bill]
+    steps:
+      - do: Text INFO to 85075 to see any early charges before you leave.
+        channel: etc-info-text
+      - do: Check the charge on the final bill against EE's method. For broadband, ask EE to show the saved costs it deducted.
+        channel: leaving-page
+      - do: If EE changed something not to your benefit, or could not fix a broadband fault within 30 days, ask EE to remove the charge.
+        channel: complaint-form
+    facts:
+      - kind: fee
+        claim: EE mobile Remaining Contract Charge - EE adds the outstanding monthly charges for the rest of the minimum term (with any recurring discount, at a daily rate), deducts VAT, deducts 4% for early receipt and any account credit, adds remaining Add to Plan charges, then adds VAT. EE's example - £30 a month with three months left gives £86.40.
+        issues: [early_termination_fee, cancel_service]
+        verified_via: browser
+        source: https://ee.co.uk/help/profile/leaving-ee/leaving-ee-what-you-need-to-know
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: EE Broadband Early Cancellation Charge - EE takes the outstanding monthly charges excluding VAT (with any recurring discount), reduces them for costs it saves (such as wholesale costs), takes off an amount for early receipt, multiplies by the months left, then adds VAT.
+        issues: [early_termination_fee, cancel_service]
+        verified_via: browser
+        source: https://ee.co.uk/help/profile/leaving-ee/leaving-ee-what-you-need-to-know
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Inside the last 30 days of the minimum term, or after it, EE charges a notice period charge of 30 days' line rental from the date you contacted EE; if you asked for a PAC, EE calculates it from the date the number is transferred.
+        issues: [early_termination_fee, number_port_out]
+        verified_via: browser
+        source: https://ee.co.uk/help/profile/leaving-ee/leaving-ee-what-you-need-to-know
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: EE's automatic compensation page says "If we can't fix your service after 30 days, you have the right to leave us with no termination charges."
+        issues: [early_termination_fee, service_outage]
+        source: https://ee.co.uk/autocomp
+        last_verified: 2026-11-19
+
+  - issue: number_port_out
+    summary: Text PAC to 65075 for a free PAC, valid for 30 days; EE credits you automatically if the port is delayed.
+    evidence: [mobile number, PAC and the date it was sent, the date of the switch]
+    steps:
+      - do: Text PAC to 65075. If you have more than one number on the account, log in to EE online or call.
+        channel: pac-text
+      - do: Give the PAC to your new provider within 30 days. If you are on pay as you go, use your credit first because it is lost on switching.
+      - do: If the port is delayed, check for the automatic credit. If EE gave wrong switching information, complain.
+        channel: complaint-form
+    facts:
+      - kind: process
+        claim: EE gives a PAC free of charge - online (with a one-time PIN), by texting PAC to 65075, or by phone - and sends it by text straight away. The PAC is valid for 30 days; if not used, the EE service continues as normal.
+        issues: [number_port_out]
+        verified_via: browser
+        source: https://ee.co.uk/help/profile/leaving-ee/leaving-ee-what-you-need-to-know
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: If there is a delay in transferring your number, EE says you may be eligible for compensation and it credits the account automatically. If switching information EE gave you was wrong, you may also be eligible for compensation.
+        issues: [number_port_out]
+        verified_via: browser
+        source: https://ee.co.uk/help/profile/leaving-ee/leaving-ee-what-you-need-to-know
+        last_verified: 2026-11-19
+
+  - issue: service_outage
+    summary: Check the service status checker and report the fault; EE pays automatic compensation on broadband and landline for slow repairs, missed engineer visits and late activations.
+    evidence: [date and time you reported the fault, fault reference, engineer appointment details, bills showing the credit]
+    steps:
+      - do: Log in to the Service Status Checker to check your area and run a broadband test.
+        channel: service-status
+      - do: Report the fault by phone and note the date. A total loss not fixed within two working days earns an automatic daily credit.
+        channel: broadband-phone
+      - do: If the credit is missing within 30 days of the fix, complain and quote EE's automatic compensation page.
+        channel: complaint-form
+      - do: If EE cannot fix the service after 30 days, you can leave with no termination charges.
+    facts:
+      - kind: compensation
+        claim: EE pays £10.34 for each extra day if broadband or landline has a total loss of service not fixed within two working days after you report it, £6.46 for each day a new service is late, and £32.31 for each missed engineer appointment (or one changed with less than 24 hours' notice).
+        issues: [service_outage]
+        source: https://ee.co.uk/autocomp
+        last_verified: 2026-11-19
+      - kind: process
+        claim: EE credits compensation automatically within 30 days of the missed appointment, activation or fix. For a total loss of service, fault or delayed activation, compensation runs for up to 60 days.
+        issues: [service_outage]
+        source: https://ee.co.uk/autocomp
+        last_verified: 2026-11-19
+
+  - issue: equipment_return
+    summary: Return EE broadband and TV kit within 30 days using the QR code or label EE emails; keep the Royal Mail receipt. Charges are refunded in full if you return within 2 years.
+    evidence: [Royal Mail receipt with tracking number, device model and serial number, the non-return charge on the bill]
+    steps:
+      - do: Use the QR code or printable label from EE's email. If you need another label, text RETURN to 61996.
+        channel: returns-label-text
+      - do: Take the parcel to a Royal Mail Customer Service Point, Post Office or parcel locker. One QR code or label per parcel. Keep the receipt.
+        channel: returns-page
+      - do: If EE chases or charges you, reply with the Royal Mail tracking number and ask for the charge to be refunded.
+        channel: broadband-phone
+    facts:
+      - kind: deadline
+        claim: EE's leaving page says EE emails return instructions for broadband or TV equipment, and to send it back within 30 days or EE will charge on the final bill.
+        issues: [equipment_return, cancel_service]
+        verified_via: browser
+        source: https://ee.co.uk/help/profile/leaving-ee/leaving-ee-what-you-need-to-know
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: EE non-return charges - Smart Hub £70, Smart Hub 6 Plus £85, Smart Hub 7 Pro £125, WiFi Extender £55 per device, WiFi Extender 7 Pro £85 per device, Connectivity Backup £80, EE TV Box Pro £140, Apple TV 4K £120, EE TV Box Edge £75. BT kit has its own list (for example BT Smart Hub 2 £65, BT Smart Hub 3 £85).
+        issues: [equipment_return]
+        verified_via: browser
+        source: https://ee.co.uk/help/orders/return-and-recycle-ee-product
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: The charges do not apply to BT equipment supplied before 13 December 2019 or EE equipment supplied before April 2023. If you return equipment within 2 years of being charged, EE refunds the full charge.
+        issues: [equipment_return, refund_request]
+        verified_via: browser
+        source: https://ee.co.uk/help/orders/return-and-recycle-ee-product
+        last_verified: 2026-11-19
+
+  - issue: payment_assistance
+    summary: Call EE early for a payment arrangement or more time; ask about EE Basics or BT Home Essentials if you get certain benefits.
+    evidence: [account number, the bill, proof of benefits]
+    steps:
+      - do: Call EE and explain your situation. EE says contacting it does not affect your credit file.
+        channel: ee-mobile-150
+      - do: Ask for a payment arrangement or more time to pay. You can also change your payment date or make part payments.
+        channel: payment-help
+      - do: If you get Universal Credit, Pension Credit (Guarantee Credit), JSA, Income Support or ESA, ask to move to EE Basics (mobile) or BT Home Essentials (broadband).
+        channel: ee-basics
+    facts:
+      - kind: policy
+        claim: EE says it can agree a suitable payment arrangement, give more time to pay, or give information about free debt advice. Some support options might affect your credit file, but contacting EE about your circumstances does not.
+        issues: [payment_assistance]
+        verified_via: browser
+        source: https://ee.co.uk/help/billing-payments/financial-support/i-cant-pay-my-bill
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If EE does not hear from you, your service may be affected, including disconnection; the debt may go to a third-party debt collection agency and late payment charges may apply. After a failed Direct Debit, EE tries again about 7 days later.
+        issues: [payment_assistance, disconnection]
+        verified_via: browser
+        source: https://ee.co.uk/help/billing-payments/financial-support/i-cant-pay-my-bill
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: EE Basics is £12 per month SIM only with 5GB data and unlimited calls and texts, on a 30-day rolling contract for 12 months with no early exit fees, for people on Universal Credit, Pension Credit (Guarantee Credit), ESA, JSA or Income Support. Flex Pay customers cannot transfer to it.
+        issues: [payment_assistance, price_negotiation]
+        source: https://ee.co.uk/mobile/basics
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: EE's complaints code (last updated October 2026) says that if EE has not resolved the complaint within six weeks, or you are unhappy with its response, you can refer it free of charge to an ombudsman - the Communications Ombudsman for airtime and network complaints, or the Financial Ombudsman Service for EE device finance agreements.
+    issues: [billing_error, poor_service]
+    verified_via: document
+    source: https://ee.co.uk/content/dam/help/terms-and-conditions/regulatory/ee-complaints-code-of-practice-april-2026.pdf
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: EE's code says you must contact the Communications Ombudsman within six years of first complaining to EE, or within 12 months of a deadlock being issued.
+    issues: [billing_error, poor_service]
+    verified_via: document
+    source: https://ee.co.uk/content/dam/help/terms-and-conditions/regulatory/ee-complaints-code-of-practice-april-2026.pdf
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: EE's broadband complaint page says that if EE has not resolved the complaint within six weeks, or there is a deadlock, you may refer it to the Communications Ombudsman free of charge.
+    issues: [billing_error, poor_service]
+    source: https://ee.co.uk/home-broadband-complaint
+    last_verified: 2026-11-19
+  - kind: contact
+    claim: EE's "Make a complaint" page says its current response time for the online complaints form is 7 days and that EE is experiencing high volumes.
+    verified_via: browser
+    source: https://ee.co.uk/help/contact-ee/complaint
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: BT Group's FY26 results say its Consumer division uses three brands - BT, EE and Plusnet - and that the BT brand was reintroduced with new products during May 2026.
+    verified_via: document
+    source: https://www.bt.com/content/dam/bt-plc/assets/documents/investors/financial-reporting-and-news/quarterly-results/fy26/h2/fy26-release.pdf
+    last_verified: 2026-11-19
+
+known_blockers:
+  - EE help and contact pages are JavaScript apps; they render empty to plain fetches (values here were read in a browser).
+  - The Service Status Checker, EE app, online PAC/STAC request and bill views need an EE login.
+  - EE publishes no executive or CEO complaints route.
+
+notes: >-
+  EE Limited is part of BT Group plc, together with BT and Plusnet. In April 2022 BT Group said EE would become its
+  flagship consumer brand; in May 2026 it reintroduced the BT brand instead (FY26 results), and BT Mobile now sells
+  SIM-only plans only to BT Broadband customers, with handsets from "our partner EE" (bt.com/mobile). No current BT or
+  EE page found says BT consumer customers are being moved to EE. The two brands share systems - the same returns
+  process and charges for BT and EE kit, the same Ofcom automatic compensation rates, and the BT Home Essentials
+  social tariff for eligible EE customers. EE's live pages give 150, 07953 966 150 and 0330 123 1105; the complaints
+  code gives 0800 079 8586. EE's complaints code and broadband complaint page already say six weeks for ADR, which
+  matches Ofcom's April 2026 change. The "PAC to 65075" and "STAC to 75075" texts are Ofcom's text-to-switch scheme.
+  Price rises are fixed pound amounts under Ofcom's rule (uk-ofcom-price-rise-pounds-and-pence).
+
+official_domains: [ee.co.uk]
+security:
+  never_asks:
+    - kind: policy
+      claim: EE says "We'll never ask you for your PIN or password by text or email."
+      verified_via: browser
+      source: https://ee.co.uk/help/security/staying-safe-online/avoid-and-prevent-scams
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: EE's complaints code says that if you have set up a Customer Services password, EE will never ask you to reveal it in full.
+      verified_via: document
+      source: https://ee.co.uk/content/dam/help/terms-and-conditions/regulatory/ee-complaints-code-of-practice-april-2026.pdf
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: EE's fraud page says "We will never ask for your personal information such as account details and passwords."
+      source: https://ee.co.uk/help/cyber-security/getting-started/fighting-fraud
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: Fraudsters call claiming to work for EE, or saying they are "your service provider", and ask for personal information, access to your computer, or bank details.
+      verified_via: browser
+      source: https://ee.co.uk/help/security/staying-safe-online/avoid-and-prevent-scams
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: EE warns of calls offering a competitive device deal, after which fraudsters try to intercept the delivery or have the handset sent to a different address; and of SIM swap fraud used to receive validation codes for payments and accounts.
+      source: https://ee.co.uk/help/cyber-security/getting-started/fighting-fraud
+      last_verified: 2026-11-19
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward phishing emails that mention EE
+      value: phishing@ee.co.uk
+      notes: Other phishing emails go to report@phishing.gov.uk. Delete the message after reporting.
+      verified_via: browser
+      source: https://ee.co.uk/help/security/staying-safe-online/avoid-and-prevent-scams
+      last_verified: 2026-11-19
+    - id: scam-text-7726
+      type: sms
+      label: Forward scam texts to 7726 (free)
+      value: "7726"
+      verified_via: browser
+      source: https://ee.co.uk/help/security/staying-safe-online/avoid-and-prevent-scams
+      last_verified: 2026-11-19

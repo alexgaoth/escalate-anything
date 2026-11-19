@@ -1,0 +1,679 @@
+id: sky
+name: Sky
+aliases: [sky uk, sky broadband, sky tv, sky talk, sky mobile, sky glass, sky stream, sky q, sky uk limited]
+sector: internet_tv
+also_sectors: [wireless]
+countries: [gb]
+parent: Sky UK Limited (part of Comcast Corporation)
+website: https://www.sky.com
+account_url: https://www.sky.com/myaccount
+regulators: [uk-cisas, uk-ofcom]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Sky customer service (0333 759 1018)
+    value: +44-333-759-1018
+    purposes: [billing_error, bill_increase, cancel_service, payment_assistance]
+    notes: >-
+      sky.com help pages publish this number as Sky's "customer service" contact point in their page data. The
+      complaints code lists the same number (written 0333 7591 018) for complaints about a Sky credit agreement.
+      Calls to Sky contact centres are inclusive for Sky Mobile and Sky Talk customers; for others, 03 numbers cost
+      the same as 01/02 numbers. Sky's help pages steer customers to online guides and messaging first.
+    verified_via: browser
+    source: https://www.sky.com/help/articles/sky-customer-complaints-code-of-practice/
+    last_verified: 2026-11-19
+  - id: messaging
+    type: chat
+    label: Message Sky (pick the product on the "How to make a Sky complaint" page)
+    value: https://www.sky.com/help/articles/how-to-make-a-complaint
+    purposes: [billing_error, bill_increase, cancel_service, service_outage, equipment_return, poor_service]
+    access: open
+    notes: >-
+      Sky says "The quickest way to get in touch is to message us." The page asks you to choose Sky Q, Sky Glass /
+      Sky Stream, Sky Broadband and Talk, Sky Mobile or Sky Smart Home first. Sky says a cancellation given by
+      messaging (Sky TV, Broadband & Talk) is processed straight away.
+    verified_via: browser
+    source: https://www.sky.com/help/articles/how-to-make-a-complaint
+    last_verified: 2026-11-19
+  - id: cancellation-phone
+    type: phone
+    label: Sky cancellations and price-change queries (0344 824 4450)
+    value: +44-344-824-4450
+    purposes: [cancel_service, bill_increase, early_termination_fee]
+    notes: >-
+      Sky gives this number for cancelling Sky+, Sky Q or Sky Broadband & Talk after a price-change notice, for
+      Broadband One Touch Switch cancellations in the 30-day window, and to discuss Sky Glass or Sky Stream.
+    verified_via: browser
+    source: https://www.sky.com/help/articles/changes-to-your-sky-subscription-uk
+    last_verified: 2026-11-19
+  - id: mysky-email
+    type: email
+    label: Sky email for notice to cancel or change a subscription
+    value: mysky@sky.uk
+    purposes: [cancel_service, bill_increase]
+    notes: Sky counts notice from the date it receives the email, but will need to speak to you to verify the account.
+    verified_via: browser
+    source: https://www.sky.com/help/articles/changes-to-your-sky-subscription-uk
+    last_verified: 2026-11-19
+  - id: subscriber-services-mail
+    type: mail
+    label: Sky Subscriber Services (letters, cancellation notice, written complaints)
+    value: Sky Subscribers Services Ltd, PO Box 43, Livingston, West Lothian, EH54 7DD
+    purposes: [cancel_service, billing_error, poor_service]
+    notes: >-
+      The price-change article gives this address for cancellation letters. The complaints code gives the same PO Box
+      with "Customer Complaints" for credit-agreement complaints and for the person responsible for the code.
+    verified_via: browser
+    source: https://www.sky.com/help/articles/changes-to-your-sky-subscription-uk
+    last_verified: 2026-11-19
+  - id: complaints-code
+    type: portal
+    label: Sky Customer Complaints Code of Practice
+    value: https://www.sky.com/help/articles/sky-customer-complaints-code-of-practice/
+    purposes: [billing_error, poor_service]
+    access: open
+    notes: Sections are collapsed accordions; automated fetches see only the headings.
+    verified_via: browser
+    source: https://www.sky.com/help/articles/sky-customer-complaints-code-of-practice/
+    last_verified: 2026-11-19
+  - id: code-compliance-email
+    type: email
+    label: Person responsible for Sky's complaints code (code compliance)
+    value: cop.compliance@sky.uk
+    purposes: [poor_service]
+    notes: The code names a designated person at Customer Complaints, Sky Subscribers Services Ltd, PO Box 43, Livingston, West Lothian EH54 7DD as responsible for making sure Sky and its agents observe the code.
+    verified_via: browser
+    source: https://www.sky.com/help/articles/sky-customer-complaints-code-of-practice/
+    last_verified: 2026-11-19
+  - id: credit-complaints-email
+    type: email
+    label: Complaints about a Sky credit agreement (Sky Glass, devices)
+    value: mdthorndike@sky.uk
+    purposes: [billing_error]
+    notes: Credit-agreement complaints go to the Financial Ombudsman Service, not CISAS. Phone for these is 0333 7591 018.
+    verified_via: browser
+    source: https://www.sky.com/help/articles/sky-customer-complaints-code-of-practice/
+    last_verified: 2026-11-19
+  - id: sky-mobile-phone
+    type: phone
+    label: Sky Mobile - PAC, STAC and early termination charge information for accounts with more than one SIM (03300 412 524)
+    value: +44-3300-412-524
+    purposes: [number_port_out, cancel_service, early_termination_fee]
+    verified_via: browser
+    source: https://www.sky.com/help/articles/cancelling-sky-mobile
+    last_verified: 2026-11-19
+  - id: pac-sms
+    type: sms
+    label: Sky Mobile PAC by text - send "PAC" and your date of birth (DDMMYYYY) to 65075
+    value: "65075"
+    purposes: [number_port_out, cancel_service]
+    notes: Single-SIM accounts only. Example from Sky - PAC 17041987.
+    verified_via: browser
+    source: https://www.sky.com/help/articles/cancelling-sky-mobile
+    last_verified: 2026-11-19
+  - id: stac-sms
+    type: sms
+    label: Sky Mobile STAC by text - send "STAC" and your date of birth (DDMMYYYY) to 75075
+    value: "75075"
+    purposes: [cancel_service]
+    notes: Single-SIM accounts only. A STAC cancels the service without keeping the number.
+    verified_via: browser
+    source: https://www.sky.com/help/articles/cancelling-sky-mobile
+    last_verified: 2026-11-19
+  - id: etc-info-sms
+    type: sms
+    label: Sky Mobile early termination charge check - send "INFO" and your date of birth (DDMMYYYY) to 85075
+    value: "85075"
+    purposes: [early_termination_fee]
+    verified_via: browser
+    source: https://www.sky.com/help/articles/cancelling-sky-mobile
+    last_verified: 2026-11-19
+  - id: leave-sky-mobile-portal
+    type: portal
+    label: Sky Mobile "leave Sky" page (sky.com/leavesky) - request PAC or STAC online
+    value: https://www.sky.com/myaccount/mobile/sim/x/my-number/leave
+    purposes: [number_port_out, cancel_service]
+    access: login
+    notes: Sign in with the primary Sky iD (My Account > Mobile > My Number).
+    verified_via: browser
+    source: https://www.sky.com/help/articles/cancelling-sky-mobile
+    last_verified: 2026-11-19
+  - id: service-checker
+    type: portal
+    label: Sky Service Checker (broadband, Sky Q and Streaming TV faults)
+    value: https://www.sky.com/servicechecker
+    purposes: [service_outage]
+    access: login
+    notes: Sky says if the checker cannot fix the issue it gives a phone number for an expert advisor.
+    verified_via: browser
+    source: https://www.sky.com/help/articles/contacting-sky
+    last_verified: 2026-11-19
+  - id: equipment-returns
+    type: portal
+    label: Return or recycle Sky equipment (Sky Q, broadband hub, Sky Stream puck, Sky Glass, Sky Mobile)
+    value: https://www.sky.com/help/articles/return-or-recycle-sky-equipment
+    purposes: [equipment_return, cancel_service]
+    access: open
+    verified_via: browser
+    source: https://www.sky.com/help/articles/return-or-recycle-sky-equipment
+    last_verified: 2026-11-19
+  - id: return-tracking
+    type: portal
+    label: Track a Sky equipment return
+    value: https://www.sky.com/ordertracking
+    purposes: [equipment_return]
+    verified_via: browser
+    source: https://www.sky.com/help/articles/charges-for-not-returning-sky-q-equipment
+    last_verified: 2026-11-19
+  - id: channel-islands-returns-phone
+    type: phone
+    label: Sky equipment courier collection for Channel Islands customers (03442 414141)
+    value: +44-3442-414-141
+    purposes: [equipment_return]
+    verified_via: browser
+    source: https://www.sky.com/help/articles/return-tv-broadband
+    last_verified: 2026-11-19
+  - id: social-tariff
+    type: portal
+    label: Sky social tariffs (Sky Broadband Basics and Sky Mobile social tariff) - apply by phone
+    value: https://www.sky.com/help/articles/sky-social-tariff
+    purposes: [payment_assistance, bill_increase]
+    access: open
+    verified_via: browser
+    source: https://www.sky.com/help/articles/sky-social-tariff
+    last_verified: 2026-11-19
+  - id: financial-difficulty
+    type: portal
+    label: Sky support with financial difficulty (spend caps, payment holiday, loan term extension)
+    value: https://www.sky.com/help/articles/support-with-financial-difficulty
+    purposes: [payment_assistance]
+    access: open
+    verified_via: browser
+    source: https://www.sky.com/help/articles/support-with-financial-difficulty
+    last_verified: 2026-11-19
+  - id: programming-complaints-phone
+    type: phone
+    label: Complaints about a programme broadcast on Sky (03442 410 265)
+    value: +44-3442-410-265
+    notes: Also by email to viewerR@sky.uk. Not for billing or service complaints.
+    verified_via: browser
+    source: https://www.sky.com/help/articles/how-to-make-a-complaint
+    last_verified: 2026-11-19
+  - id: accessible-formats-email
+    type: email
+    label: Ask for the complaints code in large print, audio or braille
+    value: accessiblecustomerservice@sky.uk
+    verified_via: browser
+    source: https://www.sky.com/help/articles/sky-customer-complaints-code-of-practice/
+    last_verified: 2026-11-19
+  - id: cisas
+    type: portal
+    label: CISAS (Communications and Internet Services Adjudication Scheme) - Sky's ADR scheme
+    value: https://www.cedr.com/consumer/cisas/
+    purposes: [billing_error, bill_increase, poor_service, service_outage, cancel_service]
+    access: open
+    notes: >-
+      Sky's code lists CISAS contacts - phone 020 7520 3814, textphone 020 7520 3767, email cisas@cedr.com, post CISAS,
+      Centre for Effective Dispute Resolution, 100 St Paul's Churchyard, London EC4M 8BU.
+    verified_via: browser
+    source: https://www.sky.com/help/articles/sky-customer-complaints-code-of-practice/
+    last_verified: 2026-11-19
+  - id: cisas-phone
+    type: phone
+    label: CISAS phone (020 7520 3814), as listed in Sky's complaints code
+    value: +44-20-7520-3814
+    verified_via: browser
+    source: https://www.sky.com/help/articles/sky-customer-complaints-code-of-practice/
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: messaging, note: "Sky says messaging is the quickest route. Phone 0333 759 1018 is the published customer service number. Sky aims to respond and agree a resolution within 10 days."}
+  - {rung: retention, channel: cancellation-phone, note: "Sky publishes no separate retention team. Cancellations and price-change exits go through 0344 824 4450 or messaging."}
+  - {rung: written_complaint, channel: subscriber-services-mail, note: "If unhappy with the first response, tell Sky where further attention is needed; Sky says it will review and escalate the complaint within the company. Ask for a deadlock notification if nothing more can be done. Sky publishes no executive or CEO complaints route; the code names a person responsible for code compliance (cop.compliance@sky.uk), which is not an executive complaints team."}
+  - {rung: regulator, regulator: uk-cisas, channel: cisas, note: "Sky's code says you can go to CISAS if the complaint is not resolved within six weeks of first complaining, or earlier with a deadlock notification. Sky sends a written reminder of this right after six weeks. Credit-agreement complaints go to the Financial Ombudsman Service instead (eight weeks)."}
+  - {rung: regulator, regulator: uk-ofcom, note: "Ofcom does not resolve individual complaints; report problems to it for its monitoring. Ofcom handles premium-rate service complaints directly (0300 123 3333)."}
+
+playbooks:
+  - issue: billing_error
+    summary: Check the bill online, then message Sky with the error and ask for a correction and reference; complain formally and go to CISAS after six weeks or a deadlock notification.
+    evidence: [the Sky bill with the wrong charge, account number, order confirmation or offer email with the agreed price, payment records]
+    steps:
+      - do: View the bill at sky.com/bill or in the My Sky app. Sky says common reasons for a higher bill are a contract or discount ending, chargeable Sky Talk calls or Sky Store purchases, or a part-month charge after a product change.
+      - do: Message Sky about the error and ask for a correction, a credit and a reference number.
+        channel: messaging
+      - do: If the first answer does not fix it, tell Sky you are unhappy with the response and where further attention is needed, so it escalates the complaint. Ask for a deadlock notification if Sky says nothing more can be done.
+        channel: subscriber-services-mail
+      - do: After six weeks from your first complaint, or with a deadlock notification, take the complaint to CISAS.
+        channel: cisas
+        regulator: uk-cisas
+      - do: For a Sky credit agreement (for example a Sky Glass or device loan), complain by phone or email to the credit complaints team; that route ends at the Financial Ombudsman Service, not CISAS.
+        channel: credit-complaints-email
+    facts:
+      - kind: deadline
+        claim: Sky aims to respond to a complaint and agree a resolution within 10 days; complex complaints can take longer, and Sky says it will contact you if it cannot agree a resolution in that time.
+        issues: [billing_error, poor_service]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/sky-customer-complaints-code-of-practice/
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Sky says one of the most common reasons for a bill increasing is the end of a contract, which usually means a discount has ended; other reasons are Sky Talk calls, Sky Store purchases, or a product change billed from the change date to the payment date plus a month in advance.
+        issues: [billing_error, bill_increase]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/been-overcharged
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: For Sky credit-agreement complaints, Sky aims to resolve within 3 working days, sends a written reminder of the right to go to the Financial Ombudsman Service after eight weeks, and gives a deadlock letter on request; the customer then has six months to contact the Financial Ombudsman Service.
+        issues: [billing_error]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/sky-customer-complaints-code-of-practice/
+        last_verified: 2026-11-19
+
+  - issue: bill_increase
+    summary: Sky's April price rise lets most in-contract Sky+, Sky Q and Sky Broadband & Talk customers leave without early termination charges if they act within 30 days of the notice; Sky Glass and Sky Stream are excluded.
+    evidence: [the price-change email or letter with its date, the last bill before the rise, contract start date and minimum term, any fixed-price offer terms]
+    steps:
+      - do: Check the price-change email or letter and the date you received it. Sky sends notices in February and March for rises from 1 April.
+      - do: If you have an offer that promises a fixed price for its duration, check that you still pay that price; Sky says such offers are not affected until they expire.
+      - do: If you want to leave Sky+, Sky Q or Sky Broadband & Talk because of the rise, contact Sky within 30 days of receiving the notice to avoid early termination charges. Phone or messaging processes it straight away.
+        channel: cancellation-phone
+      - do: If you are switching broadband with One Touch Switch, still call Sky on 0344 824 4450 within the 30 days so early termination charges are not applied.
+        channel: cancellation-phone
+      - do: If you stay, ask for current offers or a cheaper package, or check eligibility for a social tariff if you claim a qualifying benefit.
+        channel: social-tariff
+    facts:
+      - kind: deadline
+        claim: From 1 April 2026 Sky changed some Sky TV, Sky Glass, Sky Stream and Sky Broadband & Talk prices. Customers on Sky+, Sky Q or Sky Broadband & Talk who want to cancel because of the changes should contact Sky within 30 days of receiving the notification to avoid early termination charges. This does not apply to Sky Glass or Sky Stream.
+        issues: [bill_increase, early_termination_fee, cancel_service]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/changes-to-your-sky-subscription-uk
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Under a 12 or 24 month Sky TV minimum term, Sky says it will not charge price increases in the first 60 days, will not raise the standard TV package price more than once in any 12 months, and will not raise it by more than 10% or the RPI rise over the previous 12 months, whichever is greater. The cap is on standard pricing and does not cover standalone or extra Sky Premium Channels.
+        issues: [bill_increase]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/changes-to-your-sky-subscription-uk
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Under its contract Sky may vary Sky Broadband and Talk prices unless the customer is on an advertised fixed-price offer for a specified period; if it does, the customer may be granted a right to leave and will be told if so.
+        issues: [bill_increase]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/changes-to-your-sky-subscription-uk
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Sky says price changes apply to standard prices only. A fixed-price offer stays at that price until it expires, and a percentage discount stays the same percentage of the new price until it expires.
+        issues: [bill_increase]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/changes-to-your-sky-subscription-uk
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: The Sky price changes page says "Your prices may change from the 1 April 2026" and that Sky is sending customers full details of its 2026 price changes. It does not list amounts.
+        issues: [bill_increase]
+        source: https://www.sky.com/price-changes
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Sky Group announced on 6 January 2026 that from 14 February the majority of Sky Mobile customers' monthly bills would rise by £1.50 (£18 a year), the first price rise for in-contract Sky Mobile customers; social tariff prices were frozen, and in-contract customers who get a price-increase notice can cancel without early termination fees.
+        issues: [bill_increase, early_termination_fee]
+        source: https://skygroup.sky/article/an-update-on-our-sky-mobile-prices
+        last_verified: 2026-11-19
+
+  - issue: cancel_service
+    summary: Give 31 days' notice for Sky TV and 14 days for Sky Broadband & Talk (none if switching provider); Sky Mobile leaves with a PAC or STAC. Expect early termination charges inside a minimum term.
+    evidence: [account number, contract end date (Your products page), cancellation confirmation or reference, final bill]
+    steps:
+      - do: Check your minimum term end date in your Sky account so you know whether early termination charges apply.
+      - do: For Sky TV, give at least 31 days' notice by messaging, phone, email or letter. Do not cancel the Direct Debit, because further payments may still be due.
+        channel: messaging
+      - do: For Sky Broadband & Talk, give at least 14 days' notice, or just order from the new provider; Sky says the switch cancels Sky Broadband & Talk automatically when the new service starts.
+      - do: For Sky Mobile, text PAC (keep the number) or STAC (do not keep it) with your date of birth, or use sky.com/leavesky, then give the code to the new provider.
+        channel: pac-sms
+      - do: Return any equipment Sky asks for, and watch for the final bill. Credit on the account goes back to your bank 45 days after the service ends.
+        channel: equipment-returns
+    facts:
+      - kind: deadline
+        claim: To cancel Sky TV you must give 31 days' notice, which cannot end before your minimum term finishes; if the notice period ends before the minimum term finishes, early termination charges may apply and must be paid upfront.
+        issues: [cancel_service, early_termination_fee]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/cancel-sky-tv
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: To cancel Sky Broadband you need to give 14 days' notice, unless you are within the cooling off period or switching to another broadband or landline provider.
+        issues: [cancel_service]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/cancel-sky-broadband
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Sky gives UK customers an enhanced cooling off period of 31 days, instead of the 14 days legally required, for Sky Broadband and for Sky TV.
+        issues: [cancel_service]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/cancel-sky-broadband
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Sky payments are taken a month in advance, so you may be billed for the full month ahead after cancelling; once the service has ended, any credit on the Sky account is put back in your bank account after 45 days.
+        issues: [cancel_service, refund_request]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/cancel-sky-broadband
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: Cancelling Sky Glass within the 31-day cooling off period means paying for the days of TV subscription used and delivery costs, plus a £25 Returns fee added to the account.
+        issues: [cancel_service, equipment_return]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/cancel-sky-tv
+        last_verified: 2026-11-19
+
+  - issue: early_termination_fee
+    summary: Sky charges early termination charges (ETCs) for leaving inside a minimum term, calculated per remaining day; there are none on Sky Mobile 30-day plans, social tariffs, Sky Q Multiscreen, or after a price-rise exit within 30 days.
+    evidence: [contract and minimum term end date, the ETC letter, the price-change notice if leaving because of a rise]
+    steps:
+      - do: Check whether you are still in a minimum term. Sky Mobile customers can text INFO and their date of birth to 85075 to see any charge.
+        channel: etc-info-sms
+      - do: If you are leaving because of a price-rise notice, cancel within 30 days of receiving it and say so, to avoid ETCs (Sky+, Sky Q, Broadband & Talk, Sky Mobile).
+        channel: cancellation-phone
+      - do: Sky Mobile customers may reduce the ETC by changing to a cheaper plan before cancelling.
+        channel: leave-sky-mobile-portal
+      - do: If the charge looks wrong, complain and quote the ETC table; escalate to CISAS after six weeks or a deadlock notification.
+        channel: messaging
+    facts:
+      - kind: fee
+        claim: Sky calculates ETCs from the monthly charge minus business costs saved and a discount for accelerated receipt, then deducts any monthly discount and multiplies by the remaining days and months of the minimum term. For Sky Broadband and Talk the final amount is rounded up to the nearest 25p.
+        issues: [early_termination_fee, cancel_service]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/charges-for-ending-your-sky-contract-early
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Early termination charges do not apply to a Sky Mobile 30-day rolling plan or to Sky Q Multiscreen contracts, and do not apply if the customer has a right to cancel without them.
+        issues: [early_termination_fee]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/charges-for-ending-your-sky-contract-early
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: Sky Smart Home ETCs are £4.36 a month remaining on the Smart Home Plan and £7.36 a month remaining on the Smart Home Plan+.
+        issues: [early_termination_fee]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/charges-for-ending-your-sky-contract-early
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: There are no early termination charges for Sky social tariffs (Sky Broadband Basics and the Sky Mobile social tariff).
+        issues: [early_termination_fee, payment_assistance]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/sky-social-tariff
+        last_verified: 2026-11-19
+
+  - issue: equipment_return
+    summary: Return Sky equipment only when Sky asks, within 60 days, using Sky's packaging or a free Royal Mail returns label; keep proof of postage.
+    evidence: [the Sky email or text listing what to return, proof of postage or tracking ID, list of serial numbers]
+    steps:
+      - do: Wait for Sky's text or email listing what to return. Sky sends returns packaging 30 days after you tell it you are cancelling; a new hub comes with a returns label for the old one.
+      - do: Pack the equipment with its cables. If the packaging is lost, use any secure box with a note of your Sky account number and the list of equipment.
+        channel: equipment-returns
+      - do: Use the label Sky provided, or get a free pre-paid label from Royal Mail Returns (it can be printed at a Post Office). Keep the proof of postage or tracking ID.
+      - do: Track the return. If you are still charged after returning, contact Sky with your proof of postage.
+        channel: return-tracking
+    facts:
+      - kind: deadline
+        claim: Sky equipment must be returned within 60 days of the services ending (or the Sky Glass cooling off period ending) or of receiving new Sky Q equipment; if Sky cancelled the services because of debt, within 30 days or sooner if asked.
+        issues: [equipment_return, cancel_service]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/charges-for-not-returning-sky-q-equipment
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: Sky non-return charges are up to £117 for a Sky Q 1TB box, up to £135 for a Sky Q 2TB box, up to £52 for a Sky Q Mini box, up to £112 for a Sky Gigafast+ Hub, up to £75 for a Sky Max Hub, up to £53 for a Sky Broadband Hub, up to £58 for a Sky Max Pod and up to £33 for a Sky Broadband Booster.
+        issues: [equipment_return]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/charges-for-not-returning-sky-q-equipment
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: The non-return charge for a Sky-owned Sky Stream puck (ordered after 23 February 2023) is £38 each; pucks ordered before 23 February 2023 are the customer's to keep.
+        issues: [equipment_return]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/charges-for-not-returning-sky-stream-puck
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Sky says it only charges if equipment is not returned by the agreed date, always contacts you before applying charges, and waives charges after a bereavement or when it is switching off the copper network in your area. Paying a non-return charge does not buy the equipment.
+        issues: [equipment_return]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/charges-for-not-returning-sky-q-equipment
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Returning Sky TV or broadband equipment is free. Without a Sky label, customers can get a pre-paid label from Royal Mail Returns, print it at a Post Office if needed, and use the Royal Mail app to find drop-off points or book a collection.
+        issues: [equipment_return]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/return-tv-broadband
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Customers do not need to return Openreach master sockets, Optical Network Terminals (ONTs), power cables, or extension or input cables tacked to the skirting board.
+        issues: [equipment_return]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/return-tv-broadband
+        last_verified: 2026-11-19
+
+  - issue: service_outage
+    summary: Run the Sky Service Checker, report the fault, and expect automatic compensation for a total loss of broadband or phone lasting more than two full working days.
+    evidence: [date and time you reported the fault, fault reference, engineer appointment dates, bills showing the credit]
+    steps:
+      - do: Run the Service Checker to test the line and equipment; if it cannot fix the issue it gives a number to call.
+        channel: service-checker
+      - do: Report a total loss of service as early as possible; the two-working-day clock starts when you tell Sky.
+        channel: messaging
+      - do: Rebook any missed engineer visit within two days of Sky contacting you, or Sky may close the fault.
+      - do: Check the account for automatic compensation within 30 days of the fix. If it is missing or wrong, complain under the complaints code.
+        channel: complaints-code
+    facts:
+      - kind: compensation
+        claim: Sky pays automatic compensation of £10.34 a day if Sky Broadband and/or Sky Talk stops working completely and is not fixed within two full working days after you report it, starting from the third full working day.
+        issues: [service_outage]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/auto-compensation
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: Sky pays £32.31 if a Broadband or Talk engineer does not turn up, or if Sky cancels or changes the visit with less than 24 hours' notice.
+        issues: [service_outage, poor_service]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/auto-compensation
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: If Sky Broadband & Talk is not activated by midnight on the confirmed activation date, Sky pays £6.46 for each full day it is late, including the activation date.
+        issues: [service_outage, poor_service]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/auto-compensation
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Sky pays any automatic compensation due within 30 days of fixing the service, the missed appointment, or activation, as a credit to the Sky account; you do not need to ask for it.
+        issues: [service_outage]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/auto-compensation
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Sky pays no total-loss compensation for slow or intermittent broadband, loss on only some devices, poor call quality, faults in home equipment or wiring, or delays the customer causes (cancelled or missed engineer visits, no access).
+        issues: [service_outage]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/auto-compensation
+        last_verified: 2026-11-19
+
+  - issue: number_port_out
+    summary: Text PAC and your date of birth to 65075 (single SIM) or use sky.com/leavesky, give the code to the new provider, and Sky Mobile cancels within one working day.
+    evidence: [mobile number, date of birth on the account, the PAC text with contract end date and any ETC]
+    steps:
+      - do: Text "PAC" and your date of birth (DDMMYYYY) to 65075. With more than one SIM, use sky.com/leavesky or call 03300 412 524.
+        channel: pac-sms
+      - do: Give the PAC to the new provider within 30 days.
+      - do: Keep paying any device credit agreement; it continues until paid off.
+    facts:
+      - kind: deadline
+        claim: A Sky Mobile PAC or STAC lasts for 30 days; after the code is given to the new provider, Sky Mobile services should cancel within one working day.
+        issues: [number_port_out, cancel_service]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/cancelling-sky-mobile
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If you cancel Sky Mobile after asking for your number to be moved to Sky from another provider, you need a PAC from Sky to transfer it again, or you lose the number.
+        issues: [number_port_out]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/cancelling-sky-mobile
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: If Sky is more than one business day late transferring a telephone number to Sky, the customer may claim compensation based on the daily line rental charge for each day of delay, normally deducted from the next bill.
+        issues: [number_port_out, poor_service]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/sky-customer-complaints-code-of-practice/
+        last_verified: 2026-11-19
+
+  - issue: payment_assistance
+    summary: Tell Sky early if you cannot pay; ask about social tariffs, spend caps, payment holidays or loan term extensions on Sky credit agreements.
+    evidence: [proof of a qualifying benefit (named on the statement), account number, bills]
+    steps:
+      - do: If you claim Universal Credit, Pension Credit, income-based ESA, income-based JSA or Income Support, call Sky to apply for Sky Broadband Basics (and the Sky Mobile social tariff).
+        channel: social-tariff
+      - do: Ask about Sky Mobile spend caps, Sky Talk spend limits, a Sky payment holiday or a loan term extension for Sky Mobile or Sky Glass credit agreements.
+        channel: financial-difficulty
+      - do: Get free debt advice from StepChange, National Debtline or Citizens Advice, which Sky lists on its page.
+        regulator: uk-citizens-advice
+    facts:
+      - kind: fee
+        claim: Sky Broadband Basics costs £24 a month for Sky Full Fibre 75 or Broadband Superfast 80, or £20 a month for Superfast 35 or Essentials Plus, on a 24-month contract with no price increase during the contract and no early termination charges if your situation changes.
+        issues: [payment_assistance]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/sky-social-tariff
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: To qualify for a Sky social tariff the Sky account holder must already receive Universal Credit, Pension Credit, income-based ESA, income-based JSA or Income Support and be named on the benefit statement; Sky checks this with the DWP. Applications are by phone.
+        issues: [payment_assistance]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/sky-social-tariff
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Sky asks customers to let it know as soon as possible if they have trouble paying, and lists spend caps, a payment holiday and a loan term extension for Sky Mobile or Sky Glass credit agreements among its support options.
+        issues: [payment_assistance]
+        verified_via: browser
+        source: https://www.sky.com/help/articles/support-with-financial-difficulty
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: Sky is a member of CISAS. For Sky Broadband, Sky Talk, Sky TV, Sky Mobile or complaints handling, a customer can take the complaint to CISAS if Sky has not resolved it within six weeks of the first complaint, or after a "deadlock" notification. Sky sends a written reminder of this right after six weeks and a deadlock notification on request.
+    issues: [billing_error, bill_increase, poor_service, service_outage, cancel_service]
+    verified_via: browser
+    source: https://www.sky.com/help/articles/sky-customer-complaints-code-of-practice/
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: If CISAS decides a complaint is justified, Sky says it will act on the decision. Sky will not send a reminder or deadlock notification if the complaint is vexatious or outside the scheme's jurisdiction.
+    issues: [billing_error, poor_service]
+    verified_via: browser
+    source: https://www.sky.com/help/articles/sky-customer-complaints-code-of-practice/
+    last_verified: 2026-11-19
+  - kind: contact
+    claim: Sky's code lists CISAS contact details as phone 020 7520 3814, textphone 020 7520 3767, email cisas@cedr.com and post to CISAS, Centre for Effective Dispute Resolution, 100 St Paul's Churchyard, London EC4M 8BU.
+    verified_via: browser
+    source: https://www.sky.com/help/articles/sky-customer-complaints-code-of-practice/
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Sky pays automatic compensation in line with Ofcom's voluntary industry code of practice for automatic compensation (fixed broadband and landline).
+    issues: [service_outage]
+    verified_via: browser
+    source: https://www.sky.com/help/articles/auto-compensation
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: For most Sky products the minimum contract period is 12 or 24 months; Sky Mobile plans may be 30-day rolling or have a 12 or 24 month minimum term.
+    issues: [cancel_service, early_termination_fee]
+    verified_via: browser
+    source: https://www.sky.com/help/articles/charges-for-ending-your-sky-contract-early
+    last_verified: 2026-11-19
+
+known_blockers:
+  - Sky's help site hides general phone numbers behind help guides and "No, I still need help" flows; most contact options appear only at the end of a guide.
+  - Many help-page sections (complaints code, returns steps) are collapsed accordions or tabs; a plain fetch sees only the headings. A browser is needed to read them.
+  - Messaging, the Service Checker, sky.com/leavesky and bill views need a Sky iD sign-in for account-specific help.
+  - Sky Mobile PAC/STAC by text works only for single-SIM accounts; multi-SIM accounts must sign in or call.
+
+notes: >-
+  Sky UK (Sky TV, Sky Glass, Sky Stream, Sky Q, Sky Broadband & Talk, Sky Mobile) is part of Comcast Corporation
+  (source: https://www.skygroup.sky/locations). Sky's complaints code already uses the six-week wait before CISAS,
+  which matches Ofcom's rule for complaints first raised on or after 8 April 2026. Sky does not set out in-contract
+  rises in pounds and pence; it varies prices each April and gives a 30-day penalty-free exit instead (Sky+, Sky Q,
+  Broadband & Talk, Sky Mobile; not Sky Glass or Sky Stream). Most help pages here were read in a browser because
+  their sections do not render for plain fetches. NOW (nowtv.com) is a separate Sky brand with its own help site and
+  is not covered here.
+
+official_domains: [sky.com, sky.uk, skygroup.sky]
+security:
+  never_asks:
+    - kind: policy
+      claim: Sky may ask for your verbal password or other security information when you contact it or it contacts you, but not the password for sky.com or the My Sky app.
+      verified_via: browser
+      source: https://www.sky.com/help/articles/fraud-scams-suspicious-activity
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Sky won't use automated calls to collect sensitive information such as personal details, passwords or financial information.
+      verified_via: browser
+      source: https://www.sky.com/help/articles/fraud-scams-suspicious-activity
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Sky won't contact you through WhatsApp to ask you to return a parcel, and won't send someone out unexpectedly to collect devices. Its fraud team may ask for a return of a suspicious order only through the official returns process.
+      verified_via: browser
+      source: https://www.sky.com/help/articles/fraud-scams-report
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Sky sends one-time codes for some high-risk account actions (changing details, home moves, certain Sky Mobile changes), including during calls; share a code only if it matches something you asked for or agreed to.
+      verified_via: browser
+      source: https://www.sky.com/help/articles/fraud-scams-suspicious-activity
+      last_verified: 2026-11-19
+    - kind: contact
+      claim: Sky says its outbound calling number is 0800 761 3372, but warns that criminals can spoof numbers; if unsure, hang up and contact Sky through Sky Help.
+      verified_via: browser
+      source: https://www.sky.com/help/articles/received-call-from-08007613372
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: Scam texts and WhatsApp messages claiming a failed payment, a waiting refund, eligibility for a Sky upgrade or discounted phone, laptop or tablet, or "action required to avoid service disruption", with a link to a fake site.
+      verified_via: browser
+      source: https://www.sky.com/help/articles/fraud-scams-suspicious-activity
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Scam calls claiming suspicious activity on the account, offering a cheap phone, tablet or laptop or an upgrade if you act now, threatening disconnection unless an engineer visits today, or asking for remote access to your device.
+      verified_via: browser
+      source: https://www.sky.com/help/articles/fraud-scams-suspicious-activity
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Unexpected Sky parcels or devices you did not order can mean someone has used your details; criminals may then ask you to send the item elsewhere or hand it to a courier. Only follow Sky's official returns instructions.
+      verified_via: browser
+      source: https://www.sky.com/help/articles/fraud-scams-report
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: SIM swap and number porting fraud - signs include losing signal without warning or messages about a new SIM or your number moving to another network. Sky says to act immediately, contact your bank and change passwords.
+      verified_via: browser
+      source: https://www.sky.com/help/articles/fraud-scams-suspicious-activity
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Fake social media accounts claiming to be Sky, QR codes leading to fake websites, and recorded calls asking you to press a number or face disconnection.
+      verified_via: browser
+      source: https://www.sky.com/help/articles/fraud-scams-suspicious-activity
+      last_verified: 2026-11-19
+  report_phishing:
+    - id: report-scam-text
+      type: sms
+      label: Forward scam texts to 7726 (UK network spam reporting); for a scam call, text CALL and the number to 7726
+      value: "7726"
+      verified_via: browser
+      source: https://www.sky.com/help/articles/fraud-scams-report
+      last_verified: 2026-11-19
+    - id: report-phishing-email
+      type: email
+      label: Forward scam emails to the UK government phishing reporting service
+      value: report@phishing.gov.uk
+      verified_via: browser
+      source: https://www.sky.com/help/articles/fraud-scams-report
+      last_verified: 2026-11-19
+    - id: report-fake-website
+      type: web_form
+      label: Report fake websites or adverts to the National Cyber Security Centre
+      value: https://www.ncsc.gov.uk/collection/phishing-scams
+      verified_via: browser
+      source: https://www.sky.com/help/articles/fraud-scams-report
+      last_verified: 2026-11-19
+    - id: report-fraud-sky
+      type: portal
+      label: Sky "Report a fraud or scam" guide (account fraud - contact Sky via "No, I still need help")
+      value: https://www.sky.com/help/articles/fraud-scams-report
+      verified_via: browser
+      source: https://www.sky.com/help/articles/fraud-scams-report
+      last_verified: 2026-11-19

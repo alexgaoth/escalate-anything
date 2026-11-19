@@ -1,0 +1,437 @@
+id: talktalk
+name: TalkTalk
+aliases: [talktalk broadband, talk talk, talktalk tv, talktalk telecommunications, talktalk telecommunications limited]
+sector: internet_tv
+countries: [gb]
+parent: TalkTalk Telecommunications Limited (acquired by BT Group on 5 October 2026)
+website: https://www.talktalk.co.uk
+account_url: https://customeraccounts.talktalk.co.uk/
+regulators: [uk-cisas, uk-ofcom]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: TalkTalk customer support (0345 172 0088)
+    value: +44-345-172-0088
+    purposes: [billing_error, bill_increase, cancel_service, service_outage, equipment_return, payment_assistance, poor_service]
+    hours: Mon-Fri 9am-7pm, Sat 9am-6pm (complaints code); the contact page says Mon-Sat 9am-7pm
+    notes: >-
+      Free from a TalkTalk landline; other providers and mobiles charge by calling plan. Text relay - dial 18001 then
+      0345 172 0088. Customers registered as vulnerable can get technical support on Sundays 10am-5pm.
+    source: https://help-centre.talktalk.co.uk/Billing_and_Payments/Something_else/How_to_contact_TalkTalk_Broadband
+    last_verified: 2026-11-19
+  - id: short-code-150
+    type: phone
+    label: TalkTalk Customer Services - dial 150 from a TalkTalk landline
+    value: "150"
+    purposes: [billing_error, cancel_service, service_outage]
+    notes: TalkTalk tells customers who doubt a call to hang up and call back on 150 from their home phone.
+    source: https://help-centre.talktalk.co.uk/Telephone/Telephone_security/Scam_Phone_calls
+    last_verified: 2026-11-19
+  - id: live-chat
+    type: chat
+    label: TalkTalk live chat (sign in to My Account, Help & Support, "Chat with us"; or chat in the TalkTalk app)
+    value: https://customeraccounts.talktalk.co.uk/
+    purposes: [billing_error, bill_increase, cancel_service, service_outage, payment_assistance, poor_service]
+    access: login
+    hours: Mon-Fri 8am-9pm, Sat 8am-7pm, Sun 9am-7pm (complaints code dated 26 February 2026)
+    notes: >-
+      TalkTalk says chat is offered only if available to you. Another block on the complaints page gives chat hours
+      Mon-Sat 9am-5:30pm (Wednesdays 9:30am-5:30pm), and the contact page says Mon-Sat 9am-7pm.
+    source: https://help-centre.talktalk.co.uk/Manage_account/Make_a_complaint/Raising_a_complaint
+    last_verified: 2026-11-19
+  - id: complaints-email
+    type: email
+    label: TalkTalk complaints and customer service email
+    value: hello@talktalkplc.com
+    purposes: [billing_error, bill_increase, poor_service, service_outage]
+    notes: >-
+      Include your name, the date of the problem, your TalkTalk phone number, names of agents or managers, a
+      description, and one of - the 3rd and 6th characters of your account password, your security answer, or your
+      account number. The PDF version of the complaints code gives HereToHelp@talktalkplc.com instead.
+    source: https://help-centre.talktalk.co.uk/Manage_account/Make_a_complaint/Raising_a_complaint
+    last_verified: 2026-11-19
+  - id: complaints-mail
+    type: mail
+    label: TalkTalk Correspondence Dept. (written complaints)
+    value: TalkTalk Correspondence Dept., PO Box 675, Salford, M5 0NL
+    purposes: [billing_error, poor_service]
+    source: https://help-centre.talktalk.co.uk/Manage_account/Make_a_complaint/Raising_a_complaint
+    last_verified: 2026-11-19
+  - id: cancellation-mail
+    type: mail
+    label: TalkTalk postal address for cancellation notice
+    value: TalkTalk, Soapworks, Colgate Lane, Salford, M5 3LZ
+    purposes: [cancel_service]
+    notes: Include your return contact details.
+    verified_via: browser
+    source: https://help-centre.talktalk.co.uk/Manage_account/Leave_TalkTalk/Cancel_your_TalkTalk_service
+    last_verified: 2026-11-19
+  - id: cancel-page
+    type: portal
+    label: Cancel your TalkTalk service (notice, early termination charges, returns)
+    value: https://help-centre.talktalk.co.uk/Manage_account/Leave_TalkTalk/Cancel_your_TalkTalk_service
+    purposes: [cancel_service, early_termination_fee, equipment_return]
+    access: open
+    notes: Cancel by phone (0345 172 0088), live chat in My Account, or post. No online cancellation form is described.
+    verified_via: browser
+    source: https://help-centre.talktalk.co.uk/Manage_account/Leave_TalkTalk/Cancel_your_TalkTalk_service
+    last_verified: 2026-11-19
+  - id: complaints-code
+    type: portal
+    label: TalkTalk Customer Complaints Code (last updated 26 February 2026)
+    value: https://help-centre.talktalk.co.uk/Manage_account/Make_a_complaint/Raising_a_complaint
+    purposes: [billing_error, poor_service]
+    access: open
+    notes: A PDF copy is at https://help-centre.talktalk.co.uk/@api/deki/files/120/TalkTalk_Customer_Complaints_Code_26.02.26_online_version.pdf
+    source: https://help-centre.talktalk.co.uk/Manage_account/Make_a_complaint/Raising_a_complaint
+    last_verified: 2026-11-19
+  - id: report-a-problem
+    type: portal
+    label: Report a problem / My Connection (fault reporting and line test)
+    value: https://customeraccounts.talktalk.co.uk/myaccount/fix-problem
+    purposes: [service_outage]
+    access: login
+    source: https://help-centre.talktalk.co.uk/Billing_and_Payments/Something_else/How_to_contact_TalkTalk_Broadband
+    last_verified: 2026-11-19
+  - id: service-status
+    type: portal
+    label: TalkTalk service status
+    value: https://help-centre.talktalk.co.uk/Service_Status
+    purposes: [service_outage]
+    access: open
+    source: https://help-centre.talktalk.co.uk/Billing_and_Payments/Something_else/How_to_contact_TalkTalk_Broadband
+    last_verified: 2026-11-19
+  - id: equipment-returns
+    type: portal
+    label: Returning your TalkTalk equipment
+    value: https://help-centre.talktalk.co.uk/Manage_account/More_account_support/Returning_your_TalkTalk_equipment
+    purposes: [equipment_return, cancel_service]
+    access: open
+    source: https://help-centre.talktalk.co.uk/Manage_account/More_account_support/Returning_your_TalkTalk_equipment
+    last_verified: 2026-11-19
+  - id: weee-returns-mail
+    type: mail
+    label: TalkTalk WEEE returns / recycling address (if no returns bag arrives)
+    value: TalkTalk c/o Ingram Micro, Unit D, R D Park, Stephenson Close, Hoddesdon, EN11 0AQ
+    purposes: [equipment_return]
+    notes: TalkTalk does not pay postage unless you use its pre-paid returns bag.
+    source: https://help-centre.talktalk.co.uk/Manage_account/More_account_support/Returning_your_TalkTalk_equipment
+    last_verified: 2026-11-19
+  - id: struggling-to-pay
+    type: portal
+    label: Struggling to pay - payment extension options in My Account
+    value: https://www.talktalk.co.uk/my/strugglingtopay
+    purposes: [payment_assistance]
+    access: login
+    notes: TalkTalk also offers chat in the app at https://app.talktalk.co.uk/chatnow
+    source: https://help-centre.talktalk.co.uk/Billing_and_Payments/Struggling_to_pay/Late_payments
+    last_verified: 2026-11-19
+  - id: cisas
+    type: portal
+    label: CISAS (Communications and Internet Services Adjudication Scheme) - TalkTalk's ADR scheme
+    value: https://www.cedr.com/consumer/cisas/
+    purposes: [billing_error, bill_increase, poor_service, service_outage, cancel_service, equipment_return]
+    access: open
+    notes: TalkTalk's code lists email cisas@cedr.com, phone 020 7520 3814 and post to CISAS, 100 St Paul's Churchyard, London, EC4M 8BU.
+    source: https://help-centre.talktalk.co.uk/Manage_account/Make_a_complaint/Raising_a_complaint
+    last_verified: 2026-11-19
+  - id: cisas-phone
+    type: phone
+    label: CISAS phone (020 7520 3814), as listed in TalkTalk's complaints code
+    value: +44-20-7520-3814
+    source: https://help-centre.talktalk.co.uk/Manage_account/Make_a_complaint/Raising_a_complaint
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: live-chat, note: "Or phone 0345 172 0088. TalkTalk aims to respond to complaints within 10 working days and treats service-affecting issues as priorities."}
+  - {rung: supervisor, channel: customer-service-phone, note: "If not satisfied with the first response, ask to speak to a manager. The code says a manager will try to contact you as soon as possible; the complaints page says within three working days."}
+  - {rung: retention, channel: cancel-page, note: "TalkTalk publishes no separate retention number; cancellations go through 0345 172 0088, live chat or post."}
+  - {rung: written_complaint, channel: complaints-email, note: "Or write to the Correspondence Dept. A final position response (deadlock letter) comes from TalkTalk's High Level Complaints Team; one block on the complaints page calls it a letter from the CEO's office. TalkTalk publishes no direct executive contact."}
+  - {rung: regulator, regulator: uk-cisas, channel: cisas, note: "TalkTalk's code says CISAS will not accept cases less than 6 weeks old unless you have a deadlock letter, and that you can go to CISAS if still unhappy after speaking to a manager."}
+  - {rung: regulator, regulator: uk-ofcom, note: "Ofcom does not resolve individual complaints; report problems to it for its monitoring."}
+
+playbooks:
+  - issue: billing_error
+    summary: Raise the error by chat, phone or email with the details TalkTalk asks for; ask for a manager if the first answer fails, then go to CISAS after 6 weeks or a deadlock letter.
+    evidence: [the TalkTalk bill with the wrong charge, account number, order confirmation or contract summary with the agreed price, dates and names of advisers]
+    steps:
+      - do: Check the bill in My Account. Note the charge, the date and what you expected to pay.
+      - do: Chat with TalkTalk or call 0345 172 0088 and ask for a correction and a reference.
+        channel: live-chat
+      - do: If not fixed, ask to speak to a manager.
+        channel: customer-service-phone
+      - do: Put the complaint in writing by email with your name, date of the problem, phone number, adviser names, a description and one security detail.
+        channel: complaints-email
+      - do: After 6 weeks from the complaint, or with a deadlock letter from the High Level Complaints Team, go to CISAS.
+        channel: cisas
+        regulator: uk-cisas
+    facts:
+      - kind: deadline
+        claim: TalkTalk aims to respond to complaints within 10 working days, though this may not always be possible depending on the complaint, and treats service-affecting issues as priorities.
+        issues: [billing_error, poor_service, service_outage]
+        source: https://help-centre.talktalk.co.uk/Manage_account/Make_a_complaint/Raising_a_complaint
+        last_verified: 2026-11-19
+      - kind: process
+        claim: If you are not satisfied with TalkTalk's first response, ask to speak to a manager; if you are still not satisfied after speaking to a manager, you can ask CISAS to review the complaint independently.
+        issues: [billing_error, poor_service]
+        source: https://help-centre.talktalk.co.uk/Manage_account/Make_a_complaint/Raising_a_complaint
+        last_verified: 2026-11-19
+
+  - issue: bill_increase
+    summary: TalkTalk raises broadband prices each April by a fixed pounds amount written into the contract (£3 or £4 a month depending on when you signed); older in-contract plans use CPI plus 3.7%.
+    evidence: [contract start or recontract date, contract summary showing the annual price change, the price-rise notice, bills before and after April]
+    steps:
+      - do: Find your contract start or recontract date; it decides whether your April rise is £3, £4 or CPI-based.
+      - do: Check the rise matches your contract terms. If it does not, raise it as a billing error and complain.
+        channel: live-chat
+      - do: If you are out of contract, ask for a new deal or leave with 30 days' notice and no early termination charge.
+        channel: cancel-page
+    facts:
+      - kind: policy
+        claim: TalkTalk's annual price change for broadband customers who joined on or after 16 November 2025 is a flat £4 a month, applied each April starting in 2026; for example a 24-month £28 price becomes £32 from April 2026 and £36 from April 2027.
+        issues: [bill_increase]
+        source: https://www.talktalk.co.uk/legal/annual-price-change
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Customers who joined TalkTalk between 12 August 2024 and 15 November 2025 get an annual price increase of £3 a month each April; out-of-contract customers who contracted before 12 August 2024 get a £4 increase.
+        issues: [bill_increase]
+        source: https://www.talktalk.co.uk/legal/annual-price-change
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: In-contract customers on standard variable plans bought before 12 August 2024 stay on the old system of annual rises based on CPI plus 3.7%; Fixed Price Plus customers from that period have rises based on CPI only.
+        issues: [bill_increase]
+        source: https://www.talktalk.co.uk/legal/annual-price-change
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: TalkTalk's "News about our prices" help page says its terms change from 1 April 2026 to raise the annual price rise from £3 to £4 a month for new customers joining on or after 1 April 2026 and existing customers recontracting from that date, and that it would notify affected customers in March 2026. This start date differs from the 16 November 2025 date on the legal annual price change page.
+        issues: [bill_increase]
+        source: https://help-centre.talktalk.co.uk/Billing_and_Payments/Something_else/News_about_our_prices
+        last_verified: 2026-11-19
+
+  - issue: cancel_service
+    summary: Outside the minimum term give 30 days' notice by phone or in writing; switching providers usually happens through One Touch Switch without contacting TalkTalk, except CityFibre moves to Virgin or Vodafone.
+    evidence: [account number, contract end date from My Package, cancellation confirmation with end date, final bill]
+    steps:
+      - do: Check the contract end date under My Package in My Account to see whether early termination charges apply.
+      - do: If switching to another provider, order with the new provider; under One Touch Switch the new provider handles the move. If you are moving to Virgin or Vodafone on the CityFibre network, contact TalkTalk yourself to set the disconnection date.
+      - do: Otherwise cancel by phone, live chat or post, giving 30 days' notice. Keep your Direct Debit active for the final bill and any refund.
+        channel: customer-service-phone
+      - do: Return equipment within 28 days of receiving the returns bag.
+        channel: equipment-returns
+    facts:
+      - kind: deadline
+        claim: To end a service outside the minimum period you must contact TalkTalk in writing or by phone to give 30 days' notice.
+        issues: [cancel_service]
+        verified_via: browser
+        source: https://help-centre.talktalk.co.uk/Manage_account/Leave_TalkTalk/Cancel_your_TalkTalk_service
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If you cancel within 14 days of your order date you can leave without penalty and pay only for the TalkTalk services used during that time.
+        issues: [cancel_service]
+        verified_via: browser
+        source: https://help-centre.talktalk.co.uk/Manage_account/Leave_TalkTalk/Cancel_your_TalkTalk_service
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Customers switching to Virgin or Vodafone on the CityFibre network must contact TalkTalk directly and say when to disconnect the TalkTalk service.
+        issues: [cancel_service]
+        verified_via: browser
+        source: https://help-centre.talktalk.co.uk/Manage_account/Leave_TalkTalk/Cancel_your_TalkTalk_service
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Under One Touch Switching the new provider handles the move, so you do not need to contact your existing provider; the new provider gives an implications-of-switching summary that lists any early termination fees.
+        issues: [cancel_service, early_termination_fee]
+        source: https://help-centre.talktalk.co.uk/Setting_up_my_service/New_order/All_about_One_Touch_Switching
+        last_verified: 2026-11-19
+
+  - issue: early_termination_fee
+    summary: TalkTalk charges a fixed amount for each month left on the contract (£10.20 for most fibre plans, £10.80 for Fast Broadband).
+    evidence: [contract end date, package name, the final bill showing the charge]
+    steps:
+      - do: Check months remaining under My Package in My Account and multiply by the per-month charge for your package.
+      - do: If the charge is wrong, complain and ask for a manager; then use CISAS after 6 weeks or a deadlock letter.
+        channel: live-chat
+    facts:
+      - kind: fee
+        claim: TalkTalk's early termination charge per month remaining on the contract is £10.80 for Fast Broadband and £10.20 for Fibre 35, Fibre 65, Fibre 150, Fibre 250, Fibre 150/500/900 Data Only, Faster Fibre and TalkTalk U; for example three months left on Fibre 35 costs £30.60.
+        issues: [early_termination_fee, cancel_service]
+        verified_via: browser
+        source: https://help-centre.talktalk.co.uk/Manage_account/Leave_TalkTalk/Cancel_your_TalkTalk_service
+        last_verified: 2026-11-19
+
+  - issue: equipment_return
+    summary: Return TalkTalk kit within 28 days of receiving the pre-paid returns bag; if no bag arrives you do not need to return it.
+    evidence: [date the returns bag arrived, proof of postage or tracking number, list of items returned]
+    steps:
+      - do: Wait for the pre-paid returns bag, then send the kit back within 28 days of receiving it - by Royal Mail Parcel Collect, an Evri ParcelShop, or a Post Office or Royal Mail Customer Service Point.
+        channel: equipment-returns
+      - do: Keep proof of postage or the tracking number.
+      - do: If no bag arrives, TalkTalk says you do not need to return the equipment; it encourages recycling.
+      - do: If you are charged after returning the kit, complain with your proof of postage.
+        channel: live-chat
+    facts:
+      - kind: deadline
+        claim: TalkTalk's official return timeframe is 28 days from receiving the returns bag; if you cancel and do not return the kit in time you may be charged for it.
+        issues: [equipment_return, cancel_service]
+        source: https://help-centre.talktalk.co.uk/Manage_account/More_account_support/Returning_your_TalkTalk_equipment
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If TalkTalk does not send a returns bag, you do not need to return your equipment. You won't be charged for equipment not supplied by TalkTalk, and TalkTalk does not pay postage unless you use its pre-paid bag.
+        issues: [equipment_return]
+        source: https://help-centre.talktalk.co.uk/Manage_account/More_account_support/Returning_your_TalkTalk_equipment
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: TalkTalk's help pages say a charge may apply for equipment not returned within the return period but do not publish the amount; check the bill in My Account for the exact charge.
+        issues: [equipment_return]
+        source: https://help-centre.talktalk.co.uk/Billing_and_Payments/Check_my_bills_and_usage/Charges_on_your_bill
+        last_verified: 2026-11-19
+
+  - issue: service_outage
+    summary: Report the fault in My Account; for a total loss of broadband or phone on the Openreach network TalkTalk pays automatic compensation after two working days.
+    evidence: [date and time the fault was reported, fault reference, engineer appointment dates, the bill showing "Delay Compensation" or "Missed Appointment Compensation"]
+    steps:
+      - do: Check service status, then report the fault and run the line test in My Account.
+        channel: report-a-problem
+      - do: Accept the earliest engineer appointment; if you cannot keep it, cancel before 12 noon the day before.
+      - do: Expect automatic compensation within 30 days of the fix. If your service runs on CityFibre, Freedom Fibre or Community Fibre, ask TalkTalk for compensation - it is not automatic.
+        channel: live-chat
+      - do: If compensation is missing or wrong, complain under the complaints code and escalate to CISAS.
+        channel: complaints-code
+    facts:
+      - kind: compensation
+        claim: After a reported total loss of service, TalkTalk has two working days to fix it; after that it pays £10.34 per day starting from the third day until service is restored, provided the fault is within the TalkTalk or Openreach network.
+        issues: [service_outage]
+        verified_via: browser
+        source: https://help-centre.talktalk.co.uk/Billing_and_Payments/Check_my_bills_and_usage/About_your_auto_compensation_credit
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: If an engineer misses an appointment, TalkTalk credits £32.31; if TalkTalk misses the go-live date for a new service it pays £6.46, then £6.46 for each further full day of delay.
+        issues: [service_outage, poor_service]
+        verified_via: browser
+        source: https://help-centre.talktalk.co.uk/Billing_and_Payments/Check_my_bills_and_usage/About_your_auto_compensation_credit
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: TalkTalk credits automatic compensation to the account within 30 days of the fault being resolved, the missed appointment, or the delayed service going live; you do not need to contact TalkTalk.
+        issues: [service_outage]
+        verified_via: browser
+        source: https://help-centre.talktalk.co.uk/Billing_and_Payments/Check_my_bills_and_usage/About_your_auto_compensation_credit
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Only TalkTalk customers on the Openreach network get automatic compensation for total-loss fault delays and missed repair appointments; customers on alternative networks such as CityFibre, Freedom Fibre or Community Fibre get compensation on request. To keep missed-appointment rights, you must cancel before 12 noon the day before the engineer visit.
+        issues: [service_outage]
+        verified_via: browser
+        source: https://help-centre.talktalk.co.uk/Billing_and_Payments/Check_my_bills_and_usage/About_your_auto_compensation_credit
+        last_verified: 2026-11-19
+
+  - issue: payment_assistance
+    summary: Contact TalkTalk before the due date; a payment extension may be available through My Account or app chat. A missed payment adds a £12.50 late payment charge.
+    evidence: [account number, the bill and due date, income and outgoings if asked]
+    steps:
+      - do: Sign in to the "struggling to pay" page or chat in the TalkTalk app to see payment extension options.
+        channel: struggling-to-pay
+      - do: Ask whether you can move your payment date to suit your income.
+      - do: Get free debt advice from Citizens Advice if you are behind on several bills.
+        regulator: uk-citizens-advice
+    facts:
+      - kind: fee
+        claim: TalkTalk adds a £12.50 late payment charge to the next bill if a bill is not paid on or before its payment due date.
+        issues: [payment_assistance, billing_error]
+        source: https://help-centre.talktalk.co.uk/Billing_and_Payments/Struggling_to_pay/Late_payments
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: TalkTalk may offer a payment extension, letting you pay any amount as long as the full balance is cleared by the date you commit to; if payment is still not received after reminders, services may be restricted or disconnected.
+        issues: [payment_assistance, disconnection]
+        source: https://help-centre.talktalk.co.uk/Billing_and_Payments/Struggling_to_pay/Late_payments
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: TalkTalk's Customer Complaints Code (last updated 26 February 2026) says CISAS will not accept cases that are less than 6 weeks old unless you have received a final position response (deadlock letter) from TalkTalk's High Level Complaints Team.
+    issues: [billing_error, bill_increase, poor_service, service_outage, cancel_service]
+    source: https://help-centre.talktalk.co.uk/Manage_account/Make_a_complaint/Raising_a_complaint
+    last_verified: 2026-11-19
+  - kind: process
+    claim: The PDF of TalkTalk's complaints code (26 February 2026) names CISAS as TalkTalk's ADR scheme with web www.cedr.com/consumer/cisas/, email cisas@cedr.com, phone 020 7520 3814 and post to CISAS, 100 St Paul's Churchyard, London EC4M 8BU.
+    verified_via: document
+    source: https://help-centre.talktalk.co.uk/@api/deki/files/120/TalkTalk_Customer_Complaints_Code_26.02.26_online_version.pdf
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: TalkTalk says it is a signatory to the industry automatic compensation scheme.
+    issues: [service_outage]
+    source: https://help-centre.talktalk.co.uk/Manage_account/Make_a_complaint/Raising_a_complaint
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: TalkTalk says customer contracts transferred to TalkTalk Telecommunications Limited on 5 October 2026 after BT Group acquired it; existing contracts, prices, equipment and payment methods stay the same and customers need do nothing, but a request to leave is subject to the existing terms and charges.
+    issues: [cancel_service, early_termination_fee]
+    source: https://www.talktalk.co.uk/news/bt
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: BT Group said on 5 October 2026 that it acquired TalkTalk Telecommunications Limited and PlatformX Communications Limited out of the administration of TalkTalk Group, and that TalkTalk and BT will operate separately and continue to compete until a regulatory review concludes.
+    source: https://newsroom.bt.com/bt-group-has-acquired-talktalk-and-platformx-ensuring-continuity-of-service-for-millions-of-customers/
+    last_verified: 2026-11-19
+
+known_blockers:
+  - Live chat, fault reporting, bills and the struggling-to-pay page need a TalkTalk My Account sign-in, and chat is shown only when available.
+  - TalkTalk publishes no non-return equipment charge amount; it shows only on the bill.
+  - Old help URLs (help2.talktalk.co.uk, help.talktalk.co.uk, community articles) redirect to the community landing page; use help-centre.talktalk.co.uk.
+  - The complaints page holds several copies of the code with different chat hours and deadlock wording.
+
+notes: >-
+  TalkTalk Group went into administration in 2026. BT Group bought TalkTalk Telecommunications Limited (the consumer
+  ISP) and PlatformX (wholesale) on 5 October 2026; customer contracts moved to TalkTalk Telecommunications Limited
+  with no changes, and TalkTalk runs separately from BT while a regulatory review continues. TalkTalk's complaints code
+  already uses the six-week wait before CISAS, which matches Ofcom's rule for complaints first raised on or after
+  8 April 2026. TalkTalk sets out annual broadband rises in pounds (£3 or £4 a month each April) for contracts from
+  12 August 2024 (see rule uk-ofcom-price-rise-pounds-and-pence). Equipment non-return charge amounts are not
+  published.
+
+official_domains: [talktalk.co.uk, talktalkplc.com, talktalkgroup.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: TalkTalk will never use your TalkTalk account number to prove a call is genuine, never ask for your full password (only two digits), never ask for your bank details to process a refund, and never ask you to send money through MoneyGram or Western Union.
+      verified_via: browser
+      source: https://help-centre.talktalk.co.uk/Telephone/Telephone_security/Scam_Phone_calls
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: TalkTalk will never call you and ask you to enter a code into your computer.
+      verified_via: browser
+      source: https://help-centre.talktalk.co.uk/Telephone/Telephone_security/Scam_Phone_calls
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: TalkTalk says a legitimate email should not ask for security details such as PINs, passwords or account details, and that emails asking for money should be treated as scams.
+      source: https://help-centre.talktalk.co.uk/Broadband/Security/Phishing_emails_-_everything_you_need_to_know
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: Fake refund calls - a caller claims you are due a refund, gets you to install remote-access software such as TeamViewer, AnyDesk or LogMeIn, makes it look as if you were over-refunded (for example £1,250 instead of £125), and asks you to send back the difference by Western Union or MoneyGram.
+      verified_via: browser
+      source: https://help-centre.talktalk.co.uk/Telephone/Telephone_security/Scam_Phone_calls
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Callers posing as your broadband provider or a firm like Microsoft claim there is a fault and direct you to run Windows commands; other tactics are "press 1 for an engineer" premium-rate charges, fake websites and caller ID spoofing.
+      source: https://help-centre.talktalk.co.uk/Telephone/Telephone_security/Scam_Phone_calls
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Scam messages use authority (claiming to be a bank, delivery company or service provider), urgency, and emotion to push you to act.
+      source: https://help-centre.talktalk.co.uk/Broadband/Security/Beat_the_scammers
+      last_verified: 2026-11-19
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Report phishing emails to TalkTalk (attach the suspicious email as a file)
+      value: phishing@talktalk.co.uk
+      source: https://help-centre.talktalk.co.uk/Broadband/Security/Phishing_emails_-_everything_you_need_to_know
+      last_verified: 2026-11-19
+    - id: report-scam-text
+      type: sms
+      label: Forward suspicious texts to 7726 (government service)
+      value: "7726"
+      source: https://help-centre.talktalk.co.uk/Broadband/Security/Beat_the_scammers
+      last_verified: 2026-11-19
+    - id: fraud-call-150
+      type: phone
+      label: Dial 150 from your TalkTalk landline to speak to Customer Services if you think you are a fraud target
+      value: "150"
+      source: https://help-centre.talktalk.co.uk/Broadband/Security/What_to_do_if_you%27ve_become_the_target_of_fraud
+      last_verified: 2026-11-19

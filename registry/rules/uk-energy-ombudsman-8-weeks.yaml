@@ -1,0 +1,109 @@
+id: uk-energy-ombudsman-8-weeks
+title: Energy complaints - supplier first, then the Energy Ombudsman after 8 weeks or a deadlock letter
+citation: >-
+  Gas and Electricity (Consumer Complaints Handling Standards) Regulations 2008 (SI 2008/1898), regulations 2, 6, 9
+  and 10; Energy Ombudsman Terms of Reference 6.2, 7.1 and 10
+jurisdiction: gb
+status: in_effect
+applies_to:
+  sectors: [utility]
+  issues: [billing_error, refund_request, slamming, cancel_service, disconnection, service_outage, poor_service]
+summary: >-
+  Complain to the energy supplier or network operator first. If the problem is not solved within 8 weeks, or the company
+  sends a deadlock letter saying it cannot do more, take the complaint to the Energy Ombudsman within 12 months. The
+  Ombudsman is free. Its decision binds the company if you accept it, but does not bind you. The complaints handling
+  regulations make the company tell you, in writing, about your right to go to the Ombudsman when it cannot resolve the
+  complaint or when the scheme's time limit (8 weeks) ends.
+points:
+  - kind: process
+    claim: >-
+      Ofgem says to complain to your supplier or network operator first, ask for their complaints team, and say exactly
+      what you want them to do to fix the problem.
+    issues: [billing_error, poor_service]
+    source: https://www.ofgem.gov.uk/your-energy-supply/problems-your-energy-supply/complain-about-your-energy-supplier-or-network-operator
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Ofgem says your energy supplier must try to fix any problems you reported within 8 weeks and resolve the
+      complaint. Go to the Energy Ombudsman if it is not fixed within 8 weeks, you cannot agree a fix, you get a
+      deadlock letter, or you are unhappy with the decision.
+    issues: [billing_error, poor_service]
+    source: https://www.ofgem.gov.uk/your-energy-supply/problems-your-energy-supply/complain-about-your-energy-supplier-or-network-operator
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Energy Ombudsman Terms of Reference 6.2: you must first tell the company about the complaint, and the Ombudsman
+      can accept it when the company issues a deadlock letter or has not issued one within up to eight weeks.
+    source: https://www.energyombudsman.org/terms-of-reference/terms-of-reference-post-2015
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The 2008 regulations do not write "8 weeks" themselves. Regulation 2 defines the "specified time period" as the
+      maximum time that a qualifying redress scheme gives a provider to resolve a complaint; a qualifying redress scheme
+      is one approved by the Authority (Ofgem) under section 49 of the Consumers, Estate Agents and Redress Act 2007.
+    source: https://www.legislation.gov.uk/uksi/2008/1898/regulation/2
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Regulation 6: the company must send a written notice on the earlier of the first working day after it knows it
+      cannot resolve the complaint to your satisfaction, or the first working day after the specified time period ends.
+      The notice must tell you of your right to refer the complaint to the redress scheme, that the scheme is
+      independent and free, the types of redress available, and that its outcome binds the company but not you.
+    source: https://www.legislation.gov.uk/uksi/2008/1898/regulation/6
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Regulation 10: the company must publish its complaints procedure in a clear and prominent place on its website.
+      If a complaint is not resolved by the end of the first working day after it was received, the company must point you to
+      that procedure and offer a free copy. Licensed suppliers must remind domestic customers of the procedure at least
+      once every 12 months.
+    source: https://www.legislation.gov.uk/uksi/2008/1898/regulation/10
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Regulation 9: each company must agree arrangements with the consumer advocacy bodies (Citizens Advice and Citizens
+      Advice Scotland, per regulation 2) and deal effectively with complaints they refer to it.
+    source: https://www.legislation.gov.uk/uksi/2008/1898/regulation/9
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      You must escalate to the Energy Ombudsman within 12 months of receiving the deadlock letter. Terms of Reference
+      7.4 let the Ombudsman accept a later complaint for exceptional reasons.
+    source: https://www.energyombudsman.org/faqs
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: fee
+    claim: The Energy Ombudsman says its service is free to consumers looking to resolve energy disputes.
+    source: https://www.energyombudsman.org/faqs
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      The Ombudsman aims to decide in about 6 weeks (Ofgem also says 6 weeks). A final decision binds both sides only if
+      you accept it within 14 calendar days; the company must then provide the remedy within 28 calendar days of the
+      Ombudsman's notification. If you reject it, you can take other action such as court.
+    source: https://www.energyombudsman.org/terms-of-reference/terms-of-reference-post-2015
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      Awards are limited to GBP 10,000 (including VAT) per complaint for domestic customers, and GBP 20,000 for small
+      business consumers with a complaint against an energy supplier.
+    source: https://www.energyombudsman.org/terms-of-reference/terms-of-reference-energy-sector
+    verified_via: page
+    last_verified: 2026-11-19
+status_note: >-
+  In force in England, Wales and Scotland (legislation.gov.uk shows the latest revised text with no outstanding
+  effects on 2026-11-19). Citizens Advice and Citizens Advice Scotland were written in as "consumer advocacy body" on
+  1 April 2014 (SI 2014/631); regulation 10(3) was amended on 14 April 2017 (SI 2017/428). The 8-week period comes from
+  the Energy Ombudsman's Terms of Reference, which the regulations adopt through the "specified time period". The
+  Terms of Reference page shows no version date.
+source: https://www.legislation.gov.uk/uksi/2008/1898/regulation/6
+last_verified: 2026-11-19

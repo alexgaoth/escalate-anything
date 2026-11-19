@@ -1,0 +1,70 @@
+id: uk-energy-price-cap
+title: Energy price cap (default tariff cap)
+citation: Domestic Gas and Electricity (Tariff Cap) Act 2018, sections 1 and 8 (as amended by the Energy Prices Act 2022)
+jurisdiction: gb
+status: in_effect
+applies_to:
+  sectors: [utility]
+  issues: [bill_increase, billing_error]
+summary: >-
+  Ofgem caps the unit rate and standing charge that suppliers can charge households on standard variable (default)
+  gas and electricity tariffs in England, Scotland and Wales. It is not a cap on the total bill: you pay more if you use
+  more. Fixed tariffs, business contracts, heat networks and heating oil are not covered. Ofgem resets the cap every 3
+  months, and the level differs by region and payment method. Do not quote a cap level from memory; read the current
+  period and rates on Ofgem's page.
+points:
+  - kind: limit
+    claim: >-
+      The price cap is the maximum your supplier can charge for a unit of energy and for the standing charge. Ofgem
+      says it does not limit the cost of your total bill.
+    issues: [bill_increase]
+    source: https://www.ofgem.gov.uk/your-energy-supply/your-energy-bill/energy-price-cap-and-standing-charges-explained
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The cap protects people on standard variable tariffs. You are not protected by it if you have a fixed tariff, a
+      business energy contract, or get heat from a heat network or heating oil.
+    issues: [bill_increase]
+    source: https://www.ofgem.gov.uk/your-energy-supply/your-energy-bill/energy-price-cap-and-standing-charges-explained
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The Act makes the Authority (Ofgem) cap all standard variable and default rates under domestic supply contracts.
+      A standard variable rate is one not fixed for a period in the contract; a default rate applies when the customer
+      does not choose another rate. The Act extends to England, Wales and Scotland.
+    issues: [bill_increase]
+    source: https://www.legislation.gov.uk/ukpga/2018/21/section/1
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: Ofgem reviews and updates the price cap level every 3 months.
+    issues: [bill_increase]
+    source: https://www.ofgem.gov.uk/energy-regulation/domestic-and-non-domestic/energy-pricing-rules/energy-price-cap/energy-price-cap-default-tariff-levels
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      On 2026-11-19 Ofgem's unit rates page showed the cap for 1 October to 31 December 2026, for England, Scotland and
+      Wales. Unit rates and standing charges differ by region and by payment method (Direct Debit, standard credit,
+      prepayment). Check this page for the period and rates that apply now.
+    issues: [bill_increase, billing_error]
+    source: https://www.ofgem.gov.uk/your-energy-supply/your-energy-bill/energy-price-cap-unit-rates-and-standing-charges
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The cap has no fixed end date. Section 8 (substituted on 25 October 2022 by the Energy Prices Act 2022) lets the
+      Secretary of State end the cap conditions at any time by a published notice; none was shown on
+      legislation.gov.uk on 2026-11-19.
+    source: https://www.legislation.gov.uk/ukpga/2018/21/section/8
+    verified_via: page
+    last_verified: 2026-11-19
+status_note: >-
+  In force. The cap level changes every quarter, so this file does not store a price; agents should read Ofgem's unit
+  rates page. On 2026-11-19 Ofgem's pages showed the period 1 October to 31 December 2026 and gave no date for the next
+  announcement. A typical-household annual figure on Ofgem's page is an illustration based on average use, not a
+  limit on any bill.
+source: https://www.ofgem.gov.uk/your-energy-supply/your-energy-bill/energy-price-cap-and-standing-charges-explained
+last_verified: 2026-11-19

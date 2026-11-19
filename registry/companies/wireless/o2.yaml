@@ -1,0 +1,464 @@
+id: o2
+name: O2
+aliases: [O2, O2 UK, Telefonica UK, Telefónica UK, Telefonica UK Limited, O2 Refresh]
+sector: wireless
+countries: [gb]
+parent: Virgin Media O2
+website: https://www.o2.co.uk
+account_url: https://accounts.o2.co.uk/auth
+regulators: [uk-cisas, uk-ofcom]
+
+channels:
+  - id: pay-monthly-phone
+    type: phone
+    label: O2 Pay Monthly customer service (0344 809 0202 from a landline)
+    value: +44-344-809-0202
+    purposes: [billing_error, bill_increase, cancel_service, early_termination_fee, number_port_out, price_negotiation, payment_assistance, equipment_return]
+    hours: Monday to Friday 8am to 9pm; Saturday 8am to 8pm; Sunday 8am to 6pm
+    notes: The complaints code says standard UK rate from a landline. The retention team on this line works Monday to Saturday 8am to 8pm and Sunday 10am to 6pm.
+    source: https://www.o2.co.uk/contactus
+    last_verified: 2026-11-19
+  - id: pay-monthly-short-code
+    type: phone
+    label: O2 Pay Monthly customer service short code (dial 202 from an O2 mobile, free)
+    value: "202"
+    purposes: [billing_error, bill_increase, cancel_service, early_termination_fee, number_port_out, price_negotiation, payment_assistance, equipment_return]
+    hours: Monday to Friday 8am to 9pm; Saturday 8am to 8pm; Sunday 8am to 6pm
+    source: https://www.o2.co.uk/contactus
+    last_verified: 2026-11-19
+  - id: pay-as-you-go-phone
+    type: phone
+    label: O2 Pay As You Go customer service (0344 809 0222 from a landline; 4445 free from an O2 mobile)
+    value: +44-344-809-0222
+    purposes: [billing_error, cancel_service, number_port_out, refund_request]
+    hours: Monday to Friday 8am to 9pm; Saturday 8am to 8pm; Sunday 8am to 6pm
+    notes: The complaints code PDF lists 0344 809 0202 for Pay As You Go from a landline; the contact and complaints pages list 0344 809 0222.
+    source: https://www.o2.co.uk/contactus
+    last_verified: 2026-11-19
+  - id: abroad-phone
+    type: phone
+    label: O2 customer service from abroad (+44 7860 980 202, free from an O2 mobile)
+    value: +44-7860-980-202
+    purposes: [billing_error, cancel_service]
+    source: https://www.o2.co.uk/contactus
+    last_verified: 2026-11-19
+  - id: my-o2-app-chat
+    type: chat
+    label: Live chat in the My O2 app
+    value: https://www.o2.co.uk/apps/my-o2
+    purposes: [billing_error, bill_increase, payment_assistance]
+    hours: Weekdays 8am to 10pm; weekends 8am to 8pm
+    access: login
+    notes: The contact page also mentions a virtual assistant but gives no link.
+    source: https://www.o2.co.uk/help/account-and-billing/payment-support
+    last_verified: 2026-11-19
+  - id: my-o2
+    type: portal
+    label: My O2 (bills, 30-day notice to cancel, PAC/STAC, repayment plans, spend caps)
+    value: https://accounts.o2.co.uk/auth
+    purposes: [billing_error, cancel_service, number_port_out, payment_assistance]
+    access: login
+    source: https://www.o2.co.uk/help/account/joining-and-leaving-o2/leaving-o2
+    last_verified: 2026-11-19
+  - id: complaints-form
+    type: web_form
+    label: O2 online complaints form (Complaint Review Service)
+    value: https://www.o2.co.uk/how-to-complain/complaints-form
+    purposes: [billing_error, bill_increase, cancel_service, early_termination_fee, number_port_out, equipment_return]
+    source: https://www.o2.co.uk/how-to-complain
+    last_verified: 2026-11-19
+  - id: complaints-mail
+    type: mail
+    label: O2 Complaint Review Service by post
+    value: O2 Complaint Review Service, PO BOX 694, Winchester, SO23 5AP
+    purposes: [billing_error, bill_increase, cancel_service, early_termination_fee]
+    notes: O2 sends an acknowledgement and passes the complaint to its Resolution Specialists or Customer Service Experts.
+    source: https://www.o2.co.uk/how-to-complain
+    last_verified: 2026-11-19
+  - id: complaints-page
+    type: portal
+    label: How to complain to O2
+    value: https://www.o2.co.uk/how-to-complain
+    access: open
+    source: https://www.o2.co.uk/how-to-complain
+    last_verified: 2026-11-19
+  - id: complaints-code
+    type: portal
+    label: O2 Customer Complaints Code (PDF)
+    value: https://storyblok.cdn.vmo2digital.co.uk/f/253875/x/6283d5994f/customer-complaints-code-08-09-26.pdf
+    access: open
+    verified_via: document
+    source: https://www.o2.co.uk/how-to-complain
+    last_verified: 2026-11-19
+  - id: pac-sms
+    type: sms
+    label: Text PAC to 65075 (free) to get a code to keep your number
+    value: "65075"
+    purposes: [number_port_out, cancel_service]
+    notes: The code arrives within 60 seconds. The text service does not work with a linked Apple Watch; use My O2 or call instead.
+    source: https://www.o2.co.uk/help/account/joining-and-leaving-o2/leaving-o2
+    last_verified: 2026-11-19
+  - id: stac-sms
+    type: sms
+    label: Text STAC to 75075 (free) to leave without keeping your number
+    value: "75075"
+    purposes: [cancel_service]
+    source: https://www.o2.co.uk/help/account/joining-and-leaving-o2/leaving-o2
+    last_verified: 2026-11-19
+  - id: leaving-page
+    type: portal
+    label: Leaving O2 (notice, PAC/STAC, early termination charges, O2 Refresh)
+    value: https://www.o2.co.uk/help/account/joining-and-leaving-o2/leaving-o2
+    purposes: [cancel_service, number_port_out, early_termination_fee]
+    access: open
+    source: https://www.o2.co.uk/help/account/joining-and-leaving-o2/leaving-o2
+    last_verified: 2026-11-19
+  - id: price-rise-page
+    type: portal
+    label: O2 annual price change (pounds and pence)
+    value: https://www.o2.co.uk/prices
+    purposes: [bill_increase]
+    access: open
+    source: https://www.o2.co.uk/prices
+    last_verified: 2026-11-19
+  - id: returns-page
+    type: portal
+    label: Changed your mind? Returning an O2 device
+    value: https://www.o2.co.uk/help/device-and-sim-support/returning-your-device
+    purposes: [equipment_return, refund_request]
+    access: open
+    source: https://www.o2.co.uk/help/device-and-sim-support/returning-your-device
+    last_verified: 2026-11-19
+  - id: payment-support-page
+    type: portal
+    label: O2 payment support (repayment plans, spend caps, missed payments)
+    value: https://www.o2.co.uk/help/account-and-billing/payment-support
+    purposes: [payment_assistance]
+    access: open
+    source: https://www.o2.co.uk/help/account-and-billing/payment-support
+    last_verified: 2026-11-19
+  - id: network-status
+    type: portal
+    label: O2 network status checker
+    value: https://status.o2.co.uk/
+    purposes: [service_outage]
+    access: open
+    source: https://www.o2.co.uk/help/network-coverage-and-international/network-support
+    last_verified: 2026-11-19
+  - id: stores
+    type: in_person
+    label: O2 store locator (device returns, paying off device plans)
+    value: https://stores.o2.co.uk/
+    purposes: [equipment_return]
+    source: https://www.o2.co.uk/contactus
+    last_verified: 2026-11-19
+  - id: x-social
+    type: social
+    label: O2 on X
+    value: https://x.com/o2
+    source: https://www.o2.co.uk/contactus
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: pay-monthly-phone, note: "Or 202 free from an O2 mobile; Pay As You Go 4445 or 0344 809 0222. Advisors escalate to a manager if needed."}
+  - {rung: retention, channel: pay-monthly-phone, note: "O2 lists retention hours (Monday to Saturday 8am to 8pm, Sunday 10am to 6pm) on the 202 / 0344 809 0202 line but publishes no separate retention number."}
+  - {rung: written_complaint, channel: complaints-form, note: "Or by post to O2 Complaint Review Service, PO BOX 694, Winchester, SO23 5AP. Resolution Specialists aim to reply within five working days. If you are still unhappy, ask for a final position letter."}
+  - {rung: regulator, regulator: uk-cisas, note: "Free. O2's complaints page says you can go to CISAS if O2 takes more than 6 weeks, or with a final position letter; you have up to 12 months after that letter (complaints code). Complaints about an O2 Refresh device plan go to the Financial Ombudsman Service instead (8 weeks or final position letter; 6 months after the letter)."}
+  - {rung: regulator, regulator: uk-ofcom, note: "Reporting only. Ofcom does not investigate individual complaints but can give information and advice (O2 complaints page)."}
+
+playbooks:
+  - issue: billing_error
+    summary: Ask O2 to fix the charge, then use the complaints form; Resolution Specialists aim to reply within five working days. After 6 weeks or a final position letter, go to CISAS.
+    evidence: [the bill with the wrong charge, account or mobile number, contract summary with the agreed price, complaint reference, dates of every contact]
+    steps:
+      - do: Call 202 (or 0344 809 0202) or use live chat in the My O2 app. Ask for a correction and a reference.
+        channel: pay-monthly-phone
+      - do: If not fixed, ask for a manager, then make a complaint with the online form or by post. Say what you want O2 to do.
+        channel: complaints-form
+      - do: If O2 does not resolve it, ask for a final position letter.
+        channel: pay-monthly-phone
+      - do: Take the complaint to CISAS (free) after 6 weeks or with the final position letter, within 12 months of the letter.
+        regulator: uk-cisas
+    facts:
+      - kind: process
+        claim: If a complaint is not resolved after speaking to a manager, O2 passes it to its Resolution Specialists, who carry out an impartial review and aim to reply within five working days.
+        issues: [billing_error]
+        verified_via: document
+        source: https://storyblok.cdn.vmo2digital.co.uk/f/253875/x/6283d5994f/customer-complaints-code-08-09-26.pdf
+        last_verified: 2026-11-19
+      - kind: process
+        claim: O2 keeps a complaint open for 28 days after it writes with the outcome; if the customer does not reply within 28 days, O2 considers it resolved and closes it.
+        issues: [billing_error]
+        verified_via: document
+        source: https://storyblok.cdn.vmo2digital.co.uk/f/253875/x/6283d5994f/customer-complaints-code-08-09-26.pdf
+        last_verified: 2026-11-19
+
+  - issue: bill_increase
+    summary: O2 raises airtime plans by a fixed pounds-and-pence amount each April (£2.50 voice, 75p data-only and smartwatch); device plans stay frozen. Customers who did not agree to a rise upfront can leave the airtime plan penalty-free within 30 days of notice.
+    evidence: [contract summary with the annual rise, the price-change email or letter and its date, bills before and after April]
+    steps:
+      - do: Check the April rise on the O2 prices page and in your contract forms. The rise applies to the airtime plan, not the device plan.
+        channel: price-rise-page
+      - do: If O2 raised the price by more than your contract allowed, complain and ask for the difference back.
+        channel: complaints-form
+      - do: If O2 changed the rise after you signed and told you that you can leave, decide within 30 days of the notice. Keep paying the device plan as normal.
+        channel: pay-monthly-phone
+      - do: If you get a qualifying benefit, ask for the O2 Essential Plan, whose price stays the same while you receive benefit payments.
+        channel: pay-monthly-phone
+    facts:
+      - kind: policy
+        claim: From April 2027, airtime plans rise each April by £2.50 a month for voice plans and 75p a month for data-only and smartwatch plans, shown from the April bill onwards. The cost of the device stays frozen.
+        issues: [bill_increase]
+        source: https://www.o2.co.uk/prices
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: Out of bundle charges increase by 5% each year from 1 April.
+        issues: [bill_increase]
+        source: https://www.o2.co.uk/prices
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: MoneySavingExpert (secondary source) reported that O2 announced on 23 October 2025 that the yearly rise of £1.80 a month would become £2.50 a month from April 2026 for almost all mobile and SIM-only customers, including those who joined before 23 October 2025, and that affected customers could leave penalty-free within 30 days of O2 telling them. The handset plan is billed separately and was not affected.
+        issues: [bill_increase, cancel_service, early_termination_fee]
+        source: https://www.moneysavingexpert.com/news/2025/10/o2-price-rise/
+        last_verified: 2026-11-19
+
+  - issue: cancel_service
+    summary: Give 30 days' notice in My O2 or by phone, or text PAC/STAC and let the new network switch you. On O2 Refresh there is no early termination charge on airtime, but in the first 24 months the device plan must be paid off in full.
+    evidence: [account and mobile number, minimum term end date, device plan balance, PAC or STAC and its date, final bill]
+    steps:
+      - do: Pay any overdue charges and check the device plan balance in My O2.
+        channel: my-o2
+      - do: If you are moving to another network, text PAC to 65075 (keep your number) or STAC to 75075 (new number) and give the code to the new network.
+        channel: pac-sms
+      - do: If you are not switching, give 30 days' notice in My O2 or by calling 202 / 0344 809 0202.
+        channel: pay-monthly-phone
+      - do: Do not cancel the Direct Debit until the final bill is produced. A credit balance on the final bill is refunded automatically within 30 days.
+    facts:
+      - kind: deadline
+        claim: O2 needs 30 days' notice to cancel, given by signing in to My O2 or by getting in touch. Overdue charges must be paid first. If you are not switching networks, the O2 contract stays active until you switch.
+        issues: [cancel_service]
+        source: https://www.o2.co.uk/help/account/joining-and-leaving-o2/leaving-o2
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Customers on O2 Refresh are not charged early termination charges for the airtime contract. Ending the airtime plan within the first 24 months of the device plan means paying off the device plan in full; after 24 months the airtime and device plans are unlinked.
+        issues: [cancel_service, early_termination_fee]
+        source: https://www.o2.co.uk/help/account/joining-and-leaving-o2/leaving-o2
+        last_verified: 2026-11-19
+      - kind: process
+        claim: The final bill comes 14 days after disconnection. Pay Monthly customers should not cancel the Direct Debit until after the final bill is produced; a final bill in credit is refunded automatically within the next 30 days.
+        issues: [cancel_service, refund_request]
+        source: https://www.o2.co.uk/help/account/joining-and-leaving-o2/leaving-o2
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: The airtime and device plans of an O2 Refresh contract taken out after 17 December 2021 stay linked for the first 24 months; cancelling in that time means paying off the outstanding device plan. The device plan is covered by a Consumer Credit Agreement and can be paid off at any time.
+        issues: [cancel_service, early_termination_fee]
+        source: https://www.o2.co.uk/help/account/upgrading/after-you-upgrade-to-o2-refresh
+        last_verified: 2026-11-19
+
+  - issue: number_port_out
+    summary: Text PAC to 65075 for a free porting code (arrives within 60 seconds, valid 30 days) and give it to the new network.
+    evidence: [mobile number, PAC and the date it was issued, new network's switch date]
+    steps:
+      - do: Text PAC to 65075 from the number you want to keep. If you have more than one number on the account or a linked Apple Watch, get the code in My O2 (Manage details) or by calling O2.
+        channel: pac-sms
+      - do: Give the PAC to the new network within 30 days of issue.
+      - do: If O2 does not give a PAC or the port fails, complain and keep the dates.
+        channel: complaints-form
+    facts:
+      - kind: process
+        claim: Texting PAC to 65075 is free and the code arrives within 60 seconds. Texting STAC to 75075 gives a code to leave with a new number. Codes can also be requested in My O2 under Manage details, or by calling O2.
+        issues: [number_port_out, cancel_service]
+        source: https://www.o2.co.uk/help/account/joining-and-leaving-o2/leaving-o2
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Customers have up to 30 days from leaving O2 to request a PAC, and a PAC is valid for 30 days from the date of issue.
+        issues: [number_port_out]
+        source: https://www.o2.co.uk/help/account/joining-and-leaving-o2/leaving-o2
+        last_verified: 2026-11-19
+
+  - issue: early_termination_fee
+    summary: Leaving a SIM Only or Standard Plan early costs the monthly tariff times the months left, minus 4%. O2 Refresh airtime has no early termination charge, but the device plan must be paid off in the first 24 months.
+    evidence: [contract start date and minimum period, monthly tariff, device plan balance]
+    steps:
+      - do: Work out the charge - monthly tariff multiplied by the months left in the minimum period, minus 4% - and ask O2 to confirm it before you leave.
+        channel: pay-monthly-phone
+      - do: If O2 notified you of a price change you did not agree to upfront, ask to leave penalty-free within 30 days of the notice.
+        channel: pay-monthly-phone
+    facts:
+      - kind: fee
+        claim: Early termination charges for SIM Only and Standard Plans are the monthly tariff cost multiplied by the number of months remaining in the minimum period, minus 4% for early receipt of payment.
+        issues: [early_termination_fee, cancel_service]
+        source: https://www.o2.co.uk/help/account/joining-and-leaving-o2/leaving-o2
+        last_verified: 2026-11-19
+
+  - issue: equipment_return
+    summary: Return a new device within 14 days for a change of mind (brand new condition) or within 30 days if faulty; refunds within 28 days.
+    evidence: [order confirmation and delivery date, device IMEI, proof of postage or store receipt, photos of the device condition]
+    steps:
+      - do: Turn off Find My iPhone and unlink iCloud, Apple Store or Google Play accounts, and keep all packaging and bundled items.
+        channel: returns-page
+      - do: Return it at an O2 store, or contact O2 for labelled packaging and drop it at a Post Office.
+        channel: stores
+      - do: If the refund has not arrived within 28 days of the return, complain with the proof of return.
+        channel: complaints-form
+    facts:
+      - kind: deadline
+        claim: A customer who changes their mind can return a device within 14 days for a refund, in brand new condition; it can be exchanged once in that period. A faulty device can be returned within 30 days of purchase for an exchange, replacement or refund.
+        issues: [equipment_return, refund_request]
+        source: https://www.o2.co.uk/help/device-and-sim-support/returning-your-device
+        last_verified: 2026-11-19
+      - kind: process
+        claim: O2 pays refunds within 28 days of the return or of evidence that the customer tried to return the product. For a new Pay Monthly customer, O2 also cancels the airtime plan bought with the device; for an upgrade, the customer goes back to the previous tariff.
+        issues: [equipment_return, refund_request]
+        source: https://www.o2.co.uk/help/device-and-sim-support/returning-your-device
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: O2 can deduct for damage, use beyond what is needed to check the product, services used, express delivery and any buy-out fee; a locked device or IMEI mismatch can lead to a charge for the device's full value or no refund.
+        issues: [equipment_return]
+        source: https://www.o2.co.uk/help/device-and-sim-support/returning-your-device
+        last_verified: 2026-11-19
+
+  - issue: service_outage
+    summary: Check the O2 network status checker, report the fault in the My Network app or by phone, and complain if it is not fixed. O2's network help page mentions no outage compensation.
+    evidence: [postcode, dates and times without service, status-checker screenshots, fault reference]
+    steps:
+      - do: Check the local mast on the network status checker.
+        channel: network-status
+      - do: Report the problem in the My Network app or by calling 202.
+        channel: pay-monthly-short-code
+      - do: If service is not fixed, make a complaint and ask for a credit.
+        channel: complaints-form
+    facts:
+      - kind: process
+        claim: O2's network support page points customers to status.o2.co.uk to check the local mast and to the My Network app to report issues; it does not mention compensation or credit for outages.
+        issues: [service_outage]
+        source: https://www.o2.co.uk/help/network-coverage-and-international/network-support
+        last_verified: 2026-11-19
+
+  - issue: payment_assistance
+    summary: Set up a repayment plan or spend cap in My O2, or ask about the O2 Essential Plan social tariff. Missed payments bring a late fee, service restrictions and a credit-file record.
+    evidence: [account number, budget showing what you can pay, proof of benefit if asked]
+    steps:
+      - do: Set up a repayment plan in My O2 if you meet the requirements, or add or lower a spend cap.
+        channel: my-o2
+      - do: If you receive a qualifying benefit, ask to move to the O2 Essential Plan.
+        channel: pay-monthly-phone
+      - do: For free independent debt advice, contact Citizens Advice, StepChange or Money Wellness (named on O2's page).
+        regulator: uk-citizens-advice
+    facts:
+      - kind: fee
+        claim: The late payment fee is currently £7.68, and there is a £26.25 fee to reconnect a suspended service. A disconnected customer needs a new account to rejoin.
+        issues: [payment_assistance]
+        source: https://www.o2.co.uk/help/account-and-billing/payment-support
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: O2 records a late payment on the customer's credit file; a default is recorded after a balance stays unpaid for six consecutive months and stays on the file for six years.
+        issues: [payment_assistance]
+        source: https://www.o2.co.uk/help/account-and-billing/payment-support
+        last_verified: 2026-11-19
+      - kind: contact
+        claim: The payment support page shows the Mobile Collection team as 0800 902 0217 (Monday to Friday 8am to 8pm, Saturday 8am to 6pm, Sunday 9am to 6pm), but its link dials 0800 588 4213; confirm the number before calling. Formal debt solutions go to debtrecovery@o2.com.
+        issues: [payment_assistance]
+        source: https://www.o2.co.uk/help/account-and-billing/payment-support
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Virgin Media O2 launched the O2 Essential Plan on 19 August 2024 at £10 a month for 10GB data with unlimited calls and texts, on a 30-day rolling contract with no activation or exit fees, for people on Income-based ESA, Income-based JSA, Income Support, Pension Credit or Universal Credit. The price stays the same while benefit payments are received.
+        issues: [payment_assistance, bill_increase]
+        source: https://news.virginmediao2.co.uk/virgin-media-o2-launches-new-mobile-plan-to-support-people-on-low-incomes/
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: O2's complaints page says a communications complaint can go to the Ombudsman (CISAS, free, 020 7520 3814) if O2 takes more than 6 weeks to respond, and a financial services complaint (Financial Ombudsman Service) if O2 takes more than 8 weeks.
+    issues: [billing_error, bill_increase, cancel_service, number_port_out, early_termination_fee]
+    source: https://www.o2.co.uk/how-to-complain
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: O2's complaints code says CISAS will review a complaint not resolved after six weeks, or with a final position letter, and the customer has up to 12 months to contact the Ombudsman after receiving that letter. The same code also says "after eight weeks" in its general ADR section and is marked "Updated 09/2024".
+    issues: [billing_error, bill_increase, cancel_service]
+    verified_via: document
+    source: https://storyblok.cdn.vmo2digital.co.uk/f/253875/x/6283d5994f/customer-complaints-code-08-09-26.pdf
+    last_verified: 2026-11-19
+  - kind: process
+    claim: Complaints about a consumer Refresh Device Plan go to the Financial Ombudsman Service (0300 1239 123), which reviews a complaint not resolved after eight weeks or with a final position letter; the customer has up to 6 months after that letter.
+    issues: [billing_error, early_termination_fee]
+    verified_via: document
+    source: https://storyblok.cdn.vmo2digital.co.uk/f/253875/x/6283d5994f/customer-complaints-code-08-09-26.pdf
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Telefónica UK Limited is authorised and regulated by the Financial Conduct Authority (Reference Number 718822) for O2 device plans.
+    source: https://www.o2.co.uk/help/account/upgrading/after-you-upgrade-to-o2-refresh
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Virgin Media stopped trading as Virgin Mobile at the end of August 2023 and moved all Virgin Mobile customers onto an equivalent O2 plan; migrated customers call O2 on 0344 809 0202.
+    source: https://www.virginmedia.com/mobile/upgrade
+    last_verified: 2026-11-19
+
+known_blockers:
+  - My O2, the My O2 app chat, repayment plans and spend caps need sign-in.
+  - The PAC/STAC text service does not work for accounts with several numbers or a linked Apple Watch; those customers must use My O2 or call.
+  - The contact page mentions a virtual assistant but gives no link to it.
+
+notes: >-
+  O2 (Telefónica UK Limited) is one of two customer-facing brands of the Virgin Media O2 joint venture (merged June
+  2021). The other brand, Virgin Media, has its own help site, terms, contracts and complaints code, so it has its own
+  id (virgin-media). Former Virgin Mobile customers were moved to O2 plans in 2023 and are now O2 customers. giffgaff
+  is a separate Virgin Media O2 brand with its own terms; do not treat it as O2. O2 Business accounts
+  managed by an O2 Partner must complain to the Partner. O2's complaints page now says 6 weeks before CISAS, in line
+  with Ofcom's rule for complaints first raised on or after 8 April 2026, but the complaints code PDF still also says 8
+  weeks in one place.
+
+official_domains: [o2.co.uk, o2.com, virginmediao2.co.uk, vmo2digital.co.uk]
+security:
+  never_asks:
+    - kind: policy
+      claim: O2 will never call, text or email you and ask for a one-time code, password, or other security information you have set up on your O2 account.
+      source: https://www.o2.co.uk/help/safety-and-security/fraud-scams-and-unwanted-calls/scams-and-phishing
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: O2 would never call you and ask for one-time passcodes, passwords, PINs or bank details.
+      source: https://www.o2.co.uk/help/safety-and-security/fraud-scams-and-unwanted-calls/scams-and-phishing
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: O2 warned on 30 June 2026 of an "inactive SIM" scam - texts claim the SIM is about to expire and send customers to a fake O2 login page to "accept new terms and conditions" and steal their MyO2 details. O2 says to check in the MyO2 app or by calling 202 from an O2 device.
+      source: https://news.virginmediao2.co.uk/o2-warns-of-new-inactive-sim-scam-calling-on-customers-to-report-to-7726/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Virgin Media O2 warned on 24 April 2026 that scammers influence AI search results to show fake customer service numbers. For O2, use 202 from an O2 device, or numbers from the official website, app or bill.
+      source: https://news.virginmediao2.co.uk/virgin-media-o2-issues-new-fraud-warning-after-millions-served-fake-customer-service-phone-numbers-by-ai/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Criminals use SIM swaps (moving your number to a SIM they hold) and port-outs (taking your number to another network) to take control of your number and commit bank fraud; other takeover tactics include call divert, reporting the phone lost or stolen, changing address or email, and intercepting device deliveries.
+      source: https://www.o2.co.uk/help/safety-and-security/fraud-scams-and-unwanted-calls/scams-and-phishing
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Identity fraud shows up as texts, emails, letters or calls saying you bought O2 products or services you did not buy; report it by calling 202 or 0344 809 0202 with the numbers involved and any crime number.
+      source: https://www.o2.co.uk/help/safety-and-security/fraud-scams-and-unwanted-calls/report-a-scam-or-fraud
+      last_verified: 2026-11-19
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Report phishing emails to O2 (new email with subject "Phishing", suspicious email attached)
+      value: spam@o2.com
+      source: https://www.o2.co.uk/help/safety-and-security/fraud-scams-and-unwanted-calls/report-a-scam-or-fraud
+      last_verified: 2026-11-19
+    - id: scam-text-7726
+      type: sms
+      label: Forward scam texts, including the sender's number or name, to 7726 (free)
+      value: "7726"
+      source: https://www.o2.co.uk/help/safety-and-security/fraud-scams-and-unwanted-calls/report-a-scam-or-fraud
+      last_verified: 2026-11-19
+    - id: phishing-gov
+      type: email
+      label: Also report phishing emails to the UK national reporting address
+      value: report@phishing.gov.uk
+      source: https://www.o2.co.uk/help/safety-and-security/fraud-scams-and-unwanted-calls/report-a-scam-or-fraud
+      last_verified: 2026-11-19
+    - id: scam-call-report
+      type: phone
+      label: Report scam calls or fraud on your O2 account (0344 809 0202; 202 free from an O2 mobile)
+      value: +44-344-809-0202
+      hours: Monday to Friday 8am to 9pm; Saturday 8am to 8pm; Sunday 8am to 6pm
+      source: https://www.o2.co.uk/help/safety-and-security/fraud-scams-and-unwanted-calls/report-a-scam-or-fraud
+      last_verified: 2026-11-19

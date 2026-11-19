@@ -1,0 +1,104 @@
+id: uk-ofcom-automatic-compensation
+title: Automatic compensation for landline and broadband (Ofcom voluntary scheme)
+citation: Ofcom automatic compensation scheme (voluntary code agreed with major landline and broadband providers)
+jurisdiction: gb
+status: in_effect
+applies_to:
+  sectors: [internet_tv]
+  issues: [service_outage, poor_service]
+summary: >-
+  Providers that signed up to Ofcom's automatic compensation scheme credit residential landline and broadband customers
+  without being asked when a total loss of service is not fixed within two working days, an engineer misses an
+  appointment, or a new service starts late. The amounts rise each April with inflation (CPI). The rates shown by BT,
+  EE, Sky, Vodafone and Virgin Media on 2026-11-19 were GBP 10.34 a day for a delayed repair, GBP 6.46 a day for a
+  delayed activation and GBP 32.31 for a missed appointment. The scheme does not cover mobile, slow or intermittent
+  service.
+points:
+  - kind: compensation
+    claim: >-
+      BT pays GBP 10.34 for each day a total loss of broadband or landline is not fixed after two working days from the
+      report, GBP 6.46 for each day a new service activation is late, and GBP 32.31 for each missed engineer
+      appointment.
+    issues: [service_outage]
+    source: https://www.bt.com/compensation
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      BT says current rates apply to incidents from 1 April, incidents that begin before that date are paid at the
+      previous year's rate, and rates are reviewed each year in line with CPI. Compensation runs for up to 60 days and
+      is credited automatically within 30 days. BT says its automatic compensation "is based on agreed industry
+      practices".
+    issues: [service_outage]
+    source: https://www.bt.com/compensation
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Vodafone pays GBP 10.34 per day from day 3 if home broadband or landline is not fully restored after two working
+      days (up to 60 days), GBP 32.31 per missed engineer appointment (no-show or cancelled with less than 24 hours'
+      notice) and GBP 6.46 per day for late activation (up to 60 days).
+    issues: [service_outage]
+    source: https://www.vodafone.co.uk/broadband/auto-compensation-hbb
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Sky pays GBP 10.34 a day if Sky Broadband and/or Sky Talk stops working completely and is not fixed within two
+      full working days of the report, and GBP 6.46 for each full day an activation is late. Sky says it follows Ofcom's
+      voluntary industry code of practice for automatic compensation.
+    issues: [service_outage]
+    source: https://www.sky.com/help/articles/auto-compensation
+    verified_via: browser
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      EE pays GBP 10.34 for each extra day a total loss of broadband or landline is not fixed within two working days,
+      GBP 6.46 for each day a new service is late, and GBP 32.31 for each missed engineer appointment.
+    issues: [service_outage]
+    source: https://ee.co.uk/autocomp
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Virgin Media's help page gives GBP 10.34 a day for a total loss not fixed within two full working days, GBP 32.31
+      for a missed engineer appointment and GBP 6.46 a day for a late standard installation. Its legal terms page still
+      shows older amounts (GBP 9.98, GBP 6.24 and GBP 31.19).
+    issues: [service_outage]
+    source: https://www.virginmedia.com/help/automatic-compensation
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      TalkTalk pays automatic compensation for total-loss faults and missed repair appointments only to customers on the
+      Openreach network; customers on other networks (for example CityFibre) get compensation on request. TalkTalk's
+      complaints page says it is a signatory to the industry automatic compensation scheme.
+    issues: [service_outage]
+    source: https://help-centre.talktalk.co.uk/Billing_and_Payments/Check_my_bills_and_usage/About_your_auto_compensation_credit
+    verified_via: browser
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      Exclusions at BT include intermittent faults, faults fixed within two working days, faults inside the home, and
+      delays caused by the customer missing an appointment or turning down the earliest rebooked date. The scheme is for
+      residential customers, not business contracts.
+    issues: [service_outage]
+    source: https://www.bt.com/compensation
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      BT and EE also say that if they cannot resolve a service issue within 30 days, the customer has the right to end
+      the contract with no termination charges.
+    issues: [service_outage, early_termination_fee]
+    source: https://www.bt.com/compensation
+    verified_via: page
+    last_verified: 2026-11-19
+status_note: >-
+  A voluntary scheme run under Ofcom, not a statutory rule; it binds only providers that signed up. Providers whose own
+  pages confirm they pay it (2026-11-19): BT, EE, Sky, TalkTalk (Openreach lines), Virgin Media and Vodafone. Ofcom's
+  own page with the full list of signatories and the 2026/27 rates could not be read (ofcom.org.uk shows a "verify you
+  are human" check to automated readers), so other signatories are not listed and the amounts come from providers'
+  pages. Amounts change every 1 April; re-check after April 2027. Mobile services are not covered.
+source: https://www.bt.com/compensation
+last_verified: 2026-11-19

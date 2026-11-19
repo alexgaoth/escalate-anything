@@ -1,0 +1,436 @@
+id: virgin-media
+name: Virgin Media
+aliases: [Virgin Media, Virgin Mobile, Virgin TV, Virgin Media broadband, Virgin Media Ltd]
+sector: internet_tv
+countries: [gb]
+parent: Virgin Media O2
+website: https://www.virginmedia.com
+account_url: https://www.virginmedia.com/my-virgin-media
+regulators: [uk-cisas, uk-ofcom]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Virgin Media customer service and complaints (0345 454 1111 from any phone)
+    value: +44-345-454-1111
+    purposes: [billing_error, bill_increase, cancel_service, early_termination_fee, service_outage, equipment_return, payment_assistance, price_negotiation]
+    hours: Monday to Friday 8am to 9pm; Saturday and Sunday 8am to 6pm
+    notes: For broadband, TV and home phone. The complaints page says call costs may vary.
+    source: https://www.virginmedia.com/help/complaints
+    last_verified: 2026-11-19
+  - id: customer-service-short-code
+    type: phone
+    label: Virgin Media customer service short code (dial 150 from a Virgin Media phone)
+    value: "150"
+    purposes: [billing_error, bill_increase, cancel_service, early_termination_fee, service_outage, equipment_return, payment_assistance, price_negotiation]
+    hours: Monday to Friday 8am to 9pm; Saturday and Sunday 8am to 6pm
+    notes: The complaints code says 150 is free from a Virgin Media phone. Use 0345 454 1111 from other lines.
+    source: https://www.virginmedia.com/legal/consumer-complaint-resolution-code-practice
+    last_verified: 2026-11-19
+  - id: virgin-mobile-phone
+    type: phone
+    label: Virgin Mobile customer service and complaints (0345 600 0789 from any other phone; short code 789)
+    value: +44-345-600-0789
+    purposes: [billing_error, cancel_service]
+    hours: Monday to Friday 8am to 9pm; Saturday 8am to 8pm; Sunday 8am to 6pm
+    notes: >-
+      Only for customers who are still on a Virgin Mobile plan. Virgin Media stopped trading as Virgin Mobile at the end
+      of August 2023 and moved Virgin Mobile customers to O2 plans; migrated customers use O2 (0344 809 0202, or 202 from
+      the mobile). See the o2 company file.
+    source: https://www.virginmedia.com/help/complaints
+    last_verified: 2026-11-19
+  - id: web-chat
+    type: chat
+    label: Virgin Media web chat and Virtual Assistant
+    value: https://www.virginmedia.com/help/live-chat
+    purposes: [billing_error, bill_increase, service_outage, equipment_return]
+    hours: Monday to Sunday 8am to 10pm (web chat team)
+    notes: >-
+      The complaints page gives the web chat hours but no chat link. The live-chat help page describes a Virtual
+      Assistant for quick questions and does not say where to start a chat.
+    source: https://www.virginmedia.com/help/complaints
+    last_verified: 2026-11-19
+  - id: complaint-web-form
+    type: web_form
+    label: Virgin Media complaint form (broadband, TV, home phone)
+    value: https://www.virginmedia.com/myvmo2/complaints
+    purposes: [billing_error, bill_increase, service_outage, equipment_return, cancel_service]
+    notes: >-
+      The complaints page says Virgin Media aims to reply to and resolve web form complaints within 7 days; the code says
+      some can take up to 28 days. The form page did not render for automated reading; it is in the account area and may
+      need sign-in (unconfirmed).
+    source: https://www.virginmedia.com/help/complaints
+    last_verified: 2026-11-19
+  - id: virgin-mobile-complaint-form
+    type: web_form
+    label: Virgin Mobile complaint form
+    value: https://www.virginmedia.com/help/virgin-mobile-complaint
+    purposes: [billing_error]
+    notes: Virgin Mobile complaints cannot currently be tracked online (complaints page).
+    source: https://www.virginmedia.com/help/complaints
+    last_verified: 2026-11-19
+  - id: my-cases
+    type: portal
+    label: My Cases - track a broadband, TV or landline complaint
+    value: https://my.virginmedia.com/my-cases/make-a-complaint
+    purposes: [billing_error, service_outage]
+    access: login
+    source: https://www.virginmedia.com/help/complaints
+    last_verified: 2026-11-19
+  - id: complaints-mail
+    type: mail
+    label: Written complaints by post
+    value: Complaints, Virgin Media, Sunderland, SR43 4AA
+    purposes: [billing_error, bill_increase, service_outage, equipment_return, cancel_service]
+    notes: Postal complaints are acknowledged within 48 hours of receipt; Virgin Media aims to resolve them within 28 days.
+    source: https://www.virginmedia.com/legal/consumer-complaint-resolution-code-practice
+    last_verified: 2026-11-19
+  - id: complaints-code
+    type: portal
+    label: Virgin Media Customer Complaints Code of Practice
+    value: https://www.virginmedia.com/legal/consumer-complaint-resolution-code-practice
+    access: open
+    source: https://www.virginmedia.com/help/complaints
+    last_verified: 2026-11-19
+  - id: service-status
+    type: portal
+    label: Check service status
+    value: https://www.virginmedia.com/help/check/status
+    purposes: [service_outage]
+    source: https://www.virginmedia.com/help/contact-us
+    last_verified: 2026-11-19
+  - id: request-returns-pack
+    type: web_form
+    label: Request a free pre-paid equipment returns pack
+    value: https://www.virginmedia.com/help/virgin-media-return-or-recycle-equipment/request-returns-pack
+    purposes: [equipment_return, cancel_service]
+    notes: Ask for a resend if you were disconnected more than 10 days ago and the free returns pack has not arrived.
+    source: https://www.virginmedia.com/help/return-or-recycle-equipment
+    last_verified: 2026-11-19
+  - id: returns-help-page
+    type: portal
+    label: How to return or recycle Virgin Media equipment
+    value: https://www.virginmedia.com/help/return-or-recycle-equipment
+    purposes: [equipment_return]
+    access: open
+    source: https://www.virginmedia.com/help/return-or-recycle-equipment
+    last_verified: 2026-11-19
+  - id: leaving-page
+    type: portal
+    label: Leaving Virgin Media (notice, fees, cooling-off, equipment)
+    value: https://www.virginmedia.com/help/leaving
+    purposes: [cancel_service, early_termination_fee]
+    access: open
+    notes: The page tells customers to call 150 from a Virgin Media phone or 0345 454 1111 to leave. It lists no online cancellation.
+    source: https://www.virginmedia.com/help/leaving
+    last_verified: 2026-11-19
+  - id: annual-price-change-page
+    type: portal
+    label: Annual price change (April price rises by join date)
+    value: https://www.virginmedia.com/help/annual-price-change
+    purposes: [bill_increase]
+    access: open
+    source: https://www.virginmedia.com/help/annual-price-change
+    last_verified: 2026-11-19
+  - id: my-virgin-media-app
+    type: app
+    label: My Virgin Media app (broadband and home phone account)
+    value: https://www.virginmedia.com/my-virgin-media-app
+    access: login
+    source: https://www.virginmedia.com/help/contact-us
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone, note: "Or 150 from a Virgin Media phone, or web chat 8am to 10pm every day."}
+  - {rung: retention, channel: customer-service-phone, note: "Virgin Media publishes no separate retention number. To leave, call 150 or 0345 454 1111 (see leaving-page). Ofcom fined Virgin Media in July 2026 over a two-tier cancellation process that made cancelling unreasonably hard (see facts)."}
+  - {rung: written_complaint, channel: complaint-web-form, note: "Or by post to Complaints, Virgin Media, Sunderland, SR43 4AA. Track broadband, TV and landline complaints in My Cases. Virgin Media aims to resolve complaints within 28 days."}
+  - {rung: regulator, regulator: uk-cisas, note: "Free. Virgin Media's complaints page and code (updated April 2024) say a complaint can go to CISAS if it is not resolved within 8 weeks, or sooner if both sides agree it cannot be resolved; Virgin Media sends a letter or email confirming the right to refer. Ofcom cut the wait to 6 weeks for complaints first raised on or after 8 April 2026 (rule uk-ofcom-adr), so the 8-week text on Virgin Media's pages may be out of date."}
+  - {rung: regulator, regulator: uk-ofcom, note: "Reporting only. Ofcom does not resolve individual complaints; Virgin Media's complaints page also says Ofcom does not investigate individual complaints."}
+
+playbooks:
+  - issue: billing_error
+    summary: Raise the wrong charge with Virgin Media first, then make a formal complaint and keep the reference; after 8 weeks (6 weeks for complaints raised from 8 April 2026) or a referral letter, go to CISAS.
+    evidence: [the bill with the wrong charge, account number, order confirmation or chat transcript with the agreed price, complaint reference number, dates of every contact]
+    steps:
+      - do: Call or chat and ask for the charge to be corrected. Get a reference number.
+        channel: customer-service-phone
+      - do: If it is not fixed, make a formal complaint with the online form or by post, and track it in My Cases.
+        channel: complaint-web-form
+      - do: If Virgin Media cannot resolve it, ask for the letter or email confirming you can refer the complaint to ADR.
+        channel: customer-service-phone
+      - do: Refer the complaint to CISAS (free) after 8 weeks, or sooner with the referral letter. For complaints first raised on or after 8 April 2026, Ofcom rules allow 6 weeks.
+        regulator: uk-cisas
+    facts:
+      - kind: process
+        claim: Virgin Media aims to reply to and resolve web form complaints within 7 days, acknowledges written complaints within 48 hours, and aims to find a resolution within 28 days.
+        issues: [billing_error]
+        source: https://www.virginmedia.com/help/complaints
+        last_verified: 2026-11-19
+      - kind: process
+        claim: A complaint stays open for 28 days after Virgin Media's outcome letter; if the customer does not reply in that time, it is closed as resolved.
+        issues: [billing_error]
+        source: https://www.virginmedia.com/legal/consumer-complaint-resolution-code-practice
+        last_verified: 2026-11-19
+
+  - issue: bill_increase
+    summary: Virgin Media raises broadband, TV and home phone prices every April by a fixed amount or by RPI plus 3.9%, depending on the join date. The standard rise does not give a penalty-free exit.
+    evidence: [contract forms or order confirmation with the join or renewal date, last bill before April, first bill after April]
+    steps:
+      - do: Find your join or renewal date and check the April rise on the annual price change page.
+        channel: annual-price-change-page
+      - do: If the rise on the bill is different from what your contract allows, dispute it as a billing error.
+        channel: customer-service-phone
+      - do: If you get a qualifying benefit, ask for a social tariff (Essential broadband), which has had no price changes while support payments are received.
+        channel: customer-service-phone
+      - do: Ask whether a cheaper package or deal is available. Leaving during the minimum period costs an early disconnection fee.
+        channel: customer-service-phone
+    facts:
+      - kind: policy
+        claim: Customers who joined or renewed after 2 October 2025 pay a fixed £4.00 a month more each April; those who joined between 9 January 2025 and 2 October 2025 pay a fixed £3.50 a month more.
+        issues: [bill_increase]
+        source: https://www.virginmedia.com/help/annual-price-change
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Customers who joined before 9 January 2025 get an April rise of RPI plus 3.9%, using the January RPI rate the ONS announces in February. If RPI is 0% or less, the price rises by 3.9%.
+        issues: [bill_increase]
+        source: https://www.virginmedia.com/help/annual-price-change
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: The April rise applies to the main broadband, TV and home phone package, to the current discounted price and to the standard price after a discount ends. Add-ons, admin fees and out-of-bundle charges are excluded from the annual rise but can still change with advance notice.
+        issues: [bill_increase]
+        source: https://www.virginmedia.com/help/annual-price-change
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Flex, Essential broadband, Essential broadband plus and Talk Protected are exceptions; for the last three, a price rise comes with at least 30 days' written notice and a right to cancel.
+        issues: [bill_increase, cancel_service]
+        source: https://www.virginmedia.com/help/annual-price-change
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: The annual price page says the standard annual increase does not let customers leave penalty-free; cancelling during the minimum period incurs an early disconnection fee.
+        issues: [bill_increase, early_termination_fee]
+        source: https://www.virginmedia.com/help/annual-price-change
+        last_verified: 2026-11-19
+
+  - issue: cancel_service
+    summary: Give 30 days' notice by phone (150 or 0345 454 1111), or let a new provider switch you with One Touch Switch. Check the early disconnection fee and return the equipment.
+    evidence: [account number, minimum term end date, date notice was given and the agent's name, cancellation confirmation, equipment return receipt]
+    steps:
+      - do: Check your minimum term end date. Inside the 14-day cooling-off period there is no early disconnection fee.
+        channel: leaving-page
+      - do: Call 150 from a Virgin Media phone or 0345 454 1111 and give 30 days' notice. Ask for the early disconnection fee amount and the disconnection date in writing.
+        channel: customer-service-phone
+      - do: If you are switching broadband or landline to another provider, the new provider can handle the switch and the cancellation with One Touch Switching.
+      - do: Return the equipment with the free returns pack or the doorstep collection.
+        channel: request-returns-pack
+      - do: If the agent refuses or delays the cancellation, make a formal complaint and note every call.
+        channel: complaint-web-form
+    facts:
+      - kind: deadline
+        claim: Customers can cancel their agreement at any time by giving 30 days' notice; after the minimum term, there is no early disconnection fee.
+        issues: [cancel_service]
+        source: https://www.virginmedia.com/help/leaving
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: New contracts taken out online, by email, by phone or at home can be cancelled within the 14-day cooling-off period for any reason without an early disconnection fee. The period can start later than the order date.
+        issues: [cancel_service, early_termination_fee]
+        source: https://www.virginmedia.com/help/leaving
+        last_verified: 2026-11-19
+      - kind: process
+        claim: With One Touch Switching, the new provider handles the switch, including cancelling with the old provider. The old provider sends information that includes any fees owed for leaving early.
+        issues: [cancel_service]
+        source: https://www.virginmedia.com/the-edit/glossary/switch-broadband-provider
+        last_verified: 2026-11-19
+      - kind: process
+        claim: When a customer leaves, Virgin Media either collects the equipment or sends a pack to return it free of charge. The customer pays a closing bill for services and usage up to the disconnection date.
+        issues: [cancel_service, equipment_return]
+        source: https://www.virginmedia.com/help/leaving
+        last_verified: 2026-11-19
+
+  - issue: early_termination_fee
+    summary: Leaving before the minimum period ends costs an early disconnection fee, charged after the 30-day notice period. Ask for the exact figure before you cancel.
+    evidence: [contract start date and minimum period, monthly price, written fee quote]
+    steps:
+      - do: Ask Virgin Media for the exact early disconnection fee before you cancel. The leaving page says it will tell you the amount.
+        channel: customer-service-phone
+      - do: Check the fee against the percentage tables on the early disconnection fees page.
+    facts:
+      - kind: fee
+        claim: The early disconnection fee depends on the services, how much the customer pays for them (including discounts or offers) and how much of the minimum period remains for each service. Linked tables give the percentage of the monthly charge payable.
+        issues: [early_termination_fee, cancel_service]
+        source: https://www.virginmedia.com/legal/fibre-optic-services-terms-conditions/early-disconnection-fees
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: The standard notice period is 30 days and the early disconnection fee applies after it; customers keep paying for services during the notice period. VAT is charged on early disconnection fees since 1 April 2022.
+        issues: [early_termination_fee]
+        source: https://www.virginmedia.com/legal/fibre-optic-services-terms-conditions/early-disconnection-fees
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: The minimum period is normally 24 months.
+        issues: [early_termination_fee, cancel_service]
+        source: https://www.virginmedia.com/help/leaving
+        last_verified: 2026-11-19
+
+  - issue: equipment_return
+    summary: Return the TV box, Hub, boosters, pods and cables in the free pre-paid pack at a Yodel by InPost store, keep the receipt, and dispute any charge with the tracking number.
+    evidence: [Yodel by InPost receipt with tracking number, list of returned equipment, disconnection date]
+    steps:
+      - do: Wait for the free returns pack, or request a resend if you were disconnected more than 10 days ago and it has not arrived.
+        channel: request-returns-pack
+      - do: Pack the TV box in its own paper bag, add the Hub, boosters, pods and Virgin Media cables, and drop the pack at a Yodel by InPost store. Keep the receipt. A collector may instead offer a doorstep collection by text.
+        channel: returns-help-page
+      - do: If you are charged for kit you returned, call and give the tracking number from the Yodel by InPost receipt so the return can be confirmed and the charge cancelled.
+        channel: customer-service-phone
+    facts:
+      - kind: fee
+        claim: Virgin Media says customers who do not send equipment back pay reasonable recovery costs and a replacement fee for it, and are notified by text and email. The help page gives no amounts.
+        issues: [equipment_return]
+        source: https://www.virginmedia.com/help/return-or-recycle-equipment
+        last_verified: 2026-11-19
+      - kind: process
+        claim: If services ended less than 80 days ago, a bill credit refund appears on the next bill once the equipment is returned.
+        issues: [equipment_return, refund_request]
+        source: https://www.virginmedia.com/help/return-or-recycle-equipment
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Equipment to return includes the Virgin TV V6 or 360 box, Hub 5/5x and other WiFi Hubs, WiFi Boosters, WiFi Pods, the Stream box and any Virgin Media cables.
+        issues: [equipment_return]
+        source: https://www.virginmedia.com/help/return-or-recycle-equipment
+        last_verified: 2026-11-19
+
+  - issue: service_outage
+    summary: Report a total loss of broadband or home phone online or by phone (not social media). Automatic compensation credits follow for faults not fixed within two full working days, missed engineer visits and late installs.
+    evidence: [date and time the fault was reported, fault reference, engineer appointment details, bills showing credits]
+    steps:
+      - do: Check service status for a known outage.
+        channel: service-status
+      - do: Report a total loss of service online or by calling 150 or 0345 454 1111. Reports on Facebook, Twitter or forums do not count for compensation.
+        channel: customer-service-phone
+      - do: Check the next bills for the automatic credit. If it is missing, make a complaint with the fault dates.
+        channel: complaint-web-form
+    facts:
+      - kind: compensation
+        claim: The help page says that if a total loss of broadband or phone is not fixed within two full working days, the customer gets £10.34 credit per day until it is fixed; where phone and broadband are lost together, one credit is paid at £9.98 per calendar day (the page gives both figures).
+        issues: [service_outage]
+        source: https://www.virginmedia.com/help/automatic-compensation
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: If an engineer does not arrive on the promised day or cancels with less than 24 hours' notice, Virgin Media automatically applies a £32.31 credit to the bill. External appointments that do not need the customer at home are not included.
+        issues: [service_outage]
+        source: https://www.virginmedia.com/help/automatic-compensation
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: If a standard installation misses the promised day, the customer gets £6.46 per day until installation is completed. No action is needed for late installs or missed appointments.
+        issues: [service_outage]
+        source: https://www.virginmedia.com/help/automatic-compensation
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Automatic compensation covers only broadband and home phone, and only a total loss of service; intermittent faults, slow speeds and degraded service do not count. Reports made via Facebook, Twitter and forums do not count.
+        issues: [service_outage]
+        source: https://www.virginmedia.com/help/automatic-compensation
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: The automatic compensation terms page gives lower minimum amounts than the help page - £9.98 per day for delayed repair, £6.24 per day for delayed activation and £31.19 per missed appointment - and repair credit starts if the fault is not fixed by 23:59 two working days after it is reported.
+        issues: [service_outage]
+        source: https://www.virginmedia.com/legal/fibre-optic-services-terms-conditions/automatic-compensation
+        last_verified: 2026-11-19
+
+  - issue: payment_assistance
+    summary: Ask for more time, a package review or a payment plan; customers on certain benefits can move to the Essential broadband social tariff free of charge.
+    evidence: [account number, proof of benefit if asked, a budget showing what you can pay]
+    steps:
+      - do: Contact Virgin Media and ask for a few extra days to pay, a package review or a payment plan.
+        channel: customer-service-phone
+      - do: If you receive a qualifying benefit, ask to move to Essential broadband or Essential broadband plus.
+        channel: customer-service-phone
+    facts:
+      - kind: policy
+        claim: Essential broadband costs £12.50 a month for 15Mbps and Essential broadband plus costs £20 a month for 54Mbps, for customers on Universal Credit, Pension Credit, Income Support, or income-based Jobseeker's or Employment Support Allowance. There is no fixed-term contract and no price changes while support payments are received.
+        issues: [payment_assistance, bill_increase]
+        source: https://www.virginmedia.com/help/billing-and-payments/cost-of-living-support
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Virgin Media says anyone struggling to pay should get in touch; options include a few extra days to pay, a package review or a payment plan.
+        issues: [payment_assistance]
+        source: https://www.virginmedia.com/help/billing-and-payments/cost-of-living-support
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: Virgin Media's Customer Complaints Code of Practice covers phone, broadband and TV from Virgin Media Ltd and mobile from Virgin Mobile Telecoms Ltd. The ADR scheme for TV, broadband, phone and mobile complaints is CISAS (020 7520 3814, cisas@cedr.com), and it is free.
+    issues: [billing_error, bill_increase, cancel_service, service_outage, equipment_return]
+    source: https://www.virginmedia.com/legal/consumer-complaint-resolution-code-practice
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: Virgin Media's complaints page says it will refer a complaint for ADR if it cannot find a solution within 8 weeks of receiving it, or sooner if both sides agree it cannot be resolved, and it sends a letter or email confirming the customer can refer the complaint free of charge.
+    issues: [billing_error, bill_increase, cancel_service, service_outage, equipment_return]
+    source: https://www.virginmedia.com/help/complaints
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Virgin Media stopped trading as Virgin Mobile at the end of August 2023 and moved all Virgin Mobile customers onto an equivalent O2 plan. Migrated customers call 0344 809 0202; customers still on a Virgin Mobile plan call 0345 454 1111.
+    source: https://www.virginmedia.com/mobile/upgrade
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Ofcom fined Virgin Media £28m on 8 July 2026 for repeatedly preventing customers from cancelling contracts. Ofcom found that its two-tier cancellation process and agent behaviour caused customers unreasonable effort or undue difficulty when cancelling.
+    issues: [cancel_service]
+    verified_via: search_snippet
+    source: https://www.ofcom.org.uk/phones-and-broadband/switching-provider/ofcom-fines-virgin-media-28m-for-repeatedly-preventing-customers-from-cancelling-contracts
+    last_verified: 2026-11-19
+
+known_blockers:
+  - Cancelling is by phone only (150 or 0345 454 1111); the leaving page lists no online cancellation.
+  - My Cases and the My Virgin Media app need sign-in. The complaint form page is in the account area and did not render for automated reading.
+  - The live-chat help page gives no chat link; the start point is not shown to automated readers.
+  - Ofcom's website blocks automated reading, so the Ofcom fine is recorded from a search snippet.
+
+notes: >-
+  Virgin Media and O2 are one joint venture, Virgin Media O2 (merged June 2021, owned by Liberty Global and
+  Telefonica), but they stay two customer-facing brands with separate help sites, terms, contracts and complaints
+  codes, so the registry has two ids: virgin-media (broadband, TV, home phone) and o2 (mobile). Virgin Mobile stopped
+  trading at the end of August 2023 and its customers moved to O2 plans; Virgin Media's site still sells O2 mobile
+  plans and keeps Virgin Mobile complaint routes for customers not yet moved. The Virgin Media complaints code still
+  says 8 weeks before ADR; Ofcom's 6-week rule applies to complaints first raised on or after 8 April 2026.
+
+official_domains: [virginmedia.com, virginmediao2.co.uk]
+security:
+  never_asks:
+    - kind: policy
+      claim: Virgin Media will never send an email that asks for any private or personal details, states your account is set to be closed due to financial issues, or notifies you of an account issue which needs resolving.
+      source: https://www.virginmedia.com/help/how-to-prevent-scams
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Virgin Media will never open popup windows in your web browser or elsewhere on a device you are using, and will never take action such as closing your account after just sending an email.
+      source: https://www.virginmedia.com/help/how-to-prevent-scams
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: Virgin Media O2 warned on 24 April 2026 that scammers influence AI search results so that fake customer service numbers are shown. It says to use only numbers from official websites, apps or bills - for Virgin Media, 150 from the landline.
+      source: https://news.virginmediao2.co.uk/virgin-media-o2-issues-new-fraud-warning-after-millions-served-fake-customer-service-phone-numbers-by-ai/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Virgin Media's security page describes phone scams (vishing), text and messaging scams (smishing) including parcel delivery texts, SIM swap fraud, Wangiri international number fraud, number and email spoofing, social media scams, fraudulent surveys and credit file fraud.
+      source: https://www.virginmedia.com/help/security
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Fake pop-ups claim your device is infected, that you have won a prize, or ask you to take a survey; Virgin Media says not to call any phone number they give.
+      source: https://www.virginmedia.com/help/how-to-prevent-scams
+      last_verified: 2026-11-19
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward fraudulent emails to Virgin Media
+      value: phishing@virginmedia.com
+      source: https://www.virginmedia.com/help/security
+      last_verified: 2026-11-19
+    - id: scam-text-7726
+      type: sms
+      label: Forward scam texts free of charge to 7726
+      value: "7726"
+      source: https://www.virginmedia.com/help/security
+      last_verified: 2026-11-19
+    - id: action-fraud
+      type: phone
+      label: Action Fraud (0300 123 2040); in Scotland report to Police Scotland on 101
+      value: +44-300-123-2040
+      notes: Online reporting at reporting.actionfraud.police.uk. If a fraudster used your details to order Virgin Media services, also call 150 or 0345 454 1111.
+      source: https://www.virginmedia.com/help/security
+      last_verified: 2026-11-19

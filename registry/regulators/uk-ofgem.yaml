@@ -1,0 +1,106 @@
+id: uk-ofgem
+name: Ofgem (GB energy regulator)
+short_name: Ofgem
+level: national
+country: gb
+covers_sectors: [utility]
+covers_issues:
+  - billing_error
+  - bill_increase
+  - slamming
+  - disconnection
+  - service_outage
+  - poor_service
+website: https://www.ofgem.gov.uk
+when_to_use: >-
+  Ofgem does NOT resolve individual complaints. It says it does not get involved with complaints about energy suppliers
+  or network operators and does not investigate individual disputes. For a problem with your supplier, complain to the
+  supplier first, get free help from Citizens Advice (England and Wales) or Energy Advice Scotland, and after 8 weeks or a
+  deadlock letter go to the Energy Ombudsman. Use Ofgem's line and email for questions about its rules (price cap,
+  back-billing, power cut payments) or to report a suspected energy scam or fraud. Ofgem lists no general form for
+  reporting a company; it monitors companies and opens investigations itself, but it will not act on your case.
+
+channels:
+  - id: consumer-affairs-phone
+    type: phone
+    label: Ofgem enquiries line (020 7901 7295)
+    value: +44-20-7901-7295
+    hours: Monday, Tuesday and Thursday 09:30 to 16:30; Wednesday 09:30 to 12:30; Friday 09:30 to 16:00
+    notes: >-
+      For enquiries about Ofgem's policies or functions, and to report suspected scams or fraud. Not a complaints line:
+      for a bill or supplier complaint the page points to Citizens Advice (0808 223 1133) and the complaints guide.
+    verified_via: page
+    source: https://www.ofgem.gov.uk/about-us/get-in-touch/contact-us
+    last_verified: 2026-11-19
+  - id: consumer-affairs-email
+    type: email
+    label: Ofgem consumer affairs email
+    value: consumeraffairs@ofgem.gov.uk
+    notes: For enquiries about Ofgem's policies or functions, and to report suspected scams or fraud.
+    verified_via: page
+    source: https://www.ofgem.gov.uk/about-us/get-in-touch/contact-us
+    last_verified: 2026-11-19
+  - id: post
+    type: mail
+    label: Ofgem by post (London office)
+    value: Ofgem, 10 South Colonnade, Canary Wharf, London, E14 4PU
+    notes: Ofgem asks for all postal correspondence to go to the London office.
+    verified_via: page
+    source: https://www.ofgem.gov.uk/about-us/get-in-touch/contact-us
+    last_verified: 2026-11-19
+
+facts:
+  - kind: policy
+    claim: >-
+      Ofgem says it does not directly get involved with complaints about energy suppliers or network operators, and
+      does not investigate individual disputes. It monitors suppliers and network operators and starts an
+      investigation if it thinks they have broken the rules.
+    source: https://www.ofgem.gov.uk/your-energy-supply/problems-your-energy-supply/complain-about-your-energy-supplier-or-network-operator
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Ofgem's complaint steps: complain to the supplier or network operator first; the supplier must try to fix the
+      problem within 8 weeks; if it is not fixed, you cannot agree, you get a deadlock letter, or you are unhappy with
+      the decision, go to the Energy Ombudsman (0330 440 1624, enquiry@energyombudsman.org), which will tell you its
+      decision within 6 weeks.
+    source: https://www.ofgem.gov.uk/your-energy-supply/problems-your-energy-supply/complain-about-your-energy-supplier-or-network-operator
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: contact
+    claim: >-
+      For free help, Ofgem lists the Citizens Advice consumer service (0808 223 1133) for England and Wales, and
+      Energy Advice Scotland (energyadvice.scot, 0808 196 8660) for Scotland. Citizens Advice may refer you to the Extra
+      Help Unit if the complaint is difficult or urgent, you are vulnerable, or you risk disconnection.
+    source: https://www.ofgem.gov.uk/your-energy-supply/problems-your-energy-supply/complain-about-your-energy-supplier-or-network-operator
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: contact
+    claim: >-
+      If you are being disconnected or are off supply, Ofgem's contact page says to call Citizens Advice on
+      0808 223 1133 (textphone 18001 then the number) or, in Scotland, Advice Direct Scotland on 0808 196 8660.
+    issues: [disconnection]
+    source: https://www.ofgem.gov.uk/about-us/get-in-touch/contact-us
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      For a power cut or connection problem, contact your local network operator, not your supplier. Ofgem links to the
+      Energy Networks Association's "find my network operator" tool.
+    issues: [service_outage]
+    source: https://www.ofgem.gov.uk/your-energy-supply/problems-your-energy-supply/check-if-you-can-get-payment-power-cut
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Ofgem's contact page links a separate whistleblowing page for energy sector employees who want to report
+      wrongdoing they saw at work (ofgem.gov.uk/energy-regulation/how-we-regulate/compliance-and-enforcement/whistleblowing).
+    source: https://www.ofgem.gov.uk/about-us/get-in-touch/contact-us
+    verified_via: page
+    last_verified: 2026-11-19
+
+notes: >-
+  Ofgem's rules in this registry (uk-energy-price-cap, uk-energy-back-billing, uk-energy-guaranteed-standards) apply in
+  England, Scotland and Wales. The Energy Ombudsman says it is approved by Ofgem. Ofgem's page names
+  the Scotland service "Energy Advice" (energyadvice.scot), run by Advice Direct Scotland; its contact page uses the
+  name Advice Direct Scotland. Read from ofgem.gov.uk on 2026-11-19.

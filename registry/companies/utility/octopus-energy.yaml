@@ -1,0 +1,409 @@
+id: octopus-energy
+name: Octopus Energy
+aliases: [Octopus, Octopus Energy Ltd, Octopus Energy UK]
+sector: utility
+countries: [gb]
+parent: Octopus Energy Group
+website: https://octopus.energy
+account_url: https://octopus.energy/login/
+regulators: [uk-ofgem, uk-energy-ombudsman, uk-citizens-advice]
+notes: >-
+  Octopus Energy Ltd supplies household gas and electricity. This file covers household supply in Great Britain
+  (England, Scotland, Wales) only; Northern Ireland has a different regulator. Business customers use a separate line
+  (020 3389 5613, business@octopus.energy), and heat pumps, solar and EV chargers have their own complaint pages.
+  Octopus took over Bulb (acquisition completed December 2022; all 1.5 million customers moved by 30 June 2023) and
+  Shell Energy Retail's UK home customers (acquired 1 December 2023; migration finished 28 March 2024). Ofgem also
+  appointed Octopus to take on Avro Energy and Go Effortless Energy customers. The Energy Ombudsman tells ex-Bulb
+  customers to complain under "Octopus Energy (formerly Bulb Energy)". Related rules: uk-energy-back-billing,
+  uk-energy-guaranteed-standards, uk-energy-ombudsman-8-weeks, uk-energy-price-cap.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Octopus Energy customer line (0808 164 1088, free)
+    value: +44-808-164-1088
+    purposes: [billing_error, bill_increase, payment_assistance, refund_request, cancel_service, disconnection, slamming]
+    hours: "Mon-Thu 9am-5pm, Fri 9am-4pm; emergencies 24/7"
+    access: open
+    notes: >-
+      Free from UK mobiles and landlines. At weekends Octopus asks customers to email hello@octopus.energy. The power-cut
+      page says emergency lines on this number are open 8am-8pm Monday to Friday, with a voicemail for a priority
+      callback at other times. British Sign Language users can use SignVideo (Mon-Thu 9am-5pm, Fri 9am-4pm).
+    source: https://octopus.energy/contact-us/
+    last_verified: 2026-11-19
+  - id: hello-email
+    type: email
+    label: Octopus Energy customer email (hello@octopus.energy, 7 days a week)
+    value: hello@octopus.energy
+    purposes: [billing_error, bill_increase, payment_assistance, refund_request, cancel_service, disconnection, slamming]
+    source: https://octopus.energy/contact-us/
+    last_verified: 2026-11-19
+  - id: complaints-email
+    type: email
+    label: Complaints email (issue resolution)
+    value: issueresolution@octopus.energy
+    purposes: [billing_error, bill_increase, refund_request, cancel_service, disconnection, slamming]
+    notes: Include your contact details or account number, the background, the impact on you and the resolution you want.
+    source: https://octopus.energy/unhappy/
+    last_verified: 2026-11-19
+  - id: complaints-mail
+    type: mail
+    label: Complaints by post
+    value: "Octopus Energy Ltd, UK House, 5th floor, 164-182 Oxford Street, London, W1D 1NN"
+    purposes: [billing_error, refund_request, cancel_service, disconnection, slamming]
+    source: https://octopus.energy/unhappy/
+    last_verified: 2026-11-19
+  - id: ceo-email
+    type: email
+    label: Chief Executive (Greg) - complaint escalation
+    value: greg@octopus.energy
+    purposes: [billing_error, refund_request, disconnection]
+    notes: Octopus says customers can email the CEO at any point after raising a complaint. Include account number, contact details with address, and the background.
+    source: https://octopus.energy/unhappy/
+    last_verified: 2026-11-19
+  - id: emergency-email
+    type: email
+    label: Emergency email (put "emergency" in the subject)
+    value: emergency@octopus.energy
+    purposes: [disconnection, service_outage]
+    hours: 24/7
+    notes: For meter faults, prepayment meters with under £5 credit, or a lost or faulty key or card.
+    source: https://octopus.energy/blog/power-cut/
+    last_verified: 2026-11-19
+  - id: online-account
+    type: portal
+    label: Octopus online account (refund credit, Priority Services, payments)
+    value: https://octopus.energy/login/
+    purposes: [refund_request, billing_error, payment_assistance]
+    access: login
+    notes: Octopus says it will never ask you to log in anywhere other than this page.
+    source: https://octopus.energy/help-and-faqs/articles/what-should-i-do-if-i-think-i-ve-received-a-scam-or-phishing-email/
+    last_verified: 2026-11-19
+  - id: octopus-app-ios
+    type: app
+    label: Octopus Energy app (iOS; also on Google Play)
+    value: https://apps.apple.com/gb/app/octopus-energy/id1093452209
+    access: login
+    source: https://octopus.energy/contact-us/
+    last_verified: 2026-11-19
+  - id: priority-services
+    type: portal
+    label: Join the Priority Services Register (account settings)
+    value: https://octopus.energy/dashboard/new/accounts/personal-details/priority-services/
+    purposes: [payment_assistance, disconnection, service_outage]
+    access: login
+    source: https://octopus.energy/help-and-faqs/articles/what-extra-support-is-available-to-customers-in-vulnerable-circumstances/
+    last_verified: 2026-11-19
+  - id: octo-assist
+    type: web_form
+    label: Apply to Octo Assist (Octopus's customer support fund)
+    value: https://octopus.energy/help-and-faqs/articles/apply-to-octo-assist/
+    purposes: [payment_assistance, disconnection]
+    notes: The budget form is run by Budgie on a third-party site (octopusenergy.inicio.ai) that passes details to Octopus. Someone contacts you after you finish.
+    source: https://octopus.energy/help-and-faqs/articles/apply-to-octo-assist/
+    last_verified: 2026-11-19
+  - id: bill-support
+    type: portal
+    label: Help when you're struggling to pay (bill support guide)
+    value: https://octopus.energy/blog/bill-support/
+    purposes: [payment_assistance]
+    access: open
+    source: https://octopus.energy/blog/bill-support/
+    last_verified: 2026-11-19
+  - id: power-cut-105
+    type: phone
+    label: Power cut - electricity network emergency line (105, free, 24/7)
+    value: "105"
+    purposes: [service_outage]
+    hours: 24/7
+    notes: Run by the local network operator, not Octopus. Octopus can fix an outage only when the meter is faulty.
+    source: https://octopus.energy/blog/power-cut/
+    last_verified: 2026-11-19
+  - id: gas-emergency-phone
+    type: phone
+    label: Gas Emergency Line (0800 111 999)
+    value: +44-800-111-999
+    purposes: [service_outage]
+    notes: Call if you smell gas, even if you are not sure. For a sparking or burning meter, Octopus says call 999.
+    source: https://octopus.energy/contact-us/
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone, note: "Or email hello@octopus.energy (7 days a week). Get the complaint logged on your account and ask for a timeframe."}
+  - {rung: written_complaint, channel: complaints-email, note: "Or post to UK House, 164-182 Oxford Street, London W1D 1NN. If unhappy with the proposed fix, ask for it to go to a complaints and customer happiness specialist."}
+  - {rung: executive, channel: ceo-email, note: "Octopus publishes the CEO's address and says customers can email it at any point after raising a complaint."}
+  - {rung: regulator, regulator: uk-citizens-advice, note: "Free independent advice: Citizens Advice 0808 223 1133 (England), 0808 223 1144 (Welsh language); Advice Direct Scotland 0808 196 8660."}
+  - {rung: regulator, regulator: uk-energy-ombudsman, note: "After 8 weeks, or earlier with a deadlock letter. Octopus may declare deadlock, write with its final offer, and issue a deadlock letter if you decline. The decision binds Octopus but not you."}
+  - {rung: regulator, regulator: uk-ofgem, note: "Reporting only. Ofgem does not resolve individual complaints."}
+
+playbooks:
+  - issue: billing_error
+    summary: Send a meter reading and ask Octopus to correct the statement; Octopus's terms bar recovering energy charges older than 12 months in most cases.
+    evidence: [the disputed statement, meter photos with date, earlier statements, payment records, email thread with Octopus]
+    steps:
+      - do: Send an up-to-date meter reading in your account or app so the statement uses actual reads.
+        channel: online-account
+      - do: Email hello@octopus.energy or call, say which charges are wrong and why, and ask for the complaint to be logged.
+        channel: hello-email
+      - do: If the bill includes energy used more than 12 months ago that you were never billed for, quote clause 8.9 of the terms.
+      - do: If not fixed, email the complaints team, then the CEO.
+        channel: complaints-email
+      - do: After 8 weeks, or after a deadlock letter, go to the Energy Ombudsman.
+        regulator: uk-energy-ombudsman
+    facts:
+      - kind: limit
+        claim: Octopus's domestic terms (v3.10, last updated 20 October 2026) say it will not try to recover charges for energy older than 12 months, unless it already tried to recover them or the customer acted obstructively or unreasonably (clause 8.9).
+        issues: [billing_error]
+        source: https://octopus.energy/quote/terms-and-conditions/
+        last_verified: 2026-11-19
+      - kind: process
+        claim: When you complain, Octopus logs the complaint on your account and gives a timeframe if it cannot be fixed at once. If you are unhappy with the proposed resolution, the Energy Specialist can pass it to a complaints and customer happiness specialist for a full review.
+        issues: [billing_error, refund_request]
+        source: https://octopus.energy/unhappy/
+        last_verified: 2026-11-19
+
+  - issue: bill_increase
+    summary: Variable prices change with the Ofgem price cap every three months; if Octopus changes terms against you, you can leave without penalty, and Flexible has no exit fee.
+    evidence: [the price-change notice, statements before and after, tariff name and end date]
+    steps:
+      - do: Check whether you are on Flexible (variable) or a fixed tariff, and when a fixed tariff ends.
+        channel: online-account
+      - do: If you do not accept a change that is not in your favour, switch tariff or supplier; the terms let you end the contract without penalty.
+      - do: If the Direct Debit is too high, ask Octopus to review it with a fresh meter reading.
+        channel: hello-email
+    facts:
+      - kind: policy
+        claim: Octopus's terms say it must give reasonable notice of changes not in the customer's favour, and a customer who disagrees can end the contract without penalty (clause 10.4).
+        issues: [bill_increase, cancel_service]
+        source: https://octopus.energy/quote/terms-and-conditions/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: The Ofgem price cap applies to default or standard variable tariffs and caps the unit rate and daily standing charge, not the total bill; Octopus says rates change every three months.
+        issues: [bill_increase]
+        source: https://octopus.energy/help-and-faqs/articles/what-is-the-ofgem-price-cap/
+        last_verified: 2026-11-19
+
+  - issue: payment_assistance
+    summary: Contact Octopus early and apply to Octo Assist; it can give payment plans, payment holidays, standing charge waivers, grants and, in the hardest cases, debt write-off.
+    evidence: [account number, balance or debt, household income and spending, benefits letters, medical needs]
+    steps:
+      - do: Tell Octopus you are struggling. Ask for breathing space, a repayment plan, or a different payment method.
+        channel: customer-service-phone
+      - do: Fill in the Octo Assist budget form.
+        channel: octo-assist
+      - do: Join the Priority Services Register if anyone in the home needs extra help.
+        channel: priority-services
+      - do: Ask about the Warm Home Discount and Fuel Direct, and get free debt advice (StepChange 0800 138 1111, National Debtline 0808 808 4000).
+        channel: bill-support
+    facts:
+      - kind: policy
+        claim: Octopus says that if a customer falls into debt it can give breathing space such as a short-term deferment of payment, work out a repayment plan, adjust the payment method, and point to debt advisers. Octo Assist may match payments, add credit or, in the most difficult cases, write off debt.
+        issues: [payment_assistance, disconnection]
+        source: https://octopus.energy/blog/bill-support/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Octo Assist offers standing charge waivers over winter, grants for customers in the greatest need, long-term payment plans or payment holidays, and free heated throws. Octopus says it has provided £60 million to date. Applicants fill in a short form about household finances.
+        issues: [payment_assistance]
+        source: https://octopus.energy/blog/octo-assist/
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: Octopus's bill support page (updated 19 November 2026) lists a £150 Warm Home Discount credit before 31 March 2027 for customers on certain means-tested benefits.
+        issues: [payment_assistance]
+        source: https://octopus.energy/blog/bill-support/
+        last_verified: 2026-11-19
+
+  - issue: refund_request
+    summary: Refund credit yourself in the online account after a recent meter reading; after leaving, credit is refunded after the final bill, with a £40 guaranteed-standards payment if it is late.
+    evidence: [account balance screenshot, meter reading from the last 14 days, final statement and date if you left]
+    steps:
+      - do: Send a meter reading so the statement is based on a reading from the last 14 days.
+        channel: online-account
+      - do: Refund some or all of the credit from the online dashboard.
+        channel: online-account
+      - do: If you cannot see the refund option, email hello@octopus.energy.
+        channel: hello-email
+      - do: If you left and the final bill or refund is late, complain and ask for the £40 payment.
+        channel: complaints-email
+    facts:
+      - kind: limit
+        claim: To refund credit from the online dashboard, the statement must be up to date, based on a meter reading from within the last 14 days. Customers can refund as much as they like, but this may raise future monthly payments.
+        issues: [refund_request]
+        source: https://octopus.energy/help-and-faqs/articles/how-do-i-refund-the-credit-on-my-account/
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Octopus says suppliers should give a final bill within six weeks of leaving, most Octopus customers get theirs within four weeks, and any credit is refunded within two weeks of the final bill.
+        issues: [refund_request, cancel_service]
+        source: https://octopus.energy/blog/handover-meter-readings/
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: Under its guaranteed standards, Octopus pays £40 if the final statement is not received within 6 weeks of moving out or the switch, and £40 if the final credit balance is not refunded within 10 working days of the final bill being sent.
+        issues: [refund_request, cancel_service]
+        source: https://octopus.energy/policies/guaranteed-standards-performance/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: On 8 July 2025 Ofgem said Octopus paid £1.483 million (about £1.5 million) after failing, from 2016 to October 2023, to send final bills within six weeks to over 34,000 former prepayment accounts; average compensation was £43.
+        issues: [refund_request, cancel_service]
+        source: https://www.ofgem.gov.uk/press-release/octopus-energy-pays-ps15million-prepayment-meter-billing-errors
+        last_verified: 2026-11-19
+
+  - issue: slamming
+    summary: If your supply was moved without your agreement, tell Octopus; it says it switches customers back within 6 weeks and pays £40 if it took a supply without permission.
+    evidence: [proof you did not agree, letters or emails about the switch, meter readings, both suppliers' statements]
+    steps:
+      - do: Tell Octopus as soon as possible that you did not ask to switch.
+        channel: hello-email
+      - do: Ask for the £40 guaranteed-standards payment if Octopus took your supply without permission.
+      - do: If your old supplier does not re-register you within 21 working days, it owes you £40.
+      - do: If not resolved, complain in writing, then go to the Energy Ombudsman after 8 weeks or a deadlock letter.
+        regulator: uk-energy-ombudsman
+    facts:
+      - kind: deadline
+        claim: Octopus says an erroneous transfer is usually an accident (wrong address chosen or a data error) and that it will switch the customer back within 6 weeks, often quicker, and make sure bills are not affected.
+        issues: [slamming]
+        source: https://octopus.energy/help-and-faqs/articles/what-is-an-erroneous-transfer-et-/
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: Octopus pays £40 if a customer was switched to it without permission. The old supplier has 21 working days to re-register the customer and pays £40 if it fails.
+        issues: [slamming]
+        source: https://octopus.energy/policies/guaranteed-standards-performance/
+        last_verified: 2026-11-19
+
+  - issue: cancel_service
+    summary: Sign up with the new supplier, which arranges the switch; there is a 14-day cooling-off period, Flexible has no exit fee, and fixed-tariff exit fees do not apply in the final 49 days.
+    evidence: [tariff name and terms, exit fee shown at sign-up, new supplier's switch date, handover meter readings, final statement]
+    steps:
+      - do: Check your tariff. Flexible and other variable tariffs have no exit fee; for fixed tariffs taken since exit fees returned in March 2026, the fee is shown before sign-up.
+        channel: online-account
+      - do: To cancel a new contract, tell Octopus within 14 days of submitting the application.
+        channel: hello-email
+      - do: Sign up with the new supplier and give handover meter readings.
+      - do: If the final bill takes more than 6 weeks, or the refund more than 10 working days after it, claim £40.
+        channel: complaints-email
+    facts:
+      - kind: deadline
+        claim: Octopus's terms give a cooling-off period of the 14 days following the date the customer submitted the application (clause 5.1).
+        issues: [cancel_service]
+        source: https://octopus.energy/quote/terms-and-conditions/
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: No exit fee is charged if the customer cancels within the final 49 days before the end of the contract (clause 5.4).
+        issues: [cancel_service, early_termination_fee]
+        source: https://octopus.energy/quote/terms-and-conditions/
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: Octopus says it brought in exit fees on fixed tariffs only in volatile markets, in 2022 and again in March 2026. Existing fixed-tariff customers keep the terms they signed up to, any exit fee on a new fix is stated before the switch, and Flexible and other variable tariffs have zero exit fees.
+        issues: [cancel_service, early_termination_fee]
+        source: https://octopus.energy/help-and-faqs/articles/why-do-some-tariffs-have-exit-fees/
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Octopus's terms say it aims to send the final bill within 6 weeks of the supply switching over (clause 11.4), and refunds go back to the original payment source first (clause 8.11).
+        issues: [cancel_service, refund_request]
+        source: https://octopus.energy/quote/terms-and-conditions/
+        last_verified: 2026-11-19
+
+  - issue: disconnection
+    summary: Octopus can disconnect for non-payment or switch a smart meter to prepayment to recover debt, but says it takes all reasonable steps not to disconnect vulnerable customers in winter; prepay meters have £10 emergency credit.
+    evidence: [debt letters, meter type, top-up receipts, details of anyone vulnerable in the home]
+    steps:
+      - do: If a prepayment meter has under £5 credit, or a key or card is lost or faulty, contact Octopus at once; it treats this as an emergency.
+        channel: emergency-email
+      - do: Use emergency credit, and ask for additional support credit and a lower debt recovery rate.
+        channel: customer-service-phone
+      - do: Join the Priority Services Register if anyone is of pensionable age, disabled or chronically sick.
+        channel: priority-services
+      - do: Apply to Octo Assist for help with the debt.
+        channel: octo-assist
+    facts:
+      - kind: policy
+        claim: Octopus's terms allow disconnection for non-payment (clause 14.1) and switching a smart meter to prepayment mode to recover an outstanding balance (clause 9.1). Octopus will take all reasonable steps not to disconnect in winter (October to March) customers on the Priority Services Register or known to be of pensionable age, disabled or chronically sick (clause 14.3).
+        issues: [disconnection]
+        source: https://octopus.energy/quote/terms-and-conditions/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Smart prepayment meters have £10 emergency credit on each meter, repaid at the next top-up. Octopus can set the debt recovery rate between £1 and £10 per week. Non-smart electricity meters have friendly credit 4pm-10am Monday to Friday, all weekend and bank holidays; non-smart gas meters have no friendly credit. Additional support credit is a short-term loan with flexible repayment.
+        issues: [disconnection, payment_assistance]
+        source: https://octopus.energy/policies/prepayment-meters/
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: For a prepayment meter problem, Octopus's guaranteed standard is a response within 3 hours on a working day and 4 hours on a non-working day, or £40.
+        issues: [disconnection]
+        source: https://octopus.energy/policies/guaranteed-standards-performance/
+        last_verified: 2026-11-19
+
+  - issue: service_outage
+    summary: Power cuts go to the network operator on 105 and gas leaks to 0800 111 999; Octopus fixes outages only when the meter is faulty.
+    evidence: [start and end time of the outage, network operator reference, meter display photo]
+    steps:
+      - do: Check the fuse box and meter, then call 105 (free, 24/7).
+        channel: power-cut-105
+      - do: If you smell gas, call 0800 111 999 at once.
+        channel: gas-emergency-phone
+      - do: If the meter seems faulty, email emergency@octopus.energy with "emergency" in the subject.
+        channel: emergency-email
+      - do: If network compensation passed on by Octopus is more than 10 working days late, ask for the extra £40.
+        channel: hello-email
+    facts:
+      - kind: contact
+        claim: Octopus says call 105 (free, 24 hours a day, 7 days a week) for a power cut and 0800 111 999 for a gas smell, and that it can only resolve outages caused by a fault with the meter.
+        issues: [service_outage]
+        source: https://octopus.energy/blog/power-cut/
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: Octopus passes on compensation that the electricity network or gas transporter owes the customer, and adds £40 if the customer does not receive it within 10 working days.
+        issues: [service_outage]
+        source: https://octopus.energy/policies/guaranteed-standards-performance/
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: Octopus's complaints process has two steps. Step 1 is the Energy Specialists (phone, issueresolution@octopus.energy or post). In step 2, if the issue is not resolved or stays open for 8 weeks, Octopus may declare deadlock, write with its view and final offer, and issue a deadlock letter if the customer declines. The Energy Ombudsman is free; if it finds Octopus acted wrongly, Octopus must follow its decision, which does not bind the customer.
+    issues: [billing_error, refund_request, cancel_service, disconnection, slamming]
+    source: https://octopus.energy/unhappy/
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: The Energy Ombudsman accepts an Octopus dispute when at least 8 weeks have passed since the customer first raised the issue with the supplier, or the customer has a deadlock letter.
+    issues: [billing_error, refund_request, cancel_service, disconnection, slamming]
+    source: https://www.energyombudsman.org/raise-dispute/octopus-energy
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: Octopus pays guaranteed-standards compensation of £40 under the 2015 Standards of Performance Regulations, usually as an account credit within 10 working days; if not paid in that time, a further £40 is due within 10 working days. Compensation is withheld only if there is a dispute.
+    issues: [billing_error, refund_request, slamming, cancel_service, disconnection, service_outage]
+    source: https://octopus.energy/policies/guaranteed-standards-performance/
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: Octopus's guaranteed standards include £40 for a missed or late appointment, for not assessing a credit meter fault within 5 working days, and for not completing a switch to Octopus within 5 working days once it has everything it needs.
+    issues: [billing_error]
+    source: https://octopus.energy/policies/guaranteed-standards-performance/
+    last_verified: 2026-11-19
+
+known_blockers:
+  - Credit refunds, Priority Services Register sign-up and meter readings online need an Octopus account sign-in.
+  - Some Octopus pages (octopus.energy/complaints/ and several help articles) render only a page title to automated fetches; the complaints procedure was read from octopus.energy/unhappy/.
+  - The Octo Assist budget form is hosted by a third party (Budgie, octopusenergy.inicio.ai).
+  - The contact page lists no live chat; phone lines close at weekends (email only).
+
+official_domains: [octopus.energy, octoenergy.com, octoes.com, octopusev.com, octopusenergy.services, octo.ps]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Octopus says it will never ask customers to confirm passwords, and will never ask them to log in anywhere other than https://octopus.energy/login/.
+      source: https://octopus.energy/help-and-faqs/articles/what-should-i-do-if-i-think-i-ve-received-a-scam-or-phishing-email/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Octopus emails are only sent from @octopus.energy, @octoenergy.com, @octoes.com, @octopusev.com or @octopusenergy.services.
+      source: https://octopus.energy/help-and-faqs/articles/what-should-i-do-if-i-think-i-ve-received-a-scam-or-phishing-email/
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: Octopus warns that phishing emails are often full of spelling or grammar mistakes and may offer payment or compensation in exchange for personal details, and that fraudulent calls try to get usernames, passwords and bank information.
+      source: https://octopus.energy/help-and-faqs/articles/what-should-i-do-if-i-think-i-ve-received-a-scam-or-phishing-email/
+      last_verified: 2026-11-19
+  report_phishing:
+    - id: report-scam-email
+      type: email
+      label: Report scam emails and calls to Octopus
+      value: hello@octopus.energy
+      notes: Include a screenshot of the email or the number that called you. Victims of fraud should also contact Action Fraud.
+      source: https://octopus.energy/help-and-faqs/articles/what-should-i-do-if-i-think-i-ve-received-a-scam-or-phishing-email/
+      last_verified: 2026-11-19

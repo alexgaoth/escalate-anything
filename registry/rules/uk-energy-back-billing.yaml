@@ -1,0 +1,110 @@
+id: uk-energy-back-billing
+title: Energy back-billing limit (12 months)
+citation: >-
+  Standard condition 21BA of the electricity and gas supply licences (Ofgem decision and modification notices of
+  5 March 2018)
+jurisdiction: gb
+status: in_effect
+applies_to:
+  sectors: [utility]
+  issues: [billing_error, refund_request]
+summary: >-
+  A gas or electricity supplier cannot bill a household or microbusiness for energy used more than 12 months before the
+  bill when the customer was not at fault, for example because the supplier sent estimated bills or no bills. The
+  limit does not apply if the customer was obstructive or manifestly unreasonable (for example blocking meter
+  access, ignoring payment requests or stealing energy), or if the supplier already billed the charges correctly and is
+  chasing unpaid amounts. In force for domestic customers since 1 May 2018 and for microbusinesses since
+  1 November 2018.
+points:
+  - kind: limit
+    claim: >-
+      Ofgem: you do not have to pay for energy you used more than 12 months ago if you have not had an accurate bill for
+      it before, you have not been told what you needed to pay through a statement of account, or your Direct Debit was
+      set too low to cover what you needed to pay.
+    issues: [billing_error]
+    source: https://www.ofgem.gov.uk/your-energy-supply/your-energy-bill/what-do-if-you-get-back-bill
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Ofgem: the back-billing rules apply to households and microbusinesses. You need to pay any accurate bill you were
+      sent, including back bills; the rules limit how far back such a bill can go.
+    issues: [billing_error]
+    source: https://www.ofgem.gov.uk/your-energy-supply/your-energy-bill/what-do-if-you-get-back-bill
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Licence text (21BA.1): when the supplier bills a domestic customer or otherwise tries to recover charges
+      (including through a prepayment meter), it may only recover units reasonably considered consumed, and standing or
+      other supply charges accrued, within the 12 months before the date of that charge recovery action.
+    issues: [billing_error]
+    source: https://www.ofgem.gov.uk/sites/default/files/docs/2018/03/backbilling_modification_notice_electricityfinal5march2018_-_website.pdf
+    verified_via: document
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Exceptions (21BA.2): the charge recovery action was taken before the condition took effect; the supplier billed
+      correctly within the limit and is still chasing those unpaid charges; the supplier could not bill the correct
+      amount because of the customer's obstructive or manifestly unreasonable behaviour; or other circumstances Ofgem
+      specifies in writing after consultation.
+    issues: [billing_error]
+    source: https://www.ofgem.gov.uk/sites/default/files/docs/2018/03/backbilling_modification_notice_electricityfinal5march2018_-_website.pdf
+    verified_via: document
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Ofgem's examples of acting unreasonably: stopping the supplier from billing you accurately (including blocking
+      access to your meter), ignoring requests for payment, and stealing electricity or gas.
+    issues: [billing_error]
+    source: https://www.ofgem.gov.uk/your-energy-supply/your-energy-bill/what-do-if-you-get-back-bill
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      The electricity licence modification took effect at 00:01 on 1 May 2018. Under 21BA.9 the domestic rules
+      (21BA.1 to 21BA.6) applied immediately and the microbusiness rules (21BA.7 and 21BA.8) applied from
+      1 November 2018. Ofgem issued a matching notice for the gas supply licence on the same day.
+    source: https://www.ofgem.gov.uk/sites/default/files/docs/2018/03/backbilling_modification_notice_electricityfinal5march2018_-_website.pdf
+    verified_via: document
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Ofgem's decision says the condition applies to all meter types and payment methods, and that the customer must
+      be at fault (obstructive or manifestly unreasonable). This is stronger than the earlier voluntary industry
+      arrangements, which used a supplier-at-fault test.
+    source: https://www.ofgem.gov.uk/sites/default/files/docs/2018/03/backbilling_final_decision_policy_document_-_march_5_-_website.pdf
+    verified_via: document
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Suppliers must put the back-billing protection into the terms of each domestic and deemed contract and must not
+      enforce a contract term that conflicts with it (21BA.3 to 21BA.5).
+    source: https://www.ofgem.gov.uk/sites/default/files/docs/2018/03/backbilling_modification_notice_electricityfinal5march2018_-_website.pdf
+    verified_via: document
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Contact your supplier at once if you think it has not followed the back-billing rules; it will refund money taken
+      in error. If it keeps asking for payment for a period the rules cover, you can complain.
+    issues: [billing_error, refund_request]
+    source: https://www.ofgem.gov.uk/your-energy-supply/your-energy-bill/what-do-if-you-get-back-bill
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Citizens Advice: write to the supplier saying you are protected by the back-billing rules and should only be
+      charged for 1 year's energy use (it has an example letter). If the supplier still charges the full amount, make a
+      complaint. It notes the supplier can still charge if it sent a bill before the year passed and you did not pay.
+    issues: [billing_error]
+    source: https://www.citizensadvice.org.uk/consumer/energy/energy-supply/problems-with-your-energy-bill/you-havent-received-a-gas-or-electricity-bill-in-a-while/
+    verified_via: page
+    last_verified: 2026-11-19
+status_note: >-
+  In force. Ofgem's consumer protection page still points to "condition 21BA" for back-billing on 2026-11-19. The
+  licence text was read from the March 2018 electricity modification notice (PDF); the current consolidated licence was
+  not checked, so later renumbering or edits are possible but none were seen. Some supplier pages still describe the
+  older voluntary Energy UK back-billing code, which uses a supplier-at-fault test; the licence condition is the legal
+  minimum.
+source: https://www.ofgem.gov.uk/your-energy-supply/your-energy-bill/what-do-if-you-get-back-bill
+last_verified: 2026-11-19

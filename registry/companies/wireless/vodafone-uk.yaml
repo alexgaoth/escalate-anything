@@ -1,0 +1,453 @@
+id: vodafone-uk
+name: Vodafone UK
+aliases: [vodafone, vodafone limited, vodafone broadband, vodafone mobile]
+sector: wireless
+also_sectors: [internet_tv]
+countries: [gb]
+parent: VodafoneThree
+website: https://www.vodafone.co.uk
+account_url: https://myaccount.vodafone.co.uk
+regulators: [uk-ofcom, uk-cisas]
+
+channels:
+  - id: customer-service-191
+    type: phone
+    label: Vodafone customer services (191, free from a Vodafone mobile)
+    value: "191"
+    purposes: [billing_error, bill_increase, cancel_service, early_termination_fee, service_outage, payment_assistance, poor_service]
+    hours: Monday to Friday 8am to 10pm; Saturday and Sunday 8am to 8pm
+    notes: The complaints page calls phone the quickest way to get help.
+    source: https://www.vodafone.co.uk/help/account/how-to-complain
+    last_verified: 2026-11-19
+  - id: customer-service-phone
+    type: phone
+    label: Vodafone customer services from any other phone (0333 304 0191)
+    value: +44-333-304-0191
+    purposes: [billing_error, bill_increase, cancel_service, early_termination_fee, service_outage, payment_assistance, poor_service]
+    hours: Monday to Friday 8am to 10pm; Saturday and Sunday 8am to 8pm
+    notes: The Customer Complaints Code says "call us free on 0333 304 0191". The same number is the fraud team line (outside opening hours you can ask for a call back).
+    source: https://www.vodafone.co.uk/help/account/how-to-complain
+    last_verified: 2026-11-19
+  - id: customer-service-abroad
+    type: phone
+    label: Vodafone customer services from abroad, from a Vodafone mobile (0044 7836 191 191)
+    value: +44-7836-191-191
+    notes: The contact page gives no cost for this number.
+    source: https://www.vodafone.co.uk/contact-us
+    last_verified: 2026-11-19
+  - id: tobi-chat
+    type: chat
+    label: TOBi digital assistant and online chat (24/7)
+    value: https://www.vodafone.co.uk/contact-us#p2pchat
+    purposes: [billing_error, bill_increase, service_outage, payment_assistance]
+    notes: The dispute-a-charge help page says to start a chat if a charge does not seem right. TOBi is also in the My Vodafone app.
+    source: https://www.vodafone.co.uk/contact-us
+    last_verified: 2026-11-19
+  - id: my-vodafone-app
+    type: app
+    label: My Vodafone app (messaging with TOBi; Just Ask Once messaging for Pay monthly customers)
+    value: https://www.vodafone.co.uk/my-vodafone-account/my-vodafone-app
+    purposes: [billing_error, poor_service, service_outage]
+    access: login
+    notes: Just Ask Once (one person handles the query from start to finish) is for Pay monthly mobile and home broadband customers, by messaging in the app only. It is not available for overdue (collections or pre-arrears) accounts.
+    source: https://www.vodafone.co.uk/contact-us
+    last_verified: 2026-11-19
+  - id: complaints-form
+    type: web_form
+    label: Vodafone online complaints form
+    value: https://complaints.vodafone.co.uk/resource?id=11306244&db=vodafone
+    purposes: [billing_error, bill_increase, poor_service, service_outage, cancel_service]
+    notes: The complaints page says an agent will contact you. If you already complained, Vodafone asks for up to three days to review. On 2026-11-19 the contact page said "our forms are down at the moment" and suggested chat or phone instead.
+    source: https://www.vodafone.co.uk/help/account/how-to-complain
+    last_verified: 2026-11-19
+  - id: complaints-mail
+    type: mail
+    label: Written complaints - Customer Relations Manager
+    value: Customer Relations Manager, Vodafone Limited, The Connection, Newbury, Berkshire, RG14 2FN
+    purposes: [billing_error, bill_increase, poor_service, cancel_service]
+    notes: Include the issue, what you want Vodafone to do and your contact details. The how-to-complain page addresses the same Newbury address to the "Specialist Care Manager".
+    verified_via: document
+    source: https://binaries.vodafone.co.uk/gbnnsauqav4t/6XP2BaNjj6NYTV5IA115jA/a6bcdcad2dbe5282b7ee8c34943ffb55/complaints-code-of-practice.pdf
+    last_verified: 2026-11-19
+  - id: complaints-code
+    type: portal
+    label: Vodafone UK Customer Complaints Code (web page with PDF link)
+    value: https://www.vodafone.co.uk/about-us/our-way-of-working/complaints-code-of-practice
+    access: open
+    notes: For large print or braille copies, the code gives the accessibility team on 03333 043 222 (standard call charges) or disability.access@vodafone.co.uk.
+    source: https://www.vodafone.co.uk/about-us/our-way-of-working/complaints-code-of-practice
+    last_verified: 2026-11-19
+  - id: account-billing
+    type: portal
+    label: My Vodafone account - billing summary
+    value: https://myaccount.vodafone.co.uk/billing/summary
+    purposes: [billing_error]
+    access: login
+    source: https://www.vodafone.co.uk/help/billing/i-want-to-dispute-a-charge-on-my-bill
+    last_verified: 2026-11-19
+  - id: price-changes-page
+    type: portal
+    label: Vodafone annual price changes
+    value: https://www.vodafone.co.uk/pricechanges
+    purposes: [bill_increase]
+    access: open
+    source: https://www.vodafone.co.uk/pricechanges
+    last_verified: 2026-11-19
+  - id: payment-support-page
+    type: portal
+    label: Help if you are struggling to pay your bill
+    value: https://www.vodafone.co.uk/help/billing/payment-support
+    purposes: [payment_assistance]
+    access: open
+    source: https://www.vodafone.co.uk/help/billing/payment-support
+    last_verified: 2026-11-19
+  - id: returns-page
+    type: portal
+    label: Vodafone returns ("Return my device") - routers, hubs and devices
+    value: https://www.vodafone.co.uk/help/orders/returns
+    purposes: [equipment_return, cancel_service]
+    access: open
+    notes: Returns are free. Drop the item at a Vodafone store or use the emailed return label.
+    source: https://www.vodafone.co.uk/help/orders/returns
+    last_verified: 2026-11-19
+  - id: auto-compensation-page
+    type: portal
+    label: Automatic Compensation for home broadband and landline
+    value: https://www.vodafone.co.uk/broadband/auto-compensation-hbb
+    purposes: [service_outage]
+    access: open
+    source: https://www.vodafone.co.uk/broadband/auto-compensation-hbb
+    last_verified: 2026-11-19
+  - id: network-status
+    type: portal
+    label: Network status checker and fault help (mobile and broadband)
+    value: https://www.vodafone.co.uk/network/status-checker
+    purposes: [service_outage]
+    access: open
+    source: https://www.vodafone.co.uk/contact-us
+    last_verified: 2026-11-19
+  - id: fraud-report-form
+    type: web_form
+    label: Report fraud on your Vodafone account
+    value: https://www.vodafone.co.uk/forms/fraud-report
+    purposes: [account_access, identity_theft, unauthorized_charge]
+    notes: Vodafone says it investigates new cases immediately, seven days a week, and you should hear back within seven days. By phone, call 0333 304 0191.
+    source: https://www.vodafone.co.uk/help/account/i-think-ive-been-a-victim-of-fraud
+    last_verified: 2026-11-19
+  - id: store-finder
+    type: in_person
+    label: Vodafone store finder
+    value: https://stores.vodafone.co.uk/search
+    purposes: [equipment_return]
+    source: https://www.vodafone.co.uk/contact-us
+    last_verified: 2026-11-19
+  - id: x-social
+    type: social
+    label: Vodafone UK on X
+    value: https://x.com/vodafoneuk
+    source: https://www.vodafone.co.uk/contact-us
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: customer-service-191, note: "From another phone use 0333 304 0191. Online chat (TOBi) is also available 24/7."}
+  - {rung: written_complaint, channel: complaints-form, note: "Or write to the Customer Relations Manager in Newbury (complaints-mail). The code says Vodafone aims to resolve complaints within 5 days; complex or technical ones can take longer."}
+  - {rung: regulator, regulator: uk-cisas, note: "Free, Ofcom-approved. Vodafone's code says you can go to CISAS once you have a deadlock letter (final response) or if the complaint has no outcome after 6 weeks. Complaints about financial products (device plans with a loan agreement, insurance) go to the Financial Ombudsman Service after 8 weeks instead."}
+  - {rung: regulator, regulator: uk-ofcom, note: "Ofcom does not resolve individual complaints. Report the problem so Ofcom can see patterns."}
+
+playbooks:
+  - issue: billing_error
+    summary: Check the bill breakdown, then chat or call. If not fixed, complain formally and go to CISAS after 6 weeks or a deadlock letter.
+    evidence: [the bill with the disputed charge, account number, plan or order confirmation with the agreed price, chat transcript or call reference numbers]
+    steps:
+      - do: Open the bill breakdown. One-off charges are highlighted in red; tap one for more detail.
+        channel: account-billing
+      - do: If the charge still looks wrong, start a chat and ask for a correction and a reference number.
+        channel: tobi-chat
+      - do: If chat does not fix it, call 191 (or 0333 304 0191) and ask to raise a formal complaint.
+        channel: customer-service-191
+      - do: Put the complaint in writing with the online form or by post. Say what is wrong and what you want Vodafone to do.
+        channel: complaints-form
+      - do: If there is no outcome after 6 weeks, or Vodafone sends a deadlock letter, take the complaint to CISAS (free).
+        regulator: uk-cisas
+    facts:
+      - kind: process
+        claim: Vodafone's dispute-a-charge help page says one-off charges are highlighted in red in the bill breakdown and, if a charge does not seem right, to start a chat.
+        issues: [billing_error]
+        source: https://www.vodafone.co.uk/help/billing/i-want-to-dispute-a-charge-on-my-bill
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Vodafone's Customer Complaints Code says it endeavours to resolve all complaints within 5 days; complex or technical issues may take longer, with regular contact until resolved.
+        issues: [billing_error, poor_service]
+        verified_via: document
+        source: https://binaries.vodafone.co.uk/gbnnsauqav4t/6XP2BaNjj6NYTV5IA115jA/a6bcdcad2dbe5282b7ee8c34943ffb55/complaints-code-of-practice.pdf
+        last_verified: 2026-11-19
+
+  - issue: bill_increase
+    summary: Vodafone raises monthly prices by a fixed pounds-and-pence amount each 1 April. Check that the rise matches your contract and that you are not on an exempt social tariff.
+    evidence: [contract summary or order confirmation showing the price-rise amount, last bill before April and first bill after, proof of a social tariff or financial-vulnerability registration if relevant]
+    steps:
+      - do: Check the amount on the price changes page against the rise stated in your contract summary. Pay monthly airtime/data plans rise by £2.50 a month and Home Broadband plans by £3.50 a month each 1 April; Device Plans do not rise.
+        channel: price-changes-page
+      - do: If you are on a social tariff or registered as financially vulnerable, Vodafone says you should not get a price increase. Ask for a refund if you did.
+        channel: tobi-chat
+      - do: If the rise does not match the contract, raise a complaint and keep the reference number.
+        channel: complaints-form
+      - do: If not resolved after 6 weeks or after a deadlock letter, go to CISAS.
+        regulator: uk-cisas
+    facts:
+      - kind: policy
+        claim: The monthly cost increases each year on 1 April by £2.50 for Pay monthly plans with Airtime/Data and by £3.50 for Home Broadband plans. This does not affect Device Plans.
+        issues: [bill_increase]
+        source: https://www.vodafone.co.uk/pricechanges
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Vodafone says it does not increase prices for customers on its social tariffs or customers registered as financially vulnerable.
+        issues: [bill_increase, payment_assistance]
+        source: https://www.vodafone.co.uk/pricechanges
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Out-of-bundle charges for Pay monthly plans and Vodafone Basics increase each April by the CPI rate published in January of that year plus 3.9%.
+        issues: [bill_increase]
+        source: https://www.vodafone.co.uk/pricechanges
+        last_verified: 2026-11-19
+
+  - issue: cancel_service
+    summary: To switch, text PAC or STAC from the phone; the new provider does the rest. To leave without switching, call. Expect an early termination fee inside the minimum term, and return any 5G hub.
+    evidence: [account number, contract end date, PAC or STAC text, cancellation reference, final bill, return label or store receipt for equipment]
+    steps:
+      - do: To move a mobile number to a new provider, text PAC to 65075. To leave and take a new number, text STAC to 75075. Give the code to the new provider.
+      - do: To cancel without switching, call 191 (or 0333 304 0191) or chat, and ask for the cancellation date and any early termination fee in writing.
+        channel: customer-service-191
+      - do: If Vodafone could not deliver the promised service after trying everything (Just Ask Once), ask to leave the affected Airtime plan without penalty.
+        channel: my-vodafone-app
+      - do: Return any 5G Hub or Outdoor Hub within 14 days with the prepaid label, and keep proof of postage.
+        channel: returns-page
+      - do: Check the final bill. Do not cancel the Direct Debit early, because the final bill can show part-month charges or a refund.
+    facts:
+      - kind: process
+        claim: Vodafone's switching page says to text PAC to 65075 to keep your number or STAC to 75075 for a new one, and that switching a number usually takes one working day.
+        issues: [cancel_service, number_port_out]
+        source: https://www.vodafone.co.uk/mobile/switch-to-vodafone-campaign-1
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If you have no other services with Vodafone, you get your final bill within 30 days of the date you are disconnected. Direct Debit payments are usually taken up to 10 days after the final bill is created.
+        issues: [cancel_service]
+        source: https://www.vodafone.co.uk/help/account/how-will-my-bill-be-calculated-when-i-leave-vodafone
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Part-fibre, full-fibre and rolling one-month 5G Broadband are charged for the month ahead and refunded pro rata for unused days when you leave. Pay monthly mobile is charged up to the disconnection date.
+        issues: [cancel_service, refund_request]
+        source: https://www.vodafone.co.uk/help/account/how-will-my-bill-be-calculated-when-i-leave-vodafone
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Just Ask Once - if Vodafone has tried everything and you still do not get the promised service, you can leave without penalty on the affected Airtime plans. Device loan repayments are still collected. For bundled contracts such as some home broadband plans, Vodafone will not charge the early termination fee or equipment subsidies.
+        issues: [cancel_service, early_termination_fee, poor_service]
+        source: https://www.vodafone.co.uk/contact-us
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Pay as you go customers can ask for a refund of remaining credit up to 60 days after leaving Vodafone.
+        issues: [cancel_service, refund_request]
+        source: https://www.vodafone.co.uk/help/account/cancel-account
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Vodafone's 14-Day Change of Mind Policy lets you cancel within 14 days of receiving the product or service (for broadband, from the activation date), and any equipment must be sent back within 14 days of the change-of-mind request.
+        issues: [cancel_service, equipment_return]
+        verified_via: document
+        source: https://binaries.vodafone.co.uk/gbnnsauqav4t/3vP4DkaVzVnL6KTtakU0yE/521c83ef139959b1fe1e740ef6db17e2/returns-policy-effective-from-12-september-2026.pdf
+        last_verified: 2026-11-19
+
+  - issue: early_termination_fee
+    summary: Inside the minimum term Vodafone charges an early termination fee based on the months left. Check the sum against the published formula.
+    evidence: [contract start and end dates, monthly price and discounts, the date you gave notice, the final bill]
+    steps:
+      - do: Work out the fee with the published formula (below) and compare it with the final bill.
+      - do: If the fee is wrong, or the service never worked as promised (Just Ask Once), dispute it by chat or phone and then with a formal complaint.
+        channel: complaints-form
+      - do: If not resolved after 6 weeks or after a deadlock letter, go to CISAS.
+        regulator: uk-cisas
+    facts:
+      - kind: fee
+        claim: For mobile plans the early termination fee is the remaining monthly charges for the months left, minus any discounts, minus 2% because it is paid early in one go (example - £35 a month with 6 months left is £210 minus £4.20 = £205.80).
+        issues: [early_termination_fee, cancel_service]
+        source: https://www.vodafone.co.uk/help/account/hows-my-early-termination-fee-calculated
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: For part-fibre or full-fibre broadband, and 24-month 5G Broadband, the fee is monthly cost (after discounts) x 0.8 x number of months left (example - (£30 - £5) x 80% x 5 months = £100).
+        issues: [early_termination_fee, cancel_service]
+        source: https://www.vodafone.co.uk/help/account/hows-my-early-termination-fee-calculated
+        last_verified: 2026-11-19
+
+  - issue: number_port_out
+    summary: Text PAC to 65075 from the Vodafone number, give the code to the new provider, and the number usually moves in one working day.
+    evidence: [the PAC text, the new provider's port date, the final Vodafone bill]
+    steps:
+      - do: From the Vodafone phone, text PAC to 65075. You may need your account PIN.
+      - do: Give the PAC to the new provider. They arrange the move.
+      - do: If the PAC does not arrive or the port fails, call 191 or 0333 304 0191.
+        channel: customer-service-191
+    facts:
+      - kind: process
+        claim: Vodafone's switching page says to text PAC to 65075 to keep your number or STAC to 75075 for a new one, and that switching a number usually takes one working day.
+        issues: [number_port_out]
+        source: https://www.vodafone.co.uk/mobile/switch-to-vodafone-campaign-1
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Vodafone's keep-my-number page says you may need to give extra details such as an account PIN when you text PAC to 65075.
+        issues: [number_port_out]
+        source: https://www.vodafone.co.uk/help/account/keep-my-number
+        last_verified: 2026-11-19
+
+  - issue: equipment_return
+    summary: Return routers and hubs free at a store or with the emailed label. 5G hubs must go back within 14 days of cancelling or a fee of up to £150 applies.
+    evidence: [return label or store receipt, proof of postage with tracking number, dispatch note, hub serial number]
+    steps:
+      - do: Use "Return my device" on the returns page. Vodafone emails a prepaid return label. Or drop the equipment at a Vodafone store and ask for a receipt.
+        channel: returns-page
+      - do: For a 5G Hub or Outdoor Hub, send everything back (router, cables, packaging, dispatch note) within 14 days.
+      - do: If a non-return fee appears after you returned the item, send the proof of postage and ask for the fee to be removed; then complain formally.
+        channel: complaints-form
+    facts:
+      - kind: policy
+        claim: Vodafone says you can return your old router free of charge if you are leaving Vodafone or upgraded and got a replacement. Drop it at the nearest store or use the emailed return label.
+        issues: [equipment_return, cancel_service]
+        source: https://www.vodafone.co.uk/help/orders/returns
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: When cancelling 5G Broadband you have 14 days to return the 5G Hub or Outdoor Hub; a non-return fee of up to £150 applies.
+        issues: [equipment_return, cancel_service]
+        source: https://www.vodafone.co.uk/help/orders/how-do-i-return-my-5g-hub
+        last_verified: 2026-11-19
+
+  - issue: service_outage
+    summary: Report the fault. For home broadband and landline, automatic compensation is credited for slow repairs, missed engineer visits and late activation.
+    evidence: [date and time the fault was reported, fault reference, engineer appointment details, dates service was restored]
+    steps:
+      - do: Check the network status and fault help, then report the fault by chat or phone and get a reference.
+        channel: network-status
+      - do: For broadband or landline faults not fixed after two full working days, check that automatic compensation is credited within 30 days of the issue being closed.
+        channel: auto-compensation-page
+      - do: If compensation is missing or the fault keeps coming back, complain formally, then go to CISAS after 6 weeks or a deadlock letter.
+        channel: complaints-form
+    facts:
+      - kind: compensation
+        claim: Automatic Compensation (home broadband and landline) pays £10.34 per day from day 3 if service is not fully restored after two working days, for up to 60 days; £32.31 per missed engineer appointment (no-show or cancelled with less than 24 hours' notice); and £6.46 per day for late activation, capped at 60 days.
+        issues: [service_outage]
+        source: https://www.vodafone.co.uk/broadband/auto-compensation-hbb
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Automatic compensation is credited to the Vodafone account within 30 days of the issue being closed. It does not apply if the fault was fixed within two days, was caused by the customer or a third party, or was beyond Vodafone's reasonable control.
+        issues: [service_outage]
+        source: https://www.vodafone.co.uk/broadband/auto-compensation-hbb
+        last_verified: 2026-11-19
+
+  - issue: payment_assistance
+    summary: Contact Vodafone early. It offers payment plans, a change of bill date, contract reviews and social tariffs.
+    evidence: [account number, income and benefits details if asking for a social tariff, the bill you cannot pay]
+    steps:
+      - do: Contact Vodafone before the bill is due and ask for a payment plan, a new bill due date or a cheaper contract option.
+        channel: tobi-chat
+      - do: If you get certain benefits, ask about the social tariffs (Essentials broadband £20 a month, VOXI For Now £10 a month).
+        channel: payment-support-page
+      - do: For free debt advice, contact StepChange or Citizens Advice (linked from the payment support page).
+        regulator: uk-citizens-advice
+    facts:
+      - kind: policy
+        claim: Vodafone's payment support page lists setting up a payment plan, changing the bill due date and reviewing contract options for customers who missed a payment or are struggling to pay.
+        issues: [payment_assistance]
+        source: https://www.vodafone.co.uk/help/billing/payment-support
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Vodafone's Essentials Broadband social tariff costs £20 a month on a 12-month contract with no early termination fees; VOXI For Now costs £10 a month for unlimited data, calls and texts for people receiving government benefits.
+        issues: [payment_assistance]
+        source: https://www.vodafone.co.uk/mobile/everyone-connected/affordable-and-accessible-products-and-services
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: Vodafone's Customer Complaints Code names CISAS (Communication and Internet Services Adjudication Scheme) as its ADR scheme. You can go to CISAS once Vodafone has sent a 'deadlock' letter or if there is no outcome to the complaint after 6 weeks. CISAS is free and approved by Ofcom.
+    issues: [billing_error, bill_increase, poor_service]
+    verified_via: document
+    source: https://binaries.vodafone.co.uk/gbnnsauqav4t/6XP2BaNjj6NYTV5IA115jA/a6bcdcad2dbe5282b7ee8c34943ffb55/complaints-code-of-practice.pdf
+    last_verified: 2026-11-19
+  - kind: contact
+    claim: The code gives CISAS contact details - www.cedr.com/consumer/cisas, 0207 5203 814 (standard call charges), cisas@cedr.com, and CISAS, 100 St Paul's Churchyard, London, EC4M 8BU.
+    verified_via: document
+    source: https://binaries.vodafone.co.uk/gbnnsauqav4t/6XP2BaNjj6NYTV5IA115jA/a6bcdcad2dbe5282b7ee8c34943ffb55/complaints-code-of-practice.pdf
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: Vodafone's complaints page says a complaint can be escalated if it is not resolved after eight weeks for financial products or six weeks for all other products. Financial product complaints (device plans with a loan agreement, insurance) go to the Financial Ombudsman Service.
+    issues: [billing_error, poor_service]
+    source: https://www.vodafone.co.uk/help/account/how-to-complain
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: The Vodafone and Three UK merger completed on 31 May 2025, forming VodafoneThree (then 51% Vodafone, 49% CK Hutchison).
+    source: https://www.vodafone.co.uk/newscentre/press-release/completion-vodafone-three-merger-uk/
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Vodafone Group completed its buyout of CK Hutchison's 49% stake on 30 July 2026, so Vodafone now owns 100% of VodafoneThree.
+    source: https://www.vodafone.com/news/newsroom/corporate-and-financial/vodafone-takes-full-ownership-of-vodafonethree
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: On 28 May 2026 VodafoneThree said up to 28.6 million Vodafone and Three customers automatically use each other's network for the best available coverage, at no extra cost and with no action needed from the user.
+    source: https://www.vodafone.co.uk/newscentre/our-network/world-first-network-upgrade-emocn-completed/
+    last_verified: 2026-11-19
+
+known_blockers:
+  - On 2026-11-19 the contact page said Vodafone's online forms were down and asked customers to chat or call instead.
+  - The My Vodafone app, account billing pages and Just Ask Once messaging need the account holder to sign in.
+  - Cancelling without switching has no online self-service route on the help pages read; the account holder must call or chat.
+  - vodafone.co.uk refuses plain automated HTTP clients (403); the pages were read through a page fetcher.
+
+notes: >-
+  Vodafone UK (Vodafone Limited) is one of the consumer brands of VodafoneThree, formed when the Vodafone and Three UK
+  merger completed on 31 May 2025 (https://www.vodafone.co.uk/newscentre/press-release/completion-vodafone-three-merger-uk/).
+  Vodafone Group has owned 100% of VodafoneThree since 30 July 2026
+  (https://www.vodafone.com/news/newsroom/corporate-and-financial/vodafone-takes-full-ownership-of-vodafonethree).
+  For customers the brands are still separate: vodafone.co.uk/contact-us links Three, VOXI, SMARTY and Talkmobile as
+  separate sites, and the networks are shared automatically with no customer action
+  (https://www.vodafone.co.uk/newscentre/our-network/world-first-network-upgrade-emocn-completed/). The pages read
+  announce no move of customers between brands. VOXI and Talkmobile are Vodafone sub-brands with their own websites
+  and support; VOXI has its own complaints page (https://voxi.co.uk/complaints), so they are not aliases of this file.
+  The code's 6-week CISAS wait matches Ofcom's 6-week rule for complaints raised on or after 8 April 2026.
+  Vodafone publishes no executive or CEO complaints route.
+
+official_domains: [vodafone.co.uk, vodafonethree.com]
+security:
+  never_asks:
+  - kind: policy
+    claim: Vodafone will never contact you and ask for your passwords or security codes.
+    source: https://www.vodafone.co.uk/privacy/protecting-you/protecting-your-identity
+    last_verified: 2026-11-19
+  known_scams:
+  - kind: policy
+    claim: Phishing texts and emails pretend to be from organisations such as HMRC or your bank, claim a prize or an account problem to create urgency, and link to fake websites or phone numbers run by fraudsters. They may come from a UK mobile number you do not recognise.
+    source: https://www.vodafone.co.uk/privacy/protecting-you/phishing
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Pop-ups that imitate Vodafone try to collect personal information; Vodafone asks you to report them by email with the date, time and website.
+    source: https://www.vodafone.co.uk/privacy/protecting-you/phishing
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Account takeover - someone gets into your Vodafone account or opens one in your name without permission. Vodafone asks you to report it as soon as possible.
+    source: https://www.vodafone.co.uk/help/account/i-think-ive-been-a-victim-of-fraud
+    last_verified: 2026-11-19
+  report_phishing:
+  - id: spam-text-7726
+    type: sms
+    label: Forward spam texts to 7726 (free spam text reporting service)
+    value: "7726"
+    source: https://www.vodafone.co.uk/privacy/protecting-you/phishing
+    last_verified: 2026-11-19
+  - id: phishing-email
+    type: email
+    label: Forward suspicious emails or pop-ups that claim to be from Vodafone
+    value: phishing@vodafone.co.uk
+    notes: The address is hidden behind email protection on the page; it was decoded from the page link.
+    source: https://www.vodafone.co.uk/privacy/protecting-you/phishing
+    last_verified: 2026-11-19
+  - id: fraud-report
+    type: web_form
+    label: Report fraud on your Vodafone account (or call 0333 304 0191)
+    value: https://www.vodafone.co.uk/forms/fraud-report
+    source: https://www.vodafone.co.uk/help/account/i-think-ive-been-a-victim-of-fraud
+    last_verified: 2026-11-19

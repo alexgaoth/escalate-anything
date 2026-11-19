@@ -1,0 +1,485 @@
+id: three-uk
+name: Three UK
+aliases: [three, three mobile, three broadband, hutchison 3g uk]
+sector: wireless
+countries: [gb]
+parent: VodafoneThree
+website: https://www.three.co.uk
+regulators: [uk-ofcom, uk-cisas]
+
+channels:
+  - id: customer-service-333
+    type: phone
+    label: Three customer services (333 from a Three phone)
+    value: "333"
+    purposes: [billing_error, bill_increase, cancel_service, service_outage, payment_assistance, poor_service]
+    hours: Monday to Friday 08:00 to 20:00; Saturday and Sunday 09:00 to 18:00
+    notes: The how-to-complain page says standard rates apply, except that 333 is free from Three phones on Advanced plans.
+    source: https://www.three.co.uk/support/complaints/how-to-complain
+    last_verified: 2026-11-19
+  - id: customer-service-phone
+    type: phone
+    label: Three customer services from any other phone (0333 338 1001)
+    value: +44-333-338-1001
+    purposes: [billing_error, bill_increase, cancel_service, service_outage, payment_assistance, poor_service]
+    hours: Monday to Friday 08:00 to 20:00; Saturday and Sunday 09:00 to 18:00
+    notes: Standard rates apply.
+    source: https://www.three.co.uk/support/complaints/how-to-complain
+    last_verified: 2026-11-19
+  - id: customer-service-abroad
+    type: phone
+    label: Three customer services from abroad (+44 7782 333 333)
+    value: +44-7782-333-333
+    notes: Standard roaming rates apply.
+    source: https://www.three.co.uk/support/contact-us
+    last_verified: 2026-11-19
+  - id: mobile-broadband-phone
+    type: phone
+    label: Three Mobile Broadband customers (500 from a Three phone, 0333 338 1003 from any other phone)
+    value: +44-333-338-1003
+    purposes: [billing_error, cancel_service, service_outage]
+    hours: Monday to Friday 08:00 to 20:00; Saturday and Sunday 09:00 to 18:00
+    source: https://www.three.co.uk/support/complaints/how-to-complain
+    last_verified: 2026-11-19
+  - id: leaving-phone
+    type: phone
+    label: Three leaving line - PAC, STAC and 30 days' notice (0333 338 1082)
+    value: +44-333-338-1082
+    purposes: [cancel_service, number_port_out, early_termination_fee]
+    notes: Call this number for a PAC if you have more than one number with Three; the text route works only for accounts with one number.
+    source: https://www.three.co.uk/support/leave-three/leave-without-your-number
+    last_verified: 2026-11-19
+  - id: live-chat
+    type: chat
+    label: Three Live Chat (start from the contact us page)
+    value: https://www.three.co.uk/support/contact-us
+    purposes: [billing_error, bill_increase, cancel_service, number_port_out, service_outage, payment_assistance, poor_service]
+    hours: Monday to Friday 08:00 to 22:00; Saturday and Sunday 09:00 to 20:00
+    notes: The how-to-complain page calls Live Chat the best way to complain. Repayment plans, payment extensions and payment-date changes are arranged by Live Chat or phone.
+    source: https://www.three.co.uk/support/contact-us
+    last_verified: 2026-11-19
+  - id: complaints-form
+    type: web_form
+    label: Three online complaints form
+    value: https://www.three.co.uk/support/complaints/complaints-form
+    purposes: [billing_error, bill_increase, poor_service, service_outage, cancel_service]
+    notes: Asks for name, email, date of birth, address, account number, the issue and the outcome you want. Use the same details as on the Three account. Three deals with most complaints within seven working days.
+    source: https://www.three.co.uk/support/complaints/how-to-complain
+    last_verified: 2026-11-19
+  - id: complaints-mail
+    type: mail
+    label: Written complaints - Three Customer Complaints
+    value: Three Customer Complaints, Hutchison 3G UK Ltd., PO Box 333, Glasgow, G2 9AG
+    purposes: [billing_error, bill_increase, poor_service, cancel_service]
+    source: https://www.three.co.uk/support/complaints/how-to-complain
+    last_verified: 2026-11-19
+  - id: complaints-code
+    type: portal
+    label: Three Customer Complaints Code
+    value: https://www.three.co.uk/terms-conditions/customer-complaints-code
+    access: open
+    source: https://www.three.co.uk/terms-conditions/customer-complaints-code
+    last_verified: 2026-11-19
+  - id: three-app
+    type: app
+    label: Three app (manage your account; same functions as My3)
+    value: https://www.three.co.uk/why-three/threeapp
+    purposes: [billing_error, payment_assistance]
+    access: login
+    source: https://www.three.co.uk/support/contact-us
+    last_verified: 2026-11-19
+  - id: leave-three-page
+    type: portal
+    label: Leaving Three - PAC, STAC, Pay As You Go, Home Broadband and Mobile Broadband
+    value: https://www.three.co.uk/support/leave-three
+    purposes: [cancel_service, number_port_out, early_termination_fee]
+    access: open
+    notes: In My3, choose "Leave Three" under "Manage your plan" to see the PAC or STAC and any early termination fee at once.
+    source: https://www.three.co.uk/support/leave-three
+    last_verified: 2026-11-19
+  - id: price-increase-page
+    type: portal
+    label: Changes to your Monthly Charge (annual price rises, by join or upgrade date)
+    value: https://www.three.co.uk/support/bills-and-contracts/your-monthly-plan-and-usage/price-increase
+    purposes: [bill_increase]
+    access: open
+    source: https://www.three.co.uk/support/bills-and-contracts/your-monthly-plan-and-usage/price-increase
+    last_verified: 2026-11-19
+  - id: payment-help-page
+    type: portal
+    label: Helping with your monthly payments
+    value: https://www.three.co.uk/support/bills-and-contracts/paying-your-bills/helping-you-pay-your-monthly-bill
+    purposes: [payment_assistance]
+    access: open
+    source: https://www.three.co.uk/support/bills-and-contracts/paying-your-bills/helping-you-pay-your-monthly-bill
+    last_verified: 2026-11-19
+  - id: network-status
+    type: portal
+    label: Three Network Status checker (by postcode)
+    value: https://www.three.co.uk/support/network-and-coverage/network-support
+    purposes: [service_outage]
+    access: open
+    notes: Shows known issues or planned maintenance in the area.
+    source: https://www.three.co.uk/support/network-and-coverage/network-support
+    last_verified: 2026-11-19
+  - id: shortcode-checker
+    type: portal
+    label: ThreePay and shortcode checker (find the merchant behind a third-party charge)
+    value: https://www.three.co.uk/support/calls-emails-and-messages/shortcode-checker
+    purposes: [unauthorized_charge, billing_error]
+    access: open
+    source: https://www.three.co.uk/support/calls-emails-and-messages/shortcode-checker
+    last_verified: 2026-11-19
+  - id: move-to-vodafone-page
+    type: portal
+    label: Moving from Three to Vodafone at upgrade (optional)
+    value: https://www.three.co.uk/support/upgrades/more-choice
+    access: open
+    source: https://www.three.co.uk/support/upgrades/more-choice
+    last_verified: 2026-11-19
+  - id: store-locator
+    type: in_person
+    label: Three store locator
+    value: https://locator.three.co.uk/search
+    source: https://www.three.co.uk/support/contact-us
+    last_verified: 2026-11-19
+  - id: x-social
+    type: social
+    label: Three UK on X
+    value: https://twitter.com/threeuk
+    source: https://www.three.co.uk/support/contact-us
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: live-chat, note: "Or call 333 from a Three phone (0333 338 1001 from any other phone)."}
+  - {rung: retention, channel: leaving-phone, note: "Three's leaving line for PAC, STAC and 30 days' notice. Three does not publish it as a retention team."}
+  - {rung: written_complaint, channel: complaints-form, note: "Or write to Three Customer Complaints, PO Box 333, Glasgow. Three answers most complaints within 7 working days; the code aims for a final response within 6 weeks."}
+  - {rung: regulator, regulator: uk-cisas, note: "Free. Three's code says you can go to CISAS if 6 weeks have passed since you raised the complaint, or if you are unhappy with the final response; Three emails or writes to say when you can. Device-finance complaints go to the Financial Ombudsman Service after 8 weeks instead."}
+  - {rung: regulator, regulator: uk-ofcom, note: "Ofcom does not resolve individual complaints. Report the problem so Ofcom can see patterns."}
+
+playbooks:
+  - issue: billing_error
+    summary: Raise it by Live Chat or phone, then use the complaints form. Go to CISAS after 6 weeks or after the final response.
+    evidence: [the bill with the disputed charge, account number, plan or order confirmation with the agreed price, chat transcript or call reference numbers]
+    steps:
+      - do: Check the itemised bill in My3 or the Three app. For an unknown ThreePay or shortcode charge, look up the merchant with the shortcode checker and ask the merchant for a refund first.
+        channel: shortcode-checker
+      - do: For a Three charge that is wrong, start Live Chat and ask for a correction and a reference number.
+        channel: live-chat
+      - do: If not fixed, send the complaints form with what is wrong and what you want Three to do.
+        channel: complaints-form
+      - do: If 6 weeks pass without a fix, or you are unhappy with the final response, take the complaint to CISAS (free).
+        regulator: uk-cisas
+    facts:
+      - kind: process
+        claim: Three's Customer Complaints Code says it aims to resolve all complaints within 14 days and to give a final response within 6 weeks of receipt (for complaints other than device financing).
+        issues: [billing_error, poor_service]
+        source: https://www.three.co.uk/terms-conditions/customer-complaints-code
+        last_verified: 2026-11-19
+      - kind: process
+        claim: For ThreePay or shortcode charges, Three's shortcode checker page says to contact the merchant for a refund first, then the payment intermediary if the merchant does not resolve it.
+        issues: [billing_error, unauthorized_charge]
+        source: https://www.three.co.uk/support/calls-emails-and-messages/shortcode-checker
+        last_verified: 2026-11-19
+
+  - issue: bill_increase
+    summary: Three raises the Monthly Charge every 1 April. The amount depends on when you joined or upgraded and on your plan's data allowance. Check the right page and compare with your bill.
+    evidence: [contract start or upgrade date, plan data allowance, last bill before April and first bill after, contract summary or price guide]
+    steps:
+      - do: Find your join or upgrade date and open the matching price-rise page (from 9 November 2025; 8 September 2024 to 8 November 2025; 1 November 2022 to 7 September 2024 in minimum term; or out of minimum term).
+        channel: price-increase-page
+      - do: Check that the rise was applied only to the recurring Monthly Charge, not to device payments, Add-ons or out-of-bundle charges.
+      - do: If the rise is wrong, raise it by Live Chat, then with the complaints form.
+        channel: live-chat
+      - do: If you are struggling to pay, ask about support, including the SMARTY social tariff.
+        channel: payment-help-page
+    facts:
+      - kind: policy
+        claim: For customers who joined or upgraded on or after 9 November 2025, the Monthly Charge rises each 1 April (from 1 April 2026) by £1.80 (up to and including 4GB), £1.90 (5GB to 99GB) or £2.30 (100GB and above, including Unlimited) for Voice and Mobile Broadband, £3.50 for Home Broadband and £1.80 for Smartwatch Pairing Plans.
+        issues: [bill_increase]
+        source: https://www.three.co.uk/support/bills-and-contracts/your-monthly-plan-and-usage/price-increase-9nov25
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: For customers who joined or upgraded between 8 September 2024 and 8 November 2025, the April rise is £1.00 (up to 4GB), £1.25 (5GB to 99GB) or £1.50 (100GB or more, including Unlimited) for Voice and Mobile Broadband, £2.00 for Home Broadband and £1.00 for Smartwatch Pairing Plans.
+        issues: [bill_increase]
+        source: https://www.three.co.uk/support/bills-and-contracts/your-monthly-plan-and-usage/price-increase
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Customers who joined or upgraded between 1 November 2022 and 7 September 2024 and were still in their minimum term on 31 March 2026 get the preceding December CPI rate +3.9%; with December 2025 CPI at 3.4%, the April 2026 rise was 7.3%.
+        issues: [bill_increase]
+        source: https://www.three.co.uk/support/bills-and-contracts/your-monthly-plan-and-usage/consumer-price-index
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Customers who joined or upgraded between 29 May 2015 and 7 September 2024 and were outside their minimum term on 31 March 2026 get a fixed rise from 1 April 2026 of £1.80, £1.90 or £2.30 (by data allowance), £3.50 for Home Broadband and £1.80 for Smartwatch Pairing plans.
+        issues: [bill_increase]
+        source: https://www.three.co.uk/support/bills-and-contracts/your-monthly-plan-and-usage/price-increase-1apr26
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: The annual increase applies only to the recurring Monthly Charge, not to device payments, Add-ons or out-of-bundle charges, and is rounded up to the nearest penny.
+        issues: [bill_increase]
+        source: https://www.three.co.uk/support/bills-and-contracts/your-monthly-plan-and-usage/price-increase-9nov25
+        last_verified: 2026-11-19
+
+  - issue: cancel_service
+    summary: Pay Monthly mobile ends when a PAC or STAC is used by the new provider. Home and Mobile Broadband need 30 days' notice (or One Touch Switch for home broadband). Return any 5G hub within 28 days.
+    evidence: [account number, contract end date, PAC or STAC text, cancellation reference, final bill, proof of postage for a 5G hub]
+    steps:
+      - do: To switch a mobile number, text PAC and your date of birth (DDMMYY) to 65075, or STAC and your date of birth to 75075 for a new number. Give the code to the new provider within 30 days.
+        channel: leave-three-page
+      - do: To cancel without switching, give 30 days' notice by calling 0333 338 1082 or by Live Chat.
+        channel: leaving-phone
+      - do: For Home Broadband, give 30 days' notice through the contact page, or ask the new provider to switch you with One Touch Switch.
+        channel: live-chat
+      - do: Return a 5G hub within 28 days in the free returns bag and keep proof of postage.
+      - do: Check the final bill, which arrives within 38 days. Any overpayment is credited to it.
+    facts:
+      - kind: process
+        claim: Text PAC and your date of birth (DDMMYY) to 65075 for a PAC, or STAC and your date of birth to 75075 for a STAC. The text route works only for accounts with one number; otherwise call 0333 338 1082. PACs and STACs are valid for 30 days.
+        issues: [cancel_service, number_port_out]
+        source: https://www.three.co.uk/support/leave-three/leave-with-your-number
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: To leave without a STAC, give Three 30 days' notice by phone on 0333 338 1082 or by Live Chat. Home Broadband and Mobile Broadband also need 30 days' notice.
+        issues: [cancel_service]
+        source: https://www.three.co.uk/support/leave-three/leave-without-your-number
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: The Three account stays active until the PAC is used, and you are billed until the switch completes. If the PAC is not used within 30 days, the account stays open and charges continue. The final Airtime bill comes within 38 days of the number transfer.
+        issues: [cancel_service, number_port_out]
+        source: https://www.three.co.uk/support/leave-three/leave-with-your-number
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Home Broadband customers can cancel within the 30-day money-back guarantee if they have had the service for less than 30 days. The final bill comes within 38 days of cancelling.
+        issues: [cancel_service, refund_request]
+        source: https://www.three.co.uk/support/leave-three/leave-home-broadband
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Pay As You Go customers who switch with a PAC or STAC can ask for a refund of remaining credit within 90 days after the transfer completes. Credit is not refunded if the SIM is simply left unused.
+        issues: [cancel_service, refund_request]
+        source: https://www.three.co.uk/support/leave-three/leave-pay-as-you-go
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Home Broadband refunds over 50p are paid within 14 days of the final bill to the linked bank account or card; refunds under 50p can be arranged on 0333 338 1993 or by Live Chat.
+        issues: [cancel_service, refund_request]
+        verified_via: document
+        source: https://www.three.co.uk/content/dam/threedigital/terms-and-conditions/price-guides/latest-price-guides/homebroadbandplans-priceguide-post9nov2025-09112025.pdf
+        last_verified: 2026-11-19
+
+  - issue: early_termination_fee
+    summary: Leaving inside the minimum term costs the Monthly Charges left in the term, less a small discount. My3 and the PAC/STAC text show the fee before you go.
+    evidence: [contract start and end dates, Monthly Charge, the fee shown in My3 or the PAC/STAC reply, the final bill]
+    steps:
+      - do: Request the PAC or STAC (or use "Leave Three" in My3) - the reply shows any early termination fee.
+        channel: leave-three-page
+      - do: Check the fee against the price guide formula. If it is wrong, raise it by Live Chat and then with the complaints form.
+        channel: complaints-form
+      - do: If not resolved after 6 weeks or after the final response, go to CISAS.
+        regulator: uk-cisas
+    facts:
+      - kind: fee
+        claim: Three's leave-without-your-number page says the early termination fee equals the monthly charges left in the minimum term.
+        issues: [early_termination_fee, cancel_service]
+        source: https://www.three.co.uk/support/leave-three/leave-without-your-number
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: The Home Broadband price guide (joined or upgraded from 9 November 2025) calculates the early cancellation fee as the Monthly Charges left in the Minimum Term less a variable discount, currently 3% (example - £25 x 6 months = £150, less £4.50 = £145.50).
+        issues: [early_termination_fee, cancel_service]
+        verified_via: document
+        source: https://www.three.co.uk/content/dam/threedigital/terms-and-conditions/price-guides/latest-price-guides/homebroadbandplans-priceguide-post9nov2025-09112025.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Any device plan balance must still be paid in full after leaving.
+        issues: [early_termination_fee, cancel_service]
+        source: https://www.three.co.uk/support/leave-three/leave-with-your-number
+        last_verified: 2026-11-19
+
+  - issue: number_port_out
+    summary: Text PAC and your date of birth to 65075, give the 9-character code to the new provider within 30 days, and the new provider moves the number.
+    evidence: [the PAC text with expiry date, the new provider's port date, the final Three bill]
+    steps:
+      - do: Text PAC and your date of birth (DDMMYY) to 65075, for example PAC060385. With more than one number, call 0333 338 1082.
+        channel: leaving-phone
+      - do: Give the PAC to the new provider within 30 days. If the move fails or is late, contact the new provider, because it handles the port.
+    facts:
+      - kind: process
+        claim: The PAC is 9 characters (3 letters and 6 numbers), is sent immediately by text or shown in My3, and is valid for 30 days.
+        issues: [number_port_out]
+        source: https://www.three.co.uk/support/leave-three/leave-with-your-number
+        last_verified: 2026-11-19
+
+  - issue: equipment_return
+    summary: Return a Three 5G hub within 28 days using the free returns bag and keep proof of postage, or pay a non-return charge (£105 outside the cooling-off period). 4G hubs and eero devices need not go back.
+    evidence: [proof of postage with tracking number, hub serial number, cancellation date, the bill showing any non-return charge]
+    steps:
+      - do: After cancelling, wait for the free returns bag and send the 5G hub back within 28 days in reasonable condition.
+      - do: Keep the proof of postage. Three's terms require it.
+      - do: If a non-return charge appears after you returned the hub, send the proof of postage by Live Chat and ask for the charge to be removed; then use the complaints form.
+        channel: live-chat
+    facts:
+      - kind: deadline
+        claim: The 5G Hub stays Three's property. If it is not returned within 28 days of the Services ending, Three charges a non-return charge. Three sends a returns bag so the return costs nothing, and the customer must provide proof of postage.
+        issues: [equipment_return, cancel_service]
+        verified_via: document
+        source: https://www.three.co.uk/content/dam/threedigital/terms-and-conditions/paym-and-payg/three-home-broadband-terms-for-customers-who-joined-or-upgraded-from-8-september-24-effective-date-2-june-25.pdf
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: The Home Broadband price guide (joined or upgraded from 9 November 2025) sets the 5G hub non-return fee at £350 inside the cooling-off period and £105 outside it.
+        issues: [equipment_return]
+        verified_via: document
+        source: https://www.three.co.uk/content/dam/threedigital/terms-and-conditions/price-guides/latest-price-guides/homebroadbandplans-priceguide-post9nov2025-09112025.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: 5G hubs must be returned if you cancel; 4G hubs and eero devices do not need to be returned.
+        issues: [equipment_return, cancel_service]
+        source: https://www.three.co.uk/support/leave-three/leave-home-broadband
+        last_verified: 2026-11-19
+
+  - issue: service_outage
+    summary: Check the Network Status checker, report the fault by Live Chat, and complain if it is not fixed.
+    evidence: [postcode, dates and times of the problem, device make and model, indoors or outdoors, chat or fault references]
+    steps:
+      - do: Enter your postcode in the Network Status checker to see known issues or planned maintenance.
+        channel: network-status
+      - do: Report the problem by Live Chat and get a reference.
+        channel: live-chat
+      - do: If it is not fixed, use the complaints form (it has a network-problem section) and ask for a credit.
+        channel: complaints-form
+      - do: If 6 weeks pass or you are unhappy with the final response, go to CISAS.
+        regulator: uk-cisas
+    facts:
+      - kind: process
+        claim: Three's Network Status checker shows known issues or planned maintenance for a postcode. The network support page does not mention compensation or credits for outages.
+        issues: [service_outage]
+        source: https://www.three.co.uk/support/network-and-coverage/network-support
+        last_verified: 2026-11-19
+
+  - issue: payment_assistance
+    summary: Contact Three early by Live Chat or phone for a repayment plan, a payment extension or a new payment date.
+    evidence: [account number, the bill you cannot pay, income and outgoings if Three does an income and expenditure review]
+    steps:
+      - do: Contact Three before the due date and ask for a payment extension, a repayment plan or a new payment date.
+        channel: live-chat
+      - do: Ask about cheaper options - a different price plan, a spend cap, removing Add-ons, or the SMARTY social tariff.
+        channel: payment-help-page
+      - do: For free debt advice, contact Citizens Advice, StepChange or National Debtline (listed on Three's page).
+        regulator: uk-citizens-advice
+    facts:
+      - kind: policy
+        claim: Three may offer an affordable repayment plan, a payment extension, a change of payment date, or an income and expenditure review (device plans), arranged through the contact page or Live Chat.
+        issues: [payment_assistance]
+        source: https://www.three.co.uk/support/bills-and-contracts/paying-your-bills/helping-you-pay-your-monthly-bill
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Late or missed payments go on the credit file, and Three may pass the account to a debt collection agency after several consecutive missed payments if it cannot agree a repayment solution with you.
+        issues: [payment_assistance, debt_collection]
+        source: https://www.three.co.uk/support/bills-and-contracts/paying-your-bills/helping-you-pay-your-monthly-bill
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: Moving from Pay Monthly to Pay As You Go inside the minimum term requires paying the Early Termination Fee first.
+        issues: [payment_assistance, early_termination_fee]
+        source: https://www.three.co.uk/support/bills-and-contracts/paying-your-bills/helping-you-pay-your-monthly-bill
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: Three's Customer Complaints Code names CISAS (Communications and Internet Services Adjudication Scheme) as its ADR scheme for everything except device financing. You can go to CISAS if 6 weeks have passed since you raised the complaint or if you are unhappy with the final response. CISAS is free and Three is bound by its decision.
+    issues: [billing_error, bill_increase, poor_service]
+    source: https://www.three.co.uk/terms-conditions/customer-complaints-code
+    last_verified: 2026-11-19
+  - kind: contact
+    claim: The code gives CISAS contact details - CISAS, 100 St Paul's Churchyard, London, EC4M 8BU; cisas@cedr.com; https://www.cedr-assist.com/consumer/cisas/overview/; 020 7520 3814 (Monday to Friday, 9am to 5pm).
+    source: https://www.three.co.uk/terms-conditions/customer-complaints-code
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: Complaints about device financing go to the Financial Ombudsman Service if 8 weeks have passed, or within 6 months of an unsatisfactory final response.
+    source: https://www.three.co.uk/terms-conditions/customer-complaints-code
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: The Vodafone and Three UK merger completed on 31 May 2025, forming VodafoneThree (then 51% Vodafone, 49% CK Hutchison).
+    source: https://www.vodafone.co.uk/newscentre/press-release/completion-vodafone-three-merger-uk/
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Vodafone Group completed its buyout of CK Hutchison's 49% stake on 30 July 2026, so Vodafone now owns 100% of VodafoneThree.
+    source: https://www.vodafone.com/news/newsroom/corporate-and-financial/vodafone-takes-full-ownership-of-vodafonethree
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: On 12 June 2025 VodafoneThree said its multi-brand consumer mobile strategy remains (Vodafone, Three, VOXI, SMARTY, Talkmobile), and that over the next 12 months Three's mobile broadband and Vodafone's full fibre would combine into one home broadband portfolio under the Vodafone brand.
+    source: https://www.vodafone.co.uk/newscentre/news/new-era-of-connectivity-for-uk/
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Three customers can choose to move to Vodafone when they upgrade, or stay with Three. Three says existing contracts, plans, pricing and customer support stay unchanged while both brands operate independently, and a Three device plan balance must still be paid.
+    source: https://www.three.co.uk/support/upgrades/more-choice
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: On 28 May 2026 VodafoneThree said up to 28.6 million Vodafone and Three customers automatically use each other's network for the best available coverage, at no extra cost and with no action needed from the user.
+    source: https://www.vodafone.co.uk/newscentre/our-network/world-first-network-upgrade-emocn-completed/
+    last_verified: 2026-11-19
+
+known_blockers:
+  - My3, the Three app and the "Leave Three" option need the account holder to sign in.
+  - The PAC/STAC text must be sent from the Three phone itself, with the account holder's date of birth.
+  - Three Community moderators cannot see accounts or consider compensation; use Live Chat or phone for account issues.
+
+notes: >-
+  Three UK (Hutchison 3G UK Ltd) is a consumer brand of VodafoneThree, formed when the Vodafone and Three UK merger
+  completed on 31 May 2025 (https://www.vodafone.co.uk/newscentre/press-release/completion-vodafone-three-merger-uk/);
+  Vodafone Group has owned 100% since 30 July 2026
+  (https://www.vodafone.com/news/newsroom/corporate-and-financial/vodafone-takes-full-ownership-of-vodafonethree).
+  For customers Three is still a separate brand with its own support, complaints code and CISAS membership. Three
+  customers are offered an optional move to Vodafone at upgrade (https://www.three.co.uk/support/upgrades/more-choice),
+  and new home broadband sales were planned to move under the Vodafone brand
+  (https://www.vodafone.co.uk/newscentre/news/new-era-of-connectivity-for-uk/). Hutchison 3G UK Ltd's registered
+  address is now Vodafone House, The Connection, Newbury, RG14 2FN (contact page); written complaints go to PO Box 333,
+  Glasgow. SMARTY is a separate VodafoneThree brand with its own site (smarty.co.uk) and is Three's social-tariff
+  route, so it is not an alias here. The 6-week CISAS wait in the code matches Ofcom's 6-week rule (uk-ofcom-adr).
+  Three publishes no executive or CEO complaints route.
+
+official_domains: [three.co.uk, 3.uk, vodafonethree.com]
+security:
+  never_asks:
+  - kind: policy
+    claim: In its text-scam (smishing) advice, Three says it will never ask you for personal details, and links in Three's texts always contain '3.UK' or 'Three.co.uk' in the URL.
+    source: https://www.three.co.uk/privacy-safety/fraud-to-watch-out-for
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Three will never ask you to confirm any financial details by email.
+    source: https://www.three.co.uk/privacy-safety/fraud-to-watch-out-for
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Three says it will never contact you to arrange a return.
+    source: https://www.three.co.uk/privacy-safety/report-a-problem
+    last_verified: 2026-11-19
+  known_scams:
+  - kind: policy
+    claim: SIM swap - a fraudster gains access to a customer's phone number by swapping the account to a different SIM card.
+    source: https://www.three.co.uk/privacy-safety/fraud-to-watch-out-for
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Account takeover - fraudsters take control of an account to commit upgrade fraud.
+    source: https://www.three.co.uk/privacy-safety/fraud-to-watch-out-for
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Smishing texts and phishing calls pretend to come from an organisation such as a bank or retailer and push you to visit a website or call a number.
+    source: https://www.three.co.uk/privacy-safety/fraud-to-watch-out-for
+    last_verified: 2026-11-19
+  report_phishing:
+  - id: spam-text-7726
+    type: sms
+    label: Forward scam texts to 7726 (free); include the sender's number
+    value: "7726"
+    notes: To report a nuisance call, text CALL followed by the caller's number to 7726.
+    source: https://www.three.co.uk/privacy-safety/report-a-problem
+    last_verified: 2026-11-19
+  - id: phishing-email-gov
+    type: email
+    label: Forward suspicious emails to the UK government's phishing reporting service
+    value: report@phishing.gov.uk
+    source: https://www.three.co.uk/privacy-safety/fraud-to-watch-out-for
+    last_verified: 2026-11-19
+  - id: action-fraud
+    type: phone
+    label: Action Fraud (0300 123 2040)
+    value: +44-300-123-2040
+    notes: Three's page also gives https://www.actionfraud.police.uk/. In Scotland, call 101.
+    source: https://www.three.co.uk/privacy-safety/report-a-problem
+    last_verified: 2026-11-19

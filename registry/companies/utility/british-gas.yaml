@@ -1,0 +1,557 @@
+id: british-gas
+name: British Gas
+aliases: [British Gas Trading, British Gas energy, BG energy]
+sector: utility
+countries: [gb]
+parent: Centrica plc
+website: https://www.britishgas.co.uk
+account_url: https://www.britishgas.co.uk/identity/
+regulators: [uk-ofgem, uk-energy-ombudsman, uk-citizens-advice]
+notes: >-
+  British Gas is the trading name of British Gas Trading Limited, part of Centrica. This file covers household gas and
+  electricity supply in Great Britain (England, Scotland, Wales) only; Northern Ireland has a different regulator.
+  British Gas also sells HomeCare boiler and home cover (Home Services, a separate line, 0333 009 5784); this file does
+  not cover HomeCare. In Scotland the same company trades as Scottish Gas (scottishgas.co.uk), which this file does not
+  cover. The Energy Ombudsman lists customers moved to British Gas after Tomato Energy, Rebel Energy, Together Energy,
+  Social Energy and People's Energy failed under British Gas, and tells former British Gas Evolve customers to continue
+  their dispute with British Gas. Related rules: uk-energy-back-billing, uk-energy-guaranteed-standards,
+  uk-energy-ombudsman-8-weeks, uk-energy-price-cap.
+
+channels:
+  - id: energy-customer-service-phone
+    type: phone
+    label: British Gas energy customer service (0330 808 3880)
+    value: +44-330-808-3880
+    purposes: [billing_error, bill_increase, payment_assistance, refund_request, cancel_service, disconnection, slamming]
+    hours: "Mon-Fri 8am-6pm, Sat 9am-2pm"
+    access: open
+    notes: >-
+      The same number is given for complaints and for the team that helps customers who cannot pay. British Gas says call
+      wait times are often longer and chat is quicker. The contact page also shows 0330 100 0303 with the same hours in a
+      second version of the page. British Gas leaflets say calls to 03 numbers cost no more than calls to 01 or 02
+      numbers.
+    source: https://www.britishgas.co.uk/energy/contact-us-credit.html
+    last_verified: 2026-11-19
+  - id: live-chat
+    type: chat
+    label: British Gas live chat (britishgas.co.uk/chat)
+    value: https://www.britishgas.co.uk/chat
+    purposes: [billing_error, bill_increase, payment_assistance, refund_request, cancel_service, disconnection]
+    hours: "Advisers Mon-Fri 8am-8pm, Sat 9am-5pm; a virtual assistant answers 24/7"
+    access: open
+    notes: >-
+      British Gas calls chat the quickest way to complain or get help. The chat button shows only when an adviser is
+      available. Pay-on-receipt, MagCard and prepayment customers ask for credit refunds by chat.
+    verified_via: document
+    source: https://www.britishgas.co.uk/aem6/content/dam/britishgas/complaints/we-are-listening.pdf
+    last_verified: 2026-11-19
+  - id: complaint-web-form
+    type: web_form
+    label: Energy complaint web form (sign in to your account)
+    value: https://www.britishgas.co.uk/complaints/make-a-complaint-credit.html
+    purposes: [billing_error, bill_increase, refund_request, cancel_service, disconnection, slamming]
+    access: login
+    notes: British Gas aims to reply to web-form and written complaints within 2 working days. For an existing complaint, reply to the latest British Gas email, call or chat.
+    source: https://www.britishgas.co.uk/complaints/make-a-complaint-credit.html
+    last_verified: 2026-11-19
+  - id: enquiry-web-form
+    type: web_form
+    label: Gas and electricity enquiry form (questions, not complaints)
+    value: https://www.britishgas.co.uk/help-and-support/complaints/enquiry-gas-and-electricity
+    purposes: [billing_error, refund_request]
+    notes: British Gas aims to answer within 2 working days.
+    source: https://www.britishgas.co.uk/complaints/make-a-complaint-credit.html
+    last_verified: 2026-11-19
+  - id: complaints-mail
+    type: mail
+    label: Complaints by post (Customer Care Team)
+    value: "Customer Care Team, PO Box 226, Rotherham S98 1PB"
+    purposes: [billing_error, bill_increase, refund_request, cancel_service, disconnection, slamming]
+    notes: Say how you want British Gas to reply, give as much detail as you can, and say what would put things right.
+    verified_via: document
+    source: https://www.britishgas.co.uk/aem6/content/dam/britishgas/complaints/we-are-listening.pdf
+    last_verified: 2026-11-19
+  - id: customer-services-directors-email
+    type: email
+    label: Customer Services Directors team (if unhappy with how a complaint is handled)
+    value: Service_energy@britishgas.co.uk
+    purposes: [billing_error, refund_request, disconnection]
+    notes: >-
+      Put 'Complaint' and your account number in the subject line. This address is in British Gas's older "How we deal
+      with your complaints" leaflet, which is still hosted on britishgas.co.uk; the current complaints page does not list
+      it. Unconfirmed that it is still monitored.
+    verified_via: document
+    source: https://www.britishgas.co.uk/aem6/content/dam/britishgas/downloads/new-energy/British_Gas_How_We_Deal_With_Complaints.pdf
+    last_verified: 2026-11-19
+  - id: meter-reading-phone
+    type: phone
+    label: Automated meter reading line (0330 054 5340)
+    value: +44-330-054-5340
+    purposes: [billing_error]
+    hours: 24/7
+    notes: Automated. Have your customer reference number and postcode ready.
+    source: https://www.britishgas.co.uk/energy/contact-us-credit.html
+    last_verified: 2026-11-19
+  - id: meter-reading-online
+    type: portal
+    label: Send a meter reading online
+    value: https://www.britishgas.co.uk/meterreads
+    purposes: [billing_error, refund_request]
+    source: https://www.britishgas.co.uk/help-and-support/bills-and-payments
+    last_verified: 2026-11-19
+  - id: payment-phone
+    type: phone
+    label: Automated payment and balance line (0330 818 0004)
+    value: +44-330-818-0004
+    hours: 24/7
+    notes: Automated. Have your customer reference number and postcode ready.
+    source: https://www.britishgas.co.uk/energy/contact-us-credit.html
+    last_verified: 2026-11-19
+  - id: online-account
+    type: portal
+    label: British Gas online account (bills, payments, "Check refund eligibility")
+    value: https://www.britishgas.co.uk/identity/
+    purposes: [refund_request, billing_error]
+    access: login
+    notes: Direct Debit customers in credit see "Check refund eligibility" on the dashboard and in the billing section (also in the British Gas app).
+    source: https://www.britishgas.co.uk/help-and-support/bills-and-payments/refunding-your-credit
+    last_verified: 2026-11-19
+  - id: help-with-bills
+    type: portal
+    label: Help with energy bills (payment options, Pay As You Go, Priority Services, advice charities)
+    value: https://www.britishgas.co.uk/energy/help-with-bills.html
+    purposes: [payment_assistance, disconnection]
+    access: open
+    source: https://www.britishgas.co.uk/energy/help-with-bills.html
+    last_verified: 2026-11-19
+  - id: priority-services-phone
+    type: phone
+    label: Priority Services Team, credit customers (0800 072 8625, free)
+    value: +44-800-072-8625
+    purposes: [payment_assistance, disconnection]
+    hours: "Mon-Fri 8am-8pm, Sat 9am-2pm (Priority Services page)"
+    notes: >-
+      For the Priority Services Register, benefit checks and Fuel Direct. Hours differ between British Gas sources: the
+      October 2025 Help and Support leaflet and the help-with-bills page say Mon-Fri 8am-6pm, Sat 9am-2pm.
+    source: https://www.britishgas.co.uk/priority-service-register
+    last_verified: 2026-11-19
+  - id: payg-phone
+    type: phone
+    label: Pay As You Go (prepayment) customers (0800 294 8604, free)
+    value: +44-800-294-8604
+    purposes: [payment_assistance, disconnection]
+    hours: "Mon-Fri 8am-8pm, Sat 9am-2pm (Priority Services page)"
+    notes: The help-with-bills page gives Mon-Fri 9am-5pm for this number. Hours unconfirmed.
+    source: https://www.britishgas.co.uk/priority-service-register
+    last_verified: 2026-11-19
+  - id: payg-emergency-phone
+    type: phone
+    label: Pay As You Go meter emergencies (0330 808 3880, 24/7)
+    value: +44-330-808-3880
+    purposes: [disconnection]
+    hours: 24/7
+    notes: For failed top-ups, a lost or damaged key or card, a blank meter screen with no gas, or a hot, sparking or smoking meter.
+    source: https://www.britishgas.co.uk/help-and-support/emergencies
+    last_verified: 2026-11-19
+  - id: psr-form
+    type: web_form
+    label: Join the Priority Services Register
+    value: https://www.britishgas.co.uk/priority-service-register/psr-form
+    purposes: [payment_assistance, disconnection, service_outage]
+    source: https://www.britishgas.co.uk/priority-service-register
+    last_verified: 2026-11-19
+  - id: switching-phone
+    type: phone
+    label: Switching and "switched by mistake" line (0333 202 9885)
+    value: +44-333-202-9885
+    purposes: [slamming, cancel_service]
+    hours: "Mon-Fri 8am-6pm, Sat 9am-2pm"
+    notes: The cooling-off page shows the same number with Mon-Fri 9am-5pm.
+    source: https://www.britishgas.co.uk/energy/we-dont-want-to-say-goodbye.html
+    last_verified: 2026-11-19
+  - id: power-cut-105
+    type: phone
+    label: Power cut - electricity network emergency line (105, free)
+    value: "105"
+    purposes: [service_outage]
+    notes: Run by the local electricity network operator, not British Gas. Also for main fuse problems, damaged power lines, or moisture around the meter.
+    source: https://www.britishgas.co.uk/help-and-support/emergencies
+    last_verified: 2026-11-19
+  - id: gas-emergency-phone
+    type: phone
+    label: National Gas Emergency Service (0800 111 999, free)
+    value: +44-800-111-999
+    purposes: [service_outage]
+    hours: 24/7
+    notes: If you smell gas or suspect a gas leak or carbon monoxide. Not run by British Gas.
+    source: https://www.britishgas.co.uk/help-and-support/emergencies
+    last_verified: 2026-11-19
+  - id: energy-trust-grant
+    type: web_form
+    label: British Gas Energy Trust - Energy Support Grant (independent charity)
+    value: https://britishgasenergytrust.org.uk/grants-available/
+    purposes: [payment_assistance]
+    notes: Run by the British Gas Energy Trust, an independent charity, not by British Gas. Applying needs an account on the Trust's site, money advice from the last 6 months and proof of income.
+    source: https://britishgasenergytrust.org.uk/grants-available/
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: live-chat, note: "British Gas says chat is quickest. Or call 0330 808 3880 (Mon-Fri 8am-6pm, Sat 9am-2pm). Get a reference number."}
+  - {rung: written_complaint, channel: complaint-web-form, note: "Or write to PO Box 226, Rotherham S98 1PB. British Gas aims to reply within 2 working days. If unhappy with how it is handled, ask for it to be taken further; a complaints manager should contact you within two working days."}
+  - {rung: executive, channel: customer-services-directors-email, note: "Customer Services Directors team, from an older British Gas complaints leaflet. Put 'Complaint' and your account number in the subject. Unconfirmed that it is still monitored."}
+  - {rung: regulator, regulator: uk-citizens-advice, note: "Free independent advice at any time during the complaint: Citizens Advice consumer service 0808 223 1133 (England and Wales); Advice Direct Scotland 0808 196 8660 (Scotland)."}
+  - {rung: regulator, regulator: uk-energy-ombudsman, note: "After 8 weeks without a solution, or earlier with a deadlock letter. Free. If you accept the decision, British Gas acts on it."}
+  - {rung: regulator, regulator: uk-ofgem, note: "Reporting only. Ofgem does not resolve individual complaints."}
+
+playbooks:
+  - issue: billing_error
+    summary: Send an actual meter reading so British Gas replaces the estimated bill, then complain in writing; charges over 12 months old caused by British Gas errors are limited by back-billing rules.
+    evidence: [the disputed bill, meter photos with date and time, earlier bills and readings, Direct Debit statement, chat transcripts and reference numbers]
+    steps:
+      - do: Send a meter reading online or by the 24/7 automated line. British Gas says it will adjust and replace the current bill.
+        channel: meter-reading-online
+      - do: Keep paying a reasonable amount for the energy you use while the issue is sorted. Do not cancel the Direct Debit until a solution is agreed.
+      - do: Ask by chat or phone for the bill to be corrected. Get a reference number.
+        channel: live-chat
+      - do: If the bill includes energy used more than 12 months ago and you were not billed correctly because of a British Gas error, ask for the back-billing limit to be applied.
+      - do: If not fixed, make a written complaint and keep the complaint reference.
+        channel: complaint-web-form
+      - do: After 8 weeks, or after a deadlock letter, take the complaint to the Energy Ombudsman.
+        regulator: uk-energy-ombudsman
+    facts:
+      - kind: process
+        claim: British Gas sends an estimated bill when it did not get a meter reading or could not use it. For gas it usually uses usage from the same period last year; for electricity, the previous month or billing period. Sending a meter reading lets it adjust and replace the current bill.
+        issues: [billing_error]
+        source: https://www.britishgas.co.uk/help-and-support/bills-and-payments/if-you-think-your-energy-bill-isnt-correct
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Under the Energy UK back-billing code (June 2017) hosted on britishgas.co.uk, if the supplier is at fault for not sending an accurate bill, it will not ask the customer to pay for energy used more than one year (12 months) before the bill. It does not apply if the customer made no attempt to arrange payment, deliberately avoided payment, or did not co-operate with meter reads or queries.
+        issues: [billing_error]
+        verified_via: document
+        source: https://britishgas.co.uk/aem6/content/dam/britishgas/downloads/code-of-practice/back-billing-for-domestic-customers.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: The back-billing code says suppliers should apply it automatically, and that customers in a dispute who pay by Direct Debit should not cancel their Direct Debit until a solution is agreed.
+        issues: [billing_error]
+        verified_via: document
+        source: https://britishgas.co.uk/aem6/content/dam/britishgas/downloads/code-of-practice/back-billing-for-domestic-customers.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: British Gas recommends that customers keep up with energy payments while a complaint is being sorted.
+        issues: [billing_error]
+        verified_via: document
+        source: https://www.britishgas.co.uk/aem6/content/dam/britishgas/complaints/we-are-listening.pdf
+        last_verified: 2026-11-19
+
+  - issue: bill_increase
+    summary: Check whether a fixed tariff ended (British Gas moves you to Standard Variable) or the Direct Debit was reviewed, then pick a new tariff or dispute the review.
+    evidence: [the price or Direct Debit change notice, last bill before and first bill after, fixed tariff end date, meter readings]
+    steps:
+      - do: Check whether your fixed tariff ended. If you did not choose a new tariff, British Gas moves you to Standard Variable.
+      - do: Look at the tariffs offered. There is no exit fee to pay in the renewal window.
+        channel: live-chat
+      - do: If the Direct Debit went up, send a meter reading and ask British Gas to review the amount using actual reads.
+        channel: meter-reading-online
+      - do: If you cannot afford the new amount, ask for help with bills.
+        channel: help-with-bills
+    facts:
+      - kind: process
+        claim: British Gas says it will get in touch a month before the current tariff expires to choose a new tariff. If the customer does not choose one, British Gas moves them automatically to its Standard Variable tariff.
+        issues: [bill_increase]
+        source: https://britishgas.co.uk/help-and-support/my-account/switch-tariff
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Standard Variable prices are not fixed and can go up or down. British Gas says there are no exit fees to pay in the renewal window.
+        issues: [bill_increase, cancel_service]
+        source: https://britishgas.co.uk/help-and-support/my-account/switch-tariff
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: For fixed Direct Debit, British Gas reviews payments and tells the customer of any change at least 14 days before the next payment is taken.
+        issues: [bill_increase]
+        source: https://www.britishgas.co.uk/energy/help-with-bills.html
+        last_verified: 2026-11-19
+
+  - issue: payment_assistance
+    summary: Tell British Gas early; it can set up instalments, change the tariff or payment method, check benefits and Fuel Direct, and point to the British Gas Energy Trust grant.
+    evidence: [account number, current balance or debt, household income and benefits, recent meter readings, any money-advice report]
+    steps:
+      - do: Contact British Gas and explain your circumstances. Ask for an affordable instalment plan.
+        channel: energy-customer-service-phone
+      - do: Ask the Priority Services Team to check benefits and Fuel Direct (payment straight from benefits), and to add you to the Priority Services Register if you qualify.
+        channel: priority-services-phone
+      - do: If you have energy debt, get free money advice (StepChange, Citizens Advice), then apply to the British Gas Energy Trust.
+        channel: energy-trust-grant
+      - do: On Pay As You Go, use the £10 emergency credit if you cannot top up, and ask about additional support credit.
+        channel: payg-phone
+    facts:
+      - kind: process
+        claim: British Gas says its team for customers who cannot pay may advise on reducing energy use, install a smart meter, change the tariff or payment method (for example to Direct Debit), work out payment in instalments, and check entitlement to benefits.
+        issues: [payment_assistance]
+        verified_via: document
+        source: https://www.centrica.com/media/x31nsgvg/bg-help-and-support-a5-leaflet-web-oct-25_29102025.pdf
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: The British Gas Energy Trust Energy Support Grant gives up to £1,700 to write off energy debt. Prepayment customers must owe £50 - £1,700 and credit customers £100 - £1,700, live in England, Scotland or Wales, and not have had a Trust grant in the last 2 years. Household income must be below £25,000 unless an exception applies.
+        issues: [payment_assistance]
+        source: https://britishgasenergytrust.org.uk/grants-available/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Customers of other suppliers (including Octopus, OVO, EDF, E.ON Next and ScottishPower) must apply to their own supplier's support fund first and can apply to the British Gas Energy Trust only after an official decline.
+        issues: [payment_assistance]
+        source: https://britishgasenergytrust.org.uk/grants-available/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: All British Gas Pay As You Go meters can give £10 of emergency credit. Emergency credit used is taken from the next top-up. Customers who have used it all and have no friendly credit may get additional support credit, which must be repaid.
+        issues: [payment_assistance, disconnection]
+        source: https://www.britishgas.co.uk/help-and-support/meters/using-emergency-credit
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: For winter 2025-26, the Warm Home Discount was a one-off £150 credit, paid by British Gas by 31 March 2026 to eligible customers decided by the Government. Customers in England or Wales whose electricity British Gas supplies did not need to apply.
+        issues: [payment_assistance]
+        verified_via: document
+        source: https://www.centrica.com/media/x31nsgvg/bg-help-and-support-a5-leaflet-web-oct-25_29102025.pdf
+        last_verified: 2026-11-19
+
+  - issue: refund_request
+    summary: Direct Debit customers in credit can check refund eligibility in their online account; other customers ask by chat. Credit after leaving is refunded automatically after the final bill.
+    evidence: [account balance screenshot, recent actual meter readings, Direct Debit amounts paid, final bill if you left]
+    steps:
+      - do: Send an actual meter reading first, so the bill is based on reads from the last 28 days.
+        channel: meter-reading-online
+      - do: Sign in and use "Check refund eligibility" (Direct Debit customers).
+        channel: online-account
+      - do: If you pay on receipt of bill, have a MagCard or use a prepayment meter, ask by live chat.
+        channel: live-chat
+      - do: If you left British Gas and the refund is late, complain and ask for the £40 guaranteed-standards payment.
+        channel: complaint-web-form
+    facts:
+      - kind: limit
+        claim: To get a credit refund online, the customer must be in credit, pay by Direct Debit with no payment due in the next 3 days, and have a bill based on actual meter reads from the last 28 days. British Gas may suggest changing the Direct Debit instead, or both.
+        issues: [refund_request]
+        source: https://www.britishgas.co.uk/help-and-support/bills-and-payments/refunding-your-credit
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Refunds to a bank account should take 5-8 working days; cheques take longer. After moving or switching supplier, credit is refunded automatically after the final bill, which can take up to 42 days after the account closes.
+        issues: [refund_request, cancel_service]
+        source: https://www.britishgas.co.uk/help-and-support/bills-and-payments/refunding-your-credit
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: After supply ends, British Gas says the final bill should come within 6 weeks and any refund within 10 working days of sending the final bill. If it takes longer than 6 weeks for the final bill or "10 weeks" for the refund (the page uses both phrasings), the customer gets £40.
+        issues: [refund_request, cancel_service]
+        source: https://www.britishgas.co.uk/legal-compliance/useful-information/guaranteed-standards-of-performance.html
+        last_verified: 2026-11-19
+
+  - issue: slamming
+    summary: If your supply was moved to or from British Gas without your agreement, call the switching line; guaranteed standards set 20 and 21 working-day timescales and a £40 payment.
+    evidence: [proof you did not agree to the switch, letters or emails about the switch, meter readings on the switch date, both suppliers' bills]
+    steps:
+      - do: Tell British Gas you did not ask to switch.
+        channel: switching-phone
+      - do: If British Gas took over your supply by mistake, ask it to return you to your previous supplier and pay £40.
+      - do: If you were wrongly switched away from British Gas, ask for re-registration and note the confirmation date (21 working days).
+      - do: If timescales are missed, complain in writing and claim £40.
+        channel: complaint-web-form
+      - do: After 8 weeks, or after a deadlock letter, go to the Energy Ombudsman.
+        regulator: uk-energy-ombudsman
+    facts:
+      - kind: deadline
+        claim: If a switch happened without a valid contract, British Gas contacts the other supplier and tells the customer within 20 working days. A customer wrongly switched away from British Gas is re-registered within 21 working days of confirmation. If British Gas accidentally took over the supply, it returns the customer to the previous supplier.
+        issues: [slamming]
+        source: https://www.britishgas.co.uk/legal-compliance/useful-information/guaranteed-standards-of-performance.html
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: British Gas pays £40 if it misses these erroneous-transfer timescales or accidentally takes over a supply, unless the cause was out of its control.
+        issues: [slamming]
+        source: https://www.britishgas.co.uk/legal-compliance/useful-information/guaranteed-standards-of-performance.html
+        last_verified: 2026-11-19
+
+  - issue: cancel_service
+    summary: To leave, sign up with the new supplier, which arranges the switch; fixed tariffs can have an exit fee except in the last 49 days, and there is a 14-day cooling-off period.
+    evidence: [tariff terms and end date, new supplier's confirmation and start date, closing meter readings, final bill]
+    steps:
+      - do: Check your tariff terms in your online account for an exit fee. No exit fee applies in the final 49 days (seven weeks) of a fixed tariff.
+        channel: online-account
+      - do: Sign up with the new supplier. You do not need to contact British Gas; the new supplier arranges the switch.
+      - do: If you have a large outstanding balance, ask British Gas for a payment plan, because the switch may be stopped until it is paid.
+        channel: energy-customer-service-phone
+      - do: Keep the Direct Debit active until the final bill; the final amount is collected or refunded through it.
+      - do: If the final bill takes more than 6 weeks, claim £40 under the guaranteed standards.
+        channel: complaint-web-form
+    facts:
+      - kind: fee
+        claim: Customers on a fixed rate tariff may have to pay an exit fee to leave early. The fee does not apply if they leave within the final 49 days (seven weeks) of the fixed rate tariff.
+        issues: [cancel_service, early_termination_fee]
+        source: https://www.britishgas.co.uk/help-and-support/my-account/leaving-british-gas
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Customers have 14 calendar days from the day after they sign up to a contract or tariff to tell British Gas they want to cancel.
+        issues: [cancel_service]
+        source: https://britishgas.co.uk/help-and-support/my-account/cool-off-information
+        last_verified: 2026-11-19
+      - kind: process
+        claim: A switch is usually completed in 3-5 days (prepayment meters may take three days more); British Gas advises allowing up to six weeks for everything to complete. It typically takes no more than four weeks to close the account and send final bills, using the new supplier's opening reading.
+        issues: [cancel_service]
+        source: https://www.britishgas.co.uk/help-and-support/my-account/leaving-british-gas
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: A customer with a large outstanding balance may need to pay it before a switch to a new supplier can go ahead; the most common objection to a switch is an outstanding balance.
+        issues: [cancel_service]
+        source: https://www.britishgas.co.uk/help-and-support/my-account/leaving-british-gas
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: If British Gas does not switch a customer within 5 working days of the preferred date because of a British Gas delay, it pays £40.
+        issues: [cancel_service]
+        source: https://www.britishgas.co.uk/legal-compliance/useful-information/guaranteed-standards-of-performance.html
+        last_verified: 2026-11-19
+
+  - issue: disconnection
+    summary: On Pay As You Go, use emergency and friendly credit and call the 24/7 meter emergency line; strict Ofgem conditions apply before any prepayment meter is fitted without consent.
+    evidence: [meter type and serial number, top-up receipts, debt letters, details of anyone in the home who is over 75, under 2 or relies on a continuous energy supply]
+    steps:
+      - do: If you cannot top up, use the £10 emergency credit. Smart meters give friendly credit overnight and at weekends.
+      - do: If the meter fails, a top-up does not work, or the key or card is lost, call the 24/7 Pay As You Go emergency line.
+        channel: payg-emergency-phone
+      - do: Ask for an affordable repayment rate and additional support credit, and join the Priority Services Register if anyone in the home is vulnerable.
+        channel: payg-phone
+      - do: If British Gas plans to fit a prepayment meter without your consent, tell it about anyone over 75, under 2, or who relies on a continuous energy supply, and get advice from Citizens Advice.
+        regulator: uk-citizens-advice
+    facts:
+      - kind: policy
+        claim: Smart meter friendly credit starts automatically if credit runs out between 6pm and 9am (if at least £0.01 was left at 6pm), on weekdays 6pm to 9am, at weekends 6pm Friday to 9am Monday, and on UK bank holidays until 9am the next working day.
+        issues: [disconnection]
+        source: https://www.britishgas.co.uk/help-and-support/meters/using-emergency-credit
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: For a prepayment meter that stops working, the guaranteed response is 3 hours on a working day, 4 hours on a non-working day, or the next working day if reported overnight. After a customer pays to clear a debt disconnection, British Gas aims to restore supply usually within 24 hours, or pays £40.
+        issues: [disconnection]
+        source: https://www.britishgas.co.uk/legal-compliance/useful-information/guaranteed-standards-of-performance.html
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: On 15 May 2026 Ofgem said British Gas breached licence conditions when installing prepayment meters, including some fitted under warrant when not appropriate. British Gas agreed a £20 million payment to the Voluntary Redress Fund and to write off up to £70 million of vulnerable customers' energy debt. It suspended warrant installations in early February 2023.
+        issues: [disconnection]
+        source: https://www.ofgem.gov.uk/press-release/british-gas-agrees-settlement-relation-ofgems-investigation-unfair-treatment-prepayment-meter-customers
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Ofgem says a supplier allowed to restart involuntary prepayment installations must first make at least 10 attempts to contact the customer and carry out a site welfare visit, and must not install where someone is over 75 or under 2 or relies on a continuous energy supply for health reasons.
+        issues: [disconnection]
+        source: https://www.ofgem.gov.uk/press-release/british-gas-agrees-settlement-relation-ofgems-investigation-unfair-treatment-prepayment-meter-customers
+        last_verified: 2026-11-19
+
+  - issue: service_outage
+    summary: Power cuts go to the local network operator on 105 and gas leaks to the National Gas Emergency Service on 0800 111 999, not to British Gas; network compensation passed through British Gas has a 10 working-day standard.
+    evidence: [start and end times of the cut, network operator reference, Priority Services Register status]
+    steps:
+      - do: For a power cut, call 105 (free).
+        channel: power-cut-105
+      - do: If you smell gas or suspect carbon monoxide, call 0800 111 999 at once.
+        channel: gas-emergency-phone
+      - do: If you rely on medical equipment, join the Priority Services Register so the network operator warns you of planned cuts and gives priority reconnection.
+        channel: psr-form
+      - do: If network compensation passed through British Gas is late, ask for the extra £40.
+        channel: complaint-web-form
+    facts:
+      - kind: contact
+        claim: British Gas's emergencies page lists 0800 111 999 (free gas emergency line) for a gas smell, gas leak or carbon monoxide, and 105 (free electricity emergency line) for power outages, main fuse problems and damaged power lines.
+        issues: [service_outage]
+        source: https://www.britishgas.co.uk/help-and-support/emergencies
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: If an electricity distribution network or gas transporter owes compensation and British Gas passes it on, it should reach the customer within 10 working days; if late, the customer gets an extra £40.
+        issues: [service_outage]
+        source: https://www.britishgas.co.uk/legal-compliance/useful-information/guaranteed-standards-of-performance.html
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: British Gas shares Priority Services Register details with the network operator and water supplier so they can warn customers about planned interruptions; registered customers also get priority reconnection.
+        issues: [service_outage]
+        verified_via: document
+        source: https://www.centrica.com/media/x31nsgvg/bg-help-and-support-a5-leaflet-web-oct-25_29102025.pdf
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: British Gas's complaints procedure ("We're listening", 04/25) says chat and phone are quickest and it tries to sort things the same day; written and online complaints get a response aim of two working days. A customer unhappy with handling can ask for it to be taken further, and a complaints manager should respond within two working days.
+    issues: [billing_error, refund_request, cancel_service, disconnection]
+    verified_via: document
+    source: https://www.britishgas.co.uk/aem6/content/dam/britishgas/complaints/we-are-listening.pdf
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: If the customer is still unhappy with the outcome, or British Gas has taken longer than eight weeks to sort the complaint out, the customer can take it to the Energy Ombudsman.
+    issues: [billing_error, refund_request, cancel_service, disconnection, slamming]
+    verified_via: document
+    source: https://www.britishgas.co.uk/aem6/content/dam/britishgas/complaints/we-are-listening.pdf
+    last_verified: 2026-11-19
+  - kind: process
+    claim: British Gas's older complaints leaflet says that if it cannot sort a complaint within eight weeks, or cannot agree a way forward ('deadlock'), it will write to say the customer can go to the Ombudsman. The customer does not have to accept the Ombudsman's decision, but if they do, British Gas acts on it.
+    issues: [billing_error, refund_request, slamming]
+    verified_via: document
+    source: https://www.britishgas.co.uk/aem6/content/dam/britishgas/downloads/new-energy/British_Gas_How_We_Deal_With_Complaints.pdf
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: The Energy Ombudsman's British Gas page asks the customer to have complained to British Gas first and to have either a deadlock letter or 8 weeks without the complaint being resolved.
+    issues: [billing_error, refund_request, slamming, cancel_service]
+    source: https://www.energyombudsman.org/raise-dispute/british-gas
+    last_verified: 2026-11-19
+  - kind: process
+    claim: Customers can get free independent energy advice at any time during the complaints process from Citizens Advice (England and Wales, 0808 223 1133) or Advice Direct Scotland (0808 196 8660).
+    verified_via: document
+    source: https://www.britishgas.co.uk/aem6/content/dam/britishgas/downloads/new-energy/British_Gas_How_We_Deal_With_Complaints.pdf
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: Under its guaranteed standards British Gas pays £40 for each missed standard unless the cause was out of its control or there is a genuine dispute; only one £40 is paid for an ongoing failure of one standard. If payment is not made within 10 working days, a further £40 is due within 10 working days. Payments go to the energy account or prepayment meter.
+    issues: [billing_error, refund_request, slamming, cancel_service, disconnection, service_outage]
+    source: https://www.britishgas.co.uk/legal-compliance/useful-information/guaranteed-standards-of-performance.html
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: From February 2026, British Gas offers a smart meter appointment within 30 working days of a request, in a slot of no more than four hours, and gives a repair plan for a reported meter fault within 5 working days; missing these pays £40.
+    issues: [billing_error]
+    source: https://www.britishgas.co.uk/legal-compliance/useful-information/guaranteed-standards-of-performance.html
+    last_verified: 2026-11-19
+
+known_blockers:
+  - The energy complaint web form and the online credit-refund check need a British Gas account sign-in.
+  - The main contact-us page (britishgas.co.uk/help-and-support/contact-us) is a JavaScript app that did not render for automated reading; numbers here come from the contact-us-credit page and British Gas leaflets.
+  - Live chat shows only when an adviser is available, and pay-on-receipt and prepayment refunds must be requested by chat.
+  - The British Gas Energy Trust grant application needs an account on the Trust's site, recent money advice and proof of income.
+
+official_domains: [britishgas.co.uk, centrica.co.uk, centrica.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: British Gas says it will never ask for your password or any other personal or sensitive information by email, and will never ask you to reply to an email directly.
+      source: https://www.britishgas.co.uk/help/my-account/accessing-your-account.html
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: British Gas says it will never ask on a call for one-time passcodes, passwords, PINs or personal information such as bank details. If pressured, hang up and call back on a number from the British Gas website, using a different phone or after 10 to 15 minutes.
+      source: https://www.britishgas.co.uk/help/my-account/accessing-your-account.html
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Genuine British Gas emails are personalised and come from @britishgas.co.uk addresses (also @cd., @q., @mail., @mail.energy. and @energy.britishgas.co.uk, and @centrica.co.uk); links go to a britishgas.co.uk page. Appointment emails can come from @contactengine.email and the energy debt team from @e-mail.britishgas.co.uk.
+      source: https://britishgas.co.uk/aem6/content/britishgas/help/my-account/if-you-get-a-suspicious-email.html
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: On Facebook, British Gas only responds from its verified account with a blue tick; fake accounts may reply to official posts.
+      source: https://www.britishgas.co.uk/help/my-account/accessing-your-account.html
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: Phishing emails use look-alike domains such as @birtishgas.co.uk or brtisihgas.co.uk, set the sender name to "British Gas", come from Gmail, Yahoo or Hotmail, or start "Dear customer" or with your email address.
+      source: https://britishgas.co.uk/aem6/content/britishgas/help/my-account/if-you-get-a-suspicious-email.html
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: British Gas warns that a message asking you to apply for or contact someone about a payment might be a scam; do not give bank details or passwords, reply to texts, download attachments or click links you are not sure of.
+      verified_via: document
+      source: https://www.centrica.com/media/x31nsgvg/bg-help-and-support-a5-leaflet-web-oct-25_29102025.pdf
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Which? reported (1 September 2022) fake British Gas emails offering a £315 refund for 2020-2021 overpayments with a "Claim your refund now!" link. Real refunds are handled through the British Gas website and online account.
+      source: https://www.which.co.uk/news/article/beware-of-this-british-gas-email-scam-offering-a-fake-energy-refund-aEmnU1Z4z9hP
+      last_verified: 2026-11-19
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Report phishing emails, texts (screenshot) and fake websites to British Gas
+      value: phishing@britishgas.co.uk
+      notes: Forward a suspicious email as an attachment, then delete it. For a text, send a screenshot and block the number. Older guidance used phishing@centrica.com.
+      source: https://www.britishgas.co.uk/help/my-account/accessing-your-account.html
+      last_verified: 2026-11-19
