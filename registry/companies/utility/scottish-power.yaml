@@ -1,0 +1,523 @@
+id: scottish-power
+name: ScottishPower
+aliases: [Scottish Power, ScottishPower Energy Retail, ScottishPower Energy Retail Limited]
+sector: utility
+countries: [gb]
+parent: Iberdrola
+website: https://www.scottishpower.co.uk
+account_url: https://login.scottishpower.co.uk
+regulators: [uk-ofgem, uk-energy-ombudsman, uk-citizens-advice]
+
+channels:
+  - id: webchat
+    type: chat
+    label: ScottishPower web chat (fastest route, says ScottishPower)
+    value: https://www.scottishpower.co.uk/livechat
+    purposes: [billing_error, bill_increase, refund_request, cancel_service, early_termination_fee, payment_assistance, poor_service]
+    hours: Monday to Sunday, 7am to 11pm
+    notes: >-
+      ScottishPower suggests logging in to the account before starting the chat. If agents are busy a magnifying-glass
+      icon shows; outside hours a bot answers.
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/support-centre/complaints
+    last_verified: 2026-11-19
+  - id: customer-service-phone
+    type: phone
+    label: ScottishPower customer service and complaints (0345 270 0700)
+    value: +44-345-270-0700
+    purposes: [billing_error, bill_increase, refund_request, cancel_service, early_termination_fee, payment_assistance, poor_service]
+    hours: Monday to Friday, 9am to 5pm
+    notes: >-
+      Have the account number ready (on the bill or in the app). The contact page says ScottishPower aims to answer
+      calls within 2 minutes and Mondays are busier. If you are off supply, the automated service on this number
+      directs you outside these hours.
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/support-centre/complaints
+    last_verified: 2026-11-19
+  - id: contact-email
+    type: email
+    label: ScottishPower customer service and complaints email
+    value: contactus@scottishpower.com
+    purposes: [billing_error, bill_increase, refund_request, early_termination_fee, poor_service]
+    notes: >-
+      ScottishPower aims to reply within 48 hours. Put the account number in the subject line, describe the enquiry
+      and say how you pay (for example Direct Debit or Pay As You Go).
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/contact
+    last_verified: 2026-11-19
+  - id: complaints-mail
+    type: mail
+    label: ScottishPower complaints by post
+    value: ScottishPower Customer Services, 320 St Vincent Street, Glasgow G2 5AD
+    purposes: [billing_error, poor_service]
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/support-centre/complaints
+    last_verified: 2026-11-19
+  - id: complaints-page
+    type: portal
+    label: How to make a complaint to ScottishPower (3-stage process)
+    value: https://www.scottishpower.co.uk/support-centre/complaints
+    access: open
+    notes: Page last updated 26 September 2025. Boiler Care complaints go to 0800 001 5214 (Monday to Friday 8am-8pm, Saturday 8am-5pm).
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/support-centre/complaints
+    last_verified: 2026-11-19
+  - id: complaint-tracker
+    type: portal
+    label: Track or close an open complaint
+    value: https://www.scottishpower.co.uk/mycomplaint
+    purposes: [billing_error, poor_service]
+    notes: The page did not finish loading for automated reading.
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/support-centre/complaints
+    last_verified: 2026-11-19
+  - id: director-support-form
+    type: web_form
+    label: Contact Director Support (escalate an existing complaint)
+    value: https://www.scottishpower.co.uk/director-support
+    purposes: [billing_error, refund_request, poor_service]
+    access: captcha
+    notes: >-
+      Needs a complaint reference number, name, email, phone number and account number. ScottishPower aims to respond
+      within 3-5 days. The site is protected by reCAPTCHA.
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/support-centre/complaints
+    last_verified: 2026-11-19
+  - id: online-account
+    type: portal
+    label: ScottishPower online account sign-in
+    value: https://login.scottishpower.co.uk
+    purposes: [billing_error, refund_request, bill_increase]
+    access: login
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/refund-online
+    last_verified: 2026-11-19
+  - id: refund-online
+    type: portal
+    label: Request a refund online (credit balance)
+    value: https://www.scottishpower.co.uk/refund-online
+    purposes: [refund_request]
+    access: login
+    notes: Redirects to the account sign-in page.
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/support-centre/refunds
+    last_verified: 2026-11-19
+  - id: affordability-phone
+    type: phone
+    label: ScottishPower help if you are struggling to pay (0800 634 0010)
+    value: +44-800-634-0010
+    purposes: [payment_assistance, disconnection]
+    notes: ScottishPower says someone else can contact it on your behalf if you cannot call yourself.
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/affordability
+    last_verified: 2026-11-19
+  - id: off-supply-meter-fault-phone
+    type: phone
+    label: Off supply with a suspected meter fault, outside normal hours (0345 058 0005)
+    value: +44-345-058-0005
+    purposes: [disconnection, service_outage]
+    notes: For Pay As You Go customers, check there is credit on the meter first.
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/support-centre/emergency
+    last_verified: 2026-11-19
+  - id: bereavement-phone
+    type: phone
+    label: ScottishPower Bereavement Team (0800 074 1986)
+    value: +44-800-074-1986
+    purposes: [refund_request]
+    hours: Monday to Friday, 9am to 5pm
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/support-centre/refunds
+    last_verified: 2026-11-19
+  - id: hardship-fund-apply
+    type: web_form
+    label: Apply for the ScottishPower Hardship Fund (run by Sigma Connected Support)
+    value: https://support.sigmaconnected.com/scottish-power-hardship-fund
+    purposes: [payment_assistance]
+    notes: ScottishPower says to get free debt advice first (for example StepChange) and to have evidence of financial hardship, such as recent DWP letters.
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/support-centre/help-paying-your-bill/hardship-fund
+    last_verified: 2026-11-19
+  - id: hardship-fund-phone
+    type: phone
+    label: Sigma Connected Support - ScottishPower Hardship Fund applications (0121 285 2595)
+    value: +44-121-285-2595
+    purposes: [payment_assistance]
+    hours: Monday to Friday, 8.00am to 5pm
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/support-centre/help-paying-your-bill/hardship-fund
+    last_verified: 2026-11-19
+  - id: priority-services-register
+    type: portal
+    label: Join the Priority Services Register (online account > Help and Advice > Priority Services Register)
+    value: https://www.scottishpower.co.uk/support-centre/priority-service-register
+    purposes: [service_outage, disconnection]
+    access: login
+    notes: If you cannot log in, call 0345 270 0700 (Monday to Friday 9am to 5pm).
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/support-centre/priority-service-register
+    last_verified: 2026-11-19
+  - id: power-cut-105
+    type: phone
+    label: Power cut or damaged power lines - call 105 (your electricity network operator, not ScottishPower supply)
+    value: "105"
+    purposes: [service_outage]
+    hours: 24 hours
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/support-centre/emergency
+    last_verified: 2026-11-19
+  - id: gas-emergency-phone
+    type: phone
+    label: National gas emergency number (0800 111 999)
+    value: +44-800-111-999
+    purposes: [service_outage]
+    notes: Call immediately if you smell gas or think there is a gas leak.
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/support-centre/emergency
+    last_verified: 2026-11-19
+  - id: app-ios
+    type: app
+    label: ScottishPower app (iOS) with in-app chat
+    value: https://apps.apple.com/gb/app/scottish-power/id562202559
+    purposes: [billing_error, refund_request, payment_assistance, disconnection]
+    access: login
+    notes: Pay As You Go smart meter customers can request a credit advance in the app.
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/contact
+    last_verified: 2026-11-19
+  - id: app-android
+    type: app
+    label: ScottishPower app (Android) with in-app chat
+    value: https://play.google.com/store/apps/details?id=uk.co.scottishpower
+    purposes: [billing_error, refund_request, payment_assistance, disconnection]
+    access: login
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/contact
+    last_verified: 2026-11-19
+  - id: facebook-scottishpower
+    type: social
+    label: ScottishPower on Facebook (message support agents)
+    value: https://www.facebook.com/ScottishPower
+    access: login
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/contact
+    last_verified: 2026-11-19
+  - id: instagram-scottishpower
+    type: social
+    label: ScottishPower customers on Instagram (message support agents)
+    value: https://www.instagram.com/scottishpowercustomers/
+    access: login
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/contact
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: webchat, note: "Stage one. ScottishPower says web chat is fastest (7am-11pm every day); phone 0345 270 0700 (Monday to Friday 9am-5pm)."}
+  - {rung: written_complaint, channel: contact-email, note: "Stage two. A dedicated complaint handler is assigned; in most cases ScottishPower follows up by phone within 5 working days. Post also accepted (complaints-mail)."}
+  - {rung: executive, channel: director-support-form, note: "Stage three. Escalate to the Director Support Team with your complaint reference; ScottishPower aims to respond within 3-5 days."}
+  - {rung: regulator, regulator: uk-citizens-advice, note: "ScottishPower says you can get independent advice from Citizens Advice, or Advice Direct Scotland, at any point in the complaint."}
+  - {rung: regulator, regulator: uk-energy-ombudsman, note: "Once the complaint has reached or exceeded 56 days (8 weeks), or earlier if ScottishPower sends its final offer (deadlock letter)."}
+  - {rung: regulator, regulator: uk-ofgem, note: "Ofgem regulates suppliers but does not resolve individual complaints. Use it to report a pattern."}
+
+playbooks:
+  - issue: billing_error
+    summary: Raise it by chat or phone, keep the complaint reference, escalate to Director Support, then go to the Energy Ombudsman after 56 days or a deadlock letter.
+    evidence: [account number, the bill with the error, meter readings with dated photos, previous bills, Direct Debit records]
+    steps:
+      - do: Submit an up-to-date meter reading in the online account or app so the bill uses actual readings.
+        channel: online-account
+      - do: Raise the error by web chat (or phone) and ask for it to be logged as a complaint with a reference number.
+        channel: webchat
+      - do: Put the complaint in writing with the reference, the timeline and the evidence.
+        channel: contact-email
+      - do: If the complaint handler does not resolve it, escalate to the Director Support Team with the complaint reference.
+        channel: director-support-form
+      - do: If the bill is for energy used more than 12 months ago that was never billed, ask whether the back-billing limit applies (rule uk-energy-back-billing).
+      - do: After 56 days, or after a deadlock letter, refer the complaint to the Energy Ombudsman.
+        regulator: uk-energy-ombudsman
+    facts:
+      - kind: process
+        claim: If ScottishPower cannot resolve an issue straight away, a dedicated complaint handler is assigned, and in most cases ScottishPower follows up by telephone within 5 working days.
+        issues: [billing_error]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/support-centre/complaints
+        last_verified: 2026-11-19
+      - kind: process
+        claim: If you have left and your final readings are wrong or estimated, ScottishPower asks for up-to-date readings and says to allow a further 28 days to agree the change with the new supplier and finalise the account.
+        issues: [billing_error, cancel_service]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/support-centre/leaving-scottishpower/final-bill-explained
+        last_verified: 2026-11-19
+
+  - issue: bill_increase
+    summary: Standard Variable prices follow Ofgem's price cap every 3 months; fixed prices do not change. ScottishPower contacts you before a fix ends and moves you to the Standard tariff if you do nothing.
+    evidence: [bill before and after the increase, tariff name and end date, ScottishPower's price change or tariff-ending email or letter]
+    steps:
+      - do: Check whether you are on a fixed, Flexi or Standard Variable tariff in the online account or app.
+        channel: online-account
+      - do: If a fixed price went up before the fixed term ended, dispute it as a billing error.
+        channel: webchat
+      - do: If your fix is ending or you are on the Standard tariff, compare tariffs; you can move to another ScottishPower tariff without exit fees.
+      - do: When comparing suppliers, compare annual cost using your actual yearly use, not monthly Direct Debit amounts.
+    facts:
+      - kind: policy
+        claim: ScottishPower says Ofgem updates the price cap every three months (January, April, July and October). Standard Variable prices change when a new cap takes effect; fixed prices stay the same for the fixed term; on a Flexi tariff only the variable element is reviewed quarterly. If you are affected, ScottishPower says it will be in touch before the changes take effect.
+        issues: [bill_increase]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/blog/october-price-cap-2026
+        last_verified: 2026-11-19
+      - kind: process
+        claim: ScottishPower says it contacts customers by email or letter around 2 to 4 weeks before a tariff ends. If you do not choose a new tariff you move automatically to the Standard tariff, a variable tariff whose prices won't exceed Ofgem's energy price cap.
+        issues: [bill_increase, early_termination_fee]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/support-centre/current-tariff-ending
+        last_verified: 2026-11-19
+
+  - issue: refund_request
+    summary: Request a credit refund online or by chat when the account was billed to actual readings in the last 28 days. On leaving, credit is refunded automatically within 5 (BACS) or 10 (cheque) working days of the final bill.
+    evidence: [account balance, latest bill date and readings, final bill date if you left, bank details on file]
+    steps:
+      - do: Make sure the latest bill (within 28 days) used actual meter readings and the account is in credit.
+        channel: online-account
+      - do: Use the online refund tool, or ask by web chat or in the app.
+        channel: refund-online
+      - do: If you left and the refund has not arrived 10 working days after the final bill, contact ScottishPower by chat or app.
+        channel: webchat
+      - do: If it is still not paid, complain in writing and escalate; go to the Energy Ombudsman after 56 days.
+        regulator: uk-energy-ombudsman
+    facts:
+      - kind: limit
+        claim: For a live account, ScottishPower issues a refund if you were billed within the last 28 days, billed to actual meter readings, and the account (combined electricity and gas) is in credit. Direct Debit payments received in the last 5 working days cannot be included. Customers who do not pay by Direct Debit are refunded by cheque.
+        issues: [refund_request]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/support-centre/refunds
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: A credit balance on a final bill is refunded automatically by BACS within 5 working days of the bill date (Direct Debit customers with active bank details) or by cheque within 10 working days of the bill date (others).
+        issues: [refund_request, cancel_service]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/support-centre/refunds
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: After moving out, the final bill usually arrives within 10 working days of the move-out date (or the date ScottishPower was told), and any refund can take a further 10 working days.
+        issues: [refund_request, cancel_service]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/support-centre/refunds
+        last_verified: 2026-11-19
+
+  - issue: cancel_service
+    summary: To leave, start a switch with the new supplier; it tells ScottishPower. Keep the Direct Debit active until the final bill, which comes within six weeks.
+    evidence: [tariff end date and exit fee, meter readings given to the new supplier, switch date, final bill]
+    steps:
+      - do: Check the tariff end date and any exit fee on the bill ("Tell me more about my tariff") or in the app.
+        channel: online-account
+      - do: Start the switch with the new supplier and give it meter readings when asked.
+      - do: Keep the Direct Debit active; ScottishPower takes the final bill amount by Direct Debit 14 days after the final bill.
+      - do: If the final bill or refund is late or wrong, contact ScottishPower by chat and then complain.
+        channel: webchat
+    facts:
+      - kind: process
+        claim: ScottishPower says the new supplier manages most of the switch and tells ScottishPower you are leaving; ScottishPower sends the final bill within six weeks of the switch and closes the account once payments or refunds are complete.
+        issues: [cancel_service]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/support-centre/leaving-scottishpower
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Direct Debit customers should keep the Direct Debit active; ScottishPower keeps taking monthly payments until the final bill and takes the final bill value 14 days after it is issued.
+        issues: [cancel_service]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/support-centre/leaving-scottishpower/final-bill-explained
+        last_verified: 2026-11-19
+
+  - issue: early_termination_fee
+    summary: Fixed tariffs can carry an exit fee if you switch supplier too early (ScottishPower pages say "more than seven weeks" and "more than 49 days" before the end date). Moving to another ScottishPower tariff is free.
+    evidence: [tariff name, end date and exit fee from the bill or app, date the switch completed, tariff-ending email or letter]
+    steps:
+      - do: Find the tariff end date and exit fee on the bill or in the app.
+        channel: online-account
+      - do: Switch supplier inside the last 49 days of the fix, or after ScottishPower contacts you that the fix is ending, to avoid the fee.
+      - do: If you were charged an exit fee in error, ask ScottishPower to investigate and log a complaint.
+        channel: webchat
+      - do: If not resolved, escalate to Director Support and then the Energy Ombudsman.
+        channel: director-support-form
+    facts:
+      - kind: policy
+        claim: ScottishPower's exit fees page says you will usually pay an exit fee if you switch supplier more than seven weeks before a fixed tariff ends, and no exit fee if you switch to another ScottishPower tariff, move home and stay with ScottishPower, or switch supplier after ScottishPower contacted you that the fixed tariff is ending.
+        issues: [early_termination_fee, cancel_service]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/support-centre/leaving-scottishpower/exit-fees
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: ScottishPower's tariff-ending page says you may pay exit fees if your tariff includes them and you switch supplier more than 49 days before the end date, and none if you move to another ScottishPower tariff, move home and stay with ScottishPower, or ScottishPower ends the agreement.
+        issues: [early_termination_fee]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/support-centre/current-tariff-ending
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: ScottishPower's tariffs page lists Cap Tracker Dec 2027 with a "£50 exit fee per fuel" and Standard Variable with no exit fees, and says customers can switch between ScottishPower tariffs at any time without exit fees. Check your own tariff for its fee.
+        issues: [early_termination_fee]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/our-tariffs
+        last_verified: 2026-11-19
+
+  - issue: payment_assistance
+    summary: Contact ScottishPower early for a payment plan, get free debt advice, and apply for the Hardship Fund (run by Sigma Connected Support) if you are on a low income.
+    evidence: [account number, balance owed, income and outgoings, benefit letters (for example DWP), debt advice reference]
+    steps:
+      - do: Tell ScottishPower as soon as possible that you are struggling; ask for an affordable instalment plan.
+        channel: affordability-phone
+      - do: Get free debt advice, for example from StepChange (0800 138 1111) or National Debtline (0808 808 4000).
+        regulator: uk-citizens-advice
+      - do: Apply to the ScottishPower Hardship Fund through Sigma Connected Support with evidence of hardship.
+        channel: hardship-fund-apply
+      - do: Check whether you qualify for the Warm Home Discount and join the Priority Services Register if eligible.
+        channel: priority-services-register
+    facts:
+      - kind: policy
+        claim: ScottishPower says you must pay by Direct Debit or Pay As You Go before it can set up an affordable instalment plan for an outstanding balance.
+        issues: [payment_assistance]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/support-centre/help-paying-your-bill
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: The ScottishPower Hardship Fund can clear or reduce arrears by crediting the energy account. ScottishPower lists income-related ESA, income-based JSA, Income Support, Housing Benefit, Universal Credit, Child Tax Credits, Working Tax Credits and Pension Credit Savings Credit, and also low household income or special circumstances; terms are subject to change.
+        issues: [payment_assistance]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/support-centre/help-paying-your-bill/hardship-fund
+        last_verified: 2026-11-19
+      - kind: process
+        claim: To apply to the Hardship Fund, ScottishPower says first contact a recognised debt advice agency, then apply to Sigma Connected Support online or on 0121 285 2595 (Monday to Friday, 8.00am to 5pm). Awards are paid once you commit to a payment arrangement for ongoing energy use.
+        issues: [payment_assistance]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/support-centre/help-paying-your-bill/hardship-fund
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: ScottishPower says the Warm Home Discount may give eligible customers a one-off £150 discount off the electricity bill.
+        issues: [payment_assistance]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/support-centre/help-paying-your-bill
+        last_verified: 2026-11-19
+
+  - issue: disconnection
+    summary: On Pay As You Go, use friendly credit hours, emergency credit (below £1) or a credit advance in the app; if off supply with a suspected meter fault, call ScottishPower.
+    evidence: [meter type (smart or traditional), top-up history, debt recovery rate, time supply went off]
+    steps:
+      - do: Check there is credit on the meter; if it shows less than £1, activate emergency credit.
+      - do: If you have a smart meter and are at risk of going off supply, request a credit advance in the app.
+        channel: app-ios
+      - do: If the app does not help or you have a traditional meter, call ScottishPower (Monday to Friday, 9am to 5pm).
+        channel: customer-service-phone
+      - do: If you are off supply and suspect a meter fault outside normal hours, call the out-of-hours line.
+        channel: off-supply-meter-fault-phone
+      - do: If it is not practicable for you to use a prepayment meter, join the Priority Services Register and ask for it to be moved or removed free of charge.
+        channel: priority-services-register
+    facts:
+      - kind: policy
+        claim: ScottishPower's friendly credit hours keep supply on if you run out of credit, provided there was credit at the start. Traditional electricity meters - 6pm to 11am Monday to Saturday and all day Sunday, all year. Smart prepayment meters - 6pm to 11am (November to March) or 7pm to 12pm (April to October) Monday to Saturday and all day Sunday. Not available on traditional gas prepayment meters; credit used must be paid back.
+        issues: [disconnection]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/affordability
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Emergency credit can be activated when the meter shows less than £1 and must be repaid at the next top-up. Smart meter customers at risk of going off supply can request a credit advance in the app, repaid at a repayment rate; ScottishPower is introducing a yearly limit on credit advances.
+        issues: [disconnection, payment_assistance]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/affordability
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: For Priority Services Register customers, if it is not practicable to keep operating a prepayment meter, ScottishPower says it will move or remove it free of charge.
+        issues: [disconnection]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/support-centre/priority-service-register
+        last_verified: 2026-11-19
+
+  - issue: service_outage
+    summary: Power cuts and damaged lines go to the network operator on 105, gas leaks to 0800 111 999. ScottishPower (the supplier) handles Pay As You Go meter faults.
+    evidence: [time the power went off, whether neighbours are affected, network operator reference number]
+    steps:
+      - do: Check whether neighbours and street lights are off. If only your home is affected, check the trip switch; if it keeps tripping, call an electrician.
+      - do: Report a power cut, or damage to power lines or substations, on 105.
+        channel: power-cut-105
+      - do: If you smell gas, call the national gas emergency number immediately.
+        channel: gas-emergency-phone
+      - do: If you are on Pay As You Go and it is not a power cut, check meter credit, then report a suspected meter fault.
+        channel: off-supply-meter-fault-phone
+    facts:
+      - kind: contact
+        claim: ScottishPower's emergency page says to report a power cut, or damage to electricity power lines and substations, by calling 105 from a mobile or landline, and to call the national gas emergency number 0800 111 999 immediately if you smell gas.
+        issues: [service_outage]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/support-centre/emergency
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: For Priority Services Register customers who need power for medical equipment, ScottishPower says it tells the local electricity distribution company, which gives notice of planned outages and prioritises support in an unexpected power cut.
+        issues: [service_outage]
+        verified_via: browser
+        source: https://www.scottishpower.co.uk/support-centre/priority-service-register
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: ScottishPower's complaints process has three stages - contact ScottishPower (web chat, phone, email or post), a dedicated complaint handler, then escalation to the Director Support Team, which aims to respond within 3-5 days.
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/support-centre/complaints
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: ScottishPower says free independent advice is available from the Energy Ombudsman once the complaint has reached or exceeded 56 days of age. If ScottishPower cannot reach agreement it sends its final offer (a deadlock letter), which you can accept or refer to the Ombudsman.
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/support-centre/complaints
+    last_verified: 2026-11-19
+  - kind: process
+    claim: If a complaint is closed but you are not happy with the outcome, ScottishPower says you can ask it to reopen the complaint.
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/support-centre/complaints
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Citizens Advice rated ScottishPower 2.76 out of 5 (12th in its table) for April to June 2026, with 76.4 complaints per 10,000 customers and an average call wait of 1 minute 18 seconds.
+    source: https://www.citizensadvice.org.uk/consumer/your-energy/get-a-better-energy-deal/compare-domestic-energy-suppliers-customer-service/scottishpower/details
+    last_verified: 2026-11-19
+
+known_blockers:
+  - scottishpower.co.uk and its PDF host web-content.scottishpower.co.uk return HTTP 403 to automated fetches; values were read in a browser.
+  - The complaint handling charter PDF linked from the complaints page downloads as a file and was not read.
+  - The Director Support form is protected by reCAPTCHA and needs a complaint reference.
+  - The online refund tool, Priority Services Register application and app need an account sign-in.
+
+notes: >-
+  The file covers ScottishPower's domestic gas and electricity supply in Great Britain (England, Scotland, Wales)
+  only; Northern Ireland has a different regulator. ScottishPower is owned by Iberdrola. The same group runs SP Energy
+  Networks, the electricity network operator in parts of Scotland, North Wales and England; network faults and power
+  cuts go to 105, not to the supplier. Boiler Care and consumer finance complaints have separate routes.
+
+official_domains: [scottishpower.co.uk, scottishpower.com, scottishpower-online.co.uk]
+security:
+  never_asks:
+  - kind: policy
+    claim: ScottishPower's phishing page tells customers never to disclose bank or credit card PINs, online or telephone banking passwords, or security information.
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/legal/security/phishing
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: ScottishPower says its emails come from @scottishpower.com or @scottishpower-online.co.uk, and its links go to scottishpower.co.uk, campaign.scottishpower-online.co.uk or sms.scottishpower.co.uk.
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/legal/security/phishing
+    last_verified: 2026-11-19
+  known_scams:
+  - kind: policy
+    claim: ScottishPower warns of phishing by email, SMS and social media that redirects to fraudulent websites, using excuses such as urgent updates, parcels to collect, last-payment notices or a bank asking you to change your password. Be suspicious of urgency or offers that sound too good to be true.
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/legal/security/phishing
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: ScottishPower says that if you get a suspicious call claiming to be from a trusted service provider, hang up and check with the provider yourself.
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/legal/security/phishing
+    last_verified: 2026-11-19
+  report_phishing:
+  - id: action-fraud
+    type: web_form
+    label: Report fraud to Action Fraud (linked from ScottishPower's phishing page)
+    value: https://www.actionfraud.police.uk
+    verified_via: browser
+    source: https://www.scottishpower.co.uk/legal/security/phishing
+    last_verified: 2026-11-19

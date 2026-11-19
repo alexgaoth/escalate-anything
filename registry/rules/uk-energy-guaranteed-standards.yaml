@@ -1,0 +1,166 @@
+id: uk-energy-guaranteed-standards
+title: Energy Guaranteed Standards of Performance (fixed compensation from suppliers and network operators)
+citation: >-
+  Electricity and Gas (Standards of Performance) (Suppliers) Regulations 2015 (SI 2015/1544) as amended by SI 2019/218,
+  2020/116, 2024/108, 2024/1166 and 2026/73; Electricity (Standards of Performance) Regulations 2015 (SI 2015/699) as
+  amended by SI 2023/887 and 2024/984; Ofgem letter of 13 March 2026 on 2026/27 payment amounts
+jurisdiction: gb
+status: in_effect
+applies_to:
+  sectors: [utility]
+  issues: [slamming, cancel_service, refund_request, service_outage, poor_service]
+summary: >-
+  Energy suppliers and electricity network operators must pay fixed amounts when they miss set service standards.
+  Suppliers pay GBP 40 per failure (for example a switch not done in 5 working days, a final bill later than 6 weeks, a
+  credit refund later than 10 working days after the final bill, a missed appointment, or a slow response to a faulty
+  prepayment meter), within 10 working days, plus another GBP 40 if they pay late. Electricity network operators pay for
+  long power cuts and for missing notice of planned cuts; from 1 April 2026 a home gets GBP 100 when power is not back
+  within 12 hours (24 hours if 5,000 or more homes are off), plus GBP 45 for each further 12 hours. Network amounts rise
+  with inflation every April.
+points:
+  - kind: compensation
+    claim: >-
+      Supplier standards: for each failure to meet a standard the supplier must pay GBP 40 to the customer within 10
+      working days of the failure. If it does not pay on time, it owes an additional GBP 40. The GBP 40 amounts were
+      substituted with effect from 2 January 2025 by SI 2024/1166.
+    issues: [refund_request, poor_service]
+    source: https://www.legislation.gov.uk/uksi/2015/1544/regulation/8
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Switching (regulation 6ZA): the new supplier must complete a requested switch within 5 working days of having
+      enough information to confirm your identity and meter point (6 working days if you signed after 5pm), or on a later
+      date you asked for. Prepayment customers moving debt get up to 15 working days after the debt assignment is
+      agreed, and no later than 32 working days. Ofgem says the GBP 40 for a late switch is paid automatically into your
+      energy account or bank account.
+    issues: [cancel_service]
+    source: https://www.legislation.gov.uk/uksi/2015/1544/regulation/6ZA
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Switched without agreement (regulations 6A to 6C): within 20 working days of your report the old and new
+      suppliers must agree whether the switch was erroneous, and the supplier you told must write to you confirming you
+      will go back or giving the outcome. The old supplier must take you back within 21 working days of that agreement.
+      Each missed standard triggers the GBP 40 payment.
+    issues: [slamming]
+    source: https://www.legislation.gov.uk/uksi/2015/1544/regulation/6C
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Ofgem's switching page: if you were switched without permission, contact your old supplier for GBP 40, paid by
+      cheque or into your bank account within 10 working days of agreeing the mistake. Further GBP 40 payments apply if
+      a supplier takes more than 20 working days to reply, if the suppliers take more than 20 working days to agree, or
+      if the old supplier takes more than 21 working days to take you back.
+    issues: [slamming]
+    source: https://www.ofgem.gov.uk/your-energy-supply/how-manage-your-energy-supply/switch-your-home-energy-supplier
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Final bill (regulation 6CA): when you switch or the supply ends, the old supplier must send the final bill within
+      6 weeks of no longer being responsible for the supply.
+    issues: [cancel_service]
+    source: https://www.legislation.gov.uk/uksi/2015/1544/regulation/6CA
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Credit refund (regulation 6D): the supplier must refund any credit balance within 10 working days of issuing the
+      final bill or corrected final bill; a cheque must be sent in time to arrive within those 10 working days.
+    issues: [refund_request, cancel_service]
+    source: https://www.legislation.gov.uk/uksi/2015/1544/regulation/6D
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Appointments (regulation 3): the supplier must offer an appointment within a reasonable time, in a slot of no more
+      than 4 hours in working hours, keep it, and not rearrange it less than 1 working day before without your express
+      agreement. Since 23 February 2026 a first smart meter appointment must be within 30 working days of the request
+      (60 for microbusinesses).
+    issues: [poor_service]
+    source: https://www.legislation.gov.uk/uksi/2015/1544/regulation/3
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Faulty prepayment meter (regulation 5): after you report the fault, the supplier must arrive or start the work
+      remotely within 3 hours on a working day, or 4 hours on any other day.
+    issues: [service_outage]
+    source: https://www.legislation.gov.uk/uksi/2015/1544/regulation/5
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Supplier exemptions (regulation 9): no payment where there is a genuine dispute about it, the request was
+      frivolous or vexatious, the customer gave a wrong address, or events such as severe weather made the standard not
+      reasonably practicable; only one payment is due for a continuing failure.
+    source: https://www.legislation.gov.uk/uksi/2015/1544/regulation/9
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Power cut, normal weather (from 1 April 2026): if supply is not restored within 12 hours (fewer than 5,000
+      premises off) or 24 hours (5,000 or more), the network operator pays GBP 100 to a home or GBP 195 to a business,
+      plus GBP 45 for each further 12 hours. No cap when fewer than 5,000 are off; a GBP 400 cap when 5,000 or more are
+      off. Previous amounts: GBP 95, GBP 190 and a GBP 390 cap.
+    issues: [service_outage]
+    source: https://www.ofgem.gov.uk/sites/default/files/2026-03/Guaranteed%20Standards%20of%20Performance%20payment%20update%202026.pdf
+    verified_via: document
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Power cut, severe weather (from 1 April 2026): if supply is not restored within 24 hours (category 1) or 48 hours
+      (category 2), the payment is GBP 90, plus GBP 45 for each further 6 hours, capped at GBP 2,235 (previously GBP 85
+      and GBP 2,165). The letter's table lists 6-hour periods; legislation.gov.uk shows regulation 7 of SI 2015/699
+      changed to 6 hours by SI 2023/887 (category 1) and SI 2024/984 (category 2).
+    issues: [service_outage]
+    source: https://www.ofgem.gov.uk/sites/default/files/2026-03/Guaranteed%20Standards%20of%20Performance%20payment%20update%202026.pdf
+    verified_via: document
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Other electricity network standards (from 1 April 2026): planned cut without at least 2 days' notice, or on a
+      different day, GBP 40 for homes and GBP 80 for businesses; fuse not attended within 3 hours on a working day or
+      4 hours on other days, GBP 40; four cuts of at least 3 hours each in a year, GBP 100; missed timed appointment
+      or voltage complaint standards, GBP 40; payment not made within 10 working days, GBP 40.
+    issues: [service_outage]
+    source: https://www.ofgem.gov.uk/sites/default/files/2026-03/Guaranteed%20Standards%20of%20Performance%20payment%20update%202026.pdf
+    verified_via: document
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Ofgem: the network operator pays power cut compensation automatically if it has your bank details. For the
+      multiple-interruptions payment you must claim from your local network operator. If a payment has not arrived
+      after a few months, contact the network operator; it may owe you an extra GBP 40.
+    issues: [service_outage]
+    source: https://www.ofgem.gov.uk/your-energy-supply/problems-your-energy-supply/check-if-you-can-get-payment-power-cut
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Since 31 July 2023 the electricity network payment amounts rise each April with the January CPIH index, rounded
+      to the nearest GBP 5. For 2026/27 the CPIH change was 3.2% and the new amounts apply from 1 April 2026.
+    source: https://www.ofgem.gov.uk/guidance/adjustments-guaranteed-standards-performance-2026
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Gas network cuts (Ofgem consumer page only, not checked against the gas regulations): 7 working days' notice of
+      planned work or GBP 40 extra; homes GBP 50 for a planned cut and GBP 70 extra for each further 24 hours of an
+      unplanned cut; businesses GBP 120.
+    issues: [service_outage]
+    source: https://www.ofgem.gov.uk/your-energy-supply/problems-your-energy-supply/check-if-you-can-get-payment-power-cut
+    verified_via: page
+    last_verified: 2026-11-19
+status_note: >-
+  In force. Supplier amounts are GBP 40 under regulation 8 as amended from 2 January 2025; older supplier pages may still
+  show GBP 30. Network amounts are from Ofgem's letter of 13 March 2026 (in force from 1 April 2026 for 2026/27) and
+  will change again in April 2027. One disagreement: Ofgem's consumer page says the multiple-interruptions payment is for
+  power going off "more than 4 times" between 1 April and 31 March, but the 13 March 2026 letter quotes regulation 10(4)
+  as four interruptions of at least 3 hours in a relevant year; the letter cites the regulation and is dated, so prefer
+  it. The gas network amounts come only from Ofgem's consumer page.
+source: https://www.ofgem.gov.uk/your-energy-supply/problems-your-energy-supply/check-if-you-can-get-payment-power-cut
+last_verified: 2026-11-19

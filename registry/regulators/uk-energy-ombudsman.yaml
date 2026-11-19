@@ -1,0 +1,170 @@
+id: uk-energy-ombudsman
+name: Energy Ombudsman (Trust Alliance Group, Ofgem-approved ADR scheme)
+short_name: Energy Ombudsman
+level: ombudsman
+country: gb
+covers_sectors: [utility]
+covers_issues:
+  - billing_error
+  - refund_request
+  - slamming
+  - cancel_service
+  - disconnection
+  - service_outage
+  - poor_service
+website: https://www.energyombudsman.org
+when_to_use: >-
+  Use for a gas or electricity dispute in Great Britain after you complained to the energy supplier (or network
+  operator) first. You can go to the Energy Ombudsman when 8 weeks have passed without a solution, or earlier if the
+  company sends a deadlock letter. Escalate within 12 months of the deadlock letter. The service is free. If you accept
+  the decision, the company must do what it says; if you do not accept it, you can still go to court.
+
+channels:
+  - id: raise-dispute
+    type: web_form
+    label: Raise a dispute online
+    value: https://www.energyombudsman.org/raise-dispute
+    purposes: [billing_error, refund_request, slamming, cancel_service, disconnection, service_outage, poor_service]
+    notes: >-
+      Search for your supplier by name to start. The page does not say whether you must create an account; existing
+      cases use the sign-in at case.ombudsman-services.org. If you cannot find the company, it may not be a member.
+    verified_via: page
+    source: https://www.energyombudsman.org/raise-dispute
+    last_verified: 2026-11-19
+  - id: phone
+    type: phone
+    label: Energy Ombudsman phone (0330 440 1624)
+    value: +44-330-440-1624
+    hours: Monday to Friday 8am to 6pm; closed weekends and bank holidays
+    purposes: [billing_error, refund_request, slamming, cancel_service, disconnection, service_outage, poor_service]
+    notes: >-
+      The process page says you can register a dispute by website, post, email or phone. For a heat network dispute,
+      press option 3. If you have an open case, speak to your Dispute Resolution Executive directly.
+    verified_via: page
+    source: https://www.energyombudsman.org/contact-us
+    last_verified: 2026-11-19
+  - id: email
+    type: email
+    label: Energy Ombudsman enquiries email
+    value: enquiry@energyombudsman.org
+    notes: Listed on the contact page and on Ofgem's complaints page.
+    verified_via: page
+    source: https://www.energyombudsman.org/contact-us
+    last_verified: 2026-11-19
+  - id: post
+    type: mail
+    label: Energy Ombudsman by post
+    value: Energy Ombudsman, P.O. Box 966, Warrington WA4 9DF
+    notes: Postal address from the contact page. The registered office (3300 Daresbury Park, Warrington WA4 4HS) is not a complaints address.
+    verified_via: page
+    source: https://www.energyombudsman.org/contact-us
+    last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: >-
+      Complain to the energy company first. You can register a dispute with the Energy Ombudsman when you have a final
+      or deadlock letter, or after 8 weeks without a solution.
+    source: https://www.energyombudsman.org/our-process
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      The supplier has 8 weeks to resolve the dispute, unless it sends a deadlock letter that lets you come to the
+      Energy Ombudsman sooner. You must escalate within 12 months of receiving the deadlock letter.
+    source: https://www.energyombudsman.org/faqs
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Terms of Reference 7.1(a): the Ombudsman does not accept a complaint not submitted within 12 months of the
+      company's notice or deadlock letter. Under 7.4 it may accept a later complaint for exceptional reasons.
+    source: https://www.energyombudsman.org/terms-of-reference/terms-of-reference-post-2015
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Citizens Advice says you must complain to the Energy Ombudsman within 12 months of the supplier's decision; if the
+      supplier never gave a decision you may have longer, but complain as soon as you can.
+    source: https://www.citizensadvice.org.uk/consumer/energy/energy-supply/complain-about-an-energy-company/complain-to-the-energy-ombudsman/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: fee
+    claim: The Energy Ombudsman says its service is free to consumers looking to resolve energy disputes.
+    source: https://www.energyombudsman.org/faqs
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Remedies under Terms of Reference 10.3: an apology or explanation, a financial award up to the limit in the sector
+      annex, or other practical action of direct benefit to you.
+    source: https://www.energyombudsman.org/terms-of-reference/terms-of-reference-post-2015
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      The home page lists practical action (such as crediting or cancelling an account, or changing a tariff), an
+      apology, a financial award, or a mix, plus recommendations to stop the problem happening again. It says the
+      Ombudsman cannot punish companies, dictate how they operate or issue fines.
+    source: https://www.energyombudsman.org/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      The energy sector annex limits an award to GBP 10,000 (including VAT) per complaint for domestic customers, and
+      GBP 20,000 for small business consumers with a complaint against an energy supplier.
+    source: https://www.energyombudsman.org/terms-of-reference/terms-of-reference-energy-sector
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Typical awards are small: the process page says a typical financial award is GBP 50 to 100, and the FAQ says the
+      most common award is around GBP 50 (a "time and trouble" award).
+    source: https://www.energyombudsman.org/our-process
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      A final decision binds you and the company only if you accept it within 14 calendar days of the decision (the
+      Ombudsman can allow longer). The company must then provide the remedy within 28 calendar days of the Ombudsman's
+      notification. If you reject the decision it does not bind you, and you can take other action such as court.
+    source: https://www.energyombudsman.org/terms-of-reference/terms-of-reference-post-2015
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      After registration the company may offer a fix first (Facilitated Complaints Resolution). If you do not accept it,
+      send your evidence within 14 days. The Ombudsman aims to decide in about 6 weeks; complex cases can take longer.
+      Useful evidence: records of contact with the company (dates, names), meter readings, bills and bank statements.
+    source: https://www.energyombudsman.org/our-process
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      For energy suppliers it handles disputes about gas and electricity bills, smart meters, Feed-in Tariffs, customer
+      service, problems after switching supplier, how a product was sold (including doorstep sales) and the supply of
+      energy to a home. It does not handle a company's commercial decision on whether to offer a product or service, or
+      LPG.
+    source: https://www.energyombudsman.org/how-we-can-help/energy-suppliers
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      It also covers network operators (loss of service, connection or repair problems), energy brokers, Green Deal
+      providers, heat networks (from 1 April 2025) and some flexibility service providers (from 8 January 2026).
+    source: https://www.energyombudsman.org/how-we-can-help
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Energy Ombudsman Limited (company 14029367) is part of Trust Alliance Group. It says it is approved by Ofgem to
+      provide alternative dispute resolution for energy suppliers and energy networks.
+    source: https://www.energyombudsman.org/about-us/company-information
+    verified_via: page
+    last_verified: 2026-11-19
+
+notes: >-
+  Run by Energy Ombudsman Limited, part of Trust Alliance Group (the site does not use the name Ombudsman Services, but
+  case sign-in is still at case.ombudsman-services.org). Covers Great Britain. Ofgem does not handle individual
+  complaints and sends people here after 8 weeks or a deadlock letter. All values read from energyombudsman.org,
+  citizensadvice.org.uk and ofgem.gov.uk pages on 2026-11-19.

@@ -1,0 +1,517 @@
+id: eon-next
+name: E.ON Next
+aliases: [E.ON, E.ON Energy, EON Next, Eon Next, EON, E.ON Next Energy Limited]
+sector: utility
+countries: [gb]
+parent: E.ON UK (E.ON SE group)
+website: https://www.eonnext.com
+account_url: https://www.eonnext.com/dashboard/login
+regulators: [uk-ofgem, uk-energy-ombudsman, uk-citizens-advice]
+notes: >-
+  E.ON Next is the brand of E.ON Next Energy Limited (Reg. No. 03782443, Trinity House, 2 Burton Street,
+  Nottingham NG1 4BX), part of the E.ON group. This file covers residential gas and electricity supply in
+  Great Britain (England, Scotland and Wales) only; Northern Ireland has a different energy regulator and is
+  not covered. E.ON moved its home energy customers to E.ON Next: the "Joining us from E.ON" help page says
+  all E.ON home and small-to-medium business energy customers get an E.ON Next account and are then supplied
+  by E.ON Next Energy Limited, and Kraken (E.ON Next's platform) says 5.8M customers moved between June 2020
+  and June 2022 (https://www.kraken.tech/case-studies/eon-next). The old eonenergy.com login page tells moved
+  customers to log in at E.ON Next (search snippet; eonenergy.com blocks automated reading). So "E.ON" is an
+  alias here. eonenergy.com is still an E.ON UK site (E.ON Next's privacy policy is there). eon.co.uk is NOT
+  E.ON; it is EON Productions, a film company. Former npower home customers were all moved to E.ON Next and
+  npower stopped trading as a residential and SME supplier (npower Business Solutions still serves large
+  businesses). Sainsbury's Energy is supplied by E.ON Next Energy Limited but has its own website and
+  support, so it is not covered here. E.ON Next's complaints procedure says "final offer letter"; its terms
+  (clause 8.4) call the same letter a "deadlock letter".
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: E.ON Next home customer service and complaints (0808 501 5200)
+    value: +44-808-501-5200
+    purposes: [billing_error, bill_increase, payment_assistance, refund_request, cancel_service, slamming, disconnection, poor_service]
+    hours: "Mon-Thu 9am-5pm, Fri 9am-4pm"
+    notes: Text relay users dial 18001 first. The contact page does not state the call cost. Business customers use 0808 501 5699.
+    source: https://www.eonnext.com/contact
+    last_verified: 2026-11-19
+  - id: whatsapp
+    type: chat
+    label: E.ON Next on WhatsApp (0808 501 5200)
+    value: https://api.whatsapp.com/send?phone=448085015200
+    purposes: [billing_error, payment_assistance, refund_request, poor_service]
+    hours: "8am-10pm, 7 days a week"
+    notes: The complaints procedure says you can send a message 24/7 and E.ON Next answers 8am-10pm every day.
+    source: https://www.eonnext.com/policies/struggling-to-pay
+    last_verified: 2026-11-19
+  - id: general-email
+    type: email
+    label: E.ON Next home customer email
+    value: hi@eonnext.com
+    purposes: [billing_error, bill_increase, payment_assistance, refund_request, cancel_service]
+    notes: E.ON Next says to email this address to ask for a refund of credit and to join the Priority Services Register.
+    source: https://www.eonnext.com/contact
+    last_verified: 2026-11-19
+  - id: complaints-email
+    type: email
+    label: E.ON Next complaints email
+    value: unhappy@eonnext.com
+    purposes: [billing_error, refund_request, slamming, poor_service]
+    notes: The complaints handling procedure (PDF, updated 8 May 2026) says emails are answered 8am-10pm every day.
+    source: https://www.eonnext.com/unhappy
+    last_verified: 2026-11-19
+  - id: ceo-second-opinion
+    type: email
+    label: Second opinion on a complaint (ceo@eonnext.com)
+    value: ceo@eonnext.com
+    purposes: [billing_error, refund_request, slamming, poor_service]
+    notes: The complaints procedure says to use this if your complaint is not being addressed appropriately; an expert or manager reviews it and agrees how and when to update you.
+    source: https://www.eonnext.com/unhappy
+    last_verified: 2026-11-19
+  - id: complaints-mail
+    type: mail
+    label: E.ON Next by post
+    value: "E.ON Next, Trinity House, 2 Burton Street, Nottingham, NG1 4BX"
+    purposes: [billing_error, poor_service]
+    notes: The complaints page says complaints can be sent by letter to this address. It is also the registered office.
+    source: https://www.eonnext.com/unhappy
+    last_verified: 2026-11-19
+  - id: out-of-hours-emergency
+    type: phone
+    label: Out-of-hours line for prepayment or credit meter emergencies (0808 501 5088)
+    value: +44-808-501-5088
+    purposes: [disconnection]
+    hours: "After 5pm and at weekends"
+    source: https://www.eonnext.com/help/emergencies
+    last_verified: 2026-11-19
+  - id: online-account
+    type: portal
+    label: E.ON Next online account (bills, meter readings, Direct Debit, payments, extra help)
+    value: https://www.eonnext.com/dashboard/login
+    purposes: [billing_error, bill_increase, refund_request, payment_assistance]
+    access: login
+    source: https://www.eonnext.com/help/billing-and-payments
+    last_verified: 2026-11-19
+  - id: eon-next-app
+    type: app
+    label: E.ON Next app
+    value: https://www.eonnext.com/app
+    access: login
+    source: https://www.eonnext.com/help/spayg
+    last_verified: 2026-11-19
+  - id: move-out-form
+    type: web_form
+    label: Tell E.ON Next you are moving out ("Start my move out")
+    value: https://www.eonnext.com/moving-home/moving-out
+    purposes: [cancel_service, refund_request]
+    notes: Not tested. Send final meter readings and your forwarding address.
+    source: https://www.eonnext.com/help/moving-home
+    last_verified: 2026-11-19
+  - id: extra-help
+    type: portal
+    label: Get extra help and join the Priority Services Register
+    value: https://www.eonnext.com/extra-help
+    purposes: [payment_assistance, disconnection]
+    access: open
+    notes: Join or update the register in your online account at any time, or email hi@eonnext.com.
+    source: https://www.eonnext.com/extra-help
+    last_verified: 2026-11-19
+  - id: energy-fund
+    type: web_form
+    label: E.ON Next Energy Fund application (run by Charis)
+    value: https://eonnextenergyfund.charisgrants.com/
+    purposes: [payment_assistance, disconnection]
+    notes: Grants for energy bill arrears and replacement appliances, for customers in financial hardship. The fund recommends money advice before applying.
+    source: https://www.eonnext.com/energy/guides/energy-fund
+    last_verified: 2026-11-19
+  - id: support-finder
+    type: web_form
+    label: Lightning Reach support finder (grants, benefits and bill help, for E.ON Next customers)
+    value: https://www.lightningreach.org/eon-next-web
+    purposes: [payment_assistance]
+    notes: E.ON Next says Lightning Reach checks you against over 2500 support schemes after you complete a profile.
+    source: https://www.eonnext.com/policies/struggling-to-pay
+    last_verified: 2026-11-19
+  - id: community-forum
+    type: social
+    label: E.ON Next Community forum
+    value: https://community.eonnext.com/index.php
+    access: login
+    notes: Posting needs an account.
+    source: https://www.eonnext.com/contact
+    last_verified: 2026-11-19
+  - id: power-cut-105
+    type: phone
+    label: Power cut (105, your local network operator, not E.ON Next)
+    value: "105"
+    purposes: [service_outage]
+    source: https://www.eonnext.com/help/emergencies
+    last_verified: 2026-11-19
+  - id: gas-emergency
+    type: phone
+    label: National Gas Emergency Helpline (0800 111 999)
+    value: +44-800-111-999
+    notes: Call at once if you smell gas or think there is a leak or carbon monoxide. Call 999 if a meter is sparking or on fire.
+    source: https://www.eonnext.com/help/emergencies
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: complaints-email, note: "An Energy Specialist owns the complaint from start to finish. E.ON Next aims to resolve most complaints straight away and may offer compensation in appropriate circumstances."}
+  - {rung: executive, channel: ceo-second-opinion, note: "Step 2 of E.ON Next's complaints procedure: if the complaint is not being addressed appropriately, email ceo@eonnext.com for a second opinion from an expert or manager."}
+  - {rung: regulator, regulator: uk-citizens-advice, note: "Free independent advice. England and Wales: Citizens Advice 0808 223 1133 (Relay UK 18001 then 0808 223 1133; Welsh 0808 223 1144). Scotland: Advice Direct Scotland 0808 196 8660. Both can refer you to the Extra Help Unit."}
+  - {rung: regulator, regulator: uk-energy-ombudsman, note: "When E.ON Next has not resolved the complaint within 8 weeks, or earlier if it sent a final offer letter (its name for a deadlock letter). Free; if you accept the decision, E.ON Next must act on it. 0330 440 1624, enquiry@energyombudsman.org, PO Box 966, Warrington WA4 9DF."}
+  - {rung: regulator, regulator: uk-ofgem, note: "Reporting only. Ofgem does not resolve individual complaints."}
+
+playbooks:
+  - issue: billing_error
+    summary: Check whether the bill is estimated and send a meter reading; if it is still wrong, complain to unhappy@eonnext.com, ask ceo@eonnext.com for a second opinion, then go to the Energy Ombudsman after 8 weeks or a final offer letter. E.ON Next's terms bar charges for energy used more than 12 months ago in most cases.
+    evidence: [the disputed bill, account number, meter readings with dated photos, earlier bills, notes of calls and WhatsApp messages with dates]
+    steps:
+      - do: Check whether the bill used your actual readings or an estimate. If it is estimated, send a meter reading in your online account so E.ON Next updates the bill.
+        channel: online-account
+      - do: If the bill is still wrong, complain in writing and ask for a correction. Keep paying for the energy you use while the complaint runs.
+        channel: complaints-email
+      - do: If the bill charges for energy used more than 12 months ago, cite clauses 3.5 and 4.4.4 of E.ON Next's residential terms and ask E.ON Next to remove those charges.
+        channel: complaints-email
+      - do: If the complaint is not being addressed appropriately, ask for a second opinion.
+        channel: ceo-second-opinion
+      - do: Get free advice from Citizens Advice (or Advice Direct Scotland).
+        regulator: uk-citizens-advice
+      - do: After 8 weeks, or once E.ON Next sends a final offer letter, take the complaint to the Energy Ombudsman.
+        regulator: uk-energy-ombudsman
+    facts:
+      - kind: deadline
+        claim: E.ON Next says you can contact the Energy Ombudsman if it has sent you a final offer letter or has not resolved your complaint within 8 weeks.
+        issues: [billing_error, refund_request, slamming]
+        source: https://www.eonnext.com/unhappy
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: E.ON Next's residential terms (last updated 24 June 2025) say it won't ask for payment for any charges for supply of energy that could reasonably relate to more than 12 months ago, unless the customer behaved unreasonably or prevented it from getting information (clause 3.5). Clause 4.4.4 says it will not try to recover charges older than 12 months unless it already tried to recover them or the customer behaved obstructively or unreasonably.
+        issues: [billing_error]
+        source: https://www.eonnext.com/policies/terms-and-conditions
+        last_verified: 2026-11-19
+      - kind: process
+        claim: E.ON Next's complaints procedure says an Energy Specialist takes ownership of the complaint, E.ON Next will say sorry, offer an explanation and fix mistakes, and may offer compensation in appropriate circumstances. It asks customers to keep paying for the energy they use while a complaint is open.
+        issues: [billing_error]
+        verified_via: document
+        source: https://assets.ctfassets.net/gmgnreshss7h/41HJceP7FMitgqtwJumLqY/7fab06c656d2b3942bda58f448d9d444/CHP-Updated_08052026.pdf
+        last_verified: 2026-11-19
+      - kind: process
+        claim: If the customer accepts the Energy Ombudsman's decision, E.ON Next must act on it, which may mean an apology, an explanation, correcting the problem or a financial award. The customer does not have to accept the decision.
+        issues: [billing_error]
+        verified_via: document
+        source: https://assets.ctfassets.net/gmgnreshss7h/41HJceP7FMitgqtwJumLqY/7fab06c656d2b3942bda58f448d9d444/CHP-Updated_08052026.pdf
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: E.ON Next says that if you don't pay your balance within two months, it issues a default notice, and if you don't contact it by the due date it reports the account to credit reference agencies as defaulted.
+        issues: [billing_error, payment_assistance]
+        source: https://www.eonnext.com/help/billing-and-payments
+        last_verified: 2026-11-19
+
+  - issue: bill_increase
+    summary: Variable prices follow the Ofgem price cap, and E.ON Next gives at least 30 days' notice of a change. Fixed tariffs end with a renewal offer about 45 days before; if you do nothing you move to the flexible (variable) tariff.
+    evidence: [last bill before the increase, first bill after it, renewal or price change email, tariff end date, Direct Debit change notice]
+    steps:
+      - do: Check whether your fixed tariff ended. E.ON Next contacts you about 45 days before the end date with new options; if you do not choose, you move to the flexible tariff.
+        channel: online-account
+      - do: If a variable price rose, check that you had at least 30 days' notice. If you did not, dispute it as a billing error; otherwise compare E.ON Next's other tariffs or switch supplier.
+        channel: customer-service-phone
+      - do: If only the Direct Debit went up, send a meter reading and ask E.ON Next to review the amount.
+        channel: general-email
+    facts:
+      - kind: deadline
+        claim: E.ON Next says it lets customers know at least 30 days before a change to variable prices, which are affected by the Ofgem price cap that changes every 3 months.
+        issues: [bill_increase]
+        source: https://www.eonnext.com/help/tariffs
+        last_verified: 2026-11-19
+      - kind: process
+        claim: E.ON Next says it contacts customers 45 days before a fixed contract ends with new tariff options, and customers who do not fix again move automatically onto its flexible tariff. Its terms say it contacts customers about six weeks before the end date (clause 11.3.3).
+        issues: [bill_increase]
+        source: https://www.eonnext.com/help/tariffs
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: E.ON Next's terms say that if it raises prices or changes terms in a way that is less favourable, it contacts the customer before the change takes effect. A customer who does not accept can switch to another E.ON Next tariff up to 20 working days after the change is due to start and stays on the old prices and terms until the switch is complete, or can switch supplier (clause 12.2).
+        issues: [bill_increase, cancel_service]
+        source: https://www.eonnext.com/policies/terms-and-conditions
+        last_verified: 2026-11-19
+      - kind: process
+        claim: E.ON Next sets the Direct Debit from 12 months of usage divided into equal payments, plus an amount to build credit for winter. Customers who think they pay too much or too little can ask to change it.
+        issues: [bill_increase]
+        source: https://www.eonnext.com/help/billing-and-payments
+        last_verified: 2026-11-19
+
+  - issue: payment_assistance
+    summary: Contact E.ON Next early for an affordable payment plan with no set-up charges, ask about Breathing Space and the E.ON Next Energy Fund, and get free debt advice.
+    evidence: [current bill and balance, household income and outgoings, benefit letters, any health or disability details for the Priority Services Register]
+    steps:
+      - do: Call, email or WhatsApp E.ON Next and ask for an affordable regular payment plan.
+        channel: customer-service-phone
+      - do: Get free debt advice. E.ON Next lists National Debtline (0808 808 4000), StepChange (0800 138 1111) and Citizens Advice. Ask the debt adviser about Breathing Space, which pauses debt collection.
+        regulator: uk-citizens-advice
+      - do: Apply to the E.ON Next Energy Fund for help with arrears or a replacement appliance.
+        channel: energy-fund
+      - do: Check other grants and benefits with the Lightning Reach support finder.
+        channel: support-finder
+      - do: If you or someone in your home is vulnerable, join the Priority Services Register.
+        channel: extra-help
+    facts:
+      - kind: policy
+        claim: E.ON Next says it can set up an affordable regular payment and won't apply any set-up costs or additional charges when agreeing a payment plan.
+        issues: [payment_assistance]
+        source: https://www.eonnext.com/policies/struggling-to-pay
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: E.ON Next says it can pause debt collection with Breathing Space, which customers can ask a debt advice agency about.
+        issues: [payment_assistance, disconnection]
+        source: https://www.eonnext.com/policies/struggling-to-pay
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: The E.ON Next Energy Fund, managed on E.ON's behalf by Charis, helps customers (including Sainsbury's Energy customers) in financial hardship with grants for energy bills and replacement appliances. Bill grants need a three-month Provisional Award Scheme, and the fund recommends money advice before applying.
+        issues: [payment_assistance]
+        source: https://www.eonnext.com/energy/guides/energy-fund
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: E.ON Next says that if a customer chooses full payment and does not pay within 7 days, it may add additional fees to the account; missed payments can lead to late fees and harm the credit file.
+        issues: [payment_assistance]
+        source: https://www.eonnext.com/policies/struggling-to-pay
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: E.ON Next's residential terms let it charge the costs of collecting overdue payments, including bank charges for failed payments, visits (including by a debt collection agency), getting a Warrant of Entry and installing a meter in prepayment mode (clause 4.8.8), and interest on overdue charges from the date they became overdue (clause 4.8.9).
+        issues: [payment_assistance, disconnection]
+        source: https://www.eonnext.com/policies/terms-and-conditions
+        last_verified: 2026-11-19
+
+  - issue: refund_request
+    summary: To get credit back, send a meter reading (needed within 14 days of the request) and email hi@eonnext.com. When you close the account, E.ON Next must send a final bill within 42 days; after a switch it must refund credit within 10 days of the final bill, or pay £40.
+    evidence: [recent bill based on actual readings, meter readings with dated photos, final bill, switch or move-out date, bank statement]
+    steps:
+      - do: Make sure your latest bill uses actual meter readings. Send a new reading if needed; E.ON Next needs a reading from within 14 days of the request unless it can read a smart meter remotely.
+        channel: online-account
+      - do: Email E.ON Next to ask for a refund of the credit.
+        channel: general-email
+      - do: After a switch or move, check that the final bill arrives within 42 days. After a switch, check that the credit is refunded within 10 days of the final bill (after a move, E.ON Next says about 10 working days). If a guaranteed standard is missed, ask for the £40 payment.
+        channel: complaints-email
+      - do: If E.ON Next does not pay, escalate to the Energy Ombudsman after 8 weeks or a final offer letter.
+        regulator: uk-energy-ombudsman
+    facts:
+      - kind: process
+        claim: E.ON Next's terms say that to get a refund of credit the customer must have provided a meter reading within 14 days of the request, unless they have a remotely readable smart meter (clause 4.4.3).
+        issues: [refund_request]
+        source: https://www.eonnext.com/policies/terms-and-conditions
+        last_verified: 2026-11-19
+      - kind: process
+        claim: E.ON Next says customers who have a recent bill and up-to-date readings can email hi@eonnext.com for a refund, and recommends keeping some credit for winter.
+        issues: [refund_request]
+        source: https://www.eonnext.com/help/billing-and-payments
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: E.ON Next's guaranteed standards say that when you close your account (after a move or a switch) it sends a final bill within 42 days, and after a switch to a new supplier it refunds any credit within 10 days of sending the final (or corrected final) bill. If it breaks a promise, it pays £40 within 10 working days, and another £40 (a Guarantee of Guarantee payment) if that payment is late.
+        issues: [refund_request, cancel_service]
+        source: https://www.eonnext.com/policies/standards-of-service
+        last_verified: 2026-11-19
+      - kind: process
+        claim: E.ON Next's moving home page says it normally takes about 10 working days to refund the account after a move, and longer for large credit balances.
+        issues: [refund_request]
+        source: https://www.eonnext.com/help/moving-home
+        last_verified: 2026-11-19
+
+  - issue: slamming
+    summary: Tell E.ON Next and the other supplier that you did not agree to the switch. E.ON Next must agree the right supplier within 20 working days and switch you back within 21 working days, or pay £40.
+    evidence: [letters or emails about the switch, dates, your previous supplier account number, proof you did not agree a contract]
+    steps:
+      - do: Tell E.ON Next in writing that you were switched without agreeing to it. Ask for an erroneous transfer investigation.
+        channel: complaints-email
+      - do: Tell the other supplier the same thing.
+      - do: Expect an answer within 20 working days and, if the switch was wrong, a switch back within 21 working days. If E.ON Next misses either, ask for £40.
+        channel: complaints-email
+      - do: If not resolved, go to the Energy Ombudsman after 8 weeks or a final offer letter.
+        regulator: uk-energy-ombudsman
+    facts:
+      - kind: deadline
+        claim: E.ON Next's guaranteed standards say that after you tell it about an erroneous transfer, it agrees with the other supplier who should supply you within 20 working days, tells you within 20 working days, and switches you back within 21 working days if the supply should not have been switched.
+        issues: [slamming]
+        source: https://www.eonnext.com/policies/standards-of-service
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: If E.ON Next breaks a guaranteed standard it pays £40 within 10 working days, unless it feels there is a dispute about whether you should get it; payment goes into the energy account, or as a refund if you are no longer a customer.
+        issues: [slamming, refund_request, cancel_service, disconnection]
+        source: https://www.eonnext.com/policies/standards-of-service
+        last_verified: 2026-11-19
+
+  - issue: cancel_service
+    summary: You can switch away at any time; a fixed tariff can carry an exit fee if you switch more than six weeks before its end date. There is a 14-day cooling-off period. E.ON Next can block a switch if you owe money.
+    evidence: [tariff confirmation with end date and exit fee, switch date, final meter readings, final bill]
+    steps:
+      - do: Check your tariff end date and exit fee. E.ON Next's terms allow an exit fee if you switch more than six weeks before the end date.
+        channel: online-account
+      - do: Sign up with the new supplier; it arranges the switch. Within 14 days of agreeing an E.ON Next contract you can change your mind.
+      - do: If you are moving out, tell E.ON Next on the day you move or as soon as you can, with final meter readings and a forwarding address.
+        channel: move-out-form
+      - do: Clear or agree any debt; E.ON Next can object to a switch if you owe money.
+        channel: customer-service-phone
+      - do: Check for a final bill within 42 days and a refund of credit within 10 days of it.
+    facts:
+      - kind: fee
+        claim: E.ON Next's residential terms say it may charge an exit fee if you switch more than six weeks before the end date of a fixed tariff (clause 2.3). Its help page says there are no extra costs for switching between E.ON Next tariffs.
+        issues: [cancel_service, early_termination_fee]
+        source: https://www.eonnext.com/policies/terms-and-conditions
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: Example tariff - Next Pledge, a 12-month fixed term tracker tariff, has a £25 exit fee per fuel if you change supplier, and no exit fee to move to another E.ON Next tariff.
+        issues: [cancel_service, early_termination_fee]
+        source: https://www.eonnext.com/tariffs/next-pledge
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: E.ON Next's terms give a 14-day cooling-off period from when the contract is agreed (clause 2.2.1).
+        issues: [cancel_service, early_termination_fee]
+        source: https://www.eonnext.com/policies/terms-and-conditions
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: E.ON Next's terms say it may object to a switch if you owe it money (clause 2.3). Customers who pay in advance can switch as long as they owe £500 or less for each fuel, if both they and the new supplier agree to move the debt.
+        issues: [cancel_service]
+        source: https://www.eonnext.com/policies/terms-and-conditions
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: E.ON Next's terms say a customer moving out must tell E.ON Next, or it keeps charging until someone else takes over, and must give a final meter reading and a new address within 14 days of the move. E.ON Next aims to send the final bill within six weeks, payable within 14 days (clauses 5.1-5.3).
+        issues: [cancel_service]
+        source: https://www.eonnext.com/policies/terms-and-conditions
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Former E.ON customers who switch away within 30 days of their E.ON Next account being created are not charged any exit fees. A switch attempted while the account is being created may fail.
+        issues: [cancel_service, early_termination_fee]
+        source: https://www.eonnext.com/help/eon-and-eonnext
+        last_verified: 2026-11-19
+
+  - issue: disconnection
+    summary: Contact E.ON Next early. Disconnection for debt is a last resort and a prepayment meter must be the last resort too. Smart Pay As You Go meters have £10 emergency credit per fuel and do not cut off in friendly hours. After a debt disconnection, E.ON Next must reconnect within 24 hours of agreeing to, or pay £40.
+    evidence: [debt letters, account balance, benefit letters, medical or disability details for the Priority Services Register]
+    steps:
+      - do: Contact E.ON Next at once and ask for an affordable payment plan.
+        channel: customer-service-phone
+      - do: If you have no supply out of hours on a prepayment or credit meter, call the out-of-hours line.
+        channel: out-of-hours-emergency
+      - do: On Smart Pay As You Go, use emergency credit when the balance is under £2, and ask whether E.ON Next can give temporary extra credit.
+        channel: customer-service-phone
+      - do: If someone in your home is vulnerable, join the Priority Services Register and tell E.ON Next before any prepayment meter decision.
+        channel: extra-help
+      - do: If E.ON Next disconnected you and agreed to reconnect, expect reconnection within 24 hours or ask for £40.
+        channel: complaints-email
+    facts:
+      - kind: policy
+        claim: E.ON Next's terms say that if you owe money it can disconnect your energy, but only as a last resort (clause 2.6), and it may install a prepayment/PAYG meter or switch a smart meter to PAYG mode to recover debt (clause 4.8.4).
+        issues: [disconnection]
+        source: https://www.eonnext.com/policies/terms-and-conditions
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: E.ON Next says fitting a prepayment meter is a last resort, that it considers circumstances such as illness or disability in the household first, and that it may waive installation costs where vulnerabilities exist or there was a valid reason for not making contact.
+        issues: [disconnection, payment_assistance]
+        source: https://www.eonnext.com/policies/struggling-to-pay
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: On Smart Pay As You Go, customers can activate emergency credit when the balance falls below £2 - £10 for electricity and £10 for gas. Friendly hours, when the meter will not disconnect, are Monday to Friday 4pm-10am, weekends and UK bank holidays. After emergency credit is used, supply disconnects unless the customer tops up.
+        issues: [disconnection]
+        source: https://www.eonnext.com/help/spayg
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: If E.ON Next has agreed to turn a supply back on after disconnecting it, it does so within 24 hours; if it breaks this promise it pays £40.
+        issues: [disconnection]
+        source: https://www.eonnext.com/policies/standards-of-service
+        last_verified: 2026-11-19
+
+  - issue: service_outage
+    summary: Power cuts go to your local network operator on 105, gas leaks to 0800 111 999. E.ON Next handles prepayment and credit meter problems, with an out-of-hours line after 5pm and at weekends.
+    evidence: [start and end times of the power cut, network operator reference number]
+    steps:
+      - do: Check whether neighbours have power. If not, report the power cut to your network operator on 105.
+        channel: power-cut-105
+      - do: If you smell gas, call the National Gas Emergency Helpline at once.
+        channel: gas-emergency
+      - do: If the problem is your prepayment or credit meter, call E.ON Next (out of hours, use the emergency line).
+        channel: out-of-hours-emergency
+    facts:
+      - kind: contact
+        claim: E.ON Next tells customers to contact their distribution network operator, not their electricity supplier, about power cuts, by calling 105.
+        issues: [service_outage]
+        source: https://www.eonnext.com/help/emergencies
+        last_verified: 2026-11-19
+      - kind: contact
+        claim: E.ON Next's out-of-hours line 0808 501 5088 handles prepayment or credit meter emergencies after 5pm and at weekends.
+        issues: [service_outage, disconnection]
+        source: https://www.eonnext.com/help/emergencies
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: E.ON Next's complaints handling procedure (updated 8 May 2026) has three stages - tell E.ON Next (an Energy Specialist owns the complaint), ask ceo@eonnext.com for a second opinion, then the Energy Ombudsman.
+    issues: [billing_error, poor_service]
+    verified_via: document
+    source: https://assets.ctfassets.net/gmgnreshss7h/41HJceP7FMitgqtwJumLqY/7fab06c656d2b3942bda58f448d9d444/CHP-Updated_08052026.pdf
+    last_verified: 2026-11-19
+  - kind: contact
+    claim: E.ON Next's complaints page names the Energy Ombudsman as the free, independent service for unresolved complaints (0330 440 1624, enquiry@energyombudsman.org, PO Box 966, Warrington, WA4 9DF).
+    issues: [billing_error, poor_service]
+    source: https://www.eonnext.com/unhappy
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: E.ON Next's guaranteed standards say it offers an appointment (or explains why not) within 5 working days of a request, completes it within 56 working days (a first smart meter fitting within 8 weeks), replies with a plan within 5 working days of a smart meter fault report, and completes a switch to E.ON Next within 5 working days. Each broken promise pays £40.
+    issues: [poor_service]
+    source: https://www.eonnext.com/policies/standards-of-service
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: E.ON Next's Priority Services Register offers help reading bills, choosing someone to manage the account and receive bills, and a password that staff use to identify themselves. Customers join in their online account or by email to hi@eonnext.com.
+    issues: [payment_assistance, disconnection]
+    source: https://www.eonnext.com/extra-help
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: The old eonenergy.com login page tells customers who have moved to E.ON Next that they can no longer manage their account or submit meter readings there, and should log in via the E.ON Next website. (Seen in a search snippet; eonenergy.com blocks automated reading.)
+    verified_via: search_snippet
+    source: https://eonenergy.com/login?returnUrl=%2Ffor-your-home%2Fyour-account%2Ftop-up%2Fbalance
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: E.ON Next says all former npower customers have been moved to E.ON Next and npower has stopped trading as a residential and SME supplier; it continues as npower Business Solutions for large businesses.
+    source: https://www.eonnext.com/npower-information
+    last_verified: 2026-11-19
+
+known_blockers:
+  - The online account, app, Direct Debit changes and Priority Services Register updates need the account holder to sign in.
+  - E.ON Next lists no live chat or complaint web form; complaints go by phone, WhatsApp, email or post.
+  - eonenergy.com (the old E.ON site) blocks automated reading (HTTP 403).
+  - Many help-page answers sit in FAQ accordions without their own URLs.
+
+official_domains: [eonnext.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: E.ON Next says a phishing email might ask for personal information like bank details or a password, and that it will never ask you to share this information in an email.
+      source: https://www.eonnext.com/policies/staying-safe-online
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: E.ON Next says it will always use an email address that ends in eonnext.com; for example, its marketing emails come from hi@energy.eonnext.com.
+      source: https://www.eonnext.com/policies/staying-safe-online
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: If you are unsure whether a call is from E.ON Next, hang up and call 0808 501 5200. E.ON Next advisors accept a call back if you are not comfortable sharing details.
+      source: https://www.eonnext.com/policies/staying-safe-online
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: Phishing emails imitate normal E.ON Next emails, such as refund notices, and link to fake web pages that collect your details. Warning signs include a sender address not ending in eonnext.com, a generic greeting such as "Dear Sir/Madam", a low-quality logo and poor spelling.
+      source: https://www.eonnext.com/policies/staying-safe-online
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Scam callers pretend to be from the company to get personal details such as bank information.
+      source: https://www.eonnext.com/policies/staying-safe-online
+      last_verified: 2026-11-19
+  report_phishing:
+    - id: report-scam-email
+      type: email
+      label: Report a scam email to E.ON Next (subject "Example of scam email", attach a screenshot)
+      value: hi@eonnext.com
+      source: https://www.eonnext.com/policies/staying-safe-online
+      last_verified: 2026-11-19
+    - id: verify-call
+      type: phone
+      label: Check a call is really from E.ON Next (hang up and call 0808 501 5200)
+      value: +44-808-501-5200
+      source: https://www.eonnext.com/policies/staying-safe-online
+      last_verified: 2026-11-19

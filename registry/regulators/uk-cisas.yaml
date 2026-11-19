@@ -1,0 +1,119 @@
+id: uk-cisas
+name: CISAS - Communications and Internet Services Adjudication Scheme (Ofcom-approved ADR scheme)
+short_name: CISAS
+level: ombudsman
+country: gb
+covers_sectors: [wireless, internet_tv]
+covers_issues:
+  - billing_error
+  - bill_increase
+  - cancel_service
+  - service_outage
+  - equipment_return
+  - poor_service
+  - number_port_out
+  - early_termination_fee
+website: https://www.cedr-assist.com/consumer/cisas/overview/
+when_to_use: >-
+  Use for a phone, mobile, broadband or pay-TV dispute when the provider is a CISAS member. On 2026-11-19 the CISAS list
+  included Sky, NOW, Virgin Media, O2, Vodafone (also for VOXI), Three, SMARTY and TalkTalk Group. Complain to the
+  provider first. You can apply when at least 6 weeks have passed since you first complained, or earlier if you have a
+  deadlock (ADR) letter. CISAS is free for consumers. It does not take claims over GBP 10,000 or cases already in court.
+
+channels:
+  - id: apply-online
+    type: web_form
+    label: CISAS online application
+    value: https://3joav.share-eu1.hsforms.com/2nZMfDXK9QnCPmuZREaYbFg
+    purposes: [billing_error, bill_increase, cancel_service, service_outage, equipment_return, poor_service]
+    notes: >-
+      Linked as "Set up online application" from the CISAS make-a-complaint page (the form is hosted by HubSpot for
+      CEDR). Have ready the date you first complained, any deadlock/ADR letter and its date, contact history with
+      names, the compensation you want and supporting documents (docx, doc, pdf, png, jpg, jpeg, .msg; up to 40MB
+      online, 10MB by email).
+    verified_via: page
+    source: https://www.cedr-assist.com/consumer/cisas/make-a-complaint/
+    last_verified: 2026-11-19
+  - id: make-a-complaint-page
+    type: portal
+    label: CISAS - how to make a complaint (eligibility and what to prepare)
+    value: https://www.cedr-assist.com/consumer/cisas/make-a-complaint/
+    access: open
+    verified_via: page
+    source: https://www.cedr-assist.com/consumer/cisas/make-a-complaint/
+    last_verified: 2026-11-19
+  - id: phone
+    type: phone
+    label: CISAS phone (020 7520 3814)
+    value: +44-20-7520-3814
+    verified_via: page
+    source: https://www.cedr-assist.com/consumer/cisas/overview/
+    last_verified: 2026-11-19
+  - id: email
+    type: email
+    label: CISAS email
+    value: cisas@cedr.com
+    verified_via: page
+    source: https://www.cedr-assist.com/consumer/cisas/overview/
+    last_verified: 2026-11-19
+  - id: post
+    type: mail
+    label: CISAS (CEDR) postal address
+    value: CEDR, 100 St. Paul's Churchyard, London, EC4M 8BU
+    notes: CEDR does not accept walk-ins.
+    verified_via: page
+    source: https://www.cedr-assist.com/consumer/cisas/overview/
+    last_verified: 2026-11-19
+  - id: member-list
+    type: portal
+    label: Companies covered by CISAS
+    value: https://www.cedr-assist.com/consumer/cisas/companies-covered/
+    access: open
+    verified_via: page
+    source: https://www.cedr-assist.com/consumer/cisas/companies-covered/
+    last_verified: 2026-11-19
+
+facts:
+  - kind: policy
+    claim: >-
+      "CISAS is managed independently by Centre for Effective Dispute Resolution (CEDR)" and "CISAS is an Ofcom
+      approved alternative dispute resolution provider." It is free to use.
+    source: https://www.cedr-assist.com/consumer/cisas/overview/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      You can apply if you have already complained to the company and "At least six weeks have passed since you first
+      complained to them or you have received a deadlock/ ADR letter".
+    source: https://www.cedr-assist.com/consumer/cisas/make-a-complaint/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      The complaint must not be the subject of court action and must not exceed GBP 10,000. CISAS excludes complaints
+      about fraud, property damage, discrimination or data protection, and you must be based in the UK (not the
+      Republic of Ireland).
+    source: https://www.cedr-assist.com/consumer/cisas/make-a-complaint/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      If a settlement or award is made, it is applied as a credit to your existing account. CISAS publishes a Guide to
+      Compensation for Inconvenience and Distress to help you decide what to ask for.
+    source: https://www.cedr-assist.com/consumer/cisas/make-a-complaint/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The CISAS list of companies covered includes Sky, NOW, Virgin Media, O2, Vodafone, Three, SMARTY and "TalkTalk Group
+      (including Shell Energy Broadband)". VOXI complaints are filed by selecting Vodafone. BT, EE, giffgaff and
+      Plusnet are not listed as members (EE appears only inside a business reseller's entry).
+    source: https://www.cedr-assist.com/consumer/cisas/companies-covered/
+    verified_via: page
+    last_verified: 2026-11-19
+
+notes: >-
+  CISAS is run by CEDR (Centre for Effective Dispute Resolution). cisas.org.uk did not respond on 2026-11-19 and
+  cedr.com/consumer/cisas redirects to cedr-assist.com. The CISAS pages read on 2026-11-19 do not state a time limit
+  after the deadlock letter, how long decisions take, or how long you have to accept a decision; these are in the CISAS
+  Scheme Rules, which were not read. The Communications Ombudsman is the other Ofcom-approved scheme.

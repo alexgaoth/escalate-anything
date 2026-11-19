@@ -1,0 +1,153 @@
+id: uk-ofcom
+name: Ofcom (UK communications regulator)
+short_name: Ofcom
+level: national
+country: gb
+covers_sectors: [wireless, internet_tv]
+covers_issues:
+  - billing_error
+  - bill_increase
+  - cancel_service
+  - service_outage
+  - poor_service
+website: https://www.ofcom.org.uk
+when_to_use: >-
+  Ofcom does NOT resolve individual complaints about phone, broadband or pay-TV providers. Complain to the provider
+  first; after 6 weeks (complaints first raised on or after 8 April 2026) or a deadlock letter, go to the provider's
+  ADR scheme - the Communications Ombudsman or CISAS - which can order a fix or compensation. Tell Ofcom about the
+  problem as well if you want it on record: Ofcom uses reports to watch for patterns and can investigate and fine
+  providers. Ofcom does handle complaints about premium-rate services (09 and 118 numbers) directly.
+
+channels:
+  - id: helpline
+    type: phone
+    label: Ofcom helpline (0300 123 3333)
+    value: +44-300-123-3333
+    hours: 9.00am to 5pm, Monday to Friday
+    purposes: [billing_error, poor_service]
+    notes: >-
+      Number and hours as printed in Sky's complaints code, in its premium-rate section. Ofcom's own site blocks
+      automated reading, so this was not checked on ofcom.org.uk.
+    verified_via: browser
+    source: https://www.sky.com/help/articles/sky-customer-complaints-code-of-practice/
+    last_verified: 2026-11-19
+  - id: helpline-geographic
+    type: phone
+    label: Ofcom helpline, alternative number (020 7981 3040)
+    value: +44-20-7981-3040
+    hours: 9.00am to 5pm, Monday to Friday
+    notes: Same source as the 0300 number. Not checked on ofcom.org.uk.
+    verified_via: browser
+    source: https://www.sky.com/help/articles/sky-customer-complaints-code-of-practice/
+    last_verified: 2026-11-19
+  - id: helpline-welsh
+    type: phone
+    label: Ofcom helpline in Welsh (0300 123 2023)
+    value: +44-300-123-2023
+    notes: Same source as the 0300 number. Not checked on ofcom.org.uk.
+    verified_via: browser
+    source: https://www.sky.com/help/articles/sky-customer-complaints-code-of-practice/
+    last_verified: 2026-11-19
+  - id: premium-rate-complaint-form
+    type: web_form
+    label: Ofcom premium rate services complaint form
+    value: https://ofcomlive.my.salesforce-sites.com/formentry/PRSComplaints
+    purposes: [billing_error, unauthorized_charge]
+    notes: >-
+      For charges on a phone bill from premium-rate services (for example 09 numbers, 118 directory enquiries,
+      ringtones). Ofcom took over this work from the Phone-paid Services Authority. Link taken from Sky's complaints
+      code.
+    verified_via: browser
+    source: https://www.sky.com/help/articles/sky-customer-complaints-code-of-practice/
+    last_verified: 2026-11-19
+  - id: premium-rate-mail
+    type: mail
+    label: Ofcom premium rate services complaints by post
+    value: PO BOX 1285, Warrington, WA1 9GL
+    notes: Postal address given in Sky's complaints code for premium-rate complaints to Ofcom.
+    verified_via: browser
+    source: https://www.sky.com/help/articles/sky-customer-complaints-code-of-practice/
+    last_verified: 2026-11-19
+  - id: adr-scheme-list
+    type: portal
+    label: Ofcom page that lists which ADR scheme each provider belongs to
+    value: https://www.ofcom.org.uk/phones-and-broadband/service-quality/adr-schemes
+    access: captcha
+    notes: >-
+      The page exists but Ofcom's site shows a "verify you are human" check to automated readers, so its content was
+      not read. Citizens Advice tells consumers to check here which ADR scheme a provider belongs to. The CISAS member
+      list (cedr-assist.com) and each provider's complaints code are readable alternatives.
+    verified_via: search_snippet
+    source: https://www.citizensadvice.org.uk/consumer/phone-internet-downloads-or-tv/dispute-a-phone-internet-or-tv-bill/
+    last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: >-
+      O2's complaints page says: "Ofcom doesn't investigate individual complaints from customers, but they can provide
+      information and advice."
+    source: https://www.o2.co.uk/how-to-complain
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The Communications Ombudsman says it is approved by Ofcom to handle disputes in the communications sector, that
+      it is not the only ADR provider, and that if your provider is not on its list you may need to contact CISAS.
+    source: https://www.commsombudsman.org/faqs
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Citizens Advice says your provider must be a member of an ADR scheme, and that you can use the scheme if you have
+      not heard back after 6 weeks.
+    source: https://www.citizensadvice.org.uk/consumer/phone-internet-downloads-or-tv/cancelling-a-phone-tv-internet-or-mobile-contract/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Ofcom's review of telecoms ADR (statement reported in July 2025) found both schemes (Communications Ombudsman and
+      CISAS) still meet the approval criteria, cut the wait to 6 weeks from 8 April 2026, and set common
+      decision-making principles for the schemes.
+    source: https://www.ofcom.org.uk/phones-and-broadband/service-quality/review-of-adr-in-the-telecoms-sector2
+    verified_via: search_snippet
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Ofcom cut the time a provider has before the customer can go to ADR from 8 weeks to 6 weeks, for complaints first
+      raised with the provider on or after 8 April 2026. The Communications Ombudsman FAQ says: "Ofcom have now reduced
+      this to 6 weeks."
+    source: https://www.commsombudsman.org/faqs
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Section 52 of the Communications Act 2003 makes Ofcom set general conditions that require providers to have
+      complaints-handling and dispute-resolution procedures for domestic and small business customers. The procedures
+      must be easy to use, transparent and effective, free of charge for customers, and approved by Ofcom.
+    source: https://www.legislation.gov.uk/ukpga/2003/21/section/52
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Ofcom is the regulator for premium-rate services charged to a phone bill (it replaced the Phone-paid Services
+      Authority). Complaints about the provision, content or promotion of a premium-rate service can go to Ofcom by
+      phone, post or online form.
+    source: https://www.sky.com/help/articles/sky-customer-complaints-code-of-practice/
+    verified_via: browser
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Ofcom can investigate and fine providers. On 8 July 2026 it fined Virgin Media GBP 28 million for repeatedly
+      preventing customers from cancelling contracts.
+    issues: [cancel_service]
+    source: https://www.ofcom.org.uk/phones-and-broadband/switching-provider/ofcom-fines-virgin-media-28m-for-repeatedly-preventing-customers-from-cancelling-contracts
+    verified_via: search_snippet
+    last_verified: 2026-11-19
+
+notes: >-
+  Ofcom covers the whole UK (England, Scotland, Wales and Northern Ireland). Its website (ofcom.org.uk) shows a
+  Cloudflare "verify you are human" check to automated readers on 2026-11-19, so no value here was read on Ofcom's own
+  site. Contact numbers come from Sky's complaints code (read in a browser); Ofcom facts come from the ADR schemes,
+  providers' pages, legislation.gov.uk and search-result snippets. Re-check the phone numbers and the general
+  complaint route on ofcom.org.uk by hand. Ofcom's general (non-premium-rate) online complaint form was not found on a
+  readable page, so it is not listed.

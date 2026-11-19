@@ -1,0 +1,567 @@
+id: edf-energy
+name: EDF
+aliases: [EDF Energy, EDF Energy Customers Ltd, EDF UK]
+sector: utility
+countries: [gb]
+parent: EDF Energy Holdings Ltd (EDF group, Electricite de France SA)
+website: https://www.edfenergy.com
+account_url: https://www.edfenergy.com/myaccount/login
+regulators: [uk-ofgem, uk-energy-ombudsman, uk-citizens-advice]
+notes: >-
+  EDF is a trading name of EDF Energy Customers Ltd (Reg. No. 02228297, Nova North, 11 Bressenden Place,
+  London SW1E 5BY). This file covers residential gas and electricity supply in Great Britain (England,
+  Scotland and Wales) only. Northern Ireland has a different energy regulator and is not covered here.
+  The website is edfenergy.com (old /for-home/ links redirect to the same pages). On 19 November 2026
+  EDF announced that it agreed to buy Luxion Group, the owner of Utilita Energy. EDF expects completion in
+  early 2027 after regulatory approval, the two companies run separately until then, and EDF says nothing
+  changes for customers immediately. EDF documents give different phone hours; this file uses the hours on
+  the live contact and complaints pages. The complaints booklet (R63) misprints the Citizens Advice
+  number as 0909 223 1133; the complaints page and the terms give 0808 223 1133.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: EDF customer service, billing and complaints (0333 006 9950)
+    value: +44-333-006-9950
+    purposes: [billing_error, bill_increase, payment_assistance, refund_request, cancel_service, slamming, disconnection, poor_service]
+    hours: "Mon-Thu 9am-5pm, Fri 9am-4pm; closed weekends"
+    notes: >-
+      EDF says it usually answers within two minutes and that Monday 9am-12pm is the busiest time. An automated
+      service runs outside these hours. The contact page writes the number as 03330 069 950. EDF's terms say calls
+      to UK-wide numbers are in inclusive call plans, otherwise charged at a national rate. The complaints booklet
+      (R63.08/25) gives longer hours (Mon-Thu 8am-6pm, Fri 8am-4pm). The complaints page gives this number for complaints.
+    source: https://www.edfenergy.com/help-support/contact-us
+    last_verified: 2026-11-19
+  - id: complaints-email
+    type: email
+    label: EDF customer service and complaints email
+    value: hello@edfenergy.com
+    purposes: [billing_error, bill_increase, refund_request, cancel_service, slamming, poor_service]
+    hours: "Mon-Thu 8am-6pm, Fri 8am-4pm; closed weekends"
+    notes: >-
+      EDF usually replies within two working days. Include your account number. The complaints page link pre-fills
+      the subject "Complaint email". If you escalate by email, EDF connects you to the same specialist you first
+      dealt with.
+    source: https://www.edfenergy.com/help-support/contact-us
+    last_verified: 2026-11-19
+  - id: complaints-mail
+    type: mail
+    label: EDF complaints by post (Freepost)
+    value: "FREEPOST: EDF CUSTOMER CORRESPONDENCE"
+    purposes: [billing_error, refund_request, slamming, poor_service]
+    notes: EDF prints the Freepost address with no street address or postcode.
+    source: https://www.edfenergy.com/help-support/making-complaint
+    last_verified: 2026-11-19
+  - id: extra-support-phone
+    type: phone
+    label: Priority Services and extra support line (0808 160 6906)
+    value: +44-808-160-6906
+    purposes: [payment_assistance, disconnection]
+    hours: "Mon-Thu 9am-5pm, Fri 9am-4pm; closed weekends"
+    notes: >-
+      For the Priority Services Register and for customers with dementia, a disability or a mental health condition.
+      The debt advice page gives different hours for this number (Mon-Thu 8am-6pm, Fri 8am-4pm).
+    source: https://www.edfenergy.com/help-support/PSR
+    last_verified: 2026-11-19
+  - id: text-us
+    type: sms
+    label: Text EDF customer service (07480 589 950)
+    value: "+44-7480-589-950"
+    hours: "Mon-Thu 9am-5pm, Fri 9am-4pm; closed weekends"
+    notes: EDF usually replies within one working day. The contact page also lists this number for recovering a forgotten email address.
+    source: https://www.edfenergy.com/help-support/contact-us
+    last_verified: 2026-11-19
+  - id: myaccount
+    type: portal
+    label: EDF MyAccount (bills, Direct Debit, meter readings, Move Home)
+    value: https://www.edfenergy.com/myaccount/login
+    purposes: [billing_error, bill_increase, refund_request, cancel_service]
+    access: login
+    notes: Direct Debit reviews use "Update Direct Debit amount" in MyAccount. Prepayment customers report a move with "Move Home".
+    source: https://www.edfenergy.com/help-support/contact-us
+    last_verified: 2026-11-19
+  - id: edf-app
+    type: app
+    label: EDF app (iOS and Android)
+    value: https://www.edfenergy.com/mobile-app
+    access: login
+    notes: App Store id404849554; Google Play com.edf.mobile.
+    source: https://www.edfenergy.com/help-support/contact-us
+    last_verified: 2026-11-19
+  - id: psr-signup
+    type: web_form
+    label: Join the Priority Services Register online
+    value: https://www.edfenergy.com/help-support/personalised-support-service/digital-tool
+    purposes: [payment_assistance, disconnection]
+    notes: The PSR page links here as "Join the Priority Services Register". Not tested.
+    source: https://www.edfenergy.com/help-support/PSR
+    last_verified: 2026-11-19
+  - id: customer-support-fund
+    type: web_form
+    label: EDF Customer Support Fund grant application (external grants site)
+    value: https://edfmoreinfo.charisgrants.com/
+    purposes: [payment_assistance, disconnection]
+    notes: >-
+      For customers in financial difficulty who are behind on their energy bills. EDF asks you to get independent
+      budgeting and debt advice from a charity such as Citizens Advice first.
+    source: https://www.edfenergy.com/help-support/PSR
+    last_verified: 2026-11-19
+  - id: debt-advice-partner-phone
+    type: phone
+    label: Citizens Advice Plymouth, EDF's free debt advice partner (0808 156 6666 from a landline)
+    value: +44-808-156-6666
+    purposes: [payment_assistance, disconnection]
+    notes: From a mobile call 0300 330 0519. Number from EDF's debt leaflet R458.04/25.
+    verified_via: document
+    source: https://www.edfenergy.com/sites/default/files/r457_kraken_1.pdf
+    last_verified: 2026-11-19
+  - id: power-cut-105
+    type: phone
+    label: Power cut or electrical emergency (105, your local network operator, not EDF)
+    value: "105"
+    purposes: [service_outage]
+    hours: 24 hours
+    notes: Free from a mobile or landline. Your network operator handles power cuts, not your supplier. Find it by postcode at powercut105.com.
+    source: https://www.edfenergy.com/help-support/gas-electricity-emergency-contact
+    last_verified: 2026-11-19
+  - id: gas-emergency
+    type: phone
+    label: Gas emergency (National Gas Emergency Service, 0800 111 999)
+    value: +44-800-111-999
+    hours: 24 hours
+    notes: If you smell gas, open windows and doors and put out naked flames, then call. This is not an EDF line.
+    source: https://www.edfenergy.com/help-support/gas-electricity-emergency-contact
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: complaints-email, note: "EDF's complaints procedure: one energy specialist team handles the complaint from start to finish. If you are not happy with progress, tell EDF and your specialist arranges a reassessment (Step 2). Email keeps you with the same specialist; by phone you may get a colleague from that team."}
+  - {rung: regulator, regulator: uk-citizens-advice, note: "Free independent advice. England and Wales: Citizens Advice consumer service 0808 223 1133 (Relay UK 18001 then 0808 223 1133; Welsh 0808 223 1144), Mon-Fri 9am-5pm. Scotland: Advice Direct Scotland 0808 196 8660, energyadvice.scot."}
+  - {rung: regulator, regulator: uk-energy-ombudsman, note: "When eight weeks have passed since you first complained, or earlier if EDF sends a deadlock letter (by email or post). Free; EDF must follow the decision, you do not have to; it can take up to 12 weeks. EDF lists 0330 440 1624 and enquiry@energyombudsman.org."}
+  - {rung: regulator, regulator: uk-ofgem, note: "Reporting only. Ofgem does not resolve individual complaints."}
+
+playbooks:
+  - issue: billing_error
+    summary: Complain to EDF by phone or email, ask for a reassessment if progress stalls, and go to the Energy Ombudsman after eight weeks or a deadlock letter. EDF's terms limit back-bills to twelve months unless an exception applies.
+    evidence: [the disputed bill, account number, meter readings with dated photos, earlier bills, notes of calls with dates and names, any emails from EDF]
+    steps:
+      - do: Contact EDF with the account number, the bill and your meter readings. Ask EDF to correct the bill and give a reference.
+        channel: customer-service-phone
+      - do: Put the complaint in writing by email for a record. EDF usually replies within two working days.
+        channel: complaints-email
+      - do: If the bill charges for energy used more than twelve months ago and you did not cause the delay, cite clause 13.a of EDF's Residential Terms and Conditions and ask EDF to remove the older charges.
+      - do: If you think the meter is faulty, report it. EDF must investigate within five working days or pay £40.
+        channel: customer-service-phone
+      - do: If you are not happy with progress, ask EDF for a reassessment of the complaint.
+        channel: complaints-email
+      - do: Get free advice from Citizens Advice (or Advice Direct Scotland).
+        regulator: uk-citizens-advice
+      - do: After eight weeks from your first complaint, or once you have a deadlock letter, take the complaint to the Energy Ombudsman.
+        regulator: uk-energy-ombudsman
+    facts:
+      - kind: deadline
+        claim: EDF says you can contact the Energy Ombudsman if eight weeks have passed since you first raised the complaint, or if EDF sends a deadlock letter saying it cannot offer a solution.
+        issues: [billing_error, refund_request, slamming]
+        source: https://www.edfenergy.com/help-support/making-complaint
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: EDF's terms (October 2026 Edition, clause 13.a) say EDF charges for usage up to a maximum period of twelve months, except where EDF already took steps to recover older charges, where it did not act because of an unreasonable act or omission by the customer, or where the regulator confirms older charges may be recovered.
+        issues: [billing_error]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/r1434.pdf
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: If a customer reports a faulty credit meter, EDF will investigate within five working days of hearing from them and agree a timescale to fix a fault; if it does not, it pays £40 (residential customers). The same £40 standard applies to a smart meter or in-home display fault.
+        issues: [billing_error]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/2024-04/R863%20Guide%20to%20Service%20Standards%20AW9_V2_1.pdf
+        last_verified: 2026-11-19
+      - kind: process
+        claim: The Energy Ombudsman service is free and independent. The process can take up to 12 weeks. It may order an explanation, an apology, a fix or compensation. Its decision is binding on EDF but not on the customer.
+        issues: [billing_error]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/r63_aw30_e1_inline.pdf
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: If a customer pays a bill late and does not pay it in full after a reminder, EDF may add a £10 late payment charge for that bill (terms clause 17.g).
+        issues: [billing_error, payment_assistance]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/r1434.pdf
+        last_verified: 2026-11-19
+
+  - issue: bill_increase
+    summary: Check whether a fixed tariff ended (EDF then moves you to a default tariff) or a variable price changed. Fixed-rate prices cannot change before the end date except for law or tax changes. After a disadvantageous change notice, you can tell EDF you want to leave and get up to 20 working days to switch.
+    evidence: [last bill before the increase, first bill after it, Tariff Information Label, tariff confirmation email or letter with the end date, the price change notice]
+    steps:
+      - do: Find your tariff end date and prices in the Tariff Information Label or the confirmation email. Check whether the fixed tariff ended.
+        channel: myaccount
+      - do: If you are on a fixed-rate tariff and the unit rate or standing charge changed before the end date for a reason other than a law, tax or duty change, dispute it as a billing error.
+        channel: complaints-email
+      - do: If EDF sent a notice of a change that puts you at a disadvantage and you do not want it, tell EDF. EDF then holds the change for up to 20 working days while you choose another EDF tariff or switch supplier.
+        channel: customer-service-phone
+      - do: If only the Direct Debit amount rose, send a meter reading and ask for a review in MyAccount ("Update Direct Debit amount").
+        channel: myaccount
+    facts:
+      - kind: policy
+        claim: On a fixed rate tariff, except for a change in law, regulation, tax or duty, or a new tax, duty or charge, the energy prices and any exit fee will not change until the end date (terms clause 18.a).
+        issues: [bill_increase]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/r1434.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Unless the customer is on a fixed term tariff, EDF may change terms at any time; if a change puts the customer at a disadvantage, EDF gives advance written notice (a variation notice). If the customer then says they do not want to continue, EDF suspends the change for up to 20 working days so they can move to another EDF product or switch supplier (clauses 18.a and 18.b).
+        issues: [bill_increase, cancel_service]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/r1434.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If a tariff with an end date ends and the customer has not agreed a new tariff or switched, EDF automatically moves them to its default tariff for their consumption, payment method and meter type (clause 2.e). EDF says it contacts customers before the end date to explain options.
+        issues: [bill_increase]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/r1434.pdf
+        last_verified: 2026-11-19
+      - kind: process
+        claim: EDF reviews Direct Debit amounts and tries not to change the amount more than four times a year. Customers can ask for a review in MyAccount with "Update Direct Debit amount".
+        issues: [bill_increase]
+        source: https://www.edfenergy.com/help-support/faq/how-do-direct-debit-payments-bills-and-refunds-work
+        last_verified: 2026-11-19
+
+  - issue: payment_assistance
+    summary: Call EDF before the bill is due and ask for an affordable repayment plan. Ask about the EDF Customer Support Fund, the Priority Services Register and the Warm Home Discount, and get free debt advice.
+    evidence: [current bill and balance, household income and outgoings, benefit letters, any medical or disability details for the Priority Services Register]
+    steps:
+      - do: Call EDF and ask for an affordable repayment plan based on your circumstances, or to pay monthly instead of a large quarterly bill. Do not cancel your Direct Debit before you speak to EDF.
+        channel: customer-service-phone
+      - do: If you have a disability, illness or mental health condition, or are over 75 or live with a child aged five or under, ask to join the Priority Services Register.
+        channel: extra-support-phone
+      - do: Get free debt and benefits advice from Citizens Advice Plymouth, EDF's partner.
+        channel: debt-advice-partner-phone
+      - do: If you are behind on bills and in financial difficulty, apply to the EDF Customer Support Fund after getting debt advice.
+        channel: customer-support-fund
+      - do: If you get benefits, ask about paying the debt through deductions from your benefits (Third Party Deductions).
+        channel: customer-service-phone
+    facts:
+      - kind: policy
+        claim: EDF says that if you need more time to pay it can set up an affordable repayment plan based on your circumstances, and that customers who pay a large bill every three months can ask to pay smaller monthly amounts.
+        issues: [payment_assistance]
+        source: https://www.edfenergy.com/help-support/energy-bill-debt-advice
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: EDF warns not to cancel a Direct Debit before speaking to it, because this can lead to a late payment charge and higher unit prices.
+        issues: [payment_assistance]
+        source: https://www.edfenergy.com/help-support/energy-bill-debt-advice
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: The EDF Customer Support Fund is for customers in financial difficulty who are behind on their energy bills. It can help with debt clearance and energy-efficient appliances. Applicants first get budgeting and debt advice from a charity such as Citizens Advice.
+        issues: [payment_assistance]
+        source: https://www.edfenergy.com/help-support/PSR
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: EDF's terms say a struggling customer can pay through deductions from social security benefits, by regular instalments, or by a prepayment meter if EDF considers this safe and practical (clause 17.d).
+        issues: [payment_assistance, disconnection]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/r1434.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Eligible customers in England or Wales get the Warm Home Discount automatically; customers in Scotland must apply online.
+        issues: [payment_assistance]
+        source: https://www.edfenergy.com/help-support/energy-bill-debt-advice
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: EDF's debt leaflet says that if a former customer does not pay, EDF may use a debt collection agency and add an extra 20% to the debt to cover the cost.
+        issues: [payment_assistance]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/r457_kraken_1.pdf
+        last_verified: 2026-11-19
+
+  - issue: refund_request
+    summary: Credit is refunded automatically after a move or switch if you keep the Direct Debit until the final bill. The guaranteed standards require the final bill within 6 weeks and the refund of an accurate credit balance within 10 working days, or £40.
+    evidence: [final bill, final meter readings with dated photos, switch or move-out date, bank statement showing no refund]
+    steps:
+      - do: Do not cancel your Direct Debit before the final bill. Give EDF a final meter reading on the switch or move-out date.
+        channel: myaccount
+      - do: Check that the final bill arrives within 6 weeks of the switch or move-out date.
+      - do: If an accurate final bill shows a credit and EDF has not refunded it within 10 working days, ask for the refund and the £40 guaranteed standards payment.
+        channel: complaints-email
+      - do: If you are still a customer and want credit back, send a meter reading and ask EDF for a refund.
+        channel: customer-service-phone
+      - do: If EDF does not pay, complain and then go to the Energy Ombudsman after eight weeks or a deadlock letter.
+        regulator: uk-energy-ombudsman
+    facts:
+      - kind: compensation
+        claim: If the final bill is accurate and in credit when a residential customer switches supplier or moves home, EDF refunds the credit within 10 working days; if not, EDF pays £40.
+        issues: [refund_request, cancel_service]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/2024-04/R863%20Guide%20to%20Service%20Standards%20AW9_V2_1.pdf
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: EDF sends a final bill within 6 weeks of the contract end date after a switch, or of the move-out date (or of the date you tell EDF, if the move was in the past); if not, EDF pays £40.
+        issues: [refund_request, cancel_service]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/2024-04/R863%20Guide%20to%20Service%20Standards%20AW9_V2_1.pdf
+        last_verified: 2026-11-19
+      - kind: process
+        claim: For Direct Debit customers, EDF refunds credit automatically within three working days of the final bill after a move, and within three working days of the final bill's date after a switch, as long as the Direct Debit is not cancelled. Customers who stay with EDF normally do not need to ask; to get a refund they contact EDF, which asks for a meter reading.
+        issues: [refund_request]
+        source: https://www.edfenergy.com/help-support/faq/how-do-direct-debit-payments-bills-and-refunds-work
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: If EDF owes guaranteed standards compensation, it pays within 10 working days of its failure; if it does not, it pays another £40 within 10 working days.
+        issues: [refund_request, billing_error]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/2024-04/R863%20Guide%20to%20Service%20Standards%20AW9_V2_1.pdf
+        last_verified: 2026-11-19
+
+  - issue: slamming
+    summary: Tell EDF and the other supplier that you did not agree to the switch. Under EDF's guaranteed standards it must agree the outcome within 20 working days and return you within 21 working days, or pay £40.
+    evidence: [letters or emails about the switch, dates, your previous supplier account number, proof you did not sign a contract]
+    steps:
+      - do: Tell EDF in writing that you were switched to or away from EDF without a valid contract. Ask for an erroneous transfer investigation and a reference.
+        channel: complaints-email
+      - do: Tell the other supplier the same thing.
+      - do: Expect EDF to confirm the outcome within 20 working days. If it agrees to return you, the return must happen within 21 working days of the date it agrees this with the other supplier.
+      - do: If EDF switched you without a valid contract or missed these timescales, ask for £40 for each failure.
+        channel: complaints-email
+      - do: If not resolved, go to the Energy Ombudsman after eight weeks or a deadlock letter.
+        regulator: uk-energy-ombudsman
+    facts:
+      - kind: deadline
+        claim: If a residential customer says they were switched to or from EDF without a valid contract, EDF works with the other supplier to agree within 20 working days whether this happened, contacts the customer within 20 working days with the outcome, and returns them to the old supplier within 21 working days of agreeing this.
+        issues: [slamming]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/2024-04/R863%20Guide%20to%20Service%20Standards%20AW9_V2_1.pdf
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: If EDF switched the customer without a valid contract it pays £40, and it pays £40 if it misses the erroneous transfer timescales. No payment is due if EDF holds a valid contract but returns the customer as a goodwill gesture.
+        issues: [slamming]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/2024-04/R863%20Guide%20to%20Service%20Standards%20AW9_V2_1.pdf
+        last_verified: 2026-11-19
+
+  - issue: cancel_service
+    summary: You can switch away at any time. An exit fee can apply on some tariffs if you leave 49 days or more before the end date. There is a 14-day cooling-off period, and a final bill within 6 weeks.
+    evidence: [Tariff Information Label or confirmation email with the end date and exit fee, switch date, final meter reading, final bill]
+    steps:
+      - do: Check your tariff end date and exit fee in the confirmation email or Tariff Information Label. Leaving 49 days or more before the end date can cost an exit fee.
+        channel: myaccount
+      - do: Sign up with the new supplier; it arranges the switch. Within 14 days of signing up with EDF, you can cancel without an exit fee.
+      - do: Give a final meter reading and keep the Direct Debit active until the final bill.
+        channel: myaccount
+      - do: If you are moving out, tell EDF at least 2 working days before you move, with the date, a forwarding address and a meter reading.
+        channel: customer-service-phone
+      - do: If EDF blocks the switch because of a debt, pay or agree the debt; paying within 30 working days of EDF's objection lets the switch go ahead.
+        channel: customer-service-phone
+    facts:
+      - kind: fee
+        claim: EDF says some tariffs have an early exit fee, which you might have to pay if you leave the tariff 49 days or more before its end date. Each tariff is different, and it can depend on whether you stay with EDF or move to another supplier.
+        issues: [cancel_service, early_termination_fee]
+        source: https://www.edfenergy.com/help-support/faq/when-do-i-pay-early-exit-fee
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: EDF says you can switch to another energy supplier at any time, but you may have to pay an early exit fee depending on your plan.
+        issues: [cancel_service]
+        source: https://www.edfenergy.com/help-support/faq/can-i-switch-new-energy-supplier
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: All EDF contracts have a 14-day cooling-off period starting the day after signing up, during which the customer can cancel without paying any exit fee (terms clause 7 and definitions).
+        issues: [cancel_service, early_termination_fee]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/r1434.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If the customer owes charges, EDF may object to a switch away. If the customer pays within 30 working days of EDF's objection notice, they can transfer (clause 18.c).
+        issues: [cancel_service]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/r1434.pdf
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: A customer moving out must give EDF at least 2 working days' notice for the contract to end on the move-out date. Otherwise it ends 2 working days after they tell EDF or when the new occupier moves in, whichever is earlier (clause 11.b).
+        issues: [cancel_service]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/r1434.pdf
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: Once a residential customer agrees a valid contract and EDF has the information it needs, EDF completes a switch to EDF within 5 working days (or within 5 working days of the end of the cooling-off period if the customer chooses to switch after it); if not, it pays £40.
+        issues: [cancel_service]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/2024-04/R863%20Guide%20to%20Service%20Standards%20AW9_V2_1.pdf
+        last_verified: 2026-11-19
+
+  - issue: disconnection
+    summary: Call EDF at once and agree a repayment plan. Smart Pay As You Go meters do not cut off in the friendly-credit hours. If EDF disconnected you for debt, it must reconnect within 24 hours once you pay, agree a plan or accept a prepayment meter, or pay £40.
+    evidence: [debt letters, account balance, benefit letters, medical or disability details for the Priority Services Register]
+    steps:
+      - do: Call EDF and ask for an affordable repayment plan before any further action.
+        channel: customer-service-phone
+      - do: If someone in the home is vulnerable, ask to join the Priority Services Register.
+        channel: extra-support-phone
+      - do: On Smart Pay As You Go, note the friendly non-disconnection hours, and top up enough to cover energy used, missed standing charges and instalments.
+      - do: If you were disconnected for debt, pay in full, agree a repayment plan or agree a prepayment meter. EDF must then reconnect within 24 hours or pay £40.
+        channel: customer-service-phone
+      - do: Get free debt advice and complain to the Energy Ombudsman if EDF does not follow its process.
+        regulator: uk-citizens-advice
+    facts:
+      - kind: policy
+        claim: Smart Pay As You Go friendly non-disconnection hours are Monday-Friday 6pm-11am in summer (clocks forward) and Monday-Friday 5pm-10am in winter (clocks back), plus weekends and Bank Holidays until 11am (summer) or 10am (winter) the next working day. A meter still without credit after these hours disconnects.
+        issues: [disconnection]
+        source: https://www.edfenergy.com/help-support/faq/what-are-friendly-non-disconnection-times-smart-payg
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: If EDF disconnected a residential customer for not paying, it reconnects within 24 hours once the customer pays in full, agrees a repayment plan, or agrees to a prepayment meter; if not, it pays £40. A payment made outside working hours starts the 24 hours at the next working hours.
+        issues: [disconnection]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/2024-04/R863%20Guide%20to%20Service%20Standards%20AW9_V2_1.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If a balance stays unpaid, EDF may send a welfare team, but only if it cannot resolve the issue in another way. EDF may add the visit costs to the account and may install a Pay As You Go meter or switch a smart meter to Pay As You Go remotely.
+        issues: [disconnection, payment_assistance]
+        source: https://www.edfenergy.com/help-support/energy-bill-debt-advice
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: EDF's debt leaflet lists steps it may take for unpaid bills, including a £10 late payment charge, a home visit to collect payment, switching a smart meter to Pay As You Go, applying for a warrant to force entry to install a Pay As You Go meter, a default on the credit file and a County Court Judgment.
+        issues: [disconnection, payment_assistance]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/r457_kraken_1.pdf
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: If a prepayment meter may be faulty, EDF investigates within three hours of a call made 8am-8pm Monday to Friday (not bank holidays), or within four hours of a call made 9am-5pm on a Saturday, Sunday or bank holiday; if not, it pays £40 (residential customers).
+        issues: [disconnection, service_outage]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/2024-04/R863%20Guide%20to%20Service%20Standards%20AW9_V2_1.pdf
+        last_verified: 2026-11-19
+
+  - issue: service_outage
+    summary: Power cuts go to your local network operator on 105, and gas emergencies to 0800 111 999, not to EDF. Network operator compensation is paid through EDF, which must pass it on within 10 working days.
+    evidence: [start and end times of the power cut, network operator reference number, letters about compensation]
+    steps:
+      - do: Report a power cut to your network operator on 105. Write down the start time and the reference number.
+        channel: power-cut-105
+      - do: For a gas leak or suspected gas leak, call the gas emergency line.
+        channel: gas-emergency
+      - do: If the network operator owes you a guaranteed standards payment, check that EDF passes it on within 10 working days of receiving it. If not, ask EDF for £40.
+        channel: customer-service-phone
+    facts:
+      - kind: contact
+        claim: EDF tells customers to call 105 from a mobile or landline (free) for a power cut or electrical emergency, and says the network operator, not the energy supplier, handles power cuts and damaged lines.
+        issues: [service_outage]
+        source: https://www.edfenergy.com/help-support/gas-electricity-emergency-contact
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: If an electricity distributor or gas transporter pays compensation (for example for a power cut that is its fault), EDF passes it to the customer within 10 working days of receiving it; if not, EDF pays £40.
+        issues: [service_outage]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/2024-04/R863%20Guide%20to%20Service%20Standards%20AW9_V2_1.pdf
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: Under the electricity distributors' guaranteed standards (April 2025 scheme, reprinted in EDF's guide), if a supply fails in normal weather and is not restored within 12 hours, a domestic customer gets £95, plus £45 for each further 12 hours off supply.
+        issues: [service_outage]
+        verified_via: document
+        source: https://www.edfenergy.com/sites/default/files/2024-04/R863%20Guide%20to%20Service%20Standards%20AW9_V2_1.pdf
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: EDF says its "Making a complaint" booklet is its Complaints Handling Procedure as required by the Gas and Electricity (Consumer Complaints Handling) rules. It has three steps - the first specialist handles the complaint, escalation for reassessment, then the Energy Ombudsman.
+    issues: [billing_error, poor_service]
+    verified_via: document
+    source: https://www.edfenergy.com/sites/default/files/r63_aw30_e1_inline.pdf
+    last_verified: 2026-11-19
+  - kind: contact
+    claim: EDF's complaints page names the Energy Ombudsman as the free, independent service for unresolved complaints (0330 440 1624, enquiry@energyombudsman.org, Energy Ombudsman, PO Box 966, Warrington WA4 9DF).
+    issues: [billing_error, poor_service]
+    source: https://www.edfenergy.com/help-support/making-complaint
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: EDF promises to make home appointments within a reasonable time, in a four-hour slot between 8am and 8pm Monday to Friday or 9am and 5pm Saturday and Sunday, and to keep them. A first smart meter installation appointment must be within 30 working days of the request. If EDF does not keep to this, or cancels or rearranges with less than one working day's notice, it pays £40.
+    issues: [poor_service]
+    verified_via: document
+    source: https://www.edfenergy.com/sites/default/files/2024-04/R863%20Guide%20to%20Service%20Standards%20AW9_V2_1.pdf
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: EDF's terms say the guaranteed standards compensation in the Standards of Performance booklet is the customer's sole remedy for failures to meet those standards, and cap EDF's other liability at £10,000 for all incidents (clauses 1.c and 4.d).
+    verified_via: document
+    source: https://www.edfenergy.com/sites/default/files/r1434.pdf
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: EDF's terms say that if a customer has a debt over £250 unpaid after 30 days, repeatedly misses repayment plan payments or meter readings, or EDF cannot resolve a complaint to their satisfaction, the customer agrees that EDF may switch them to another supplier whose charges are the same or lower, with no exit fee (clause 7A).
+    issues: [cancel_service, payment_assistance]
+    verified_via: document
+    source: https://www.edfenergy.com/sites/default/files/r1434.pdf
+    last_verified: 2026-11-19
+  - kind: contact
+    claim: EDF's terms say general notices can be sent in writing to the address on the contract, by email to CP@edfenergy.com, or by phone on 0333 006 9950 (clause 5.e).
+    verified_via: document
+    source: https://www.edfenergy.com/sites/default/files/r1434.pdf
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: The Priority Services Register is free and offers bills in large print, Braille or talking formats, help during a power cut, free gas safety checks for some customers on benefits or a state pension, a password for visitors, help with meter reading, and nominating a trusted person to manage bills.
+    issues: [payment_assistance, disconnection]
+    source: https://www.edfenergy.com/help-support/PSR
+    last_verified: 2026-11-19
+
+known_blockers:
+  - MyAccount, the EDF app, Direct Debit reviews and Move Home need the account holder to sign in.
+  - EDF's help centre pages are step-by-step menus; many answers load only after clicking options, so an automated reader often sees only link lists.
+  - The complaints page has no complaint web form and EDF lists no live chat; complaints go by phone, email or Freepost.
+  - The Freepost address has no street address or postcode.
+
+official_domains: [edfenergy.com]
+
+security:
+  never_asks:
+    - kind: policy
+      claim: EDF says it will never send email from a free email service such as @gmail.com or @hotmail.com. It lists its sender addresses as ending @edfenergy.com, @email.edfenergy.com, @securepay.edfenergy.com, @securepayment.edfenergy.com or @digitalemail.edfenergy.com; one section of the page also lists @business.edfenergy.com and "@hello@info.edfenergy.com" (as printed).
+      source: https://www.edfenergy.com/help-support/how-to-prevent-phishing
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: EDF says it never sells energy at the door, that it is illegal to sell prepayment credit on the doorstep, and that anyone offering discounted prepaid energy on your doorstep is a fraud.
+      source: https://www.edfenergy.com/help-support/how-to-prevent-phishing
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: EDF says it only texts customers from 0748 058 9950 (one section of the page also lists 07481 341 928), and that its WhatsApp message threads always show the EDF logo with a blue tick at the top.
+      source: https://www.edfenergy.com/help-support/how-to-prevent-phishing
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: Phishing emails look legitimate and try to get personal details or payments; EDF flags an email that demands personal information as a warning sign.
+      source: https://www.edfenergy.com/help-support/how-to-prevent-phishing
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Scam texts and WhatsApp messages pose as EDF reminders about meter readings or payments. EDF says any text or WhatsApp message asking you to take action to get your Winter Fuel payment is a scam.
+      source: https://www.edfenergy.com/help-support/how-to-prevent-phishing
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Doorstep callers sell discounted prepaid energy or offer to clear your balance for a small fee.
+      source: https://www.edfenergy.com/help-support/how-to-prevent-phishing
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Fraudsters phone pretending to be EDF. EDF says it always starts its calls with a couple of security questions and does not call from any number that is not on its published list (edfenergy.com/have-edf-energy-called-me). If in doubt, hang up, wait a few minutes, and contact EDF.
+      source: https://www.edfenergy.com/help-support/how-to-prevent-phishing
+      last_verified: 2026-11-19
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward phishing emails to EDF (attach the original email if you can)
+      value: phishing@edfenergy.com
+      source: https://www.edfenergy.com/help-support/how-to-prevent-phishing
+      last_verified: 2026-11-19
+    - id: report-7726
+      type: sms
+      label: Forward scam texts or mobile calls to Ofcom's 7726 service
+      value: "7726"
+      source: https://www.edfenergy.com/help-support/how-to-prevent-phishing
+      last_verified: 2026-11-19
+    - id: check-edf-numbers
+      type: portal
+      label: Check whether a call came from EDF (list of numbers EDF uses)
+      value: https://www.edfenergy.com/have-edf-energy-called-me
+      access: open
+      source: https://www.edfenergy.com/have-edf-energy-called-me
+      last_verified: 2026-11-19
+    - id: police-scotland-101
+      type: phone
+      label: Report fraud in Scotland to Police Scotland (101)
+      value: "101"
+      notes: In England and Wales, EDF says to report fraud to Report Fraud (reportfraud.police.uk).
+      source: https://www.edfenergy.com/help-support/how-to-prevent-phishing
+      last_verified: 2026-11-19

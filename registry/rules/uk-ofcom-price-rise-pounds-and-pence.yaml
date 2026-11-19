@@ -1,0 +1,66 @@
+id: uk-ofcom-price-rise-pounds-and-pence
+title: Mid-contract price rises must be set out in pounds and pence (phone, broadband, pay TV)
+citation: Ofcom General Conditions (prohibition of inflation-linked and percentage price-rise terms), for contracts from 17 January 2025
+jurisdiction: gb
+status: in_effect
+applies_to:
+  sectors: [wireless, internet_tv]
+  issues: [bill_increase, price_negotiation, early_termination_fee, cancel_service]
+summary: >-
+  For phone, mobile, broadband and pay-TV contracts that started on or after 17 January 2025, any price rise written into
+  the contract must be stated as an exact amount in pounds and pence when you sign up, not as a percentage or an
+  inflation measure (CPI or RPI). Older contracts can still have inflation-linked rises. Separately, the provider must
+  give 30 days' notice of a price rise, and you can leave without a fee within those 30 days unless the rise was set out
+  in the contract when you signed.
+points:
+  - kind: policy
+    claim: >-
+      Citizens Advice: "If your contract started on or after 17 January 2025, the contract should say exactly how much
+      the price will increase". For older contracts the increase may be based on inflation or a fixed percentage.
+    issues: [bill_increase]
+    source: https://www.citizensadvice.org.uk/consumer/phone-internet-downloads-or-tv/cancelling-a-phone-tv-internet-or-mobile-contract/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Citizens Advice: your provider should give you 30 days' notice before putting up the price of your contract, and
+      you have the legal right to cancel within those 30 days without paying a fee. This right does not apply if you
+      signed up before 23 January 2014 or if the price rise was disclosed at the start of the contract.
+    issues: [bill_increase, cancel_service, early_termination_fee]
+    source: https://www.citizensadvice.org.uk/consumer/phone-internet-downloads-or-tv/cancelling-a-phone-tv-internet-or-mobile-contract/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      O2: "In line with new Ofcom regulations, we're changing how we show annual price rises." Any updates to the bill
+      will be shown "in pounds and pence, not percentages or inflation measures."
+    issues: [bill_increase]
+    source: https://www.o2.co.uk/prices
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Example of the change at Virgin Media: customers who joined before 9 January 2025 get an April rise of RPI plus
+      3.9%; customers who joined between 9 January and 2 October 2025 get a fixed GBP 3.50 a month; customers who
+      joined or renewed after 2 October 2025 get a fixed GBP 4.00 a month.
+    issues: [bill_increase]
+    source: https://www.virginmedia.com/help/annual-price-change
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Example at BT: for a new contract on or after 31 July 2025 the annual change is a fixed amount - broadband (except
+      Fixed Price Broadband) +GBP 4 a month, EE TV +GBP 2, BT Mobile +GBP 2.50, landline only +GBP 1 - plus 5% on
+      out-of-bundle charges.
+    issues: [bill_increase]
+    source: https://www.bt.com/content/dam/bt/storefront/pdfs/BT_PhoneTariff_Residential.pdf
+    verified_via: document
+    last_verified: 2026-11-19
+status_note: >-
+  In force for contracts entered on or after 17 January 2025 (date from Citizens Advice). Ofcom's statement and the
+  General Conditions text could not be read (ofcom.org.uk shows a "verify you are human" check to automated readers on
+  2026-11-19), so the exact condition number is not recorded. Some providers moved to pounds-and-pence terms earlier
+  than required (Virgin Media from 9 January 2025; TalkTalk from 12 August 2024). Out-of-bundle charges can still rise
+  by a percentage at some providers (BT +5%). Check the customer's own contract summary for the exact amounts.
+source: https://www.citizensadvice.org.uk/consumer/phone-internet-downloads-or-tv/cancelling-a-phone-tv-internet-or-mobile-contract/
+last_verified: 2026-11-19

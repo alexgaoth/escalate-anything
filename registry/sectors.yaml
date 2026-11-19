@@ -27,6 +27,14 @@ regulators:
   - {id: fmc, name: "Federal Maritime Commission, Consumer Affairs and Dispute Resolution Services"}
   - {id: bbb, name: "Better Business Bureau"}
 
+  # United Kingdom
+  - {id: uk-ofcom, name: "Ofcom (UK communications regulator)"}
+  - {id: uk-ofgem, name: "Ofgem (GB energy regulator)"}
+  - {id: uk-communications-ombudsman, name: "Communications Ombudsman (Trust Alliance Group, Ofcom-approved ADR scheme)"}
+  - {id: uk-cisas, name: "CISAS - Communications and Internet Services Adjudication Scheme (Ofcom-approved ADR scheme)"}
+  - {id: uk-energy-ombudsman, name: "Energy Ombudsman (Trust Alliance Group, Ofgem-approved ADR scheme)"}
+  - {id: uk-citizens-advice, name: "Citizens Advice consumer service"}
+
 sectors:
   - id: airline
     name: Airlines

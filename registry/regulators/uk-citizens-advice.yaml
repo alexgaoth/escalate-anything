@@ -1,0 +1,154 @@
+id: uk-citizens-advice
+name: Citizens Advice consumer service
+short_name: Citizens Advice
+level: nonprofit
+country: gb
+covers_sectors: [utility, internet_tv, wireless]
+covers_issues:
+  - billing_error
+  - bill_increase
+  - payment_assistance
+  - disconnection
+  - slamming
+  - refund_request
+  - cancel_service
+  - poor_service
+website: https://www.citizensadvice.org.uk
+when_to_use: >-
+  Free, impartial advice at any stage of an energy, phone, broadband or TV problem. It is not the first stop and not a
+  complaints body: complain to the company first (Ofgem and Citizens Advice both say so). Call or use the online form
+  when the company does not reply or fix the problem, you face disconnection, the issue is complex, or you are
+  vulnerable. Advisers explain your rights, can pass a complaint to your energy supplier, can pass information to
+  Trading Standards, and may refer urgent or vulnerable energy cases to the Extra Help Unit. They cannot complain for
+  you or take legal action. The helpline serves England and Wales; for energy in Scotland Ofgem lists Energy Advice
+  Scotland (Advice Direct Scotland).
+
+channels:
+  - id: consumer-helpline
+    type: phone
+    label: Citizens Advice consumer helpline (0808 223 1133)
+    value: +44-808-223-1133
+    hours: Monday to Friday 9am to 5pm; closed bank holidays
+    purposes: [billing_error, bill_increase, payment_assistance, disconnection, slamming, refund_request, cancel_service, poor_service]
+    notes: >-
+      Free from mobiles and landlines. Relay UK: dial 18001 then 0808 223 1133. Heat network problems must use this
+      phone line (not chat or forms). The same number is given for phone, internet and TV bill disputes.
+    verified_via: page
+    source: https://www.citizensadvice.org.uk/consumer/get-more-help/if-you-need-more-help-about-a-consumer-issue/
+    last_verified: 2026-11-19
+  - id: welsh-helpline
+    type: phone
+    label: Citizens Advice consumer helpline, Welsh-speaking adviser (0808 223 1144)
+    value: +44-808-223-1144
+    hours: Monday to Friday 9am to 5pm; closed bank holidays
+    purposes: [billing_error, payment_assistance, disconnection, poor_service]
+    verified_via: page
+    source: https://www.citizensadvice.org.uk/consumer/get-more-help/if-you-need-more-help-about-a-consumer-issue/
+    last_verified: 2026-11-19
+  - id: energy-form
+    type: web_form
+    label: Consumer service online form for gas and electricity problems
+    value: https://referrals.citizensadvice.org.uk/consumer/forms/energy
+    purposes: [billing_error, bill_increase, payment_assistance, disconnection, slamming, refund_request, poor_service]
+    notes: Available every day. Not for heat network problems.
+    verified_via: page
+    source: https://www.citizensadvice.org.uk/consumer/energy/energy-supply/help/if-you-need-more-help-about-a-consumer-issue-energy/
+    last_verified: 2026-11-19
+  - id: general-form
+    type: web_form
+    label: Consumer service online form for other consumer problems (weekends only)
+    value: https://referrals.citizensadvice.org.uk/consumer/forms/general
+    purposes: [billing_error, cancel_service, refund_request, poor_service]
+    notes: Open only from 5pm Friday to 9am Monday; on weekdays use the helpline or chat.
+    verified_via: page
+    source: https://www.citizensadvice.org.uk/consumer/get-more-help/if-you-need-more-help-about-a-consumer-issue/
+    last_verified: 2026-11-19
+  - id: energy-chat
+    type: chat
+    label: Consumer service chat for gas and electricity problems
+    value: https://www.citizensadvice.org.uk/consumer/energy/energy-supply/help/if-you-need-more-help-about-a-consumer-issue-energy/
+    hours: Usually Monday to Friday 9am to 5pm, not on public holidays
+    purposes: [billing_error, payment_assistance, disconnection, poor_service]
+    notes: Start the chat with the round chat button at the bottom right of this page. Not for heat network problems.
+    verified_via: page
+    source: https://www.citizensadvice.org.uk/consumer/energy/energy-supply/help/if-you-need-more-help-about-a-consumer-issue-energy/
+    last_verified: 2026-11-19
+  - id: scotland-energy-phone
+    type: phone
+    label: Energy Advice Scotland, run by Advice Direct Scotland (0808 196 8660) - Scotland only
+    value: +44-808-196-8660
+    hours: Monday to Friday 9am to 5pm
+    purposes: [billing_error, payment_assistance, disconnection, poor_service]
+    notes: >-
+      Not part of Citizens Advice. Ofgem lists it as the free energy advice service for Scotland. Hours are from
+      energyadvice.scot.
+    verified_via: page
+    source: https://www.ofgem.gov.uk/your-energy-supply/problems-your-energy-supply/complain-about-your-energy-supplier-or-network-operator
+    last_verified: 2026-11-19
+  - id: scotland-energy-form
+    type: web_form
+    label: Energy Advice Scotland email form - Scotland only
+    value: https://www.energyadvice.scot/email-us
+    purposes: [billing_error, payment_assistance, disconnection, poor_service]
+    notes: The site also has live chat. Energy only; it does not cover phone or broadband.
+    verified_via: page
+    source: https://www.energyadvice.scot/
+    last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: >-
+      Citizens Advice says to contact your energy supplier straight away about a problem; you can go to the Energy
+      Ombudsman only after you complained to the supplier. Contact the consumer service if you need more help, for
+      example if you cannot reach the supplier, the problem is not fixed, you have been or may be disconnected, the
+      issue is complex, or the supplier considers you vulnerable.
+    source: https://www.citizensadvice.org.uk/consumer/energy/energy-supply/complain-about-an-energy-company/complain-to-your-energy-supplier/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Consumer service advisers give practical, impartial advice, explain the law, can pass a complaint to your energy
+      supplier and can pass complaint information to Trading Standards. They cannot make a complaint for you or take
+      legal action for you.
+    source: https://www.citizensadvice.org.uk/consumer/get-more-help/if-you-need-more-help-about-a-consumer-issue/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Under the energy complaints handling regulations, Citizens Advice and Citizens Advice Scotland are the "consumer
+      advocacy body", and every energy company must have arrangements to deal effectively with complaints they refer.
+    source: https://www.legislation.gov.uk/uksi/2008/1898/regulation/9
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Ofgem: in England or Wales, Citizens Advice may refer you to the Extra Help Unit if you need support with a
+      difficult or urgent complaint, cannot deal with the supplier alone, are considered vulnerable, or risk being
+      disconnected.
+    issues: [disconnection]
+    source: https://www.ofgem.gov.uk/your-energy-supply/problems-your-energy-supply/complain-about-your-energy-supplier-or-network-operator
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The Extra Help Unit is part of Citizens Advice Scotland and works across England, Scotland and Wales. It raises
+      complaints with energy suppliers for people who may be vulnerable or at risk of disconnection, and its service is
+      free. Its site gives no direct public contact route.
+    issues: [disconnection]
+    source: https://ehu.org.uk/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: contact
+    claim: >-
+      For a phone, internet or TV bill dispute, Citizens Advice says to contact its consumer helpline on 0808 223 1133
+      if you need more help, and to use the provider's alternative dispute resolution (ADR) scheme (listed by Ofcom) if
+      the provider does not respond or you disagree with its decision.
+    source: https://www.citizensadvice.org.uk/consumer/phone-internet-downloads-or-tv/dispute-a-phone-internet-or-tv-bill/
+    verified_via: page
+    last_verified: 2026-11-19
+
+notes: >-
+  Not the official first stop: Ofgem and Citizens Advice both say to complain to the supplier first, then use the
+  Energy Ombudsman after 8 weeks or a deadlock letter; Citizens Advice gives help alongside that. Its consumer pages say
+  they apply to England, with separate pages for Wales, Scotland and Northern Ireland. Ofgem lists the same helpline for
+  England and Wales and energyadvice.scot for Scotland. Read on 2026-11-19.

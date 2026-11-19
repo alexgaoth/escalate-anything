@@ -1,0 +1,137 @@
+id: uk-communications-ombudsman
+name: Communications Ombudsman (Trust Alliance Group, Ofcom-approved ADR scheme)
+short_name: Communications Ombudsman
+level: ombudsman
+country: gb
+covers_sectors: [wireless, internet_tv]
+covers_issues:
+  - billing_error
+  - bill_increase
+  - cancel_service
+  - service_outage
+  - equipment_return
+  - poor_service
+  - number_port_out
+  - early_termination_fee
+website: https://www.commsombudsman.org
+when_to_use: >-
+  Use for a phone, mobile, broadband or pay-TV dispute when the provider is a member of this scheme (for example BT and
+  EE - check the provider's complaints code or search for it on the raise-a-dispute page). Complain to the provider
+  first. You can come here when the provider has not fixed it within 6 weeks (8 weeks for complaints first raised
+  before 8 April 2026), or earlier if it sends a deadlock letter. Escalate within 12 months of the deadlock letter. The
+  service is free. If the provider is not a member, use CISAS instead.
+
+channels:
+  - id: raise-dispute
+    type: web_form
+    label: Raise a dispute online (search for your provider first)
+    value: https://www.commsombudsman.org/raise-dispute
+    purposes: [billing_error, bill_increase, cancel_service, service_outage, equipment_return, poor_service]
+    notes: >-
+      The page asks you to search for your communications provider to start. If the provider is not listed, the
+      scheme cannot handle the dispute. Existing cases sign in at case.ombudsman-services.org; the page does not say
+      whether an account is needed to start.
+    verified_via: page
+    source: https://www.commsombudsman.org/raise-dispute
+    last_verified: 2026-11-19
+  - id: phone
+    type: phone
+    label: Communications Ombudsman phone (0330 440 1614)
+    value: +44-330-440-1614
+    hours: Monday to Friday 8am to 6pm; closed weekends and bank holidays
+    purposes: [billing_error, cancel_service, service_outage, poor_service]
+    verified_via: page
+    source: https://www.commsombudsman.org/contact-us
+    last_verified: 2026-11-19
+  - id: email
+    type: email
+    label: Communications Ombudsman enquiries email
+    value: enquiry@commsombudsman.org
+    verified_via: page
+    source: https://www.commsombudsman.org/contact-us
+    last_verified: 2026-11-19
+  - id: post
+    type: mail
+    label: Communications Ombudsman by post
+    value: Communications Ombudsman, P.O. Box 730, Warrington, WA4 6WU
+    verified_via: page
+    source: https://www.commsombudsman.org/contact-us
+    last_verified: 2026-11-19
+  - id: enquiry-form
+    type: web_form
+    label: Enquiry form on the contact page
+    value: https://www.commsombudsman.org/contact-us
+    notes: For questions. To start a dispute use the raise-a-dispute page.
+    verified_via: page
+    source: https://www.commsombudsman.org/contact-us
+    last_verified: 2026-11-19
+
+facts:
+  - kind: deadline
+    claim: >-
+      Allow your provider 6 weeks to put things right, unless you receive a deadlock letter from them sooner. The FAQ
+      says "Ofcom have now reduced this to 6 weeks"; before 8 April 2026 the period was 8 weeks.
+    source: https://www.commsombudsman.org/faqs
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: "You must escalate your dispute within 12 months of receiving the deadlock letter."
+    source: https://www.commsombudsman.org/faqs
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: fee
+    claim: The service is free for consumers; providers pay the scheme an investigation fee.
+    source: https://www.commsombudsman.org/faqs
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Remedies are practical action, an apology, a financial award up to GBP 10,000, recommendations, or a mix. The
+      GBP 10,000 maximum includes any corrective action and goodwill award. A typical financial award is GBP 50 to 100.
+    source: https://www.commsombudsman.org/faqs
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      You do not have to accept the decision; if you reject it you can go to court. If you accept, the provider has
+      28 days to carry out the legally binding decision.
+    source: https://www.commsombudsman.org/faqs
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      The scheme does not handle disputes that are not about electronic communications services (handsets are generally
+      excluded), the act of fraud itself (it can look at whether the provider kept the account secure), mis-sold consumer
+      credit agreements (Financial Ombudsman Service), streaming services such as Netflix or Amazon Prime unless the
+      provider allows it, or providers trading outside Britain.
+    source: https://www.commsombudsman.org/faqs
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The scheme says: "We're approved by Ofcom (the UK Communications regulator) to handle disputes in the
+      Communications sector."
+    source: https://www.commsombudsman.org/faqs
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The site footer names Communications Ombudsman Limited (registered in England and Wales, company 14462430) and
+      is branded (c) 2026 Trust Alliance Group.
+    source: https://www.commsombudsman.org/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      BT and EE name the Communications Ombudsman as their ADR scheme in their own complaints codes (see the bt and ee
+      company files).
+    source: https://www.bt.com/help/contact-bt/complaints/make-complaint
+    verified_via: page
+    last_verified: 2026-11-19
+
+notes: >-
+  Previously known as "Ombudsman Services: Communications" (the site does not say this itself; case sign-in is still
+  at case.ombudsman-services.org). The site now uses the name Communications Ombudsman and the domain
+  commsombudsman.org (communicationsombudsman.org redirects there); Trust Alliance Group also runs the Energy
+  Ombudsman. The site has no public member list; search for the provider on the
+  raise-a-dispute page. Values read on commsombudsman.org on 2026-11-19.

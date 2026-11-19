@@ -1,0 +1,549 @@
+id: ovo-energy
+name: OVO Energy
+aliases: [OVO, OVO Energy Ltd, ovoenergy]
+sector: utility
+countries: [gb]
+parent: E.ON
+website: https://www.ovoenergy.com
+account_url: https://my.ovoenergy.com/login
+regulators: [uk-ofgem, uk-energy-ombudsman, uk-citizens-advice]
+
+channels:
+  - id: pay-monthly-phone
+    type: phone
+    label: OVO Pay Monthly customer service and complaints (0330 303 5063)
+    value: +44-330-303-5063
+    purposes: [billing_error, bill_increase, refund_request, cancel_service, slamming, early_termination_fee, poor_service]
+    hours: Monday to Friday, 9am to 5pm
+    notes: >-
+      The complaints page gives 9am to 5pm. The Priority Services Register and erroneous transfer pages give Monday to
+      Friday, 8am to 6pm for the same number. Credit refunds are requested on this number.
+    source: https://www.ovoenergy.com/feedback
+    last_verified: 2026-11-19
+  - id: payg-phone
+    type: phone
+    label: OVO Pay As You Go customer service and complaints (0330 175 9669)
+    value: +44-330-175-9669
+    purposes: [billing_error, disconnection, payment_assistance, poor_service]
+    hours: Monday to Friday, 8am to 8pm; weekends, 9am to 5pm. 24 hours a day, 7 days a week for Pay As You Go meter emergencies.
+    source: https://www.ovoenergy.com/feedback
+    last_verified: 2026-11-19
+  - id: payment-support-phone
+    type: phone
+    label: OVO payment support for customers struggling to pay (0800 069 9831)
+    value: +44-800-069-9831
+    purposes: [payment_assistance, disconnection]
+    hours: Monday to Friday, 9am to 5pm
+    source: https://www.ovoenergy.com/payment-support
+    last_verified: 2026-11-19
+  - id: payg-move-assessment-phone
+    type: phone
+    label: Assessment of a move to Pay As You Go made before February 2023 (0330 175 9668)
+    value: +44-330-175-9668
+    purposes: [disconnection]
+    hours: Monday to Friday, 9am to 5pm
+    notes: >-
+      For customers switched to a Pay As You Go meter before February 2023 who feel they should not have been. OVO
+      says it replies in 3 working days. The page also gives an email address for this, but it is hidden from
+      automated reading.
+    source: https://www.ovoenergy.com/feedback
+    last_verified: 2026-11-19
+  - id: complaints-email
+    type: email
+    label: OVO complaints email
+    value: complaints@ovoenergy.com
+    purposes: [billing_error, bill_increase, refund_request, slamming, disconnection, poor_service]
+    notes: >-
+      From OVO's complaint handling leaflet (PDF created 2 October 2026). The complaints web page also lists an email
+      address, but it is hidden from automated reading. Include the account number, address and contact details.
+    verified_via: document
+    source: https://www.ovobyus.com/m/06eff69535592f2e/original/2730_OVO_Revised-complaint-handling_A4_DIGITAL_V1b.pdf
+    last_verified: 2026-11-19
+  - id: general-email
+    type: email
+    label: OVO general email for Pay Monthly customers
+    value: hello@ovoenergy.com
+    purposes: [billing_error, refund_request]
+    notes: >-
+      Listed in an OVO community forum answer that OVO staff (Abby_OVO) updated on 13/11/26. The main help page has
+      an "Email us" section that did not render for automated reading.
+    source: https://forum.ovoenergy.com/my-account-140/how-do-i-contact-ovo-energy-1269
+    last_verified: 2026-11-19
+  - id: webchat
+    type: chat
+    label: OVO online messaging (help centre contact section)
+    value: https://www.ovoenergy.com/help#contact_us_container
+    purposes: [billing_error, refund_request, slamming, poor_service]
+    notes: >-
+      The complaints page links "message us online" here, and ovoenergy.com/chat-now redirects here. An OVO-staff
+      forum update dated 13/11/26 says the webchat "isn't available at the moment".
+    source: https://www.ovoenergy.com/feedback
+    last_verified: 2026-11-19
+  - id: complaints-mail
+    type: mail
+    label: OVO complaints by post (complaints web page)
+    value: OVO Energy Ltd, Floor 5, Crescent, Temple Back, Redcliffe, BS1 6EZ
+    purposes: [billing_error, poor_service]
+    notes: >-
+      The complaint handling PDF (October 2026) gives a different postal address, PO Box 81428, London N17 1LB. The
+      Bristol address is also OVO Energy Ltd's address on that PDF.
+    source: https://www.ovoenergy.com/feedback
+    last_verified: 2026-11-19
+  - id: complaints-mail-po-box
+    type: mail
+    label: OVO complaints by post (complaint handling PDF)
+    value: PO Box 81428, London, N17 1LB
+    purposes: [billing_error, poor_service]
+    verified_via: document
+    source: https://www.ovobyus.com/m/06eff69535592f2e/original/2730_OVO_Revised-complaint-handling_A4_DIGITAL_V1b.pdf
+    last_verified: 2026-11-19
+  - id: complaints-page
+    type: portal
+    label: OVO complaints procedure ("How to make a complaint")
+    value: https://www.ovoenergy.com/feedback
+    access: open
+    notes: >-
+      Gives the 3 stages, the CEO-team escalation and the Energy Ombudsman details. Solar, EV charger and credit
+      complaints use ovoenergy.com/zcl-complaints-handling; boiler and home services complaints use
+      ovoenergy.com/home-services/feedback.
+    source: https://www.ovoenergy.com/feedback
+    last_verified: 2026-11-19
+  - id: online-account
+    type: portal
+    label: OVO online account (balance, billing history, refund requests, tariff changes)
+    value: https://my.ovoenergy.com/login
+    purposes: [billing_error, refund_request, bill_increase]
+    access: login
+    notes: Online refund requests in the Bills section need more than 3 months' credit; OVO may confirm them by phone.
+    source: https://www.ovoenergy.com/help/article/refunds
+    last_verified: 2026-11-19
+  - id: payment-support-sign-up
+    type: web_form
+    label: OVO payment support sign-up (share your finances and choose a payment plan)
+    value: https://www.ovoenergy.com/payment-support/sign-up
+    purposes: [payment_assistance]
+    notes: >-
+      Needs the OVO account number, registered email address and monthly income and outgoings. Details are shared by
+      Open Banking through Experian (about 15 minutes) or by manual entry (about 45 minutes).
+    source: https://www.ovoenergy.com/payment-support
+    last_verified: 2026-11-19
+  - id: customer-support-package
+    type: web_form
+    label: OVO Extra Support eligibility check (direct financial support)
+    value: https://customer-support-package.ovoenergy.com/
+    purposes: [payment_assistance]
+    notes: OVO says eligible customers may get direct financial support towards the energy bill or existing energy debt.
+    source: https://www.ovoenergy.com/extra-support
+    last_verified: 2026-11-19
+  - id: priority-services-form
+    type: web_form
+    label: Join the Priority Services Register (free)
+    value: https://www.ovoenergy.com/register-for-priority-services
+    purposes: [service_outage, disconnection]
+    access: open
+    notes: A paper form can be printed and posted, or call the Pay Monthly or Pay As You Go number.
+    source: https://www.ovoenergy.com/help/article/priority-services-register
+    last_verified: 2026-11-19
+  - id: power-cut-105
+    type: phone
+    label: Power cut - call 105 (your local electricity network operator, not OVO)
+    value: "105"
+    purposes: [service_outage]
+    notes: OVO says to call 105 if the power cut is area-wide. If only your home is affected, check the fuse box first.
+    source: https://www.ovoenergy.com/help/article/emergencies
+    last_verified: 2026-11-19
+  - id: gas-emergency-phone
+    type: phone
+    label: National Gas Emergency Service (0800 111 999) - gas leak or suspected carbon monoxide
+    value: +44-800-111-999
+    purposes: [service_outage]
+    hours: 24 hours
+    notes: Not run by OVO.
+    source: https://www.ovoenergy.com/help/article/emergencies
+    last_verified: 2026-11-19
+  - id: ovo-app-ios
+    type: app
+    label: OVO Energy app (iOS)
+    value: https://itunes.apple.com/gb/app/ovo-energy/id626316021
+    access: login
+    source: https://www.ovoenergy.com/help
+    last_verified: 2026-11-19
+  - id: ovo-app-android
+    type: app
+    label: OVO Energy app (Android)
+    value: https://play.google.com/store/apps/details?id=com.ovo.energy
+    access: login
+    source: https://www.ovoenergy.com/help
+    last_verified: 2026-11-19
+  - id: x-ovoenergy
+    type: social
+    label: OVO Energy on X (private message)
+    value: https://x.com/ovoenergy
+    access: login
+    notes: An OVO-staff forum update (13/11/26) says customers can send a private message on Facebook, Instagram or X.
+    source: https://www.ovoenergy.com/help
+    last_verified: 2026-11-19
+  - id: facebook-ovoenergy
+    type: social
+    label: OVO Energy on Facebook (private message)
+    value: https://www.facebook.com/ovoenergy
+    access: login
+    source: https://www.ovoenergy.com/help
+    last_verified: 2026-11-19
+  - id: community-forum
+    type: social
+    label: OVO community forum
+    value: https://forum.ovoenergy.com/
+    access: login
+    source: https://www.ovoenergy.com/help
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: pay-monthly-phone, note: "Pay As You Go customers use payg-phone. OVO says about 75% of complaints are resolved by the next working day."}
+  - {rung: written_complaint, channel: complaints-email, note: "Stage 2: OVO passes complaints it cannot resolve in a day or two, or that are complicated, to its specialist complaints team. You can also ask for an internal review of how the complaint was handled."}
+  - {rung: executive, channel: complaints-page, note: "If the specialist complaints team has not resolved the issue, OVO says you can email the team of its CEO, Anthony Ainsworth. The address is on the complaints page but is hidden from automated reading. Include the complaint reference, account number, address, a summary and why it is unresolved."}
+  - {rung: regulator, regulator: uk-citizens-advice, note: "Free advice; OVO's complaints page lists Citizens Advice (0808 223 1133, England and Wales) and Advice Direct Scotland (0808 196 8660)."}
+  - {rung: regulator, regulator: uk-energy-ombudsman, note: "After 8 weeks without a resolution, or earlier if OVO gives a final decision (deadlock letter) or you cannot agree a way forward. Free. The decision binds OVO but not you."}
+  - {rung: regulator, regulator: uk-ofgem, note: "Ofgem regulates suppliers but does not resolve individual complaints. Use it to report a pattern."}
+
+playbooks:
+  - issue: billing_error
+    summary: Raise it with OVO, put it in writing, and go to the Energy Ombudsman after 8 weeks. OVO cannot back-bill unbilled energy older than 12 months.
+    evidence: [OVO account number, the statement with the wrong charge, meter readings with dated photos, previous statements, Direct Debit records]
+    steps:
+      - do: Send a meter reading for every fuel, with a photo, so the bill uses actual readings.
+        channel: online-account
+      - do: Call OVO, explain the error and ask for a corrected statement and a complaint reference.
+        channel: pay-monthly-phone
+      - do: If it is not fixed in a day or two, email the complaint with the reference, the timeline and the evidence. Ask for it to go to the specialist complaints team.
+        channel: complaints-email
+      - do: If the bill charges for energy used more than 12 months ago that was never billed, cite the back-billing limit in OVO's terms (clause 7.19).
+      - do: After 8 weeks, or after a final response you disagree with, take the complaint to the Energy Ombudsman.
+        regulator: uk-energy-ombudsman
+    facts:
+      - kind: limit
+        claim: OVO's terms (clause 7.19) say OVO won't bill for energy supplied more than 12 months earlier, unless it has already billed it, the customer acted unlawfully or unreasonably (for example blocking meter access or tampering), there were fraudulent payments, or energy law allows it.
+        issues: [billing_error]
+        source: https://www.ovoenergy.com/terms
+        last_verified: 2026-11-19
+      - kind: process
+        claim: OVO says about 75% of complaints are resolved by the next working day and it aims to resolve the rest within 8 weeks.
+        issues: [billing_error]
+        source: https://www.ovoenergy.com/feedback
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: OVO's Guaranteed Standards say that within 5 working days of a credit meter issue OVO will assess whether the meter is faulty, agree next steps and confirm them in writing; it credits £40 for each failure, and an extra £40 if that payment is not made within 10 working days.
+        issues: [billing_error]
+        source: https://www.ovoenergy.com/help/guaranteed-standard-of-performance-gsop
+        last_verified: 2026-11-19
+
+  - issue: bill_increase
+    summary: Check whether the price cap changed (variable tariffs) or a fix ended. Price cap changes are not disputes; compare and fix instead.
+    evidence: [statement before and after the increase, tariff name and end date, OVO's price change letter]
+    steps:
+      - do: Check your tariff. On a variable tariff, prices follow Ofgem's price cap, which changes every 3 months. Fixed prices do not change until the fix ends.
+      - do: If a fixed price went up before the fix ended, dispute it as a billing error.
+        channel: pay-monthly-phone
+      - do: If OVO makes a change that puts you at a disadvantage, you can move to another OVO tariff or switch supplier without a termination fee if you act within 20 working days of the change.
+      - do: Compare tariffs and fix your price in the OVO app or online account.
+        channel: online-account
+      - do: If your Direct Debit went up, check the balance first; a large credit balance can be refunded (see refund_request).
+    facts:
+      - kind: policy
+        claim: OVO's price-cap page says the cap applies to variable-rate tariffs, not fixed-rate tariffs, and changes every 3 months. For 1 October to 31 December 2026 OVO gives the cap for a typical Direct Debit household as £1,723 and for a typical Pay As You Go home as £1,678.
+        issues: [bill_increase]
+        source: https://www.ovoenergy.com/price-cap
+        last_verified: 2026-11-19
+      - kind: process
+        claim: OVO's price-cap page says that if your prices went up, OVO will have written to you to let you know.
+        issues: [bill_increase]
+        source: https://www.ovoenergy.com/price-cap
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: OVO's terms (clause 9.2) promise "reasonable notice" of changes but give no number of days. Clause 9.3 says that if you do not accept a change that puts you at a disadvantage, you can move to another OVO tariff, or switch supplier with the new supplier notifying OVO, within 20 working days of the change or price rise coming into effect, with no termination fee. Some changes are excluded (clause 9.4), such as a payment-method change or a change Ofgem requires.
+        issues: [bill_increase, cancel_service, early_termination_fee]
+        source: https://www.ovoenergy.com/terms
+        last_verified: 2026-11-19
+
+  - issue: refund_request
+    summary: Ask for a credit refund by phone (or online with more than 3 months' credit). When you leave, credit is refunded automatically within 10 working days of the final statement, or OVO owes £40.
+    evidence: [account balance screenshot, meter readings from the last 28 days, final statement date if you left]
+    steps:
+      - do: Send a meter reading for every fuel (smart meters send it automatically). OVO needs one from the last 28 days.
+        channel: online-account
+      - do: Call OVO to ask for the refund. Online requests in the Bills section need more than 3 months' credit.
+        channel: pay-monthly-phone
+      - do: If you left OVO and the refund has not arrived 10 working days after the final statement, ask for the refund and the £40 Guaranteed Standards payment.
+        channel: complaints-email
+      - do: If it is still not paid after 8 weeks, go to the Energy Ombudsman.
+        regulator: uk-energy-ombudsman
+    facts:
+      - kind: limit
+        claim: To get a refund while staying with OVO, the account must keep credit equal to one month's Direct Debit, have been open at least 90 days, have received at least 2 Direct Debit payments from the bank account being refunded, have no other refund pending, and have a meter reading for all fuels from the last 28 days. The minimum refund is £5.
+        issues: [refund_request]
+        source: https://www.ovoenergy.com/help/article/refunds
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Customers with traditional (non-smart) meters who ask for more than £599 must send photos of the meter reading and serial number. Refunds go to the bank account the Direct Debit came from.
+        issues: [refund_request]
+        source: https://www.ovoenergy.com/help/article/refunds
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: When you switch away or move home, OVO refunds credit automatically, normally within 10 working days of the final statement.
+        issues: [refund_request, cancel_service]
+        source: https://www.ovoenergy.com/help/article/refunds
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: OVO's Guaranteed Standards say the final credit refund is automatic; if it is not received within 10 working days of the final bill, OVO pays £40.
+        issues: [refund_request, cancel_service]
+        source: https://www.ovoenergy.com/help/guaranteed-standard-of-performance-gsop
+        last_verified: 2026-11-19
+
+  - issue: cancel_service
+    summary: To leave, start a switch with the new supplier; OVO is told automatically. Variable tariffs have no exit fee; fixed tariffs may.
+    evidence: [tariff name and end date, exit fee in the tariff confirmation, final meter readings with photos, switch date]
+    steps:
+      - do: Check your tariff end date and exit fee in the online account or tariff confirmation letter.
+        channel: online-account
+      - do: Start the switch with the new supplier. The new supplier tells OVO. OVO can object in limited cases, such as unpaid debt.
+      - do: If moving home, tell OVO at least 2 working days before you move out.
+        channel: pay-monthly-phone
+      - do: Give final meter readings with dated photos. Expect the final statement within 6 weeks and any credit within 10 working days of it.
+    facts:
+      - kind: policy
+        claim: OVO's terms (clause 10.2) say that when you switch supplier the new supplier tells OVO on your behalf; clause 4.4 says variable tariff customers can cancel at any time without an exit fee.
+        issues: [cancel_service]
+        source: https://www.ovoenergy.com/terms
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: OVO's terms (clause 10.1) say you need to tell OVO at least 2 working days before you move out.
+        issues: [cancel_service]
+        source: https://www.ovoenergy.com/terms
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: OVO's Guaranteed Standards say OVO sends the final statement within 6 weeks of you moving out or your new supplier notifying the switch, and pays £40 if it is late.
+        issues: [cancel_service, billing_error]
+        source: https://www.ovoenergy.com/help/guaranteed-standard-of-performance-gsop
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: OVO's terms (clause 3.4) give a cooling-off period of 14 calendar days from the contract start date.
+        issues: [cancel_service, early_termination_fee]
+        source: https://www.ovoenergy.com/terms
+        last_verified: 2026-11-19
+
+  - issue: early_termination_fee
+    summary: Fixed tariffs can carry an exit fee per fuel. It does not apply in the cooling-off period, when moving home, in the last 49 days of the fix, or when leaving over a change that puts you at a disadvantage.
+    evidence: [tariff confirmation letter with the exit fee, tariff end date, date the switch completed, any renewal statement]
+    steps:
+      - do: Find the exit fee in your tariff confirmation letter or the tariff's terms.
+        channel: online-account
+      - do: Time the switch for the last 49 days of the fix (or after the renewal statement, if earlier) to avoid the fee.
+      - do: If OVO charged an exit fee in one of the exempt cases, dispute it citing clause 10.4 of OVO's terms.
+        channel: complaints-email
+      - do: If OVO does not remove it, go to the Energy Ombudsman after 8 weeks or a deadlock letter.
+        regulator: uk-energy-ombudsman
+    facts:
+      - kind: fee
+        claim: OVO's fixed tariffs page lists an early exit fee per fuel of £50 for 1 Year Fixed, 1 Year Fixed+ Greener Electricity and 1 Year Fixed+ Complete Cover, and £95 for 2 Year Fixed. An image description on the same page says "£95 exit fee per fuel" for 1 Year Fixed, so check the fee in your own tariff confirmation.
+        issues: [early_termination_fee, cancel_service]
+        source: https://www.ovoenergy.com/home-energy-plans/fixed-tariffs
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: OVO's terms (clause 10.4) say there is no exit fee if you cancel in the cooling-off period, move house, are on a variable tariff, leave over a disadvantageous change under clause 9.3, or switch supplier after the earlier of the renewal statement or 49 days before the fixed tariff ends (unless you already signed a new OVO fixed tariff).
+        issues: [early_termination_fee, cancel_service]
+        source: https://www.ovoenergy.com/terms
+        last_verified: 2026-11-19
+
+  - issue: payment_assistance
+    summary: Ask OVO for a payment plan through payment support, check the Extra Support package, and get free debt advice.
+    evidence: [OVO account number, registered email, monthly income and outgoings, balance owed, any benefit letters]
+    steps:
+      - do: Sign up for payment support online or call the payment support line. OVO says a plan can be set within 24 hours.
+        channel: payment-support-sign-up
+      - do: Check eligibility for OVO's Extra Support package (direct financial support towards the bill or existing debt).
+        channel: customer-support-package
+      - do: If you owe more than £150 and cannot pay, ask about a one-off payment from the OVO Energy Fund.
+        channel: payment-support-phone
+      - do: Join the Priority Services Register if anyone in the home is eligible.
+        channel: priority-services-form
+      - do: Get free debt advice from Citizens Advice, StepChange or National Debtline.
+        regulator: uk-citizens-advice
+    facts:
+      - kind: process
+        claim: OVO payment support offers a one-off payment, a Direct Debit, or a payment plan that spreads energy costs into smaller amounts; OVO says a plan can be set within 24 hours.
+        issues: [payment_assistance]
+        source: https://www.ovoenergy.com/payment-support
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: OVO says customers with a negative balance of more than £150 who cannot pay their energy bill may qualify for a one-off payment from the OVO Energy Fund. The page gives no amount.
+        issues: [payment_assistance]
+        source: https://www.ovoenergy.com/payment-support
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: OVO's payment plans are paid weekly, fortnightly or monthly; part of each payment repays the debt and part covers current energy use. OVO says to contact it to adjust the plan if you fall behind.
+        issues: [payment_assistance]
+        source: https://www.ovoenergy.com/help/article/debt-and-energy-assistance
+        last_verified: 2026-11-19
+
+  - issue: disconnection
+    summary: On Pay As You Go, use emergency credit and the friendly-hours protection; ask for an affordable debt-recovery rate. If OVO moved you to Pay As You Go before February 2023 and it was wrong, ask for an assessment.
+    evidence: [meter type (smart or traditional), top-up history, debt recovery rate, letters about any move to Pay As You Go]
+    steps:
+      - do: For a Pay As You Go meter emergency, call OVO; the line is open 24 hours a day, 7 days a week for meter emergencies.
+        channel: payg-phone
+      - do: Activate emergency credit (smart meter in-home display prompts below £2; traditional meters when electricity credit is below £1 or gas below £2).
+      - do: If debt is being taken through the meter, ask OVO to agree a rate you can afford.
+        channel: payment-support-phone
+      - do: If you were switched to Pay As You Go before February 2023 and believe you should not have been, ask for an assessment.
+        channel: payg-move-assessment-phone
+      - do: If OVO does not reconnect within 24 hours after you pay what is owed, claim the £40 Guaranteed Standards payment.
+        channel: complaints-email
+    facts:
+      - kind: policy
+        claim: OVO says a smart Pay As You Go supply will not cut out between 6pm and 9am Monday to Friday, before 9am or after 4pm on Saturday, all day Sunday and certain bank holidays, as long as there is credit on the meter at the start of these periods.
+        issues: [disconnection]
+        source: https://www.ovoenergy.com/help/article/debt-and-energy-assistance
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: OVO's Guaranteed Standards say OVO reconnects supply within 24 hours after the balance is paid (next working day if paid outside working hours) and pays £40 if it takes longer than 24 hours.
+        issues: [disconnection]
+        source: https://www.ovoenergy.com/help/guaranteed-standard-of-performance-gsop
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: OVO's Guaranteed Standards say that if a prepayment meter is broken and you have lost power, OVO will arrive at your home or fix the issue remotely within 3 hours if you contact it on a working day (Monday to Friday, 8am to 8pm), or within 4 hours on a weekend or bank holiday, and credits £40 if it misses this.
+        issues: [disconnection, service_outage]
+        source: https://www.ovoenergy.com/help/guaranteed-standard-of-performance-gsop
+        last_verified: 2026-11-19
+      - kind: process
+        claim: If you were switched to a Pay As You Go meter before February 2023 and feel you should not have been, OVO says you can request an assessment by email or by calling 0330 175 9668 (Monday to Friday, 9am to 5pm), and it will reply in 3 working days.
+        issues: [disconnection]
+        source: https://www.ovoenergy.com/feedback
+        last_verified: 2026-11-19
+
+  - issue: slamming
+    summary: An erroneous transfer is a switch to another supplier by mistake. Tell OVO quickly; it aims to fix it within 12 weeks, and the gaining supplier pays at least £30.
+    evidence: [MPAN or MPRN from your bills, letters from the supplier that took over, dates, meter readings]
+    steps:
+      - do: Check the MPAN (electricity) or MPRN (gas) on your welcome letter or bill against your meter.
+      - do: Tell OVO as quickly as possible by phone or online messaging. OVO contacts the other supplier to stop the switch.
+        channel: pay-monthly-phone
+      - do: If you were switched away from OVO by mistake, keep paying OVO; you do not pay the new supplier.
+      - do: If it is not fixed after 8 weeks, or within the 12-week target, complain in writing and then go to the Energy Ombudsman.
+        regulator: uk-energy-ombudsman
+    facts:
+      - kind: deadline
+        claim: OVO says it aims to sort out erroneous transfers within 12 weeks.
+        issues: [slamming]
+        source: https://www.ovoenergy.com/help/erroneous-transfers
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: For erroneous switches on or after 1 May 2019, OVO says you get a minimum of £30, up to a maximum of £120 if the supply is not switched back in a timely way. The supplier you were wrongly switched to pays.
+        issues: [slamming]
+        source: https://www.ovoenergy.com/help/erroneous-transfers
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: OVO says an OVO customer switched away by mistake won't have to pay the new supplier; OVO keeps billing and the customer keeps paying the usual Direct Debit to OVO.
+        issues: [slamming]
+        source: https://www.ovoenergy.com/help/erroneous-transfers
+        last_verified: 2026-11-19
+
+  - issue: service_outage
+    summary: Power cuts go to the network operator on 105 and gas emergencies to 0800 111 999, not to OVO. OVO handles Pay As You Go meter emergencies.
+    evidence: [time and date of the cut, whether neighbours are affected, network operator reference number]
+    steps:
+      - do: If the power cut is area-wide, call 105 to report it to your network operator.
+        channel: power-cut-105
+      - do: For a gas leak or suspected carbon monoxide, call the National Gas Emergency Service.
+        channel: gas-emergency-phone
+      - do: If only your home is affected, check the fuse box for a tripped switch; otherwise call an electrician.
+      - do: For a Pay As You Go meter that stopped supplying, call OVO's 24-hour Pay As You Go line.
+        channel: payg-phone
+    facts:
+      - kind: contact
+        claim: OVO says to call 105 to report an area-wide power cut to your network distributor, and to call the 24-hour National Gas Emergency Service on 0800 111 999 for a gas leak or suspected carbon monoxide. OVO's own emergency line is 0330 175 9669 for Pay As You Go meter problems, 24 hours a day.
+        issues: [service_outage]
+        source: https://www.ovoenergy.com/help/article/emergencies
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: OVO's Guaranteed Standards say compensation that a network operator or gas transporter owes is credited through OVO; if it is not received within 10 working days, OVO adds £40.
+        issues: [service_outage]
+        source: https://www.ovoenergy.com/help/guaranteed-standard-of-performance-gsop
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Priority Services Register members can get advance notice of planned power cuts. The register is free.
+        issues: [service_outage]
+        source: https://www.ovoenergy.com/help/article/priority-services-register
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: OVO's complaints procedure has 3 stages - customer care, then a specialist complaints team, then the Energy Ombudsman. If the specialist team cannot resolve it, OVO says you can email the team of its CEO.
+    source: https://www.ovoenergy.com/feedback
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: OVO says you can contact the Energy Ombudsman if the complaint has taken over 8 weeks to resolve, if you are unhappy with OVO's actions, or if you receive a final decision (deadlock letter) you disagree with. The service is free.
+    source: https://www.ovoenergy.com/feedback
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: OVO's complaint handling leaflet says the customer does not have to accept the Energy Ombudsman's decision but OVO does, and that customers can request an internal review of how a complaint was handled at any stage.
+    verified_via: document
+    source: https://www.ovobyus.com/m/06eff69535592f2e/original/2730_OVO_Revised-complaint-handling_A4_DIGITAL_V1b.pdf
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: OVO's Guaranteed Standards page says OVO must pay £40 into the account when it fails a standard, unless a specific standard says otherwise. Standards cover meter appointments, reconnection, meter faults, final bills, final credit refunds, switching (5 working days) and erroneous transfers.
+    source: https://www.ovoenergy.com/help/guaranteed-standard-of-performance-gsop
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: E.ON says it has completed its acquisition of OVO; there is no immediate change for OVO customers, existing tariffs are honoured in full and customer service channels continue as they are.
+    source: https://www.eonnext.com/blog/e-on-has-acquired-ovo
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Which? reported on 13 September 2019 that OVO agreed to buy SSE's household energy and related services business, which could move around 3.5 million households from SSE to OVO.
+    source: https://www.which.co.uk/news/article/sse-customers-to-be-moved-to-ovo-aHZdU9u3zGPx
+    last_verified: 2026-11-19
+
+known_blockers:
+  - The help centre contact section (phone, email, letter, SignVideo) is rendered by JavaScript and did not show contact details to automated reading.
+  - The email addresses on the complaints page (complaints, CEO's team, Pay As You Go assessment) are hidden by email protection for automated reading.
+  - Refund requests online, tariff changes and the app need an OVO account sign-in.
+  - An OVO-staff forum update dated 13/11/26 says the webchat is not available at the moment.
+
+notes: >-
+  The file covers OVO Energy's domestic gas and electricity supply in Great Britain (England, Scotland, Wales) only;
+  Northern Ireland has a different regulator. E.ON completed its purchase of OVO's energy retail business in October
+  2026 and says OVO's existing tariffs and customer service channels continue for now. OVO agreed in 2019 to buy SSE's household
+  energy business, so some customers came from SSE (see facts). Solar, EV charger, boiler and home services complaints
+  use separate OVO pages.
+
+official_domains: [ovoenergy.com, ovobyus.com]
+security:
+  never_asks:
+  - kind: policy
+    claim: OVO says it will never pressure you to give sensitive information, like your bank details, over the phone or by email.
+    source: https://www.ovoenergy.com/help/keeping-your-information-safe
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: OVO says to watch out for anyone asking you to send money, share bank details or enter passwords, and to hang up and dial OVO yourself if you are pressured or suspicious.
+    source: https://www.ovoenergy.com/help/keeping-your-information-safe
+    last_verified: 2026-11-19
+  known_scams:
+  - kind: policy
+    claim: OVO warns that scammers can fake official phone numbers to look like they are calling from OVO, and may link you to a fake OVO website or app to trick you into entering personal information.
+    source: https://www.ovoenergy.com/help/keeping-your-information-safe
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: An OVO community manager warned (September 2025, updated 01/09/26) of fake texts and emails inviting people to apply for an "energy support scheme" or "winter fuel allowance", and said to report them on gov.uk.
+    source: https://forum.ovoenergy.com/extra-support-168/scam-alert-fake-energy-support-texts-and-emails-20167
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: The FCA warned in January 2022 about a clone firm using the name ovoenergy.ltd, with websites ovoenergy.ltd and ovo-energy.trade, that pretends to be an authorised firm.
+    source: https://www.fca.org.uk/news/warnings/ovoenergyltd-clone-fca-authorised-firm
+    last_verified: 2026-11-19
+  report_phishing:
+  - id: check-with-ovo-phone
+    type: phone
+    label: Call OVO to check whether a call, text or email is genuine (Pay Monthly 0330 303 5063)
+    value: +44-330-303-5063
+    notes: Pay As You Go customers call 0330 175 9669. OVO says it can tell you whether the information is real or fake.
+    source: https://www.ovoenergy.com/help/keeping-your-information-safe
+    last_verified: 2026-11-19

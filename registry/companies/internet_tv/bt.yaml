@@ -1,0 +1,607 @@
+id: bt
+name: BT
+aliases: [bt, british telecom, british telecommunications, bt broadband, bt home phone, bt digital voice, bt mobile, bt tv, bt consumer]
+sector: internet_tv
+also_sectors: [wireless]
+countries: [gb]
+parent: BT Group plc
+website: https://www.bt.com
+account_url: https://my.bt.com/mybt
+regulators: [uk-communications-ombudsman, uk-ofcom]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: BT customer service (0330 1234 150)
+    value: +44-330-1234-150
+    purposes: [billing_error, bill_increase, cancel_service, service_outage, payment_assistance, poor_service]
+    hours: Monday to Friday 8am-9pm; weekends and bank holidays 8am-8pm
+    access: open
+    notes: >-
+      Same number on the complaints page and the broadband and mobile contact pages. Calls to 0330 1234 150 are free
+      from the BT network; other networks may charge. Text Relay users dial 18001 07953 966 150.
+    source: https://www.bt.com/help/contact-bt/complaints/make-complaint
+    last_verified: 2026-11-19
+  - id: bt-mobile-short-dial
+    type: phone
+    label: BT customer service from a BT mobile (150)
+    value: "150"
+    purposes: [billing_error, bill_increase, cancel_service, number_port_out]
+    hours: Monday to Friday 8am-9pm; weekends and bank holidays 8am-8pm
+    source: https://www.bt.com/help/contact-bt/account-and-billing/mobile
+    last_verified: 2026-11-19
+  - id: from-abroad-phone
+    type: phone
+    label: BT customer service from outside the UK (+44 150 174 7714)
+    value: +44-150-174-7714
+    purposes: [billing_error, cancel_service]
+    hours: Monday to Friday 8am-9pm; weekends and bank holidays 8am-8pm
+    source: https://www.bt.com/help/contact-bt/complaints/make-complaint
+    last_verified: 2026-11-19
+  - id: complaints-phone
+    type: phone
+    label: BT complaints, home and mobile customers (0800 800 150)
+    value: +44-800-800-150
+    purposes: [billing_error, bill_increase, cancel_service, poor_service, number_port_out, early_termination_fee]
+    notes: >-
+      The complaints code of practice (August 2026) gives 0800 800 150 for complaints and textphone 18001 0800 800 150.
+      BT's "thinking of leaving" landing page and the BT Mobile leaving page also give 0800 800 150. The live complaints
+      page gives 0330 1234 150 instead.
+    verified_via: document
+    source: https://www.bt.com/bt-plc/assets/documents/about-bt/policy-and-regulation/our-governance-and-strategy/codes-of-practice/customer-complaints-code/complaints-code.pdf
+    last_verified: 2026-11-19
+  - id: faults-phone
+    type: phone
+    label: BT faults, home and mobile customers (0800 800 151)
+    value: +44-800-800-151
+    purposes: [service_outage]
+    verified_via: document
+    source: https://www.bt.com/bt-plc/assets/documents/about-bt/policy-and-regulation/our-governance-and-strategy/codes-of-practice/customer-complaints-code/complaints-code.pdf
+    last_verified: 2026-11-19
+  - id: leaving-phone
+    type: phone
+    label: BT leaving / cancellation line (0800 783 1401)
+    value: +44-800-783-1401
+    purposes: [cancel_service, early_termination_fee]
+    hours: Monday to Friday 08:00-21:00; Saturday 08:00-20:00; Sunday 09:00-18:00
+    notes: >-
+      Published on BT's "Thinking of leaving BT?" help page. That page also links to personalised broadband offers.
+      Give 30 days' notice. If you switch to another provider, the new provider handles the switch.
+    source: https://www.bt.com/help/account-and-billing/manage-account/thinking-of-leaving-bt
+    last_verified: 2026-11-19
+  - id: message-us-chat
+    type: chat
+    label: Message BT online ("Message now" button on the broadband contact page)
+    value: https://www.bt.com/help/contact-bt/account-and-billing/broadband
+    purposes: [billing_error, bill_increase, service_outage, equipment_return, poor_service]
+    hours: Monday to Sunday 7am-10.15pm
+    notes: The "Message now" button appears a few moments after the page loads, during opening hours only.
+    source: https://www.bt.com/help/contact-bt/account-and-billing/broadband
+    last_verified: 2026-11-19
+  - id: complaints-portal
+    type: portal
+    label: My BT online complaints portal (log in to register a complaint)
+    value: https://my.bt.com/appsbills/secure/v1/redirect?url=https://my.bt.com/s/apps/appscomplaints/index.html#/complaints
+    purposes: [billing_error, bill_increase, poor_service, service_outage, cancel_service]
+    access: login
+    notes: >-
+      BT's complaints page says to log in to My BT to register a complaint online. To check an existing complaint, use
+      https://www.bt.com/help/contact-bt/complaints/get-updates-on-an-existing-complaint. BT says that if you have
+      already submitted a complaint, you do not need to contact it again.
+    source: https://www.bt.com/help/contact-bt/complaints/make-complaint
+    last_verified: 2026-11-19
+  - id: complaints-email
+    type: email
+    label: BT consumer complaints email
+    value: consumer-resolutions@bt.com
+    purposes: [billing_error, bill_increase, poor_service]
+    notes: >-
+      Listed in the copy of the complaints code of practice (August 2026) under bt.com/content/dam/bt/help/complaints.
+      The other August 2026 copy (on the codes-of-practice page) and the live complaints page do not list an email
+      address. The code says a reply to an email or letter can take up to ten days.
+    verified_via: document
+    source: https://www.bt.com/content/dam/bt/help/complaints/Complaints_Code_of_Practice.pdf
+    last_verified: 2026-11-19
+  - id: complaints-mail
+    type: mail
+    label: BT written complaints (post)
+    value: Customer Service Manager, BT Limited, PO Box 334, Sheffield, S98 1BT
+    purposes: [billing_error, bill_increase, poor_service, cancel_service]
+    notes: >-
+      Address from the complaints code of practice (August 2026). The live complaints page writes it as "BT plc, PO Box
+      334, Sheffield, S98 1BT" and says BT aims to respond within 28 days. Include full name, postal address with
+      postcode, account number and/or mobile number, landline number (for home broadband), the complaint details and
+      an alternative daytime phone number.
+    verified_via: document
+    source: https://www.bt.com/bt-plc/assets/documents/about-bt/policy-and-regulation/our-governance-and-strategy/codes-of-practice/customer-complaints-code/complaints-code.pdf
+    last_verified: 2026-11-19
+  - id: fault-text
+    type: sms
+    label: Report a fault by text (61998)
+    value: "61998"
+    purposes: [service_outage]
+    hours: Monday to Friday 8am-9pm; weekends and bank holidays 8am-8pm
+    notes: Text HELP (broadband) or PHONE (landline) followed by your landline number to 61998. Standard message rates may apply.
+    source: https://www.bt.com/help/contact-bt/complaints/make-complaint
+    last_verified: 2026-11-19
+  - id: report-track-fault
+    type: portal
+    label: Report and track a BT fault (broadband and home phone troubleshooters, fault tracker)
+    value: https://www.bt.com/help/report-and-track-your-bt-problem
+    purposes: [service_outage]
+    access: login
+    notes: >-
+      The broadband troubleshooter needs a My BT login; it runs line tests and can book an engineer. Track a broadband
+      fault at https://www.bt.com/help/track-fault.
+    source: https://www.bt.com/help/report-and-track-your-bt-problem
+    last_verified: 2026-11-19
+  - id: returns-label-text
+    type: sms
+    label: Request a new equipment returns label by text (61996)
+    value: "61996"
+    purposes: [equipment_return]
+    notes: Text LABEL to 61996.
+    source: https://www.bt.com/help/tv/how-to-return-and-recycle-your-bt-broadband-hub-and-bt-tv-box-fo
+    last_verified: 2026-11-19
+  - id: returns-page
+    type: portal
+    label: How to return and recycle your BT Hub and TV box
+    value: https://www.bt.com/help/tv/how-to-return-and-recycle-your-bt-broadband-hub-and-bt-tv-box-fo
+    purposes: [equipment_return, cancel_service]
+    access: open
+    notes: >-
+      BT emails a QR code and a printable label when it needs equipment back. Show the QR code or take the labelled
+      parcel to a Royal Mail Customer Service Point (usually a delivery office or Post Office). Keep the Royal Mail
+      receipt with the tracking number. BT stores accept only mobile phone returns.
+    source: https://www.bt.com/help/tv/how-to-return-and-recycle-your-bt-broadband-hub-and-bt-tv-box-fo
+    last_verified: 2026-11-19
+  - id: pac-text
+    type: sms
+    label: BT Mobile - get a PAC to keep your number (text PAC to 65075)
+    value: "65075"
+    purposes: [number_port_out, cancel_service]
+    notes: Free. The PAC comes by text straight away and is valid for 30 days. You can also get it in My BT or on 0800 800 150.
+    source: https://www.bt.com/help/mobile/manage-service/how-do-i-leave-bt-mobile
+    last_verified: 2026-11-19
+  - id: stac-text
+    type: sms
+    label: BT Mobile - get a STAC to leave without your number (text STAC to 75075)
+    value: "75075"
+    purposes: [cancel_service]
+    notes: Free. Comes by text straight away and is valid for 30 days.
+    source: https://www.bt.com/help/mobile/manage-service/how-do-i-leave-bt-mobile
+    last_verified: 2026-11-19
+  - id: etc-info-text
+    type: sms
+    label: BT Mobile - check your early termination charge (text INFO to 85075)
+    value: "85075"
+    purposes: [early_termination_fee, cancel_service]
+    source: https://www.bt.com/help/mobile/manage-service/how-do-i-leave-bt-mobile
+    last_verified: 2026-11-19
+  - id: more-time-to-pay
+    type: portal
+    label: More time to pay your BT bill
+    value: https://www.bt.com/help/account-and-billing/can-i-have-more-time-to-pay-my-bill-
+    purposes: [payment_assistance, disconnection]
+    access: open
+    source: https://www.bt.com/help/account-and-billing/can-i-have-more-time-to-pay-my-bill-
+    last_verified: 2026-11-19
+  - id: home-essentials
+    type: portal
+    label: BT Home Essentials (social tariff for people on certain benefits)
+    value: https://www.bt.com/broadband/home-essentials
+    purposes: [payment_assistance, price_negotiation]
+    access: open
+    notes: Existing BT customers apply on 0800 800 150 (Mon-Fri 8am-9pm, Sat-Sun 8am-8pm). EE customers call 0800 079 5122.
+    source: https://www.bt.com/broadband/home-essentials
+    last_verified: 2026-11-19
+  - id: privacy-request-form
+    type: web_form
+    label: BT data protection complaint / rights request form (OneTrust)
+    value: https://btprivacy.my.onetrust.com/webform/a0327856-31fc-4f51-b6d3-1c9e883e1ecf/064635fb-4ae0-40ad-a7fc-d2004310c918
+    purposes: [privacy_request]
+    source: https://www.bt.com/help/contact-bt/complaints/make-complaint
+    last_verified: 2026-11-19
+  - id: tariff-guide
+    type: portal
+    label: BT Consumer Price Guide (tariff guide, PDF)
+    value: https://www.bt.com/content/dam/bt/storefront/pdfs/BT_PhoneTariff_Residential.pdf
+    access: open
+    notes: Version effective from 6 November 2026. BT says the current version is always at www.bt.com/tariffguide.
+    verified_via: document
+    source: https://www.bt.com/content/dam/bt/storefront/pdfs/BT_PhoneTariff_Residential.pdf
+    last_verified: 2026-11-19
+  - id: bt-community
+    type: social
+    label: BT Community forum (linked from BT help pages)
+    value: https://community.bt.com
+    purposes: [billing_error, service_outage, equipment_return]
+    notes: The forum blocked automated reading during research; its content was not checked.
+    source: https://www.bt.com/help/contact-bt/complaints/make-complaint
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone, note: "Phone 0330 1234 150 (free from the BT network), or message BT online. BT's complaints code says it tries to fix the issue straight away and tells you when to expect an update."}
+  - {rung: supervisor, channel: complaints-phone, note: "The complaints code says you can ask to escalate your complaint at any time (step 2)."}
+  - {rung: retention, channel: leaving-phone, note: "BT publishes a leaving line, 0800 783 1401. Its leaving page links to personalised broadband offers."}
+  - {rung: written_complaint, channel: complaints-portal, note: "Register the complaint in My BT, or write to PO Box 334, Sheffield, S98 1BT. If the response falls short, escalate a second time; the code says BT then does a 'final complaint review'. Ask for a deadlock letter if BT can do nothing more."}
+  - {rung: regulator, regulator: uk-communications-ombudsman, note: "BT is a member of the Communications Ombudsman. BT's complaints page, its complaints code (August 2026) and its terms (15 October 2026) all say you can go there six weeks after you complained, or earlier with a deadlock letter received in the past 12 months. Free. The code says the ombudsman cannot deal with commercial policy such as BT's prices or broadband availability. Complaints about a product a business rented from BT go to the Financial Ombudsman Service."}
+  - {rung: regulator, regulator: uk-ofcom, note: "Ofcom does not resolve individual complaints; report the problem to it for its monitoring."}
+
+playbooks:
+  - issue: billing_error
+    summary: Tell BT straight away, get a reference, escalate twice inside BT, then go to the Communications Ombudsman after six weeks.
+    evidence: [the bill with the wrong charge, BT account number, landline or mobile number, order confirmation or chat transcript with the agreed price, payment confirmation]
+    steps:
+      - do: Tell BT straight away. BT's terms say it will not suspend or end a service while it looks into a genuine billing mistake.
+        channel: customer-service-phone
+      - do: If the agent cannot fix it, register a complaint in My BT or by phone and get a reference number.
+        channel: complaints-portal
+      - do: If the answer falls short, ask to escalate. If it still falls short, escalate a second time for a final complaint review, and ask for a deadlock letter.
+        channel: complaints-phone
+      - do: Six weeks after you first complained (or as soon as you have a deadlock letter), take it to the Communications Ombudsman. It is free.
+        regulator: uk-communications-ombudsman
+    facts:
+      - kind: policy
+        claim: BT's terms say "If you genuinely think we've made a mistake on your bill, tell us straight away", and that BT will not suspend or end a service while it looks into the matter.
+        issues: [billing_error]
+        source: https://www.bt.com/terms/bt-home-phone-broadband-terms-conditions
+        last_verified: 2026-11-19
+      - kind: process
+        claim: BT's complaints code describes three stages - BT tries to fix it straight away; you can ask to escalate at any time; if the response falls short you can escalate a second time for a final complaint review. A closed complaint can be reopened by getting back in touch within 28 days.
+        issues: [billing_error, poor_service]
+        verified_via: document
+        source: https://www.bt.com/bt-plc/assets/documents/about-bt/policy-and-regulation/our-governance-and-strategy/codes-of-practice/customer-complaints-code/complaints-code.pdf
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: The BT price guide lists a Late Payment Charge of £7.50 per occasion if BT does not get payment by the date on the bill, and a £3 Paper Bill Fee for each paper bill (with exemptions such as BT Basic and Line Rental Plus).
+        issues: [billing_error, payment_assistance]
+        verified_via: document
+        source: https://www.bt.com/content/dam/bt/storefront/pdfs/BT_PhoneTariff_Residential.pdf
+        last_verified: 2026-11-19
+
+  - issue: bill_increase
+    summary: BT's annual rise is a fixed pounds-and-pence amount on 31 March; check which contract cohort you are in, whether you have Fixed Price Broadband, and whether you are out of contract.
+    evidence: [order confirmation or contract summary with the start date, the price-change email or letter, last bill before and first bill after the rise]
+    steps:
+      - do: Find your contract start date. The rise amount depends on whether you signed between 10 April 2024 and 30 July 2025, or on or after 31 July 2025.
+        channel: tariff-guide
+      - do: If you have Fixed Price Broadband and are still in the minimum term, the broadband price should not rise. If it did, dispute it as a billing error.
+        channel: customer-service-phone
+      - do: If BT changes a price or term other than the annual rise, you can end the contract without an early termination charge. Tell BT within 30 days of the notice.
+        channel: complaints-phone
+      - do: If you are out of contract, ask for current offers or re-contract. If you get certain benefits, ask about Home Essentials.
+        channel: leaving-phone
+    facts:
+      - kind: policy
+        claim: For a new contract on or after 31 July 2025 (or customers told between January and March 2026 they were moved to the latest pounds and pence terms), the annual change is - Broadband (except Fixed Price Broadband) +£4 a month; EE TV +£2; BT Mobile +£2.50; landline only +£1; out-of-bundle charges +5%.
+        issues: [bill_increase]
+        verified_via: document
+        source: https://www.bt.com/content/dam/bt/storefront/pdfs/BT_PhoneTariff_Residential.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: For a new contract between 10 April 2024 and 30 July 2025, the annual change is - Broadband (except Fixed Price Broadband) +£3 a month; EE TV +£2; BT Mobile +£1.50; out-of-bundle charges +5%.
+        issues: [bill_increase]
+        verified_via: document
+        source: https://www.bt.com/content/dam/bt/storefront/pdfs/BT_PhoneTariff_Residential.pdf
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: BT's terms (in force from 15 October 2026) say that during the minimum term the annual increase on core charges takes effect on 31 March each year, and that the annual price increase does not give a right to end the contract without charge.
+        issues: [bill_increase, early_termination_fee]
+        source: https://www.bt.com/terms/bt-home-phone-broadband-terms-conditions
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: For other changes, BT's terms say BT tells you at least 30 days before the change and you can give 30 days' notice to end the agreement without an early termination charge; you must tell BT within 30 days of the date of BT's notice.
+        issues: [bill_increase, early_termination_fee, cancel_service]
+        source: https://www.bt.com/terms/bt-home-phone-broadband-terms-conditions
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Fixed Price Broadband customers' monthly BT Broadband price does not increase during the minimum term; after it ends, the price rises by the standard annual amount each year.
+        issues: [bill_increase]
+        verified_via: document
+        source: https://www.bt.com/content/dam/bt/storefront/pdfs/BT_PhoneTariff_Residential.pdf
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: The BT price guide says all broadband contracts are up to 24 months, and "After your contract ends your price will increase by no more than £5."
+        issues: [bill_increase, price_negotiation]
+        verified_via: document
+        source: https://www.bt.com/content/dam/bt/storefront/pdfs/BT_PhoneTariff_Residential.pdf
+        last_verified: 2026-11-19
+      - kind: process
+        claim: BT's annual price change page says BT sends an email or letter between mid-January and mid-March, and lists exceptions including Fixed price broadband, BT Basic and Home Essentials with BT broadband.
+        issues: [bill_increase]
+        source: https://www.bt.com/tell-me-more
+        last_verified: 2026-11-19
+
+  - issue: cancel_service
+    summary: Give 30 days' notice on BT's leaving line, or let your new provider switch you; return the Hub and TV box within 60 days.
+    evidence: [account number, contract end date (in My BT), cancellation date and reference, Royal Mail return receipt]
+    steps:
+      - do: Check your contract end date in My BT to see if an early termination charge applies.
+      - do: If you are moving to a provider on the Openreach network, set up the new service and let the new provider tell BT. If you move to Virgin Media or another non-Openreach network, tell BT yourself.
+      - do: To cancel, call BT's leaving line and give 30 days' notice. Get a reference number.
+        channel: leaving-phone
+      - do: For BT Mobile, get a PAC (to keep your number) or a STAC by text.
+        channel: pac-text
+      - do: Return the Hub and TV box when BT emails the QR code or label, and keep the Royal Mail receipt.
+        channel: returns-page
+    facts:
+      - kind: deadline
+        claim: BT's leaving page says "You need to give us 30 days' notice before you leave. Your service will stop 30 days after you cancel."
+        issues: [cancel_service]
+        source: https://www.bt.com/help/account-and-billing/manage-account/thinking-of-leaving-bt
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: If you switch to another provider through the standard process (the new provider notifies BT), BT's notice period is 14 days.
+        issues: [cancel_service]
+        source: https://www.bt.com/help/account-and-billing/payments--bills-and-charges/i-don-t-understand-my-bill/what-s-this-cancellation-fee-for-
+        last_verified: 2026-11-19
+      - kind: process
+        claim: BT's leaving landing page says that for most moves you do not need to contact BT - the new provider tells BT when to switch off. Moving to Virgin Media or another provider not on the Openreach network, you must tell BT; the BT account closes only once the new service is set up.
+        issues: [cancel_service]
+        source: https://www.bt.com/broadband/stay-with-us
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: BT's terms define a cooling-off period that runs from the date the agreement is made until 14 days after the latest of - loaned equipment delivery, the service start date, or receipt of the order confirmation.
+        issues: [cancel_service]
+        source: https://www.bt.com/terms/bt-home-phone-broadband-terms-conditions
+        last_verified: 2026-11-19
+      - kind: process
+        claim: For BT Mobile, the final bill arrives within ten days of the number being cancelled or the switch completing. Without a switch, BT Mobile needs at least 30 days' notice, even after the minimum term.
+        issues: [cancel_service, number_port_out]
+        source: https://www.bt.com/help/mobile/manage-service/how-do-i-leave-bt-mobile
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: There is no notice period if the account holder has died (BT bereavement process).
+        issues: [cancel_service]
+        source: https://www.bt.com/help/account-and-billing/payments--bills-and-charges/i-don-t-understand-my-bill/what-s-this-cancellation-fee-for-
+        last_verified: 2026-11-19
+
+  - issue: early_termination_fee
+    summary: An early termination charge applies only inside the minimum term (usually 12, 18 or 24 months); it is less than the remaining payments because BT removes saved costs and gives a 1% discount.
+    evidence: [contract start and end dates, monthly price and discounts, the termination charge on the final bill]
+    steps:
+      - do: Check the contract end date in My BT, or for BT Mobile text INFO to 85075.
+        channel: etc-info-text
+      - do: Check the charge against BT's method in the price guide (remaining payments, minus VAT, minus BT's saved costs, minus 1%, plus VAT).
+        channel: tariff-guide
+      - do: If BT changed a price or term (other than the annual rise), or did not fix a service problem within 30 days, ask BT to remove the charge.
+        channel: complaints-phone
+    facts:
+      - kind: fee
+        claim: BT's price guide says the early termination charge is worked out by taking the remaining amount due to the end of the minimum period, taking off VAT, taking off the costs BT saves, giving a 1% discount for early payment, then adding VAT. Part months are pro rata daily.
+        issues: [early_termination_fee, cancel_service]
+        verified_via: document
+        source: https://www.bt.com/content/dam/bt/storefront/pdfs/BT_PhoneTariff_Residential.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: BT's price guide says an Early Termination Charge only applies if you cancel within your minimum contract period, which is normally 12, 18 or 24 months.
+        issues: [early_termination_fee]
+        verified_via: document
+        source: https://www.bt.com/content/dam/bt/storefront/pdfs/BT_PhoneTariff_Residential.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: BT's automatic compensation page says "If we can't resolve your service issue within 30 days, you have the right to terminate with no termination charges."
+        issues: [early_termination_fee, service_outage]
+        source: https://www.bt.com/compensation
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: BT Home Essentials is a 12-month contract that you can cancel at any time without early exit fees.
+        issues: [early_termination_fee, payment_assistance]
+        source: https://www.bt.com/broadband/home-essentials
+        last_verified: 2026-11-19
+
+  - issue: service_outage
+    summary: Report the fault online, by text or phone; BT pays Ofcom automatic compensation for repairs that take more than two working days, missed engineer visits and late activations.
+    evidence: [date and time you reported the fault, fault reference, engineer appointment details, bills showing the credit]
+    steps:
+      - do: Report the fault with the online troubleshooter, by texting HELP (broadband) or PHONE (landline) plus your landline number to 61998, or by phone.
+        channel: report-track-fault
+      - do: Note the date you reported the fault. If it is a total loss of service not fixed within two working days, BT should credit you automatically within 30 days of the fix.
+      - do: If the credit does not appear on your bill, complain and quote BT's automatic compensation page.
+        channel: complaints-phone
+      - do: If BT cannot fix the service within 30 days, you can end the contract without termination charges.
+        channel: leaving-phone
+    facts:
+      - kind: compensation
+        claim: If broadband or landline has a total loss of service and is not fixed within two working days after you report it, BT pays £10.34 for each extra day it is not fixed.
+        issues: [service_outage]
+        source: https://www.bt.com/compensation
+        last_verified: 2026-11-19
+      - kind: compensation
+        claim: BT pays £32.31 for each missed engineer appointment (or one changed with less than 24 hours' notice) and £6.46 for each day a new service activation is late.
+        issues: [service_outage]
+        source: https://www.bt.com/compensation
+        last_verified: 2026-11-19
+      - kind: process
+        claim: BT automatically credits the account within 30 days of the missed appointment, activation or fault fix. Compensation for a total loss of service, fault or delayed activation runs for up to 60 days. It applies to BT residential customers, not business contracts.
+        issues: [service_outage]
+        source: https://www.bt.com/compensation
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: BT's automatic compensation excludes intermittent faults, faults fixed within two working days, faults inside the home, and delays caused by the customer missing an appointment or declining the earliest rebooked date.
+        issues: [service_outage]
+        source: https://www.bt.com/compensation
+        last_verified: 2026-11-19
+
+  - issue: equipment_return
+    summary: Return the Hub and TV box within 60 days of stopping service, using the QR code or label BT emails; keep the Royal Mail receipt. Charges are refunded in full if you return within 2 years.
+    evidence: [Royal Mail receipt with tracking number, device model and serial number, the non-return charge on the bill]
+    steps:
+      - do: Wait for BT's email with a QR code and printable label. If it does not arrive, text LABEL to 61996.
+        channel: returns-label-text
+      - do: Pack the kit and take it to a Royal Mail Customer Service Point. Use one QR code or label per parcel. Keep the receipt.
+        channel: returns-page
+      - do: If BT charges for kit you returned, send the tracking number and ask for a refund. Returns within 2 years get the full charge back.
+        channel: message-us-chat
+    facts:
+      - kind: deadline
+        claim: BT gives 60 days from the date you stopped using the equipment before non-return charges apply.
+        issues: [equipment_return, cancel_service]
+        source: https://www.bt.com/help/tv/how-to-return-and-recycle-your-bt-broadband-hub-and-bt-tv-box-fo
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: BT non-return charges include Home Hub or Smart Hub £65, Smart Hub 2 £65, Smart Hub 3 £85, BT TV Box (Z4) £60, BT TV Recordable Box (G4) £89, BT TV 4K Recordable Box (G5) £115, BT TV Box Pro £140, BT TV Box Edge £75, EE TV Box Pro £140, EE TV Box Edge £75, Complete Wi-Fi discs £50 per device.
+        issues: [equipment_return]
+        source: https://www.bt.com/help/tv/how-to-return-and-recycle-your-bt-broadband-hub-and-bt-tv-box-fo
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Non-return charges do not apply to BT equipment supplied before 13 December 2019 or EE equipment supplied before April 2023. If you return equipment within 2 years, BT refunds the full charge.
+        issues: [equipment_return]
+        source: https://www.bt.com/help/tv/how-to-return-and-recycle-your-bt-broadband-hub-and-bt-tv-box-fo
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: If you cancel in the cooling-off period, BT's terms say you must return loaned equipment within 14 days of cancelling or pay its full cost.
+        issues: [equipment_return, cancel_service]
+        source: https://www.bt.com/terms/bt-home-phone-broadband-terms-conditions
+        last_verified: 2026-11-19
+
+  - issue: number_port_out
+    summary: BT Mobile - text PAC to 65075 for a free PAC (valid 30 days) and give it to the new provider.
+    evidence: [mobile number, PAC and its expiry date, date of the switch]
+    steps:
+      - do: Text PAC to 65075. The PAC arrives by text straight away. If you have more than one number on the account, use My BT or call 0800 800 150. To check any early termination charge first, text INFO to 85075.
+        channel: pac-text
+      - do: Give the PAC to the new provider within 30 days. BT billing stops on the switch date.
+      - do: If BT will not give a PAC, complain.
+        channel: complaints-phone
+    facts:
+      - kind: process
+        claim: BT gives a PAC free of charge by text (PAC to 65075), in My BT, or on 0800 800 150. It is sent straight away and is valid for 30 days.
+        issues: [number_port_out]
+        source: https://www.bt.com/help/mobile/manage-service/how-do-i-leave-bt-mobile
+        last_verified: 2026-11-19
+      - kind: process
+        claim: To leave without keeping the number, text STAC to 75075 (or call 0800 800 150, or use My BT); the STAC is free and valid for 30 days.
+        issues: [number_port_out, cancel_service]
+        source: https://www.bt.com/help/mobile/manage-service/how-do-i-leave-bt-mobile
+        last_verified: 2026-11-19
+
+  - issue: payment_assistance
+    summary: Contact BT early for more time or a payment plan; ask about Home Essentials if you get certain benefits.
+    evidence: [account number, the bill, proof of benefits (National Insurance number for Home Essentials)]
+    steps:
+      - do: Try changing your Direct Debit date or making smaller payments online. If you cannot, call BT.
+        channel: more-time-to-pay
+      - do: Ask for more time to pay or a payment plan.
+        channel: customer-service-phone
+      - do: If you get Universal Credit, Pension Credit (Guarantee Credit), ESA, JSA or Income Support, ask to move to Home Essentials.
+        channel: home-essentials
+    facts:
+      - kind: policy
+        claim: BT says it may give more time to pay, set up a payment plan, or share free independent debt advice, and that contacting it will not affect your credit file.
+        issues: [payment_assistance]
+        source: https://www.bt.com/help/account-and-billing/can-i-have-more-time-to-pay-my-bill-
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If you do not contact BT, your service may be restricted or disconnected, late payment charges may apply, and the debt may go to a third-party collection agency. A restricted line can still call 999 or 112.
+        issues: [payment_assistance, disconnection]
+        source: https://www.bt.com/help/account-and-billing/can-i-have-more-time-to-pay-my-bill-
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Home Essentials fibre broadband plans start from £16.50 with no set-up fees, for people on Universal Credit, Pension Credit (Guarantee Credit), Employment and Support Allowance, Jobseeker's Allowance or Income Support. Existing BT, EE and Plusnet customers who are eligible can switch at no extra charge.
+        issues: [payment_assistance, price_negotiation]
+        source: https://www.bt.com/broadband/home-essentials
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: BT's complaints code says BT is a member of the Communications Ombudsman ADR scheme. You can use it if you complained six weeks ago and the issue is not resolved, or if you got a deadlock letter in the past 12 months.
+    issues: [billing_error, poor_service]
+    verified_via: document
+    source: https://www.bt.com/bt-plc/assets/documents/about-bt/policy-and-regulation/our-governance-and-strategy/codes-of-practice/customer-complaints-code/complaints-code.pdf
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: BT's complaints page says you can go to the Communications Ombudsman if BT has not resolved the complaint within 6 weeks or if you are not satisfied with BT's response. It is free and independent.
+    issues: [billing_error, poor_service]
+    source: https://www.bt.com/help/contact-bt/complaints/make-complaint
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: BT's home phone and broadband terms (in force from 15 October 2026, clause 27) say that if BT cannot agree a solution within six weeks of getting the complaint, you can refer it to the Communications Ombudsman.
+    issues: [billing_error, poor_service]
+    source: https://www.bt.com/terms/bt-home-phone-broadband-terms-conditions
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: BT's complaints code says the ombudsman cannot deal with complaints about commercial policy (like BT's prices or broadband availability) and cannot help businesses with more than ten employees.
+    verified_via: document
+    source: https://www.bt.com/bt-plc/assets/documents/about-bt/policy-and-regulation/our-governance-and-strategy/codes-of-practice/customer-complaints-code/complaints-code.pdf
+    last_verified: 2026-11-19
+  - kind: contact
+    claim: BT's complaints page says it aims to respond to postal complaints within 28 days; the complaints code says replies to emails or letters can take up to ten days.
+    source: https://www.bt.com/help/contact-bt/complaints/make-complaint
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: BT Group's FY26 results say the BT brand was reintroduced with new products across Consumer and Business during May 2026, and that the Consumer division uses three brands - BT, EE and Plusnet.
+    verified_via: document
+    source: https://www.bt.com/content/dam/bt-plc/assets/documents/investors/financial-reporting-and-news/quarterly-results/fy26/h2/fy26-release.pdf
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: BT Mobile is exclusively for BT Broadband customers and is sold as 30-day rolling SIM Only plans; BT says handset deals come from its partner EE.
+    issues: [number_port_out]
+    source: https://www.bt.com/mobile
+    last_verified: 2026-11-19
+
+known_blockers:
+  - The online complaints portal, broadband fault troubleshooter and My BT need a My BT login.
+  - The "Message now" chat button appears only during opening hours (7am-10.15pm) and loads with JavaScript.
+  - BT's Community forum (community.bt.com) returned 403 to automated reading.
+  - BT publishes no executive or CEO complaints route; the code's top internal stage is a "final complaint review".
+
+notes: >-
+  BT is the consumer brand of British Telecommunications (called "BT Limited" in the August 2026 complaints code),
+  part of BT Group plc, which also owns EE and Plusnet. In April 2022 BT Group said it would make EE its flagship
+  consumer brand, with BT focused on standalone broadband and landline (newsroom.bt.com, 27 April 2022), and BT's TV
+  product was sold as EE TV. In May 2026 BT Group reintroduced the BT brand (FY26 results) and relaunched BT Mobile
+  as SIM-only plans for BT Broadband customers. No current BT page found says BT consumer customers are being moved to
+  EE. BT's price guide still names the TV product "EE TV", while bt.com/tv now sells "BT TV"; the returns page covers
+  both BT and EE TV boxes. Many BT pages give 0330 1234 150, while the complaints code and leaving pages give
+  0800 800 150. Ofcom rules (uk-ofcom-price-rise-pounds-and-pence) are why BT's annual rises are fixed pound amounts;
+  uk-ofcom-automatic-compensation covers the compensation scheme. BT's complaints page, code and terms already say
+  six weeks for ADR, which matches Ofcom's April 2026 change. Unconfirmed - BT's price-change page (bt.com/tell-me-more)
+  shows Broadband +£4 for anyone who bought on or after 10 April 2024, but the price guide (6 November 2026) says +£3
+  for contracts from 10 April 2024 to 30 July 2025; the facts here follow the price guide.
+
+official_domains: [bt.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: BT says it will never ask you for your passwords or bank details in an email, never send unexpected attachments, and never ask you to click links to verify your account.
+      source: https://www.bt.com/help/email/email-security/what-is-a-phishing-scam--is-the-email-i-have-received-genuine-
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: BT will never ask you for private or personal details or banking information out of the blue, and will never send you an email with an attachment.
+      source: https://www.bt.com/help/mybtapp/help-with-phishing-scams
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: BT's help page on scam calls says BT will never call to say it found a problem with your computer, ask for your PIN or online banking password, ask you to send money by PayPal or money-transfer sites, say your broadband or hub has been hacked, or take control of your computer unprompted. (Page in BT Business help.)
+      source: https://business.bt.com/help/article/i-ve-just-received-a-call-from-someone-claiming-to-be-from-bt-how-do-i-know-if-this-call-is-genuine
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: Scam calls that claim to be from BT sound urgent or threatening, ask for remote access to your computer, or ask for personal details, passwords or bank details.
+      source: https://www.bt.com/help/security/scams
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: BT warns of recorded messages saying your service will be disconnected, and automated messages asking you to press a key to "contact BT" that connect you to a scammer. (Page in BT Business help.)
+      source: https://business.bt.com/help/article/i-ve-just-received-a-call-from-someone-claiming-to-be-from-bt-how-do-i-know-if-this-call-is-genuine
+      last_verified: 2026-11-19
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails that look like BT
+      value: phishing@bt.com
+      notes: BT's scams page says forward it as an attachment, then delete it. Emails not from BT go to report@phishing.gov.uk.
+      source: https://www.bt.com/help/security/scams
+      last_verified: 2026-11-19
+    - id: scam-text-7726
+      type: sms
+      label: Forward scam texts to 7726
+      value: "7726"
+      source: https://www.bt.com/help/security/scams
+      last_verified: 2026-11-19
+    - id: scam-call-form
+      type: web_form
+      label: Report a scam call from someone claiming to be BT
+      value: https://www.bt.com/exp/help/contact-bt/form/scams
+      source: https://www.bt.com/help/security/scams
+      last_verified: 2026-11-19

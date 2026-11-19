@@ -1,0 +1,81 @@
+id: uk-ofcom-one-touch-switch
+title: Switching provider - One Touch Switch (broadband and landline) and text-to-switch (mobile)
+citation: Ofcom-mandated One Touch Switch process (live 12 September 2024, run through the TOTSCo hub); Ofcom text-to-switch for mobile (PAC to 65075, STAC to 75075)
+jurisdiction: gb
+status: in_effect
+applies_to:
+  sectors: [internet_tv, wireless]
+  issues: [cancel_service, number_port_out, early_termination_fee]
+summary: >-
+  To switch home broadband or landline in the UK you contact only the new provider; it arranges the switch and the
+  cancellation of the old service (One Touch Switch, live since 12 September 2024). Before you agree, the old provider
+  sends switching information that lists any early termination fees. To switch mobile, text PAC to 65075 (keep your
+  number) or STAC to 75075 (new number); the texts are free, the code lasts 30 days, and the new provider completes the
+  switch within 1 working day. Text INFO to 85075 to check a mobile exit fee.
+points:
+  - kind: process
+    claim: >-
+      Residential broadband and landline switching follows an Ofcom-mandated, industry-agreed process called One Touch
+      Switch; customers only need to contact their new provider, who manages the switch on their behalf.
+    issues: [cancel_service]
+    source: https://totsco.org.uk/residential-switching/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      TOTSCo (the industry body that runs the switching hub) reported more than 3.5 million completed switches since
+      One Touch Switch launched on 12 September 2024.
+    source: https://totsco.org.uk/celebrating-two-years-of-one-touch-switch-at-connected-britain/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      TalkTalk: under One Touch Switching the new provider handles the move, so you do not need to contact your existing
+      provider; the new provider gives an implications-of-switching summary that lists any early termination fees.
+    issues: [cancel_service, early_termination_fee]
+    source: https://help-centre.talktalk.co.uk/Setting_up_my_service/New_order/All_about_One_Touch_Switching
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Virgin Media: with One Touch Switching the new provider handles the switch, including cancelling with the old
+      provider; the old provider sends information that includes any fees owed for leaving early.
+    issues: [cancel_service, early_termination_fee]
+    source: https://www.virginmedia.com/the-edit/glossary/switch-broadband-provider
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Mobile: text "PAC" to 65075 to keep your number, or "STAC" to 75075 if you do not want to keep it. The texts are
+      free, the codes are valid for 30 days, and the new provider will complete the switch within 1 working day. With
+      more than one number on the account you must switch online or by phone.
+    issues: [number_port_out]
+    source: https://www.citizensadvice.org.uk/consumer/phone-internet-downloads-or-tv/switch-broadband-phone-or-tv-provider/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: fee
+    claim: >-
+      You can check whether you will be charged an exit fee to leave a mobile contract by texting "INFO" to 85075; the
+      text is free.
+    issues: [early_termination_fee, number_port_out]
+    source: https://www.citizensadvice.org.uk/consumer/phone-internet-downloads-or-tv/switch-broadband-phone-or-tv-provider/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      Some switches still need the customer to cancel with the old provider. TalkTalk says customers moving to Virgin or
+      Vodafone on the CityFibre network must contact TalkTalk directly and say when to disconnect.
+    issues: [cancel_service]
+    source: https://help-centre.talktalk.co.uk/Manage_account/Leave_TalkTalk/Cancel_your_TalkTalk_service
+    verified_via: browser
+    last_verified: 2026-11-19
+status_note: >-
+  In force. One Touch Switch covers residential broadband and landline (fixed) services; mobile uses the separate
+  text-to-switch process. Ofcom's own switching pages could not be read (ofcom.org.uk shows a "verify you are human"
+  check to automated readers on 2026-11-19), so the Ofcom condition numbers are not recorded and the process is cited
+  from TOTSCo, Citizens Advice and providers. The Citizens Advice switching page was last reviewed on 13 December 2022;
+  the 65075 and 75075 codes are still given by EE, O2, Vodafone and Three on their own pages (see those company files).
+  Notice-period charges after a switch are set by each provider's terms (for example EE charges 30 days' line rental
+  inside or after the last 30 days of the minimum term).
+source: https://totsco.org.uk/residential-switching/
+last_verified: 2026-11-19

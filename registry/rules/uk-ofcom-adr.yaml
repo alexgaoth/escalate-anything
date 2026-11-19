@@ -1,0 +1,113 @@
+id: uk-ofcom-adr
+title: Telecoms complaints - provider first, then a free ADR scheme after 6 weeks or a deadlock letter
+citation: >-
+  Communications Act 2003 section 52; Ofcom General Condition C4 (complaints handling and access to ADR); Ofcom review
+  of ADR in the telecoms sector (6-week period from 8 April 2026)
+jurisdiction: gb
+status: in_effect
+applies_to:
+  sectors: [wireless, internet_tv]
+  issues: [billing_error, bill_increase, cancel_service, service_outage, equipment_return, poor_service, early_termination_fee, number_port_out]
+summary: >-
+  Every UK phone, mobile, broadband and pay-TV provider must have a complaints procedure and belong to an Ofcom-approved
+  alternative dispute resolution (ADR) scheme: the Communications Ombudsman or CISAS. Complain to the provider first.
+  If it has not solved the complaint within 6 weeks (8 weeks for complaints first raised before 8 April 2026), or it
+  sends a deadlock letter, take the complaint to the provider's ADR scheme. ADR is free for the customer. Escalate
+  within 12 months of the deadlock letter (Communications Ombudsman). The scheme can order a fix, an apology or
+  compensation; Ofcom itself does not resolve individual complaints.
+points:
+  - kind: policy
+    claim: >-
+      Section 52 of the Communications Act 2003 makes Ofcom set conditions that require providers to have procedures for
+      handling complaints from domestic and small business customers and for resolving disputes. The procedures must be
+      easy to use, transparent and effective, free of charge for customers, and the dispute procedures must be approved
+      by Ofcom.
+    source: https://www.legislation.gov.uk/ukpga/2003/21/section/52
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Allow the provider 6 weeks to put things right, unless it sends a deadlock letter sooner. The Communications
+      Ombudsman says "Ofcom have now reduced this to 6 weeks"; before 8 April 2026 the period was 8 weeks.
+    issues: [billing_error, poor_service]
+    source: https://www.commsombudsman.org/faqs
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      CISAS accepts a case when you have already complained to the company and at least six weeks have passed since you
+      first complained, or you have received a deadlock/ADR letter.
+    issues: [billing_error, poor_service]
+    source: https://www.cedr-assist.com/consumer/cisas/make-a-complaint/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      The 6-week period applies to complaints first raised with the provider on or after 8 April 2026.
+    source: https://www.ofcom.org.uk/phones-and-broadband/service-quality/quicker-complaints-resolution-for-telecoms-customers-under-new-ofcom-rules
+    verified_via: search_snippet
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: "Communications Ombudsman: you must escalate your dispute within 12 months of receiving the deadlock letter."
+    source: https://www.commsombudsman.org/faqs
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: fee
+    claim: >-
+      Both schemes are free for consumers. The Communications Ombudsman says providers pay it an investigation fee;
+      CISAS says it is free to use.
+    source: https://www.commsombudsman.org/faqs
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Citizens Advice says your provider must be a member of an ADR scheme, and that you can use it if you have not
+      heard back after 6 weeks. It tells consumers to check which scheme a provider belongs to on the Ofcom website.
+    source: https://www.citizensadvice.org.uk/consumer/phone-internet-downloads-or-tv/cancelling-a-phone-tv-internet-or-mobile-contract/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Scheme membership on 2026-11-19: the CISAS list includes Sky, NOW, Virgin Media, O2, Vodafone (and VOXI), Three,
+      SMARTY and TalkTalk Group; BT and EE name the Communications Ombudsman in their complaints codes.
+    source: https://www.cedr-assist.com/consumer/cisas/companies-covered/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      The Communications Ombudsman can require practical action, an apology, a financial award up to GBP 10,000 or a
+      mix; a typical award is GBP 50 to 100. If you accept its decision, the provider must carry it out within 28 days;
+      if you reject it, you can still go to court.
+    source: https://www.commsombudsman.org/faqs
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      CISAS does not take complaints that are in court or exceed GBP 10,000, or complaints about fraud, property damage,
+      discrimination or data protection.
+    source: https://www.cedr-assist.com/consumer/cisas/make-a-complaint/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      The Communications Ombudsman does not handle mis-sold consumer credit agreements; those fall under the Financial
+      Ombudsman Service. (The EE, O2, Vodafone and Three complaints codes also send device-finance complaints to the
+      Financial Ombudsman Service - see those company files.)
+    source: https://www.commsombudsman.org/faqs
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Ofcom does not investigate individual complaints from customers, but can provide information and advice (O2's
+      complaints page).
+    source: https://www.o2.co.uk/how-to-complain
+    verified_via: page
+    last_verified: 2026-11-19
+status_note: >-
+  In force across the UK. Ofcom's own pages (ofcom.org.uk) show a "verify you are human" check to automated readers on
+  2026-11-19, so the 8 April 2026 start date and the General Condition C4 reference come from search-result snippets;
+  the 6-week rule itself is confirmed on both schemes' sites. Some provider documents still say 8 weeks (Virgin Media's
+  complaints code, updated April 2024; part of O2's code PDF); BT, EE, Sky, TalkTalk, Vodafone and Three already say
+  6 weeks. A complaint first raised before 8 April 2026 still uses 8 weeks.
+source: https://www.commsombudsman.org/faqs
+last_verified: 2026-11-19
