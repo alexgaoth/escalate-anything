@@ -1,0 +1,545 @@
+id: lloyds-bank
+name: Lloyds Bank
+aliases: [lloyds, lloyds bank plc, lloyds tsb, club lloyds]
+sector: bank
+countries: [gb]
+parent: Lloyds Banking Group plc
+website: https://www.lloydsbank.com
+account_url: https://online.lloydsbank.co.uk/personal/logon/login.jsp
+official_domains: [lloydsbank.com, lloydsbank.co.uk, lloydsbanking.com, lloydsbank-online.co.uk, lloydsbankinggroup.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Lloyds says it will never ask you to tell it your account details, share your Personal Security Number, tell it your PIN or card expiry date, or move money to another account.
+      source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/contact-us.html
+      verified_via: browser
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Lloyds says it will never call to tell you to move money to another account. To check that a call is really from Lloyds, hang up and dial 159.
+      source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/scam-calls.html
+      verified_via: browser
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Lloyds says its emails will never send you to a web page that asks for your logon, personal or banking details, tell you to move money, ask you to make a test payment online, or link directly to the Internet Banking log on page. Genuine emails include your name and the last 4 digits of an account you hold.
+      source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/scam-messages.html
+      verified_via: browser
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Lloyds says links in its genuine emails always start with email.lloydsbank.com or www.lloydsbank.com.
+      source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/scam-messages.html
+      verified_via: browser
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Lloyds says only fraudsters would call to ask you for a passcode. If anyone calls to ask for a code that Lloyds sent you, hang up.
+      source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/scam-calls.html
+      verified_via: browser
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: Scammers call pretending to be the Lloyds fraud team, say there is suspicious activity, tell you the caller ID matches the number on your card, and then tell you to move your money to another account.
+      source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/scam-calls.html
+      verified_via: browser
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: '"Lloyds new look" scam emails claim to be about the bank''s new brand and ask you to follow a link to keep using your account. Lloyds says to delete them without replying or clicking.'
+      source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/latest-scams.html
+      verified_via: browser
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: In the passcode scam, fraudsters pretend to be Lloyds on the phone to trick you into sharing a one-time passcode so they can use your account.
+      source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/latest-scams.html
+      verified_via: browser
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Fraudsters on WhatsApp pretend to be a family member or friend ("Hi mum", "Hi mate") and ask you to pay money to an account you have never paid before.
+      source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/latest-scams.html
+      verified_via: browser
+      last_verified: 2026-11-19
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails that claim to be from Lloyds
+      value: emailscams@lloydsbanking.com
+      purposes: [fraud]
+      notes: Lloyds says to forward the email and then delete it.
+      source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/scam-messages.html
+      verified_via: browser
+      last_verified: 2026-11-19
+    - id: scam-text-7726
+      type: sms
+      label: Forward scam texts to 7726 (free UK reporting service)
+      value: "7726"
+      purposes: [fraud]
+      source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/scam-messages.html
+      verified_via: browser
+      last_verified: 2026-11-19
+regulators: [uk-fos, uk-fca]
+notes: >-
+  Lloyds and Lloyds Bank are trading names of Lloyds Bank plc (registered in England and Wales No. 2065; FCA/PRA
+  registration number 119278). It is part of Lloyds Banking Group, which also has the Halifax and Bank of Scotland brands;
+  those brands are not covered by this file. On 2026-11-19 lloydsbank.com showed the banner "While the Halifax brand is
+  changing to Lloyds, you can still count on the same support", and the complaints page says Lloyds current accounts are
+  provided by Lloyds Bank plc and Bank of Scotland plc, so check which entity holds the account. Domestic numbers: main line
+  0345 300 0000, lost or stolen cards 0800 096 9779, card fraud 0345 606 2172, online banking fraud 0800 917 7017,
+  complaints 0800 072 3572. Business customers have a separate complaints page (lloydsbank.com/business/complaints.html).
+  lloydsbank.com returned an error page to automated fetches, so all pages were read in a browser.
+
+channels:
+  - id: main-phone
+    type: phone
+    label: Personal banking, account enquiries and Telephone Banking
+    value: +44-345-300-0000
+    purposes: [poor_service, account_access, frozen_funds, transaction_dispute, fee_reversal]
+    hours: "Advisers 8am to 6pm, 7 days a week, closed on bank holidays. Automated service 24 hours. Debit card transaction disputes on this number: 7am to 11pm, 7 days a week."
+    access: human_only
+    notes: Domestic 0345 300 0000. From abroad +44 1733 347 007. Lloyds says that if you have the app you can skip the security questions by calling from inside the app (search 'Call us').
+    source: https://www.lloydsbank.com/help-guidance/call-us.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - id: main-phone-abroad
+    type: phone
+    label: Personal banking from outside the UK
+    value: +44-1733-347-007
+    purposes: [poor_service, account_access, frozen_funds, transaction_dispute]
+    hours: 8am to 6pm UK time, 7 days a week, closed on bank holidays
+    access: human_only
+    notes: The call-us page writes this number both as +44 1733 347 007 and +44 173 334 7007; they are the same number.
+    source: https://www.lloydsbank.com/help-guidance/call-us.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - id: lost-stolen-card-phone
+    type: phone
+    label: Report a lost or stolen card
+    value: +44-800-096-9779
+    purposes: [unauthorized_charge, fraud]
+    hours: 24 hours a day, 7 days a week
+    access: human_only
+    notes: Domestic 0800 096 9779. You can also report a lost or stolen card in the app (search 'lost or stolen') or in online banking (Help & support). A cancelled card cannot be reinstated; if the card is only misplaced, freeze it instead.
+    source: https://www.lloydsbank.com/help-guidance/call-us.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - id: lost-stolen-card-abroad
+    type: phone
+    label: Report a lost or stolen card from outside the UK
+    value: +44-1702-278-270
+    purposes: [unauthorized_charge, fraud]
+    hours: 24 hours a day, 7 days a week
+    access: human_only
+    source: https://www.lloydsbank.com/help-guidance/call-us.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - id: card-fraud-phone
+    type: phone
+    label: Debit or credit card fraud, card declines, credit card services and credit card disputes
+    value: +44-345-606-2172
+    purposes: [fraud, unauthorized_charge, transaction_dispute]
+    hours: "Card fraud and declines: 24 hours, 7 days. Credit card customer service: 8am to 6pm, 7 days, closed on bank holidays. Credit card transaction disputes: Monday to Friday 8am to 6pm, Saturday 10am to 4pm."
+    access: human_only
+    notes: Domestic 0345 606 2172. From abroad +44 1702 278 272. Lloyds says to call this number for credit card fraud and for Section 75 claims; debit card fraud can be reported in the app.
+    source: https://www.lloydsbank.com/help-guidance/call-us.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - id: card-fraud-abroad
+    type: phone
+    label: Card fraud and credit card services from outside the UK
+    value: +44-1702-278-272
+    purposes: [fraud, unauthorized_charge, transaction_dispute]
+    hours: Card fraud 24 hours, 7 days
+    access: human_only
+    source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/contact-us.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - id: online-banking-fraud-phone
+    type: phone
+    label: Internet Banking fraud, and payments you think went to a fraudster
+    value: +44-800-917-7017
+    purposes: [fraud, unauthorized_charge, account_access]
+    hours: 24 hours a day, 7 days a week
+    access: human_only
+    notes: >-
+      Domestic 0800 917 7017. From abroad +44 20 7481 2614. Lloyds' fraud page says to call this number if money has been
+      taken from your account, you are worried a payment you made is fraudulent, someone knows or asked for your Internet
+      Banking password or memorable information, someone used your Internet Banking without approval, or someone made you
+      move their money into your account.
+    source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/contact-us.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - id: online-banking-fraud-abroad
+    type: phone
+    label: Internet Banking fraud from outside the UK
+    value: +44-20-7481-2614
+    purposes: [fraud, unauthorized_charge]
+    hours: 24 hours a day, 7 days a week
+    access: human_only
+    source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/contact-us.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - id: online-banking-helpdesk
+    type: phone
+    label: Online banking helpdesk (log in and online banking problems)
+    value: +44-345-606-6529
+    purposes: [account_access]
+    hours: 8am to 6pm, 7 days a week, closed on bank holidays
+    access: human_only
+    notes: Domestic 0345 606 6529. From abroad +44 173 323 2030 as written on the page (+44 1733 232 030).
+    source: https://www.lloydsbank.com/help-guidance/call-us.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - id: message-us
+    type: chat
+    label: Message us (virtual assistant, then a person) in the app or online banking
+    value: https://www.lloydsbank.com/help-guidance/everyday-banking/message-us-online.html
+    purposes: [poor_service, transaction_dispute, account_access, fee_reversal, frozen_funds]
+    hours: "People available 24/7 for banking, savings and credit cards; mortgages Monday to Friday 8am to 8pm and Saturday 8am to 4pm."
+    access: login
+    notes: In the app select Search, then 'Message us 24/7'. In online banking select 'Help & support', then 'Message us 24/7'. The virtual assistant passes you to a person if it cannot help; replies can come later as a notification.
+    source: https://www.lloydsbank.com/help-guidance/everyday-banking/message-us-online.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - id: app-transaction-help
+    type: app
+    label: Dispute or report a transaction in the app ('Help with this transaction')
+    value: https://www.lloydsbank.com/help-guidance/everyday-banking/statements/unrecognised-transactions.html
+    purposes: [transaction_dispute, unauthorized_charge, fraud]
+    access: login
+    notes: Open the transaction list, select the transaction, then 'Help with this transaction'. For an unrecognised debit card payment choose 'View your options', then 'Report this transaction'. The card is frozen while you report. If you cannot do it in the app, call.
+    source: https://www.lloydsbank.com/help-guidance/everyday-banking/statements/unrecognised-transactions.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - id: complaints-phone
+    type: phone
+    label: Speak to Lloyds about a complaint
+    value: +44-800-072-3572
+    purposes: [poor_service, fee_reversal, frozen_funds, transaction_dispute, fraud]
+    access: human_only
+    notes: Domestic 0800 072 3572. From abroad +44 1733 462 267. Textphone 0800 056 7614 (from abroad +44 1733 347 500). The complaints page gives no opening hours for this line.
+    source: https://www.lloydsbank.com/help-guidance/how-to-complain.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - id: complaints-online
+    type: web_form
+    label: Secure online complaint form (make a new complaint or add information to one)
+    value: https://www.lloydsbank.com/help-guidance/how-to-complain/complain-online.html
+    purposes: [poor_service, fee_reversal, frozen_funds, transaction_dispute, fraud, unauthorized_charge]
+    access: open
+    notes: The page did not ask for a login before the form; the form was not submitted. Lloyds says that by completing it you agree to it recording the details you share.
+    source: https://www.lloydsbank.com/help-guidance/how-to-complain/complain-online.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - id: complaints-mail
+    type: mail
+    label: Write to Customer Services with a complaint
+    value: Lloyds, Customer Services, Leeds, LS78 1LB
+    purposes: [poor_service, fee_reversal, frozen_funds, transaction_dispute]
+    notes: >-
+      Include your account details, what happened and what you want Lloyds to do, and your best phone number and time to call;
+      Lloyds says it will contact you by phone. The Personal Banking Terms (4 October 2026) give the address as Lloyds Bank,
+      Customer Services, The Green Building, Leeds LS78 1LB.
+    source: https://www.lloydsbank.com/help-guidance/how-to-complain.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - id: money-worries-missed-payment
+    type: phone
+    label: Money worries, already missed a payment (overdrafts, loans, credit cards)
+    value: +44-808-145-0368
+    purposes: [fee_reversal]
+    hours: Monday to Friday 8am to 6pm, Saturday 9am to 5pm
+    access: human_only
+    notes: Domestic 0808 145 0368. The call-us page gives different hours for this number (Monday to Friday 8am to 8pm, Saturday 8am to 5pm); check before calling. You can also search 'Need help with your debt or payments' in the app.
+    source: https://www.lloydsbank.com/help-guidance/support-and-wellbeing/managing-your-money/money-worries/how-we-can-help.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - id: money-worries-future-payments
+    type: phone
+    label: Money worries, worried about future payments (overdrafts, loans, credit cards)
+    value: +44-808-145-0676
+    purposes: [fee_reversal]
+    hours: Monday to Friday 8am to 6pm, Saturday 9am to 5pm
+    access: human_only
+    notes: Domestic 0808 145 0676.
+    source: https://www.lloydsbank.com/help-guidance/support-and-wellbeing/managing-your-money/money-worries/how-we-can-help.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - id: overdraft-phone
+    type: phone
+    label: Overdraft referrals (help with your overdraft)
+    value: +44-800-015-0032
+    purposes: [fee_reversal]
+    hours: Monday to Saturday 9am to 6pm, closed on bank holidays
+    access: human_only
+    notes: Domestic 0800 015 0032.
+    source: https://www.lloydsbank.com/help-guidance/call-us.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - id: stop-scams-159
+    type: phone
+    label: 159 (check that a call claiming to be from Lloyds is genuine)
+    value: "159"
+    purposes: [fraud]
+    notes: Lloyds says to hang up and dial 159 to talk with Lloyds if you are not sure a call came from it.
+    source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/scam-calls.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - id: phishing-email
+    type: email
+    label: Forward suspicious emails that claim to be from Lloyds
+    value: emailscams@lloydsbanking.com
+    purposes: [fraud]
+    source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/scam-messages.html
+    verified_via: browser
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: message-us, note: "Or call 0345 300 0000 (8am to 6pm, 7 days)."}
+  - {rung: written_complaint, channel: complaints-online, note: "Or call 0800 072 3572, or write to Lloyds, Customer Services, Leeds, LS78 1LB. Lloyds sends a final response within 8 weeks (payment service complaints: 15 days, up to 35)."}
+  - {rung: regulator, regulator: uk-fos, note: "After Lloyds' final response, or after 8 weeks without one. Lloyds says you can refer to the Financial Ombudsman Service within 6 months of the outcome, free of charge."}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Freeze or cancel the card at once, report the payment in the app or by phone, and claim within 13 months.
+    evidence: [date and amount of each payment, where the card or device is now, date you noticed, any messages or calls before the payment]
+    steps:
+      - do: If the card is lost or stolen, report it in the app or call the lost and stolen line (24/7). If it is only misplaced, freeze it instead.
+        channel: lost-stolen-card-phone
+      - do: For an unrecognised debit card payment, open it in the app, select 'Help with this transaction', 'View your options', then 'Report this transaction'.
+        channel: app-transaction-help
+      - do: For credit card fraud, call the card fraud line (24/7).
+        channel: card-fraud-phone
+      - do: If money left the account through Internet Banking, or someone used your online banking, call the Internet Banking fraud line (24/7).
+        channel: online-banking-fraud-phone
+      - do: If Lloyds refuses the refund, make a complaint.
+        channel: complaints-online
+      - do: If you are still unhappy after the final response or after 8 weeks, refer the complaint to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: deadline
+        claim: To get a refund you must tell Lloyds about an unauthorised payment within 13 months of it leaving your account. The 13-month limit does not apply if the payment was taken from your overdraft.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.lloydsbank.com/assets/media/pdfs/current-accounts/personal_banking_terms_and_conditions.pdf
+        verified_via: document
+        last_verified: 2026-11-19
+      - kind: process
+        claim: If Lloyds refunds an unauthorised payment, you receive it by the end of the working day after you told Lloyds. It may take longer if Lloyds reasonably suspects fraud or the payment came from your overdraft.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.lloydsbank.com/assets/media/pdfs/current-accounts/personal_banking_terms_and_conditions.pdf
+        verified_via: document
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Lloyds will not refund you if you acted fraudulently, and usually will not refund payments made before you told it about a security concern if you were grossly negligent with your card, device or security details (for example, writing your PIN down and keeping it with the card).
+        issues: [unauthorized_charge, fraud]
+        source: https://www.lloydsbank.com/assets/media/pdfs/current-accounts/personal_banking_terms_and_conditions.pdf
+        verified_via: document
+        last_verified: 2026-11-19
+
+  - issue: fraud
+    summary: Report at once on the right fraud line; for a payment you were tricked into making (APP scam), claim within 13 months under the PSR reimbursement rules.
+    evidence: [payment dates, amounts and payee details, messages, emails or call details from the scammer, Report Fraud or police reference]
+    steps:
+      - do: If you think you sent money to a fraudster, tell Lloyds right away. Call the Internet Banking fraud line (24/7).
+        channel: online-banking-fraud-phone
+      - do: For fraud on a card, report a debit card payment in the app or call the card fraud line (24/7).
+        channel: card-fraud-phone
+      - do: If a caller says they are from Lloyds, hang up and dial 159 from a phone you trust.
+        channel: stop-scams-159
+      - do: Forward scam emails to Lloyds and scam texts to 7726, then delete them.
+        channel: phishing-email
+      - do: Report the scam to Report Fraud and the police, or let Lloyds share information with the police if necessary.
+      - do: If Lloyds refuses or reduces the refund, make a complaint, then refer it to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: deadline
+        claim: For APP scam payments made on or after 7 October 2024, you must claim within 13 months of the payment, or of the last payment if you sent more than one.
+        issues: [fraud]
+        source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/authorised-push-payment-scams/app-refunds.html
+        verified_via: browser
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Lloyds will refund APP scam claims up to a maximum of £85,000 and applies a fixed £100 excess per claim. It does not apply the excess if something prevented you from protecting yourself while making the payment.
+        issues: [fraud]
+        source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/authorised-push-payment-scams/app-refunds.html
+        verified_via: browser
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Lloyds says it will investigate and refund within five working days, or up to 35 days if it needs more time. It will not refund if you give false details or pretend to be someone else.
+        issues: [fraud]
+        source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/authorised-push-payment-scams/app-refunds.html
+        verified_via: browser
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: The APP refund rules cover only payments to another bank account by Faster Payment or CHAPS sent on or after 7 October 2024. Earlier Faster Payments or CHAPS payments may be covered by the CRM code, which Lloyds reviews case by case.
+        issues: [fraud]
+        source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/authorised-push-payment-scams/app-refunds.html
+        verified_via: browser
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Lloyds says it might not refund your money if you ignore its warnings when making a payment.
+        issues: [fraud]
+        source: https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/authorised-push-payment-scams.html
+        verified_via: browser
+        last_verified: 2026-11-19
+
+  - issue: transaction_dispute
+    summary: Contact the retailer first, then dispute the posted payment in the app; for credit card purchases of £100 to £30,000, call to make a Section 75 claim.
+    evidence: [receipt, invoice or contract and terms, record of contact with the retailer, written summary of the case, payments made to the retailer by other methods, photos or warranties if relevant]
+    steps:
+      - do: Contact the retailer or supplier first. Lloyds says this is usually the fastest way to resolve it.
+      - do: Wait until the payment is no longer pending. Pending transactions cannot be cancelled or disputed.
+      - do: In the app, open the transaction, select 'Help with this transaction' and choose the relevant option.
+        channel: app-transaction-help
+      - do: If you cannot do it in the app, debit card customers call 0345 300 0000 (7am to 11pm, 7 days).
+        channel: main-phone
+      - do: Credit card customers call the credit card line. Section 75 claims must be made by phone.
+        channel: card-fraud-phone
+      - do: If Lloyds rejects the dispute or claim, make a complaint, then refer it to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: process
+        claim: If you raise a dispute through Lloyds, it aims to resolve the claim within 5 working days.
+        issues: [transaction_dispute]
+        source: https://www.lloydsbank.com/help-guidance/everyday-banking/statements/unrecognised-transactions.html
+        verified_via: browser
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Lloyds says Section 75 covers most single-item credit card purchases over £100 and up to £30,000 where there was a breach or misrepresentation of contract, or the company went into administration before delivery, even if only part (such as a deposit) was paid by credit card.
+        issues: [transaction_dispute]
+        source: https://www.lloydsbank.com/credit-cards/help-and-guidance/section75.html
+        verified_via: browser
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Lloyds says Section 75 does not apply if you change your mind, pay by money transfer or credit card cash, or for items under £100 each, and usually not when the card funded an account with a third-party provider.
+        issues: [transaction_dispute]
+        source: https://www.lloydsbank.com/credit-cards/help-and-guidance/section75.html
+        verified_via: browser
+        last_verified: 2026-11-19
+      - kind: process
+        claim: For a Section 75 claim Lloyds asks for a covering letter on the claim and what you have done with the company, a copy of the invoice, contract and terms, and copies of other payments to the company not on the credit card.
+        issues: [transaction_dispute]
+        source: https://www.lloydsbank.com/credit-cards/help-and-guidance/section75.html
+        verified_via: browser
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Lloyds will refund a card payment to a UK or EEA seller where you did not agree an exact amount and more was taken than you reasonably expected, if you ask within 8 weeks of the payment; it refunds within 10 working days of the request or of further information.
+        issues: [transaction_dispute, billing_error]
+        source: https://www.lloydsbank.com/assets/media/pdfs/current-accounts/personal_banking_terms_and_conditions.pdf
+        verified_via: document
+        last_verified: 2026-11-19
+
+  - issue: fee_reversal
+    summary: If overdraft or loan charges are a problem because money is tight, ask for financial support; Lloyds offers repayment plans and a 30-day hold without arranged overdraft interest.
+    evidence: [recent statements showing charges or interest, monthly income and spending, account numbers]
+    steps:
+      - do: In the app search 'Need help with your debt or payments', or in online banking select 'Need help with your debt or payments?' for the account.
+        channel: message-us
+      - do: If you have already missed a payment, call the money worries line.
+        channel: money-worries-missed-payment
+      - do: If you are worried about future payments, call the future payments line.
+        channel: money-worries-future-payments
+      - do: Ask for an overdraft repayment plan or a 30-day hold, and ask whether interest and charges will stop during it.
+      - do: If you think a charge was applied unfairly, make a complaint, then refer it to the Financial Ombudsman Service.
+        channel: complaints-online
+    facts:
+      - kind: policy
+        claim: Lloyds says that with an overdraft repayment plan you could clear an unarranged overdraft in 2 to 12 months, and it will not charge arranged overdraft interest during the plan. A plan may affect your credit file and future borrowing.
+        issues: [fee_reversal]
+        source: https://www.lloydsbank.com/help-guidance/support-and-wellbeing/managing-your-money/money-worries/how-we-can-help.html
+        verified_via: browser
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: You can ask Lloyds to put a 30-day hold on an overdraft to get independent advice; it can stop collection calls and will not charge arranged overdraft interest during that time.
+        issues: [fee_reversal]
+        source: https://www.lloydsbank.com/help-guidance/support-and-wellbeing/managing-your-money/money-worries/how-we-can-help.html
+        verified_via: browser
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: For loans, Lloyds says a repayment plan could bring the account up to date in 2 to 12 months, and it will not charge fees and interest during that time.
+        issues: [fee_reversal]
+        source: https://www.lloydsbank.com/help-guidance/support-and-wellbeing/managing-your-money/money-worries/how-we-can-help.html
+        verified_via: browser
+        last_verified: 2026-11-19
+
+  - issue: frozen_funds
+    summary: Lloyds can stop payments or close an account without notice in some cases; ask why and what it needs, then complain in writing.
+    evidence: [messages or letters from Lloyds, date the account or card was stopped, balance at that time, proof of identity and of the source of the money]
+    steps:
+      - do: Message Lloyds or call and ask why payments are stopped, what Lloyds needs from you, and when access will return.
+        channel: message-us
+      - do: If Lloyds closes the account, ask in writing when and how the balance will be returned.
+        channel: complaints-online
+      - do: If the problem continues after the final response or 8 weeks, refer it to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: policy
+        claim: Lloyds can stop you making payments if it reasonably thinks it is necessary to keep the account secure, because it suspects unauthorised or fraudulent use, or to stop spending on an overdrawn account it thinks you cannot repay. It tells you first and why, unless a legal or security reason prevents it.
+        issues: [frozen_funds]
+        source: https://www.lloydsbank.com/assets/media/pdfs/current-accounts/personal_banking_terms_and_conditions.pdf
+        verified_via: document
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Lloyds can end the agreement without notice if it reasonably thinks there is or may be illegal or fraudulent activity, improper behaviour, regulator or legal risk, or a serious breach of the agreement. For any other reason it must give at least 2 months' notice.
+        issues: [frozen_funds]
+        source: https://www.lloydsbank.com/assets/media/pdfs/current-accounts/personal_banking_terms_and_conditions.pdf
+        verified_via: document
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: If Lloyds finds within two months that a payment into your account was made by mistake or fraud, it can remove it or stop you using it, and usually tells you it will return it. If you show within 15 working days that it was not a mistake or fraud, Lloyds will not return it.
+        issues: [frozen_funds]
+        source: https://www.lloydsbank.com/assets/media/pdfs/current-accounts/personal_banking_terms_and_conditions.pdf
+        verified_via: document
+        last_verified: 2026-11-19
+
+  - issue: account_access
+    summary: For online banking login problems call the online banking helpdesk; if someone else has used your online banking, call the fraud line.
+    evidence: [username or User ID, device used, error messages, date the problem started]
+    steps:
+      - do: Call the online banking helpdesk (8am to 6pm, 7 days).
+        channel: online-banking-helpdesk
+      - do: If someone knows your password or memorable information, or used your online banking without approval, call the Internet Banking fraud line (24/7).
+        channel: online-banking-fraud-phone
+      - do: If the problem is not fixed, make a complaint.
+        channel: complaints-online
+
+facts:
+  - kind: process
+    claim: If Lloyds has not resolved a complaint within 5 working days it contacts you with an update or acknowledgement; if it is still investigating at 4 weeks it tells you; it sends a final response within 8 weeks and aims to resolve the complaint well before this.
+    issues: [poor_service]
+    source: https://www.lloydsbank.com/help-guidance/how-to-complain.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: For complaints about a payment or payment service (such as a Direct Debit or account statement), Lloyds aims to respond within 15 days and sometimes takes up to 35 days.
+    issues: [poor_service, transaction_dispute]
+    source: https://www.lloydsbank.com/help-guidance/how-to-complain.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: Lloyds says that if you are not happy with the outcome of your complaint you have the right to refer it to the Financial Ombudsman Service within 6 months, free of charge.
+    issues: [poor_service]
+    source: https://www.lloydsbank.com/help-guidance/how-to-complain.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - kind: process
+    claim: The Personal Banking Terms (4 October 2026) describe three complaint steps - raise it with the person or team, refer it to Customer Services, then contact the Financial Ombudsman Service.
+    issues: [poor_service]
+    source: https://www.lloydsbank.com/assets/media/pdfs/current-accounts/personal_banking_terms_and_conditions.pdf
+    verified_via: document
+    last_verified: 2026-11-19
+
+tips:
+  - kind: official
+    text: If you have the Lloyds app, call from inside the app (search 'Call us') to skip the security questions.
+    issues: [transaction_dispute, unauthorized_charge, poor_service]
+    source: https://www.lloydsbank.com/help-guidance/everyday-banking/statements/unrecognised-transactions.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - kind: official
+    text: Before reporting an unrecognised payment, check the date, time and location, ask joint account holders and family, and check for subscriptions, direct debits and different trading names.
+    issues: [unauthorized_charge, transaction_dispute]
+    source: https://www.lloydsbank.com/help-guidance/everyday-banking/statements/unrecognised-transactions.html
+    verified_via: browser
+    last_verified: 2026-11-19
+
+known_blockers:
+  - Message us, app disputes and app fraud claims need the account holder to log in to the app or online banking.
+  - Section 75 claims and credit card fraud must be raised by phone; phone lines verify the account holder.
+  - The complaints phone line has no published opening hours.
+  - lloydsbank.com serves an error page (Error 1007) to some automated fetches; use a normal browser.

@@ -1,0 +1,391 @@
+id: starling-bank
+name: Starling Bank
+aliases: [starling, starling bank limited]
+sector: bank
+countries: [gb]
+website: https://www.starlingbank.com
+account_url: https://app.starlingbank.com
+official_domains: [starlingbank.com]
+regulators: [uk-fos, uk-fca]
+notes: >-
+  Starling Bank Limited is an app-first UK bank with no branches. Support is 24/7 by in-app chat and phone.
+  Complaints by post go to the Customer Relations Team in Cardiff; the contact page gives the head office
+  postal address as 5th Floor, London Fruit and Wool Exchange, 1 Duval Square, London E1 6PW.
+  Help centre articles on help.starlingbank.com are rendered by JavaScript; their text was read from the
+  help centre's own FAQ data file.
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Starling says it would never ask you to make or approve payments to "keep your account safe", ask you to assist with an investigation, call or text you about fraud without messaging you in the app first, or ask for your PINs or passwords.
+      source: https://www.starlingbank.com/mobile-banking-security/fraud/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Starling says it will never call you to ask you to make or approve a payment, and that the latest app shows a message on the home screen or at payment time if Starling is really calling you.
+      source: https://help.starlingbank.com/personal/topics/sending-and-receiving-money/how-do-you-know-if-the-payment-i-am-making-is-a-scam/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Starling says it will never ask for personal, financial or security information by email, and that if it needs to reach you it will always contact you through the app before calling.
+      source: https://help.starlingbank.com/personal/topics/brand-refresh/will-the-change-in-branding-make-me-more-susceptible-to-scams/
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: Safe account scam. Fraudsters say your account is compromised and urge you to move money to a new or "safe" account, or to help with an investigation. Starling says it will never call and ask you to move money to a safe account.
+      source: https://www.starlingbank.com/blog/impersonation-scams-what-you-need-to-know/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Scammers pose as HMRC or fine-collection officials, say you owe money and threaten arrest or bailiffs. They can spoof real phone numbers and may use AI voice cloning, so a matching caller number is not proof.
+      source: https://www.starlingbank.com/blog/impersonation-scams-what-you-need-to-know/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Emails impersonating Starling may link to a "new online banking portal" or ask for personal or security information, and social media messages may offer a prize from a "rebranding competition". Starling says it is not running any rebrand competitions.
+      source: https://help.starlingbank.com/personal/topics/brand-refresh/will-the-change-in-branding-make-me-more-susceptible-to-scams/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: People on social media may offer "account unrestriction" or "recovery" services. Starling says not to give them your details; only certain Starling employees can lift account restrictions.
+      source: https://help.starlingbank.com/personal/topics/account-support/can-the-starling-bank-customer-service-team-unrestrict-my-account/
+      last_verified: 2026-11-19
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails or send screenshots of suspicious texts that claim to be from Starling
+      value: reportphishing@starlingbank.com
+      purposes: [fraud]
+      notes: Automated mailbox. Do not send other queries or personal information, including bank account details.
+      source: https://help.starlingbank.com/personal/topics/sending-and-receiving-money/what-should-i-do-if-i-receive-a-suspicious-text-or-email/
+      last_verified: 2026-11-19
+    - id: call-159
+      type: phone
+      label: Call 159 to check or report a suspicious call that claims to be from Starling
+      value: "159"
+      purposes: [fraud]
+      access: human_only
+      notes: Starling says that if the Call status banner in the app says "We aren't calling you", hang up and call 159.
+      source: https://www.starlingbank.com/mobile-banking-security/fraud/
+      last_verified: 2026-11-19
+
+channels:
+  - id: app-chat
+    type: app
+    label: Message or live chat with Starling in the app (24/7)
+    value: Starling app > menu (top right) > Help > Talk to Starling
+    hours: 24/7
+    purposes: [fraud, unauthorized_charge, transaction_dispute, frozen_funds, account_access, billing_error, poor_service]
+    access: login
+    notes: You can send a message or start a live chat session. Starling's terms say the app is the best way to contact it.
+    source: https://www.starlingbank.com/contact/
+    last_verified: 2026-11-19
+  - id: phone
+    type: phone
+    label: Customer service and fraud phone (24/7, also from abroad)
+    value: +44-20-7930-4450
+    hours: 24/7
+    purposes: [fraud, unauthorized_charge, transaction_dispute, frozen_funds, account_access, billing_error, poor_service]
+    access: human_only
+    notes: >-
+      Dial 020 7930 4450 in the UK, or +44 20 7930 4450 from abroad. Starling says calling is the fastest way to
+      report fraud. Relay UK users can dial 18001 020 7930 4450.
+    source: https://help.starlingbank.com/personal/topics/account-support/do-you-have-a-phone-number-i-can-call/
+    last_verified: 2026-11-19
+  - id: signvideo
+    type: chat
+    label: Contact Starling in British Sign Language (SignVideo)
+    value: https://starlingbank.signvideo.net/
+    purposes: [poor_service, account_access, fraud]
+    source: https://www.starlingbank.com/contact/
+    last_verified: 2026-11-19
+  - id: help-email
+    type: email
+    label: General email (questions, feedback and complaints)
+    value: help@starlingbank.com
+    purposes: [poor_service, frozen_funds, transaction_dispute, account_access]
+    notes: The contact page says not to include personal or account details in the email.
+    source: https://www.starlingbank.com/contact/
+    last_verified: 2026-11-19
+  - id: lock-card
+    type: app
+    label: Lock a lost card or a card a scammer may have
+    value: Starling app > Cards > tap the toggle to Card locked
+    purposes: [fraud, unauthorized_charge]
+    access: login
+    notes: Locking stops all use of the card, including the mobile wallet. You can unlock it if you find the card.
+    source: https://help.starlingbank.com/personal/topics/debit-card-queries/what-should-i-do-if-my-card-is-lost-or-stolen/
+    last_verified: 2026-11-19
+  - id: cancel-replace-card
+    type: app
+    label: Cancel and replace a lost or stolen card
+    value: Starling app > Cards > Cancel & replace card > Lost or stolen
+    purposes: [fraud, unauthorized_charge]
+    access: login
+    notes: You can add the new card to your mobile wallet at once, before the physical card arrives.
+    source: https://help.starlingbank.com/personal/topics/debit-card-queries/what-should-i-do-if-my-card-is-lost-or-stolen/
+    last_verified: 2026-11-19
+  - id: dispute-card-payment
+    type: portal
+    label: Dispute a settled card payment (chargeback) in Online Banking
+    value: https://app.starlingbank.com
+    purposes: [transaction_dispute, billing_error]
+    access: login
+    notes: >-
+      The help article says to log in to Online Banking, select the payment and tap "Need help with this transaction?".
+      The payment must show as settled. The URL is the "Log in" link on starlingbank.com; the article itself does not give a URL.
+    source: https://help.starlingbank.com/personal/topics/debit-card-queries/how-do-i-dispute-a-card-payment-that-i-have-made-raise-a-chargeback/
+    last_verified: 2026-11-19
+  - id: complaints-mail
+    type: mail
+    label: Complaints by post
+    value: "Starling Bank Customer Relations Team, 8th Floor Brunel House, 2 Fitzalan Road, Cardiff CF24 0FG"
+    purposes: [poor_service, frozen_funds, fraud, unauthorized_charge, transaction_dispute]
+    source: https://www.starlingbank.com/how-to-complain/
+    last_verified: 2026-11-19
+  - id: phishing-email
+    type: email
+    label: Report suspicious emails and texts that claim to be from Starling
+    value: reportphishing@starlingbank.com
+    purposes: [fraud]
+    source: https://help.starlingbank.com/personal/topics/sending-and-receiving-money/what-should-i-do-if-i-receive-a-suspicious-text-or-email/
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: app-chat, note: "Chat in the app or call 020 7930 4450 (+44 20 7930 4450 from abroad), 24/7."}
+  - {rung: written_complaint, channel: complaints-mail, note: "Complain in the app (quickest), by phone, by email to help@starlingbank.com or by post. Payment service complaints: final response aimed within 15 calendar days, almost all resolved within 35 business days. Other complaints: final response within 8 weeks."}
+  - {rung: regulator, regulator: uk-fos, note: "After the final response letter, or after 8 weeks without one. Refer within six months of the final response or summary resolution letter. Free."}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Lock the card in the app at once, check the payment, then call Starling (24/7) or use Live Chat.
+    evidence: [date and amount of the payment, merchant name and location, whether the card is lost or still with you, when you noticed it]
+    steps:
+      - do: Lock the card in the app.
+        channel: lock-card
+      - do: Check the payment details (location, date, time, reference). Some companies use a trading or parent company name. Check Payments > Scheduled for subscriptions or free trials that became paid.
+      - do: If you still do not recognise it, or you cannot use the app, call Starling.
+        channel: phone
+      - do: Or use Live Chat in the Help section of the app.
+        channel: app-chat
+      - do: If the card is lost or stolen, cancel and replace it.
+        channel: cancel-replace-card
+      - do: If Starling refuses a refund, make a complaint.
+        channel: complaints-mail
+      - do: After the final response, or after 8 weeks, refer the complaint to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: deadline
+        claim: Starling's terms say you can claim a refund for an unauthorised or incorrect payment within 13 months from the date the payment was made; after that you cannot claim.
+        issues: [unauthorized_charge, fraud]
+        verified_via: document
+        source: https://www.starlingbank.com/docs/legal/terms/starling-personal-account-general-terms-may-2026.pdf
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Starling's terms say it will normally refund an unauthorised payment before the end of the next working day after you tell it, and repay any interest and charges. It may take longer if the payment came from an overdraft or it thinks there might be fraud.
+        issues: [unauthorized_charge]
+        verified_via: document
+        source: https://www.starlingbank.com/docs/legal/terms/starling-personal-account-general-terms-may-2026.pdf
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Starling's terms say that for payments made before you reported a lost, stolen or misused card, it refunds you if you did not know, but you may be responsible for up to £35. If you knew and did not tell Starling quickly, you may be responsible for all of it.
+        issues: [unauthorized_charge, fraud]
+        verified_via: document
+        source: https://www.starlingbank.com/docs/legal/terms/starling-personal-account-general-terms-may-2026.pdf
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Starling's terms say it will not refund you if you committed fraud, purposely did not keep your card or security details safe, or acted with gross negligence in keeping them safe.
+        issues: [unauthorized_charge, fraud]
+        verified_via: document
+        source: https://www.starlingbank.com/docs/legal/terms/starling-personal-account-general-terms-may-2026.pdf
+        last_verified: 2026-11-19
+
+  - issue: fraud
+    summary: If you were tricked into sending a bank transfer (APP scam), call Starling or message in the app at once. Eligible Faster Payments and CHAPS payments are normally refunded, less an excess of up to £50.
+    evidence: [details of at least one payment made in the scam, messages and call records from the scammer, police crime reference if you have one]
+    steps:
+      - do: Call Starling at once (24/7). Starling says calling is the fastest way to give it the information it needs.
+        channel: phone
+      - do: Or message Starling in the app. Give the details of at least one payment you made because of the scam.
+        channel: app-chat
+      - do: Report the fraud to Report Fraud (actionfraud.police.uk), or in Scotland to Police Scotland on 101. Starling may ask you to report to the police or let it report for you.
+      - do: Answer Starling's requests for information. Not doing so can affect reimbursement.
+        channel: app-chat
+      - do: If Starling refuses or reduces the refund, make a complaint.
+        channel: complaints-mail
+      - do: If you are unhappy with the outcome, refer it to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: deadline
+        claim: Starling's terms say you must report an APP scam within 13 months after the payment; with several payments, the 13 months run from the last payment.
+        issues: [fraud]
+        verified_via: document
+        source: https://www.starlingbank.com/docs/legal/terms/starling-personal-account-general-terms-may-2026.pdf
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Starling's terms say it will normally refund you or explain why not within 5 working days of receiving your APP scam claim, and will close the claim before the end of the 35th working day after your report.
+        issues: [fraud]
+        verified_via: document
+        source: https://www.starlingbank.com/docs/legal/terms/starling-personal-account-general-terms-may-2026.pdf
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: Starling says the sending bank may apply an excess of up to £100, and Starling has chosen to apply a £50 excess, decided case by case. It may waive the excess if you are in an especially difficult situation.
+        issues: [fraud]
+        source: https://www.starlingbank.com/blog/protecting-yourself-from-app-fraud/
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Starling's APP fraud page (updated 5 January 2026) says the maximum amount a bank may refund is £120,000. Starling's terms say the limit is set by the Payment Systems Regulator (Faster Payments) and the Bank of England (CHAPS), and that Starling tells you the limit when you claim. The PSR's own pages (read 2026-11-19) still give £85,000, so check the limit when you claim.
+        issues: [fraud]
+        source: https://www.starlingbank.com/blog/protecting-yourself-from-app-fraud/
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Starling's terms say APP scam refunds do not cover private civil disputes, debit card, cheque or cash payments, payments to an account you control, or payments sent outside the UK. You may also lose the refund if you acted fraudulently or, through gross negligence, ignored warnings, reported late, did not answer information requests, or did not agree to a police report.
+        issues: [fraud]
+        verified_via: document
+        source: https://www.starlingbank.com/docs/legal/terms/starling-personal-account-general-terms-may-2026.pdf
+        last_verified: 2026-11-19
+
+  - issue: transaction_dispute
+    summary: Contact the merchant first. If it does not resolve the problem, raise a dispute on the settled payment in Online Banking, usually within 120 days.
+    evidence: [proof of purchase, proof of the delivery timeframe, screenshots or emails with the company, date you asked for a refund]
+    steps:
+      - do: Contact the company (and the courier or payment service, such as PayPal, if used). Starling says this is usually the fastest way to fix it.
+      - do: For an item not received, allow at least 30 calendar days for delivery (less if you paid for faster delivery). For a refund the merchant promised, allow up to 15 calendar days.
+      - do: When the payment shows as settled, log in to Online Banking, select the payment and tap "Need help with this transaction?".
+        channel: dispute-card-payment
+      - do: For other payment problems, get in touch through the Help section of the app.
+        channel: app-chat
+      - do: If the dispute is handled badly, make a complaint.
+        channel: complaints-mail
+      - do: Refer the complaint to the Financial Ombudsman Service after the final response or after 8 weeks.
+        regulator: uk-fos
+    facts:
+      - kind: deadline
+        claim: Starling says most refund disputes must be raised within 120 days of the payment, but to get in touch even after 120 days so it can assess the dispute.
+        issues: [transaction_dispute]
+        source: https://help.starlingbank.com/personal/topics/debit-card-queries/i-am-expecting-a-refund-but-havent-received-it-what-should-i-do/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Starling says it can raise a dispute for problems with goods or services, a promised refund, a subscription payment, an extra merchant fee or no-show charge, being charged wrongly or twice, or cash not received from an ATM. It cannot guarantee it will recover the money.
+        issues: [transaction_dispute, billing_error]
+        source: https://help.starlingbank.com/personal/topics/debit-card-queries/how-do-i-dispute-a-card-payment-that-i-have-made-raise-a-chargeback/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Starling's terms say that if a chargeback is unsuccessful you must pay back any money refunded to you before the decision, and Starling may take it from your account even if this causes an unarranged overdraft.
+        issues: [transaction_dispute]
+        verified_via: document
+        source: https://www.starlingbank.com/docs/legal/terms/starling-personal-account-general-terms-may-2026.pdf
+        last_verified: 2026-11-19
+
+  - issue: frozen_funds
+    summary: If your account is restricted, wait for Starling's contact and send what it asks for. If it closes the account, it will usually give 90 days' notice and ask where to send the balance.
+    evidence: [messages from Starling, date the restriction started, documents Starling asked for, notice of closure]
+    steps:
+      - do: Wait for Starling to tell you what actions you need to take, and reply with the information it asks for.
+        channel: app-chat
+      - do: Do not use people on social media who offer "account unrestriction" or "recovery" services.
+      - do: If Starling closes the account, tell it which UK account in your name to send the balance to.
+        channel: app-chat
+      - do: If you disagree with the restriction or closure, make a complaint.
+        channel: complaints-mail
+      - do: After the final response, or after 8 weeks, refer the complaint to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: policy
+        claim: Starling says it restricts an account only as a last resort, for example if it thinks the account is not safe, its systems spot unusual activity, another bank has raised a concern, it needs more information, or it suspects a breach of its terms.
+        issues: [frozen_funds]
+        source: https://help.starlingbank.com/personal/topics/account-support/why-would-you-restrict-an-account/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Starling's terms say it will usually give at least 90 days' notice before closing your account, with a specific explanation and details of how to complain to Starling or the Financial Ombudsman Service, unless legal, regulatory or security reasons prevent this.
+        issues: [frozen_funds]
+        verified_via: document
+        source: https://www.starlingbank.com/docs/legal/terms/starling-personal-account-general-terms-may-2026.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Starling's terms say it can close an account on less notice or immediately, for example if it cannot complete anti-money-laundering checks, suspects a link to serious crime, is required to by government or regulators, finds incorrect account-opening information, or you seriously broke the terms.
+        issues: [frozen_funds]
+        verified_via: document
+        source: https://www.starlingbank.com/docs/legal/terms/starling-personal-account-general-terms-may-2026.pdf
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Starling says that if money is left in a closed account, it will try to contact you to ask where to send it; if it does not hear back, it sends a cheque to your registered address.
+        issues: [frozen_funds]
+        source: https://help.starlingbank.com/personal/topics/account-support/ive-closed-my-account-whys-there-still-money-in-it/
+        last_verified: 2026-11-19
+
+  - issue: account_access
+    summary: If you lose your phone, call Starling so it can disable the app on that device.
+    evidence: [phone number on the account, police crime reference if the phone was stolen]
+    steps:
+      - do: Call Starling (from the UK or abroad) and ask it to disable the app on the lost device.
+        channel: phone
+      - do: If you have a new phone number, call Starling first so it can get you logged in.
+        channel: phone
+    facts:
+      - kind: process
+        claim: Starling says you can still use the app on a tablet you logged into before, and on a new phone you can download the app and log in as long as your number has not changed.
+        issues: [account_access]
+        source: https://help.starlingbank.com/personal/topics/account-support/what-happens-if-i-lose-my-phone/
+        last_verified: 2026-11-19
+
+  - issue: poor_service
+    summary: Complain in the app (quickest), by phone, email or post. You get a dedicated complaint handler and a final response letter.
+    evidence: [dates and summary of each contact, chat transcripts or screenshots, what you want Starling to do]
+    steps:
+      - do: Make the complaint in the app chat, saying clearly that it is a complaint.
+        channel: app-chat
+      - do: Or call, or email help@starlingbank.com with full details and how you want to be contacted.
+        channel: help-email
+      - do: Or write to the Customer Relations Team.
+        channel: complaints-mail
+      - do: If you are unhappy with the final response, refer it to the Financial Ombudsman Service within six months.
+        regulator: uk-fos
+    facts:
+      - kind: process
+        claim: Starling sends a summary resolution communication if your complaint is resolved within three working days, and a written acknowledgement if it is not resolved by the fifth working day.
+        issues: [poor_service]
+        source: https://www.starlingbank.com/how-to-complain/
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: For payment service complaints Starling aims to send a final response within 15 calendar days, and almost all are resolved within 35 business days. For all other complaints it has eight weeks to send a final response.
+        issues: [poor_service]
+        source: https://www.starlingbank.com/how-to-complain/
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Starling says you must refer a complaint to the Financial Ombudsman Service within six months of receiving its final response letter or summary resolution letter.
+        issues: [poor_service]
+        source: https://www.starlingbank.com/how-to-complain/
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Starling says it may call you about a complaint, but it will first message you in the app to arrange a time, as a security measure.
+        issues: [poor_service]
+        source: https://www.starlingbank.com/how-to-complain/
+        last_verified: 2026-11-19
+
+facts:
+  - kind: contact
+    claim: Starling's terms say you can contact it 24 hours a day, 7 days a week by app message, by phone on +44 (0) 207 930 4450, or by email to help@starlingbank.com.
+    verified_via: document
+    source: https://www.starlingbank.com/docs/legal/terms/starling-personal-account-general-terms-may-2026.pdf
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Starling's terms say that if you are not sure a call or message is really from Starling, you can call 159 to check, or contact Starling directly.
+    verified_via: document
+    source: https://www.starlingbank.com/docs/legal/terms/starling-personal-account-general-terms-may-2026.pdf
+    last_verified: 2026-11-19
+  - kind: fee
+    claim: If you lose your card abroad and Starling can send a replacement overseas, it charges £10 for this.
+    source: https://help.starlingbank.com/personal/topics/debit-card-queries/ive-lost-my-card-abroad-can-you-send-me-a-new-one/
+    last_verified: 2026-11-19
+
+tips:
+  - kind: official
+    text: If someone calls saying they are from Starling, open the app and check the Call status banner. If it says "We aren't calling you", hang up and call 159.
+    issues: [fraud]
+    source: https://www.starlingbank.com/mobile-banking-security/fraud/
+    last_verified: 2026-11-19
+  - kind: official
+    text: Do not delete the Starling app to close the account; deleting the app does not close it. Close it in the app or by phone.
+    source: https://www.starlingbank.com/docs/legal/terms/starling-personal-account-general-terms-may-2026.pdf
+    verified_via: document
+    last_verified: 2026-11-19
+
+known_blockers:
+  - Disputes and most support need sign-in to the Starling app or Online Banking.
+  - Starling's terms say that what it can tell you about an immediate account closure depends on what has happened.

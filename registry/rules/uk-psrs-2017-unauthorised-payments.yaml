@@ -1,0 +1,89 @@
+id: uk-psrs-2017-unauthorised-payments
+title: Payment Services Regulations 2017 - refunds of unauthorised payments (next business day; £35 maximum liability)
+citation: Payment Services Regulations 2017 (SI 2017/752), regulations 74, 76 and 77
+jurisdiction: gb
+status: in_effect
+applies_to:
+  sectors: [bank, credit_union, payments]
+  issues: [unauthorized_charge, fraud, identity_theft]
+summary: >-
+  If a payment from your account was not authorised by you (for example a stolen card or a fraudster with your
+  details), your bank must refund it and restore the account by the end of the next business day after it becomes
+  aware, unless it has reasonable grounds to suspect you of fraud and reports them. You can be made to pay at most £35
+  for a lost or stolen card, and nothing after you report it, unless you acted fraudulently or with intent or gross
+  negligence failed to keep your security details safe. Tell the bank promptly, and no later than 13 months after the
+  debit date. This is different from an authorised push payment scam, where you made the payment yourself (see
+  uk-psr-app-reimbursement).
+points:
+  - kind: deadline
+    claim: >-
+      Regulation 76(1)-(2): for an unauthorised payment transaction the payer's provider must refund the amount and,
+      where applicable, restore the account to the state it would have been in, as soon as practicable and in any event
+      no later than the end of the business day following the day it becomes aware of the transaction.
+    issues: [unauthorized_charge, fraud]
+    source: https://www.legislation.gov.uk/uksi/2017/752/regulation/76
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Regulation 76(3): the refund deadline does not apply where the provider has reasonable grounds to suspect
+      fraudulent behaviour by the payment service user and notifies a person under section 333A(2) of the Proceeds of
+      Crime Act 2002 of those grounds in writing.
+    issues: [unauthorized_charge, fraud]
+    source: https://www.legislation.gov.uk/uksi/2017/752/regulation/76
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      Regulation 77(1)-(2): the provider may make the payer liable up to a maximum of £35 for losses from a lost,
+      stolen or misappropriated payment instrument. Not even that applies if the loss was not detectable by the payer
+      before the payment (unless the payer acted fraudulently), or was caused by the provider's staff, agents or
+      branches.
+    issues: [unauthorized_charge, fraud]
+    source: https://www.legislation.gov.uk/uksi/2017/752/regulation/77
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Regulation 77(3): the payer is liable for all losses if they acted fraudulently, or with intent or gross
+      negligence failed to comply with regulation 72. Regulation 72 requires the user to follow the provider's (fair and
+      proportionate) terms of use, to tell the provider promptly through the agreed channel when the card or
+      instrument is lost, stolen or used without authorisation, and to take reasonable steps to keep the security credentials safe.
+    issues: [unauthorized_charge, fraud]
+    source: https://www.legislation.gov.uk/uksi/2017/752/regulation/77
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Regulation 77(4): unless the payer acted fraudulently, the payer is not liable for losses after they notified the
+      provider, where the provider did not give a way to notify it, where strong customer authentication was required
+      but not applied by the payer's provider, or where the instrument was used for a distance contract (other than an
+      excepted contract).
+    issues: [unauthorized_charge, fraud]
+    source: https://www.legislation.gov.uk/uksi/2017/752/regulation/77
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Regulation 74(1): the payment service user must notify the provider without undue delay on becoming aware of an
+      unauthorised or incorrectly executed payment, and in any event no later than 13 months after the debit date. The
+      limit does not apply if the provider failed to provide or make available the transaction information
+      (regulation 74(2)).
+    issues: [unauthorized_charge, fraud]
+    source: https://www.legislation.gov.uk/uksi/2017/752/regulation/74
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      The Financial Ombudsman Service can help with disputes about payments you did not authorise that were not part of
+      a scam, for example when a fraudster used your debit or credit card without your knowledge or permission.
+    issues: [unauthorized_charge, fraud]
+    source: https://www.financial-ombudsman.org.uk/consumers/complaints-can-help/fraud-scams
+    verified_via: page
+    last_verified: 2026-11-19
+status_note: >-
+  Read from the latest revised text on legislation.gov.uk. It lists one change to regulation 77 under 2021 c. 22 s. 23
+  that has not yet been applied to the text. Regulation 72 (the user's duties) was read at
+  https://www.legislation.gov.uk/uksi/2017/752/regulation/72.
+source: https://www.legislation.gov.uk/uksi/2017/752/regulation/76
+last_verified: 2026-11-19

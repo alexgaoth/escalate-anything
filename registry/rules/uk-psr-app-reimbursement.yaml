@@ -1,0 +1,106 @@
+id: uk-psr-app-reimbursement
+title: APP scam reimbursement - Faster Payments and CHAPS (PSR reimbursement requirement)
+citation: >-
+  Payment Systems Regulator Specific Direction 20 (FPS reimbursement requirement) and Specific Requirement 1 on Pay.UK;
+  PS23/3, PS23/4, PS24/5 (CHAPS) and PS24/7 (maximum level of reimbursement); Financial Services and Markets Act 2023
+jurisdiction: gb
+status: in_effect
+applies_to:
+  sectors: [bank, payments]
+  issues: [fraud, transaction_dispute]
+summary: >-
+  If you were tricked into sending money by bank transfer (an authorised push payment, or APP, scam) on or after 7
+  October 2024, your bank must reimburse you if the payment went from one UK account to another by Faster Payments or
+  CHAPS. The maximum is £85,000 per claim. The bank may deduct an excess of up to £100 (not for vulnerable customers).
+  Claim within 13 months of the last scam payment. The bank should reimburse within 5 business days, or 35 business
+  days if it pauses to gather information. It can refuse only if you were complicit or grossly negligent (the gross
+  negligence exception does not apply to vulnerable customers). It covers individuals, micro-enterprises and
+  charities, not civil disputes. If the bank refuses, complain to it, then go to the Financial Ombudsman Service.
+points:
+  - kind: policy
+    claim: >-
+      The PSR says the protections start on 7 October 2024 and apply to payments made on or after that date, for UK
+      bank transfers from one UK account to another over Faster Payments or CHAPS. They cover individuals,
+      microenterprises and charities.
+    issues: [fraud]
+    source: https://www.psr.org.uk/information-for-consumers/app-fraud-reimbursement-protections/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      The maximum reimbursement is £85,000 per claim; firms may pay more. PS24/7 confirmed the £85,000 maximum level of
+      reimbursement per Faster Payments APP scam claim.
+    issues: [fraud]
+    source: https://www.psr.org.uk/publications/policy-statements/ps247-faster-payments-app-scams-reimbursement-requirement-confirming-the-maximum-level-of-reimbursement/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: fee
+    claim: >-
+      Firms may apply an optional excess of up to £100 per claim, set a lower amount or not use one. The excess cannot be
+      applied to vulnerable consumers.
+    issues: [fraud]
+    source: https://www.psr.org.uk/information-for-consumers/app-fraud-reimbursement-protections/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Claim within 13 months of making the fraudulent payment. The Financial Ombudsman Service writes this as no more
+      than 13 months after the last payment you made.
+    issues: [fraud]
+    source: https://www.psr.org.uk/information-for-consumers/app-fraud-reimbursement-protections/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Reimbursement should be within 5 business days of the claim. Firms can stop the clock to gather information but
+      must reach an outcome within 35 business days.
+    issues: [fraud]
+    source: https://www.psr.org.uk/information-for-consumers/app-fraud-reimbursement-protections/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      You will not get your money back if you were complicit in the fraud or grossly negligent; the gross negligence
+      exception does not apply to vulnerable consumers. APP fraud is different from a civil dispute (for example a
+      genuine seller who did not deliver).
+    issues: [fraud]
+    source: https://www.psr.org.uk/information-for-consumers/app-fraud-reimbursement-protections/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The Financial Ombudsman Service says that to refuse a claim the firm must show you acted with gross negligence,
+      which "is much more than not being careful", and the firm must prove it, not you. If you lost more than £85,000,
+      the ombudsman can still look at your case.
+    issues: [fraud]
+    source: https://www.financial-ombudsman.org.uk/consumers/complaints-can-help/fraud-scams/scams-youve-tricked-making-payment
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      If you think you have been scammed, contact your bank or payment provider immediately, contact the police on 101,
+      report it to Report Fraud, and keep records of all contact with the scammer. If the bank refuses the claim, raise it
+      with the bank first, then refer it to the Financial Ombudsman Service.
+    issues: [fraud]
+    source: https://www.financial-ombudsman.org.uk/consumers/complaints-can-help/fraud-scams/scams-youve-tricked-making-payment
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: contact
+    claim: >-
+      The FCA gives Report Fraud as 0300 123 2040 or www.reportfraud.police.uk; in Scotland, Police Scotland on 101 or
+      Advice Direct Scotland on 0808 164 6000.
+    issues: [fraud]
+    source: https://www.fca.org.uk/contact
+    verified_via: page
+    last_verified: 2026-11-19
+status_note: >-
+  In effect for payments made on or after 7 October 2024. The PSR's July 2026 news item says the Financial Services and
+  Markets Bill (introduced May 2026) would move the PSR's functions to the FCA while keeping their substance and scope;
+  watch for the rules moving to the FCA. Starling Bank's APP fraud page (updated 5 January 2026) gives a £120,000
+  maximum; the PSR and the Financial Ombudsman Service pages read on 2026-11-19 give £85,000, and the latest PSR
+  "Maximum level of reimbursement - Notice of value" listed on the SR1 page is dated September 2024 (amended 25
+  September 2024). No PSR publication raising the limit was found. The PSR consumer page also quotes an outdated ombudsman award limit (£430,000), so it
+  may not have been updated recently. Card payments, international transfers and payments made before 7 October 2024
+  are outside this rule (the older voluntary CRM Code applied to some banks before then).
+source: https://www.psr.org.uk/information-for-consumers/app-fraud-reimbursement-protections/
+last_verified: 2026-11-19

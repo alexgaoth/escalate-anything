@@ -1,0 +1,392 @@
+id: hsbc-uk
+name: HSBC UK
+aliases: [hsbc uk bank, hsbc uk bank plc, hsbc bank uk, hsbc uk personal banking, hsbc premier uk, hsbc.co.uk]
+sector: bank
+countries: [gb]
+parent: HSBC Holdings plc
+website: https://www.hsbc.co.uk
+official_domains: [hsbc.co.uk, hsbc.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: HSBC says it will never ask you to tell it your card's 4-digit PIN, share a QR code or one-time passcode (from your Secure Key, text or email), transfer money anywhere including to a 'safe' account, or send it your card, cheque book or cash.
+      source: https://www.hsbc.co.uk/help/security-centre/fraud-guide/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: HSBC says it will never call and ask you for personal details or full passwords, PINs or security codes, and will never text you a link to its online banking log on page.
+      source: https://www.hsbc.co.uk/help/security-centre/fraud-guide/common-methods/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: HSBC says it will never contact you to ask you to share your security details or one-time passcodes, and that HSBC or the police will never call you to verify personal details or your PIN.
+      source: https://www.hsbc.co.uk/help/security-centre/latest-scam-warnings/
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: Safe account scam. Callers who claim to be from your bank or the police say your money is at risk and must be moved to a new account. HSBC says no legitimate bank will ask you to transfer money into a new account.
+      source: https://www.hsbc.co.uk/help/security-centre/latest-scam-warnings/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Criminals pretend to be HSBC employees, often from the Wealth, Premier or Private Bank teams, and ask people to pay into fake high-interest "guaranteed" investment bonds.
+      source: https://www.hsbc.co.uk/help/security-centre/latest-scam-warnings/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Courier fraud. Fraudsters posing as bank or police staff ask for your card, PIN or valuables and offer to send a courier to collect them.
+      source: https://www.hsbc.co.uk/help/security-centre/latest-scam-warnings/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Fraudsters claiming to be from HSBC say your account is compromised and ask you to share a one-time passcode or delete the mobile banking app, or ask you to dial a code that diverts your calls to them.
+      source: https://www.hsbc.co.uk/help/security-centre/latest-scam-warnings/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Fraudsters can fake the caller ID and keep your line open with a fake dial tone, so calling the number on your card may not reach your bank. HSBC says to disconnect fully, wait or use another phone, then call a number you have verified.
+      source: https://www.hsbc.co.uk/help/security-centre/fraud-guide/common-methods/
+      last_verified: 2026-11-19
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails or texts that claim to be from HSBC
+      value: phishing@hsbc.com
+      purposes: [fraud]
+      notes: Do not click links or open attachments in the message.
+      source: https://www.hsbc.co.uk/help/security-centre/report-a-problem/
+      last_verified: 2026-11-19
+    - id: spam-text-7726
+      type: sms
+      label: Forward suspicious texts to your mobile operator on 7726 (free)
+      value: "7726"
+      purposes: [fraud]
+      source: https://www.hsbc.co.uk/help/security-centre/received-a-text/
+      last_verified: 2026-11-19
+regulators: [uk-fos, uk-fca]
+notes: >-
+  HSBC UK Bank plc, the UK personal bank at hsbc.co.uk. This file does not cover first direct or HSBC
+  outside the UK. HSBC UK lists contact numbers by customer type (existing customers, Premier,
+  non-customers) rather than by topic; the same main number handles fraud, scams and complaints. HSBC's
+  pages list no separate credit card phone number; credit cards are reported lost or stolen through the
+  same app, online banking and 0800 routes.
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Existing customers (also fraud, scams and complaints)
+    value: +44-345-740-4404
+    hours: 08:00 to 20:00 every day
+    purposes: [unauthorized_charge, fraud, fee_reversal, frozen_funds, account_access, poor_service, identity_theft]
+    access: human_only
+    notes: >-
+      UK number 0345 740 4404 (written 03457 404 404). From abroad +44 1226 261 010. HSBC asks you to call
+      about fraud only for a fraudulent card transaction, payment or APP scam; use the query-a-transaction
+      route for payments you recognise. The fraud reporting pages do not state hours for fraud calls.
+    source: https://www.hsbc.co.uk/contact/
+    last_verified: 2026-11-19
+  - id: customer-service-abroad
+    type: phone
+    label: Existing customers, calling from abroad
+    value: +44-1226-261-010
+    hours: 08:00 to 20:00 every day
+    purposes: [unauthorized_charge, fraud, poor_service]
+    access: human_only
+    source: https://www.hsbc.co.uk/contact/
+    last_verified: 2026-11-19
+  - id: premier-phone
+    type: phone
+    label: HSBC Premier customers
+    value: +44-345-770-7070
+    hours: 24/7
+    purposes: [unauthorized_charge, fraud, fee_reversal, frozen_funds, account_access, poor_service]
+    access: human_only
+    notes: UK number 0345 770 7070 (written 03457 707 070). From abroad +44 1226 260 260.
+    source: https://www.hsbc.co.uk/contact/
+    last_verified: 2026-11-19
+  - id: lost-stolen-phone
+    type: phone
+    label: Lost or stolen debit or credit card (24-hour line)
+    value: +44-800-085-2401
+    hours: 24 hours a day, 7 days a week
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    notes: UK number 0800 085 2401. From outside the UK +44 1442 422929. HSBC gives this line for customers not registered for mobile or online banking; others can report in the app or online banking.
+    source: https://www.hsbc.co.uk/help/card-support/lost-or-stolen/
+    last_verified: 2026-11-19
+  - id: lost-stolen-phone-abroad
+    type: phone
+    label: Lost or stolen card, calling from outside the UK
+    value: +44-1442-422-929
+    hours: 24 hours a day, 7 days a week
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    notes: Written as +44 1442 422929. You may be charged when calling from outside the UK.
+    source: https://www.hsbc.co.uk/help/card-support/lost-or-stolen/
+    last_verified: 2026-11-19
+  - id: app-chat
+    type: app
+    label: Chat in the HSBC UK app or online banking
+    value: HSBC UK Mobile Banking app > Menu > Help > Chat with us (or 'Start chat' on a hub page); Online Banking > Chat
+    purposes: [unauthorized_charge, fraud, transaction_dispute, fee_reversal, frozen_funds, account_access, poor_service]
+    access: login
+    notes: You can start, pause and continue a chat. HSBC does not state chat hours. The complaints page also accepts complaints by chat. Use chat for Global Money transaction disputes.
+    source: https://www.hsbc.co.uk/contact/
+    last_verified: 2026-11-19
+  - id: app-report-lost-stolen
+    type: app
+    label: Report a lost or stolen card, or freeze it, in the app or online banking
+    value: "App: Cards > select the card > Report a card issue (debit) or More (credit), or Freeze card. Online Banking: Manage > Report a lost or stolen card, or Block or unblock card"
+    hours: 24/7
+    purposes: [unauthorized_charge, fraud]
+    access: login
+    notes: A replacement card arrives within 5 to 7 working days in the UK, 12 working days outside the UK.
+    source: https://www.hsbc.co.uk/help/card-support/lost-or-stolen/
+    last_verified: 2026-11-19
+  - id: disputes-tool
+    type: web_form
+    label: Query a transaction (Disputes help tool)
+    value: https://www.hsbc.co.uk/help/disputes-tool/
+    purposes: [transaction_dispute, billing_error]
+    access: open
+    notes: >-
+      Asks questions about the problem (goods not received, double charge, wrong amount, subscription,
+      refund not given) and routes you to the next step. It tells you to contact the retailer first. Linked
+      from the HSBC query-a-transaction page. Whether the final step needs sign-in is not stated.
+    source: https://www.hsbc.co.uk/help/card-support/dispute-transaction/
+    last_verified: 2026-11-19
+  - id: financial-support-form
+    type: web_form
+    label: Income and expenditure form (financial support)
+    value: https://www.hsbc.co.uk/help/money-worries/assessing-income-and-expenditure/
+    purposes: [fee_reversal]
+    notes: HSBC's financial support team uses the form to build a personalised plan to help you prioritise your debts.
+    source: https://www.hsbc.co.uk/help/money-worries/
+    last_verified: 2026-11-19
+  - id: complaints-post
+    type: mail
+    label: Written complaint by post
+    value: Customer Service Centre, BX8 1HB
+    purposes: [poor_service, unauthorized_charge, fraud, transaction_dispute, fee_reversal, frozen_funds]
+    notes: >-
+      HSBC also takes complaints by app or online banking chat, by phone on 03457 404 404 (08:00 to 20:00
+      daily; from abroad +44 1226 261 010; Premier 03457 707 070, 24/7) and in branch. It does not list
+      an online complaint form.
+    source: https://www.hsbc.co.uk/help/feedback-and-complaints/
+    last_verified: 2026-11-19
+  - id: phishing-email
+    type: email
+    label: Forward suspicious emails or texts that claim to be from HSBC
+    value: phishing@hsbc.com
+    purposes: [fraud]
+    source: https://www.hsbc.co.uk/help/security-centre/report-a-problem/
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone, note: "Or chat in the app or online banking (app-chat). HSBC says it aims to resolve a complaint when you raise it."}
+  - {rung: written_complaint, channel: complaints-post, note: "Or complain by chat, phone or in branch. HSBC acknowledges within 5 working days; final response within 15 days (35 in exceptional circumstances) for payment service complaints and up to 56 days (8 weeks) for others."}
+  - {rung: regulator, regulator: uk-fos, note: "After HSBC's final response, or when its time limit has passed. The Financial Ombudsman Service generally cannot consider a complaint more than 6 months after the final response letter."}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Freeze or report the card at once, then call or chat to report the payment. HSBC normally refunds an unauthorised payment by the end of the next working day; tell it within 13 months.
+    evidence: [statement or app screenshot of the payment, date you noticed it, whether the card was lost, stolen or still in your hand]
+    steps:
+      - do: Freeze the card or report it lost or stolen in the app or online banking.
+        channel: app-report-lost-stolen
+      - do: If you can't use the app or online banking, call the 24-hour lost or stolen card line.
+        channel: lost-stolen-phone
+      - do: Report the unauthorised payment by phone or app chat and ask for a refund.
+        channel: customer-service-phone
+      - do: If HSBC refuses the refund, complain in writing or by chat and ask for a final response.
+        channel: complaints-post
+      - do: If you are unhappy with the final response, refer the complaint to the Financial Ombudsman Service within 6 months.
+        regulator: uk-fos
+    facts:
+      - kind: process
+        claim: HSBC's terms say that when you tell it about an unauthorised payment it will normally refund the money before the end of the next working day, or sooner if it can.
+        issues: [unauthorized_charge, fraud]
+        verified_via: document
+        source: https://www.hsbc.co.uk/content/dam/hsbc/gb/pdf/personal-banking-terms-conditions.pdf
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: HSBC's terms say it won't always refund, for example for an unauthorised payment if it knows you've been extremely careless or reasonably suspects fraud on your part, or if you don't tell it within 13 months after the payment was made (this does not apply to unauthorised payments made using an overdraft).
+        issues: [unauthorized_charge, fraud]
+        verified_via: document
+        source: https://www.hsbc.co.uk/content/dam/hsbc/gb/pdf/personal-banking-terms-conditions.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: HSBC's terms say it is responsible for any unauthorised purchase of goods or services (other than financial services) made online, unless you acted fraudulently.
+        issues: [unauthorized_charge]
+        verified_via: document
+        source: https://www.hsbc.co.uk/content/dam/hsbc/gb/pdf/personal-banking-terms-conditions.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Under its Digital Security Promise, HSBC says it will look to refund any money taken without your authorisation through online or mobile banking, provided you keep your security details safe. Payments you were tricked into authorising are not covered by the promise.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.hsbc.co.uk/help/security-centre/digital-security-promise/
+        last_verified: 2026-11-19
+
+  - issue: fraud
+    summary: Call HSBC straight away on a number you have verified. If you were tricked into sending a UK bank transfer (an APP scam), claim within 13 months; HSBC's limit is £85,000.
+    evidence: [payment details (date, amount, payee name, sort code and account number), messages, emails or call logs from the scammer, Report Fraud reference number]
+    steps:
+      - do: Hang up on any unexpected caller. Disconnect fully, wait or use another phone, then call HSBC on a number you have verified.
+      - do: Report the fraudulent card transaction, payment or APP scam by phone, or by app chat.
+        channel: customer-service-phone
+      - do: Report the crime to Report Fraud on 0300 123 2040.
+      - do: Forward phishing emails or texts that claim to be from HSBC.
+        channel: phishing-email
+      - do: Contact HSBC yourself rather than through a claims recovery company; HSBC says these may charge 20% to 50% of the refund.
+      - do: If the claim is refused or you are unhappy with the result, complain, then refer to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: limit
+        claim: HSBC's APP scam page says the reimbursement rules cover Faster Payments and CHAPS transfers between UK accounts, not payments sent before 7 October 2024, payments to or from an account outside the UK, or payments made by debit or credit card, cheque or cash (which may still be investigated).
+        issues: [fraud]
+        source: https://www.hsbc.co.uk/help/security-centre/what-is-an-authorised-push-payment-scam/
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: HSBC says the total APP scam claim limit is up to £85,000.
+        issues: [fraud]
+        source: https://www.hsbc.co.uk/help/security-centre/what-is-an-authorised-push-payment-scam/
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: HSBC says an APP scam claim is not eligible if it is more than 13 months since you made the last APP scam payment.
+        issues: [fraud]
+        source: https://www.hsbc.co.uk/help/security-centre/what-is-an-authorised-push-payment-scam/
+        last_verified: 2026-11-19
+      - kind: process
+        claim: HSBC says it will reimburse an eligible APP scam claim no later than 35 business days after you contact it.
+        issues: [fraud]
+        source: https://www.hsbc.co.uk/help/security-centre/what-is-an-authorised-push-payment-scam/
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: HSBC says an APP scam claim may not be eligible if you were extremely careless when making the payment.
+        issues: [fraud]
+        source: https://www.hsbc.co.uk/help/security-centre/what-is-an-authorised-push-payment-scam/
+        last_verified: 2026-11-19
+
+  - issue: transaction_dispute
+    summary: Contact the retailer first. Then query the payment through HSBC's disputes tool or chat, usually within 120 days. Credit card claims that fail as a chargeback are reviewed under Section 75 automatically.
+    evidence: [proof of purchase, records of your contact with the retailer, evidence of the fault, non-delivery or wrong amount]
+    steps:
+      - do: Contact the business behind the charge first and keep a record of the contact.
+      - do: Check whether the payment is still pending; you can dispute a pending payment only if the amount differs from what you agreed.
+      - do: Use the Disputes help tool to raise the query.
+        channel: disputes-tool
+      - do: For Global Money transactions, use chat in the app.
+        channel: app-chat
+      - do: Watch 'My documents', email (including junk) and post for updates from My Disputes HSBC.
+      - do: If the dispute is refused or badly handled, complain, then refer to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: deadline
+        claim: HSBC says it can look into transactions from the last 120 days, and sometimes older ones.
+        issues: [transaction_dispute]
+        source: https://www.hsbc.co.uk/help/card-support/dispute-transaction/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: HSBC says a chargeback is raised under Visa or Mastercard rules and does not affect your Section 75 rights. Section 75 applies only to credit cards, for purchases costing over £100 and up to £30,000. If a credit card chargeback fails, HSBC automatically reviews the claim under Section 75.
+        issues: [transaction_dispute]
+        source: https://www.hsbc.co.uk/help/card-support/dispute-transaction/
+        last_verified: 2026-11-19
+      - kind: process
+        claim: HSBC says retailers have up to 45 days to respond to it, and you should either get a temporary credit or hear from HSBC within a week. A refund shows on your statement as "dispute refund" or "my dispute credit".
+        issues: [transaction_dispute]
+        source: https://www.hsbc.co.uk/help/card-support/dispute-transaction/
+        last_verified: 2026-11-19
+
+  - issue: fee_reversal
+    summary: HSBC no longer charges for unarranged overdrafts. If overdraft interest or debt is a problem, contact HSBC early and complete the income and expenditure form.
+    evidence: [statement showing the interest or charge, a summary of your income and outgoings]
+    steps:
+      - do: Check the charge against HSBC's overdraft terms (interest-free buffer, no unarranged overdraft charges).
+      - do: If you are struggling, complete the income and expenditure form so the financial support team can build a plan.
+        channel: financial-support-form
+      - do: Or contact HSBC by chat or phone and explain your situation.
+        channel: app-chat
+      - do: If you think a charge is wrong, complain.
+        channel: complaints-post
+      - do: If unhappy with the final response, refer to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: fee
+        claim: HSBC's overdraft page states an arranged overdraft interest rate of 39.9% EAR (variable), with no interest on the first £25 of an arranged or unarranged overdraft on the Bank Account (Premier £500).
+        issues: [fee_reversal]
+        source: https://www.hsbc.co.uk/current-accounts/products/overdrafts/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: HSBC says the Bank Account has no unarranged overdraft charges and that on 19 May 2026 it stopped charging interest on unarranged overdrafts. It may decline payments that would use an unarranged overdraft.
+        issues: [fee_reversal]
+        source: https://www.hsbc.co.uk/current-accounts/products/overdrafts/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: HSBC says that if you have debts with several lenders it can give you Breathing Space while you work with a free charity adviser such as StepChange.
+        issues: [fee_reversal]
+        source: https://www.hsbc.co.uk/help/money-worries/
+        last_verified: 2026-11-19
+
+  - issue: frozen_funds
+    summary: Ask HSBC why the card, account or online banking is blocked and what it needs. Send the information it asks for. If the account is closed, ask how the balance will be returned.
+    evidence: [letters, texts or chat messages from HSBC, balance at the time of the block, ID and proof of address, evidence of where disputed money came from]
+    steps:
+      - do: Call or chat with HSBC. Ask why access is blocked, what HSBC needs from you, and when it will end.
+        channel: customer-service-phone
+      - do: Give HSBC any information it reasonably asks for as soon as possible. Keep copies.
+      - do: If the block continues or the account is closed without a clear reason, complain.
+        channel: complaints-post
+      - do: If unhappy with the final response, refer to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: policy
+        claim: HSBC's terms say it can block a payment device and related Mobile, Online or Telephone Banking access if there is a significantly increased risk you can't repay, it suspects fraud or criminal use, or it has security concerns. It will tell you why as soon as it reasonably can (unless law or security prevents it) and unblock when the reason ends.
+        issues: [frozen_funds, account_access]
+        verified_via: document
+        source: https://www.hsbc.co.uk/content/dam/hsbc/gb/pdf/personal-banking-terms-conditions.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: HSBC's terms say that if you don't give information it reasonably asks for, or it suspects fraudulent or criminal activity, it may block or close any of your accounts.
+        issues: [frozen_funds]
+        verified_via: document
+        source: https://www.hsbc.co.uk/content/dam/hsbc/gb/pdf/personal-banking-terms-conditions.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: HSBC's terms say it can close accounts or restrict access to money with no notice in listed cases (for example serious or persistent breach, false information, fraudulent or criminal activity, or exposing HSBC to legal or regulatory action), and otherwise by giving at least two months' notice.
+        issues: [frozen_funds]
+        verified_via: document
+        source: https://www.hsbc.co.uk/content/dam/hsbc/gb/pdf/personal-banking-terms-conditions.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: HSBC's terms say that if you are not using your accounts it may restrict payments in or out after two years to protect against fraud, but will tell you first.
+        issues: [frozen_funds]
+        verified_via: document
+        source: https://www.hsbc.co.uk/content/dam/hsbc/gb/pdf/personal-banking-terms-conditions.pdf
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: HSBC says that if a complaint needs a closer look it will respond within 5 working days with next steps, then send a final response within 15 days (35 days in exceptional circumstances) for payment service complaints, or up to 56 days (8 weeks) for any other complaint, and update you if it can't.
+    source: https://www.hsbc.co.uk/help/feedback-and-complaints/
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: HSBC says the Financial Ombudsman Service generally can't consider a complaint if more than six months have passed since HSBC's final response letter, except in very limited circumstances.
+    source: https://www.hsbc.co.uk/help/feedback-and-complaints/
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: HSBC's Personal Banking Terms and Conditions and Charges used for this file are effective from 6 July 2026.
+    verified_via: document
+    source: https://www.hsbc.co.uk/content/dam/hsbc/gb/pdf/personal-banking-terms-conditions.pdf
+    last_verified: 2026-11-19
+
+tips:
+  - kind: official
+    text: HSBC says to contact the retailer first, because it can usually resolve the issue much faster than the bank, and that HSBC can only stop future payments, not past ones.
+    issues: [transaction_dispute]
+    source: https://www.hsbc.co.uk/help/disputes-tool/
+    last_verified: 2026-11-19
+  - kind: official
+    text: HSBC's list of texts it might send says follow-up fraud alert instructions may come from +447537438061 or +447537438060. Scam texts can appear in the same thread as real ones, so if unsure, don't reply; call the number on the back of your card.
+    issues: [fraud]
+    source: https://www.hsbc.co.uk/help/security-centre/received-a-text/
+    last_verified: 2026-11-19
+
+known_blockers:
+  - Chat, card freeze and in-app lost or stolen reporting need sign-in to the HSBC UK app or online banking.
+  - HSBC lists phone numbers by customer type, not by topic; the 0800 lost or stolen line is for customers not registered for mobile or online banking.
+  - HSBC does not list an online complaint form; complaints go by chat, phone, post or branch.
+  - HSBC's fraud and APP scam pages do not state opening hours for reporting by phone; the main line is 08:00 to 20:00 daily (Premier 24/7).

@@ -6,7 +6,7 @@ parent: easyJet plc
 website: https://www.easyjet.com/en
 account_url: https://www.easyjet.com/en/manage/my-bookings
 countries: [eu, at, gb, ch]
-regulators: [eu-air-passenger-nebs, eu-ecc-net, de-sruv, fr-mtv, es-aesa]
+regulators: [uk-aviation-adr, eu-air-passenger-nebs, eu-ecc-net, de-sruv, fr-mtv, es-aesa]
 
 channels:
   - id: live-chat
@@ -220,6 +220,7 @@ escalation:
   - {rung: frontline, channel: live-chat}
   - {rung: written_complaint, channel: eu261-claim-form, note: "Compensation claims under EC261 / UK261 go through this form; expenses through expense-claim-form."}
   - {rung: written_complaint, channel: contact-form, note: "The notice of rights page sends complaints to the Contact Form."}
+  - {rung: regulator, regulator: uk-aviation-adr, note: "For a UK flight (UK261): AviationADR, the CAA-approved dispute scheme easyJet names in its terms. Refer within 12 months of easyJet's final response. Free."}
   - {rung: regulator, regulator: eu-air-passenger-nebs, note: "National Enforcement Body of the country where the incident happened (departure airport; for flights into the EU on an EU carrier, the arrival airport). See regulators/eu-air-passenger-nebs."}
   - {rung: regulator, regulator: de-sruv, note: "The Schlichtungsstelle Reise & Verkehr member list (Stand: 19. Oktober 2026) names 'Easyjet Airline Company Ltd.' Free conciliation for flights to or from Germany or for a passenger in Germany, after you have complained to easyJet first. The list does not name easyJet UK Limited, easyJet Europe Airline GmbH or easyJet Switzerland S.A. separately. See regulators/de-sruv."}
   - {rung: regulator, regulator: fr-mtv, note: "Listed as 'EASYJET AIRLINE COMPANY LIMITED (SF)' among the airline members of Médiation Tourisme et Voyage (member list read 2026-11-19). After a written complaint with a negative answer or no answer within 60 days; apply within 12 months of the first written complaint. Free; the opinion binds neither side."}

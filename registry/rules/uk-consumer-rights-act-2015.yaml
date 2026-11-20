@@ -1,0 +1,94 @@
+id: uk-consumer-rights-act-2015
+title: Consumer Rights Act 2015 - services with reasonable care and skill; faulty goods (30-day right to reject)
+citation: Consumer Rights Act 2015 (c. 15), sections 19, 22, 49, 54, 55 and 56
+jurisdiction: gb
+status: in_effect
+applies_to:
+  sectors: [airline, bank, retail, travel_agency, lodging, subscription, home_services]
+  issues: [poor_service, refund_request, warranty_claim, damaged_item]
+summary: >-
+  A trader who supplies a service to a consumer must perform it with reasonable care and skill. If the service falls
+  short, the consumer can ask the trader to do it again at the trader's cost; if that is impossible or not done within
+  a reasonable time and without significant inconvenience, the consumer can claim a price reduction (up to the full
+  price), refunded within 14 days by the same payment method. For goods that are not of satisfactory quality, fit for
+  purpose or as described, the consumer has a short-term right to reject within 30 days, then repair or replacement,
+  then a price reduction or a final right to reject. A fault that appears within 6 months of delivery is presumed to
+  have existed at delivery. Other remedies, such as damages, stay available.
+points:
+  - kind: policy
+    claim: >-
+      Section 49(1): every contract to supply a service is treated as including a term that the trader must perform
+      the service with reasonable care and skill.
+    issues: [poor_service]
+    source: https://www.legislation.gov.uk/ukpga/2015/15/section/49
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Section 54: if a service does not conform to the contract, the consumer has the right to require repeat
+      performance (section 55) and the right to a price reduction (section 56). These do not stop the consumer seeking
+      other remedies, such as damages, but not to recover twice for the same loss.
+    issues: [poor_service, refund_request]
+    source: https://www.legislation.gov.uk/ukpga/2015/15/section/54
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Section 55: repeat performance means the trader performs the service again to the extent needed to make it
+      conform. The trader must do it within a reasonable time and without significant inconvenience to the consumer,
+      and bear the necessary costs (labour and materials). It is not available if conforming performance is impossible.
+    issues: [poor_service]
+    source: https://www.legislation.gov.uk/ukpga/2015/15/section/55
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Section 56: the price reduction is an appropriate amount and may be the full price. Where repeat performance is
+      also available, the consumer can claim the reduction only if repeat performance is impossible, or the trader
+      failed to do it within a reasonable time and without significant inconvenience.
+    issues: [poor_service, refund_request]
+    source: https://www.legislation.gov.uk/ukpga/2015/15/section/56
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Section 56(4)-(5): a refund under this section must be given without undue delay, and in any event within 14 days
+      beginning with the day the trader agrees the consumer is entitled to it, using the same means of payment the
+      consumer used, unless the consumer expressly agrees otherwise.
+    issues: [refund_request]
+    source: https://www.legislation.gov.uk/ukpga/2015/15/section/56
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Section 19: if goods breach the terms in sections 9, 10 or 11 (satisfactory quality, fit for purpose, as
+      described), the consumer has a short-term right to reject, a right to repair or replacement, and a right to a
+      price reduction or a final right to reject.
+    issues: [warranty_claim, damaged_item, refund_request]
+    source: https://www.legislation.gov.uk/ukpga/2015/15/section/19
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Section 22: the short-term right to reject lasts 30 days beginning with the first day after the consumer has
+      possession (or ownership), the goods are delivered and, if installation is needed, the trader says it is done.
+      Perishable goods have a shorter period. The period stops running while a requested repair or replacement is
+      awaited.
+    issues: [warranty_claim, damaged_item, refund_request]
+    source: https://www.legislation.gov.uk/ukpga/2015/15/section/22
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Section 19(14)-(15): goods that do not conform at any time within 6 months of delivery are taken not to have
+      conformed on delivery, unless it is shown that they did, or the presumption is incompatible with the nature of
+      the goods or the fault.
+    issues: [warranty_claim, damaged_item]
+    source: https://www.legislation.gov.uk/ukpga/2015/15/section/19
+    verified_via: page
+    last_verified: 2026-11-19
+status_note: >-
+  Only the sections above were read on 2026-11-19 (latest revised text on legislation.gov.uk). For flights, UK261 and the Montreal Convention give specific rights; the Act adds the general duty of
+  reasonable care and skill for the service.
+source: https://www.legislation.gov.uk/ukpga/2015/15/contents
+last_verified: 2026-11-19

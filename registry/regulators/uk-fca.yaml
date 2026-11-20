@@ -1,0 +1,101 @@
+id: uk-fca
+name: Financial Conduct Authority
+short_name: FCA
+level: national
+country: gb
+covers_sectors: [bank, credit_union, payments, investing]
+covers_issues:
+  - fraud
+website: https://www.fca.org.uk
+when_to_use: >-
+  Not for individual complaints: the FCA says it cannot investigate individual complaints, recover money lost to scams
+  or give advice. For a problem with your bank or card, complain to the firm and then to the Financial Ombudsman Service
+  (uk-fos). Use the FCA to check that a firm is authorised (Financial Services Register), to check the Warning List of
+  unauthorised firms, and to report a scam, an unauthorised firm, or a payment or e-money firm's conduct. Reports help
+  the FCA regulate but do not get your money back.
+
+channels:
+  - id: consumer-helpline
+    type: phone
+    label: FCA Consumer Helpline, freephone (0800 111 6768)
+    value: +44-800-111-6768
+    hours: Monday, Tuesday, Wednesday and Friday 8am to 5pm; Thursday 8am to 9am and 10am to 5pm
+    purposes: [fraud]
+    notes: From the UK also 0300 500 8082. Relay UK (18001) 0207 066 1000.
+    verified_via: page
+    source: https://www.fca.org.uk/contact
+    last_verified: 2026-11-19
+  - id: from-abroad
+    type: phone
+    label: FCA switchboard from abroad (+44 207 066 1000)
+    value: +44-20-7066-1000
+    hours: Monday, Tuesday, Wednesday and Friday 8am to 5pm; Thursday 8am to 9am and 10am to 5pm
+    verified_via: page
+    source: https://www.fca.org.uk/contact
+    last_verified: 2026-11-19
+  - id: report-scam
+    type: web_form
+    label: Report a scam to the FCA
+    value: https://www.fca.org.uk/consumers/report-scam
+    purposes: [fraud]
+    notes: >-
+      The page says the FCA can't help you get your money back but reports protect others. UK residents should first
+      report to Report Fraud (0300 123 2040). The page sends reports through the FCA contact page.
+    verified_via: page
+    source: https://www.fca.org.uk/consumers/report-scam
+    last_verified: 2026-11-19
+  - id: report-payment-firm
+    type: web_form
+    label: Report a payment services or e-money firm
+    value: https://www.fca.org.uk/consumers/how-complain/report-payment-services-e-money-firm
+    notes: Linked from the FCA's how-to-complain page; the linked page itself was not read on 2026-11-19.
+    verified_via: page
+    source: https://www.fca.org.uk/consumers/how-complain
+    last_verified: 2026-11-19
+  - id: register
+    type: portal
+    label: Financial Services Register (check a firm is authorised)
+    value: https://register.fca.org.uk/s/
+    purposes: [fraud]
+    access: open
+    verified_via: page
+    source: https://www.fca.org.uk/consumers/how-complain
+    last_verified: 2026-11-19
+  - id: postal-address
+    type: mail
+    label: FCA by post
+    value: Financial Conduct Authority, 12 Endeavour Square, London, E20 1JN
+    verified_via: page
+    source: https://www.fca.org.uk/consumers/how-complain
+    last_verified: 2026-11-19
+
+facts:
+  - kind: policy
+    claim: >-
+      The FCA says: we can't investigate individual complaints or give you information about any investigations; we
+      can't recover money lost to scams; we can't provide advice or interpret our rules. The Financial Ombudsman Service
+      handles individual complaints against firms.
+    source: https://www.fca.org.uk/contact
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      If you are unhappy with a financial product or service, contact the firm, tell it what happened and when, ask it
+      to put things right, and keep a record. If unhappy with its decision or you do not hear back in time, the
+      Financial Ombudsman Service may help; contact it within 6 months of the firm's final response.
+    source: https://www.fca.org.uk/consumers/how-complain
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: contact
+    claim: >-
+      To report fraud: Report Fraud on 0300 123 2040 or reportfraud.police.uk; in Scotland, Police Scotland on 101 or
+      Advice Direct Scotland on 0808 164 6000. The FCA Warning List lists unauthorised firms and individuals.
+    issues: [fraud]
+    source: https://www.fca.org.uk/contact
+    verified_via: page
+    last_verified: 2026-11-19
+
+notes: >-
+  Included so agents know not to send individual complaints here. Read on 2026-11-19. The Payment Systems Regulator's
+  functions (including APP scam reimbursement) are due to move to the FCA under the Financial Services and Markets
+  Bill introduced in May 2026 (PSR news item, July 2026).

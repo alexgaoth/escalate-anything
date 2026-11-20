@@ -1,0 +1,147 @@
+id: uk-fos
+name: Financial Ombudsman Service
+short_name: Financial Ombudsman
+level: ombudsman
+country: gb
+covers_sectors: [bank, credit_union, payments, investing, insurance_property, insurance_health]
+covers_issues:
+  - unauthorized_charge
+  - fraud
+  - transaction_dispute
+  - fee_reversal
+  - frozen_funds
+  - identity_theft
+  - account_access
+  - billing_error
+  - poor_service
+  - claim_denial
+website: https://www.financial-ombudsman.org.uk
+when_to_use: >-
+  Use after you complained to the bank, card issuer, building society, payment firm or insurer and it sent a final
+  response you disagree with, or did not reply within 8 weeks (15 days for fraud, scams and payment services, up to 35
+  in some cases). Refer within 6 months of the final response. It covers refused refunds of unauthorised payments, APP
+  scam reimbursement, chargeback and Section 75 refusals, blocked or closed accounts, charges and poor service. Free;
+  no claims company needed. If you accept the ombudsman's decision, the firm must follow it.
+
+channels:
+  - id: complaint-form
+    type: web_form
+    label: Make a new complaint online
+    value: https://complaintsubmission.financial-ombudsman.org.uk/
+    purposes: [unauthorized_charge, fraud, transaction_dispute, fee_reversal, frozen_funds, identity_theft, account_access, billing_error, poor_service, claim_denial]
+    access: open
+    notes: Have the firm's final response and your evidence ready. If the form fails, the helpline takes the complaint by phone.
+    verified_via: page
+    source: https://www.financial-ombudsman.org.uk/contact-us
+    last_verified: 2026-11-19
+  - id: helpline
+    type: phone
+    label: Consumer helpline (0800 023 4567)
+    value: +44-800-023-4567
+    hours: Monday to Friday, 8am to 5pm
+    purposes: [unauthorized_charge, fraud, transaction_dispute, fee_reversal, frozen_funds, identity_theft, account_access, billing_error, poor_service, claim_denial]
+    notes: >-
+      For new complaints and people without a case handler yet; also for urgent ill health or financial difficulty.
+      The line can be busy. Other numbers on the same page: 0300 123 9 123 (costs no more than 01 or 02 numbers);
+      Relay UK (18002) 020 7964 1000; BSL through SignVideo.
+    verified_via: page
+    source: https://www.financial-ombudsman.org.uk/contact-us
+    last_verified: 2026-11-19
+  - id: helpline-0300
+    type: phone
+    label: Consumer helpline, 0300 number (0300 123 9 123)
+    value: +44-300-123-9123
+    hours: Monday to Friday, 8am to 5pm
+    verified_via: page
+    source: https://www.financial-ombudsman.org.uk/contact-us
+    last_verified: 2026-11-19
+  - id: from-abroad
+    type: phone
+    label: Calling from abroad (+44 20 7964 0500)
+    value: +44-20-7964-0500
+    notes: The page offers to call you back if you are concerned about the cost.
+    verified_via: page
+    source: https://www.financial-ombudsman.org.uk/contact-us
+    last_verified: 2026-11-19
+  - id: postal-address
+    type: mail
+    label: Financial Ombudsman Service by post
+    value: Financial Ombudsman Service, Exchange Tower, London, E14 9SR
+    verified_via: page
+    source: https://www.financial-ombudsman.org.uk/contact-us
+    last_verified: 2026-11-19
+
+facts:
+  - kind: deadline
+    claim: >-
+      A business has up to 8 weeks to consider most complaints, and 15 days for fraud and scams, payment services and
+      electronic money. You can come to the ombudsman if you are unhappy with the final response or have had no reply in
+      time.
+    source: https://www.financial-ombudsman.org.uk/consumers/complaints-can-help/expect/time-limits
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Refer the complaint within 6 months of the date on the final response, counted in calendar months. Exceptions:
+      exceptional circumstances, no valid final response, or the business agrees.
+    source: https://www.financial-ombudsman.org.uk/consumers/complaints-can-help/expect/time-limits
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      You usually need to have complained within 6 years of the problem, or 3 years of becoming aware (or when you should
+      reasonably have realised) that you had cause to complain.
+    source: https://www.financial-ombudsman.org.uk/consumers/complaints-can-help/expect/time-limits
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The service is free and easy to use; you do not need a lawyer or claims management company.
+    source: https://www.financial-ombudsman.org.uk/consumers/how-to-complain
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      An investigator contacts you and asks the business for its side. If either side disagrees with the investigator,
+      an ombudsman reviews the complaint and issues a final decision. If you accept, the business must follow the
+      instructions. The aim is to set up a case within seven days and answer within 90 days, though complex cases take
+      longer.
+    source: https://www.financial-ombudsman.org.uk/consumers/complaints-can-help/expect
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      Award limit for complaints referred on or after 1 April 2026: £455,000 (act or omission on or after 1 April 2019)
+      or £205,000 (before 1 April 2019). The business does not have to accept a recommendation to pay more.
+    source: https://www.financial-ombudsman.org.uk/consumers/complaints-can-help/expect/compensation
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      For complaints referred from 1 January 2026, the usual interest award is a time-weighted average of the Bank of
+      England base rate plus one percentage point (8% simple a year for complaints referred earlier).
+    source: https://www.financial-ombudsman.org.uk/consumers/complaints-can-help/expect/compensation
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      For scams, the ombudsman can investigate how your bank or payment service dealt with it, even if you are not sure
+      how you were defrauded, and can still look at your case if the reimbursement rules do not apply or you lost more
+      than £85,000.
+    issues: [fraud]
+    source: https://www.financial-ombudsman.org.uk/consumers/complaints-can-help/fraud-scams/scams-youve-tricked-making-payment
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      If there is a reasonable chance of success, the ombudsman will usually expect a card issuer to raise a chargeback.
+    issues: [transaction_dispute]
+    source: https://www.financial-ombudsman.org.uk/businesses/resolving-complaint/complaints-deal/consumer-credit/goods-services-bought-credit
+    verified_via: page
+    last_verified: 2026-11-19
+
+notes: >-
+  Read on 2026-11-19. No consumer email address is published. Existing cases: contact your case handler or use
+  Ombudsman Connect. The ombudsman publishes a page on checking that messages really come from it
+  (https://www.financial-ombudsman.org.uk/corporate/making-sure-messages-really-us; not read). It also covers
+  insurance, investments, mortgages and pensions, which this pack does not detail.

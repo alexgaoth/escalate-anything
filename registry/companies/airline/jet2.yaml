@@ -1,0 +1,362 @@
+id: jet2
+name: Jet2.com
+aliases: [jet2, jet2.com limited, jet2 airline]
+sector: airline
+countries: [gb]
+website: https://www.jet2.com
+regulators: [uk-caa, es-aesa]
+
+channels:
+  - id: whatsapp
+    type: app
+    label: Customer service on WhatsApp
+    value: +44-113-386-0497
+    hours: Monday to Friday 8am-7pm; Saturday and Sunday 9am-5.30pm
+    purposes: [flight_cancellation, flight_delay, refund_request, accessibility]
+    notes: >-
+      Opened from the "Message us" link (wa.me/+441133860497) on Jet2's WhatsApp page. Jet2 says this is its official
+      WhatsApp service; the team verifies your identity and may securely ask for card details to take a payment or
+      process a refund. The contact pages send pre-travel questions here.
+    verified_via: browser
+    source: https://www.jet2.com/whatsapp
+    last_verified: 2026-11-19
+  - id: customer-service-phone
+    type: phone
+    label: Customer service phone (if travelling within 24 hours or unable to use WhatsApp)
+    value: +44-333-300-0042
+    purposes: [flight_cancellation, flight_delay, refund_request]
+    notes: Domestic form 0333 300 0042. Jet2 offers it if you travel within the next 24 hours or cannot use WhatsApp (for example because of a visual impairment or no smartphone). No opening hours are given.
+    verified_via: browser
+    source: https://www.jet2.com/phone-number
+    last_verified: 2026-11-19
+  - id: on-holiday-phone
+    type: phone
+    label: Contact while on holiday (from abroad)
+    value: +44-113-387-9501
+    purposes: [flight_cancellation, flight_delay]
+    notes: Listed as 0044 113 387 9501. No opening hours are given.
+    verified_via: browser
+    source: https://www.jet2.com/contact-us?topic=contact-us-online&category=im-on-holiday
+    last_verified: 2026-11-19
+  - id: complaint-form
+    type: web_form
+    label: Complaint form (Jet2.com flight bookings, after travel)
+    value: https://www.jet2.com/contact-us/returned/Complaint
+    purposes: [poor_service, flight_cancellation, flight_delay, delayed_baggage, lost_baggage, damaged_baggage, ancillary_fee_refund, accessibility]
+    access: open
+    notes: >-
+      Only for travel already completed; pre-travel queries sent through it are not answered. Asks for the six-digit
+      Jet2.com booking reference. Categories include Damaged Delayed or Lost Baggage, Flight Disruption, Jet2Extras,
+      Onboard Seating and Airport Service. Jet2holidays (package) bookings use a separate form on jet2holidays.com.
+      Question, Feedback and Compliment forms sit on the same "returned from holiday" page.
+    verified_via: browser
+    source: https://www.jet2.com/contact-us/returned/Complaint
+    last_verified: 2026-11-19
+  - id: eu261-claim-form
+    type: web_form
+    label: Flight delay, cancellation and denied boarding claim (compensation, expenses, refund)
+    value: https://www.jet2.com/delays-and-disruptions
+    purposes: [flight_cancellation, flight_delay, denied_boarding, refund_request]
+    access: open
+    notes: >-
+      Reached from "Make an EU261 claim" on the submit-a-claim page. One form per disrupted flight; you may add up to
+      seven other passengers named on the same booking. Attach the boarding pass and itemised receipts (up to three
+      files, 6MB, JPG, PNG or PDF); bank statements are not accepted as proof of purchase.
+    verified_via: browser
+    source: https://www.jet2.com/delays-and-cancellations/submit-a-claim
+    last_verified: 2026-11-19
+  - id: eu261-mail
+    type: mail
+    label: Delay and cancellation claims by post
+    value: EU261 Team, PO Box 284, Leeds, LS11 1GE
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    verified_via: browser
+    source: https://www.jet2.com/delays-and-cancellations
+    last_verified: 2026-11-19
+  - id: baggage-report-portal
+    type: portal
+    label: Report a delayed bag (Self-Service Portal)
+    value: https://mybag.aero/baggage/#/pax/jet2com/en-gb/main-menu
+    purposes: [delayed_baggage, lost_baggage]
+    notes: Hosted on mybag.aero (WorldTracer), linked from jet2.com.
+    verified_via: browser
+    source: https://www.jet2.com/faqs?topic=baggage-and-sports-equipment&category=delayed-lost-damaged-baggage-and-lost-property
+    last_verified: 2026-11-19
+  - id: baggage-manage-file
+    type: portal
+    label: Check or manage a delayed or damaged baggage file
+    value: https://mybag.aero/baggage/#/pax/jet2com/en-gb/manage-delayed-and-damaged
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    notes: Use after completing a Property Irregularity Report (PIR). Jet2 also sends text updates to the mobile number given on the PIR.
+    verified_via: browser
+    source: https://www.jet2.com/faqs?topic=baggage-and-sports-equipment&category=delayed-lost-damaged-baggage-and-lost-property
+    last_verified: 2026-11-19
+  - id: baggage-phone
+    type: phone
+    label: Baggage help line (choose your UK airport)
+    value: +44-113-231-4055
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    notes: >-
+      Listed as +44 (0) 113 231 4055; choose the option for the UK airport you travelled through. The same page lists
+      one baggage email per UK airport (for example MANBaggage@jet2.com for Manchester, LBABaggage@jet2.com for Leeds
+      Bradford). The Bournemouth address is printed as BOHBAGGAGE@jet.com, which looks like a typo, so do not use it.
+    verified_via: browser
+    source: https://www.jet2.com/faqs?topic=baggage-and-sports-equipment&category=delayed-lost-damaged-baggage-and-lost-property
+    last_verified: 2026-11-19
+  - id: baggage-claims-mail
+    type: mail
+    label: Baggage claims in writing
+    value: Baggage Claims Team, PO Box 284, Leeds, LS11 1GE, United Kingdom
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    notes: Jet2 says a PIR on its own is not a claim; send the claim in writing with a copy of the PIR and receipts (and photos for damage). The FAQ's "online form" link leads to the after-travel contact forms.
+    verified_via: browser
+    source: https://www.jet2.com/faqs?topic=baggage-and-sports-equipment&category=delayed-lost-damaged-baggage-and-lost-property
+    last_verified: 2026-11-19
+  - id: assisted-travel-phone
+    type: phone
+    label: Assisted Travel team
+    value: +44-333-006-8798
+    hours: Monday to Friday 09:00-21:00; Saturday 09:00-18:00
+    purposes: [accessibility]
+    notes: >-
+      Domestic form 0333 006 8798; the Terms also list +44 (0) 203 059 8337. Number and hours are from the Terms
+      (assistance dog clause); the mobility assistance FAQ gives the same 0333 number. Jet2 says you can book
+      assistance when booking or in Manage My Booking without calling, and that the team is also on WhatsApp.
+    verified_via: browser
+    source: https://www.jet2.com/terms
+    last_verified: 2026-11-19
+  - id: manage-my-booking
+    type: portal
+    label: Manage My Booking (cancel, change, add assistance)
+    value: https://www.jet2.com/en/login
+    purposes: [refund_request, accessibility]
+    notes: Jet2 says you can cancel your booking online and book mobility assistance here.
+    verified_via: browser
+    source: https://www.jet2.com/contact-us?topic=contact-us-online&category=havent-travelled-yet
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: whatsapp}
+  - {rung: written_complaint, channel: complaint-form}
+  - rung: regulator
+    regulator: uk-caa
+    note: Jet2's claims page and Terms say that if you disagree with the outcome you can appeal to the CAA Passenger Advice and Complaints Team (PACT). Jet2 is not in a CAA-approved ADR scheme. For flights departing Spain, Jet2 also names AESA (appeal within 1 year of claiming).
+  - {rung: regulator, regulator: es-aesa, note: "For a flight that departed from Spain: Jet2's claims page names AESA. Appeal within 1 year of claiming with Jet2; AESA's decision binds the airline. Not for baggage."}
+  - {rung: payment_dispute, note: "Section 75 claim (credit card, £100-£30,000) or chargeback with the card issuer"}
+  - {rung: small_claims, note: "Money Claim Online (England and Wales); simple procedure in Scotland"}
+
+playbooks:
+  - issue: flight_cancellation
+    summary: Choose a full refund of the cancelled flight or rerouting; claim expenses and compensation on the EU261 claim form; appeal to the CAA if you disagree.
+    evidence: [booking reference, original flight number and date, boarding pass, cancellation notice, itemised receipts]
+    steps:
+      - do: Choose a refund of the cancelled flight or rerouting (subject to availability). Contact Jet2 on WhatsApp, or call if you travel within 24 hours.
+        channel: whatsapp
+      - do: Submit the claim form for compensation, expenses or refund. Use the flight date on your booking confirmation and one form per flight.
+        channel: eu261-claim-form
+      - do: Or write to the EU261 Team.
+        channel: eu261-mail
+      - do: If you disagree with Jet2's decision, appeal to the CAA Passenger Advice and Complaints Team.
+        regulator: uk-caa
+    facts:
+      - kind: process
+        claim: Jet2 says it aims to contact you within 28 days of a claim and asks you to claim directly and allow it time to respond before using other parties; the Terms say to allow 28 days (or less if the law requires).
+        issues: [flight_cancellation, flight_delay, denied_boarding]
+        verified_via: browser
+        source: https://www.jet2.com/delays-and-cancellations
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Jet2 says compensation is not payable when the disruption was caused by extraordinary circumstances, giving examples such as air traffic control restrictions, adverse weather, disruptive passengers, medical emergencies, foreign object damage, bird or lightning strikes and airport or runway closures; it says the NATS air traffic control system failure is not compensable.
+        issues: [flight_cancellation, flight_delay]
+        verified_via: browser
+        source: https://www.jet2.com/delays-and-cancellations
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Jet2's care FAQ says that after a cancellation you can cancel and get a full refund of the cancelled flight or be re-routed, and that it provides accommodation where possible if the re-routing departs the next day.
+        issues: [flight_cancellation, refund_request]
+        verified_via: browser
+        source: https://www.jet2.com/faqs?topic=delays-and-disruption&category=what-care-and-assistance-am-i-entitled-to-during-flight-disruption
+        last_verified: 2026-11-19
+
+  - issue: flight_delay
+    summary: Ask for meal vouchers at the airport; after a 5-hour departure delay you may cancel for a refund; for an arrival delay over 3 hours not caused by extraordinary circumstances, claim compensation.
+    evidence: [booking reference, flight number and date, scheduled and actual arrival time, boarding pass, itemised receipts]
+    steps:
+      - do: At the airport, ask for meal and refreshment vouchers. If you got none, keep itemised receipts.
+      - do: Claim compensation (arrival delay over 3 hours) and expenses on the claim form.
+        channel: eu261-claim-form
+      - do: If you disagree with Jet2's decision, appeal to the CAA Passenger Advice and Complaints Team.
+        regulator: uk-caa
+    facts:
+      - kind: policy
+        claim: Jet2 says compensation depends on the arrival delay being over 3 hours, not the departure delay; where a delay has several causes, at least 3 hours must come from a non-extraordinary cause.
+        issues: [flight_delay]
+        verified_via: browser
+        source: https://www.jet2.com/delays-and-cancellations/submit-a-claim
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Jet2 provides meals and refreshments from 2 hours for flights under 1500 km, 3 hours for 1500-3500 km (and between two EU countries) and 4 hours for longer flights; if you received no voucher, the EC261 team refunds reasonable expenses with receipts. A departure delay of over 5 hours lets you cancel and get a full refund of the delayed flight.
+        issues: [flight_delay, refund_request]
+        verified_via: browser
+        source: https://www.jet2.com/faqs?topic=delays-and-disruption&category=what-care-and-assistance-am-i-entitled-to-during-flight-disruption
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: The claim form says expenses that can be claimed include food and drink, overnight accommodation, a flight refund if the departure was delayed over 5 hours and you chose not to travel, and an alternative flight; every item needs an itemised receipt.
+        issues: [flight_delay, flight_cancellation, refund_request]
+        verified_via: browser
+        source: https://www.jet2.com/delays-and-disruptions
+        last_verified: 2026-11-19
+
+  - issue: denied_boarding
+    summary: If denied boarding involuntarily, choose a refund or rerouting and claim compensation on the claim form.
+    evidence: [booking reference, boarding pass, denied-boarding notice, receipts]
+    steps:
+      - do: At the airport, ask for your choice of a full refund or rerouting, and care while you wait.
+      - do: Claim compensation and expenses on the claim form.
+        channel: eu261-claim-form
+      - do: If you disagree with Jet2's decision, appeal to the CAA Passenger Advice and Complaints Team.
+        regulator: uk-caa
+    facts:
+      - kind: policy
+        claim: Jet2 says that if it must deny boarding it first asks for volunteers; involuntarily denied passengers can cancel for a full refund of the flight or be re-routed, and these options do not apply to volunteers.
+        issues: [denied_boarding]
+        verified_via: browser
+        source: https://www.jet2.com/faqs?topic=delays-and-disruption&category=what-care-and-assistance-am-i-entitled-to-during-flight-disruption
+        last_verified: 2026-11-19
+
+  - issue: delayed_baggage
+    summary: Complete a Property Irregularity Report (PIR) before leaving the airport, report online, and claim in writing within 21 days of getting the bag back.
+    evidence: [Property Irregularity Report, bag tag, booking reference, receipts for essential purchases]
+    steps:
+      - do: Before leaving the airport, ask a Jet2 Customer Helper for a Property Irregularity Report (PIR) and keep it.
+      - do: Report the delayed bag online and check its status with the PIR reference.
+        channel: baggage-report-portal
+      - do: For help, call the baggage line and choose your UK airport.
+        channel: baggage-phone
+      - do: Send the claim in writing with the PIR copy and receipts within 21 days of the bag being returned.
+        channel: baggage-claims-mail
+      - do: If unresolved, complain after travel through the complaint form.
+        channel: complaint-form
+    facts:
+      - kind: deadline
+        claim: Jet2's baggage FAQ says claims for delayed or lost baggage must be sent in writing within 21 days of the bag being returned or of you being told it is irretrievably lost, and that Jet2 aims to respond within 28 days.
+        issues: [delayed_baggage, lost_baggage]
+        verified_via: browser
+        source: https://www.jet2.com/faqs?topic=baggage-and-sports-equipment&category=delayed-lost-damaged-baggage-and-lost-property
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Jet2's Terms clause 31.2 say you must notify Jet2 in writing of delayed or lost baggage no later than 21 days from the date the baggage should have been received, or no action lies against Jet2.
+        issues: [delayed_baggage, lost_baggage]
+        verified_via: browser
+        source: https://www.jet2.com/terms
+        last_verified: 2026-11-19
+
+  - issue: lost_baggage
+    summary: Claim in writing within 21 days of being told the bag is irretrievably lost, with the PIR and receipts; liability is capped at 1,519 SDR.
+    evidence: [Property Irregularity Report, itemised list with manufacturer and age of each item, proof of purchase]
+    steps:
+      - do: Consider claiming on travel insurance first; Jet2 says insurers are likely to pay more.
+      - do: Send the written claim with the PIR copy and receipts.
+        channel: baggage-claims-mail
+      - do: If unresolved, complain after travel through the complaint form.
+        channel: complaint-form
+    facts:
+      - kind: limit
+        claim: Jet2's Terms limit its liability for loss of or damage to cabin and checked baggage to the local currency equivalent of 1,519 Special Drawing Rights per passenger, unless you declared a higher value and paid the extra charge at check-in; Jet2 does not accept liability for valuables such as jewellery, cameras, laptops, cash or documents in hold baggage.
+        issues: [lost_baggage, damaged_baggage]
+        verified_via: browser
+        source: https://www.jet2.com/terms
+        last_verified: 2026-11-19
+
+  - issue: damaged_baggage
+    summary: Get a PIR at the airport, then claim in writing within 7 days with photos and receipts; minor scratches and dents are not covered.
+    evidence: [Property Irregularity Report, photos of the damage, receipts or repair estimate]
+    steps:
+      - do: Report the damage before leaving the airport and complete a PIR, or call the baggage line if you have not told Jet2 yet.
+        channel: baggage-phone
+      - do: Send the written claim with the PIR copy, photos and receipts within seven days of completing the PIR or of your return flight home, whichever is later.
+        channel: baggage-claims-mail
+      - do: If unresolved, complain after travel through the complaint form.
+        channel: complaint-form
+    facts:
+      - kind: deadline
+        claim: Jet2's baggage FAQ says claims for damaged baggage must be sent in writing within seven days of completing the PIR or of your return flight home, whichever is the greatest; the Terms clause 31.1 say no later than 7 days of receipt of the baggage.
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://www.jet2.com/faqs?topic=baggage-and-sports-equipment&category=delayed-lost-damaged-baggage-and-lost-property
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Jet2 classes scratches, dents and cosmetic damage to the suitcase as normal wear and tear and does not consider claims for minor damage.
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://www.jet2.com/faqs?topic=baggage-and-sports-equipment&category=delayed-lost-damaged-baggage-and-lost-property
+        last_verified: 2026-11-19
+
+  - issue: refund_request
+    summary: Cancel online in Manage My Booking; for a disruption refund (cancellation, 5-hour delay, denied boarding) use the claim form.
+    evidence: [booking reference, flight number and date, reason]
+    steps:
+      - do: Cancel the booking online in Manage My Booking.
+        channel: manage-my-booking
+      - do: For a refund after a cancellation, a departure delay over 5 hours or denied boarding, claim on the form.
+        channel: eu261-claim-form
+      - do: If unresolved, appeal to the CAA Passenger Advice and Complaints Team.
+        regulator: uk-caa
+
+  - issue: accessibility
+    summary: Book assistance when booking or in Manage My Booking at least 48 hours before travel; give mobility device details to the Assisted Travel team.
+    evidence: [booking reference, assistance booked, device make, model, battery type and weight, details of the failure]
+    steps:
+      - do: Book mobility assistance when you book or in Manage My Booking, at least 48 hours before travel.
+        channel: manage-my-booking
+      - do: For powered or heavy mobility equipment, give the Assisted Travel team the device details at least 48 hours before travel.
+        channel: assisted-travel-phone
+      - do: After travel, complain through the complaint form if the assistance failed.
+        channel: complaint-form
+      - do: If unresolved, complain to the CAA Passenger Advice and Complaints Team.
+        regulator: uk-caa
+    facts:
+      - kind: policy
+        claim: Jet2 carries up to two pieces of mobility equipment per person free in the hold if space allows, recommends insurance for equipment worth more than £1,100 because airline liability is limited by the Montreal Convention, and needs device details at least 48 hours before travel.
+        issues: [accessibility, damaged_baggage]
+        verified_via: browser
+        source: https://www.jet2.com/faqs?topic=assisted-travel-and-medical&category=mobility-assistance
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: Jet2's claims page says that if you are not satisfied with the outcome of your claim you can appeal to the Civil Aviation Authority's Passenger Advice and Complaints Team (PACT), which will contact Jet2 if the case needs another look. For flights departing Spain, AESA is a recognised ADR body; appeal within 1 year of claiming with Jet2, and AESA's decision binds the airline.
+    issues: [flight_cancellation, flight_delay, denied_boarding, poor_service]
+    verified_via: browser
+    source: https://www.jet2.com/delays-and-cancellations
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: Jet2's Terms clause 32 say an action for a claim under EC 261/2004 must be brought within 6 years of the date the claim accrued (Limitation Act 1980 section 9), and other compensation claims within 2 years of arrival, scheduled arrival or the date carriage stopped. The Terms were last updated 30 September 2026.
+    issues: [flight_cancellation, flight_delay, denied_boarding, lost_baggage, damaged_baggage]
+    verified_via: browser
+    source: https://www.jet2.com/terms
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: Jet2's Terms say seat selection charges may be refunded where there has been a change of aircraft.
+    issues: [ancillary_fee_refund]
+    verified_via: browser
+    source: https://www.jet2.com/terms
+    last_verified: 2026-11-19
+
+known_blockers:
+  - The complaint form is for completed travel only; pre-travel questions sent through it are not answered. Before travel Jet2 points to WhatsApp, and to the phone line only if you travel within 24 hours or cannot use WhatsApp.
+  - The claim form allows at most seven other passengers on the same booking (no separate family groups or group bookings) and one flight per form; claims for others need their authority (signed written permission for people outside your family group).
+  - Expense claims need itemised receipts; Jet2 does not accept bank statements.
+  - Baggage claims need a Property Irregularity Report from the airport; Jet2 says a PIR alone is not a claim.
+  - Jet2's online pages time out for WebFetch and curl; they were read in a browser.
+
+notes: >-
+  Read on jet2.com in the browser on 2026-11-19. Jet2.com Limited (company 2739537, Low Fare Finder House, Leeds
+  Bradford International Airport, LS19 7TU) per the Terms. Jet2's own pages name the CAA Passenger Advice and
+  Complaints Team (and AESA for flights from Spain) as the escalation route and do not mention AviationADR or CEDR,
+  consistent with Jet2 not being in a CAA-approved ADR scheme. Jet2holidays package bookings are a separate business
+  with their own complaint form on jet2holidays.com; this file covers Jet2.com flights only. The English customer
+  guidance PDF on delay claims (jet2.com/-/media/Jet2/Flights/pdf/Customer-guidance/GFC-Guidance-for-Customers-EN.pdf)
+  could not be read. No Jet2 security or phishing page was found.
+
+official_domains: [jet2.com]

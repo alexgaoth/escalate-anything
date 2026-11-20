@@ -8,7 +8,7 @@ If you know how complaints work where you live, you can add your country, one sm
 |---|---|---|
 | 🇺🇸 United States | complete: 279 companies, 51 states and DC, 31 rules | @alexgaoth |
 | 🇪🇺 European Union | in progress: EU261 (incl. the 2027 reform), enforcement bodies for all 30 countries, European Consumer Centres, 12 airlines | wanted |
-| 🇬🇧 United Kingdom | in progress: telecoms and energy (14 companies, ombudsmen, 8 rules); travel and banks next | wanted |
+| 🇬🇧 United Kingdom | in progress: 25 companies — telecoms, energy, airlines, banks; Ofcom, Ofgem, CAA, FCA and the ombudsmen; 15 rules incl. UK261, Section 75 and APP scam refunds | wanted |
 | 🇩🇪 Germany, 🇫🇷 France, 🇪🇸 Spain | in progress: air dispute bodies (SRUV, BfJ, MTV, AESA); national companies wanted | wanted |
 | Your country | [open an issue](https://github.com/alexgaoth/escalate-anything/issues/new?template=add-a-country.yml) | you |
 

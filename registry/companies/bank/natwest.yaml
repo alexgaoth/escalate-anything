@@ -1,0 +1,498 @@
+id: natwest
+name: NatWest
+aliases: [national westminster bank, national westminster bank plc, natwest bank]
+sector: bank
+countries: [gb]
+parent: NatWest Group plc
+website: https://www.natwest.com
+account_url: https://www.onlinebanking.natwest.com/Default.aspx
+official_domains: [natwest.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: NatWest says it will never ask for your full PIN, full password or card reader codes by text, email or on the phone.
+      source: https://www.natwest.com/fraud-and-security/report-fraud.html
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: NatWest says your bank or the police will never ask you to transfer money to a safe account or ask for your full PIN, password or passcode, and the bank will not phone you and ask you to approve a payment.
+      source: https://www.natwest.com/fraud-and-security/fraud-guide/impersonation-scams.html
+      verified_via: browser
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: NatWest says it will never ask you to generate a Get Cash code and share it with NatWest for authorisation purposes.
+      source: https://www.natwest.com/fraud-and-security/fraud-guide/impersonation-scams.html
+      verified_via: browser
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: NatWest says your bank, retailers, the police and fraud investigation teams will never ask you to hand over your card or PIN or buy items for collection; if someone does, it is a scam.
+      source: https://www.natwest.com/fraud-and-security/fraud-guide/impersonation-scams.html
+      verified_via: browser
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: NatWest warns of fake messages or calls supposedly from NatWest that say a payment is on hold or ask you to verify a transaction.
+      source: https://www.natwest.com/fraud-and-security/fraud-guide/impersonation-scams.html
+      verified_via: browser
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Scammers may pretend you are owed a refund to get your one-time passcodes, or ask you to approve a payment in the mobile app that you did not make.
+      source: https://www.natwest.com/fraud-and-security/fraud-guide/impersonation-scams.html
+      verified_via: browser
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: NatWest says scammers are copying NatWest emails about direct debits; do not click links or call numbers in them.
+      source: https://www.natwest.com/fraud-and-security/fraud-guide/latest-scams.html
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: NatWest reports that scammers are sending couriers to collect cash, bank cards and high-value items; no bank, police officer or government department will send someone to collect your cash.
+      source: https://www.natwest.com/fraud-and-security/fraud-guide/latest-scams.html
+      last_verified: 2026-11-19
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails to NatWest
+      value: phishing@natwest.com
+      purposes: [fraud]
+      notes: NatWest says this is an automated mailbox; do not send other queries or personal information, including bank details.
+      source: https://www.natwest.com/fraud-and-security/report-fraud.html
+      last_verified: 2026-11-19
+    - id: scam-text-88355
+      type: sms
+      label: Forward suspicious texts that refer to NatWest to 88355
+      value: "88355"
+      purposes: [fraud]
+      notes: NatWest says 88355 is not a premium rate number; standard network rates apply. It is an automated service.
+      source: https://www.natwest.com/fraud-and-security/report-fraud.html
+      last_verified: 2026-11-19
+regulators: [uk-fos, uk-fca]
+notes: >-
+  National Westminster Bank Plc (registered in England and Wales No. 929027; registered office 250 Bishopsgate, London
+  EC2M 4AA; Financial Services Register number 121878). NatWest Group also owns Royal Bank of Scotland and Ulster Bank;
+  those brands are not covered by this file. Domestic numbers: personal banking and fraud 03457 888 444 (also written
+  0345 788 8444), lost or stolen cards 0370 600 0459, credit cards 0370 333 9091, credit card fraud 0800 161 5153. For
+  most personal lines the overseas number is the same 0345 number in international format (+44 3457 888 444). The current
+  account terms (October 2026) list some different numbers (for example fraud and complaints lines); this file uses the
+  website contact pages. Business customers use separate pages (natwest.com/business).
+
+channels:
+  - id: main-phone
+    type: phone
+    label: Personal banking, general enquiries, fraud and scams (bank and Travel accounts)
+    value: +44-345-788-8444
+    purposes: [fraud, unauthorized_charge, poor_service, frozen_funds, transaction_dispute, fee_reversal]
+    hours: 24 hours, 7 days a week
+    access: human_only
+    notes: >-
+      Domestic 03457 888 444. From abroad +44 3457 888 444 (NatWest also writes 0044 3457 888 444). Relay UK 18001 03457 888 444.
+      Have your customer number and PIN ready (the same details as your Online Banking login). NatWest's fraud page gives
+      this number for current account fraud and for reporting a scam payment; the complaints page says the line is open 24/7.
+    source: https://www.natwest.com/support-centre/contact-us.html
+    last_verified: 2026-11-19
+  - id: lost-stolen-card-phone
+    type: phone
+    label: Lost or stolen cards and cheque books
+    value: +44-370-600-0459
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    notes: Domestic 0370 600 0459. Relay UK 18001 0370 600 0459. No hours are given on the contact page. You can freeze the card or order a replacement in the app (Manage Cards, then 'Lost, stolen or replace card') or in Online Banking (Cards).
+    source: https://www.natwest.com/support-centre/contact-us.html
+    last_verified: 2026-11-19
+  - id: lost-stolen-card-abroad
+    type: phone
+    label: Lost or stolen cards and cheque books from outside the UK
+    value: +44-1268-500-813
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    source: https://www.natwest.com/support-centre/contact-us.html
+    last_verified: 2026-11-19
+  - id: credit-card-fraud-phone
+    type: phone
+    label: Personal credit card fraud
+    value: +44-800-161-5153
+    purposes: [fraud, unauthorized_charge]
+    hours: 24 hours a day
+    access: human_only
+    notes: Domestic 0800 161 5153. From abroad the contact page writes +44 126 850 8020 (that is, +44 1268 508 020). NatWest's report-fraud page instead gives 0370 333 9091 for reporting a scam payment on a personal credit card.
+    source: https://www.natwest.com/support-centre/contact-us.html
+    last_verified: 2026-11-19
+  - id: credit-card-fraud-abroad
+    type: phone
+    label: Personal credit card fraud and scams from outside the UK
+    value: +44-1268-508-020
+    purposes: [fraud, unauthorized_charge]
+    hours: 24 hours a day
+    access: human_only
+    notes: Written on NatWest pages as +44 126 850 8020 and 0044 126 850 8020.
+    source: https://www.natwest.com/fraud-and-security/report-fraud.html
+    last_verified: 2026-11-19
+  - id: credit-card-phone
+    type: phone
+    label: Personal credit cards (general queries, scams, complaints)
+    value: +44-370-333-9091
+    purposes: [transaction_dispute, fraud, poor_service, fee_reversal]
+    hours: 24 hours, 7 days a week
+    access: human_only
+    notes: Domestic 0370 333 9091. From abroad +44 1268 508 018 (general queries). Relay UK 18001 0370 333 9091. Credit card complaints minicom 0370 154 1192.
+    source: https://www.natwest.com/support-centre/contact-us.html
+    last_verified: 2026-11-19
+  - id: call-back-abroad
+    type: phone
+    label: Call NatWest back after it contacted you, from outside the UK
+    value: +44-131-549-8888
+    purposes: [frozen_funds, fraud]
+    access: human_only
+    notes: In the UK the call-back number is 0345 788 8444 (main-phone). NatWest says that if it does not hear from you it may write and ask you to get in touch.
+    source: https://www.natwest.com/support-centre/contact-us.html
+    last_verified: 2026-11-19
+  - id: cora-chat
+    type: chat
+    label: Chat to Cora (AI assistant, can pass you to a colleague)
+    value: https://www.natwest.com/support-centre/cora.html
+    purposes: [poor_service, transaction_dispute, fee_reversal, frozen_funds, account_access]
+    access: open
+    notes: >-
+      In the app tap Help, then 'Chat to Cora'. In Online Banking click 'Chat to Cora' on the home screen. On the website Cora is in
+      the bottom-right corner. Login is not needed to chat, but Cora can do more if you log in first. NatWest gives no hours for
+      colleagues on the Cora page.
+    source: https://www.natwest.com/support-centre/cora.html
+    last_verified: 2026-11-19
+  - id: app-report-transaction
+    type: app
+    label: Report a dispute, fraud or scam on a transaction in the app or Online Banking
+    value: https://www.natwest.com/fraud-and-security/report-fraud.html
+    purposes: [unauthorized_charge, fraud, transaction_dispute]
+    access: login
+    notes: Log in, select the transaction, then the 'Report a dispute, fraud or scam' link. For a credit card transaction the link connects you to Cora, which asks questions and routes you to the right team.
+    source: https://www.natwest.com/fraud-and-security/report-fraud.html
+    last_verified: 2026-11-19
+  - id: credit-card-dispute-form
+    type: web_form
+    label: Credit card payment dispute (Get started)
+    value: https://www.natwest.com/fraud-and-security/retaildisputes/details.html
+    purposes: [transaction_dispute]
+    notes: Linked as 'Get started' from the card payment dispute page for credit card disputes. The form itself was not opened, so whether it needs a login is not known.
+    source: https://www.natwest.com/fraud-and-security/retaildisputes/card-payment-dispute.html
+    last_verified: 2026-11-19
+  - id: app-complaint
+    type: app
+    label: Make a complaint in the NatWest app
+    value: https://personal.secure1.natwest.com/app/CPN0060
+    purposes: [poor_service, fee_reversal, frozen_funds, transaction_dispute, fraud, unauthorized_charge]
+    access: login
+    notes: NatWest calls the app the easiest way to complain if you are registered. Customers without the app can 'Ask Cora' (type Complaint). Complaint updates may come by email, SMS or WhatsApp; check junk folders.
+    source: https://www.natwest.com/support-centre/how-to-complain.html
+    last_verified: 2026-11-19
+  - id: complaint-form
+    type: web_form
+    label: Complaint form for people without a NatWest account (Share your details)
+    value: https://www.natwest.com/support-centre/how-to-complain/complaint-form.html
+    purposes: [poor_service]
+    access: open
+    notes: The complaints page offers this form to people who do not have a NatWest account; customers are pointed to the app or Cora. The form was not opened or submitted.
+    source: https://www.natwest.com/support-centre/how-to-complain.html
+    last_verified: 2026-11-19
+  - id: complaints-phone
+    type: phone
+    label: Complaints about a personal account
+    value: +44-345-788-8444
+    purposes: [poor_service, fee_reversal, frozen_funds, transaction_dispute, fraud]
+    hours: 24/7
+    access: human_only
+    notes: Domestic 03457 888 444. From abroad +44 3457 888 444. Minicom 0800 404 6161. Credit card complaints use 0370 333 9091 (abroad +44 1268 508 018). Premier customers with a Premier Banking Manager use 0333 202 3330 (abroad +44 161 933 7239).
+    source: https://www.natwest.com/support-centre/how-to-complain.html
+    last_verified: 2026-11-19
+  - id: complaints-mail
+    type: mail
+    label: Complaints about a personal account by post
+    value: Customer Relations Manager, 1st Floor, 2 St Philip's Place, Birmingham, B3 2RB
+    purposes: [poor_service, fee_reversal, frozen_funds, transaction_dispute]
+    notes: Premier customers write to Customer Relations Manager, NatWest, Freepost, PO Box 594, Chatham, ME4 9DP.
+    source: https://www.natwest.com/support-centre/how-to-complain.html
+    last_verified: 2026-11-19
+  - id: credit-card-complaints-mail
+    type: mail
+    label: Credit card complaints by post
+    value: NatWest Card Services, PO Box 5427, Southend-on-Sea, SS1 9AJ
+    purposes: [poor_service, transaction_dispute]
+    notes: The complaints page gives PO Box 5427; the complaints leaflet (November 2025) gives PO Box 5747 with the same postcode. Uncertain which is current; the web page is used here.
+    source: https://www.natwest.com/support-centre/how-to-complain.html
+    last_verified: 2026-11-19
+  - id: payment-support-app
+    type: app
+    label: Help with missed payments or excesses (credit card, loan, overdraft) in the app
+    value: https://personal.secure1.natwest.com/app/PaymentSupport
+    purposes: [fee_reversal]
+    access: login
+    notes: NatWest says the app is the quickest way to get help with missed payments or going over an agreed limit. In the app you can also tap Help and type 'Struggling financially'.
+    source: https://www.natwest.com/life-moments/Struggling-financially.html
+    last_verified: 2026-11-19
+  - id: loans-difficulty-phone
+    type: phone
+    label: Tell NatWest you will miss a loan payment
+    value: +44-800-068-9816
+    purposes: [fee_reversal]
+    access: human_only
+    notes: Domestic 0800 068 9816. Relay UK 18001 0800 068 9816. No hours given.
+    source: https://www.natwest.com/life-moments/Struggling-financially.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - id: credit-card-difficulty-phone
+    type: phone
+    label: Tell NatWest you will miss a credit card payment
+    value: +44-800-161-5987
+    purposes: [fee_reversal]
+    access: human_only
+    notes: Domestic 0800 161 5987. Relay UK 18001 0800 161 5987. No hours given.
+    source: https://www.natwest.com/life-moments/Struggling-financially.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - id: financial-difficulty-phone
+    type: phone
+    label: Talk to NatWest about difficulties with your finances (current accounts)
+    value: +44-800-161-5921
+    purposes: [fee_reversal]
+    access: human_only
+    notes: Domestic 0800 161 5921. Listed under 'Useful phone numbers' in the current account terms (October 2026); not seen on the website contact pages. No hours given.
+    source: https://www.natwest.com/content/dam/natwest/personal/current-accounts/documents/your-current-account-terms.pdf
+    verified_via: document
+    last_verified: 2026-11-19
+  - id: stop-scams-159
+    type: phone
+    label: 159 (connect to your bank if you suspect a scam call)
+    value: "159"
+    purposes: [fraud]
+    notes: Source is a NatWest business insights article dated 25 Oct 2021, which describes 159 as a pilot led by Stop Scams UK that connects callers to banks including NatWest. Personal fraud pages read on 2026-11-19 do not mention 159.
+    source: https://www.natwest.com/business/insights/technology/fraud/fighting-the-scammers-new-159-hotline.html
+    last_verified: 2026-11-19
+  - id: phishing-email
+    type: email
+    label: Forward suspicious emails to NatWest
+    value: phishing@natwest.com
+    purposes: [fraud]
+    source: https://www.natwest.com/fraud-and-security/report-fraud.html
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: cora-chat, note: "Or call 03457 888 444 (24/7)."}
+  - {rung: written_complaint, channel: app-complaint, note: "Or Ask Cora and type Complaint, call 03457 888 444, or write to Customer Relations Manager, 1st Floor, 2 St Philip's Place, Birmingham, B3 2RB. NatWest asks you to allow up to 8 weeks."}
+  - {rung: regulator, regulator: uk-fos, note: "After 8 weeks without a resolution, or after NatWest's final response letter; contact the Financial Ombudsman Service within 6 months of that letter. For payment-related complaints, NatWest's leaflet says you can go to the ombudsman if you get no acknowledgement within 15 business days or no resolution within 35 business days."}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Freeze the card, report the payment in the app or by phone at once, and ask for the refund.
+    evidence: [date and amount of each payment, where the card or device is now, date you noticed, any calls or messages before the payment]
+    steps:
+      - do: Freeze the card in the app or Online Banking (cards section). If it is lost or stolen, report it there or call the lost and stolen line.
+        channel: lost-stolen-card-phone
+      - do: In the app or Online Banking select the payment and use 'Report a dispute, fraud or scam'.
+        channel: app-report-transaction
+      - do: For a current account, call the 24/7 line; you will be asked security questions.
+        channel: main-phone
+      - do: For a personal credit card, call the credit card fraud line (24 hours).
+        channel: credit-card-fraud-phone
+      - do: If NatWest refuses the refund, complain in the app, then refer it to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: process
+        claim: If you are entitled to a refund of an unauthorised payment, NatWest refunds it by the end of the business day after you told it. It may take longer if the payment was more than 13 months before you told NatWest, or NatWest reasonably suspects fraud.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.natwest.com/content/dam/natwest/personal/current-accounts/documents/your-current-account-terms.pdf
+        verified_via: document
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: If you intentionally or with gross negligence failed to keep payment details safe or to tell NatWest promptly, it will not refund unauthorised payments made before you told it, unless part of the payment created an overdraft; then you may be responsible for the first £35 and NatWest refunds the rest of the overdrawn balance.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.natwest.com/content/dam/natwest/personal/current-accounts/documents/your-current-account-terms.pdf
+        verified_via: document
+        last_verified: 2026-11-19
+
+  - issue: fraud
+    summary: If you were tricked into sending money (APP scam), call NatWest at once; payments by Faster Payments or CHAPS from 7 October 2024 can be refunded up to £85,000.
+    evidence: [payment dates, amounts and payee details, messages, emails or call details from the scammer, police or Report Fraud reference]
+    steps:
+      - do: For a bank or Travel account, call the 24/7 line and say you were tricked into making a payment.
+        channel: main-phone
+      - do: For a personal credit card, call the credit card line (24/7).
+        channel: credit-card-phone
+      - do: If you gave security or card details on a suspicious call, call NatWest at once; if you cannot get through, freeze the card in the app or Online Banking.
+        channel: main-phone
+      - do: Forward suspicious emails to phishing@natwest.com and texts that mention NatWest to 88355.
+        channel: phishing-email
+      - do: If NatWest refuses or reduces the refund, complain, then refer it to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: limit
+        claim: NatWest's APP scam reimbursement covers payments made by Faster Payments or CHAPS in the UK on or after 7 October 2024, with claims up to a maximum of £85,000.
+        issues: [fraud]
+        source: https://www.natwest.com/fraud-and-security/how-we-protect-you/our-codes/app-scams.html
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: NatWest excludes claims where the final scam payment was made more than 13 months before you report it.
+        issues: [fraud]
+        source: https://www.natwest.com/fraud-and-security/how-we-protect-you/our-codes/app-scams.html
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: A £100 excess could apply to any eligible APP claim, but not where personal circumstances had a material impact on your ability to protect yourself from the scam.
+        issues: [fraud]
+        source: https://www.natwest.com/fraud-and-security/how-we-protect-you/our-codes/app-scams.html
+        last_verified: 2026-11-19
+      - kind: process
+        claim: In most cases NatWest aims to decide an APP claim in 5 business days; some decisions and refunds may take up to 35 business days.
+        issues: [fraud]
+        source: https://www.natwest.com/fraud-and-security/how-we-protect-you/our-codes/app-scams.html
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: NatWest excludes APP claims where you acted fraudulently, or where you did not meet the Consumer Standard of Caution through gross negligence. Payments up to and including 6 October 2024 fall under the earlier APP Scam Code.
+        issues: [fraud]
+        source: https://www.natwest.com/fraud-and-security/how-we-protect-you/our-codes/app-scams.html
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: The current account terms say APP refunds apply only to electronic payments in pounds sterling to a UK account you do not control, and not to debit card payments.
+        issues: [fraud]
+        source: https://www.natwest.com/content/dam/natwest/personal/current-accounts/documents/your-current-account-terms.pdf
+        verified_via: document
+        last_verified: 2026-11-19
+
+  - issue: transaction_dispute
+    summary: Give the retailer at least 14 days first, then raise a dispute in the app within 120 days of the payment; NatWest may use the Visa and Mastercard chargeback schemes.
+    evidence: [account details, retailer name, amount and date of the payment, record of contact with the retailer]
+    steps:
+      - do: Contact the retailer first and give them at least 14 days to resolve it.
+      - do: Check the payment is no longer pending; NatWest cannot raise a dispute on a pending payment.
+      - do: For a debit card or Travel account, select the payment in the app or Online Banking and use 'Report a dispute, fraud or scam'.
+        channel: app-report-transaction
+      - do: For a credit card, use the 'Get started' dispute form or the same app link, which connects you to Cora.
+        channel: credit-card-dispute-form
+      - do: Without app or Online Banking access, call the number on the back of your card.
+        channel: main-phone
+      - do: If the dispute fails and you disagree, complain, then refer it to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: deadline
+        claim: NatWest says that if the payment was less than 120 days ago it can look into a card payment dispute, and asks you to give the retailer at least 14 days first.
+        issues: [transaction_dispute]
+        source: https://www.natwest.com/fraud-and-security/retaildisputes/card-payment-dispute.html
+        last_verified: 2026-11-19
+      - kind: process
+        claim: NatWest tries to send an update within five working days and to sort out the dispute within 60 days. The retailer can disagree, and if the dispute fails the temporary refund is taken back.
+        issues: [transaction_dispute]
+        source: https://www.natwest.com/fraud-and-security/retaildisputes/card-payment-dispute.html
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: NatWest says the first step should always be to contact the retailer; if that does not work, NatWest may be able to help using the Visa and Mastercard chargeback schemes (for example goods not received, double or wrong charges, subscription problems).
+        issues: [transaction_dispute]
+        source: https://www.natwest.com/support-centre/help-with-your-card/transactions/how-do-i-dispute-a-credit-card-transaction.html
+        last_verified: 2026-11-19
+
+  - issue: fee_reversal
+    summary: NatWest charges interest but no usage fees on overdrafts; if charges come from money problems, ask for support early through the app or Cora.
+    evidence: [statements showing interest and unpaid transaction fees, income and spending, the payment you will miss]
+    steps:
+      - do: Check the charges against NatWest's overdraft rules (no usage fees, £1.55 per unpaid transaction, monthly cap £18.80).
+      - do: For missed payments or going over a limit on a credit card, loan or overdraft, use the payment support journey in the app.
+        channel: payment-support-app
+      - do: To agree to pay later, Chat to Cora and type 'Webchat5' (team available Monday to Friday 9am to 5pm).
+        channel: cora-chat
+      - do: For a loan or credit card payment you will miss, call the relevant line.
+        channel: credit-card-difficulty-phone
+      - do: If you think a charge was wrong, complain in the app, then refer it to the Financial Ombudsman Service.
+        channel: app-complaint
+    facts:
+      - kind: fee
+        claim: NatWest says it charges no fees for using an overdraft, just interest, and charges £1.55 per unpaid transaction (for example a Direct Debit it returns unpaid).
+        issues: [fee_reversal]
+        source: https://www.natwest.com/support-centre/general-banking-information/general/can-you-tell-me-more-about-overdraft-charges.html
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: NatWest will not charge more than £18.80 in a monthly charging period for unarranged overdrafts and unpaid transactions.
+        issues: [fee_reversal]
+        source: https://www.natwest.com/support-centre/general-banking-information/general/can-you-tell-me-more-about-overdraft-charges.html
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: NatWest asks customers who have missed (or are about to miss) a loan, mortgage or credit card payment, or who are struggling with a current account or overdraft, to tell it as soon as possible so it can support them.
+        issues: [fee_reversal]
+        source: https://www.natwest.com/life-moments/Struggling-financially.html
+        verified_via: browser
+        last_verified: 2026-11-19
+
+  - issue: frozen_funds
+    summary: NatWest can restrict an account or payments, or close an account with 90 days' notice (or immediately in some cases); ask why and what it needs, then complain.
+    evidence: [messages or letters from NatWest, date access was restricted, balance at that time, proof of identity and of the source of the money]
+    steps:
+      - do: If NatWest contacted you, call it back (03457 888 444 in the UK, +44 131 549 8888 from abroad).
+        channel: main-phone
+      - do: Ask why the account or payment is restricted, what NatWest needs from you, and when access will return.
+        channel: cora-chat
+      - do: If NatWest closes the account, ask in writing how and when the credit balance will be sent to you.
+        channel: complaints-mail
+      - do: If the problem continues after 8 weeks or the final response, refer it to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: policy
+        claim: NatWest may suspend or restrict accounts or services (such as the debit card or online banking) if it reasonably believes security details were not kept safe, suspects fraudulent use, suspects illegal use or serious crime, or you have seriously broken the agreement. It explains why unless it cannot contact you or a legal or security reason prevents it.
+        issues: [frozen_funds]
+        source: https://www.natwest.com/content/dam/natwest/personal/current-accounts/documents/your-current-account-terms.pdf
+        verified_via: document
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: NatWest can close an account by giving at least 90 days' notice and its reason. It may close on less notice, including immediately and without a reason, if it cannot complete its checks, suspects use in connection with serious crime, is required by the UK government or regulator, or in other listed cases.
+        issues: [frozen_funds]
+        source: https://www.natwest.com/content/dam/natwest/personal/current-accounts/documents/your-current-account-terms.pdf
+        verified_via: document
+        last_verified: 2026-11-19
+      - kind: process
+        claim: When an account is closed, NatWest forwards any remaining credit balance after you repay money you owe it.
+        issues: [frozen_funds]
+        source: https://www.natwest.com/content/dam/natwest/personal/current-accounts/documents/your-current-account-terms.pdf
+        verified_via: document
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If NatWest's security systems flag a possible risk, it may limit the amount you can pay to a provider, from every account you hold, while it thinks there is a risk to you.
+        issues: [frozen_funds, fraud]
+        source: https://www.natwest.com/support-centre/general-banking-information/general/restricted-payments.html
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: NatWest says it will confirm it has your complaint within 5 days, and if the issue takes longer it sends an acknowledgement within five working days and keeps you updated.
+    issues: [poor_service]
+    source: https://www.natwest.com/support-centre/how-to-complain.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: NatWest's complaints leaflet asks you to allow up to 8 weeks for a complaint to be resolved, and says it aims to resolve payment-related complaints within 15 business days.
+    issues: [poor_service]
+    source: https://www.natwest.com/content/dam/natwest/personal/support-centre/complaints/natwest_making_things_better_nov_2024.pdf
+    verified_via: document
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: If NatWest has not resolved your complaint within eight weeks, or you are not satisfied, you can refer it to the Financial Ombudsman Service; after a final response letter you must do this within 6 months of receiving it.
+    issues: [poor_service]
+    source: https://www.natwest.com/support-centre/how-to-complain.html
+    verified_via: browser
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: For a payment-related complaint, the leaflet says you can contact the Financial Ombudsman Service if you have not had an acknowledgement within 15 business days or a resolution within 35 business days.
+    issues: [poor_service, transaction_dispute]
+    source: https://www.natwest.com/content/dam/natwest/personal/support-centre/complaints/natwest_making_things_better_nov_2024.pdf
+    verified_via: document
+    last_verified: 2026-11-19
+
+tips:
+  - kind: official
+    text: Have your customer number and PIN ready when you call; they are the same details you use to log in to Online Banking.
+    issues: [poor_service, fraud, unauthorized_charge]
+    source: https://www.natwest.com/support-centre/contact-us.html
+    last_verified: 2026-11-19
+  - kind: official
+    text: If a NatWest complaint update is expected, check junk folders; complaint messages may come by email, SMS or WhatsApp, and some calls show as unknown or withheld.
+    issues: [poor_service]
+    source: https://www.natwest.com/content/dam/natwest/personal/support-centre/complaints/natwest_making_things_better_nov_2024.pdf
+    verified_via: document
+    last_verified: 2026-11-19
+
+known_blockers:
+  - Disputes, fraud reports and app complaints need the account holder to log in to the app or Online Banking.
+  - Phone lines ask security questions (customer number and PIN) to confirm the account holder.
+  - NatWest does not publish a Section 75 page among the pages read; the dispute pages mention only the Visa and Mastercard chargeback schemes.
+  - Opening hours are not published for the lost and stolen card line or the financial difficulty lines.

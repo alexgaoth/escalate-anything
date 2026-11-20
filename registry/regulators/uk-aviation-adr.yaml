@@ -1,0 +1,118 @@
+id: uk-aviation-adr
+name: AviationADR (CAA-approved airline dispute resolution scheme)
+short_name: AviationADR
+level: ombudsman
+country: gb
+covers_sectors: [airline]
+covers_issues:
+  - flight_cancellation
+  - flight_delay
+  - denied_boarding
+  - delayed_baggage
+  - lost_baggage
+  - damaged_baggage
+  - accessibility
+  - poor_service
+website: https://www.aviationadr.org.uk/
+when_to_use: >-
+  Use for an unresolved complaint against an airline or airport that is a member of AviationADR (on 2026-11-19 the CAA
+  lists easyJet, Ryanair, TUI Airways, Virgin Atlantic, Wizz Air, Air France, KLM, SAS, TAP, Turkish Airlines, Delta and
+  others). Complain to the airline in writing first. Apply when the airline's internal process is finished and you
+  are unhappy with its final response, or 8 weeks after your first written complaint, and within 12 months of the final
+  response. Free for passengers. The decision binds the airline only if you accept it.
+
+channels:
+  - id: complaint-portal
+    type: portal
+    label: AviationADR online complaint portal (register a complaint)
+    value: https://portal.aviationadr.eu/register
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, accessibility, poor_service]
+    access: open
+    notes: >-
+      The portal is on aviationadr.eu, linked from AviationADR's own contact page. A paper form is on the Resources page
+      (https://aviationadr.org.uk/resources/) for posting.
+    verified_via: page
+    source: https://www.aviationadr.org.uk/contact-aviationadr/
+    last_verified: 2026-11-19
+  - id: support-phone
+    type: phone
+    label: AviationADR support centre (0203 540 8063)
+    value: +44-20-3540-8063
+    hours: Monday to Friday, 9:30am to 12:30pm
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, accessibility]
+    notes: Call-back requests can be made for reasonable adjustments. The CAA lists the same number.
+    verified_via: page
+    source: https://www.aviationadr.org.uk/contact-aviationadr/
+    last_verified: 2026-11-19
+  - id: passenger-support-form
+    type: web_form
+    label: AviationADR passenger support contact form (questions, not new complaints)
+    value: https://ticketo.cloud/cdrl_passenger_support.php?web_id=2
+    notes: Hosted on ticketo.cloud and linked from AviationADR's contact page.
+    verified_via: page
+    source: https://www.aviationadr.org.uk/contact-aviationadr/
+    last_verified: 2026-11-19
+  - id: postal-address
+    type: mail
+    label: AviationADR by post (paper complaint form)
+    value: AviationADR, Unit 5, Homelands, Higher Union Road, Kingsbridge, Devon, TQ7 1EQ
+    notes: >-
+      Address from AviationADR's contact page. The CAA's ADR page and easyJet's terms give a different address (12-14
+      Walker Avenue, Stratford Office Village, Wolverton Mill, Milton Keynes, MK12 5TW); use the scheme's own address.
+    verified_via: page
+    source: https://www.aviationadr.org.uk/contact-aviationadr/
+    last_verified: 2026-11-19
+
+facts:
+  - kind: deadline
+    claim: >-
+      The adjudicator considers a complaint only if the airline's internal procedure is exhausted and you are unhappy
+      with its response, or more than eight weeks have passed since you first complained to the airline in writing. If
+      the airline ignores or persistently fails to address the complaint, you can ask the adjudicator to step in
+      earlier.
+    issues: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage]
+    source: https://aviationadr.org.uk/eligibility
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      The CAA says to submit to an ADR provider within 12 months of the airline's final response, and that the issue must
+      have happened within the last six years (five years if you live in Scotland).
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/travel-complaints/alternative-dispute-resolution/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      AviationADR is free for passengers. The airline or airport is bound only if the passenger accepts the decision;
+      the passenger has 7 days to accept or reject the Final Decision.
+    source: https://www.aviationadr.org.uk/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      AviationADR's timescales: the airline or airport has 28 days to respond; the passenger has 21 days to comment on
+      a defence; the Final Determination is due within 60 days of the complete complaint file, except in highly complex
+      cases. It reports an average turnaround of 38 days for 1 January to 1 November 2026.
+    source: https://www.aviationadr.org.uk/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      AviationADR will not investigate a complaint that is already being, or has been, considered by a court or another
+      independent procedure.
+    source: https://aviationadr.org.uk/eligibility
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      CEDR says that after 5pm on 30 November 2026 claims against SAS can be registered with AviationADR instead of CEDR.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    source: https://www.cedr-assist.com/consumer/aviation/make-a-complaint/
+    verified_via: page
+    last_verified: 2026-11-19
+
+notes: >-
+  Run by Consumer Dispute Resolution Ltd (CDRL), company 09189773, approved by the CAA. Read on 2026-11-19. The full
+  member list is at https://www.aviationadr.org.uk/complaints-process/airline-and-airport-members-aviationadr/ (not
+  read); the CAA page lists 21 airlines. You do not need a claims management company.

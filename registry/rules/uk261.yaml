@@ -1,0 +1,194 @@
+id: uk261
+title: UK261 - UK air passenger rights for denied boarding, cancellation and long delay (retained Regulation 261/2004)
+citation: >-
+  Regulation (EC) No 261/2004 as retained and amended in UK law (Articles 3, 4, 5, 6, 7, 8 and 9); amended by the Air
+  Passenger Rights and Air Travel Organisers' Licensing (Amendment) (EU Exit) Regulations 2019 (SI 2019/278) and the
+  Aviation (Consumers) (Amendment) Regulations 2023 (SI 2023/1370)
+jurisdiction: gb
+status: in_effect
+applies_to:
+  sectors: [airline]
+  issues: [flight_cancellation, flight_delay, denied_boarding, refund_request, travel_credit]
+summary: >-
+  UK261 covers flights that depart from a UK airport (any airline), flights to the UK from outside the UK on a UK or
+  EU airline, and flights from outside the UK to the EU on a UK airline. When a flight is cancelled, delayed or you are
+  bumped, the airline must give care (meals, two calls or emails, a hotel and transfers if an overnight stay is
+  needed) and, for cancellation or denied boarding, a choice of a refund within 7 days or rerouting. Compensation is
+  £220, £350 or £520 per passenger by flight distance, also for arrival delays of 3 hours or more, unless the airline
+  proves extraordinary circumstances. Compensation must be paid in money unless you sign to accept vouchers. Claim
+  from the airline first; after 8 weeks or a final response, go to the airline's approved ADR scheme, or to the CAA
+  if the airline is in none, then to court.
+points:
+  - kind: policy
+    claim: >-
+      Article 3(1): the Regulation applies to passengers departing from an airport in the United Kingdom; to passengers
+      departing from an airport outside the UK to a UK airport if the operating carrier is a Community carrier or a UK
+      air carrier; and to passengers departing from outside the UK to an EU Member State if the operating carrier is a
+      UK air carrier. It does not apply if the passenger received benefits or compensation and assistance in that other
+      country.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    source: https://www.legislation.gov.uk/eur/2004/261/article/3
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Article 3(2)-(3): you need a confirmed reservation and (except for a cancellation) must present yourself for
+      check-in at the time the airline set, or 45 minutes before the published departure if no time was set. It does not
+      apply to free or reduced fares not available to the public, but it does apply to frequent flyer tickets. The
+      operating airline is the one responsible (Article 3(5)).
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    source: https://www.legislation.gov.uk/eur/2004/261/article/3
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      Article 7(1): compensation is £220 for flights of 1,500 km or less, £350 for flights between 1,500 and 3,500 km,
+      and £520 for all other flights. Distance is measured by the great circle route to the last destination at which
+      the denied boarding, delay or cancellation delays your arrival.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    source: https://www.legislation.gov.uk/eur/2004/261/article/7
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: compensation
+    claim: >-
+      The CAA says you may claim compensation if you arrive more than three hours late at your destination airport:
+      £220 per person under 1,500 km, £350 for 1,500 to 3,500 km, and over 3,500 km £260 if you arrive three to four
+      hours late or £520 if more than four hours late.
+    issues: [flight_delay]
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/flight-delays-and-cancellations/delays/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      Article 7(2): if you are rerouted and arrive within 2 hours (up to 1,500 km), 3 hours (1,500-3,500 km) or 4 hours
+      (other flights) of the original arrival time, the airline may cut the compensation by 50%.
+    issues: [flight_cancellation, denied_boarding]
+    source: https://www.legislation.gov.uk/eur/2004/261/article/7
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Article 7(3): compensation is paid in cash, by electronic bank transfer, bank orders or bank cheques, or, only with
+      the passenger's signed agreement, in travel vouchers or other services.
+    issues: [flight_cancellation, flight_delay, denied_boarding, travel_credit]
+    source: https://www.legislation.gov.uk/eur/2004/261/article/7
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Article 5(1)(c): for a cancellation, compensation is due unless you were told at least two weeks before departure;
+      or told between two weeks and seven days before and offered rerouting leaving no more than two hours earlier and
+      arriving less than four hours later; or told less than seven days before and offered rerouting leaving no more
+      than one hour earlier and arriving less than two hours later. The airline must prove when it told you (5(4)).
+    issues: [flight_cancellation]
+    source: https://www.legislation.gov.uk/eur/2004/261/article/5
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Article 5(3): the airline does not have to pay compensation if it proves the cancellation was caused by
+      extraordinary circumstances which could not have been avoided even if all reasonable measures had been taken.
+      Care and the refund or rerouting choice still apply. The CAA's delays page says the same defence applies to
+      delays.
+    issues: [flight_cancellation, flight_delay]
+    source: https://www.legislation.gov.uk/eur/2004/261/article/5
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Article 4: before bumping anyone the airline must ask for volunteers. Passengers denied boarding against their
+      will must be compensated immediately under Article 7 and assisted under Articles 8 and 9.
+    issues: [denied_boarding]
+    source: https://www.legislation.gov.uk/eur/2004/261/article/4
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Article 8(1): for a cancellation or denied boarding you choose between a refund of the full ticket price within
+      seven days (for parts not flown, and parts flown if the trip no longer serves its purpose, plus a return flight to
+      the first departure point where relevant), rerouting at the earliest opportunity, or rerouting at a later date
+      that suits you, subject to seat availability.
+    issues: [flight_cancellation, denied_boarding, refund_request]
+    source: https://www.legislation.gov.uk/eur/2004/261/article/8
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The CAA says that if a delay is more than five hours you can choose not to travel and receive a refund, and that
+      you should not choose this if you still wish to travel.
+    issues: [flight_delay, refund_request]
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/flight-delays-and-cancellations/delays/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Article 9 right to care, free of charge: meals and refreshments in reasonable relation to the waiting time; hotel
+      accommodation when a stay of one or more nights becomes necessary; transport between the airport and the
+      accommodation; and two telephone calls or emails. Particular attention is due to people with reduced mobility and
+      unaccompanied children.
+    issues: [flight_delay, flight_cancellation, denied_boarding]
+    source: https://www.legislation.gov.uk/eur/2004/261/article/9
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The CAA says that, whatever the cause, the airline must look after you when a flight is delayed beyond its
+      scheduled departure by at least two hours (flights under 1,500 km), three hours (1,500 to 3,500 km) or four hours
+      (over 3,500 km): food and drink for the length of the delay, two phone calls or emails, and accommodation with
+      transport if the delay is overnight.
+    issues: [flight_delay]
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/flight-delays-and-cancellations/delays/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      The CAA says to contact your airline directly to claim; often a standard claim form is available. Not all
+      airlines deal with claims made through Resolver or claims management companies, and some require you to claim
+      directly first.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/travel-complaints/making-a-claim/claiming-for-costs-and-compensation/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      If the airline takes more than eight weeks to respond, or you disagree with its final response, you can escalate
+      to its CAA-approved ADR body (AviationADR or CEDR) or, if the airline is in no scheme, to the CAA's Passenger
+      Advice and Complaints Team. ADR is free; you must apply within 12 months of the final response.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/travel-complaints/alternative-dispute-resolution/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      The CAA's ADR page says the issue must have happened within the last six years (five years if you live in
+      Scotland).
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/travel-complaints/alternative-dispute-resolution/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      The CAA's Passenger Advice and Complaints Team will not handle a complaint if there is less than a year left to
+      take legal action, and says legal time limits are strict.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/travel-complaints/how-the-caa-can-help/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      The CAA says the small claims court is usually the most appropriate place for airline disputes if your claim is
+      rejected, and links GOV.UK's guide to making a court claim for money (England and Wales). Scotland and Northern
+      Ireland have their own courts.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/travel-complaints/making-a-claim/taking-your-airline-to-court/
+    verified_via: page
+    last_verified: 2026-11-19
+status_note: >-
+  legislation.gov.uk shows the latest change to Article 7 in force from 14 December 2023 (SI 2023/1370 added "delay" to
+  Article 7(1)). The GBP amounts date from SI 2019/278 (from 31 December 2020). UK261 replaced EU261 for UK flights after
+  Brexit; for flights departing the EU, see the eu261 rule. The 3-hour arrival-delay compensation and the £260 figure
+  are as the CAA states them; Article 6 (delay) was not read for this file. The six-year limit (five in
+  Scotland) is stated by the CAA for ADR; the statutory basis (Limitation Act 1980; Prescription and Limitation
+  (Scotland) Act 1973) was not read for this file.
+source: https://www.legislation.gov.uk/eur/2004/261/contents
+last_verified: 2026-11-19

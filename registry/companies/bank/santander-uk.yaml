@@ -1,0 +1,416 @@
+id: santander-uk
+name: Santander UK
+aliases: [santander uk plc, santander uk bank, santander united kingdom]
+sector: bank
+countries: [gb]
+parent: Banco Santander, S.A.
+website: https://www.santander.co.uk
+account_url: https://retail.santander.co.uk/olb/app/logon/access/
+official_domains: [santander.co.uk]
+security:
+  never_asks:
+    - kind: policy
+      claim: Santander says no one from Santander, not even its fraud team, will ask you for your PIN or One Time Passcode (OTP). If someone asks for this on the phone, it is fraud; hang up and call Santander.
+      source: https://www.santander.co.uk/personal/support/fraud-and-security/how-to-report-fraud
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Santander says it will never ask for your password, PIN or OTP, never ask you to move money to a 'safe account', and never contact you out of the blue asking for your security details. To check a call is genuine, call 159 or use the number on the back of your card or in the app.
+      source: https://www.santander.co.uk/personal/TSB-acquisition
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Santander says it will never send you a link to log in to Online or Mobile Banking. Its genuine emails address you personally and include the last 4 digits of your account or card number, or the last 3 characters of your postcode.
+      source: https://www.santander.co.uk/personal/support/fraud-and-security/fraud-updates
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: When Santander texts you to check a payment, it only asks you to reply Y or N and will not ask you to reply with anything else.
+      source: https://www.santander.co.uk/personal/support/fraud-and-security/our-approach-to-fraud-prevention
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: Impersonation (safe account) scam. A caller on a spoofed, trusted-looking Santander number says they are from the fraud department, says your account is at risk and tells you to move your money to a new account. They coach you on what to select online or what to say in branch, so the money goes to the criminal.
+      source: https://www.santander.co.uk/personal/support/fraud-and-security/spotting-fraud-or-scams
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Phishing emails ask you to update your contact details through a link to a fake Santander website. The criminal captures your Personal ID and security number, logs on, changes your details, and an OTP is sent to you to authorise the change.
+      source: https://www.santander.co.uk/personal/support/fraud-and-security/fraud-updates
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Santander warns that criminals take advantage of the TSB acquisition by pretending to be Santander or TSB.
+      source: https://www.santander.co.uk/personal/TSB-acquisition
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Fake texts can appear in the same thread as earlier genuine Santander messages, such as previous OTPs. Any text with a link that asks you to update your banking details or log on is fake.
+      source: https://www.santander.co.uk/personal/support/fraud-and-security/how-to-report-fraud
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Remote access scams. Criminals ask you to download apps such as AnyDesk or TeamViewer, or click a link, so they can control your device and see your banking.
+      source: https://www.santander.co.uk/personal/support/fraud-and-security/spotting-fraud-or-scams
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Digital wallet fraud. A fake shop advert on social media collects your card details and an OTP, which the criminal uses to add your card to Apple Pay or Google Pay.
+      source: https://www.santander.co.uk/personal/support/fraud-and-security/spotting-fraud-or-scams
+      last_verified: 2026-11-19
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails that look like they are from Santander
+      value: phishing@santander.co.uk
+      purposes: [fraud]
+      source: https://www.santander.co.uk/personal/support/fraud-and-security/how-to-report-fraud
+      last_verified: 2026-11-19
+    - id: smishing-email
+      type: email
+      label: Report suspicious text messages that appear to be from Santander
+      value: smishing@santander.co.uk
+      purposes: [fraud]
+      source: https://www.santander.co.uk/personal/support/fraud-and-security/how-to-report-fraud
+      last_verified: 2026-11-19
+    - id: spam-text-7726
+      type: sms
+      label: Forward suspicious text messages to your mobile network (7726)
+      value: '7726'
+      purposes: [fraud]
+      source: https://www.santander.co.uk/personal/support/fraud-and-security
+      last_verified: 2026-11-19
+regulators: [uk-fos, uk-fca]
+notes: >-
+  Santander UK plc (registered number 2294747, FCA register number 106054) is authorised by the PRA and regulated by the
+  FCA and the PRA. It is a different company from Santander Bank, N.A. in the US (see santander-bank). cahoot is a trading
+  name of Santander UK plc. TSB joined the Santander group on 30 April 2026. TSB customers still bank with TSB for now;
+  Santander proposes to transfer TSB's banking business to Santander UK on 22 March 2027 if the High Court approves it
+  (hearing expected 15 February 2027). Santander says nothing changes for Santander customers. Domestic numbers: 0330 9 123 123
+  (main), 0800 313 4321 (freephone), 0800 171 2171 (complaints).
+
+channels:
+  - id: main-phone
+    type: phone
+    label: Telephone Banking (main number for personal accounts and credit cards)
+    value: +44-330-912-3123
+    purposes: [fraud, unauthorized_charge, transaction_dispute, frozen_funds, account_access, poor_service]
+    hours: "7 days a week, 8am to 6pm for most topics; 24 hours a day for fraud, lost or stolen cards and unrecognised transactions; Monday to Friday 8am to 8pm and Saturday to Sunday 8am to 6pm for account blocks"
+    access: human_only
+    notes: Written 0330 9 123 123. Santander says to call from your registered number. Hours differ by topic in the contact-us tool; they were read from its pop-up in a browser. Also the number for Section 75 claims.
+    verified_via: browser
+    source: https://www.santander.co.uk/personal/support/contact-us/cards-pins/debit-card/disputing-a-card-payment
+    last_verified: 2026-11-19
+  - id: fraud-freephone
+    type: phone
+    label: Fraud, scams and lost or stolen cards (freephone)
+    value: +44-800-313-4321
+    purposes: [fraud, unauthorized_charge, frozen_funds]
+    hours: 24 hours a day, 7 days a week
+    access: human_only
+    notes: Written 0800 313 4321. Santander gives it as an alternative to 0330 9 123 123 for fraud, scams and suspicious calls; its fraud team is available 24 hours a day.
+    source: https://www.santander.co.uk/personal/support/fraud-and-security/how-to-report-fraud
+    last_verified: 2026-11-19
+  - id: credit-card-abroad
+    type: phone
+    label: Fraud and lost or stolen credit cards, calling from outside the UK
+    value: +44-151-264-8725
+    purposes: [fraud, unauthorized_charge]
+    access: human_only
+    notes: Santander writes it as +44 1512 648 725. The how-to-report-fraud page gives it for fraud from abroad; the lost or stolen cards page gives it for credit cards from abroad.
+    source: https://www.santander.co.uk/personal/support/fraud-and-security/how-to-report-fraud
+    last_verified: 2026-11-19
+  - id: debit-card-abroad
+    type: phone
+    label: Lost or stolen debit card, calling from outside the UK
+    value: +44-1908-237-963
+    purposes: [fraud, unauthorized_charge]
+    access: human_only
+    notes: Santander writes it as +44 1908 237 963. Santander does not publish a general from-abroad number for other queries on the pages read.
+    source: https://www.santander.co.uk/personal/support/fraud-and-security/lost-or-stolen-cards
+    last_verified: 2026-11-19
+  - id: mobile-app
+    type: app
+    label: Santander Mobile Banking app (freeze or report a card, report fraud, raise and track card disputes)
+    value: "Mobile Banking app > tap the transaction > Help with this transaction (cards: More options > Manage cards > Report card)"
+    purposes: [fraud, unauthorized_charge, transaction_dispute]
+    access: login
+    notes: Santander says the app is the quickest way to report card fraud and to raise a dispute for goods not received or missing ATM cash. You can track a dispute in the app. Cards can be frozen and unfrozen in the app or in Online Banking.
+    source: https://www.santander.co.uk/personal/support/fraud-and-security/how-to-report-fraud
+    last_verified: 2026-11-19
+  - id: chat
+    type: chat
+    label: Chat with Sandi, the digital assistant, in Mobile or Online Banking (hands over to a person)
+    value: https://retail.santander.co.uk/olb/app/logon/access/
+    purposes: [fraud, unauthorized_charge, transaction_dispute, poor_service, account_access]
+    hours: 24/7 (a person joins when one is available)
+    access: login
+    notes: Log on and use 'Chat with us'. If Sandi cannot answer, you are put in touch with a real person once someone becomes available.
+    source: https://www.santander.co.uk/personal/support/fraud-and-security/lost-or-stolen-cards
+    last_verified: 2026-11-19
+  - id: complaints-phone
+    type: phone
+    label: Complaints line (new and existing complaints)
+    value: +44-800-171-2171
+    purposes: [poor_service, transaction_dispute, unauthorized_charge, fraud, frozen_funds]
+    hours: "Current accounts, savings and credit cards: Monday to Friday 8am to 6pm, Saturday 9am to 4pm, Sunday closed. Personal loans and mortgages: Monday to Friday 9am to 6pm, Saturday 9am to 2pm"
+    access: human_only
+    notes: Written 0800 171 2171, free from UK landlines and mobiles. Choose option 2 for an existing complaint. The contact-us tool pop-up shows Saturday 8am to 4pm, so Saturday opening time is uncertain. Textphone 18001 0800 171 2171 (Relay UK). Santander's calls back to you usually show as an 0800 number, but may appear as unknown or withheld.
+    source: https://www.santander.co.uk/personal/support/customer-support/how-to-complain
+    last_verified: 2026-11-19
+  - id: complaints-chat
+    type: chat
+    label: Complaints by chat in Mobile or Online Banking (type 'speak to complaints')
+    value: https://retail.santander.co.uk/olb/app/logon/access/
+    purposes: [poor_service, transaction_dispute, unauthorized_charge, frozen_funds]
+    access: login
+    notes: Log on, use 'Chat with us' and type 'speak to complaints'. For an existing complaint, choose the option to talk about an existing complaint.
+    source: https://www.santander.co.uk/personal/support/customer-support/how-to-complain
+    last_verified: 2026-11-19
+  - id: complaints-post
+    type: mail
+    label: Written complaint by post
+    value: "Complaints, Santander UK plc, Sunderland, SR43 4GD"
+    purposes: [poor_service, transaction_dispute, unauthorized_charge, fraud, frozen_funds]
+    notes: Include your name and address, account details, what went wrong and how it affected you, when it happened, and a contact number with a convenient time to call.
+    source: https://www.santander.co.uk/personal/support/customer-support/how-to-complain
+    last_verified: 2026-11-19
+  - id: branch
+    type: in_person
+    label: Santander branch (complaints, lost card cash access)
+    value: https://branchlocator.santander.com/?view=gb&defaultLanguage=en
+    purposes: [poor_service, frozen_funds]
+    access: human_only
+    notes: Santander says you can make or follow up a complaint in a branch. With a lost card you can get cash in a branch with another Santander card or valid photo ID.
+    source: https://www.santander.co.uk/personal/support/customer-support/how-to-complain
+    last_verified: 2026-11-19
+  - id: stop-scams-159
+    type: phone
+    label: 159 (Stop Scams UK), connects you safely to your bank
+    value: "159"
+    purposes: [fraud]
+    access: human_only
+    notes: Santander says to call 159, or the number on the back of your card or in the app, to check that a call is really from Santander.
+    source: https://www.santander.co.uk/personal/TSB-acquisition
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: main-phone, note: "Or 'Chat with us' in the app or Online Banking. For fraud, call 24/7 on main-phone or fraud-freephone."}
+  - {rung: written_complaint, channel: complaints-phone, note: "Or type 'speak to complaints' in chat (complaints-chat), write to complaints-post, or visit a branch. Santander has 15 days (up to 35 in exceptional cases) for payment complaints and 56 days for all other complaints."}
+  - {rung: regulator, regulator: uk-fos, note: "After Santander's final response, or when its time limit (15/35 days for payment complaints, 56 days for others) has passed. Refer within 6 months of the date on the final response."}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Freeze or report the card, then report the transaction in the app or by phone (24/7). By the account terms you should tell Santander within 13 months, and it refunds by the end of the next working day unless it suspects fraud or gross carelessness.
+    evidence: [statement or app screenshot of the transaction, date you noticed it, whether the card is lost, stolen or still with you, checks you made (joint holder, subscriptions, exchange rate, merchant name)]
+    steps:
+      - do: Check the payment first. Ask any joint account holder, look for subscriptions you did not cancel, foreign currency conversions and merchants that trade under a different name.
+      - do: Freeze the card in the app or Online Banking, or report it as lost or stolen (More options > Manage cards > Report card).
+        channel: mobile-app
+      - do: In the app, tap the transaction you do not recognise, then 'Help with this transaction'.
+        channel: mobile-app
+      - do: If you cannot use the app, or for other payment types, call Santander. The fraud team is available 24 hours a day.
+        channel: main-phone
+      - do: From abroad, call the number for your card type.
+        channel: credit-card-abroad
+        note: For a debit card use debit-card-abroad.
+      - do: If Santander refuses or delays the refund, complain.
+        channel: complaints-phone
+      - do: After the final response, or after 15 days (35 in exceptional cases) for a payment complaint, refer it to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: deadline
+        claim: Santander's current and savings account terms say to tell it about an unauthorised payment as soon as you can within 13 months of the payment. After 13 months, or after an unreasonable delay, it is not required to refund you unless the account was overdrawn when the payment was made.
+        issues: [unauthorized_charge, fraud]
+        verified_via: document
+        source: https://www.santander.co.uk/assets/s3fs-public/AD_documents/General_terms_and_conditions_and_important_information_CORE0016APR26PUBCDT_Digital.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Santander's terms say it refunds an unauthorised payment before the end of the working day after you tell it, unless it knows you have been very careless or reasonably suspects fraud, in which case it may investigate first. A refund restores the account, including interest and fees charged for that payment.
+        issues: [unauthorized_charge, fraud]
+        verified_via: document
+        source: https://www.santander.co.uk/assets/s3fs-public/AD_documents/General_terms_and_conditions_and_important_information_CORE0016APR26PUBCDT_Digital.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Santander's terms say that, unless you have been fraudulent, it always refunds an unauthorised payment made when you buy something online or by phone, made before you received the card, or where it did not check authorisation in the way legally required.
+        issues: [unauthorized_charge]
+        verified_via: document
+        source: https://www.santander.co.uk/assets/s3fs-public/AD_documents/General_terms_and_conditions_and_important_information_CORE0016APR26PUBCDT_Digital.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Santander says you are protected against fraud on a lost or stolen card if you tell it as soon as you realise and you took proper precautions to keep your card and security details safe.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.santander.co.uk/personal/support/fraud-and-security/lost-or-stolen-cards
+        last_verified: 2026-11-19
+
+  - issue: fraud
+    summary: Report at once (24/7). For a bank transfer scam (APP fraud) from 7 October 2024, Santander refunds eligible Faster Payments and CHAPS claims up to £85,000, less a £100 excess, if you claim within 13 months of the last payment.
+    evidence: [payment dates, amounts and payee details, messages, emails or call logs from the scammer, how you were contacted, police or Report Fraud reference number]
+    steps:
+      - do: Call Santander straight away, especially if you shared security details after a suspicious call, text or email.
+        channel: fraud-freephone
+        note: Or 0330 9 123 123 (main-phone). Both are 24 hours a day for fraud.
+      - do: For card fraud, report it in the app (tap the transaction > Help with this transaction).
+        channel: mobile-app
+      - do: Forward suspicious emails to phishing@santander.co.uk and suspicious texts to smishing@santander.co.uk and 7726.
+      - do: Santander's page says to also report it to Report Fraud on 0300 123 2040, and to report the scam to the police or let Santander report it for you.
+      - do: Ask Santander to assess an APP scam claim under the PSR reimbursement rules (payments from 7 October 2024) or the CRM Code (28 May 2019 to 6 October 2024).
+        channel: main-phone
+      - do: If the claim is refused or not decided within 35 working days, complain, then go to the Financial Ombudsman Service.
+        channel: complaints-phone
+      - do: Refer the complaint to the Financial Ombudsman Service after the final response.
+        regulator: uk-fos
+    facts:
+      - kind: limit
+        claim: For APP fraud transactions from 7 October 2024, Santander refunds eligible claims up to £85,000 for Faster Payments or CHAPS made in the UK from a personal account, micro-enterprise or some charities. The claim must be raised within 13 months of the final payment to the fraudster.
+        issues: [fraud]
+        source: https://www.santander.co.uk/personal/support/fraud-and-security/our-approach-to-fraud-prevention
+        last_verified: 2026-11-19
+      - kind: process
+        claim: If an APP claim succeeds, Santander puts the money back within 5 working days. In some cases a decision can take up to 35 working days, for example if it needs more information.
+        issues: [fraud]
+        source: https://www.santander.co.uk/personal/support/fraud-and-security/our-approach-to-fraud-prevention
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: Santander applies a fixed £100 excess to each APP fraud claim (a £1,000 claim gets £900), but not if something prevented you from protecting yourself when you made the payment.
+        issues: [fraud]
+        source: https://www.santander.co.uk/personal/support/fraud-and-security/our-approach-to-fraud-prevention
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Santander does not assess APP claims under the PSR rules for payments by cheque, cash, card or outside the UK, payments to your own account at another bank, payments for unlawful purposes, or civil disputes. It says it reviews all APP claims case by case, even if they are not covered by the CRM Code or the PSR rules.
+        issues: [fraud]
+        source: https://www.santander.co.uk/personal/support/fraud-and-security/our-approach-to-fraud-prevention
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Under the Consumer Standard of Caution, Santander expects you to pay attention to payment warnings, report a scam as soon as possible, provide information it asks for, and report the scam to the police or let Santander do so.
+        issues: [fraud]
+        source: https://www.santander.co.uk/personal/support/fraud-and-security/our-approach-to-fraud-prevention
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: APP scam payments made from 28 May 2019 to 6 October 2024 are assessed under the voluntary Contingent Reimbursement Model (CRM) Code, which covers personal accounts, micro-enterprises and charities with income under £1 million, for payments within the UK.
+        issues: [fraud]
+        source: https://www.santander.co.uk/personal/support/fraud-and-security/our-approach-to-fraud-prevention
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Santander's Mobile and Online Banking Commitment says it will refund money taken from your account as a result of fraud, unless you acted fraudulently or did not take reasonable steps to keep your security information safe.
+        issues: [fraud, unauthorized_charge]
+        source: https://www.santander.co.uk/personal/support/fraud-and-security/our-approach-to-fraud-prevention
+        last_verified: 2026-11-19
+
+  - issue: transaction_dispute
+    summary: Contact the company first, then raise a card dispute (chargeback) in the app or by phone within the time limits. For credit card purchases of £100 to £30,000 you can also claim under Section 75 by phone.
+    evidence: [receipt or order confirmation, expected delivery date, emails or chat with the company, proof of cancellation date for subscriptions, photos of faulty goods]
+    steps:
+      - do: Check the goods are not still within the delivery timescale and the transaction is no longer pending.
+      - do: Contact the company and try to sort it out. Keep a record of what they say.
+      - do: Raise the dispute in the app (tap the transaction > Help with this transaction) and track it there.
+        channel: mobile-app
+      - do: If you do not use the app, or for incorrect amounts and cancelled subscriptions, call Santander (7 days, 8am to 6pm).
+        channel: main-phone
+      - do: For a credit card purchase between £100 and £30,000 with a breach of contract or misrepresentation, ask for a Section 75 claim on the same number.
+        channel: main-phone
+      - do: If the dispute is refused, complain, then refer it to the Financial Ombudsman Service after the final response.
+        channel: complaints-phone
+      - do: Refer it to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: deadline
+        claim: For goods or services not received, Santander says to wait 15 days from the purchase date if you had no delivery date. You may need to provide evidence within 120 days of the date you expected the goods or services, and no later than 540 days from the purchase date.
+        issues: [transaction_dispute]
+        source: https://www.santander.co.uk/personal/support/credit-cards/disputing-a-credit-or-debit-card-transaction
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: For an incorrect amount or a charge for a subscription you cancelled, you have 120 days from the payment date to raise the dispute. For missing cash from a cash machine, Santander has 180 days (UK) or 120 days (outside the UK) from the withdrawal to raise a claim.
+        issues: [transaction_dispute]
+        source: https://www.santander.co.uk/personal/support/credit-cards/disputing-a-credit-or-debit-card-transaction
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Santander says Section 75 covers credit card purchases with a cash price over £100 and under £30,000 where the company breached the contract or misrepresented it, for transactions in the last 6 years. It does not apply to debit cards, and payments through third parties such as PayPal, ticket agencies, marketplaces or comparison sites may not qualify.
+        issues: [transaction_dispute]
+        source: https://www.santander.co.uk/personal/support/credit-cards/helping-you-get-the-most-out-of-your-credit-card
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Santander may process a credit card dispute faster as a chargeback; it says this does not affect your Section 75 rights. To raise a Section 75 claim, call 0330 9 123 123.
+        issues: [transaction_dispute]
+        source: https://www.santander.co.uk/personal/support/credit-cards/helping-you-get-the-most-out-of-your-credit-card
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Santander cannot raise a dispute for a pending transaction or while goods are still within their delivery timescale. You must contact the merchant to cancel a pending card payment.
+        issues: [transaction_dispute]
+        source: https://www.santander.co.uk/personal/support/credit-cards/disputing-a-credit-or-debit-card-transaction
+        last_verified: 2026-11-19
+
+  - issue: frozen_funds
+    summary: Santander may block an account or card for security, suspected fraud, missing information or legal reasons, and usually tells you why. Call the account-block line or chat to find out what it needs.
+    evidence: [messages or letters about the block, date the block started, documents Santander asked for, your contact details on file]
+    steps:
+      - do: Call Santander and choose the account block option. Ask why the account is blocked and what information it needs.
+        channel: main-phone
+        note: Account blocks line hours are Monday to Friday 8am to 8pm, Saturday to Sunday 8am to 6pm.
+      - do: If a fraud check blocked your payments, answer the text (Y or N) or call back; Santander may hold the account until it speaks to you.
+        channel: main-phone
+      - do: If the block continues without a clear reason, complain.
+        channel: complaints-phone
+      - do: Refer the complaint to the Financial Ombudsman Service after the final response or when the time limit passes.
+        regulator: uk-fos
+    facts:
+      - kind: policy
+        claim: Santander's terms let it block cards or access to the account if it has security concerns, suspects unauthorised or fraudulent use, sees a much higher risk you cannot repay, has not received information it reasonably asked for, or would otherwise break a law or regulation. It usually tells you why before or as soon as it reasonably can, unless legal or security reasons prevent this, and unblocks when the reason ends.
+        issues: [frozen_funds, account_access]
+        verified_via: document
+        source: https://www.santander.co.uk/assets/s3fs-public/AD_documents/General_terms_and_conditions_and_important_information_CORE0016APR26PUBCDT_Digital.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If Santander cannot reach you about unusual activity, your payments could be declined and your account put on hold until it speaks to you.
+        issues: [frozen_funds]
+        source: https://www.santander.co.uk/personal/support/fraud-and-security/our-approach-to-fraud-prevention
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Santander may treat a current account as dormant and block access if you make no payments for 1 year (3 years for a savings account); you must contact it to reactivate the account.
+        issues: [frozen_funds, account_access]
+        verified_via: document
+        source: https://www.santander.co.uk/assets/s3fs-public/AD_documents/General_terms_and_conditions_and_important_information_CORE0016APR26PUBCDT_Digital.pdf
+        last_verified: 2026-11-19
+
+facts:
+  - kind: deadline
+    claim: Santander has 15 days to resolve complaints about payments in or out of a current account, credit card or instant access savings account, and in exceptional circumstances up to 35 days. For all other complaints it has 56 days, after which it writes to say you can go to the Financial Ombudsman.
+    issues: [poor_service, transaction_dispute, unauthorized_charge, fraud]
+    source: https://www.santander.co.uk/personal/support/customer-support/how-to-complain
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: Santander says that if you refer your complaint to the Financial Ombudsman Service, you should do so within 6 months of the date on its final response.
+    issues: [poor_service]
+    source: https://www.santander.co.uk/personal/support/customer-support/how-to-complain
+    last_verified: 2026-11-19
+  - kind: process
+    claim: If Santander resolves a complaint within 3 business days after the day it received it, it sends confirmation and tells you about the Financial Ombudsman Service. Otherwise it sends an acknowledgement letter with a reference number, then a final response.
+    issues: [poor_service]
+    source: https://www.santander.co.uk/personal/support/customer-support/how-to-complain
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: TSB joined the Santander group on 30 April 2026. Santander proposes to transfer TSB's banking business to Santander UK under a Part VII scheme; if the High Court approves it at a hearing expected on 15 February 2027, Santander UK becomes the legal provider of TSB accounts from 22 March 2027. Santander says nothing changes for Santander customers.
+    source: https://www.santander.co.uk/personal/TSB-acquisition
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: If the TSB transfer takes place on 22 March 2027, eligible deposits held with both Santander and TSB are combined for FSCS protection, up to £120,000 per person in total. Until then they are protected separately. Customers of both can withdraw amounts above the limit from fixed-rate or limited access accounts without fees or loss of interest between 16 February and 31 May 2027, by phone or in branch.
+    source: https://www.santander.co.uk/personal/TSB-acquisition
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: Santander asks TSB customers who want to object to the transfer to do so before 5 February 2027; objections are not possible after the Court hearing on 15 February 2027.
+    source: https://www.santander.co.uk/personal/TSB-acquisition
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: Deposits with Santander UK plc, including the cahoot, Santander Business and Santander Corporate & Commercial trading names, are protected by the FSCS up to £120,000 per customer in total.
+    source: https://www.santander.co.uk/personal/support/fraud-and-security/is-your-money-protected
+    last_verified: 2026-11-19
+
+tips:
+  - kind: official
+    text: Santander says calling from your registered phone number is faster, and it may call you back from an 0800 number or a withheld number while handling a complaint.
+    issues: [poor_service]
+    source: https://www.santander.co.uk/personal/support/customer-support/how-to-complain
+    last_verified: 2026-11-19
+  - kind: official
+    text: Santander says the quickest way to report card fraud or raise a dispute for undelivered goods is in the app via the transaction's 'Help with this transaction' option.
+    issues: [unauthorized_charge, transaction_dispute]
+    source: https://www.santander.co.uk/personal/support/fraud-and-security/how-to-report-fraud
+    last_verified: 2026-11-19
+
+known_blockers:
+  - Telephone Banking checks your identity with Voice ID, your registered number, or your Personal ID or card number plus security number.
+  - Chat and app disputes need a Mobile or Online Banking log-on.
+  - Santander does not publish a complaints email address or online complaint form on its how-to-complain page; complaints go by phone, chat, branch or post.
+  - Phone hours for 0330 9 123 123 appear only in the contact-us tool pop-ups, which need JavaScript.
