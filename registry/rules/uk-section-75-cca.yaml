@@ -1,0 +1,67 @@
+id: uk-section-75-cca
+title: Section 75 Consumer Credit Act 1974 - card issuer jointly liable for purchases of £100 to £30,000
+citation: Consumer Credit Act 1974 (c. 39), section 75 (limits substituted by SI 1983/1878; amended by SI 2010/1010)
+jurisdiction: gb
+status: in_effect
+applies_to:
+  sectors: [bank, airline, retail, travel_agency, lodging]
+  issues: [transaction_dispute, refund_request, company_shutdown, flight_cancellation]
+summary: >-
+  If you pay for something with a credit card (or other linked credit) and the seller breaches the contract or
+  misrepresents it, you have the same claim against the card issuer as against the seller, and they are jointly and
+  severally liable. It applies only when the cash price of the single item is more than £100 and not more than £30,000.
+  You do not have to pay the full price on the card. It needs a credit agreement, so it does not cover debit cards; for
+  those, ask for a chargeback (see uk-chargeback). Complain to the card issuer; if it refuses or does not answer in 8 weeks, go to the Financial
+  Ombudsman Service.
+points:
+  - kind: policy
+    claim: >-
+      Section 75(1): where a debtor-creditor-supplier agreement falls within section 12(b) or (c) and the debtor has a
+      claim against the supplier for misrepresentation or breach of contract, the debtor has a like claim against the
+      creditor, and the creditor and supplier are jointly and severally liable to the debtor.
+    issues: [transaction_dispute, refund_request]
+    source: https://www.legislation.gov.uk/ukpga/1974/39/section/75
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      Section 75(3): the joint liability does not apply to a claim under a non-commercial agreement, to a claim about a
+      single item with a cash price not exceeding £100 or more than £30,000, or to certain running-account credit
+      agreements with limited payment periods that are not secured on land.
+    issues: [transaction_dispute]
+    source: https://www.legislation.gov.uk/ukpga/1974/39/section/75
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      Section 75(4): the section applies even if the debtor exceeded the credit limit or otherwise broke a term of the
+      agreement.
+    issues: [transaction_dispute]
+    source: https://www.legislation.gov.uk/ukpga/1974/39/section/75
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The Financial Ombudsman Service says a debtor-creditor-supplier agreement must be in place, the cash price must be
+      more than £100 but no more than £30,000, the claim can be for misrepresentation or breach of contract by the
+      supplier, and the consumer does not have to pay the full cash price on credit for a valid claim.
+    issues: [transaction_dispute, refund_request]
+    source: https://www.financial-ombudsman.org.uk/businesses/resolving-complaint/complaints-deal/consumer-credit/goods-services-bought-credit
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The Financial Ombudsman Service says a credit provider might still be responsible under section 75A in some cases
+      where the cash price is over £30,000.
+    issues: [transaction_dispute]
+    source: https://www.financial-ombudsman.org.uk/businesses/resolving-complaint/complaints-deal/consumer-credit/goods-services-bought-credit
+    verified_via: page
+    last_verified: 2026-11-19
+status_note: >-
+  legislation.gov.uk shows the £100 and £30,000 limits as substituted by SI 1983/1878, and the "or more than" wording
+  and the running-account exclusion as added from 1 February 2011 by SI 2010/1010. A section 75 claim is a legal right
+  against the lender, unlike a chargeback. Section 75 needs a credit agreement, so a debit card payment is not covered;
+  UK banks in this registry (for example HSBC UK) say it applies only to credit cards. A refused claim can go to the
+  Financial Ombudsman Service.
+source: https://www.legislation.gov.uk/ukpga/1974/39/section/75
+last_verified: 2026-11-19

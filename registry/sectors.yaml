@@ -35,6 +35,11 @@ regulators:
   - {id: uk-energy-ombudsman, name: "Energy Ombudsman (Trust Alliance Group, Ofgem-approved ADR scheme)"}
   - {id: uk-citizens-advice, name: "Citizens Advice consumer service"}
 
+  - {id: uk-caa, name: "UK Civil Aviation Authority, Passenger Advice and Complaints Team"}
+  - {id: uk-aviation-adr, name: "AviationADR (CAA-approved airline dispute resolution scheme)"}
+  - {id: uk-cedr-aviation, name: "CEDR aviation adjudication scheme (CAA-approved airline dispute resolution)"}
+  - {id: uk-fos, name: "Financial Ombudsman Service"}
+  - {id: uk-fca, name: "Financial Conduct Authority"}
   # European Union and member states
   - {id: eu-air-passenger-nebs, name: "National Enforcement Bodies for EU air passenger rights (Regulation (EC) No 261/2004)"}
   - {id: eu-ecc-net, name: "European Consumer Centres Network (ECC-Net)"}

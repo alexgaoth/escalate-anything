@@ -1,0 +1,55 @@
+id: uk-chargeback
+title: Card chargeback (Visa and Mastercard scheme rules, not a law)
+citation: Card scheme rules (Visa, Mastercard); Financial Ombudsman Service approach to disputed card transactions
+jurisdiction: gb
+status: in_effect
+applies_to:
+  sectors: [bank, airline, retail, travel_agency, lodging, subscription]
+  issues: [transaction_dispute, refund_request, company_shutdown, flight_cancellation, billing_error]
+summary: >-
+  A chargeback is a way to dispute a card payment through the card scheme (Visa or Mastercard). It works for debit
+  and credit cards, but it is a scheme rule, not a legal right, and most claims have a time
+  limit (commonly 120 days). Ask the card issuer to raise it after the merchant fails to deliver or refund. The
+  Financial Ombudsman Service usually expects the bank to raise a chargeback when there is a reasonable chance of
+  success, so a refusal to try can be complained about. For credit card purchases of £100 to £30,000, also see
+  uk-section-75-cca, which is a legal right.
+points:
+  - kind: policy
+    claim: >-
+      The Financial Ombudsman Service describes chargeback as a way of disputing transactions through the card scheme,
+      under the card scheme rules, and says that if there is a reasonable chance of success it will usually expect the
+      firm to raise a chargeback. Firms should tell consumers about relevant time limits.
+    issues: [transaction_dispute, refund_request]
+    source: https://www.financial-ombudsman.org.uk/businesses/resolving-complaint/complaints-deal/consumer-credit/goods-services-bought-credit
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      The Financial Ombudsman Service lists complaints from consumers who asked their card issuer to refund them through
+      chargeback among the disputed-transaction complaints it handles.
+    issues: [transaction_dispute]
+    source: https://www.financial-ombudsman.org.uk/consumers/complaints-can-help/banking-and-payments/disputed-transactions
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Barclaycard says chargeback is part of the card scheme rules rather than a legal requirement, and that time
+      limits apply to certain types of chargeback claim, the most common being 120 days.
+    issues: [transaction_dispute]
+    source: https://www.barclaycard.co.uk/personal/help-and-support/know-your-rights
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      HSBC UK says a chargeback is raised under Visa or Mastercard rules and does not affect your Section 75 rights, and
+      that it reviews a failed credit card chargeback under Section 75 automatically.
+    issues: [transaction_dispute]
+    source: https://www.hsbc.co.uk/help/card-support/dispute-transaction/
+    last_verified: 2026-11-19
+status_note: >-
+  Not a statute: no UK law sets chargeback rights, time limits or reason codes. The scheme rules themselves are not
+  public in full, so this file uses the Financial Ombudsman Service and bank pages. The time limit differs by reason
+  and scheme; 120 days is the most common figure banks quote, not a guarantee. If the bank refuses or handles a
+  chargeback badly, complain to the bank and then to the Financial Ombudsman Service (uk-fos-8-week-rule).
+source: https://www.financial-ombudsman.org.uk/businesses/resolving-complaint/complaints-deal/consumer-credit/goods-services-bought-credit
+last_verified: 2026-11-19

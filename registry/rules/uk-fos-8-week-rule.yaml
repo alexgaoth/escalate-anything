@@ -1,0 +1,93 @@
+id: uk-fos-8-week-rule
+title: Financial complaints - the firm first, then the Financial Ombudsman Service after 8 weeks (15 days for payments) or a final response
+citation: FCA Handbook DISP 1.6 (complaint time limits) and DISP 2.8 (time limits for referral to the ombudsman)
+jurisdiction: gb
+status: in_effect
+applies_to:
+  sectors: [bank, credit_union, payments, investing, insurance_property, insurance_health]
+  issues: [unauthorized_charge, fraud, transaction_dispute, fee_reversal, frozen_funds, identity_theft, account_access, billing_error, poor_service]
+summary: >-
+  Complain to the bank or financial firm first and say how you want it fixed. The firm has up to 8 weeks to send a
+  final response (15 days for fraud and scams, payment services and e-money, extendable to 35). If you are unhappy
+  with the final response, or it is late, take the complaint to the Financial Ombudsman Service within 6 months of
+  the final response. The service is free and you do not need a claims company. If you accept the ombudsman's
+  decision, the firm must follow it. You should normally complain to the firm within 6 years of the problem, or 3
+  years from when you knew (or should have known).
+points:
+  - kind: process
+    claim: >-
+      The Financial Ombudsman Service says to complain to the business first, explain the problem and say how you would
+      like it fixed, and keep records of calls, emails and other evidence.
+    source: https://www.financial-ombudsman.org.uk/consumers/how-to-complain
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      A business has up to 8 weeks to consider most complaints, and 15 days for complaints about fraud and scams,
+      payment services and electronic money. You can bring the complaint to the ombudsman if you are unhappy with the
+      final response or have had no reply within these limits.
+    issues: [unauthorized_charge, fraud, transaction_dispute, fee_reversal, frozen_funds, poor_service]
+    source: https://www.financial-ombudsman.org.uk/consumers/complaints-can-help/expect/time-limits
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      For scam complaints, the ombudsman says the firm must get back to you within 15 days and must then send a
+      response within 35 days; if you are unhappy with it, or the firm does not reply in time, you can go to the
+      ombudsman.
+    issues: [fraud]
+    source: https://www.financial-ombudsman.org.uk/consumers/complaints-can-help/fraud-scams/scams-youve-tricked-making-payment
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      You have 6 months from the date on the final response to refer the complaint to the ombudsman, counted in
+      calendar months (a final response dated 7 May gives until 7 November). The final response should tell you this.
+      Exceptions: exceptional circumstances, no valid final response, or the business agrees to a late referral.
+    source: https://www.financial-ombudsman.org.uk/consumers/complaints-can-help/expect/time-limits
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      You usually need to complain within 6 years of the problem happening, or within 3 years of becoming aware (or
+      when you reasonably should have realised) that you had cause to complain. The ombudsman may consider a late
+      complaint in exceptional circumstances.
+    source: https://www.financial-ombudsman.org.uk/consumers/complaints-can-help/expect/time-limits
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The service is free. You do not need a lawyer or a claims management company; a friend or family member can help.
+    source: https://www.financial-ombudsman.org.uk/consumers/how-to-complain
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      An investigator looks at the complaint first; if either side disagrees, an ombudsman reviews it and issues a final
+      decision. If you accept the findings, the business must follow the instructions. Accepting compensation may stop
+      you taking the business to court over the same complaint.
+    source: https://www.financial-ombudsman.org.uk/consumers/complaints-can-help/expect
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: limit
+    claim: >-
+      Award limit for complaints referred on or after 1 April 2026: £455,000 where the act or omission was on or after
+      1 April 2019, and £205,000 where it was before 1 April 2019. Interest for being deprived of money can be paid on
+      top.
+    source: https://www.financial-ombudsman.org.uk/consumers/complaints-can-help/expect/compensation
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      The FCA says to complain to the firm first and, if unhappy with its decision or if you do not hear back in time,
+      contact the Financial Ombudsman Service within 6 months of the final response. The FCA says it cannot investigate
+      individual complaints.
+    source: https://www.fca.org.uk/consumers/how-complain
+    verified_via: page
+    last_verified: 2026-11-19
+status_note: >-
+  The DISP rule text in the FCA Handbook was not readable by fetch on 2026-11-19 (the site needs JavaScript); the
+  limits above are as the Financial Ombudsman Service and the FCA state them. "15 days" and "35 days" are as the
+  ombudsman writes them; firms' own pages (for example Barclays) describe them as 15 and at most 35 business days.
+source: https://www.financial-ombudsman.org.uk/consumers/complaints-can-help/expect/time-limits
+last_verified: 2026-11-19

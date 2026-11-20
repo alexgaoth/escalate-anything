@@ -1,0 +1,117 @@
+id: uk-cedr-aviation
+name: CEDR Aviation Adjudication Scheme (CAA-approved airline dispute resolution)
+short_name: CEDR aviation
+level: ombudsman
+country: gb
+covers_sectors: [airline]
+covers_issues:
+  - flight_cancellation
+  - flight_delay
+  - denied_boarding
+  - delayed_baggage
+  - lost_baggage
+  - damaged_baggage
+  - accessibility
+website: https://www.cedr-assist.com/consumer/aviation/overview/
+when_to_use: >-
+  Use for an unresolved complaint against a member airline: British Airways, BA CityFlyer, BA EuroFlyer and Cathay
+  Pacific (SAS only until 5pm on 30 November 2026). Complain to the airline first; apply after 8 weeks or a final
+  response (deadlock) letter, within 12 months of that final response. One application per booking reference. CEDR
+  says the scheme will close permanently at 5pm on 31 December 2026; cases registered before then continue to the end.
+  After that date, use whatever route the airline then names, or the CAA (uk-caa) if the airline is in no approved
+  scheme.
+
+channels:
+  - id: make-a-complaint
+    type: web_form
+    label: CEDR aviation - make a complaint (eligibility check and online application)
+    value: https://www.cedr-assist.com/consumer/aviation/make-a-complaint/
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, accessibility]
+    access: open
+    notes: >-
+      The page links the online application form (a HubSpot form at
+      https://3joav.share-eu1.hsforms.com/2nmqO8u0qTomaz0DtrHTDZQ). Include booking forms, correspondence with the
+      airline, flight schedules, receipts and photos; documents can be added after submitting. The scheme closes
+      permanently at 5pm on 31 December 2026.
+    verified_via: page
+    source: https://www.cedr-assist.com/consumer/aviation/make-a-complaint/
+    last_verified: 2026-11-19
+  - id: aviation-phone
+    type: phone
+    label: CEDR aviation help line (020 7536 6099)
+    value: +44-20-7536-6099
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage]
+    notes: CEDR's general number is +44 (0)20 7536 6000. Hours not stated.
+    verified_via: page
+    source: https://www.cedr-assist.com/consumer/aviation/overview/
+    last_verified: 2026-11-19
+  - id: aviation-email
+    type: email
+    label: CEDR aviation email
+    value: aviation@cedr.com
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage]
+    verified_via: page
+    source: https://www.cedr-assist.com/consumer/aviation/make-a-complaint/
+    last_verified: 2026-11-19
+  - id: postal-address
+    type: mail
+    label: CEDR by post
+    value: CEDR, International Dispute Resolution Centre, 100 St. Paul's Churchyard, London, EC4M 8BU
+    notes: No walk-ins.
+    verified_via: page
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/travel-complaints/alternative-dispute-resolution/
+    last_verified: 2026-11-19
+
+facts:
+  - kind: deadline
+    claim: >-
+      CEDR says the Aviation Adjudication Scheme will permanently close at 5pm on 31 December 2026. After this date you
+      will need to raise your complaint in another forum; cases already registered continue until conclusion.
+    issues: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage]
+    source: https://www.cedr-assist.com/consumer/aviation/make-a-complaint/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      The last day to register a new case against SAS is 5pm on 30 November 2026; after that, claims against SAS can be
+      registered with AviationADR. Existing SAS cases continue until conclusion.
+    source: https://www.cedr-assist.com/consumer/aviation/make-a-complaint/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      Before applying: you have already complained to the airline or airport, at least eight weeks have passed since you
+      first complained or you have received a final response (deadlock) letter, and the complaint is not the subject of
+      court action. One application per booking reference, with all passengers included.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    source: https://www.cedr-assist.com/consumer/aviation/make-a-complaint/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      The CAA says to submit to an ADR provider within 12 months of the airline's final response, that the issue must
+      be within the last six years (five years in Scotland), and that ADR is free.
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/travel-complaints/alternative-dispute-resolution/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      The scheme covers any flight that departs or arrives in the United Kingdom on a subscribing airline. If the
+      adjudicator decides in your favour and you accept, the airline must do what the adjudicator directs within 20
+      working days of your acceptance, unless the decision says otherwise. You are free to accept or reject the
+      decision.
+    source: https://www.cedr-assist.com/consumer/aviation/overview/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: CEDR gives the timescale as 90 days from receipt of the complete case file.
+    source: https://www.cedr-assist.com/consumer/aviation/overview/
+    verified_via: page
+    last_verified: 2026-11-19
+
+notes: >-
+  Run by the Centre for Effective Dispute Resolution (CEDR), approved by the CAA. Read on 2026-11-19. Members on CEDR's
+  overview page: British Airways, BA CityFlyer, BA EuroFlyer, Cathay Pacific, SAS and SAS Connect (SAS leaving 30
+  November 2026); the CAA's list (British Airways, BA CityFlyer, Cathay Pacific) already shows SAS under AviationADR.
+  Neither CEDR nor the CAA said on 2026-11-19 which scheme British Airways will use after CEDR closes; re-check in
+  January 2027.

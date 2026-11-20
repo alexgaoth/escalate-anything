@@ -1,0 +1,459 @@
+id: virgin-atlantic
+name: Virgin Atlantic
+aliases: [virgin atlantic airways, virgin atlantic airways ltd, virginatlantic.com, vs]
+sector: airline
+countries: [gb]
+website: https://www.virginatlantic.com
+regulators: [uk-aviation-adr, uk-caa]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Virgin Atlantic, calling from the UK (0344 874 7747)
+    value: +44-344-874-7747
+    hours: 24 hours a day, 7 days a week
+    purposes: [flight_cancellation, flight_delay, refund_request, travel_credit, accessibility]
+    notes: >-
+      Domestic form 0344 874 7747. The contact page lists this number "or 0344 209 2722" for the UK; the flight
+      disruption articles give 0344 209 2722 for rebooking. From the USA or Canada the page lists +1 800 862 8621,
+      24/7. Deaf or speech-impaired customers can use Relay UK (Monday to Friday 9am-6pm) or Convo (24/7).
+    verified_via: browser
+    source: https://www.virginatlantic.com/contact-us
+    last_verified: 2026-11-19
+  - id: disruption-phone
+    type: phone
+    label: Rebooking after a cancellation or schedule change (0344 209 2722)
+    value: +44-344-209-2722
+    hours: 24 hours a day, 7 days a week
+    purposes: [flight_cancellation, flight_delay]
+    notes: Domestic form 0344 209 2722. The cancellation article says to call this number if you were not rebooked and see no new flight options in Manage my Booking.
+    verified_via: browser
+    source: https://www.virginatlantic.com/help/articles/my-flight-has-been-cancelled-what-happens-next----87b00f2e-5e26-4ca3-8f34-51701370f6ba
+    last_verified: 2026-11-19
+  - id: chat
+    type: chat
+    label: Chat (tailfin button on the contact page)
+    value: https://www.virginatlantic.com/contact-us
+    purposes: [flight_cancellation, flight_delay, refund_request, delayed_baggage]
+    notes: The contact page says to chat by clicking the tailfin button at the bottom right of the page. The feedback article says the Concierge chat connects you to a live advisor if it cannot help.
+    verified_via: browser
+    source: https://www.virginatlantic.com/contact-us
+    last_verified: 2026-11-19
+  - id: complaint-form
+    type: web_form
+    label: Feedback and complaint form (after your flight)
+    value: https://help.virginatlantic.com/gb/en/contact-forms.html?webform=complaint
+    purposes: [poor_service, flight_cancellation, flight_delay, denied_boarding, accessibility]
+    access: open
+    notes: >-
+      Virgin Atlantic says there is no direct email address; all feedback starts with an online form. The form asks for
+      the booking reference (6 characters beginning A-G) and accepts attachments. Before travel, use the pre-travel
+      feedback form instead.
+    verified_via: browser
+    source: https://www.virginatlantic.com/help/articles/how-can-i-provide-feedback-of-my-experience----406643df-c440-49ee-a070-0f1a7e5c27ee
+    last_verified: 2026-11-19
+  - id: pre-travel-feedback-form
+    type: web_form
+    label: Pre-travel and non-booking feedback form
+    value: https://help.virginatlantic.com/gb/en/contact-forms.html?webform=complaint-pre-travel
+    purposes: [poor_service]
+    access: open
+    verified_via: browser
+    source: https://www.virginatlantic.com/help/articles/how-can-i-provide-feedback-of-my-experience----406643df-c440-49ee-a070-0f1a7e5c27ee
+    last_verified: 2026-11-19
+  - id: compensation-claim-form
+    type: web_form
+    label: Claim compensation for a delayed or cancelled flight (UK/EU 261)
+    value: https://help.virginatlantic.com/gb/en/contact-forms.html?suggestedAnswerId=eu_care&webform=feedback--i-need-to-claim-compensation-due-to-a-delay-or-cancelled-flight
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    access: open
+    notes: Fill out a separate claim for each flight. You can claim for others on the same booking reference; people on different bookings claim separately with a different email address.
+    verified_via: browser
+    source: https://www.virginatlantic.com/help/articles/how-can-i-apply-for-compensation----6176430c-0b82-49ca-9d67-b92a0da9ea3e
+    last_verified: 2026-11-19
+  - id: expenses-claim-form
+    type: web_form
+    label: Claim expenses for a delayed or cancelled flight
+    value: https://help.virginatlantic.com/gb/en/contact-forms.html?suggestedAnswerId=eu_care&webform=feedback--i-need-to-claim-back-expenses-due-to-a-delay-or-cancelled-flight
+    purposes: [flight_cancellation, flight_delay]
+    access: open
+    notes: Send PDF copies of all receipts and an itemised summary.
+    verified_via: browser
+    source: https://www.virginatlantic.com/help/articles/can-i-claim-for-out-of-pocket-expenses----4b4307f2-5355-475b-85bc-675ec059dee1
+    last_verified: 2026-11-19
+  - id: refund-form
+    type: web_form
+    label: Refund form (tickets; seats, upgrades and excess baggage)
+    value: https://help.virginatlantic.com/gb/en/contact-forms/refund-form.html?webform=ticket-refunds
+    purposes: [refund_request, flight_cancellation, flight_delay, ancillary_fee_refund]
+    access: open
+    notes: >-
+      Tabs on the form: request a quote for your refund, claim a refund for your booking, and claim a refund for your
+      seats, upgrades or excess baggage. It asks for every ticket number (starting with 932). For a disruption, say in
+      the comment box that the refund is due to a flight disruption.
+    verified_via: browser
+    source: https://www.virginatlantic.com/help/articles/my-flight-has-been-cancelled-what-happens-next----87b00f2e-5e26-4ca3-8f34-51701370f6ba
+    last_verified: 2026-11-19
+  - id: manage-booking
+    type: portal
+    label: Manage my Booking (view rebooking options after a cancellation)
+    value: https://www.virginatlantic.com/manage-booking
+    purposes: [flight_cancellation, flight_delay]
+    notes: The cancellation article says Virgin Atlantic may already have rebooked you, or may show options to choose from.
+    verified_via: browser
+    source: https://www.virginatlantic.com/help/articles/my-flight-has-been-cancelled-what-happens-next----87b00f2e-5e26-4ca3-8f34-51701370f6ba
+    last_verified: 2026-11-19
+  - id: baggage-tracing-email
+    type: email
+    label: Baggage tracing team email
+    value: baggage.tracing@fly.virgin.com
+    hours: 24/7
+    purposes: [delayed_baggage, lost_baggage]
+    notes: The baggage team says it is available 24/7 on digital channels and email.
+    verified_via: browser
+    source: https://www.virginatlantic.com/help/articles/how-can-i-contact-the-baggage-tracing-team----7f2b5489-e342-45c6-959f-290acd6d25f6
+    last_verified: 2026-11-19
+  - id: baggage-tracing-sms
+    type: sms
+    label: Baggage tracing team by SMS (UK)
+    value: +44-7481-339-140
+    hours: 24/7
+    purposes: [delayed_baggage, lost_baggage]
+    notes: Listed as +44 (0)7481 339 140. The US SMS number listed is +1 800 880 6253.
+    verified_via: browser
+    source: https://www.virginatlantic.com/help/articles/how-can-i-contact-the-baggage-tracing-team----7f2b5489-e342-45c6-959f-290acd6d25f6
+    last_verified: 2026-11-19
+  - id: baggage-tracing-whatsapp
+    type: app
+    label: Baggage tracing team on WhatsApp
+    value: +44-344-209-7304
+    hours: 24/7
+    purposes: [delayed_baggage, lost_baggage]
+    notes: Listed as WhatsApp +44 (0)344 209 7304.
+    verified_via: browser
+    source: https://www.virginatlantic.com/help/articles/how-can-i-contact-the-baggage-tracing-team----7f2b5489-e342-45c6-959f-290acd6d25f6
+    last_verified: 2026-11-19
+  - id: worldtracer-portal
+    type: portal
+    label: WorldTracer portal (check a missing bag report, update details, share AirTag location)
+    value: https://mybag.aero/baggage/#/pax/virginatlantic/en-gb/main-menu
+    purposes: [delayed_baggage, lost_baggage]
+    notes: Hosted on mybag.aero (WorldTracer), linked from virginatlantic.com. Needs your surname and the 10-character reference from the missing bag report (AHL).
+    verified_via: browser
+    source: https://www.virginatlantic.com/help/articles/can-i-monitor-the-progress-of-my-missing-bag----32292e24-db6e-4c2e-9eb9-97934c1feff0
+    last_verified: 2026-11-19
+  - id: essential-items-claim-form
+    type: web_form
+    label: Claim essential items while your bag was delayed
+    value: https://help.virginatlantic.com/gb/en/contact-forms/baggage-claim-forms.html?webform=claiming-essential-items
+    purposes: [delayed_baggage]
+    access: open
+    notes: Submit receipts within 21 days after the bag is returned.
+    verified_via: browser
+    source: https://www.virginatlantic.com/help/articles/how-can-i-make-a-claim-for-a-delayed-lost-or-damaged-bag----74dbebce-3330-462c-aaff-ae499a3a7164
+    last_verified: 2026-11-19
+  - id: baggage-claim-form
+    type: web_form
+    label: Irretrievably lost baggage, damaged baggage or missing contents claim
+    value: https://help.virginatlantic.com/gb/en/contact-forms/baggage-claim-forms.html?webform=delayed-bags
+    purposes: [lost_baggage, damaged_baggage]
+    access: open
+    notes: >-
+      The claims article links both the lost-bag form and the damaged-bag/missing-contents form to this address. First
+      fill in the matching PDF log (lost baggage log, or damaged baggage or missing contents log), save it, and attach it
+      with receipts. Postal versions of both forms exist; send them to the Customer Care address by recorded delivery.
+    verified_via: browser
+    source: https://www.virginatlantic.com/help/articles/how-can-i-make-a-claim-for-a-delayed-lost-or-damaged-bag----74dbebce-3330-462c-aaff-ae499a3a7164
+    last_verified: 2026-11-19
+  - id: customer-care-mail
+    type: mail
+    label: Customer Care by post (UK)
+    value: Virgin Atlantic, Customer Care, The VHQ, Fleming Way, Crawley, RH10 9DF, UK
+    purposes: [lost_baggage, damaged_baggage, poor_service]
+    notes: Given as the UK address for postal baggage claims. It matches the registered office in the site footer (The VHQ, Fleming Way, Crawley, West Sussex, RH10 9DF).
+    verified_via: browser
+    source: https://www.virginatlantic.com/help/articles/how-can-i-make-a-claim-for-a-delayed-lost-or-damaged-bag----74dbebce-3330-462c-aaff-ae499a3a7164
+    last_verified: 2026-11-19
+  - id: accessible-travel-forms
+    type: portal
+    label: Accessible Travel Services request forms
+    value: https://www.virginatlantic.com/help/articles/how-do-i-contact-accessible-travel-services----79b3362d-c8de-4da6-8526-757f5d6e14af
+    purposes: [accessibility]
+    notes: >-
+      The page links one form per need (assistance dogs, medical equipment, your own mobility aids, hidden
+      disabilities, epilepsy, respiratory and cardiac conditions, allergies, visual or hearing impairment, pregnancy,
+      recent surgery, other conditions). Complete it at least 72 hours before departure. For codeshare or partner
+      flights, contact the operating airline.
+    verified_via: browser
+    source: https://www.virginatlantic.com/help/articles/how-do-i-contact-accessible-travel-services----79b3362d-c8de-4da6-8526-757f5d6e14af
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: complaint-form}
+  - rung: regulator
+    regulator: uk-aviation-adr
+    note: Virgin Atlantic names Airline Dispute Resolution by Consumer Dispute Resolution Ltd (AviationADR), approved by the UK CAA. Free; Virgin Atlantic is bound by the outcome. Refer within 12 months after the final response.
+  - {rung: payment_dispute, note: "Section 75 claim (credit card, £100-£30,000) or chargeback with the card issuer"}
+  - {rung: small_claims, note: "Money Claim Online (England and Wales); simple procedure in Scotland"}
+
+playbooks:
+  - issue: flight_cancellation
+    summary: Check Manage my Booking for a new flight or call to rebook; or request a refund by form. Claim expenses and, for a late cancellation within Virgin Atlantic's control, fixed compensation by form.
+    evidence: [booking reference, ticket numbers (starting 932), cancellation notice with date received, new itinerary, receipts]
+    steps:
+      - do: Check Manage my Booking; you may already be rebooked or offered options.
+        channel: manage-booking
+      - do: If you were not rebooked or the dates do not work, call.
+        channel: disruption-phone
+      - do: If you decide not to travel, request a refund of the unused part of the ticket.
+        channel: refund-form
+      - do: Claim reasonable expenses with PDF receipts and an itemised summary.
+        channel: expenses-claim-form
+      - do: Claim compensation directly with Virgin Atlantic (one form per flight) and allow 28 days before using a third party.
+        channel: compensation-claim-form
+      - do: If the final response does not resolve it, refer to AviationADR within 12 months.
+        regulator: uk-aviation-adr
+    facts:
+      - kind: compensation
+        claim: Virgin Atlantic's compensation leaflet (printed February 2025) gives cancellation compensation of 260 GBP for long haul (over 3,500 km) if the new flight arrives within four hours of the original arrival time and 520 GBP if later; 175 GBP or 350 GBP for medium haul (1,500-3,500 km) with a three-hour threshold; and 220 GBP for short haul (under 1,500 km) if the new flight arrives more than two hours late.
+        issues: [flight_cancellation]
+        verified_via: document
+        source: https://help.virginatlantic.com/content/dam/documents/Compensation_booklet_FEB2025.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Virgin Atlantic says it will not offer compensation if it told you of the cancellation more than two weeks before departure, if the cause was beyond its control (for example political instability, severe weather, security risks or strikes that affect its operation), or if you travelled free or on a reduced fare not available to the public.
+        issues: [flight_cancellation, flight_delay]
+        verified_via: browser
+        source: https://www.virginatlantic.com/help/articles/when-do-you-offer-compensation-under-the-ec2612004-regulation----51af9e8d-cdad-47e6-9c80-42530774d413
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Conditions of Carriage Article 21.4 (Revision 58, 17 August 2026) says you must make any Regulation 261/2004 claim to Virgin Atlantic directly and allow 28 days for a reply before a third party claims for you; this does not stop you using a solicitor or other authorised lawyer, but claims management companies are excluded.
+        issues: [flight_cancellation, flight_delay, denied_boarding]
+        verified_via: document
+        source: https://vaabrowse.virginatlantic.com/content/dam/conditions-of-carriage/Revision%2058%20(17%20August%202026).pdf
+        last_verified: 2026-11-19
+
+  - issue: flight_delay
+    summary: Ask for food and drink at the airport; claim expenses by form; for an arrival delay of 3 hours or more within Virgin Atlantic's control, claim compensation by form.
+    evidence: [booking reference, scheduled and actual arrival time, cause given, receipts]
+    steps:
+      - do: At the airport, ask staff for meals and refreshments. Keep receipts for anything you buy.
+      - do: If you no longer want to travel after a long delay, request a refund (say it is due to a disruption).
+        channel: refund-form
+      - do: Claim reasonable expenses.
+        channel: expenses-claim-form
+      - do: Claim compensation directly with Virgin Atlantic.
+        channel: compensation-claim-form
+      - do: If the final response does not resolve it, refer to AviationADR within 12 months.
+        regulator: uk-aviation-adr
+    facts:
+      - kind: compensation
+        claim: Virgin Atlantic's compensation leaflet (printed February 2025) gives delay compensation of 260 GBP (arrival more than three hours late) or 520 GBP (more than four hours late) for long haul, 175 GBP or 350 GBP for medium haul, and 220 GBP for short haul.
+        issues: [flight_delay]
+        verified_via: document
+        source: https://help.virginatlantic.com/content/dam/documents/Compensation_booklet_FEB2025.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: The leaflet says that for a long-haul delay of more than four hours Virgin Atlantic provides meals and refreshments plus two short calls or messages; after more than five hours you may cancel and get a refund of the unused ticket; and for an overnight delay it offers a hotel and transport.
+        issues: [flight_delay, refund_request]
+        verified_via: document
+        source: https://help.virginatlantic.com/content/dam/documents/Compensation_booklet_FEB2025.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Virgin Atlantic's expenses article lists reasonable costs as a no-frills hotel (sharing rooms where possible), meals and about six regular non-alcoholic drinks per person per day, public transport between airport and hotel, and two short calls; it excludes luxury hotels, alcohol, room service, replacement flights on other airlines and anything without a receipt.
+        issues: [flight_delay, flight_cancellation]
+        verified_via: browser
+        source: https://www.virginatlantic.com/help/articles/can-i-claim-for-out-of-pocket-expenses----4b4307f2-5355-475b-85bc-675ec059dee1
+        last_verified: 2026-11-19
+
+  - issue: denied_boarding
+    summary: If denied boarding involuntarily on an oversold flight, ask for compensation, a refund or rerouting, and care; claim by form if not paid at the airport.
+    evidence: [booking reference, check-in time (at least 60 minutes before departure), denied-boarding notice, receipts]
+    steps:
+      - do: At the airport, ask for denied boarding compensation, your choice of refund or rerouting, and meals and hotel if needed.
+      - do: If not paid, claim compensation by form.
+        channel: compensation-claim-form
+      - do: If the final response does not resolve it, refer to AviationADR within 12 months.
+        regulator: uk-aviation-adr
+    facts:
+      - kind: compensation
+        claim: Virgin Atlantic's leaflet says involuntary denied boarding compensation is 260 GBP if the new flight arrives within four hours of the original arrival time and 520 GBP if later, plus a refund or rerouting and care. It applies only with a confirmed reservation and check-in at least 60 minutes before departure.
+        issues: [denied_boarding]
+        verified_via: document
+        source: https://help.virginatlantic.com/content/dam/documents/Compensation_booklet_FEB2025.pdf
+        last_verified: 2026-11-19
+
+  - issue: delayed_baggage
+    summary: Report at the baggage reclaim hall before leaving and keep the 10-character reference; spend up to the £65 a day guideline on essentials; claim within 21 days of getting the bag back.
+    evidence: [10-character missing bag report (AHL) reference, bag tag, booking reference, receipts for essentials]
+    steps:
+      - do: Before leaving the airport, report the missing bag to staff in the baggage reclaim hall and keep the 10-character reference.
+      - do: Track the bag and update details in the WorldTracer portal, or contact the baggage tracing team.
+        channel: worldtracer-portal
+      - do: For updates, email, text or WhatsApp the baggage tracing team (24/7).
+        channel: baggage-tracing-email
+      - do: Claim essential items with receipts within 21 days after the bag is returned.
+        channel: essential-items-claim-form
+      - do: If the bag is not found after 21 days, claim for a lost bag (see lost_baggage).
+        channel: baggage-claim-form
+      - do: If the final response does not resolve it, refer to AviationADR within 12 months.
+        regulator: uk-aviation-adr
+    facts:
+      - kind: compensation
+        claim: Virgin Atlantic offers a guideline of £65/$75 per day for essential items while you are without your bag; submit receipts within 21 days of the bag being returned.
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://www.virginatlantic.com/help/articles/how-can-i-make-a-claim-for-a-delayed-lost-or-damaged-bag----74dbebce-3330-462c-aaff-ae499a3a7164
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Conditions of Carriage Article 19.13 says a claim for delayed checked baggage must be submitted in writing within 21 days from the date the bag was made available to you, or the right to claim or sue is extinguished; Article 19.15 says legal action must be brought within two years.
+        issues: [delayed_baggage, lost_baggage, damaged_baggage]
+        verified_via: document
+        source: https://vaabrowse.virginatlantic.com/content/dam/conditions-of-carriage/Revision%2058%20(17%20August%202026).pdf
+        last_verified: 2026-11-19
+
+  - issue: lost_baggage
+    summary: Virgin Atlantic declares a bag irretrievably lost 21 days after it was reported missing; then claim with the lost baggage log and receipts.
+    evidence: [10-character missing bag report reference, completed lost baggage log, proof of purchase with dates and prices]
+    steps:
+      - do: Consider claiming on travel insurance first; Virgin Atlantic says its liability is limited and insurers usually accept the 10-character reference as proof.
+      - do: Fill in the irretrievably lost baggage log (PDF), save it, then submit the claim form with the log and receipts.
+        channel: baggage-claim-form
+      - do: To claim by post, send the postal form, receipts and documents by recorded delivery.
+        channel: customer-care-mail
+      - do: If the final response does not resolve it, refer to AviationADR within 12 months.
+        regulator: uk-aviation-adr
+    facts:
+      - kind: limit
+        claim: Conditions of Carriage Article 19.7 limits liability for damage to baggage to the equivalent of 1,519 SDRs per passenger where the Montreal Convention applies, unless damage was caused intentionally or recklessly; all claims need documented proof of purchase with date and price, and depreciation is deducted.
+        issues: [lost_baggage, damaged_baggage, delayed_baggage]
+        verified_via: document
+        source: https://vaabrowse.virginatlantic.com/content/dam/conditions-of-carriage/Revision%2058%20(17%20August%202026).pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Virgin Atlantic says it aims to be back in touch within five working days after a baggage claim is submitted.
+        issues: [lost_baggage, damaged_baggage, delayed_baggage]
+        verified_via: browser
+        source: https://www.virginatlantic.com/help/articles/how-can-i-make-a-claim-for-a-delayed-lost-or-damaged-bag----74dbebce-3330-462c-aaff-ae499a3a7164
+        last_verified: 2026-11-19
+
+  - issue: damaged_baggage
+    summary: Report damage to baggage hall staff before leaving (a Property Irregularity Report); otherwise claim in writing within 7 days of receiving the bag.
+    evidence: [Property Irregularity Report, photos, the damaged bag, completed damaged baggage log, receipts or repair estimate]
+    steps:
+      - do: Before leaving the airport, show the damage to baggage hall staff; at some airports they settle the claim with a replacement bag or a repair referral.
+      - do: Otherwise fill in the damaged baggage or missing contents log, save it, and submit the claim form within seven days of collecting the bag. Keep the damaged bag in case Virgin Atlantic asks to examine it.
+        channel: baggage-claim-form
+      - do: If the final response does not resolve it, refer to AviationADR within 12 months.
+        regulator: uk-aviation-adr
+    facts:
+      - kind: deadline
+        claim: Conditions of Carriage Article 19.10 says that if you do not report damage at the airport on a Property Irregularity Report, you must claim in writing within seven days of receiving the bag; Article 19.12 sets seven days for items missing from a checked bag.
+        issues: [damaged_baggage]
+        verified_via: document
+        source: https://vaabrowse.virginatlantic.com/content/dam/conditions-of-carriage/Revision%2058%20(17%20August%202026).pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Virgin Atlantic does not accept claims for cosmetic or minor wear-and-tear damage such as scuffs or dents that do not affect the structure of the bag.
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://www.virginatlantic.com/help/articles/how-can-i-make-a-claim-for-a-delayed-lost-or-damaged-bag----74dbebce-3330-462c-aaff-ae499a3a7164
+        last_verified: 2026-11-19
+
+  - issue: refund_request
+    summary: Request refunds with the online refund form; refunds go to the original form of payment.
+    evidence: [booking reference, ticket numbers (starting 932), reason for refund, supporting documents]
+    steps:
+      - do: Submit the refund form. If the refund is for a disruption, say so in the comment box.
+        channel: refund-form
+      - do: If no confirmation arrives within 7 working days, complain in writing.
+        channel: complaint-form
+      - do: If the final response does not resolve it, refer to AviationADR within 12 months.
+        regulator: uk-aviation-adr
+    facts:
+      - kind: deadline
+        claim: Virgin Atlantic says that after a refund request you will get an email within 7 working days confirming the refund was processed, and funds should return within 3-5 working days, although some card providers take up to 14 working days.
+        issues: [refund_request]
+        verified_via: browser
+        source: https://www.virginatlantic.com/help/articles/my-flight-time-has-changed-within-72-hours-of-my-flight-departing-what-are-my-options----6efc70da-adfe-48c7-b12f-1d702931957b
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Conditions of Carriage Article 10.2 says that even a non-refundable ticket is refunded for the unused portion if you are entitled to a refund under Regulation 261/2004 or other applicable law, and taxes and government or airport charges on unused tickets can be refunded; Article 10.4 says refunds go to the original form of payment.
+        issues: [refund_request, flight_cancellation]
+        verified_via: document
+        source: https://vaabrowse.virginatlantic.com/content/dam/conditions-of-carriage/Revision%2058%20(17%20August%202026).pdf
+        last_verified: 2026-11-19
+
+  - issue: ancillary_fee_refund
+    summary: Claim refunds for seats, upgrades and excess baggage on the refund form's dedicated tab.
+    evidence: [booking reference, receipt for the seat, upgrade or bag fee, reason]
+    steps:
+      - do: Open the refund form and choose "Claim a refund for your seats/upgrades/excess baggage".
+        channel: refund-form
+      - do: If refused, complain in writing.
+        channel: complaint-form
+
+  - issue: accessibility
+    summary: Request assistance with the Accessible Travel Services form for your need at least 72 hours before departure.
+    evidence: [booking reference, assistance requested and date, details of the failure]
+    steps:
+      - do: Submit the Accessible Travel Services form that matches your need at least 72 hours before departure.
+        channel: accessible-travel-forms
+      - do: After the flight, complain in writing if the assistance failed.
+        channel: complaint-form
+      - do: If the final response does not resolve it, refer to AviationADR within 12 months.
+        regulator: uk-aviation-adr
+
+facts:
+  - kind: process
+    claim: Virgin Atlantic says that if you still feel your complaint is unresolved after its final response, you may refer it to Airline Dispute Resolution by Consumer Dispute Resolution Ltd, approved by the UK CAA; the service is free, Virgin Atlantic is bound by the outcome, and you must refer within 12 months after the final response confirming deadlock. Contact given there - Unit 5, Homelands, Higher Union Road, Kingsbridge, TQ7 1EQ; www.aviationadr.org.uk; 0203 540 8063.
+    issues: [poor_service, flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, refund_request]
+    verified_via: browser
+    source: https://www.virginatlantic.com/help/articles/what-can-i-do-if-im-not-happy-with-the-outcome-of-my-complaint----3ab78b02-79a8-415e-a6b6-2bbc17f57d00
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: Virgin Atlantic says complaints and claims are allocated to a Customer Care Advisor who responds by phone, email or letter no later than 28 days after you receive the acknowledgement.
+    issues: [poor_service]
+    verified_via: browser
+    source: https://www.virginatlantic.com/help/articles/what-can-i-do-if-im-not-happy-with-the-outcome-of-my-complaint----3ab78b02-79a8-415e-a6b6-2bbc17f57d00
+    last_verified: 2026-11-19
+  - kind: process
+    claim: Virgin Atlantic says it can only communicate with the passenger named in the booking, or their appointed representative after written permission.
+    issues: [poor_service]
+    verified_via: browser
+    source: https://www.virginatlantic.com/help/articles/what-can-i-do-if-im-not-happy-with-the-outcome-of-my-complaint----3ab78b02-79a8-415e-a6b6-2bbc17f57d00
+    last_verified: 2026-11-19
+
+known_blockers:
+  - There is no complaint email address; complaints and claims go through online forms, which ask for the booking reference (6 characters beginning A-G).
+  - Virgin Atlantic only talks to the passenger named in the booking or a representative with written permission.
+  - Compensation needs one claim form per flight; passengers on different bookings must claim separately with a different email address.
+  - The February 2025 compensation leaflet still gives virginatlantic.com/euclaimapplication for claims; on 2026-11-19 that address redirected to my.virginatlantic.com and failed with a certificate error. Use the help-centre form instead.
+  - Lost and damaged bag claims need a PDF log filled in, saved and attached before the online form is sent.
+
+notes: >-
+  Read on virginatlantic.com and help.virginatlantic.com in the browser on 2026-11-19 (pages render with JavaScript).
+  Conditions of Carriage Revision 58, effective 17 August 2026, read as a PDF. Virgin Atlantic's own complaints page
+  confirms AviationADR (trading as Airline Dispute Resolution by Consumer Dispute Resolution Ltd), matching the CAA
+  list. Inconsistencies on Virgin's pages - the article "Am I entitled to compensation if there has been a change to
+  my flight?" gives delay thresholds of "three hours or more if flying 1500 km to 3000 km; four hours or more in all
+  other cases" and links two "Apply for compensation" buttons to the expenses form; the February 2025 leaflet tables
+  are used here. The leaflet names the CAA (45-59 Kingsway, London) as the enforcement body for complaints about
+  assistance during disruption. The AviationADR postal address on Virgin's page (Kingsbridge) differs from the one in
+  easyJet's terms (Milton Keynes); check the regulator file.
+
+official_domains: [virginatlantic.com, fly.virgin.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Virgin Atlantic will never ask you for your password or credit card information over email, text message or social media.
+      verified_via: browser
+      source: https://www.virginatlantic.com/policies/website-security-guidance
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: Virgin Atlantic warns that third-party websites may claim to represent it when they do not, and says the only way to be sure is to use virginatlantic.com, flywith.virginatlantic.com, flights.virginatlantic.com or help.virginatlantic.com; check that an agent holds IATA, ABTA and ARC accreditation.
+      verified_via: browser
+      source: https://www.virginatlantic.com/policies/website-security-guidance
+      last_verified: 2026-11-19

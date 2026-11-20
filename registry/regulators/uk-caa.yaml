@@ -1,0 +1,121 @@
+id: uk-caa
+name: UK Civil Aviation Authority, Passenger Advice and Complaints Team
+short_name: CAA PACT
+level: national
+country: gb
+covers_sectors: [airline]
+covers_issues:
+  - flight_cancellation
+  - flight_delay
+  - denied_boarding
+  - delayed_baggage
+  - lost_baggage
+  - damaged_baggage
+  - accessibility
+website: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/travel-complaints/how-the-caa-can-help/
+when_to_use: >-
+  Use for a complaint about an airline or airport that is NOT a member of a CAA-approved dispute body (AviationADR or
+  CEDR), for example Jet2. Complain to the airline in writing first; go to the CAA's Passenger Advice and Complaints Team
+  (PACT) if you are not satisfied with the answer or have had no reply within 8 weeks. PACT handles only UK261
+  (delays, cancellations, downgrades, denied boarding), UK1107 (help for disabled passengers and those with reduced
+  mobility) and Montreal Convention baggage claims. Its view is not binding on the airline; court is the next step. If
+  the airline is in an approved scheme, use that scheme instead (uk-aviation-adr or uk-cedr-aviation).
+
+channels:
+  - id: pact-complaint-form
+    type: web_form
+    label: CAA passenger complaint form (Passenger Advice and Complaints Team)
+    value: https://caaportal.icasework.com/form?Type=Complaint&Login=false&Title=none
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, accessibility]
+    access: open
+    notes: >-
+      Upload scans of letters and emails with the airline, flight details (number, date, route, booking reference,
+      number of passengers), receipts, and for baggage the Property Irregularity Report, proof of address and lists of
+      items with receipts. Do not send originals. PACT does not progress a complaint until all documents arrive.
+    verified_via: page
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/travel-complaints/how-the-caa-can-help/
+    last_verified: 2026-11-19
+  - id: pact-email
+    type: email
+    label: CAA Passenger Advice and Complaints Team email
+    value: passenger.complaints@caa.co.uk
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, accessibility]
+    verified_via: page
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/travel-complaints/how-the-caa-can-help/
+    last_verified: 2026-11-19
+  - id: advice-phone
+    type: phone
+    label: CAA passenger advice line (0330 022 1916)
+    value: +44-330-022-1916
+    purposes: [flight_cancellation, flight_delay, denied_boarding, accessibility]
+    notes: >-
+      The complaints page gives this number for visually impaired customers who need help logging a claim; the court
+      guidance page calls it the CAA's advice team. Hours were not stated on either page.
+    verified_via: page
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/travel-complaints/making-a-claim/taking-your-airline-to-court/
+    last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: >-
+      PACT may help if your airline or airport is not a member of an approved ADR body. It handles only complaints about
+      UK261 (delayed and cancelled flights, downgrades, denied boarding), UK1107 (assistance for disabled and reduced
+      mobility passengers) and the Montreal Convention (lost, delayed or damaged baggage).
+    issues: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, accessibility]
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/travel-complaints/how-the-caa-can-help/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: >-
+      You must first make a written complaint to the airline or airport. You can approach PACT if you are not satisfied
+      with the outcome or have had no reply within 8 weeks. PACT will not handle a complaint if there is less than a
+      year left to take legal action.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/travel-complaints/how-the-caa-can-help/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      PACT gives an opinion and takes the matter up with the business, but the CAA says it does not have the legal
+      powers to impose a solution on an airline. You cannot appeal the CAA's view; you can take legal action if you
+      disagree.
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/travel-complaints/how-the-caa-can-help/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      Guideline timescales (currently longer because of high demand): initial assessment about one week after all
+      documents arrive; airline or airport response usually within four weeks (about two more if PACT asks for more
+      information); final assessment about five weeks after all information is received.
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/travel-complaints/how-the-caa-can-help/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      The CAA cannot process a complaint from a legal representative until it receives a signed consent form.
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/travel-complaints/how-the-caa-can-help/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: process
+    claim: >-
+      If the claim is rejected, the CAA says the small claims court is usually the most appropriate place for airline
+      disputes, and suggests first escalating to the airline's highest level, usually the Chief Executive's office.
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/travel-complaints/making-a-claim/taking-your-airline-to-court/
+    verified_via: page
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: >-
+      CAA-approved ADR bodies on 2026-11-19: AviationADR (members include easyJet, Ryanair, TUI Airways, Virgin
+      Atlantic, Wizz Air, Air France, KLM, SAS, TAP Air Portugal, Turkish Airlines, Delta) and CEDR (British Airways, BA
+      CityFlyer, Cathay Pacific). Airlines not on either list, such as Jet2, go to PACT.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    source: https://www.caa.co.uk/air-passengers/travel-problems-and-rights/travel-complaints/alternative-dispute-resolution/
+    verified_via: page
+    last_verified: 2026-11-19
+
+notes: >-
+  Read on 2026-11-19. The CAA is the UK enforcement body for UK261 but PACT is a complaint-handling service, not a
+  binding ombudsman. Note that CEDR's aviation scheme says it will close permanently at 5pm on 31 December 2026; after
+  that, British Airways passengers may need PACT or another scheme (see uk-cedr-aviation). The CAA's ADR page notes
+  that the ADR Regulations 2015 were replaced by the Digital Markets, Competition and Consumers Act 2024 on 6 April
+  2026 and that it is reviewing the page. No postal address for PACT is published on the complaints page.

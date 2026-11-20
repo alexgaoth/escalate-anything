@@ -1,0 +1,490 @@
+id: british-airways
+name: British Airways
+aliases: [ba, british airways plc, ba.com, britishairways.com]
+sector: airline
+countries: [gb]
+parent: International Airlines Group (IAG)
+website: https://www.britishairways.com
+regulators: [uk-cedr-aviation, uk-caa]
+
+channels:
+  - id: customer-service-phone
+    type: phone
+    label: Customer service, UK (0344 493 0787)
+    value: +44-344-493-0787
+    hours: 24 hours daily for flight bookings; holiday, hotel and car hire bookings 08:00-20:00
+    purposes: [flight_cancellation, flight_delay, refund_request, travel_credit, ancillary_fee_refund]
+    notes: >-
+      Domestic form 0344 493 0787, calls charged at local rate. Menu options on the contact page: option 1 for changes
+      to an existing flight booking; option 2 for new bookings; option 3 for meals, name corrections, seating and API;
+      option 1 then option 2 for holiday, hotel or car hire bookings and their refunds (08:00-20:00). The same number,
+      24/7, is listed for refunds of flight bookings. Have the 6-character booking reference ready.
+    verified_via: browser
+    source: https://www.britishairways.com/content/en/gb/information/help-and-contacts/contact-us
+    last_verified: 2026-11-19
+  - id: help-centre-chat
+    type: chat
+    label: AI assistant and live chat (Help Centre)
+    value: https://www.britishairways.com/travel/helpcentre/public/en_gb
+    hours: 24 hours daily
+    purposes: [flight_cancellation, flight_delay, refund_request, delayed_baggage, poor_service]
+    notes: >-
+      The contact page says the AI assistant (English only) opens from the icon at the bottom of the screen and can
+      connect you to a customer service advisor 24/7. The contact page calls live chat the most convenient way to get
+      further baggage help.
+    verified_via: browser
+    source: https://www.britishairways.com/content/en/gb/information/help-and-contacts/contact-us
+    last_verified: 2026-11-19
+  - id: complaints-claims-portal
+    type: web_form
+    label: Feedback and Claims Portal (complaints, compensation, disruption expenses, baggage, downgrade)
+    value: https://www.britishairways.com/travel/feedbackclaims/public/en_gb
+    purposes: [flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage, accessibility, poor_service]
+    access: open
+    notes: >-
+      The complaints page says to use it if you have already travelled or had a delay or cancellation; if you have not
+      travelled yet, use the contact page instead. "Raise a new case" uses the booking reference and personal details;
+      you can also log in. "Track an existing case" uses the case reference number. BA asks you not to open a second
+      case for the same issue. The delays page links the online compensation claim form and the expenses claim here.
+    verified_via: browser
+    source: https://www.britishairways.com/content/en/gb/information/help-and-contacts/complaints-and-claims
+    last_verified: 2026-11-19
+  - id: baggage-claim-form
+    type: web_form
+    label: Baggage claim (damaged bag or contents, missing contents, delayed-bag essentials, lost bag)
+    value: https://www.britishairways.com/travel/feedbackclaims/public/en_gb/select/bag
+    purposes: [delayed_baggage, lost_baggage, damaged_baggage]
+    access: open
+    notes: Have the missing baggage report number (five letters and five numbers, for example JFKBA12345) ready. Damage found after leaving the airport is reported and claimed here.
+    verified_via: browser
+    source: https://www.britishairways.com/content/en/gb/information/baggage-essentials/lost-and-damaged-baggage/making-baggage-claims
+    last_verified: 2026-11-19
+  - id: delayed-bag-report
+    type: portal
+    label: Report a delayed bag online (baggage portal)
+    value: https://mybag.aero/britishairways/delayed
+    purposes: [delayed_baggage, lost_baggage]
+    notes: >-
+      Hosted on mybag.aero (the WorldTracer baggage system), linked from ba.com. Use it if you left the airport without
+      reporting, or if your flight was cancelled and you left without your bags. BA says delayed bags should be
+      reported within 8 days of the flight.
+    verified_via: browser
+    source: https://www.britishairways.com/content/en/gb/information/baggage-essentials/lost-and-damaged-baggage/reporting-baggage-problems
+    last_verified: 2026-11-19
+  - id: bag-tracking
+    type: portal
+    label: Check, track and update a missing baggage report
+    value: https://mybag.aero/britishairways/managemybag/en
+    purposes: [delayed_baggage, lost_baggage]
+    notes: Needs the missing baggage report number. You can add details, share an AirTag location link and update the delivery address.
+    verified_via: browser
+    source: https://www.britishairways.com/content/en/gb/information/baggage-essentials/lost-and-damaged-baggage/reporting-baggage-problems
+    last_verified: 2026-11-19
+  - id: delayed-baggage-phone
+    type: phone
+    label: Delayed baggage help (0344 493 0785)
+    value: +44-344-493-0785
+    hours: 24 hours daily
+    purposes: [delayed_baggage, lost_baggage]
+    notes: Domestic form 0344 493 0785, calls charged at local rate.
+    verified_via: browser
+    source: https://www.britishairways.com/content/en/gb/information/help-and-contacts/contact-us
+    last_verified: 2026-11-19
+  - id: accessibility-phone
+    type: phone
+    label: Travelling with a disability (Accessibility Team, 0800 408 1100)
+    value: +44-800-408-1100
+    hours: Daily 08:00-20:00
+    purposes: [accessibility]
+    notes: >-
+      Domestic form 0800 408 1100. A BSL video relay service with Convo is available daily 08:00-20:00. The assistance
+      page says callers from outside the UK are directed to their local support team.
+    verified_via: browser
+    source: https://www.britishairways.com/content/en/gb/information/help-and-contacts/contact-us
+    last_verified: 2026-11-19
+  - id: minicom
+    type: phone
+    label: Minicom (textphone) for D/deaf or hard of hearing customers
+    value: +44-345-700-7706
+    hours: Daily 24/7
+    purposes: [accessibility]
+    notes: Domestic form 0345 700 7706. BA says this line is only for customers who use a minicom system.
+    verified_via: browser
+    source: https://www.britishairways.com/content/en/gb/information/help-and-contacts/contact-us
+    last_verified: 2026-11-19
+  - id: accessibility-email-form
+    type: web_form
+    label: Email the Accessibility Team (choose "Disability & Mobility Assistance")
+    value: https://www.britishairways.com/travel/webforms/public/en_gb?eId=120001&wfpId=emailus
+    purposes: [accessibility]
+    notes: Choose 'Disability & Mobility Assistance' from the Topics menu and include flight details or the booking reference.
+    verified_via: browser
+    source: https://www.britishairways.com/content/en/gb/information/help-and-contacts/contact-us
+    last_verified: 2026-11-19
+  - id: manage-my-booking
+    type: portal
+    label: Manage My Booking (rebook, refund, request assistance)
+    value: https://www.britishairways.com/travel/managebooking/public/en_gb
+    purposes: [flight_cancellation, flight_delay, refund_request, accessibility]
+    notes: Needs the booking reference and the lead passenger's last name. The delays page says to rebook or request a refund here after a cancellation, and the assistance hub says to request disability assistance here.
+    verified_via: browser
+    source: https://www.britishairways.com/content/en/gb/information/delayed-or-cancelled-flights
+    last_verified: 2026-11-19
+  - id: seat-refund-form
+    type: web_form
+    label: Paid seat refund claim
+    value: https://www.britishairways.com/travel/feedbackclaims/create-case?caseType=bookings-seating-refund
+    purposes: [ancillary_fee_refund]
+    notes: BA says seat refunds cannot be processed at the airport or on board. Apply within 30 days after the last flight in the itinerary.
+    verified_via: browser
+    source: https://www.britishairways.com/content/en/gb/information/seating/seating-changes-and-refunds
+    last_verified: 2026-11-19
+  - id: wifi-refund-form
+    type: web_form
+    label: Wi-Fi refund or receipt
+    value: https://www.britishairways.com/travel/feedbackclaims/create-case?caseType=onboard-aircraft-wifi
+    purposes: [ancillary_fee_refund]
+    notes: For Wi-Fi you paid for that did not work during the flight.
+    verified_via: browser
+    source: https://www.britishairways.com/content/en/gb/information/delayed-or-cancelled-flights
+    last_verified: 2026-11-19
+  - id: customer-relations-mail
+    type: mail
+    label: Customer Relations by post
+    value: British Airways, Customer Relations (S506), PO Box 1126, Uxbridge, UB8 9XS, United Kingdom
+    purposes: [poor_service, flight_cancellation, flight_delay, denied_boarding]
+    verified_via: browser
+    source: https://www.britishairways.com/content/en/gb/information/help-and-contacts/contact-us
+    last_verified: 2026-11-19
+  - id: compensation-claims-mail
+    type: mail
+    label: Compensation claims by post (if you cannot claim online)
+    value: British Airways Customer Relations, EU Compensation Claims, PO Box 1126, Uxbridge, UB8 9XS, United Kingdom
+    purposes: [flight_cancellation, flight_delay, denied_boarding]
+    notes: BA says to allow extra time for postal claims.
+    verified_via: browser
+    source: https://www.britishairways.com/content/en/gb/information/delayed-or-cancelled-flights
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: customer-service-phone}
+  - {rung: written_complaint, channel: complaints-claims-portal}
+  - rung: regulator
+    regulator: uk-cedr-aviation
+    note: BA names the Centre for Effective Dispute Resolution (CEDR) as its CAA-approved ADR body. Refer the complaint within 12 months after BA's final response (Conditions of Carriage clause 19a). CEDR says its aviation scheme closes permanently at 5pm on 31 December 2026; register before then.
+  - rung: regulator
+    regulator: uk-caa
+    note: After CEDR closes (31 December 2026), check BA's complaints page for its new ADR body. If BA is in no approved scheme, the CAA's Passenger Advice and Complaints Team takes UK261, UK1107 and baggage complaints against airlines not in a scheme.
+  - {rung: payment_dispute, note: "Section 75 claim (credit card, £100-£30,000) or chargeback with the card issuer"}
+  - {rung: small_claims, note: "Money Claim Online (England and Wales); simple procedure in Scotland"}
+
+playbooks:
+  - issue: flight_cancellation
+    summary: Rebook free or request a refund in Manage My Booking; claim expenses and, for a late cancellation within BA's control, fixed compensation through the Feedback and Claims Portal.
+    evidence: [booking reference, cancellation notice with date received, original and new itinerary, receipts for meals, hotel and transport, names of all passengers claimed for]
+    steps:
+      - do: Choose a free rebooking on the next available BA flight, or a refund, in Manage My Booking. If you booked through a travel agent or tour operator, ask them first.
+        channel: manage-my-booking
+      - do: If no suitable alternative is offered within 24 hours, call to ask about other airlines or other transport.
+        channel: customer-service-phone
+      - do: Claim reasonable expenses (hotel, transport, food and drink without alcohol, two calls) online with receipts and bank details for payment.
+        channel: complaints-claims-portal
+      - do: If BA told you less than 14 days before departure and the cause was within its control, claim compensation online. Claim directly and give BA 28 days before using a claims company.
+        channel: complaints-claims-portal
+      - do: If you cannot claim online, write to the compensation claims address.
+        channel: compensation-claims-mail
+      - do: If you disagree with BA's final response, refer the complaint to CEDR within 12 months.
+        regulator: uk-cedr-aviation
+    facts:
+      - kind: compensation
+        claim: BA's delays page says compensation for a delay or cancellation within its control is EUR 250 / GBP 220 for flights of 1500 km or less, EUR 400 / GBP 350 for flights between 1500 km and 3500 km, and EUR 600 / GBP 520 for all other flights, reduced by 50% if the re-routing arrives within 2, 3 or 4 hours (by distance band) of the original arrival time.
+        issues: [flight_cancellation, flight_delay]
+        verified_via: browser
+        source: https://www.britishairways.com/content/en/gb/information/delayed-or-cancelled-flights
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: BA says no compensation is due if it told you of the cancellation 14 days or more before departure, or if the cause was extraordinary circumstances such as air traffic control decisions, political instability, adverse weather or security risks.
+        issues: [flight_cancellation, flight_delay]
+        verified_via: browser
+        source: https://www.britishairways.com/content/en/gb/information/delayed-or-cancelled-flights
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: After a cancellation BA offers a free rebooking on the next available BA flight or a refund, and overnight hotel accommodation if the next available flight leaves the following day.
+        issues: [flight_cancellation, refund_request]
+        verified_via: browser
+        source: https://www.britishairways.com/content/en/gb/information/delayed-or-cancelled-flights
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Conditions of Carriage clause 18a1 says you must submit a UK/EU 261 compensation claim directly to BA and allow 28 days (or the time permitted by law, if shorter) for a response before a third party claims for you; BA will not deal with a claims company that skipped this step.
+        issues: [flight_cancellation, flight_delay, denied_boarding]
+        verified_via: browser
+        source: https://www.britishairways.com/content/en/gb/information/legal/conditions-of-carriage/general-conditions-of-carriage
+        last_verified: 2026-11-19
+
+  - issue: flight_delay
+    summary: After 2 hours ask for refreshment vouchers; after 3 hours at the final destination a delay within BA's control can earn fixed compensation; after 5 hours you can cancel for a refund.
+    evidence: [booking reference, scheduled and actual arrival times at the final destination, reason given by BA, receipts]
+    steps:
+      - do: At the airport, ask for refreshment vouchers once the delay passes 2 hours. If none are given, keep receipts (no alcohol) to claim later.
+      - do: If the delay passes 5 hours and you no longer want to travel, request a refund.
+        channel: manage-my-booking
+      - do: Claim expenses and, for an arrival delay of more than 3 hours within BA's control, compensation online.
+        channel: complaints-claims-portal
+      - do: If you disagree with BA's final response, refer the complaint to CEDR within 12 months.
+        regulator: uk-cedr-aviation
+    facts:
+      - kind: compensation
+        claim: BA says that if a flight is delayed longer than 2 hours it will aim to provide refreshment vouchers or reimburse reasonable expenses excluding alcohol; longer than 3 hours may give compensation depending on the reason; longer than 5 hours lets you claim a refund if you no longer wish to travel.
+        issues: [flight_delay, refund_request]
+        verified_via: browser
+        source: https://www.britishairways.com/content/en/gb/information/delayed-or-cancelled-flights
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: BA will consider reimbursing hotel accommodation, transport between hotel or home and the airport, alternative transport if BA cannot offer a suitable alternative, reasonable food and drink without alcohol, and two calls or internet costs; it does not cover consequential losses such as missed hotel stays or car rental.
+        issues: [flight_delay, flight_cancellation]
+        verified_via: browser
+        source: https://www.britishairways.com/content/en/gb/information/delayed-or-cancelled-flights
+        last_verified: 2026-11-19
+
+  - issue: denied_boarding
+    summary: If bumped from an oversold flight, BA rebooks you or refunds you and pays compensation; if you were downgraded, claim 30-75% of the sector fare.
+    evidence: [boarding pass or booking reference, check-in time, written notice of denied boarding or downgrade, receipts]
+    steps:
+      - do: At the airport, ask BA staff for rebooking or a refund, accommodation and refreshments, and compensation.
+      - do: If BA could not provide this at the airport, raise a compensation claim and claim reasonable costs online.
+        channel: complaints-claims-portal
+      - do: If you were downgraded and BA has not contacted you about a refund, raise a claim.
+        channel: complaints-claims-portal
+      - do: If you disagree with BA's final response, refer the complaint to CEDR within 12 months.
+        regulator: uk-cedr-aviation
+    facts:
+      - kind: compensation
+        claim: BA's downgrade refunds are 30% of the fare for the affected sector up to 1500 km, 50% for 1500-3500 km, and 75% for longer flights, excluding taxes and charges.
+        issues: [denied_boarding]
+        verified_via: browser
+        source: https://www.britishairways.com/content/en/gb/information/legal/flight-cancellation-compensation
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: BA says that if you are denied boarding because of oversales (not your own fault, such as late check-in or passport issues), it will rebook you on the next available flight or offer a refund, help with accommodation and refreshments, and pay any compensation; if it cannot at the airport, it pays reasonable costs and you can raise a compensation claim.
+        issues: [denied_boarding]
+        verified_via: browser
+        source: https://www.britishairways.com/content/en/gb/information/delayed-or-cancelled-flights
+        last_verified: 2026-11-19
+
+  - issue: delayed_baggage
+    summary: Report at the airport baggage desk or online, keep the missing baggage report number, buy only essentials with receipts, and claim within 21 days of getting the bag back.
+    evidence: [missing baggage report number (for example JFKBA12345), bag tag receipt, booking reference, receipts for essentials]
+    steps:
+      - do: Report at the airport baggage desk before you leave, or online in the baggage portal. BA says to report within 8 days of the flight.
+        channel: delayed-bag-report
+      - do: Track the bag and update the delivery address with the missing baggage report number.
+        channel: bag-tracking
+      - do: For help, use live chat or the delayed baggage line.
+        channel: delayed-baggage-phone
+      - do: Claim essential items such as toiletries and basics with receipts. The Conditions of Carriage require a written complaint within 21 days of the bag being made available to you.
+        channel: baggage-claim-form
+      - do: If you disagree with BA's final response, refer the complaint to CEDR within 12 months.
+        regulator: uk-cedr-aviation
+    facts:
+      - kind: deadline
+        claim: Conditions of Carriage clause 16c says a complaint about delayed checked baggage must be made in writing within 21 days of the baggage being made available to you, and no damages are due unless an action is brought within two years.
+        issues: [delayed_baggage, damaged_baggage, lost_baggage]
+        verified_via: browser
+        source: https://www.britishairways.com/content/en/gb/information/legal/conditions-of-carriage/general-conditions-of-carriage
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: BA says it returns most missing bags within 72 hours and delivers a found bag to any address you choose at no charge, subject to customs rules.
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://www.britishairways.com/content/en/gb/information/baggage-essentials/lost-and-damaged-baggage/reporting-baggage-problems
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: BA says you can claim essential items such as toiletries and basics up to a reasonable value while a bag is delayed, and to keep receipts.
+        issues: [delayed_baggage]
+        verified_via: browser
+        source: https://www.britishairways.com/content/en/gb/information/baggage-essentials/lost-and-damaged-baggage/making-baggage-claims
+        last_verified: 2026-11-19
+
+  - issue: lost_baggage
+    summary: A bag missing for more than 21 days can be claimed as lost; BA's liability is limited to 1,519 SDR unless you declared a higher value.
+    evidence: [missing baggage report number, bag tag receipt, list of contents with values, receipts or proof of purchase]
+    steps:
+      - do: Make sure the bag was reported missing (BA's claims page says within 21 days of it going missing) and keep the report number.
+        channel: delayed-bag-report
+      - do: Ask your travel insurer first; BA says a personal policy will likely give more cover. Customer Relations can give proof of loss for the insurer.
+        channel: customer-relations-mail
+      - do: Claim online for baggage reported missing for more than 21 days.
+        channel: baggage-claim-form
+      - do: If you disagree with BA's final response, refer the complaint to CEDR within 12 months.
+        regulator: uk-cedr-aviation
+    facts:
+      - kind: limit
+        claim: Conditions of Carriage clause 15e2 limits BA's liability for damage to baggage, including damage caused by delay, to 1,519 SDRs (approximately £1,575), unless you prove intent or recklessness or declared a higher value at check-in and paid the fee.
+        issues: [lost_baggage, damaged_baggage, delayed_baggage]
+        verified_via: browser
+        source: https://www.britishairways.com/content/en/gb/information/legal/conditions-of-carriage/general-conditions-of-carriage
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: BA says it accepts no liability under the Conditions of Carriage for jewellery, other valuables and money in checked baggage, or for fragile, valuable or perishable articles.
+        issues: [lost_baggage, damaged_baggage]
+        verified_via: browser
+        source: https://www.britishairways.com/content/en/gb/information/baggage-essentials/lost-and-damaged-baggage
+        last_verified: 2026-11-19
+
+  - issue: damaged_baggage
+    summary: Report damage to staff before you leave the airport, or online within 7 days of receiving the bag; keep the damaged bag.
+    evidence: [photos of the damage, the damaged bag, bag tag receipt, report reference, repair estimate or receipts]
+    steps:
+      - do: At the airport, report the damage to a member of staff before you leave.
+      - do: If you already left, report and claim online within seven days of receiving the bag. Keep the damaged bag; BA may need it and may offer repair or a replacement bag.
+        channel: baggage-claim-form
+      - do: For damage or missing contents from a US baggage inspection, claim with the US TSA, not BA.
+      - do: If you disagree with BA's final response, refer the complaint to CEDR within 12 months.
+        regulator: uk-cedr-aviation
+    facts:
+      - kind: deadline
+        claim: Conditions of Carriage clause 16b says you must complain in writing about damage to checked baggage immediately you discover it and at the latest within seven days from the date you received the baggage.
+        issues: [damaged_baggage]
+        verified_via: browser
+        source: https://www.britishairways.com/content/en/gb/information/legal/conditions-of-carriage/general-conditions-of-carriage
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: BA's baggage claims page says that to make a claim you must have reported missing bags within 21 days of the bag going missing, and damaged bags or contents within 7 days of receiving your bag.
+        issues: [damaged_baggage, lost_baggage]
+        verified_via: browser
+        source: https://www.britishairways.com/content/en/gb/information/baggage-essentials/lost-and-damaged-baggage/making-baggage-claims
+        last_verified: 2026-11-19
+
+  - issue: refund_request
+    summary: Request refunds in Manage My Booking or by phone; BA refunds only the person who paid, and involuntary refunds cover the full fare and taxes for unused tickets.
+    evidence: [booking reference, ticket number, payment card used, cancellation or schedule-change notice]
+    steps:
+      - do: Request the refund in Manage My Booking. If you booked through a travel agent or tour operator, contact them first; BA says to contact it if you need help getting the refund from them.
+        channel: manage-my-booking
+      - do: If you cannot do it online, call the refunds line (24/7).
+        channel: customer-service-phone
+      - do: If the refund is refused or not paid, complain in writing through the portal.
+        channel: complaints-claims-portal
+      - do: If you disagree with BA's final response, refer the complaint to CEDR within 12 months.
+        regulator: uk-cedr-aviation
+    facts:
+      - kind: policy
+        claim: Conditions of Carriage clause 10b says BA pays fare refunds if it cancels a flight, makes a significant schedule change you do not accept, delays a flight by five hours or more, fails to stop at your destination or stopover, or makes you miss a confirmed connection; for an unused ticket the refund equals the fare plus carrier charges, taxes, fees and charges paid.
+        issues: [refund_request, flight_cancellation, flight_delay]
+        verified_via: browser
+        source: https://www.britishairways.com/content/en/gb/information/legal/conditions-of-carriage/general-conditions-of-carriage
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Conditions of Carriage clause 10a2 says that unless BA says otherwise it will only refund the person who paid for the ticket, who must prove they paid.
+        issues: [refund_request]
+        verified_via: browser
+        source: https://www.britishairways.com/content/en/gb/information/legal/conditions-of-carriage/general-conditions-of-carriage
+        last_verified: 2026-11-19
+
+  - issue: ancillary_fee_refund
+    summary: Claim paid-seat refunds online within 30 days of your last flight; claim Wi-Fi refunds through the claims portal.
+    evidence: [booking reference, seat or Wi-Fi receipt, reason (seat changed, flight cancelled, Wi-Fi did not work)]
+    steps:
+      - do: Apply online for a paid-seat refund within 30 days after the last flight in your itinerary. It is refunded to the card used, or as Avios if you paid with Avios.
+        channel: seat-refund-form
+      - do: For Wi-Fi that did not work, claim a refund or ask for a receipt.
+        channel: wifi-refund-form
+    facts:
+      - kind: deadline
+        claim: BA says paid seating is refundable only if BA changes your seat and you are unsatisfied with the alternative, BA cancels your flight, you become ineligible for an exit row and tell BA at least 48 hours before departure, or you paid for a cabin upgrade and do not want to pay the difference; apply within 30 days of the last flight. Seats are not refunded if you cancel your flight or are involuntarily upgraded.
+        issues: [ancillary_fee_refund]
+        verified_via: browser
+        source: https://www.britishairways.com/content/en/gb/information/seating/seating-changes-and-refunds
+        last_verified: 2026-11-19
+
+  - issue: accessibility
+    summary: Request assistance in Manage My Booking at least 48 hours before departure; complain afterwards through the claims portal.
+    evidence: [booking reference, assistance type requested and when, what went wrong, names of staff if known]
+    steps:
+      - do: Request the type of assistance in Manage My Booking at least 48 hours before the flight departs.
+        channel: manage-my-booking
+      - do: If the type you need is not listed, contact the Accessibility Team by phone or email form.
+        channel: accessibility-phone
+      - do: After the journey, make a complaint or claim online (including damaged mobility equipment).
+        channel: complaints-claims-portal
+      - do: If you disagree with BA's final response, refer the complaint to CEDR within 12 months.
+        regulator: uk-cedr-aviation
+    facts:
+      - kind: deadline
+        claim: BA asks you to request assistance at least 48 hours before your flight departs; without advance notice you could have delays with the service. It recommends arriving two hours before a short-haul flight or three hours before a long-haul flight when assistance is booked.
+        issues: [accessibility]
+        verified_via: browser
+        source: https://www.britishairways.com/content/en/gb/information/disability-assistance/assistance-hub
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: BA's complaints page says that if you are unhappy with BA's response you can refer the complaint to the Centre for Effective Dispute Resolution (CEDR), approved by the Civil Aviation Authority, within 12 months; Conditions of Carriage clause 19a says within 12 months after receiving BA's final response.
+    issues: [poor_service, flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage]
+    verified_via: browser
+    source: https://www.britishairways.com/content/en/gb/information/help-and-contacts/complaints-and-claims
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: CEDR says its Aviation Adjudication Scheme, which BA names for unresolved complaints, will permanently close at 5pm on 31 December 2026; after that date complaints must go to another forum, and cases already registered continue to conclusion. The BA complaints page read for this file names CEDR and does not mention the closure.
+    issues: [poor_service, flight_cancellation, flight_delay, denied_boarding, delayed_baggage, lost_baggage, damaged_baggage]
+    verified_via: page
+    source: https://www.cedr-assist.com/consumer/aviation/make-a-complaint/
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: Conditions of Carriage clause 18b says actions for compensation must be brought within the applicable limitation period, which for claims brought in England and Wales is 6 years.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    verified_via: browser
+    source: https://www.britishairways.com/content/en/gb/information/legal/conditions-of-carriage/general-conditions-of-carriage
+    last_verified: 2026-11-19
+  - kind: process
+    claim: To claim compensation for someone else, BA asks for a signed letter of authority from all passengers in the claim; different surnames on one booking need authorisation before BA discusses details or pays.
+    issues: [flight_cancellation, flight_delay, denied_boarding]
+    verified_via: browser
+    source: https://www.britishairways.com/content/en/gb/information/delayed-or-cancelled-flights
+    last_verified: 2026-11-19
+
+known_blockers:
+  - The Feedback and Claims Portal needs the booking reference and personal details (or a BA account login); tracking needs the case reference number.
+  - Compensation claims for other passengers need a signed letter of authority from each of them.
+  - BA will not deal with a claims company unless the passenger first claimed directly and allowed BA 28 days (Conditions of Carriage clause 18a).
+  - Paid-seat refunds are only processed online, within 30 days of the last flight; not at the airport or on board.
+  - Bookings made through a travel agent or tour operator must ask that agent for refunds first.
+
+notes: >-
+  Read on ba.com in the browser on 2026-11-19 (the site timed out for WebFetch). The general Conditions of Carriage
+  page says "Last updated: 17 October 2024". BA's pages differ on the missing-bag report deadline: the reporting page
+  says delayed bags should be reported within 8 days of the flight, while the claims page says missing bags must be
+  reported within 21 days of going missing; the Conditions of Carriage set 21 days for a written delay complaint and
+  7 days for damage. The delays page gives the downgrade bands as "1500kms to 3000kms" and "3500kms and above",
+  while the legal notice gives 1,500-3,500 km and longer; the legal notice is used here. The UK national enforcement
+  body (CAA) is listed in regulators for reference; BA's own pages send unresolved complaints to CEDR. CEDR's aviation
+  scheme closes at 5pm on 31 December 2026 (CEDR page, read 2026-11-19); BA's next ADR body was not known on that date.
+
+official_domains: [britishairways.com, ba.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: BA's website security page says it will never request money payments through a third party or promise you any kind of cash prize, and that legitimate BA emails are not sent from web-based mail services such as gmail, hotmail or yahoo.
+      verified_via: browser
+      source: https://www.britishairways.com/content/en/gb/information/legal/website-terms-conditions/website-security
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: BA warns of WhatsApp messages offering thousands of free business class tickets with links to look-alike addresses in which one letter has a small dot under it, and of other fake free-ticket and voucher offers on Facebook and WhatsApp; BA says it does not use WhatsApp to send promotions.
+      verified_via: browser
+      source: https://www.britishairways.com/content/en/gb/information/legal/website-terms-conditions/website-security
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: BA warns of WhatsApp or text messages claiming a valuable parcel in your name is held by British Airways World Cargo and asking for money (often by Western Union) to release it; BA says it would not collect fees this way. The page lists this as a 2016 incident.
+      verified_via: browser
+      source: https://www.britishairways.com/content/en/gb/information/legal/website-terms-conditions/website-security
+      last_verified: 2026-11-19
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward phishing emails that claim to be from BA
+      value: phishing@email.ba.com
+      notes: BA says it cannot reply to emails sent to this address.
+      verified_via: browser
+      source: https://www.britishairways.com/content/en/gb/information/legal/website-terms-conditions/website-security
+      last_verified: 2026-11-19

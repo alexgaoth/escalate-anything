@@ -1,0 +1,437 @@
+id: monzo
+name: Monzo
+aliases: [monzo bank, monzo bank limited, monzo flex, monzo credit card]
+sector: bank
+countries: [gb]
+website: https://monzo.com
+account_url: https://web.monzo.com
+official_domains: [monzo.com]
+regulators: [uk-fos, uk-fca]
+notes: >-
+  Monzo Bank Limited is an app-first UK bank with no branches. Most support is in-app chat; phone and email
+  are also available. This file covers UK customers only; Monzo US is out of scope. Genuine Monzo emails come
+  from @monzo.com, @email.monzo.com, @customercontent.monzo.com and @research.monzo.com.
+
+security:
+  never_asks:
+    - kind: policy
+      claim: Monzo says that it will never ask you to move money to a holding, safe or other account, make a payment or transfer for any reason, accept a notification on your phone, borrow money (loan, overdraft, Aura or Monzo Flex), set up Apple Pay or Google Pay, ignore a fraud or payment warning, or share your PIN or personal details.
+      source: https://monzo.com/help/monzo-fraud-category/monzo-call-status-web
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Monzo says its customer support will never ask for your password or card number, and that it will never ask you to make a bank transfer.
+      source: https://monzo.com/security
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Monzo says it will never ask for your PIN, your full card number or the three digits on the back of your card.
+      source: https://monzo.com/help/emergencies/account-blocked
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Monzo says it will never call you without letting you know first by email or in-app chat, and will never ask you to take out borrowing or to lie about the reason for a payment.
+      source: https://monzo.com/help/monzo-fraud-category/safe-account-scam
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Monzo says it will never ask you to send it details unless you are in the Monzo app. For Personal and Joint accounts, an email that asks you to log in on the web is likely a scam.
+      source: https://monzo.com/help/monzo-fraud-category/stay-safe-online
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: Safe account scam. A caller says they are from Monzo or another bank, says your money is at risk and tells you to move it to a "safe account". Monzo says this is a scam and that safe accounts do not exist.
+      source: https://monzo.com/help/monzo-fraud-category/safe-account-scam
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Scammers pose as HMRC, the police or the NCA, say you owe a fine or are under investigation, and may threaten arrest. Others ask you to help a "sting operation" by receiving and moving money, which Monzo says is money muling and against the law.
+      source: https://monzo.com/help/monzo-fraud-category/understanding-impersonation-scams
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Family member scam. A text from a new number claims to be your child, parent or friend in an emergency and asks for money quickly. Monzo says to call the person on their original number to check.
+      source: https://monzo.com/help/monzo-fraud-category/understanding-impersonation-scams
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Phishing emails can come from addresses with "monzo" in the domain. Monzo says any domain other than @monzo.com, @email.monzo.com, @customercontent.monzo.com or @research.monzo.com is possibly a dangerous phishing email.
+      source: https://monzo.com/help/monzo-fraud-category/email-from-monzo
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Scammers can spoof caller ID. If someone calls saying they are from Monzo, check Monzo Call Status in the app; if it says Monzo is not talking to you, hang up. Monzo says the call status does not lie, even if the caller says it has a technical problem.
+      source: https://monzo.com/help/monzo-fraud-category/monzo-call-status-web
+      last_verified: 2026-11-19
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails that claim to be from Monzo
+      value: phishing-reports@monzo.com
+      purposes: [fraud]
+      notes: Do not click any links in the email.
+      source: https://monzo.com/help/monzo-fraud-category/email-from-monzo
+      last_verified: 2026-11-19
+    - id: call-status-report
+      type: app
+      label: Report a suspicious call through Monzo Call Status
+      value: Monzo app > Home (Overview) screen > tap Monzo Call Status
+      purposes: [fraud]
+      access: login
+      notes: Call Status shows whether Monzo is on the phone with you. If it says Monzo is not talking to you, hang up and report the call by tapping it.
+      source: https://monzo.com/help/monzo-fraud-category/monzo-call-status-web
+      last_verified: 2026-11-19
+
+channels:
+  - id: app-chat
+    type: app
+    label: Chat with Monzo in the app (24/7 for urgent issues)
+    value: Monzo app > Help > chat with us
+    hours: Urgent queries 24/7; other questions 7am to 8pm, 7 days a week
+    purposes: [fraud, unauthorized_charge, transaction_dispute, frozen_funds, account_access, billing_error, poor_service]
+    access: login
+    notes: Monzo says chat in the app is the best way to contact support. Urgent issues include a stolen card, an urgent payment you cannot make, suspected fraud, or being in a vulnerable position.
+    source: https://monzo.com/help/app-help/contacting-support
+    last_verified: 2026-11-19
+  - id: phone
+    type: phone
+    label: Customer support phone (free from the UK)
+    value: +44-800-088-4040
+    hours: Urgent queries 24/7; other questions 7am to 8pm, 7 days a week
+    purposes: [fraud, unauthorized_charge, transaction_dispute, frozen_funds, account_access, billing_error, poor_service]
+    access: human_only
+    notes: Dial 0800 088 4040 in the UK. You can also make a complaint on this number.
+    source: https://monzo.com/help/app-help/contacting-support
+    last_verified: 2026-11-19
+  - id: phone-abroad
+    type: phone
+    label: Customer support phone from abroad
+    value: +44-20-3872-0620
+    hours: Urgent queries 24/7; other questions 7am to 8pm, 7 days a week
+    purposes: [fraud, unauthorized_charge, transaction_dispute, frozen_funds, account_access, poor_service]
+    access: human_only
+    notes: Use this number when you are outside the UK.
+    source: https://monzo.com/help/app-help/contacting-support
+    last_verified: 2026-11-19
+  - id: scam-phone
+    type: phone
+    label: Phone line if you were tricked into sending money to a fraudster
+    value: +44-800-802-1281
+    purposes: [fraud]
+    access: human_only
+    notes: >-
+      Monzo's fraud page gives 0800 802 1281 (or +44 20 3872 0620 from abroad) for people tricked into sending money.
+      Monzo's other help pages give 0800 088 4040 for all support, including fraud. The page gives no hours for this number.
+    source: https://monzo.com/fraud
+    last_verified: 2026-11-19
+  - id: help-email
+    type: email
+    label: Email support (if you are locked out of the app or cannot sign up)
+    value: help@monzo.com
+    purposes: [account_access, fraud, unauthorized_charge]
+    notes: Monzo's lost card, lost phone and fraud pages also give this address for people who cannot use the app.
+    source: https://monzo.com/help/app-help/contacting-support
+    last_verified: 2026-11-19
+  - id: monzo-web
+    type: portal
+    label: Monzo Web - freeze your card and check payments without the app
+    value: https://web.monzo.com
+    purposes: [fraud, unauthorized_charge, account_access]
+    access: login
+    notes: Enter the email address linked to your account and sign in with the magic link sent to your inbox.
+    source: https://monzo.com/help/emergencies/monzo-card-lost-damaged-stolen
+    last_verified: 2026-11-19
+  - id: freeze-card
+    type: app
+    label: Freeze a lost or stolen card and order a new one
+    value: Monzo app > Home > Card > Freeze > Order a new card
+    purposes: [fraud, unauthorized_charge]
+    access: login
+    notes: If the card was stolen, choose "I've been a victim of fraud or theft" as the reason. You can unfreeze the card at any time.
+    source: https://monzo.com/help/emergencies/monzo-card-lost-damaged-stolen
+    last_verified: 2026-11-19
+  - id: report-unrecognised-payment
+    type: app
+    label: Report an unrecognised card payment as fraud
+    value: Monzo app > Help > select the payment > I don't recognise this transaction > Report Fraud
+    purposes: [unauthorized_charge, fraud]
+    access: login
+    notes: Freeze the card first. Monzo says false reports or incorrect information could lead to the account being closed.
+    source: https://monzo.com/help/payments-troubleshooting/unrecognised-payment-web
+    last_verified: 2026-11-19
+  - id: dispute-card-payment
+    type: app
+    label: Dispute a card payment (wrong amount, item not received, refund not given)
+    value: Monzo app > Home > tap the transaction > Something wrong? Get help > Dispute this transaction
+    purposes: [transaction_dispute, billing_error]
+    access: login
+    notes: Chargebacks apply to card payments only, not bank transfers or Direct Debits.
+    source: https://monzo.com/help/payments-troubleshooting/chargebacks-current-account
+    last_verified: 2026-11-19
+  - id: credit-card-claim
+    type: app
+    label: Dispute or make a Section 75 claim on a Monzo Credit Card (Flex) purchase
+    value: Monzo app > credit card feed > tap the transaction > Something wrong? Get help
+    purposes: [transaction_dispute, billing_error, unauthorized_charge]
+    access: login
+    notes: Options are Report Fraud (unrecognised transaction) or Dispute the Transaction (not received, overcharged or expecting a refund).
+    source: https://monzo.com/help/monzo-credit-cards/monzo-flex-and-section-75-claims
+    last_verified: 2026-11-19
+  - id: report-scam-app
+    type: app
+    label: Report a scam (you were tricked into sending money)
+    value: Monzo app > Help > search "Reporting a scam" > contact Monzo at the bottom of the article
+    purposes: [fraud]
+    access: login
+    notes: If you are not a Monzo customer, contact the bank you sent the money from; that bank will contact Monzo.
+    source: https://monzo.com/help/monzo-fraud-category/report-scam
+    last_verified: 2026-11-19
+  - id: complaints-email
+    type: email
+    label: Complaints by email
+    value: complaints@monzo.com
+    purposes: [poor_service, frozen_funds, fraud, unauthorized_charge, transaction_dispute, fee_reversal]
+    notes: You can also complain in the app chat, by phone or by post.
+    source: https://monzo.com/help/legal-stuff/make-complaint-web
+    last_verified: 2026-11-19
+  - id: complaints-mail
+    type: mail
+    label: Complaints by post
+    value: "Complaints Team, Monzo, Broadwalk House, 5 Appold Street, London EC2A 2AG"
+    purposes: [poor_service, frozen_funds, fraud, unauthorized_charge, transaction_dispute, fee_reversal]
+    source: https://monzo.com/help/legal-stuff/make-complaint-web
+    last_verified: 2026-11-19
+  - id: phishing-email
+    type: email
+    label: Forward suspicious emails that claim to be from Monzo
+    value: phishing-reports@monzo.com
+    purposes: [fraud]
+    source: https://monzo.com/help/monzo-fraud-category/email-from-monzo
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: app-chat, note: "Chat in the app, or call 0800 088 4040 (+44 20 3872 0620 from abroad)."}
+  - {rung: written_complaint, channel: complaints-email, note: "Complain in the app, by phone, by email or by post. Monzo acknowledges within 3 business days; the final response generally takes between 15 days and 8 weeks."}
+  - {rung: regulator, regulator: uk-fos, note: "After Monzo's final response, or after 8 weeks without one. Refer within 6 months of the date of the final response. Free."}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Freeze the card at once, check the payment, then report it as fraud in the app against the transaction.
+    evidence: [date and amount of the payment, merchant name, whether the card is lost or still with you, when you noticed it]
+    steps:
+      - do: Freeze the card in the app.
+        channel: freeze-card
+      - do: If you have no app access, use Monzo Web to freeze the card and check recent payments.
+        channel: monzo-web
+      - do: Check the merchant, date, time and location, and whether a friend or family member used your card. A subscription you thought you cancelled is a dispute, not fraud.
+      - do: Report the payment as fraud from the Help screen.
+        channel: report-unrecognised-payment
+      - do: If you cannot use the app, call Monzo or email help@monzo.com.
+        channel: phone
+      - do: If Monzo refuses to refund, make a complaint.
+        channel: complaints-email
+      - do: After the final response, or after 8 weeks, refer the complaint to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: policy
+        claim: Monzo's terms say it will usually refund your money if someone makes a payment without your permission, if a payment was taken after you froze your card, or if strong customer authentication should have applied but did not.
+        issues: [unauthorized_charge, fraud]
+        source: https://monzo.com/legal/terms-and-conditions
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Monzo's terms say you might not get the money back if you do not tell Monzo within 13 months from the date the money leaves your account.
+        issues: [unauthorized_charge, fraud]
+        source: https://monzo.com/legal/terms-and-conditions
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Monzo's terms say it may refuse a refund if you were very negligent in keeping your card or security details safe, gave them to someone else, or acted fraudulently.
+        issues: [unauthorized_charge, fraud]
+        source: https://monzo.com/legal/terms-and-conditions
+        last_verified: 2026-11-19
+
+  - issue: fraud
+    summary: If you were tricked into sending a bank transfer, report it to Monzo in the app or by phone at once. Eligible UK Faster Payments and CHAPS transfers are reimbursed up to £85,000.
+    evidence: [payment dates, amounts and recipient details, messages and call records from the scammer, police crime reference if you have one]
+    steps:
+      - do: Stop any further payments. Report the scam in the app.
+        channel: report-scam-app
+      - do: Or call Monzo's fraud number (from abroad, +44 20 3872 0620).
+        channel: scam-phone
+      - do: Report to Report Fraud, the police reporting service (reportfraud.police.uk), if you have time. Monzo asks you to report fraud promptly to Monzo and the police.
+      - do: Answer Monzo's questions and share the information it asks for; Monzo says not doing so can affect reimbursement.
+        channel: app-chat
+      - do: If Monzo refuses or reduces reimbursement, make a complaint.
+        channel: complaints-email
+      - do: If you are unhappy with the outcome, refer it to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: limit
+        claim: For authorised push payment (APP) fraud on transfers made on or after 7 October 2024 by Faster Payments or CHAPS, Monzo reimburses up to a maximum of £85,000.
+        issues: [fraud]
+        source: https://monzo.com/help/monzo-fraud-category/Getting-your-money-back-authorised-push-payment-fraud
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: Monzo says that if it reimburses you, it may not pay the first £100 of your claim. It decides this by looking at your personal circumstances.
+        issues: [fraud]
+        source: https://monzo.com/help/monzo-fraud-category/Getting-your-money-back-authorised-push-payment-fraud
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Monzo says it reimburses eligible APP fraud claims within 5 business days; complex cases can take up to 35 business days.
+        issues: [fraud]
+        source: https://monzo.com/help/monzo-fraud-category/Getting-your-money-back-authorised-push-payment-fraud
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Monzo excludes APP fraud claims reported more than 13 months after the final payment to the fraudster.
+        issues: [fraud]
+        source: https://monzo.com/help/monzo-fraud-category/Getting-your-money-back-authorised-push-payment-fraud
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Monzo's APP reimbursement excludes card payments, cash and cheque payments, payments to international accounts, payments to an account you control, civil disputes, unlawful payments, falsified claims, and claims where you were grossly negligent.
+        issues: [fraud]
+        source: https://monzo.com/help/monzo-fraud-category/Getting-your-money-back-authorised-push-payment-fraud
+        last_verified: 2026-11-19
+
+  - issue: transaction_dispute
+    summary: Contact the merchant first, then dispute the card payment in the app. Credit card purchases of £100 to £30,000 may also be covered by Section 75.
+    evidence: [order or booking confirmation, receipt, record of contact with the merchant (date, response), screenshots or emails]
+    steps:
+      - do: Contact the merchant first. Monzo says problems with a bill, damaged goods or cancelled subscriptions are usually not fraud.
+      - do: For a debit card payment, open the transaction and choose Dispute this transaction.
+        channel: dispute-card-payment
+      - do: For a Monzo Credit Card (Flex) purchase, open the transaction in the credit card feed. Monzo asks you to contact the retailer and wait two weeks for a reply first.
+        channel: credit-card-claim
+      - do: Send the evidence Monzo asks for. Track progress in the Help tab or on the transaction.
+        channel: app-chat
+      - do: If the dispute is handled badly, make a complaint, then go to the Financial Ombudsman Service.
+        channel: complaints-email
+      - do: Refer the complaint to the Financial Ombudsman Service after the final response or after 8 weeks.
+        regulator: uk-fos
+    facts:
+      - kind: process
+        claim: Monzo says it will look over everything you send within 10 days and then ask the merchant's bank for your money back. Whenever it can, it gives a temporary refund upfront, which is not a final decision.
+        issues: [transaction_dispute]
+        source: https://monzo.com/help/payments-troubleshooting/dispute-process-explainer
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Monzo says a dispute can take 8 weeks if the merchant agrees or does not reply, and up to 12 weeks if the merchant challenges it. If the merchant shows the charge was correct, Monzo may take the temporary refund back after telling you.
+        issues: [transaction_dispute]
+        source: https://monzo.com/help/payments-troubleshooting/dispute-process-explainer
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Monzo says that on a Monzo Credit Card, Section 75 can apply when the goods or services cost between £100 and £30,000, and that Monzo and the retailer are jointly responsible if something goes wrong.
+        issues: [transaction_dispute]
+        source: https://monzo.com/help/monzo-credit-cards/monzo-credit-cards-and-section-75
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Monzo says Section 75 may not apply if you paid a third party or agent (such as a travel agent instead of the airline), bought from a marketplace seller, paid for someone else, or paid by money transfer.
+        issues: [transaction_dispute]
+        source: https://monzo.com/help/monzo-credit-cards/monzo-credit-cards-and-section-75
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Monzo's Section 75 page for its cards says only that purchases paid with Monzo Flex might be covered by Section 75; for other card payments it points to the dispute (chargeback) process.
+        issues: [transaction_dispute]
+        source: https://monzo.com/help/payments-troubleshooting/section-75-protection
+        last_verified: 2026-11-19
+
+  - issue: frozen_funds
+    summary: If your account is under review, follow the requests in the app. Most reviews end within hours and almost all within 2 days.
+    evidence: [messages from Monzo in the app, date the restriction started, documents Monzo asked for, proof of urgent essential costs]
+    steps:
+      - do: Check the app for the review details and which features are restricted.
+        channel: app-chat
+      - do: Send any information or documents Monzo asks for through the app promptly. You do not need to ask for updates.
+        channel: app-chat
+      - do: If the restriction stops you paying for an urgent essential such as food or medication, tell Monzo in the app.
+        channel: app-chat
+      - do: If the review takes too long or the account is closed without your money returned, make a complaint.
+        channel: complaints-email
+      - do: After the final response, or after 8 weeks, refer the complaint to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: process
+        claim: Monzo says most account reviews finish within a couple of hours and almost all within 2 days, though some take longer. Being under review does not necessarily mean you did anything wrong.
+        issues: [frozen_funds]
+        source: https://monzo.com/help/account-and-profile/your-account-is-under-review
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Monzo says it does not always explain the reason for a review, because legal and security limits restrict what banks can share while checks continue.
+        issues: [frozen_funds]
+        source: https://monzo.com/help/account-and-profile/your-account-is-under-review
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Monzo's terms (version 2.11) say Monzo can close your account by giving at least 90 days' notice, or immediately if it believes you broke the law or the terms, gave false information, or let a third party control your account.
+        issues: [frozen_funds]
+        source: https://monzo.com/legal/terms-and-conditions
+        last_verified: 2026-11-19
+
+  - issue: account_access
+    summary: If you lose your phone or cannot use the app, use Monzo Web, then email or call Monzo.
+    evidence: [email address and phone number on the account, police crime reference if the phone was stolen]
+    steps:
+      - do: Sign in to Monzo Web with your email address and the magic link to check balances and freeze your card.
+        channel: monzo-web
+      - do: Email Monzo if you are locked out of the app.
+        channel: help-email
+      - do: Or call Monzo.
+        channel: phone
+      - do: If your phone was stolen, report it to the police and get a crime reference number.
+    facts:
+      - kind: process
+        claim: If your PIN is blocked after too many wrong attempts, you can unblock it in the app (Card > Reveal PIN) by recording a video with your card and ID.
+        issues: [account_access]
+        source: https://monzo.com/help/emergencies/account-blocked
+        last_verified: 2026-11-19
+
+  - issue: poor_service
+    summary: Complain in the app, by phone, email or post. Expect an acknowledgement in 3 business days and a final response in 15 days to 8 weeks.
+    evidence: [dates and summary of each contact, chat transcripts or screenshots, what you want Monzo to do]
+    steps:
+      - do: Make a complaint in the app chat or by phone, saying clearly that it is a complaint.
+        channel: app-chat
+      - do: Or put the complaint in writing by email or post.
+        channel: complaints-email
+      - do: If you are not satisfied with the final response, or have none after 8 weeks, refer it to the Financial Ombudsman Service within 6 months of the final response.
+        regulator: uk-fos
+    facts:
+      - kind: deadline
+        claim: Monzo says it will acknowledge your complaint within 3 business days after it receives it.
+        issues: [poor_service]
+        source: https://monzo.com/help/legal-stuff/make-complaint-web
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Monzo says its final response generally takes between 15 days and 8 weeks, depending on what the complaint is about.
+        issues: [poor_service]
+        source: https://monzo.com/help/legal-stuff/make-complaint-web
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Monzo says you must refer the complaint to the Financial Ombudsman Service within 6 months of the date of its final response. The service is free.
+        issues: [poor_service]
+        source: https://monzo.com/help/legal-stuff/make-complaint-web
+        last_verified: 2026-11-19
+
+facts:
+  - kind: policy
+    claim: Monzo Bank Limited is registered in England and Wales, authorised by the Prudential Regulation Authority, and regulated by the Financial Conduct Authority and the Prudential Regulation Authority.
+    source: https://monzo.com/help/legal-stuff/terms-conditions
+    last_verified: 2026-11-19
+  - kind: contact
+    claim: Monzo's urgent support is available 24/7 (for example a stolen card, suspected fraud, an urgent payment, or a vulnerable situation); non-urgent questions are answered 7am to 8pm, 7 days a week, by call or chat.
+    source: https://monzo.com/help/app-help/contacting-support
+    last_verified: 2026-11-19
+  - kind: process
+    claim: To close your own account, bring the balance (including Pots) to £0 and tap Close account in the app settings. Monzo then emails a password-protected PDF of your transaction history.
+    source: https://monzo.com/help/account-and-profile/close-account
+    last_verified: 2026-11-19
+
+tips:
+  - kind: official
+    text: If someone calls saying they are from Monzo, check Monzo Call Status in the app. If you want to continue, hang up and call the number on the back of your Monzo card.
+    issues: [fraud]
+    source: https://monzo.com/help/monzo-fraud-category/monzo-call-status-web
+    last_verified: 2026-11-19
+  - kind: official
+    text: Say the issue is urgent (stolen card, suspected fraud, urgent payment, vulnerable situation) to get 24/7 help; other chats are answered 7am to 8pm.
+    issues: [fraud, unauthorized_charge]
+    source: https://monzo.com/help/app-help/contacting-support
+    last_verified: 2026-11-19
+  - kind: official
+    text: If your account is under review, you do not need to contact Monzo for updates; it messages you in the app when it needs something.
+    issues: [frozen_funds]
+    source: https://monzo.com/help/account-and-profile/your-account-is-under-review
+    last_verified: 2026-11-19
+
+known_blockers:
+  - Most support, disputes and fraud reports need sign-in to the Monzo app.
+  - Monzo does not always explain why an account is under review.

@@ -1,0 +1,474 @@
+id: nationwide-building-society
+name: Nationwide Building Society
+aliases: [nationwide uk, nationwide building society uk, nationwide bank uk]
+sector: bank
+countries: [gb]
+website: https://www.nationwide.co.uk
+account_url: https://onlinebanking.nationwide.co.uk/AccessManagement/IdentifyCustomer/IdentifyCustomer
+official_domains: [nationwide.co.uk]
+security:
+  never_asks:
+    - kind: policy
+      claim: Nationwide says it will never ask you to disclose security details such as your PIN or a one-off card reader code over the phone, log in to the Internet Bank through a link in an email, text or social media message, transfer money to a safe account, or use, re-enable or re-sync your card reader over the phone.
+      source: https://www.nationwide.co.uk/help/fraud-and-security/reporting-fraud-or-a-scam
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Nationwide says that when it texts you about a suspicious transaction it always includes the last 4 digits of your card number, and that it will never pressure you or try to stop you checking who you are speaking to.
+      source: https://www.nationwide.co.uk/help/fraud-and-security/reporting-fraud-or-a-scam
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Nationwide says it will never ask for your account number or PIN in a fraud alert message.
+      source: https://www.nationwide.co.uk/help/fraud-and-security/fraud-alert-messages
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Nationwide says Nationwide and law enforcement will never ask you to transfer money to protect yourself from fraud.
+      source: https://www.nationwide.co.uk/help/fraud-and-security/payment-systems-regulator-app-scams
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: Safe account scam. A caller says they are from a bank, building society or the police, says a security breach puts your money at risk, and tells you to move it to a 'safe account' they have set up. You move the money yourself and lose it.
+      source: https://www.nationwide.co.uk/help/fraud-and-security/scams
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Courier scam. A caller claiming to be from your bank or the police asks for your help with an investigation and asks you to take out money or buy goods, or to give your card number or PIN.
+      source: https://www.nationwide.co.uk/help/fraud-and-security/scams
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Refund overpayment scam. A caller posing as a broadband or telecoms provider gets remote access to your computer, moves your own savings into your current account so it looks like an over-refund, and asks you to send the 'overpayment' back.
+      source: https://www.nationwide.co.uk/help/fraud-and-security/scams
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Nationwide warns that fraudsters try to take advantage of the Virgin Money transfer. Anyone who asks for financial information or tells you to move your money is a scammer.
+      source: https://www.nationwide.co.uk/nationwide-and-virgin-money-transfer
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Mobile payment (tokenised) fraud. Fraudsters add your card details to Apple Pay, Google Pay or Samsung Pay, then use the phone for contactless and in-app purchases.
+      source: https://www.nationwide.co.uk/help/fraud-and-security/card-fraud
+      last_verified: 2026-11-19
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails, texts and messages that claim to be from Nationwide
+      value: phishing@nationwide.co.uk
+      purposes: [fraud]
+      notes: Nationwide reviews every message but does not reply to every one.
+      source: https://www.nationwide.co.uk/help/fraud-and-security/reporting-fraud-or-a-scam
+      last_verified: 2026-11-19
+    - id: spam-text-7726
+      type: sms
+      label: Forward suspicious texts from other organisations to 7726
+      value: '7726'
+      purposes: [fraud]
+      source: https://www.nationwide.co.uk/help/fraud-and-security
+      last_verified: 2026-11-19
+regulators: [uk-fos, uk-fca]
+notes: >-
+  Nationwide Building Society is a mutual building society, authorised by the Prudential Regulation Authority and regulated
+  by the FCA and the PRA (register number 106078). It is a different company from the US insurer Nationwide (see nationwide).
+  Virgin Money's business legally transferred to Nationwide on 2 April 2026, but Virgin Money accounts still use Virgin Money's
+  own apps, websites, branches, phone numbers and complaints process; this file covers Nationwide-branded products only.
+  Customers with both must report issues to each separately. Domestic numbers: 03457 30 20 11 (current accounts), 03456 00 66 11
+  (credit cards), 0800 055 66 22 (fraud and lost cards), 0800 30 20 15 (complaints).
+
+channels:
+  - id: current-account-phone
+    type: phone
+    label: Current accounts customer service (also savings, loans and internet banking)
+    value: +44-345-730-2011
+    purposes: [transaction_dispute, frozen_funds, account_access, poor_service]
+    hours: "Current accounts: Monday to Saturday 8am to 8pm, Sunday 9am to 5pm, bank holidays 8am to 8pm. Savings: Monday to Saturday 8am to 8pm. Other enquiries (including internet banking): Monday to Friday 8am to 6pm, Saturday 9am to 2pm"
+    access: human_only
+    notes: Written 03457 30 20 11. Calls to 0345 numbers may cost the standard landline rate.
+    source: https://www.nationwide.co.uk/contact-us
+    last_verified: 2026-11-19
+  - id: current-account-abroad
+    type: phone
+    label: Current accounts and current account fraud, calling from abroad
+    value: +44-1793-656-789
+    purposes: [fraud, unauthorized_charge, transaction_dispute, frozen_funds, poor_service]
+    access: human_only
+    notes: Written +44 1793 65 67 89. Nationwide gives this number from abroad for current accounts, savings, loans, lost or stolen cards, current account fraud and complaints.
+    source: https://www.nationwide.co.uk/contact-us
+    last_verified: 2026-11-19
+  - id: credit-card-phone
+    type: phone
+    label: Credit cards customer service
+    value: +44-345-600-6611
+    purposes: [transaction_dispute, unauthorized_charge, poor_service]
+    hours: Monday to Saturday 8am to 8pm, Sunday 9am to 5pm, bank holidays 8am to 8pm
+    access: human_only
+    notes: Written 03456 00 66 11.
+    source: https://www.nationwide.co.uk/contact-us
+    last_verified: 2026-11-19
+  - id: credit-card-abroad
+    type: phone
+    label: Credit cards and credit card fraud, calling from abroad
+    value: +44-24-7643-8997
+    purposes: [fraud, unauthorized_charge, transaction_dispute]
+    access: human_only
+    notes: Written +44 2476 43 89 97.
+    source: https://www.nationwide.co.uk/help/fraud-and-security/reporting-fraud-or-a-scam
+    last_verified: 2026-11-19
+  - id: fraud-phone
+    type: phone
+    label: Fraud, scams and lost, stolen or damaged cards
+    value: +44-800-055-6622
+    purposes: [fraud, unauthorized_charge, frozen_funds]
+    hours: 24 hours a day, 7 days a week
+    access: human_only
+    notes: Written 0800 055 66 22, free from UK mobiles and landlines. From abroad use current-account-abroad (current account fraud) or credit-card-abroad (credit card fraud). SignVideo (BSL) is also available 24/7 for the fraud team.
+    source: https://www.nationwide.co.uk/help/fraud-and-security/reporting-fraud-or-a-scam
+    last_verified: 2026-11-19
+  - id: scam-checker-phone
+    type: phone
+    label: Scam Checker Service (check a payment before you make it)
+    value: +44-800-030-4057
+    purposes: [fraud]
+    hours: 24 hours a day, 7 days a week
+    access: human_only
+    notes: Written 0800 030 40 57. Call or visit a branch before paying from your current account. Unless Nationwide told you not to make the payment, it refunds every penny if the payment turns out to be a scam (Scam Protection Promise).
+    source: https://www.nationwide.co.uk/help/fraud-and-security/scam-protection-promise
+    last_verified: 2026-11-19
+  - id: fraud-alert-phone
+    type: phone
+    label: Current and savings account fraud alerts (blocked card, confirm a transaction)
+    value: +44-800-464-3139
+    purposes: [frozen_funds, fraud]
+    hours: 24 hours a day, 7 days a week
+    access: human_only
+    notes: Written 0800 464 3139. Automated fraud alert calls come from this number. From abroad +44 2036 08 95 92. Credit card alerts use 0800 464 3063.
+    source: https://www.nationwide.co.uk/help/fraud-and-security/fraud-alert-messages
+    last_verified: 2026-11-19
+  - id: credit-card-alert-phone
+    type: phone
+    label: Credit card fraud alerts (blocked card, confirm a transaction)
+    value: +44-800-464-3063
+    purposes: [frozen_funds, fraud]
+    hours: 24 hours a day, 7 days a week
+    access: human_only
+    notes: Written 0800 464 3063. The page leaves the from-abroad number for credit card alerts blank.
+    source: https://www.nationwide.co.uk/help/fraud-and-security/fraud-alert-messages
+    last_verified: 2026-11-19
+  - id: visa-dispute-phone
+    type: phone
+    label: Visa Dispute team (debit card duplicate payments, overcharges, already paid by other means)
+    value: +44-345-600-3131
+    purposes: [transaction_dispute]
+    hours: Monday to Saturday 8am to 8pm
+    access: human_only
+    notes: Written 0345 600 3131. Shown in the dispute page's routing answers for current account debit card disputes where you were charged more than agreed, charged twice, or charged despite paying another way.
+    source: https://www.nationwide.co.uk/help/payments/disputing-a-payment
+    last_verified: 2026-11-19
+  - id: mobile-app
+    type: app
+    label: Nationwide app (report or freeze a card, dispute a transaction, chat with Arti, Call Checker)
+    value: "Nationwide app > select the account > select the transaction > 'something wrong with this transaction' (cards: profile icon > Manage Cards)"
+    purposes: [fraud, unauthorized_charge, transaction_dispute, account_access]
+    access: login
+    notes: Lost or stolen cards are reported under Manage Cards > Report as lost or stolen (this cannot be undone). Disputes for cancelled or undelivered goods and mis-sold credit card purchases can be raised through Arti in the app. Call Checker in the More section confirms whether a caller is really Nationwide.
+    source: https://www.nationwide.co.uk/help/payments/disputing-a-payment
+    last_verified: 2026-11-19
+  - id: chat
+    type: chat
+    label: Chat with Arti (virtual assistant) in the app, Internet Bank or website; hands over to a person
+    value: https://www.nationwide.co.uk/contact-us/how-arti-can-help-you
+    purposes: [poor_service, transaction_dispute, account_access, unauthorized_charge]
+    hours: "24/7 in the app and Internet Bank. On the website, agents are available Monday to Friday 9am to 5pm"
+    access: login
+    notes: In the app, select Help and Contact Us > Chat with us. In the Internet Bank, select Messages. A website chat needs a colleague to confirm your identity.
+    source: https://www.nationwide.co.uk/contact-us/how-arti-can-help-you
+    last_verified: 2026-11-19
+  - id: dispute-page
+    type: web_form
+    label: Card dispute routing page (links to the right DocuSign dispute form for your card and problem)
+    value: https://www.nationwide.co.uk/help/payments/disputing-a-payment
+    purposes: [transaction_dispute]
+    access: open
+    notes: Choose debit or credit card and the dispute type; the page links to Nationwide dispute forms hosted on docusign.net. You need your customer number and evidence. Do not use it for fraud or payments you do not recognise.
+    source: https://www.nationwide.co.uk/help/payments/disputing-a-payment
+    last_verified: 2026-11-19
+  - id: credit-card-dispute-form
+    type: web_form
+    label: Credit card dispute form (Visa dispute and Section 75 claims)
+    value: https://eu.services.docusign.net/webforms-ux/v1.0/forms/e789ae183c81436531111dee4754e995?showFinishLater=false
+    purposes: [transaction_dispute]
+    access: open
+    notes: Linked from Nationwide's Section 75 page and dispute page. Hosted by DocuSign, not on nationwide.co.uk.
+    source: https://www.nationwide.co.uk/credit-cards/help/section-75-claims
+    last_verified: 2026-11-19
+  - id: complaints-chat
+    type: chat
+    label: Make a complaint by live chat (quickest route)
+    value: https://www.nationwide.co.uk/contact-us/make-a-complaint-or-send-us-feedback
+    purposes: [poor_service, transaction_dispute, unauthorized_charge, fraud, frozen_funds]
+    hours: "24 hours a day (mortgage complaints team: Monday to Friday 8am to 6pm, Saturday 8.30am to 4pm)"
+    access: open
+    notes: Select the blue 'Chat with us' button on the page, or chat in the app or Internet Bank. Nationwide says chat is the only way to complain online; it cannot register complaints by email. The complaints page says live chat is open 24 hours, but the Arti page says website agents work only Monday to Friday 9am to 5pm, so a website chat outside those hours may not reach a person.
+    source: https://www.nationwide.co.uk/contact-us/make-a-complaint-or-send-us-feedback
+    last_verified: 2026-11-19
+  - id: complaints-phone
+    type: phone
+    label: Complaints freephone
+    value: +44-800-302-015
+    purposes: [poor_service, transaction_dispute, unauthorized_charge, fraud, frozen_funds]
+    hours: "Banking or current accounts: Monday to Saturday 8am to 8pm, Sunday 9am to 5pm. Savings or mortgages: Monday to Friday 8am to 6pm, Saturday 9am to 2pm"
+    access: human_only
+    notes: Written 0800 30 20 15. From abroad +44 1793 65 67 89. Relay UK users dial 18001 first.
+    source: https://www.nationwide.co.uk/contact-us/make-a-complaint-or-send-us-feedback
+    last_verified: 2026-11-19
+  - id: complaints-post
+    type: mail
+    label: Written complaint by post
+    value: "The Complaints Team, Nationwide Building Society, NW 2020, Swindon, SN38 1NW"
+    purposes: [poor_service, transaction_dispute, unauthorized_charge, fraud, frozen_funds]
+    notes: Include your name, address, account details, a contact number if you are happy to be called, what happened and when. Do not include your 16-digit card number in letters.
+    source: https://www.nationwide.co.uk/contact-us/make-a-complaint-or-send-us-feedback
+    last_verified: 2026-11-19
+  - id: head-office-post
+    type: mail
+    label: Head office (Swindon)
+    value: "Nationwide Building Society, Nationwide House, Pipers Way, Swindon, SN38 1NW"
+    purposes: [poor_service]
+    source: https://www.nationwide.co.uk/contact-us
+    last_verified: 2026-11-19
+  - id: branch
+    type: in_person
+    label: Nationwide branch (complaints, Scam Checker Service)
+    value: https://www.nationwide.co.uk/branches/search
+    purposes: [poor_service, fraud]
+    access: human_only
+    source: https://www.nationwide.co.uk/contact-us/make-a-complaint-or-send-us-feedback
+    last_verified: 2026-11-19
+  - id: stop-scams-159
+    type: phone
+    label: 159 (Stop Scams UK), puts you straight through to Nationwide
+    value: "159"
+    purposes: [fraud]
+    hours: 24 hours a day, 7 days a week
+    access: human_only
+    notes: Nationwide says to hang up and call 159 if you are unsure a call is from Nationwide and do not have the app's Call Checker.
+    source: https://www.nationwide.co.uk/help/fraud-and-security/reporting-fraud-or-a-scam
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: current-account-phone, note: "Credit card customers use credit-card-phone. Or chat with Arti in the app or Internet Bank. Fraud: fraud-phone, 24/7."}
+  - {rung: written_complaint, channel: complaints-chat, note: "Or call complaints-phone, write to complaints-post, or visit a branch. Nationwide does not accept complaints by email. It has 15 days (35 in exceptional cases) for payment transaction complaints and up to 56 days for others."}
+  - {rung: regulator, regulator: uk-fos, note: "After the final response, or when Nationwide's time limit has passed. Refer within 6 months of the date on the final response letter."}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Report the card lost or stolen and call the fraud line (24/7). Ask for a refund within 13 months; Nationwide normally refunds by the end of the next working day.
+    evidence: [statement or app screenshot of the payment, date and time and amount, date you noticed it, whether the card is lost, stolen or still with you]
+    steps:
+      - do: Check that no one with access to your account or linked devices made the payment, and check Nationwide's list of common trading names.
+      - do: Report the card as lost or stolen in the app (profile icon > Manage Cards > Report as lost or stolen). It cannot be reactivated after this.
+        channel: mobile-app
+      - do: Call the fraud line with the date, time and amount of the payment.
+        channel: fraud-phone
+      - do: From abroad, call the number for your account type.
+        channel: current-account-abroad
+        note: Credit card fraud from abroad uses credit-card-abroad.
+      - do: If the refund is refused or delayed, complain by chat, phone or post.
+        channel: complaints-chat
+      - do: Refer the complaint to the Financial Ombudsman Service after the final response or after 15 days (35 in exceptional cases).
+        regulator: uk-fos
+    facts:
+      - kind: deadline
+        claim: Nationwide's current account terms say you must contact it within 13 months of a payment made without your permission to ask for a refund. It normally refunds by the end of the next working day, including any interest or charges you paid because of the payment.
+        issues: [unauthorized_charge, fraud]
+        verified_via: document
+        source: https://www.nationwide.co.uk/-/assets/nationwidecouk/documents/current-accounts/resources/p4410-current-accounts.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Nationwide's terms say it will not refund an unauthorised payment if it can show you gave permission, if it thinks you are acting fraudulently and has told the police, or if you deliberately broke the terms or were very careless with your card or security details (unless the account was overdrawn at the time).
+        issues: [unauthorized_charge]
+        verified_via: document
+        source: https://www.nationwide.co.uk/-/assets/nationwidecouk/documents/current-accounts/resources/p4410-current-accounts.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Nationwide's Digital Banking Promise says it refunds money taken without authorisation through its app, internet bank or Open Banking service. You might not get a refund if a fraudster convinced you to make the payment, you did not take reasonable steps to keep your details safe, or you acted fraudulently, or if the transaction was more than 13 months ago.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.nationwide.co.uk/help/fraud-and-security/digital-banking-promise
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Nationwide says keeping a record of your PIN with your card, or sharing your PIN, breaks its terms; if you gave your PIN to a criminal or they found it, you will not get your money back.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.nationwide.co.uk/help/fraud-and-security/reporting-fraud-or-a-scam
+        last_verified: 2026-11-19
+
+  - issue: fraud
+    summary: Call the fraud line at once (24/7). For bank transfer scams (APP fraud) from 7 October 2024, Nationwide reimburses eligible Faster Payments and CHAPS claims up to £85,000 and has waived the £100 excess. Claim within 13 months of the last scam payment.
+    evidence: [payment dates, amounts and payee details, messages, emails or call logs from the scammer, any warnings Nationwide showed, police or Report Fraud reference]
+    steps:
+      - do: Call the fraud line immediately. Be completely honest about what happened.
+        channel: fraud-phone
+      - do: Report the scam to the police or Report Fraud (reportfraud.police.uk), or let Nationwide report it for you. In Scotland, contact Police Scotland on 101.
+      - do: Forward suspicious emails and texts that claim to be from Nationwide to phishing@nationwide.co.uk.
+      - do: Answer any request for information about your claim quickly.
+        channel: fraud-phone
+      - do: If the claim is refused or not paid within 35 business days, complain.
+        channel: complaints-chat
+      - do: Refer the complaint to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: limit
+        claim: Nationwide reimburses APP scam payments made within the UK by Faster Payments or CHAPS from 7 October 2024, from personal accounts, micro-enterprises and certain charities, for payments up to £85,000.
+        issues: [fraud]
+        source: https://www.nationwide.co.uk/help/fraud-and-security/payment-systems-regulator-app-scams
+        last_verified: 2026-11-19
+      - kind: fee
+        claim: Nationwide says it has chosen to waive the £100 excess allowed under the PSR rules, so it makes no deduction from an eligible refund.
+        issues: [fraud]
+        source: https://www.nationwide.co.uk/help/fraud-and-security/payment-systems-regulator-app-scams
+        last_verified: 2026-11-19
+      - kind: process
+        claim: If an APP claim is valid, Nationwide says you should in most cases be reimbursed within five business days of making the claim, or up to 35 business days if it needs more information.
+        issues: [fraud]
+        source: https://www.nationwide.co.uk/help/fraud-and-security/payment-systems-regulator-app-scams
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Under the Consumer Standard of Caution you must report the fraud no more than 13 months after the last fraudulent payment, follow Nationwide's and law enforcement's warnings, answer requests for information, and report the fraud to the police. Nationwide may not reimburse you if you do not meet it.
+        issues: [fraud]
+        source: https://www.nationwide.co.uk/help/fraud-and-security/payment-systems-regulator-app-scams
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: The PSR rules do not cover payments by cash, cheque or card, international payments, civil disputes, your own fraud, gross negligence such as ignoring a scam warning, payments to your own accounts, unlawful payments, or payments made before 7 October 2024 or more than 13 months before the claim. Nationwide says it reviews such claims case by case and may still refund fully or partly.
+        issues: [fraud]
+        source: https://www.nationwide.co.uk/help/fraud-and-security/payment-systems-regulator-app-scams
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Scam Protection Promise. If you ask the Scam Checker Service about a payment from your current account before you make it, and Nationwide did not tell you not to make it, Nationwide gives back every penny if it turns out to be a scam. Nationwide may change or withdraw the Promise with reasonable notice.
+        issues: [fraud]
+        source: https://www.nationwide.co.uk/help/fraud-and-security/scam-protection-promise
+        last_verified: 2026-11-19
+
+  - issue: transaction_dispute
+    summary: Contact the seller first, then raise a Visa dispute (chargeback) in the app or with the online form, usually within 120 days. For credit card purchases of £100 to £30,000 you can also make a Section 75 claim with the credit card dispute form.
+    evidence: [receipt or order confirmation, expected delivery date, record of contact with the seller (dates and replies), cancellation confirmation, photos of faulty goods, your customer number]
+    steps:
+      - do: Contact the seller and keep a note of each contact and what happened.
+      - do: Check the payment is not pending (pending credit card payments cannot be disputed). Do not use the dispute route for fraud; report fraud instead.
+      - do: For cancelled or undelivered goods, raise the dispute in the app (select the transaction > 'something wrong with this transaction' > Arti).
+        channel: mobile-app
+      - do: Or open the dispute page, choose your card and problem, and complete the linked online form.
+        channel: dispute-page
+      - do: For debit card duplicate payments, overcharges or payments already made another way, message 'Report unusual account activity' in the Internet Bank or call the Visa Dispute team.
+        channel: visa-dispute-phone
+      - do: For a credit card purchase of £100 to £30,000, ask for a Section 75 claim using the credit card dispute form.
+        channel: credit-card-dispute-form
+      - do: If the dispute is refused, complain, then refer it to the Financial Ombudsman Service.
+        channel: complaints-chat
+      - do: Refer the complaint to the Financial Ombudsman Service after the final response.
+        regulator: uk-fos
+    facts:
+      - kind: deadline
+        claim: For goods or services not received, Nationwide says you can raise the dispute 15 days after the payment left your account (earlier with proof of an expected delivery date) and generally within 120 days, or up to 540 days if the seller has gone into administration.
+        issues: [transaction_dispute]
+        source: https://www.nationwide.co.uk/help/payments/disputing-a-payment
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Nationwide says disputes for cancelled, faulty, incorrect or returned goods must be raised within 120 days of the payment. For debit card duplicate payments, overcharges or payments already made another way, the limit is 13 months.
+        issues: [transaction_dispute]
+        source: https://www.nationwide.co.uk/help/payments/disputing-a-payment
+        last_verified: 2026-11-19
+      - kind: process
+        claim: If Nationwide accepts a dispute, it says the money is put back within 3 to 5 working days (3 days for some dispute types), and it confirms by letter or email. It updates you by letter and text, so there is no need to call.
+        issues: [transaction_dispute]
+        source: https://www.nationwide.co.uk/help/payments/disputing-a-payment
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Nationwide says you can apply for a Section 75 refund on a credit card purchase costing between £100 and £30,000 if the goods or services were not received, faulty, not as described, or you were persuaded to buy on the basis of incorrect information, whether you paid in full, a deposit or part on the card. Section 75 only applies to credit cards.
+        issues: [transaction_dispute]
+        source: https://www.nationwide.co.uk/credit-cards/help/section-75-claims
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: If you paid through a platform like PayPal, Nationwide says you may need to raise the dispute through that platform instead.
+        issues: [transaction_dispute]
+        source: https://www.nationwide.co.uk/credit-cards/help/section-75-claims
+        last_verified: 2026-11-19
+
+  - issue: frozen_funds
+    summary: A blocked card after a fraud alert stays blocked until you respond. Reply to the app alert or text, or call the fraud alert line. For other account blocks, ask Nationwide what it needs.
+    evidence: [fraud alert message or letter, date of the block, documents Nationwide asked for]
+    steps:
+      - do: If you got a fraud alert, respond in the app within 2 hours or reply to the text. If you are unsure the message is genuine, call the fraud alert line.
+        channel: fraud-alert-phone
+        note: Credit card alerts use credit-card-alert-phone.
+      - do: For any other block, call customer service and ask why the account is blocked and what you need to provide.
+        channel: current-account-phone
+      - do: If the block continues without a clear reason, complain.
+        channel: complaints-chat
+      - do: Refer the complaint to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: process
+        claim: If Nationwide's systems spot a suspicious transaction, it blocks your card and sends an app alert, text or automated call. You have 2 hours to respond to an app alert, and the card stays blocked until Nationwide hears from you by text or phone.
+        issues: [frozen_funds, fraud]
+        source: https://www.nationwide.co.uk/help/fraud-and-security/fraud-alert-messages
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Nationwide's terms let it stop card, PIN, digital or telephone banking use, or block payments into the account, for suspected fraud, legal or regulatory reasons (including unanswered information requests or court orders), security concerns, a year of non-use, returned letters, suspected residence outside the UK, or credit risk. If it can, it tells you what it has done, why, and how to fix it.
+        issues: [frozen_funds, account_access]
+        verified_via: document
+        source: https://www.nationwide.co.uk/-/assets/nationwidecouk/documents/current-accounts/resources/p4410-current-accounts.pdf
+        last_verified: 2026-11-19
+
+  - issue: account_access
+    summary: After 3 wrong passnumber attempts, reset the passnumber in the app or Internet Bank with biometrics or a Visa debit card and card reader. If that fails, register for online banking again.
+    evidence: [Visa debit card, card reader, registered mobile number]
+    steps:
+      - do: In the app, select Forgotten passnumber and follow the steps (photo check if biometrics are set up, otherwise debit card and card reader).
+        channel: mobile-app
+      - do: If you still cannot log in, or have no card reader, register for online banking again.
+      - do: For further help, call customer service (other enquiries, including internet banking).
+        channel: current-account-phone
+    facts:
+      - kind: process
+        claim: Nationwide says you can log in with a Visa debit card and card reader if you were locked out for using the wrong passnumber 3 times; if that fails or you have no card reader, you need to register for online banking again.
+        issues: [account_access]
+        source: https://www.nationwide.co.uk/help/online-banking-help/locked-out-of-online-bank
+        last_verified: 2026-11-19
+
+facts:
+  - kind: deadline
+    claim: Nationwide aims to resolve a payment transaction complaint as soon as possible and no later than 15 days, or 35 days in exceptional circumstances. For any other complaint, allow up to 56 days.
+    issues: [poor_service, transaction_dispute, unauthorized_charge, fraud]
+    source: https://www.nationwide.co.uk/contact-us/make-a-complaint-or-send-us-feedback
+    last_verified: 2026-11-19
+  - kind: process
+    claim: If Nationwide resolves a complaint to your satisfaction within 3 working days after the day it received it, it sends a Summary Resolution Communication with information about the Financial Ombudsman Service. Otherwise it sends a Final Response letter with its investigation, decision and FOS information.
+    issues: [poor_service]
+    source: https://www.nationwide.co.uk/contact-us/make-a-complaint-or-send-us-feedback
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: Nationwide says that if you want to refer your complaint to the Financial Ombudsman Service after its Final Response, you must do so within 6 months of the date on the letter. The FOS needs Nationwide's consent to investigate earlier unless the handling time limit has passed.
+    issues: [poor_service]
+    source: https://www.nationwide.co.uk/contact-us/make-a-complaint-or-send-us-feedback
+    last_verified: 2026-11-19
+  - kind: contact
+    claim: Nationwide says it cannot register complaints by email; to complain online, use its live chat.
+    issues: [poor_service]
+    source: https://www.nationwide.co.uk/contact-us/make-a-complaint-or-send-us-feedback
+    last_verified: 2026-11-19
+  - kind: policy
+    claim: The legal transfer of Virgin Money's business to Nationwide completed on 2 April 2026. Virgin Money customers keep managing those accounts through Virgin Money's apps, websites, branches and contact numbers, and Virgin Money branded products follow Virgin Money's complaints process.
+    source: https://www.nationwide.co.uk/nationwide-and-virgin-money-transfer
+    last_verified: 2026-11-19
+
+tips:
+  - kind: official
+    text: If a caller says they are from Nationwide, stay on the call, open the app, go to More > Call Checker, and it will confirm whether the call is really Nationwide. Without the app, hang up and call 159.
+    issues: [fraud]
+    source: https://www.nationwide.co.uk/help/fraud-and-security/reporting-fraud-or-a-scam
+    last_verified: 2026-11-19
+  - kind: official
+    text: Nationwide says live chat is the quickest way to make a complaint.
+    issues: [poor_service]
+    source: https://www.nationwide.co.uk/contact-us/make-a-complaint-or-send-us-feedback
+    last_verified: 2026-11-19
+
+known_blockers:
+  - Nationwide does not accept complaints by email.
+  - App and Internet Bank chat need a log-in; a website chat needs a colleague to confirm your identity, and website agents work Monday to Friday 9am to 5pm only.
+  - Card dispute forms are hosted on docusign.net and need your customer number.
+  - Virgin Money accounts are handled separately through Virgin Money's own channels.

@@ -1,0 +1,557 @@
+id: barclays
+name: Barclays
+aliases: [barclays bank, barclays bank uk plc, barclays uk, barclays bank uk, barclaycard, barclaycard uk, amazon barclaycard]
+sector: bank
+countries: [gb]
+parent: Barclays PLC
+website: https://www.barclays.co.uk
+official_domains: [barclays.co.uk, barclaycard.co.uk, barclays.com]
+security:
+  never_asks:
+    - kind: policy
+      claim: Barclays says it will never tell you to transfer money out of your account to keep it safe from fraud, and will never say your money isn't safe or your account is at risk.
+      source: https://www.barclays.co.uk/fraud-and-scams/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Barclays says it will never ask for your PIN, PINsentry code, activation code, QR activation code or online banking passcodes, and will never ask for remote access to your device.
+      source: https://www.barclays.co.uk/fraud-and-scams/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Barclays says it will never text you a link to make a payment, send a courier to your house to pick something up, ask you to help with an internal investigation, or tell you to lie to bank staff about a payment or withdrawal.
+      source: https://www.barclays.co.uk/fraud-and-scams/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Barclays says that if it calls you it will never use a one-time passcode to confirm your identity, and it will never call and ask you to enter *21* and a long number (call forwarding).
+      source: https://www.barclays.co.uk/fraud-and-scams/latest-scams/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Barclaycard says it will never ask for your online login details, PIN or full passcodes.
+      source: https://www.barclaycard.co.uk/personal/customer/report-fraud
+      last_verified: 2026-11-19
+  known_scams:
+    - kind: policy
+      claim: Safe account scam. Criminals pose as your bank, the police or another trusted organisation, say your money is at risk and tell you to move it to a new account.
+      source: https://www.barclays.co.uk/fraud-and-scams/impersonation-scams/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Scammers can fake Barclays' phone number and can keep your line open after you hang up. Barclays says to end an unexpected call, never call back the number that called you, and call from another phone using the number on your card, the Barclays app or 159.
+      source: https://www.barclays.co.uk/fraud-and-scams/phone-number-checker/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Callers pretending to be the bank say your account is under threat and ask you to dial a code that sets up call forwarding, or ask for a one-time passcode.
+      source: https://www.barclays.co.uk/fraud-and-scams/latest-scams/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Screen-sharing fraud. Criminals pose as your bank or an investment company, offer to help set up a new payee or account, and get you to install software that lets them control your computer.
+      source: https://www.barclays.co.uk/fraud-and-scams/latest-scams/
+      last_verified: 2026-11-19
+    - kind: policy
+      claim: Fake job offers collect personal details and start loan applications in your name, sometimes claiming Barclays is an identity verification provider. Barclays says it is not one.
+      source: https://www.barclays.co.uk/fraud-and-scams/latest-scams/
+      last_verified: 2026-11-19
+  report_phishing:
+    - id: phishing-email
+      type: email
+      label: Forward suspicious emails, texts or QR codes that claim to be from Barclays
+      value: internetsecurity@barclays.com
+      purposes: [fraud]
+      notes: Barclays says to forward the message with any attachments.
+      source: https://www.barclays.co.uk/fraud-and-scams/reporting-scams-and-reporting-fraud/
+      last_verified: 2026-11-19
+    - id: spam-text-7726
+      type: sms
+      label: Forward suspicious texts to 7726 (free)
+      value: "7726"
+      purposes: [fraud]
+      source: https://www.barclays.co.uk/fraud-and-scams/
+      last_verified: 2026-11-19
+    - id: ncsc-phishing-email
+      type: email
+      label: Forward phishing emails to the National Cyber Security Centre
+      value: report@phishing.gov.uk
+      purposes: [fraud]
+      notes: Government reporting address named on the Barclays fraud page. It does not reach Barclays.
+      source: https://www.barclays.co.uk/fraud-and-scams/
+      last_verified: 2026-11-19
+regulators: [uk-fos, uk-fca]
+notes: >-
+  Barclays Bank UK PLC is the UK retail bank (registered office 1 Churchill Place, London E14 5HP).
+  Barclaycard is Barclays' credit card brand. It has its own website (barclaycard.co.uk), phone lines,
+  app and complaints address; those channels are prefixed "barclaycard-" in this file. Barclays debit
+  cards and current accounts use the barclays.co.uk channels. Phone numbers starting 0800 are free from a
+  UK landline or personal mobile; 03 numbers cost the same as 01 or 02 numbers.
+
+channels:
+  - id: telephone-banking
+    type: phone
+    label: Personal and Premier Telephone Banking (also lost, stolen or damaged debit cards)
+    value: +44-345-734-5345
+    hours: "Lost, stolen or damaged cards: 24 hours a day, seven days a week"
+    purposes: [unauthorized_charge, fraud, frozen_funds, account_access, fee_reversal, poor_service]
+    access: human_only
+    notes: >-
+      UK number 0345 734 5345 (written 03457 345 345). From abroad +44 24 7684 2099. Business customers
+      0345 605 2345. Another Barclays help page lists this number for personal scam reports with hours
+      Monday to Friday 8am to 8pm and Saturday 9am to 5pm, so non-card queries may have shorter hours.
+      The overdraft page also gives this number for help if you are struggling.
+    source: https://www.barclays.co.uk/help/cards/debit-card/lost-stolen-damaged/
+    last_verified: 2026-11-19
+  - id: telephone-banking-abroad
+    type: phone
+    label: Personal and Premier Telephone Banking, calling from abroad (lost or stolen cards)
+    value: +44-24-7684-2099
+    hours: 24 hours a day, seven days a week
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    source: https://www.barclays.co.uk/help/cards/debit-card/lost-stolen-damaged/
+    last_verified: 2026-11-19
+  - id: fraud-phone
+    type: phone
+    label: Report debit card fraud or any other type of fraud; also the debit card disputes line
+    value: +44-800-389-1652
+    hours: 24 hours a day, seven days a week
+    purposes: [fraud, unauthorized_charge, transaction_dispute, identity_theft]
+    access: human_only
+    notes: UK number 0800 389 1652 (written 0800 3891 652). The help page for payment problems lists the same number for general disputes.
+    source: https://www.barclays.co.uk/fraud-and-scams/reporting-scams-and-reporting-fraud/
+    last_verified: 2026-11-19
+  - id: fraud-phone-abroad
+    type: phone
+    label: Report debit card fraud or any other fraud, calling from abroad
+    value: +44-1604-529-410
+    hours: 24 hours a day, seven days a week
+    purposes: [fraud, unauthorized_charge, transaction_dispute]
+    access: human_only
+    notes: Written on the page as +44 160 452 9410. Also given as the from-abroad number for debit card scam payments and APP scams.
+    source: https://www.barclays.co.uk/fraud-and-scams/reporting-scams-and-reporting-fraud/
+    last_verified: 2026-11-19
+  - id: scam-payments-phone
+    type: phone
+    label: Report a scam (bank transfers, cash withdrawals, cheques) and start an APP scam claim
+    value: +44-345-050-4585
+    hours: "Monday to Friday 8am to 6pm, Saturday 9am to 1pm, bank holidays 8am to 5pm (per page footnote)"
+    purposes: [fraud]
+    access: human_only
+    notes: >-
+      UK number 0345 050 4585. The APP scam claims page body says "We're here 24 hours a day, seven days a
+      week" but its footnote gives the shorter hours shown here. For debit card scam payments Barclays lists
+      0345 734 5345. From abroad use +44 1604 529 410.
+    source: https://www.barclays.co.uk/fraud-and-scams/app-scam-claims/
+    last_verified: 2026-11-19
+  - id: stop-scams-159
+    type: phone
+    label: 159 (Stop Scams UK), connects you safely to Barclays
+    value: "159"
+    purposes: [fraud]
+    access: human_only
+    notes: Barclays says to use 159, the number on the back of your card or the app to check that a call is genuine.
+    source: https://www.barclays.co.uk/fraud-and-scams/phone-number-checker/
+    last_verified: 2026-11-19
+  - id: app-message
+    type: app
+    label: Message Barclays in the app (Help section) or Online Banking (Contact us)
+    value: Barclays app > Help > message us; Online Banking > Contact us
+    hours: Digital assistant 24/7; colleague chat may be unavailable at times
+    purposes: [unauthorized_charge, fraud, transaction_dispute, fee_reversal, frozen_funds, account_access, poor_service]
+    access: login
+    notes: You get a notification when Barclays replies. The app also has a Call Us button that connects you without extra security questions.
+    source: https://www.barclays.co.uk/contact-us/
+    last_verified: 2026-11-19
+  - id: app-dispute-transaction
+    type: app
+    label: Dispute a debit card payment in the app
+    value: Barclays app > select the payment > Help with this transaction > Report problem > Dispute transaction
+    purposes: [transaction_dispute, unauthorized_charge]
+    access: login
+    notes: Barclays cannot help until a pending payment has come out of the account. Speak to the retailer first.
+    source: https://www.barclays.co.uk/help/report-fraud/
+    last_verified: 2026-11-19
+  - id: app-report-lost-stolen
+    type: app
+    label: Report a lost, stolen or damaged debit card, or freeze it, in the app
+    value: Barclays app > Manage your cards > select the card > Report damaged, lost or stolen (or Temporary freeze)
+    purposes: [unauthorized_charge, fraud]
+    access: login
+    source: https://www.barclays.co.uk/help/cards/debit-card/lost-stolen-damaged/
+    last_verified: 2026-11-19
+  - id: complaints-phone
+    type: phone
+    label: Complaints line (option 1 for a new complaint, option 2 for an existing complaint)
+    value: +44-800-282-390
+    hours: "New complaints: Monday to Friday 8am to 8pm, Saturday 9am to 5pm. Existing complaints: Monday to Friday 8am to 8pm"
+    purposes: [poor_service, fee_reversal, frozen_funds, transaction_dispute, unauthorized_charge, fraud]
+    access: human_only
+    notes: UK number 0800 282 390. From abroad +44 20 7116 7488 (written +44 (0)207 116 7488).
+    source: https://www.barclays.co.uk/complaints/
+    last_verified: 2026-11-19
+  - id: complaints-phone-abroad
+    type: phone
+    label: Complaints line, calling from abroad
+    value: +44-20-7116-7488
+    hours: "Monday to Friday 8am to 8pm, Saturday 9am to 5pm (new complaints)"
+    purposes: [poor_service]
+    access: human_only
+    source: https://www.barclays.co.uk/complaints/
+    last_verified: 2026-11-19
+  - id: complaints-post
+    type: mail
+    label: Written complaint by post (no stamp or postcode needed)
+    value: Freepost Barclays Customer Relations
+    purposes: [poor_service, fee_reversal, frozen_funds, transaction_dispute, unauthorized_charge, fraud]
+    notes: >-
+      Include a description of your concern, what you want Barclays to do, your name and address, a phone
+      number and best time to call, and any reference numbers. You can also complain in a branch. Barclays
+      does not list an online complaint form.
+    source: https://www.barclays.co.uk/complaints/
+    last_verified: 2026-11-19
+  - id: barclaycard-phone
+    type: phone
+    label: Barclaycard customer services (credit cards)
+    value: +44-333-200-9090
+    hours: Monday to Friday 8am to 8pm, Saturday 9am to 5pm
+    purposes: [transaction_dispute, fee_reversal, poor_service, billing_error]
+    access: human_only
+    notes: >-
+      UK number 0333 200 9090. The Barclays contact page also lists 0800 151 0900 for Barclaycard. From
+      abroad +44 1604 230 230 (Monday to Saturday 9am to 5pm). Amazon Barclaycard uses 0800 151 0157 (from
+      abroad +44 800 151 0157), Monday to Friday 8am to 8pm, weekends 8am to 6pm.
+    source: https://www.barclaycard.co.uk/personal/contact-us
+    last_verified: 2026-11-19
+  - id: barclaycard-phone-abroad
+    type: phone
+    label: Barclaycard from abroad (customer services, emergency card replacement)
+    value: +44-1604-230-230
+    hours: "Customer services Monday to Saturday 9am to 5pm; emergency card replacement 24/7"
+    purposes: [unauthorized_charge, fraud, transaction_dispute]
+    access: human_only
+    source: https://www.barclaycard.co.uk/personal/contact-us
+    last_verified: 2026-11-19
+  - id: barclaycard-lost-stolen-phone
+    type: phone
+    label: Barclaycard lost or stolen card and emergency card replacement (press option 1)
+    value: +44-800-161-5308
+    hours: 24/7, including bank holidays
+    purposes: [unauthorized_charge, fraud]
+    access: human_only
+    notes: UK number 0800 161 5308. From abroad +44 1604 230 230. Amazon Barclaycard 0800 151 0157, option 3. The Barclaycard fraud page lists 0333 200 9090 for lost or stolen cards instead.
+    source: https://www.barclaycard.co.uk/personal/customer/lost-stolen-damaged-cards
+    last_verified: 2026-11-19
+  - id: barclaycard-fraud-phone
+    type: phone
+    label: Barclaycard specialist fraud adviser
+    value: +44-800-318-665
+    hours: 24/7, including bank holidays
+    purposes: [fraud, unauthorized_charge, identity_theft]
+    access: human_only
+    notes: UK number 0800 318 665. From abroad +44 1452 828 309. Amazon Barclaycard fraud 0800 151 0157.
+    source: https://www.barclaycard.co.uk/personal/contact-us
+    last_verified: 2026-11-19
+  - id: barclaycard-fraud-phone-abroad
+    type: phone
+    label: Barclaycard fraud line, calling from abroad
+    value: +44-1452-828-309
+    purposes: [fraud, unauthorized_charge]
+    access: human_only
+    notes: Written as +44 (0)1452 828 309. Hours are not stated on the page; the UK fraud line is 24/7.
+    source: https://www.barclaycard.co.uk/personal/customer/report-fraud
+    last_verified: 2026-11-19
+  - id: barclaycard-app
+    type: app
+    label: Barclaycard app (report a lost or stolen card, query a transaction, send a secure message)
+    value: Barclaycard app > select the transaction > Help with this transaction; or Help > send a message
+    hours: Digital assistant 24/7; a team member replies between 7am and 11pm
+    purposes: [transaction_dispute, unauthorized_charge, fraud, fee_reversal, poor_service]
+    access: login
+    notes: You must be 18 or over to use the app. Hours come from the Barclaycard complaints page.
+    source: https://www.barclaycard.co.uk/personal/help-and-support/know-your-rights
+    last_verified: 2026-11-19
+  - id: barclaycard-dispute-form
+    type: web_form
+    label: Barclaycard online form to query a transaction or make a Section 75 or chargeback claim
+    value: https://forms-mtg.barclays.co.uk/forms/covid-phase
+    purposes: [transaction_dispute, billing_error]
+    access: open
+    notes: Barclaycard calls this the fastest way to claim and it lets you upload evidence. The URL is as linked from the Barclaycard "know your rights" page.
+    source: https://www.barclaycard.co.uk/personal/help-and-support/know-your-rights
+    last_verified: 2026-11-19
+  - id: barclaycard-dispute-phone
+    type: phone
+    label: Barclaycard transaction query and purchase protection claims
+    value: +44-800-161-5291
+    purposes: [transaction_dispute, billing_error]
+    access: human_only
+    notes: UK number 0800 161 5291. Hours are not stated on the page.
+    source: https://www.barclaycard.co.uk/personal/help-and-support/know-your-rights
+    last_verified: 2026-11-19
+  - id: barclaycard-financial-support-phone
+    type: phone
+    label: Barclaycard help if you have missed a payment (Barclays Financial Assistance)
+    value: +44-800-161-5205
+    hours: "Monday to Friday 8am to 9pm, Saturday and Sunday 9am to 9pm (money worries page)"
+    purposes: [fee_reversal]
+    access: human_only
+    notes: >-
+      UK number 0800 161 5205. The Barclaycard contact page lists it as Barclays Financial Assistance with
+      different hours (Monday to Friday 8am to 8pm, Saturday 9am to 5pm). If you are worried you will miss a
+      payment, the money worries page gives 0800 056 1411 (hours not stated).
+    source: https://www.barclaycard.co.uk/personal/customer/money-worries
+    last_verified: 2026-11-19
+  - id: phishing-email
+    type: email
+    label: Forward suspicious emails, texts or QR codes that claim to be from Barclays
+    value: internetsecurity@barclays.com
+    purposes: [fraud]
+    source: https://www.barclays.co.uk/fraud-and-scams/reporting-scams-and-reporting-fraud/
+    last_verified: 2026-11-19
+  - id: barclaycard-complaints-post
+    type: mail
+    label: Barclaycard written complaints
+    value: Barclaycard, PO Box 10200, Wigston, LE18 9ER
+    purposes: [poor_service, transaction_dispute, fee_reversal, unauthorized_charge]
+    notes: Barclaycard also takes complaints on 0333 200 9090 and by secure message in the Barclaycard app. It does not list an online complaint form.
+    source: https://www.barclaycard.co.uk/personal/help-and-support/complaints
+    last_verified: 2026-11-19
+
+escalation:
+  - {rung: frontline, channel: telephone-banking, note: "Or message in the Barclays app. Barclaycard customers use barclaycard-phone or the Barclaycard app."}
+  - {rung: written_complaint, channel: complaints-post, note: "Or call the complaints line (complaints-phone). Barclaycard complaints go to barclaycard-complaints-post or 0333 200 9090."}
+  - {rung: regulator, regulator: uk-fos, note: "After Barclays' final response, or if it has not sent one within 8 weeks (15 days, at most 35, for payment service complaints). Contact the Financial Ombudsman Service within 6 months of the final response letter."}
+
+playbooks:
+  - issue: unauthorized_charge
+    summary: Freeze or report the card at once, then report the payment by phone or in the app and ask for a refund. You have up to 13 months by law.
+    evidence: [statement or app screenshot of the payment, date you noticed it, whether the card was lost, stolen or still in your hand]
+    steps:
+      - do: Check the payment is not one you know about (a different trading name, another account holder, a subscription after a free trial, or a pending payment).
+      - do: Freeze or report the debit card in the app, or call Telephone Banking (24/7 for lost or stolen cards).
+        channel: app-report-lost-stolen
+      - do: Report the unauthorised payment to the fraud line (24/7) and ask Barclays to refund it.
+        channel: fraud-phone
+      - do: For a Barclaycard credit card, call the Barclaycard fraud line (24/7).
+        channel: barclaycard-fraud-phone
+      - do: If Barclays refuses the refund, complain in writing and ask for a final response.
+        channel: complaints-post
+      - do: If you are unhappy with the final response, or have none after 8 weeks, refer the complaint to the Financial Ombudsman Service within 6 months.
+        regulator: uk-fos
+    facts:
+      - kind: deadline
+        claim: Barclays' personal terms say you must tell Barclays as soon as possible about an unauthorised payment, and by law you have a maximum of 13 months to tell it.
+        issues: [unauthorized_charge, fraud]
+        verified_via: document
+        source: https://www.barclays.co.uk/content/dam/documents/personal/site-hygiene/9910542b_RCA_04.25%20_hi_res.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Unless Barclays has reasonable grounds to think you are not entitled to a refund, it will put the account back as if the unauthorised payment had not happened, including refunding charges and interest you paid and paying interest you missed.
+        issues: [unauthorized_charge, fraud]
+        verified_via: document
+        source: https://www.barclays.co.uk/content/dam/documents/personal/site-hygiene/9910542b_RCA_04.25%20_hi_res.pdf
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Barclays' Online and Mobile Banking Guarantee says it won't refund you if it believes you acted fraudulently, or if you intentionally or with gross negligence failed to keep your security details safe (for example, leaving your PIN written down for someone to see).
+        issues: [unauthorized_charge, fraud]
+        source: https://www.barclays.co.uk/ways-to-bank/online-banking/online-mobile-banking-guarantee/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Barclays says it legally has to refund an unauthorised payment reported within 13 months of it taking place, but may still consider a refund if you tell it later. APP scams are not covered by this guarantee.
+        issues: [unauthorized_charge]
+        source: https://www.barclays.co.uk/ways-to-bank/online-banking/online-mobile-banking-guarantee/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Barclaycard says it will investigate and refund you if it finds fraud on your account.
+        issues: [unauthorized_charge, fraud]
+        source: https://www.barclaycard.co.uk/personal/customer/report-fraud
+        last_verified: 2026-11-19
+
+  - issue: fraud
+    summary: Call Barclays at once on a number you know is genuine, stop further payments, and make an APP scam claim within 13 months if you were tricked into sending a bank transfer.
+    evidence: [payment details (date, amount, payee name, sort code and account number), messages, emails or call logs from the scammer, police or Report Fraud reference number]
+    steps:
+      - do: End any suspicious call. Call back from a different phone using the number on your card, the app or 159.
+        channel: stop-scams-159
+      - do: For debit card fraud or any other fraud, call the fraud line (24/7). From abroad use the abroad number.
+        channel: fraud-phone
+      - do: If you were tricked into sending a bank transfer (an APP scam), call the scam line to report it and start a claim.
+        channel: scam-payments-phone
+      - do: For a Barclaycard credit card, call the Barclaycard fraud line (24/7).
+        channel: barclaycard-fraud-phone
+      - do: After contacting Barclays, report the crime to Report Fraud on 0300 123 2040 (Police Scotland on 101 in Scotland).
+      - do: Forward phishing emails, texts or QR codes to Barclays.
+        channel: phishing-email
+      - do: If the claim is refused or you are unhappy with the result, complain, then refer to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: deadline
+        claim: Barclays says you need to make an APP scam claim within 13 months of your last payment to the scammer.
+        issues: [fraud]
+        source: https://www.barclays.co.uk/fraud-and-scams/app-scam-claims/
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Barclays says the most it can cover under the APP scam rules will usually be £85,000, assessed case by case, and it might deduct a £100 excess.
+        issues: [fraud]
+        source: https://www.barclays.co.uk/fraud-and-scams/app-scam-claims/
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Barclays says it will contact you within 5 working days with a decision or update on an APP scam claim, and if the investigation is still open it aims to decide within 35 working days.
+        issues: [fraud]
+        source: https://www.barclays.co.uk/fraud-and-scams/app-scam-claims/
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Barclays' APP scam claim page covers personal accounts, microenterprises and small charities. It does not cover payments made before 7 October 2024, or payments by card, cash, cheque or international transfer.
+        issues: [fraud]
+        source: https://www.barclays.co.uk/fraud-and-scams/app-scam-claims/
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Barclays lists reasons it may reject an APP scam claim, including that you didn't take reasonable steps to protect your money, the payment went to your own account, or the receiving account is with a credit union, municipal bank or national savings bank.
+        issues: [fraud]
+        source: https://www.barclays.co.uk/fraud-and-scams/app-scam-claims/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Barclays' fraud reporting page still says Barclays is signed up to the voluntary Contingent Reimbursement Model code (effective 28 May 2019) and reviews each case individually.
+        issues: [fraud]
+        source: https://www.barclays.co.uk/fraud-and-scams/reporting-scams-and-reporting-fraud/
+        last_verified: 2026-11-19
+
+  - issue: transaction_dispute
+    summary: Speak to the retailer first. Then dispute a debit card payment in the app (chargeback, often within 120 days), or make a Barclaycard Section 75 or chargeback claim online.
+    evidence: [proof of purchase, the seller's terms and cancellation policy, evidence of the fault or non-delivery, your messages with the seller, the item itself if faulty]
+    steps:
+      - do: Contact the retailer or company first and keep a record of what they said.
+      - do: Wait until the payment is no longer pending. Barclays cannot help with a pending payment.
+      - do: For a Barclays debit card, open the payment in the app, choose Help with this transaction, Report problem, then Dispute transaction.
+        channel: app-dispute-transaction
+      - do: Or call the disputes line (24/7).
+        channel: fraud-phone
+      - do: For a Barclaycard credit card, use the online claim form (the fastest route; upload evidence) or the Barclaycard app.
+        channel: barclaycard-dispute-form
+      - do: Or call Barclaycard about the claim.
+        channel: barclaycard-dispute-phone
+      - do: If the claim is refused or badly handled, complain, then refer to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: deadline
+        claim: Barclays says you can only dispute some debit card payments within 120 days, starting from the date you paid, and to contact it as soon as possible.
+        issues: [transaction_dispute]
+        source: https://www.barclays.co.uk/help/report-fraud/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Barclays says any help it offers on a debit card dispute is governed by the Visa Europe cardholder chargeback terms and conditions, which do not affect your legal or statutory rights.
+        issues: [transaction_dispute]
+        source: https://www.barclays.co.uk/help/report-fraud/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Barclaycard says a Section 75 claim needs a purchase worth between £100 and £30,000, paid at least in part (a deposit is enough) by the main cardholder with the credit card, for a breach of contract such as faulty, undelivered or misdescribed goods, and under six years old.
+        issues: [transaction_dispute]
+        source: https://www.barclaycard.co.uk/personal/help-and-support/know-your-rights
+        last_verified: 2026-11-19
+      - kind: limit
+        claim: Barclaycard says Section 75 does not cover debit, charge or prepaid cards, balance transfers or cash withdrawals, and purchases through third parties such as Amazon Marketplace, Klarna or Curve may not be covered.
+        issues: [transaction_dispute]
+        source: https://www.barclaycard.co.uk/personal/help-and-support/know-your-rights
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: Barclaycard says chargeback comes from card scheme rules, not law, and most claims have a time limit, the most common being 120 days.
+        issues: [transaction_dispute]
+        source: https://www.barclaycard.co.uk/personal/help-and-support/know-your-rights
+        last_verified: 2026-11-19
+      - kind: deadline
+        claim: For Pay by Bank app payments, Barclays says to claim within 90 days of the transaction date, or 270 days if you received the purchase after the transaction date.
+        issues: [transaction_dispute]
+        source: https://www.barclays.co.uk/current-accounts/debit-cards/purchase-support/
+        last_verified: 2026-11-19
+
+  - issue: fee_reversal
+    summary: Barclays does not charge interest on an unarranged overdraft. If overdraft interest or card charges are a problem because money is tight, call early and ask for help.
+    evidence: [statement showing the interest or charge, a summary of your income and outgoings]
+    steps:
+      - do: Check the charge against Barclays' overdraft terms (no interest if you are overdrawn by £15 or less, no interest on unarranged overdraft).
+      - do: If you are struggling, call Telephone Banking or speak to a personal banker in a branch.
+        channel: telephone-banking
+      - do: For a Barclaycard, call the money worries line as soon as you think you may miss a payment.
+        channel: barclaycard-financial-support-phone
+      - do: If you think a charge is wrong, complain in writing.
+        channel: complaints-post
+      - do: If unhappy with the final response, refer to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: fee
+        claim: Barclays' overdraft page states an arranged overdraft annual interest rate of 35.0% EAR (variable).
+        issues: [fee_reversal]
+        source: https://www.barclays.co.uk/current-accounts/bank-account/overdrafts/
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Barclays says it won't charge interest if you go overdrawn by £15 or less, won't charge interest on amounts that take you into an unarranged overdraft, and will always try to return a payment to help you avoid an unarranged overdraft.
+        issues: [fee_reversal]
+        source: https://www.barclays.co.uk/current-accounts/bank-account/overdrafts/
+        last_verified: 2026-11-19
+      - kind: process
+        claim: Barclaycard says to call as soon as you think you might be facing financial difficulties, on 0800 056 1411 if you are worried you will miss a payment or 0800 161 5205 if you have missed one.
+        issues: [fee_reversal]
+        source: https://www.barclaycard.co.uk/personal/customer/money-worries
+        last_verified: 2026-11-19
+
+  - issue: frozen_funds
+    summary: Ask Barclays why a card or account is blocked and what it needs from you. If Barclays closes the account, ask how to get the balance back.
+    evidence: [letters, texts or app messages from Barclays, balance at the time of the block, ID and proof of address, evidence of where disputed money came from]
+    steps:
+      - do: Call Telephone Banking or message in the app. Ask why the account or card is blocked, what Barclays needs, and when access will return.
+        channel: telephone-banking
+      - do: Send any documents Barclays asks for. Keep copies.
+      - do: If the block continues or the account is closed without a clear reason, make a written complaint.
+        channel: complaints-post
+      - do: If unhappy with the final response, refer to the Financial Ombudsman Service.
+        regulator: uk-fos
+    facts:
+      - kind: policy
+        claim: Barclays' terms say it may stop or suspend a payment tool (such as a card) to protect its security, if it suspects unauthorised or fraudulent use, or if there is a significantly increased risk you can't repay borrowing. It will explain why unless that would break the law, and unblock or replace it when the reason no longer applies.
+        issues: [frozen_funds]
+        verified_via: document
+        source: https://www.barclays.co.uk/content/dam/documents/personal/site-hygiene/9910542b_RCA_04.25%20_hi_res.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Barclays' terms say it can close an account by giving at least two months' notice, or immediately or on less notice if it reasonably believes you seriously or persistently broke the terms, gave false information, committed fraud, used the account illegally, or keeping it open could put Barclays in breach of law or regulation.
+        issues: [frozen_funds]
+        verified_via: document
+        source: https://www.barclays.co.uk/content/dam/documents/personal/site-hygiene/9910542b_RCA_04.25%20_hi_res.pdf
+        last_verified: 2026-11-19
+      - kind: policy
+        claim: Barclays' terms say it can close an account or restrict a service if you are not eligible for it, for example if you or a joint holder live outside the UK or you use a personal account for business.
+        issues: [frozen_funds]
+        verified_via: document
+        source: https://www.barclays.co.uk/content/dam/documents/personal/site-hygiene/9910542b_RCA_04.25%20_hi_res.pdf
+        last_verified: 2026-11-19
+
+facts:
+  - kind: process
+    claim: Barclays says it will send a written final response to a complaint within 8 weeks of receiving it; if it needs more time it will write to you within that period.
+    source: https://www.barclays.co.uk/complaints/
+    last_verified: 2026-11-19
+  - kind: process
+    claim: For payment service complaints, Barclays says it will send a written final response within 15 days, or if it needs more time, no later than 35 days after receiving the complaint.
+    source: https://www.barclays.co.uk/complaints/
+    last_verified: 2026-11-19
+  - kind: deadline
+    claim: Barclays says that if you are unhappy with its final response you can ask the Financial Ombudsman Service to review it, and you must contact them within 6 months of the final response letter.
+    source: https://www.barclays.co.uk/complaints/
+    last_verified: 2026-11-19
+  - kind: process
+    claim: Barclaycard says it sends a final response to payment services complaints within 15 working days (up to 35 days in exceptional circumstances), and for other complaints a written update within four weeks, aiming to resolve within eight weeks.
+    source: https://www.barclaycard.co.uk/personal/help-and-support/complaints
+    last_verified: 2026-11-19
+
+tips:
+  - kind: official
+    text: Contact the retailer before you dispute a card payment, and gather proof of purchase, the seller's terms and evidence of the fault. Keep a faulty item, as it may need to be examined.
+    issues: [transaction_dispute]
+    source: https://www.barclaycard.co.uk/personal/help-and-support/know-your-rights
+    last_verified: 2026-11-19
+  - kind: official
+    text: To check a caller is really from Barclays, ask it to send a notification to your Barclays app, which shows the colleague's name.
+    issues: [fraud]
+    source: https://www.barclays.co.uk/fraud-and-scams/phone-number-checker/
+    last_verified: 2026-11-19
+
+known_blockers:
+  - App disputes, app messages and the Call Us button need sign-in to the Barclays or Barclaycard app.
+  - Fraud, scam and complaint phone lines speak only with the account holder.
+  - Barclays and Barclaycard do not list an online complaint form; complaints go by phone, post, branch or app message.
+  - Barclays pages give conflicting hours for some lines (for example the APP scam line and the Barclaycard financial support line).
